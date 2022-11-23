@@ -81,6 +81,7 @@ final class DetailReviewTableViewCell: UITableViewCell {
         reviewImageView.snp.makeConstraints { reviewImage in
             reviewImage.leading.trailing.equalTo(contentView).inset(10)
             reviewImage.top.equalTo(writtenDateLabel.snp.bottom).offset(10)
+            reviewImage.height.equalTo(100)
         }
 
         descriptionLabel.snp.makeConstraints { description in
