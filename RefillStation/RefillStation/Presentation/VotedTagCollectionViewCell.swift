@@ -14,6 +14,8 @@ final class VotedTagCollectionViewCell: UICollectionViewCell {
 
     private let chartBar: UIProgressView = {
         let progressView = UIProgressView(progressViewStyle: .bar)
+        progressView.progressTintColor = .systemGray
+        progressView.trackTintColor = .systemGray3
         return progressView
     }()
 
@@ -29,6 +31,7 @@ final class VotedTagCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        layout()
     }
 
     required init?(coder: NSCoder) {
@@ -36,13 +39,16 @@ final class VotedTagCollectionViewCell: UICollectionViewCell {
     }
 
     func setContents(tagReview: TagReview, totalVoteCount: Int) {
-        let percentage = Float(tagReview.voteCount / totalVoteCount)
+        let percentage = Float(tagReview.voteCount) / Float(totalVoteCount)
         chartBar.progress = percentage
         reviewTitleLabel.text = tagReview.tagTitle
         voteCountLabel.text = "\(tagReview.voteCount)"
     }
 
     private func layout() {
+        contentView.layer.cornerRadius = 5
+        contentView.clipsToBounds = true
+
         [chartBar, reviewTitleLabel, voteCountLabel].forEach { contentView.addSubview($0) }
 
         chartBar.snp.makeConstraints { bar in
@@ -50,11 +56,13 @@ final class VotedTagCollectionViewCell: UICollectionViewCell {
         }
 
         reviewTitleLabel.snp.makeConstraints { title in
-            title.leading.top.bottom.equalTo(contentView)
+            title.top.bottom.equalTo(contentView)
+            title.leading.equalTo(contentView).inset(5)
         }
 
         voteCountLabel.snp.makeConstraints { vote in
-            vote.trailing.top.bottom.equalTo(contentView)
+            vote.top.bottom.equalTo(contentView)
+            vote.trailing.equalTo(contentView).inset(5)
         }
     }
 }

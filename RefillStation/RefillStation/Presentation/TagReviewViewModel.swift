@@ -7,7 +7,8 @@
 
 import Foundation
 
-final class VotedTagCollectionViewModel {
+final class TagReviewViewModel {
 
+    var totalVoteCount = 0
     var tagReviews = [TagReview]()
 }

@@ -10,14 +10,20 @@ import SnapKit
 
 final class VotedTagCollectionView: UICollectionView {
 
-    let viewModel = VotedTagCollectionViewModel()
+    let viewModel: TagReviewViewModel
 
-    init() {
+    init(viewModel: TagReviewViewModel) {
+        self.viewModel = viewModel
         let flowLayout = UICollectionViewFlowLayout()
         super.init(frame: .zero, collectionViewLayout: flowLayout)
+        register(VotedTagCollectionViewCell.self,
+                 forCellWithReuseIdentifier: VotedTagCollectionViewCell.reuseIdentifier)
+        dataSource = self
+        delegate = self
     }
 
     required init?(coder: NSCoder) {
+        self.viewModel = TagReviewViewModel()
         super.init(coder: coder)
     }
 }
@@ -31,7 +37,14 @@ extension VotedTagCollectionView: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: VotedTagCollectionViewCell.reuseIdentifier,
+            for: indexPath) as? VotedTagCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+
+        cell.setContents(tagReview: viewModel.tagReviews[indexPath.row], totalVoteCount: viewModel.totalVoteCount)
+        return cell
     }
 }
 
@@ -39,8 +52,8 @@ extension VotedTagCollectionView: UICollectionViewDataSource {
 
 extension VotedTagCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width: CGFloat = collectionView.frame.width * 0.8
-        let height: CGFloat = 15
+        let width: CGFloat = collectionView.frame.width
+        let height: CGFloat = 25
         return CGSize(width: width, height: height)
     }
 }
