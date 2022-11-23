@@ -34,11 +34,13 @@ final class DetailReviewTableViewCell: UITableViewCell {
 
     private let descriptionLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 3
         return label
     }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        layout()
     }
 
     required init?(coder: NSCoder) {
@@ -76,6 +78,7 @@ final class DetailReviewTableViewCell: UITableViewCell {
         profileImageView.snp.makeConstraints { profile in
             profile.top.equalTo(userNameLabel.snp.top)
             profile.bottom.equalTo(writtenDateLabel.snp.bottom)
+            profile.width.equalTo(profileImageView.snp.height)
         }
 
         reviewImageView.snp.makeConstraints { reviewImage in
