@@ -1,0 +1,638 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3244A1FC292DC13A00716A2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A1FB292DC13A00716A2B /* AppDelegate.swift */; };
+		3244A200292DC13A00716A2B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A1FF292DC13A00716A2B /* ViewController.swift */; };
+		3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3244A204292DC13A00716A2B /* RefillStation.xcdatamodeld */; };
+		3244A208292DC13A00716A2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3244A207292DC13A00716A2B /* Assets.xcassets */; };
+		3244A20B292DC13A00716A2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3244A209292DC13A00716A2B /* LaunchScreen.storyboard */; };
+		3244A216292DC13B00716A2B /* RefillStationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A215292DC13B00716A2B /* RefillStationTests.swift */; };
+		3244A220292DC13B00716A2B /* RefillStationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A21F292DC13B00716A2B /* RefillStationUITests.swift */; };
+		3244A222292DC13B00716A2B /* RefillStationUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A221292DC13B00716A2B /* RefillStationUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3244A212292DC13B00716A2B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3244A1F0292DC13A00716A2B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3244A1F7292DC13A00716A2B;
+			remoteInfo = RefillStation;
+		};
+		3244A21C292DC13B00716A2B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3244A1F0292DC13A00716A2B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3244A1F7292DC13A00716A2B;
+			remoteInfo = RefillStation;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3244A1F8292DC13A00716A2B /* RefillStation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RefillStation.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3244A1FB292DC13A00716A2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3244A1FF292DC13A00716A2B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3244A205292DC13A00716A2B /* RefillStation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RefillStation.xcdatamodel; sourceTree = "<group>"; };
+		3244A207292DC13A00716A2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3244A20A292DC13A00716A2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3244A20C292DC13A00716A2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3244A211292DC13B00716A2B /* RefillStationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RefillStationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3244A215292DC13B00716A2B /* RefillStationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefillStationTests.swift; sourceTree = "<group>"; };
+		3244A21B292DC13B00716A2B /* RefillStationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RefillStationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3244A21F292DC13B00716A2B /* RefillStationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefillStationUITests.swift; sourceTree = "<group>"; };
+		3244A221292DC13B00716A2B /* RefillStationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefillStationUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3244A1F5292DC13A00716A2B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3244A20E292DC13B00716A2B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3244A218292DC13B00716A2B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3244A1EF292DC13A00716A2B = {
+			isa = PBXGroup;
+			children = (
+				3244A1FA292DC13A00716A2B /* RefillStation */,
+				3244A214292DC13B00716A2B /* RefillStationTests */,
+				3244A21E292DC13B00716A2B /* RefillStationUITests */,
+				3244A1F9292DC13A00716A2B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3244A1F9292DC13A00716A2B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3244A1F8292DC13A00716A2B /* RefillStation.app */,
+				3244A211292DC13B00716A2B /* RefillStationTests.xctest */,
+				3244A21B292DC13B00716A2B /* RefillStationUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3244A1FA292DC13A00716A2B /* RefillStation */ = {
+			isa = PBXGroup;
+			children = (
+				3244A231292DC19E00716A2B /* Application */,
+				3244A230292DC19200716A2B /* Presentation */,
+				3244A22F292DC17800716A2B /* Resources */,
+				3244A22E292DC16A00716A2B /* Data */,
+			);
+			path = RefillStation;
+			sourceTree = "<group>";
+		};
+		3244A214292DC13B00716A2B /* RefillStationTests */ = {
+			isa = PBXGroup;
+			children = (
+				3244A215292DC13B00716A2B /* RefillStationTests.swift */,
+			);
+			path = RefillStationTests;
+			sourceTree = "<group>";
+		};
+		3244A21E292DC13B00716A2B /* RefillStationUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3244A21F292DC13B00716A2B /* RefillStationUITests.swift */,
+				3244A221292DC13B00716A2B /* RefillStationUITestsLaunchTests.swift */,
+			);
+			path = RefillStationUITests;
+			sourceTree = "<group>";
+		};
+		3244A22E292DC16A00716A2B /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				3244A204292DC13A00716A2B /* RefillStation.xcdatamodeld */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		3244A22F292DC17800716A2B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3244A207292DC13A00716A2B /* Assets.xcassets */,
+				3244A209292DC13A00716A2B /* LaunchScreen.storyboard */,
+				3244A20C292DC13A00716A2B /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		3244A230292DC19200716A2B /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				3244A1FF292DC13A00716A2B /* ViewController.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		3244A231292DC19E00716A2B /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				3244A1FB292DC13A00716A2B /* AppDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3244A1F7292DC13A00716A2B /* RefillStation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3244A225292DC13B00716A2B /* Build configuration list for PBXNativeTarget "RefillStation" */;
+			buildPhases = (
+				3244A1F4292DC13A00716A2B /* Sources */,
+				3244A1F5292DC13A00716A2B /* Frameworks */,
+				3244A1F6292DC13A00716A2B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RefillStation;
+			productName = RefillStation;
+			productReference = 3244A1F8292DC13A00716A2B /* RefillStation.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3244A210292DC13B00716A2B /* RefillStationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3244A228292DC13B00716A2B /* Build configuration list for PBXNativeTarget "RefillStationTests" */;
+			buildPhases = (
+				3244A20D292DC13B00716A2B /* Sources */,
+				3244A20E292DC13B00716A2B /* Frameworks */,
+				3244A20F292DC13B00716A2B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3244A213292DC13B00716A2B /* PBXTargetDependency */,
+			);
+			name = RefillStationTests;
+			productName = RefillStationTests;
+			productReference = 3244A211292DC13B00716A2B /* RefillStationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		3244A21A292DC13B00716A2B /* RefillStationUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3244A22B292DC13B00716A2B /* Build configuration list for PBXNativeTarget "RefillStationUITests" */;
+			buildPhases = (
+				3244A217292DC13B00716A2B /* Sources */,
+				3244A218292DC13B00716A2B /* Frameworks */,
+				3244A219292DC13B00716A2B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3244A21D292DC13B00716A2B /* PBXTargetDependency */,
+			);
+			name = RefillStationUITests;
+			productName = RefillStationUITests;
+			productReference = 3244A21B292DC13B00716A2B /* RefillStationUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3244A1F0292DC13A00716A2B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1340;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					3244A1F7292DC13A00716A2B = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+					3244A210292DC13B00716A2B = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = 3244A1F7292DC13A00716A2B;
+					};
+					3244A21A292DC13B00716A2B = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = 3244A1F7292DC13A00716A2B;
+					};
+				};
+			};
+			buildConfigurationList = 3244A1F3292DC13A00716A2B /* Build configuration list for PBXProject "RefillStation" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3244A1EF292DC13A00716A2B;
+			productRefGroup = 3244A1F9292DC13A00716A2B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3244A1F7292DC13A00716A2B /* RefillStation */,
+				3244A210292DC13B00716A2B /* RefillStationTests */,
+				3244A21A292DC13B00716A2B /* RefillStationUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3244A1F6292DC13A00716A2B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3244A20B292DC13A00716A2B /* LaunchScreen.storyboard in Resources */,
+				3244A208292DC13A00716A2B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3244A20F292DC13B00716A2B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3244A219292DC13B00716A2B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3244A1F4292DC13A00716A2B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3244A200292DC13A00716A2B /* ViewController.swift in Sources */,
+				3244A1FC292DC13A00716A2B /* AppDelegate.swift in Sources */,
+				3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3244A20D292DC13B00716A2B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3244A216292DC13B00716A2B /* RefillStationTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3244A217292DC13B00716A2B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3244A220292DC13B00716A2B /* RefillStationUITests.swift in Sources */,
+				3244A222292DC13B00716A2B /* RefillStationUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3244A213292DC13B00716A2B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3244A1F7292DC13A00716A2B /* RefillStation */;
+			targetProxy = 3244A212292DC13B00716A2B /* PBXContainerItemProxy */;
+		};
+		3244A21D292DC13B00716A2B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3244A1F7292DC13A00716A2B /* RefillStation */;
+			targetProxy = 3244A21C292DC13B00716A2B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3244A209292DC13A00716A2B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3244A20A292DC13A00716A2B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3244A223292DC13B00716A2B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		3244A224292DC13B00716A2B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3244A226292DC13B00716A2B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 267JUTDVY2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RefillStation/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Neph.RefillStation;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3244A227292DC13B00716A2B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 267JUTDVY2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RefillStation/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Neph.RefillStation;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		3244A229292DC13B00716A2B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 267JUTDVY2;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Neph.RefillStationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RefillStation.app/RefillStation";
+			};
+			name = Debug;
+		};
+		3244A22A292DC13B00716A2B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 267JUTDVY2;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Neph.RefillStationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RefillStation.app/RefillStation";
+			};
+			name = Release;
+		};
+		3244A22C292DC13B00716A2B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 267JUTDVY2;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Neph.RefillStationUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = RefillStation;
+			};
+			name = Debug;
+		};
+		3244A22D292DC13B00716A2B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 267JUTDVY2;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Neph.RefillStationUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = RefillStation;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3244A1F3292DC13A00716A2B /* Build configuration list for PBXProject "RefillStation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3244A223292DC13B00716A2B /* Debug */,
+				3244A224292DC13B00716A2B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3244A225292DC13B00716A2B /* Build configuration list for PBXNativeTarget "RefillStation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3244A226292DC13B00716A2B /* Debug */,
+				3244A227292DC13B00716A2B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3244A228292DC13B00716A2B /* Build configuration list for PBXNativeTarget "RefillStationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3244A229292DC13B00716A2B /* Debug */,
+				3244A22A292DC13B00716A2B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3244A22B292DC13B00716A2B /* Build configuration list for PBXNativeTarget "RefillStationUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3244A22C292DC13B00716A2B /* Debug */,
+				3244A22D292DC13B00716A2B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3244A204292DC13A00716A2B /* RefillStation.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3244A205292DC13A00716A2B /* RefillStation.xcdatamodel */,
+			);
+			currentVersion = 3244A205292DC13A00716A2B /* RefillStation.xcdatamodel */;
+			path = RefillStation.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 3244A1F0292DC13A00716A2B /* Project object */;
+}
