@@ -9,6 +9,7 @@ assignees: ''
 
 ## 🐞 버그 설명
 스크린 샷, 작동 환경 (OS, device 등)을 적어주세요.
+<img src="이미지주소" width="50%" height="50%">
 
 ## 📝 todo
 - [ ] todo

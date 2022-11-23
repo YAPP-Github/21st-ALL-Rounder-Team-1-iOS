@@ -13,3 +13,4 @@ assignees: ''
 
 ## 📸 ScreenShot
 (선택) 이슈와 관련된 화면을 첨부해주세요.
+<img src="이미지주소" width="50%" height="50%">
