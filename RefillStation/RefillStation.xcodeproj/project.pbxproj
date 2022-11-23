@@ -25,6 +25,7 @@
 		32E9A559292E1AFE000072EE /* VotedTagCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A558292E1AFE000072EE /* VotedTagCollectionView.swift */; };
 		32E9A55B292E24D2000072EE /* TagReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A55A292E24D2000072EE /* TagReviewViewModel.swift */; };
 		32E9A55D292E4F37000072EE /* VotedTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A55C292E4F37000072EE /* VotedTagCollectionViewCell.swift */; };
+		FC7D351F292E99D400335AAB /* StoreDetailInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7D351E292E99D400335AAB /* StoreDetailInfoView.swift */; };
 		FC7D3522292EA3D500335AAB /* UIView+addSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7D3521292EA3D500335AAB /* UIView+addSubviews.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +65,7 @@
 		32E9A558292E1AFE000072EE /* VotedTagCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotedTagCollectionView.swift; sourceTree = "<group>"; };
 		32E9A55A292E24D2000072EE /* TagReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagReviewViewModel.swift; sourceTree = "<group>"; };
 		32E9A55C292E4F37000072EE /* VotedTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotedTagCollectionViewCell.swift; sourceTree = "<group>"; };
+		FC7D351E292E99D400335AAB /* StoreDetailInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailInfoView.swift; sourceTree = "<group>"; };
 		FC7D3521292EA3D500335AAB /* UIView+addSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+addSubviews.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -168,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				FC7D3520292EA3C200335AAB /* Utils */,
+				FC7D3523292EC1C500335AAB /* StoreDetailScene */,
 				3244A1FF292DC13A00716A2B /* ViewController.swift */,
 				32E9A556292E195E000072EE /* TagReviewView.swift */,
 				32E9A55A292E24D2000072EE /* TagReviewViewModel.swift */,
@@ -199,6 +202,22 @@
 				FC7D3521292EA3D500335AAB /* UIView+addSubviews.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		FC7D3523292EC1C500335AAB /* StoreDetailScene */ = {
+			isa = PBXGroup;
+			children = (
+				FC7D3524292EC23100335AAB /* View */,
+			);
+			path = StoreDetailScene;
+			sourceTree = "<group>";
+		};
+		FC7D3524292EC23100335AAB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FC7D351E292E99D400335AAB /* StoreDetailInfoView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -365,6 +384,7 @@
 			files = (
 				32E9A55D292E4F37000072EE /* VotedTagCollectionViewCell.swift in Sources */,
 				32E9A555292E1947000072EE /* TagReview.swift in Sources */,
+				FC7D351F292E99D400335AAB /* StoreDetailInfoView.swift in Sources */,
 				3244A200292DC13A00716A2B /* ViewController.swift in Sources */,
 				32E9A559292E1AFE000072EE /* VotedTagCollectionView.swift in Sources */,
 				32E9A557292E195E000072EE /* TagReviewView.swift in Sources */,
