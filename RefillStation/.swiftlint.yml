@@ -1,0 +1,13 @@
+
+# 적용하지 않을 규칙들
+disabled_rules:
+- identifier_name
+- unused_closure_parameter
+
+# 컨벤션 검사에서 제외할 폴더, 파일
+excluded:
+- Resources
+
+line_length:
+ ignores_function_declarations: true
+ ignores_comments: true
