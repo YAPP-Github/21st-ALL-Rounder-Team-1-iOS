@@ -20,17 +20,15 @@ final class TagReviewView: UIView {
         return label
     }()
 
-    private let tagCollectionView: VotedTagCollectionView
+    private let tagCollectionView = VotedTagCollectionView()
 
-    init(tagCollectionView: VotedTagCollectionView) {
-        self.tagCollectionView = tagCollectionView
+    init() {
         super.init(frame: .zero)
         addConstraints()
         setLabelContents()
     }
 
     required init?(coder: NSCoder) {
-        self.tagCollectionView = VotedTagCollectionView(tagReviews: [])
         super.init(coder: coder)
     }
 
