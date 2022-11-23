@@ -24,7 +24,7 @@ final class TagReviewView: UIView {
 
     init() {
         super.init(frame: .zero)
-        addConstraints()
+        layout()
         setLabelContents()
     }
 
@@ -32,7 +32,7 @@ final class TagReviewView: UIView {
         super.init(coder: coder)
     }
 
-    private func addConstraints() {
+    private func layout() {
 
     }
 

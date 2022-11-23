@@ -9,6 +9,9 @@ import UIKit
 import SnapKit
 
 final class VotedTagCollectionView: UICollectionView {
+
+    let viewModel = VotedTagCollectionViewModel()
+
     init() {
         let flowLayout = UICollectionViewFlowLayout()
         super.init(frame: .zero, collectionViewLayout: flowLayout)
@@ -24,7 +27,7 @@ final class VotedTagCollectionView: UICollectionView {
 extension VotedTagCollectionView: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return viewModel.tagReviews.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -35,7 +38,11 @@ extension VotedTagCollectionView: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension VotedTagCollectionView: UICollectionViewDelegateFlowLayout {
-
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width: CGFloat = collectionView.frame.width * 0.8
+        let height: CGFloat = 15
+        return CGSize(width: width, height: height)
+    }
 }
 
 // MARK: - UICollectionViewDelegate
