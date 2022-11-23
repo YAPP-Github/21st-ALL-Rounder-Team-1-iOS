@@ -10,4 +10,35 @@ import SnapKit
 
 final class TagReviewView: UIView {
 
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+
+    private let totalVotePeopleLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+
+    private let tagCollectionView: VotedTagCollectionView
+
+    init(tagCollectionView: VotedTagCollectionView) {
+        self.tagCollectionView = tagCollectionView
+        super.init(frame: .zero)
+        addConstraints()
+        setLabelContents()
+    }
+
+    required init?(coder: NSCoder) {
+        self.tagCollectionView = VotedTagCollectionView(tagReviews: [])
+        super.init(coder: coder)
+    }
+
+    private func addConstraints() {
+
+    }
+
+    private func setLabelContents() {
+
+    }
 }
