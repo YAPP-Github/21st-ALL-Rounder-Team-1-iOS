@@ -20,11 +20,6 @@
 		3244A23B292DCB6A00716A2B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3244A23A292DCB6A00716A2B /* RxCocoa */; };
 		3244A23D292DCB6A00716A2B /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 3244A23C292DCB6A00716A2B /* RxRelay */; };
 		3244A23F292DCB6A00716A2B /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3244A23E292DCB6A00716A2B /* RxSwift */; };
-		32E9A555292E1947000072EE /* TagReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A554292E1947000072EE /* TagReview.swift */; };
-		32E9A557292E195E000072EE /* TagReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A556292E195E000072EE /* TagReviewView.swift */; };
-		32E9A559292E1AFE000072EE /* VotedTagCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A558292E1AFE000072EE /* VotedTagCollectionView.swift */; };
-		32E9A55B292E24D2000072EE /* TagReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A55A292E24D2000072EE /* TagReviewViewModel.swift */; };
-		32E9A55D292E4F37000072EE /* VotedTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A55C292E4F37000072EE /* VotedTagCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,11 +53,6 @@
 		3244A21F292DC13B00716A2B /* RefillStationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefillStationUITests.swift; sourceTree = "<group>"; };
 		3244A221292DC13B00716A2B /* RefillStationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefillStationUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		3244A232292DC48300716A2B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		32E9A554292E1947000072EE /* TagReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagReview.swift; sourceTree = "<group>"; };
-		32E9A556292E195E000072EE /* TagReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagReviewView.swift; sourceTree = "<group>"; };
-		32E9A558292E1AFE000072EE /* VotedTagCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotedTagCollectionView.swift; sourceTree = "<group>"; };
-		32E9A55A292E24D2000072EE /* TagReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagReviewViewModel.swift; sourceTree = "<group>"; };
-		32E9A55C292E4F37000072EE /* VotedTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotedTagCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +110,7 @@
 			children = (
 				3244A231292DC19E00716A2B /* Application */,
 				3244A230292DC19200716A2B /* Presentation */,
-				32E9A553292E1936000072EE /* Domain */,
+				3244A235292DC64B00716A2B /* Domain */,
 				3244A22E292DC16A00716A2B /* Data */,
 				3244A22F292DC17800716A2B /* Resources */,
 			);
@@ -166,10 +156,6 @@
 			isa = PBXGroup;
 			children = (
 				3244A1FF292DC13A00716A2B /* ViewController.swift */,
-				32E9A556292E195E000072EE /* TagReviewView.swift */,
-				32E9A55A292E24D2000072EE /* TagReviewViewModel.swift */,
-				32E9A558292E1AFE000072EE /* VotedTagCollectionView.swift */,
-				32E9A55C292E4F37000072EE /* VotedTagCollectionViewCell.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -182,10 +168,9 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
-		32E9A553292E1936000072EE /* Domain */ = {
+		3244A235292DC64B00716A2B /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				32E9A554292E1947000072EE /* TagReview.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -352,14 +337,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32E9A55D292E4F37000072EE /* VotedTagCollectionViewCell.swift in Sources */,
-				32E9A555292E1947000072EE /* TagReview.swift in Sources */,
 				3244A200292DC13A00716A2B /* ViewController.swift in Sources */,
-				32E9A559292E1AFE000072EE /* VotedTagCollectionView.swift in Sources */,
-				32E9A557292E195E000072EE /* TagReviewView.swift in Sources */,
 				3244A1FC292DC13A00716A2B /* AppDelegate.swift in Sources */,
 				3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */,
-				32E9A55B292E24D2000072EE /* TagReviewViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
