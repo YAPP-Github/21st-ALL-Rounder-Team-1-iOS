@@ -17,6 +17,8 @@ final class DetailReviewTableView: UITableView {
         register(DetailReviewTableViewCell.self,
                  forCellReuseIdentifier: DetailReviewTableViewCell.reuseIdentifier)
         dataSource = self
+        isScrollEnabled = false
+        allowsSelection = false
     }
 
     required init?(coder: NSCoder) {

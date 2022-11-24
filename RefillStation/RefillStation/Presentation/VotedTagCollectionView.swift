@@ -20,6 +20,7 @@ final class VotedTagCollectionView: UICollectionView {
                  forCellWithReuseIdentifier: VotedTagCollectionViewCell.reuseIdentifier)
         dataSource = self
         delegate = self
+        isScrollEnabled = false
     }
 
     required init?(coder: NSCoder) {
