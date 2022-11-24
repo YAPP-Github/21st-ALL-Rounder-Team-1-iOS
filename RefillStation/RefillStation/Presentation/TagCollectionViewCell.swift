@@ -12,6 +12,16 @@ final class TagCollectionViewCell: UICollectionViewCell {
 
     static let reuseIdentifier = "tagCollectionViewCell"
 
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                contentView.backgroundColor = .lightGray
+            } else {
+                contentView.backgroundColor = .white
+            }
+        }
+    }
+
     private let tagTitleLabel: UILabel = {
         let label = UILabel()
         return label

@@ -15,6 +15,10 @@ final class ReviewSelectingCollectionView: UICollectionView {
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
         self.collectionViewLayout = compositionalLayout()
+        dataSource = self
+        delegate = self
+        allowsMultipleSelection = true
+        register(TagCollectionViewCell.self, forCellWithReuseIdentifier: TagCollectionViewCell.reuseIdentifier)
     }
 
     required init?(coder: NSCoder) {
@@ -25,10 +29,13 @@ final class ReviewSelectingCollectionView: UICollectionView {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                               heightDimension: .fractionalHeight(1/4))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(3/5),
+        item.contentInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(7/10),
                                                heightDimension: .fractionalHeight(1))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 10
+        section.orthogonalScrollingBehavior = .continuous
 
         return UICollectionViewCompositionalLayout(section: section)
     }
@@ -43,6 +50,23 @@ extension ReviewSelectingCollectionView: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: TagCollectionViewCell.reuseIdentifier,
+            for: indexPath) as? TagCollectionViewCell else { return UICollectionViewCell() }
+
+        cell.setUpContents(title: viewModel.reviews[indexPath.row].tagTitle)
+        return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension ReviewSelectingCollectionView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        guard let selectedCount = collectionView.indexPathsForSelectedItems?.count else {
+            return false
+        }
+
+        return selectedCount < 3
     }
 }
