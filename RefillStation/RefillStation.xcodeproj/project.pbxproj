@@ -29,6 +29,8 @@
 		32E9A561292E68CF000072EE /* DetailReview+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A560292E68CF000072EE /* DetailReview+User.swift */; };
 		32E9A563292E6A56000072EE /* DetailReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A562292E6A56000072EE /* DetailReviewTableViewCell.swift */; };
 		32E9A565292E704A000072EE /* DetailReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A564292E704A000072EE /* DetailReviewViewModel.swift */; };
+		32E9A567292F24EF000072EE /* ReviewSelectingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A566292F24EF000072EE /* ReviewSelectingView.swift */; };
+		32E9A569292F2509000072EE /* ReviewSelectingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A568292F2509000072EE /* ReviewSelectingCollectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,8 @@
 		32E9A560292E68CF000072EE /* DetailReview+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailReview+User.swift"; sourceTree = "<group>"; };
 		32E9A562292E6A56000072EE /* DetailReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReviewTableViewCell.swift; sourceTree = "<group>"; };
 		32E9A564292E704A000072EE /* DetailReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReviewViewModel.swift; sourceTree = "<group>"; };
+		32E9A566292F24EF000072EE /* ReviewSelectingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSelectingView.swift; sourceTree = "<group>"; };
+		32E9A568292F2509000072EE /* ReviewSelectingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSelectingCollectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +179,8 @@
 			children = (
 				3244A1FF292DC13A00716A2B /* ViewController.swift */,
 				32E9A556292E195E000072EE /* TagReviewView.swift */,
+				32E9A566292F24EF000072EE /* ReviewSelectingView.swift */,
+				32E9A568292F2509000072EE /* ReviewSelectingCollectionView.swift */,
 				32E9A55A292E24D2000072EE /* TagReviewViewModel.swift */,
 				32E9A558292E1AFE000072EE /* VotedTagCollectionView.swift */,
 				32E9A55C292E4F37000072EE /* VotedTagCollectionViewCell.swift */,
@@ -364,6 +370,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32E9A567292F24EF000072EE /* ReviewSelectingView.swift in Sources */,
+				32E9A569292F2509000072EE /* ReviewSelectingCollectionView.swift in Sources */,
 				32E9A563292E6A56000072EE /* DetailReviewTableViewCell.swift in Sources */,
 				32E9A55D292E4F37000072EE /* VotedTagCollectionViewCell.swift in Sources */,
 				32E9A555292E1947000072EE /* TagReview.swift in Sources */,
