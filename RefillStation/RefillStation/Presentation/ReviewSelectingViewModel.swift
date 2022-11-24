@@ -9,5 +9,5 @@ import Foundation
 
 final class ReviewSelectingViewModel {
 
-    var reviews = [TagReviewView]()
+    var reviews = [TagReview]()
 }
