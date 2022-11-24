@@ -10,6 +10,8 @@ import SnapKit
 
 final class StoreReviewViewController: UIViewController {
 
+    private let outerScrollView = UIScrollView()
+
     private let moveToWritingReviewButton: UIButton = {
         let button = UIButton()
         button.setTitle("방문하셨다면 리뷰를 남겨주세요! ✏️", for: .normal)
@@ -30,6 +32,11 @@ final class StoreReviewViewController: UIViewController {
         addMoveToWritingReviewButtonTarget()
     }
 
+    override func viewDidLayoutSubviews() {
+        tagReviewView.makeViewFitToContent()
+
+    }
+
     private func initailizeViews() {
         let mockTagReviewViewModel: TagReviewViewModel = {
             let viewModel = TagReviewViewModel()
@@ -46,19 +53,19 @@ final class StoreReviewViewController: UIViewController {
         let mockDetailReviewViewModel: DetailReviewViewModel = {
             let viewModel = DetailReviewViewModel()
             viewModel.detailReviews = [
-                .init(user: .init(name: "", profileImageURL: ""),
+                .init(user: .init(name: "hello", profileImageURL: ""),
                       writtenDate: Date(),
                       imageURLs: [],
                       description: "description"),
-                .init(user: .init(name: "", profileImageURL: ""),
+                .init(user: .init(name: "hello", profileImageURL: ""),
                       writtenDate: Date(),
                       imageURLs: [],
                       description: "description"),
-                .init(user: .init(name: "", profileImageURL: ""),
+                .init(user: .init(name: "hello", profileImageURL: ""),
                       writtenDate: Date(),
                       imageURLs: [],
                       description: "description"),
-                .init(user: .init(name: "", profileImageURL: ""),
+                .init(user: .init(name: "hello", profileImageURL: ""),
                       writtenDate: Date(),
                       imageURLs: [],
                       description: "description")
@@ -70,7 +77,15 @@ final class StoreReviewViewController: UIViewController {
     }
 
     private func layout() {
-        [moveToWritingReviewButton, tagReviewView, detailReviewTableView].forEach { view.addSubview($0) }
+        view.addSubview(outerScrollView)
+        outerScrollView.snp.makeConstraints { scrollView in
+            scrollView.top.equalTo(view.safeAreaLayoutGuide)
+            scrollView.leading.trailing.bottom.equalToSuperview()
+        }
+
+        [moveToWritingReviewButton, tagReviewView, detailReviewTableView].forEach {
+            self.outerScrollView.addSubview($0)
+        }
 
         moveToWritingReviewButton.snp.makeConstraints { button in
             button.leading.trailing.top.equalTo(view.safeAreaLayoutGuide).inset(10)
@@ -79,7 +94,6 @@ final class StoreReviewViewController: UIViewController {
         tagReviewView.snp.makeConstraints { reviewView in
             reviewView.top.equalTo(moveToWritingReviewButton.snp.bottom).offset(10)
             reviewView.leading.trailing.equalTo(view).inset(10)
-            reviewView.height.equalTo(300)
         }
 
         detailReviewTableView.snp.makeConstraints { table in

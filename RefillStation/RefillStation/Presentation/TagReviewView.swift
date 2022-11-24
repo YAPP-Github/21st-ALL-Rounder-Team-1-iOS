@@ -12,6 +12,8 @@ final class TagReviewView: UIView {
 
     let viewModel: TagReviewViewModel
 
+    private var collectionViewHeightThatFits: CGFloat = 200
+
     private let titleLabel: UILabel = {
         let label = UILabel()
         return label
@@ -22,7 +24,7 @@ final class TagReviewView: UIView {
         return label
     }()
 
-    private lazy var tagCollectionView = VotedTagCollectionView(viewModel: viewModel)
+    lazy var tagCollectionView = VotedTagCollectionView(viewModel: viewModel)
 
     init(viewModel: TagReviewViewModel) {
         self.viewModel = viewModel
@@ -36,6 +38,13 @@ final class TagReviewView: UIView {
         super.init(coder: coder)
     }
 
+    func makeViewFitToContent() {
+        let tagCollectionViewLayout = tagCollectionView.collectionViewLayout
+        let contentHeight = tagCollectionViewLayout.collectionViewContentSize.height
+        collectionViewHeightThatFits = contentHeight
+        layout()
+    }
+
     private func layout() {
         [titleLabel, totalVotePeopleLabel, tagCollectionView].forEach { addSubview($0) }
 
@@ -47,9 +56,10 @@ final class TagReviewView: UIView {
             vote.top.trailing.equalTo(self)
         }
 
-        tagCollectionView.snp.makeConstraints { collection in
+        tagCollectionView.snp.remakeConstraints { collection in
             collection.top.equalTo(titleLabel.snp.bottom).offset(10)
             collection.leading.trailing.bottom.equalTo(self)
+            collection.height.equalTo(collectionViewHeightThatFits)
         }
     }
 
