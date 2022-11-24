@@ -28,6 +28,7 @@
 		FC7D351F292E99D400335AAB /* StoreDetailInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7D351E292E99D400335AAB /* StoreDetailInfoView.swift */; };
 		FC7D3522292EA3D500335AAB /* UIView+addSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7D3521292EA3D500335AAB /* UIView+addSubviews.swift */; };
 		FC7D352B292F24D700335AAB /* StoreInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7D352A292F24D700335AAB /* StoreInfo.swift */; };
+		FC7D352F292F898900335AAB /* UIView+makeRounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7D352E292F898900335AAB /* UIView+makeRounded.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		FC7D351E292E99D400335AAB /* StoreDetailInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailInfoView.swift; sourceTree = "<group>"; };
 		FC7D3521292EA3D500335AAB /* UIView+addSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+addSubviews.swift"; sourceTree = "<group>"; };
 		FC7D352A292F24D700335AAB /* StoreInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfo.swift; sourceTree = "<group>"; };
+		FC7D352E292F898900335AAB /* UIView+makeRounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+makeRounded.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				FC7D3521292EA3D500335AAB /* UIView+addSubviews.swift */,
+				FC7D352E292F898900335AAB /* UIView+makeRounded.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				FC7D352B292F24D700335AAB /* StoreInfo.swift in Sources */,
 				3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */,
 				32E9A55B292E24D2000072EE /* TagReviewViewModel.swift in Sources */,
+				FC7D352F292F898900335AAB /* UIView+makeRounded.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
