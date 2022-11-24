@@ -28,7 +28,7 @@ final class TagReviewView: UIView {
         self.viewModel = viewModel
         super.init(frame: .zero)
         layout()
-        setContents()
+        setUpContents()
     }
 
     required init?(coder: NSCoder) {
@@ -53,7 +53,7 @@ final class TagReviewView: UIView {
         }
     }
 
-    private func setContents() {
+    private func setUpContents() {
         titleLabel.text = "이 매장의 좋은 점은"
         totalVotePeopleLabel.text = "\(viewModel.totalVoteCount)명 참여"
     }
