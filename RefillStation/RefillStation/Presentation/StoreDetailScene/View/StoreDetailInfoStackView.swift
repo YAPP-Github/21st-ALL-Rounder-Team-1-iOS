@@ -40,7 +40,7 @@ final class StoreDetailInfoStackView: UIStackView {
 
     // MARK: - Default Setting Methods
     private func setUpConstraints() {
-        addArrangedSubviews([callButton, instagramButton, recommendedButton])
+        addArrangedSubviews(callButton, instagramButton, recommendedButton)
         [callButton, instagramButton].forEach { button in
             button.snp.makeConstraints {
                 $0.width.equalToSuperview().multipliedBy(0.25)
