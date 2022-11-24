@@ -9,16 +9,18 @@ import UIKit
 
 final class DetailReviewTableView: UITableView {
 
-    var viewModel: DetailReviewViewModel!
+    var viewModel: DetailReviewViewModel
 
-    override init(frame: CGRect, style: UITableView.Style) {
-        super.init(frame: frame, style: style)
+    init(viewModel: DetailReviewViewModel) {
+        self.viewModel = viewModel
+        super.init(frame: .zero, style: .plain)
         register(DetailReviewTableViewCell.self,
                  forCellReuseIdentifier: DetailReviewTableViewCell.reuseIdentifier)
         dataSource = self
     }
 
     required init?(coder: NSCoder) {
+        self.viewModel = DetailReviewViewModel()
         super.init(coder: coder)
     }
 
