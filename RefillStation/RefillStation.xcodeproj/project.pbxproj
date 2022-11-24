@@ -25,6 +25,10 @@
 		32E9A559292E1AFE000072EE /* VotedTagCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A558292E1AFE000072EE /* VotedTagCollectionView.swift */; };
 		32E9A55B292E24D2000072EE /* TagReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A55A292E24D2000072EE /* TagReviewViewModel.swift */; };
 		32E9A55D292E4F37000072EE /* VotedTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A55C292E4F37000072EE /* VotedTagCollectionViewCell.swift */; };
+		32E9A55F292E64DC000072EE /* DetailReviewTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A55E292E64DC000072EE /* DetailReviewTableView.swift */; };
+		32E9A561292E68CF000072EE /* DetailReview+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A560292E68CF000072EE /* DetailReview+User.swift */; };
+		32E9A563292E6A56000072EE /* DetailReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A562292E6A56000072EE /* DetailReviewTableViewCell.swift */; };
+		32E9A565292E704A000072EE /* DetailReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A564292E704A000072EE /* DetailReviewViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +67,10 @@
 		32E9A558292E1AFE000072EE /* VotedTagCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotedTagCollectionView.swift; sourceTree = "<group>"; };
 		32E9A55A292E24D2000072EE /* TagReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagReviewViewModel.swift; sourceTree = "<group>"; };
 		32E9A55C292E4F37000072EE /* VotedTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotedTagCollectionViewCell.swift; sourceTree = "<group>"; };
+		32E9A55E292E64DC000072EE /* DetailReviewTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReviewTableView.swift; sourceTree = "<group>"; };
+		32E9A560292E68CF000072EE /* DetailReview+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailReview+User.swift"; sourceTree = "<group>"; };
+		32E9A562292E6A56000072EE /* DetailReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReviewTableViewCell.swift; sourceTree = "<group>"; };
+		32E9A564292E704A000072EE /* DetailReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReviewViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +178,9 @@
 				32E9A55A292E24D2000072EE /* TagReviewViewModel.swift */,
 				32E9A558292E1AFE000072EE /* VotedTagCollectionView.swift */,
 				32E9A55C292E4F37000072EE /* VotedTagCollectionViewCell.swift */,
+				32E9A564292E704A000072EE /* DetailReviewViewModel.swift */,
+				32E9A55E292E64DC000072EE /* DetailReviewTableView.swift */,
+				32E9A562292E6A56000072EE /* DetailReviewTableViewCell.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -186,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				32E9A554292E1947000072EE /* TagReview.swift */,
+				32E9A560292E68CF000072EE /* DetailReview+User.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -352,14 +364,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32E9A563292E6A56000072EE /* DetailReviewTableViewCell.swift in Sources */,
 				32E9A55D292E4F37000072EE /* VotedTagCollectionViewCell.swift in Sources */,
 				32E9A555292E1947000072EE /* TagReview.swift in Sources */,
 				3244A200292DC13A00716A2B /* ViewController.swift in Sources */,
 				32E9A559292E1AFE000072EE /* VotedTagCollectionView.swift in Sources */,
+				32E9A55F292E64DC000072EE /* DetailReviewTableView.swift in Sources */,
 				32E9A557292E195E000072EE /* TagReviewView.swift in Sources */,
+				32E9A561292E68CF000072EE /* DetailReview+User.swift in Sources */,
 				3244A1FC292DC13A00716A2B /* AppDelegate.swift in Sources */,
 				3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */,
 				32E9A55B292E24D2000072EE /* TagReviewViewModel.swift in Sources */,
+				32E9A565292E704A000072EE /* DetailReviewViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
