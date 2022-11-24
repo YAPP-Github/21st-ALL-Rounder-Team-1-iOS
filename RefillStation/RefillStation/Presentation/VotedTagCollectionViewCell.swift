@@ -46,7 +46,7 @@ final class VotedTagCollectionViewCell: UICollectionViewCell {
     }
 
     private func layout() {
-        contentView.layer.cornerRadius = 5
+        contentView.layer.cornerRadius = 5 // FIXME: 메서드 따로 분리
         contentView.clipsToBounds = true
 
         [chartBar, reviewTitleLabel, voteCountLabel].forEach { contentView.addSubview($0) }
