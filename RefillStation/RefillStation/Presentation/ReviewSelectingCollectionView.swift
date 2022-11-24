@@ -10,10 +10,11 @@ import SnapKit
 
 final class ReviewSelectingCollectionView: UICollectionView {
 
-    var viewModel: ReviewSelectingViewModel!
+    var viewModel: ReviewSelectingViewModel
 
-    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-        super.init(frame: frame, collectionViewLayout: layout)
+    init(viewModel: ReviewSelectingViewModel) {
+        self.viewModel = viewModel
+        super.init(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         self.collectionViewLayout = compositionalLayout()
         dataSource = self
         delegate = self
