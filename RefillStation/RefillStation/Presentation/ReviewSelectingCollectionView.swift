@@ -64,10 +64,7 @@ extension ReviewSelectingCollectionView: UICollectionViewDataSource {
 
 extension ReviewSelectingCollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        guard let selectedCount = collectionView.indexPathsForSelectedItems?.count else {
-            return false
-        }
-
-        return selectedCount < 3
+        guard let selectedItems = collectionView.indexPathsForSelectedItems else { return false }
+        return selectedItems.count < 3
     }
 }
