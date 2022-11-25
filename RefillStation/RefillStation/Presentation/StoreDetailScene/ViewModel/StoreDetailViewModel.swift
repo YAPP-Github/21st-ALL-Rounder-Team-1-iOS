@@ -13,5 +13,5 @@ final class StoreDetailViewModel {
     var address: String = "서울시 성북구 삼선동"
     var openState: Bool = true
     var closeTime: String = "8:00"
-    var distance: Int = 5
+    var distance: Double = 5
 }

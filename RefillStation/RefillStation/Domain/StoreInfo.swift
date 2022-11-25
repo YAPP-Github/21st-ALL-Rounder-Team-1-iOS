@@ -13,5 +13,5 @@ struct StoreInfo {
     let address: String
     let openState: Bool
     let closeTime: String
-    let distance: Int
+    let distance: Double
 }
