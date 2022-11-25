@@ -59,12 +59,12 @@ final class DetailReviewCollectionViewCell: UICollectionViewCell {
         }
 
         profileImageView.snp.makeConstraints { profile in
-            profile.leading.top.equalTo(contentView).inset(10)
+            profile.leading.top.equalTo(contentView)
         }
 
         userNameLabel.snp.makeConstraints { nameLabel in
             nameLabel.leading.equalTo(profileImageView.snp.trailing).offset(10)
-            nameLabel.top.trailing.equalTo(contentView).inset(10)
+            nameLabel.top.trailing.equalTo(contentView)
         }
 
         writtenDateLabel.snp.makeConstraints { dateLabel in
@@ -80,13 +80,13 @@ final class DetailReviewCollectionViewCell: UICollectionViewCell {
         }
 
         reviewImageView.snp.makeConstraints { reviewImage in
-            reviewImage.leading.trailing.equalTo(contentView).inset(10)
+            reviewImage.leading.trailing.equalTo(contentView)
             reviewImage.top.equalTo(writtenDateLabel.snp.bottom).offset(10)
             reviewImage.height.equalTo(100)
         }
 
         descriptionLabel.snp.makeConstraints { description in
-            description.leading.trailing.bottom.equalTo(contentView).inset(10)
+            description.leading.trailing.bottom.equalTo(contentView)
             description.top.equalTo(reviewImageView.snp.bottom).offset(10)
         }
     }
