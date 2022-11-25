@@ -1,15 +1,13 @@
 //
-//  DetailReviewTableViewCell.swift
+//  DetailReviewCollectionViewCell.swift
 //  RefillStation
 //
-//  Created by 천수현 on 2022/11/23.
+//  Created by 천수현 on 2022/11/25.
 //
 
 import UIKit
-import SnapKit
 
-final class DetailReviewTableViewCell: UITableViewCell {
-
+final class DetailReviewCollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier = "detailReviewTableViewCell"
 
     private let profileImageView: UIImageView = {
@@ -38,8 +36,8 @@ final class DetailReviewTableViewCell: UITableViewCell {
         return label
     }()
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         layout()
     }
 

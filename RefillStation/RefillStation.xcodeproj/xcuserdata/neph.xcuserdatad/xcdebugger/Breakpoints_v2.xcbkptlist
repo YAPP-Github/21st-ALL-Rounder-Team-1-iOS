@@ -44,9 +44,9 @@
             filePath = "RefillStation/Presentation/VotedTagCollectionViewCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "setContents(tagReview:totalVoteCount:)"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "setUpContents(tagReview:totalVoteCount:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -60,9 +60,9 @@
             filePath = "RefillStation/Presentation/VotedTagCollectionViewCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "setContents(tagReview:totalVoteCount:)"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "setUpContents(tagReview:totalVoteCount:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -193,38 +193,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9749EFBB-302F-407A-8BBF-D6C8A671E80C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RefillStation/Presentation/StoreReviewViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
-            landmarkName = "tableView(_:viewForHeaderInSection:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7ACEBB27-EE7C-4C96-A487-7587B077357D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RefillStation/Presentation/StoreReviewViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "tableView(_:viewForHeaderInSection:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "33F72048-8F61-49A9-81A2-A40556485236"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -315,22 +283,6 @@
             startingLineNumber = "44"
             endingLineNumber = "44"
             landmarkName = "collectionView(_:cellForItemAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C275A6DC-896E-4603-A507-BF310F65B539"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RefillStation/Presentation/StoreReviewViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "viewDidLayoutSubviews()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

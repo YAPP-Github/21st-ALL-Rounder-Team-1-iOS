@@ -31,6 +31,7 @@ final class VotedTagCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setUpContentView()
         layout()
     }
 
@@ -38,16 +39,19 @@ final class VotedTagCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
-    func setContents(tagReview: TagReview, totalVoteCount: Int) {
+    func setUpContents(tagReview: TagReview, totalVoteCount: Int) {
         let percentage = Float(tagReview.voteCount) / Float(totalVoteCount)
         chartBar.progress = percentage
         reviewTitleLabel.text = tagReview.tagTitle
         voteCountLabel.text = "\(tagReview.voteCount)"
     }
 
-    private func layout() {
+    private func setUpContentView() {
         contentView.layer.cornerRadius = 5 // FIXME: 메서드 따로 분리
         contentView.clipsToBounds = true
+    }
+
+    private func layout() {
 
         [chartBar, reviewTitleLabel, voteCountLabel].forEach { contentView.addSubview($0) }
 
