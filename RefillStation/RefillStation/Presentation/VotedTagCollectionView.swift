@@ -10,21 +10,24 @@ import SnapKit
 
 final class VotedTagCollectionView: UICollectionView {
 
-    let viewModel: TagReviewViewModel
+    let viewModel: VotedTagViewModel
 
-    init(viewModel: TagReviewViewModel) {
+    init(viewModel: VotedTagViewModel) {
         self.viewModel = viewModel
         let flowLayout = UICollectionViewFlowLayout()
         super.init(frame: .zero, collectionViewLayout: flowLayout)
         register(VotedTagCollectionViewCell.self,
                  forCellWithReuseIdentifier: VotedTagCollectionViewCell.reuseIdentifier)
+        register(VotedTagCollectionHeader.self,
+                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                 withReuseIdentifier: VotedTagCollectionHeader.reuseIdentifier)
         dataSource = self
         delegate = self
         isScrollEnabled = false
     }
 
     required init?(coder: NSCoder) {
-        self.viewModel = TagReviewViewModel()
+        self.viewModel = VotedTagViewModel()
         super.init(coder: coder)
     }
 }
@@ -62,5 +65,17 @@ extension VotedTagCollectionView: UICollectionViewDelegateFlowLayout {
 // MARK: - UICollectionViewDelegate
 
 extension VotedTagCollectionView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let header = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: VotedTagCollectionHeader.reuseIdentifier,
+            for: indexPath) as? VotedTagCollectionHeader else { return UICollectionReusableView() }
 
+        header.setUpContents(totalVote: viewModel.totalVoteCount)
+        return header
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 50)
+    }
 }

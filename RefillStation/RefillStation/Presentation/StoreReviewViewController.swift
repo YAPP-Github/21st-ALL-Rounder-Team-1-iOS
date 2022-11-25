@@ -10,7 +10,7 @@ import SnapKit
 
 final class StoreReviewViewController: UIViewController {
 
-    private let outerScrollView = UIScrollView()
+    private var viewModel = DetailReviewViewModel()
 
     private let moveToWritingReviewButton: UIButton = {
         let button = UIButton()
@@ -21,35 +21,32 @@ final class StoreReviewViewController: UIViewController {
         return button
     }()
 
-    private var tagReviewView: TagReviewView!
-    private var detailReviewTableView: DetailReviewTableView!
+    private var detailReviewTableView = UITableView(frame: .zero, style: .grouped)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         initailizeViews()
+        setUpDetailReviewTableView()
         layout()
         addMoveToWritingReviewButtonTarget()
     }
 
     override func viewDidLayoutSubviews() {
-        tagReviewView.makeViewFitToContent()
+        detailReviewTableView.sectionHeaderHeight = 230
+    }
 
+    private func setUpDetailReviewTableView() {
+        detailReviewTableView.register(DetailReviewTableViewCell.self,
+                 forCellReuseIdentifier: DetailReviewTableViewCell.reuseIdentifier)
+        detailReviewTableView.register(DetailReviewTableViewHeader.self,
+                                       forHeaderFooterViewReuseIdentifier: DetailReviewTableViewHeader.reuseIdentifier)
+        detailReviewTableView.dataSource = self
+        detailReviewTableView.delegate = self
+        detailReviewTableView.allowsSelection = false
     }
 
     private func initailizeViews() {
-        let mockTagReviewViewModel: TagReviewViewModel = {
-            let viewModel = TagReviewViewModel()
-            viewModel.totalVoteCount = 10
-            viewModel.tagReviews = [
-                .init(tagTitle: "청결해요", voteCount: 5),
-                .init(tagTitle: "친절해요", voteCount: 6),
-                .init(tagTitle: "배고파요", voteCount: 7),
-                .init(tagTitle: "살려줘요", voteCount: 8)
-            ]
-            return viewModel
-        }()
-
         let mockDetailReviewViewModel: DetailReviewViewModel = {
             let viewModel = DetailReviewViewModel()
             viewModel.detailReviews = [
@@ -72,33 +69,21 @@ final class StoreReviewViewController: UIViewController {
             ]
             return viewModel
         }()
-        tagReviewView = TagReviewView(viewModel: mockTagReviewViewModel)
-        detailReviewTableView = DetailReviewTableView(viewModel: mockDetailReviewViewModel)
+        viewModel = mockDetailReviewViewModel
     }
 
     private func layout() {
-        view.addSubview(outerScrollView)
-        outerScrollView.snp.makeConstraints { scrollView in
-            scrollView.top.equalTo(view.safeAreaLayoutGuide)
-            scrollView.leading.trailing.bottom.equalToSuperview()
-        }
-
-        [moveToWritingReviewButton, tagReviewView, detailReviewTableView].forEach {
-            self.outerScrollView.addSubview($0)
+        [moveToWritingReviewButton, detailReviewTableView].forEach {
+            view.addSubview($0)
         }
 
         moveToWritingReviewButton.snp.makeConstraints { button in
             button.leading.trailing.top.equalTo(view.safeAreaLayoutGuide).inset(10)
         }
 
-        tagReviewView.snp.makeConstraints { reviewView in
-            reviewView.top.equalTo(moveToWritingReviewButton.snp.bottom).offset(10)
-            reviewView.leading.trailing.equalTo(view).inset(10)
-        }
-
         detailReviewTableView.snp.makeConstraints { table in
-            table.top.equalTo(tagReviewView.snp.bottom).offset(10)
-            table.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(10)
+            table.top.equalTo(moveToWritingReviewButton.snp.bottom).offset(10)
+            table.leading.trailing.bottom.equalTo(view)
         }
     }
 
@@ -111,5 +96,33 @@ final class StoreReviewViewController: UIViewController {
     @objc
     private func moveToWritingReviewButtonTapped(_ sender: UIButton) {
 
+    }
+}
+
+extension StoreReviewViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.detailReviews.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: DetailReviewTableViewCell.reuseIdentifier,
+            for: indexPath) as? DetailReviewTableViewCell else {
+            return UITableViewCell()
+        }
+
+        cell.setUpContents(detailReview: viewModel.detailReviews[indexPath.row])
+        return cell
+    }
+}
+
+extension StoreReviewViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(
+            withIdentifier: DetailReviewTableViewHeader.reuseIdentifier) as? DetailReviewTableViewHeader else {
+            return UIView()
+        }
+        headerView.sizeToFit()
+        return headerView
     }
 }
