@@ -75,8 +75,8 @@ final class StoreDetailInfoView: UIView {
     }
 
     private func setUpConstraints() {
-        addSubviews(storeNameLabel, storeAddressLabel, openStateLabel, separatorLine,
-                    closeTimeLabel, mapButton, distanceLabel, storeInfoStackView)
+        [storeNameLabel, storeAddressLabel, openStateLabel, separatorLine,
+         closeTimeLabel, mapButton, distanceLabel, storeInfoStackView].forEach { addSubview($0) }
         storeNameLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview().inset(20)
         }
@@ -113,7 +113,9 @@ final class StoreDetailInfoView: UIView {
     }
 
     private func render() {
-        mapButton.makeRounded(radius: 22)
-        storeInfoStackView.makeRounded(radius: 10)
+        mapButton.clipsToBounds = true
+        storeInfoStackView.clipsToBounds = true
+        mapButton.layer.cornerRadius = 22
+        storeInfoStackView.layer.cornerRadius = 10
     }
 }
