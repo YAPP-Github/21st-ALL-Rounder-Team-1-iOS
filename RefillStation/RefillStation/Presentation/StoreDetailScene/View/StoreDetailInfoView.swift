@@ -56,7 +56,7 @@ final class StoreDetailInfoView: UIView {
         self.viewModel = viewModel
         super.init(frame: .zero)
         bind()
-        setUpConstraints()
+        layout()
         render()
     }
 
@@ -74,7 +74,7 @@ final class StoreDetailInfoView: UIView {
         distanceLabel.text = "\(viewModel.distance)km"
     }
 
-    private func setUpConstraints() {
+    private func layout() {
         [storeNameLabel, storeAddressLabel, openStateLabel, separatorLine,
          closeTimeLabel, mapButton, distanceLabel, storeInfoStackView].forEach { addSubview($0) }
         storeNameLabel.snp.makeConstraints {

@@ -30,7 +30,7 @@ final class StoreDetailInfoStackView: UIStackView {
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUpConstraints()
+        layout()
     }
 
     required init(coder: NSCoder) {
@@ -39,7 +39,7 @@ final class StoreDetailInfoStackView: UIStackView {
     }
 
     // MARK: - Default Setting Methods
-    private func setUpConstraints() {
+    private func layout() {
         [callButton, instagramButton, recommendedButton].forEach { addArrangedSubview($0) }
         [callButton, instagramButton].forEach { button in
             button.snp.makeConstraints {
