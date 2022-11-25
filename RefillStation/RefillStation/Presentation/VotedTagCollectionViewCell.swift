@@ -47,7 +47,7 @@ final class VotedTagCollectionViewCell: UICollectionViewCell {
     }
 
     private func setUpContentView() {
-        contentView.layer.cornerRadius = 5 // FIXME: 메서드 따로 분리
+        contentView.layer.cornerRadius = 5
         contentView.clipsToBounds = true
     }
 
