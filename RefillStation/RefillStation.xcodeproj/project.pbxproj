@@ -26,9 +26,9 @@
 		32E9A561292E68CF000072EE /* DetailReview+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A560292E68CF000072EE /* DetailReview+User.swift */; };
 		32E9A565292E704A000072EE /* DetailReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A564292E704A000072EE /* DetailReviewViewModel.swift */; };
 		32E9A571292F49AD000072EE /* StoreReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A570292F49AD000072EE /* StoreReviewViewController.swift */; };
-		32E9A57929300C5B000072EE /* VotedTagCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A57829300C5A000072EE /* VotedTagCollectionHeader.swift */; };
 		32E9A57B29308C4B000072EE /* DetailReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A57A29308C4B000072EE /* DetailReviewCollectionViewCell.swift */; };
 		32E9A57D29308E73000072EE /* MoveToWriteReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A57C29308E73000072EE /* MoveToWriteReviewCell.swift */; };
+		32E9A57F2930A0F1000072EE /* VotedCountLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A57E2930A0F0000072EE /* VotedCountLabelCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,9 +68,9 @@
 		32E9A560292E68CF000072EE /* DetailReview+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailReview+User.swift"; sourceTree = "<group>"; };
 		32E9A564292E704A000072EE /* DetailReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReviewViewModel.swift; sourceTree = "<group>"; };
 		32E9A570292F49AD000072EE /* StoreReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewViewController.swift; sourceTree = "<group>"; };
-		32E9A57829300C5A000072EE /* VotedTagCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotedTagCollectionHeader.swift; sourceTree = "<group>"; };
 		32E9A57A29308C4B000072EE /* DetailReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReviewCollectionViewCell.swift; sourceTree = "<group>"; };
 		32E9A57C29308E73000072EE /* MoveToWriteReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveToWriteReviewCell.swift; sourceTree = "<group>"; };
+		32E9A57E2930A0F0000072EE /* VotedCountLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotedCountLabelCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,8 +177,8 @@
 				32E9A55A292E24D2000072EE /* VotedTagViewModel.swift */,
 				32E9A564292E704A000072EE /* DetailReviewViewModel.swift */,
 				32E9A570292F49AD000072EE /* StoreReviewViewController.swift */,
+				32E9A57E2930A0F0000072EE /* VotedCountLabelCell.swift */,
 				32E9A57C29308E73000072EE /* MoveToWriteReviewCell.swift */,
-				32E9A57829300C5A000072EE /* VotedTagCollectionHeader.swift */,
 				32E9A55C292E4F37000072EE /* VotedTagCollectionViewCell.swift */,
 				32E9A57A29308C4B000072EE /* DetailReviewCollectionViewCell.swift */,
 			);
@@ -368,7 +368,6 @@
 				32E9A55D292E4F37000072EE /* VotedTagCollectionViewCell.swift in Sources */,
 				32E9A555292E1947000072EE /* TagReview.swift in Sources */,
 				3244A200292DC13A00716A2B /* ViewController.swift in Sources */,
-				32E9A57929300C5B000072EE /* VotedTagCollectionHeader.swift in Sources */,
 				32E9A561292E68CF000072EE /* DetailReview+User.swift in Sources */,
 				3244A1FC292DC13A00716A2B /* AppDelegate.swift in Sources */,
 				3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */,
@@ -376,6 +375,7 @@
 				32E9A571292F49AD000072EE /* StoreReviewViewController.swift in Sources */,
 				32E9A55B292E24D2000072EE /* VotedTagViewModel.swift in Sources */,
 				32E9A565292E704A000072EE /* DetailReviewViewModel.swift in Sources */,
+				32E9A57F2930A0F1000072EE /* VotedCountLabelCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
