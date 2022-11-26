@@ -41,6 +41,17 @@ final class ReviewPhotosCell: UICollectionViewCell {
 
     private var photoImages = [UIImage]()
 
+    private var defaultImageView: UIImageView {
+        let imageView = UIImageView()
+        imageView.layer.borderColor = UIColor.lightGray.cgColor
+        imageView.layer.cornerRadius = 5
+        imageView.layer.borderWidth = 1
+        imageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        imageView.clipsToBounds = true
+        return imageView
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
@@ -53,13 +64,8 @@ final class ReviewPhotosCell: UICollectionViewCell {
 
     func addPhotos() {
         photoImages.forEach { image in
-            let imageView = UIImageView(image: image)
-            imageView.layer.borderColor = UIColor.lightGray.cgColor
-            imageView.layer.cornerRadius = 5
-            imageView.layer.borderWidth = 1
-            imageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
-            imageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
-            imageView.clipsToBounds = true
+            let imageView = defaultImageView
+            imageView.image = image
             orthogonalStackView.addArrangedSubview(imageView)
         }
     }
