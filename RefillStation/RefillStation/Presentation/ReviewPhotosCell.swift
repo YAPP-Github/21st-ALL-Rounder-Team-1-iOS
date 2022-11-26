@@ -30,10 +30,13 @@ final class ReviewPhotosCell: UICollectionViewCell {
     private let addPhotoButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "camera"), for: .normal)
+        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.layer.cornerRadius = 5
+        button.layer.borderWidth = 1
         return button
     }()
 
-    private let photoImageViews = [UIImageView]()
+    private let photoImageViews = [UIImage]()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,8 +48,12 @@ final class ReviewPhotosCell: UICollectionViewCell {
     }
 
     func addPhotos() {
-        photoImageViews.forEach { photo in
-            orthogonalStackView.addArrangedSubview(photo)
+        photoImageViews.forEach { image in
+            let imageView = UIImageView(image: image)
+            imageView.layer.borderColor = UIColor.lightGray.cgColor
+            imageView.layer.cornerRadius = 5
+            imageView.layer.borderWidth = 1
+            orthogonalStackView.addArrangedSubview(imageView)
         }
     }
 
