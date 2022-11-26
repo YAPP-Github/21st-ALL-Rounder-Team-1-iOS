@@ -72,7 +72,7 @@ final class ReviewPhotosCell: UICollectionViewCell {
 
         orthogonalStackView.addArrangedSubview(addPhotoButton)
         addPhotoButton.snp.makeConstraints { addPhotoButton in
-            addPhotoButton.width.equalTo(100)
+            addPhotoButton.width.height.equalTo(100)
         }
     }
 }
