@@ -54,7 +54,7 @@ final class ReviewWritingViewController: UIViewController {
         view.addSubview(outerCollectionView)
 
         outerCollectionView.snp.makeConstraints { collection in
-            collection.edges.equalTo(view.safeAreaLayoutGuide).inset(10)
+            collection.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
@@ -93,6 +93,7 @@ extension ReviewWritingViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: TagCollectionViewCell.reuseIdentifier,
                 for: indexPath) as? TagCollectionViewCell else { return UICollectionViewCell() }
+            cell.setUpContents(title: reviewSelectingViewModel.reviews[indexPath.row].tagTitle)
             return cell
         case Section.photoReview.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
@@ -114,75 +115,8 @@ extension ReviewWritingViewController: UICollectionViewDataSource {
 extension ReviewWritingViewController {
     private func compositionalLayout() -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout { section, environment in
-            switch section {
-            case Section.storeInfo.rawValue:
-                return self.storeInfoSection()
-            case Section.voteTitle.rawValue:
-                return self.storeInfoSection()
-            case Section.tagReview.rawValue:
-                return self.tagReviewSection()
-            case Section.photoReview.rawValue:
-                return self.reviewPhotoSection()
-            case Section.reviewDescription.rawValue:
-                return self.reviewDescriptionSection()
-            default:
-                return self.storeInfoSection()
-            }
+            return Section(rawValue: section)?.layoutSection
         }
-    }
-
-    private func storeInfoSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                              heightDimension: .fractionalHeight(1))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                               heightDimension: .absolute(60))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        let section = NSCollectionLayoutSection(group: group)
-
-        return section
-    }
-
-    private func tagReviewSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                              heightDimension: .fractionalHeight(1/4))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(7/10),
-                                               heightDimension: .absolute(200))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-        let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 10
-        section.orthogonalScrollingBehavior = .continuous
-
-        return section
-    }
-
-    private func reviewPhotoSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                              heightDimension: .fractionalHeight(1))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                               heightDimension: .absolute(150))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        let section = NSCollectionLayoutSection(group: group)
-
-        return section
-    }
-
-    private func reviewDescriptionSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                              heightDimension: .fractionalHeight(1))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                               heightDimension: .absolute(400))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        let section = NSCollectionLayoutSection(group: group)
-
-        return section
     }
 }
 
@@ -195,5 +129,49 @@ extension ReviewWritingViewController {
         case tagReview
         case photoReview
         case reviewDescription
+
+        var layoutSection: NSCollectionLayoutSection {
+            let defaultItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                  heightDimension: .fractionalHeight(1))
+            let defaultItem = NSCollectionLayoutItem(layoutSize: defaultItemSize)
+            defaultItem.contentInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
+            var section: NSCollectionLayoutSection
+
+            switch self {
+            case .storeInfo:
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                       heightDimension: .absolute(60))
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [defaultItem])
+                section = NSCollectionLayoutSection(group: group)
+            case .voteTitle:
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                       heightDimension: .absolute(40))
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [defaultItem])
+                section = NSCollectionLayoutSection(group: group)
+            case .tagReview:
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                      heightDimension: .fractionalHeight(1/4))
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                item.contentInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(7/10),
+                                                       heightDimension: .absolute(200))
+                let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+                section = NSCollectionLayoutSection(group: group)
+                section.interGroupSpacing = 10
+                section.orthogonalScrollingBehavior = .continuous
+            case .photoReview:
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                       heightDimension: .absolute(150))
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [defaultItem])
+                section = NSCollectionLayoutSection(group: group)
+            case .reviewDescription:
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                       heightDimension: .absolute(400))
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [defaultItem])
+                section = NSCollectionLayoutSection(group: group)
+            }
+
+            return section
+        }
     }
 }
