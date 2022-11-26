@@ -8,6 +8,7 @@
 import UIKit
 
 final class TagReviewCell: UICollectionViewCell {
+
     static let reuseIdentifier = "tagReviewCell"
 
     private var reviewSelectingCollectionView: ReviewSelectingCollectionView!
