@@ -41,6 +41,8 @@ final class ReviewWritingViewController: UIViewController {
         outerCollectionView.register(ReviewDescriptionCell.self,
                                 forCellWithReuseIdentifier: ReviewDescriptionCell.reuseIdentifier)
         outerCollectionView.dataSource = self
+        outerCollectionView.delegate = self
+        outerCollectionView.allowsMultipleSelection = true
     }
 
     private func layout() {
@@ -112,6 +114,15 @@ extension ReviewWritingViewController {
         UICollectionViewCompositionalLayout { section, environment in
             return Section(rawValue: section)?.layoutSection
         }
+    }
+}
+
+//
+extension ReviewWritingViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        guard indexPath.section == Section.tagReview.rawValue,
+              let selectedItems = collectionView.indexPathsForSelectedItems else { return false }
+        return selectedItems.count < 3
     }
 }
 
