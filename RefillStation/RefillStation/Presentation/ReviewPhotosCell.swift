@@ -29,6 +29,7 @@ final class ReviewPhotosCell: UICollectionViewCell {
 
     private let addPhotoButton: UIButton = {
         let button = UIButton()
+        button.setImage(UIImage(systemName: "camera"), for: .normal)
         return button
     }()
 
