@@ -27,6 +27,7 @@
 		325C35A1293223AC001B3741 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325C35A0293223AC001B3741 /* MockData.swift */; };
 		325C35A32932243E001B3741 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325C35A22932243E001B3741 /* Section.swift */; };
 		325C35A529322467001B3741 /* ReviewPhotoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325C35A429322467001B3741 /* ReviewPhotoDelegate.swift */; };
+		325C35A72932CE17001B3741 /* reviewRegisterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325C35A62932CE17001B3741 /* reviewRegisterCell.swift */; };
 		32E0140A2931B565000B8350 /* ReviewPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E014092931B565000B8350 /* ReviewPhotosCell.swift */; };
 		32E0140C2931BCC2000B8350 /* ReviewDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E0140B2931BCC2000B8350 /* ReviewDescriptionCell.swift */; };
 		32E014102931BF55000B8350 /* ReviewWritingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E0140F2931BF55000B8350 /* ReviewWritingViewController.swift */; };
@@ -83,6 +84,7 @@
 		325C35A0293223AC001B3741 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		325C35A22932243E001B3741 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		325C35A429322467001B3741 /* ReviewPhotoDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPhotoDelegate.swift; sourceTree = "<group>"; };
+		325C35A62932CE17001B3741 /* reviewRegisterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reviewRegisterCell.swift; sourceTree = "<group>"; };
 		32E014092931B565000B8350 /* ReviewPhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPhotosCell.swift; sourceTree = "<group>"; };
 		32E0140B2931BCC2000B8350 /* ReviewDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDescriptionCell.swift; sourceTree = "<group>"; };
 		32E0140F2931BF55000B8350 /* ReviewWritingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewWritingViewController.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				32E0140F2931BF55000B8350 /* ReviewWritingViewController.swift */,
+				325C35A62932CE17001B3741 /* reviewRegisterCell.swift */,
 				325C35A22932243E001B3741 /* Section.swift */,
 				325C35A0293223AC001B3741 /* MockData.swift */,
 				32E014152931C7B2000B8350 /* StoreInfoCell.swift */,
@@ -451,6 +454,7 @@
 				32E9A55D292E4F37000072EE /* VotedTagCollectionViewCell.swift in Sources */,
 				32E9A555292E1947000072EE /* TagReview.swift in Sources */,
 				FC7D351F292E99D400335AAB /* StoreDetailInfoView.swift in Sources */,
+				325C35A72932CE17001B3741 /* reviewRegisterCell.swift in Sources */,
 				32E014172932138F000B8350 /* TagReviewViewModel.swift in Sources */,
 				3244A200292DC13A00716A2B /* ViewController.swift in Sources */,
 				32E014162931C7B2000B8350 /* StoreInfoCell.swift in Sources */,
