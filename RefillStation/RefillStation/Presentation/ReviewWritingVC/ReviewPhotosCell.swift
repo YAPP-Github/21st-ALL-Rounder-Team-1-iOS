@@ -34,6 +34,8 @@ final class ReviewPhotosCell: UICollectionViewCell {
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.layer.cornerRadius = 5
         button.layer.borderWidth = 1
+        button.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 80).isActive = true
         return button
     }()
 
@@ -55,14 +57,15 @@ final class ReviewPhotosCell: UICollectionViewCell {
             imageView.layer.borderColor = UIColor.lightGray.cgColor
             imageView.layer.cornerRadius = 5
             imageView.layer.borderWidth = 1
-            imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
+            imageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
             imageView.clipsToBounds = true
             orthogonalStackView.addArrangedSubview(imageView)
         }
     }
 
     private func layout() {
-        [pleaseReviewLabel, outerScrollView].forEach {
+        [pleaseReviewLabel, addPhotoButton, outerScrollView].forEach {
             contentView.addSubview($0)
         }
 
@@ -70,20 +73,21 @@ final class ReviewPhotosCell: UICollectionViewCell {
             label.leading.top.equalTo(contentView)
         }
 
+        addPhotoButton.snp.makeConstraints { button in
+            button.top.equalTo(pleaseReviewLabel.snp.bottom).offset(10)
+            button.leading.bottom.equalToSuperview()
+        }
+
         outerScrollView.addSubview(orthogonalStackView)
 
         outerScrollView.snp.makeConstraints { scrollView in
             scrollView.top.equalTo(pleaseReviewLabel.snp.bottom).offset(10)
-            scrollView.leading.trailing.bottom.equalTo(contentView)
+            scrollView.trailing.bottom.equalTo(contentView)
+            scrollView.leading.equalTo(addPhotoButton.snp.trailing).offset(10)
         }
 
         orthogonalStackView.snp.makeConstraints { stackView in
             stackView.edges.equalTo(outerScrollView)
-        }
-
-        orthogonalStackView.addArrangedSubview(addPhotoButton)
-        addPhotoButton.snp.makeConstraints { addPhotoButton in
-            addPhotoButton.width.height.equalTo(100)
         }
     }
 
@@ -102,6 +106,13 @@ extension ReviewPhotosCell: PHPickerViewControllerDelegate {
         let dispatchGroup = DispatchGroup()
         let items = results.map { $0.itemProvider }
         let lastIndex = items.count - 1
+
+        if items.isEmpty {
+            self.delegate?.dismiss()
+            return
+        }
+
+        removeAllPhotoImages()
 
         dispatchGroup.enter()
         for itemIndex in 0...lastIndex {
@@ -122,6 +133,15 @@ extension ReviewPhotosCell: PHPickerViewControllerDelegate {
         dispatchGroup.notify(queue: .main) { [weak self] in
             self?.addPhotos()
             self?.delegate?.dismiss()
+        }
+    }
+
+    private func removeAllPhotoImages() {
+        photoImages.removeAll()
+        while orthogonalStackView.arrangedSubviews.isEmpty == false {
+            if let last = orthogonalStackView.arrangedSubviews.last {
+                orthogonalStackView.removeArrangedSubview(last)
+            }
         }
     }
 }
