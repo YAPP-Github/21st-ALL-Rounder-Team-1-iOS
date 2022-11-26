@@ -12,9 +12,10 @@ final class ReviewDescriptionCell: UICollectionViewCell {
 
     static let reuseIdentifier = "reviewDescriptionCell"
 
-    private let reviewTextField: UITextField = {
-        let textField = UITextField()
-        return textField
+    private let reviewTextView: UITextView = {
+        let textView = UITextView()
+        textView.isEditable = true
+        return textView
     }()
 
     override init(frame: CGRect) {
@@ -27,10 +28,10 @@ final class ReviewDescriptionCell: UICollectionViewCell {
     }
 
     private func layout() {
-        contentView.addSubview(reviewTextField)
+        contentView.addSubview(reviewTextView)
 
-        reviewTextField.snp.makeConstraints { textField in
-            textField.edges.equalToSuperview()
+        reviewTextView.snp.makeConstraints { textView in
+            textView.edges.equalToSuperview()
         }
     }
 }
