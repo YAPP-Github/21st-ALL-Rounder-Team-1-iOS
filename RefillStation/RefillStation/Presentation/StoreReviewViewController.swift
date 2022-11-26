@@ -76,18 +76,22 @@ final class StoreReviewViewController: UIViewController {
     }
 }
 
+// MARK: - UICollectionViewDataSource
+
 extension StoreReviewViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 4
+        return Section.allCases.count
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-        case 0, 1:
+        case Section.moveToWriteReview.rawValue:
             return 1
-        case 2:
+        case Section.VotedCountLabel.rawValue:
+            return 1
+        case Section.VotedTagCollectionView.rawValue:
             return votedTagViewModel.tagReviews.count
-        case 3:
+        case Section.DetailReviewCollectionView.rawValue:
             return detailReviewViewModel.detailReviews.count
         default:
             return 0
@@ -96,25 +100,25 @@ extension StoreReviewViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
-        case 0:
+        case Section.moveToWriteReview.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: MoveToWriteReviewCell.reuseIdentifier,
                 for: indexPath) as? MoveToWriteReviewCell else { return UICollectionViewCell() }
             return cell
-        case 1:
+        case Section.VotedCountLabel.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: VotedCountLabelCell.reuseIdentifier,
                 for: indexPath) as? VotedCountLabelCell else { return UICollectionViewCell() }
             cell.setUpContents(totalVote: votedTagViewModel.totalVoteCount)
             return cell
-        case 2:
+        case Section.VotedTagCollectionView.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: VotedTagCollectionViewCell.reuseIdentifier,
                 for: indexPath) as? VotedTagCollectionViewCell else { return UICollectionViewCell() }
             cell.setUpContents(tagReview: votedTagViewModel.tagReviews[indexPath.row],
                              totalVoteCount: votedTagViewModel.totalVoteCount)
             return cell
-        case 3:
+        case Section.DetailReviewCollectionView.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: DetailReviewCollectionViewCell.reuseIdentifier,
                 for: indexPath) as? DetailReviewCollectionViewCell else { return UICollectionViewCell() }
@@ -126,26 +130,52 @@ extension StoreReviewViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
+
 extension StoreReviewViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width - 20 // inset 좌 우 각각 20
+        let width = collectionView.frame.width - 2 * Constraints.outerCollectionViewInset // inset 좌 우 각각 20
 
         switch indexPath.section {
-        case 0:
-            return CGSize(width: width, height: 40)
-        case 1:
-            return CGSize(width: width, height: 40)
-        case 2:
-            return CGSize(width: width, height: 30)
-        case 3:
-            return CGSize(width: width, height: 200)
+        case Section.moveToWriteReview.rawValue:
+            return CGSize(width: width, height: Constraints.moveToWriteReviewHeight)
+        case Section.VotedCountLabel.rawValue:
+            return CGSize(width: width, height: Constraints.votedCountLabelHeight)
+        case Section.VotedTagCollectionView.rawValue:
+            return CGSize(width: width, height: Constraints.votedCollectionViewCellHeight)
+        case Section.DetailReviewCollectionView.rawValue:
+            return CGSize(width: width, height: Constraints.detailReviewCellHeight)
         default:
-            return CGSize()
+            return .zero
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        let inset = Constraints.outerCollectionViewInset
+        return UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
+    }
+}
+
+// MARK: - Section
+
+extension StoreReviewViewController {
+
+    enum Section: Int, CaseIterable {
+        case moveToWriteReview
+        case VotedCountLabel
+        case VotedTagCollectionView
+        case DetailReviewCollectionView
+    }
+}
+
+extension StoreReviewViewController {
+
+    enum Constraints {
+        static let moveToWriteReviewHeight: CGFloat = 40
+        static let votedCountLabelHeight: CGFloat = 40
+        static let votedCollectionViewCellHeight: CGFloat = 30
+        static let detailReviewCellHeight: CGFloat = 200
+        static let outerCollectionViewInset: CGFloat = 10
     }
 }
