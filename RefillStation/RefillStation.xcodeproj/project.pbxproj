@@ -23,6 +23,9 @@
 		32E0140A2931B565000B8350 /* ReviewPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E014092931B565000B8350 /* ReviewPhotosCell.swift */; };
 		32E0140C2931BCC2000B8350 /* ReviewDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E0140B2931BCC2000B8350 /* ReviewDescriptionCell.swift */; };
 		32E014102931BF55000B8350 /* ReviewWritingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E0140F2931BF55000B8350 /* ReviewWritingViewController.swift */; };
+		32E014122931C75E000B8350 /* TagReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E014112931C75E000B8350 /* TagReviewCell.swift */; };
+		32E014142931C79D000B8350 /* VoteTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E014132931C79D000B8350 /* VoteTitleCell.swift */; };
+		32E014162931C7B2000B8350 /* StoreInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E014152931C7B2000B8350 /* StoreInfoCell.swift */; };
 		32E9A555292E1947000072EE /* TagReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A554292E1947000072EE /* TagReview.swift */; };
 		32E9A557292E195E000072EE /* TagReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A556292E195E000072EE /* TagReviewView.swift */; };
 		32E9A559292E1AFE000072EE /* VotedTagCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A558292E1AFE000072EE /* VotedTagCollectionView.swift */; };
@@ -76,6 +79,9 @@
 		32E014092931B565000B8350 /* ReviewPhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPhotosCell.swift; sourceTree = "<group>"; };
 		32E0140B2931BCC2000B8350 /* ReviewDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDescriptionCell.swift; sourceTree = "<group>"; };
 		32E0140F2931BF55000B8350 /* ReviewWritingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewWritingViewController.swift; sourceTree = "<group>"; };
+		32E014112931C75E000B8350 /* TagReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagReviewCell.swift; sourceTree = "<group>"; };
+		32E014132931C79D000B8350 /* VoteTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteTitleCell.swift; sourceTree = "<group>"; };
+		32E014152931C7B2000B8350 /* StoreInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoCell.swift; sourceTree = "<group>"; };
 		32E9A554292E1947000072EE /* TagReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagReview.swift; sourceTree = "<group>"; };
 		32E9A556292E195E000072EE /* TagReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagReviewView.swift; sourceTree = "<group>"; };
 		32E9A558292E1AFE000072EE /* VotedTagCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotedTagCollectionView.swift; sourceTree = "<group>"; };
@@ -203,13 +209,16 @@
 				32E9A55A292E24D2000072EE /* TagReviewViewModel.swift */,
 				32E9A558292E1AFE000072EE /* VotedTagCollectionView.swift */,
 				32E0140F2931BF55000B8350 /* ReviewWritingViewController.swift */,
+				32E014152931C7B2000B8350 /* StoreInfoCell.swift */,
+				32E014132931C79D000B8350 /* VoteTitleCell.swift */,
+				32E014112931C75E000B8350 /* TagReviewCell.swift */,
 				32E9A55C292E4F37000072EE /* VotedTagCollectionViewCell.swift */,
 				32E9A564292E704A000072EE /* DetailReviewViewModel.swift */,
 				32E9A55E292E64DC000072EE /* DetailReviewTableView.swift */,
 				32E9A562292E6A56000072EE /* DetailReviewTableViewCell.swift */,
 				32E9A566292F24EF000072EE /* ReviewSelectingView.swift */,
-				32E9A568292F2509000072EE /* ReviewSelectingCollectionView.swift */,
 				32E9A56C292F295B000072EE /* TagCollectionViewCell.swift */,
+				32E9A568292F2509000072EE /* ReviewSelectingCollectionView.swift */,
 				32E9A56A292F25B7000072EE /* ReviewSelectingViewModel.swift */,
 			);
 			path = Presentation;
@@ -425,15 +434,18 @@
 				32E9A567292F24EF000072EE /* ReviewSelectingView.swift in Sources */,
 				32E9A569292F2509000072EE /* ReviewSelectingCollectionView.swift in Sources */,
 				32E9A563292E6A56000072EE /* DetailReviewTableViewCell.swift in Sources */,
+				32E014122931C75E000B8350 /* TagReviewCell.swift in Sources */,
 				32E9A55D292E4F37000072EE /* VotedTagCollectionViewCell.swift in Sources */,
 				32E9A555292E1947000072EE /* TagReview.swift in Sources */,
 				FC7D351F292E99D400335AAB /* StoreDetailInfoView.swift in Sources */,
 				3244A200292DC13A00716A2B /* ViewController.swift in Sources */,
+				32E014162931C7B2000B8350 /* StoreInfoCell.swift in Sources */,
 				32E014102931BF55000B8350 /* ReviewWritingViewController.swift in Sources */,
 				32E0140C2931BCC2000B8350 /* ReviewDescriptionCell.swift in Sources */,
 				32E0140A2931B565000B8350 /* ReviewPhotosCell.swift in Sources */,
 				32E9A559292E1AFE000072EE /* VotedTagCollectionView.swift in Sources */,
 				32E9A55F292E64DC000072EE /* DetailReviewTableView.swift in Sources */,
+				32E014142931C79D000B8350 /* VoteTitleCell.swift in Sources */,
 				32E9A56D292F295B000072EE /* TagCollectionViewCell.swift in Sources */,
 				32E9A557292E195E000072EE /* TagReviewView.swift in Sources */,
 				32E9A561292E68CF000072EE /* DetailReview+User.swift in Sources */,
