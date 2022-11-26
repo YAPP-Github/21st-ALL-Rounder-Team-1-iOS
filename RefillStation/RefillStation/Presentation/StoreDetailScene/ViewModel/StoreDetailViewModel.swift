@@ -14,4 +14,21 @@ final class StoreDetailViewModel {
     var openState: Bool = true
     var closeTime: String = "8:00"
     var distance: Double = 5
+
+    var products: [Product] = [.init(name: "스킨",
+                                     brand: "아로마티카",
+                                     pricePerGram: 123,
+                                     imageURL: ""),
+                               .init(name: "로션",
+                                     brand: "아로마티카",
+                                     pricePerGram: 423,
+                                     imageURL: ""),
+                               .init(name: "바디오일",
+                                     brand: "아로마티카",
+                                     pricePerGram: 2435,
+                                     imageURL: ""),
+                               .init(name: "샴푸",
+                                     brand: "아로마티카",
+                                     pricePerGram: 1241,
+                                     imageURL: "")]
 }
