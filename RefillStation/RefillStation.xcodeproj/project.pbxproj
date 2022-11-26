@@ -39,6 +39,7 @@
 		32E9A56D292F295B000072EE /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A56C292F295B000072EE /* TagCollectionViewCell.swift */; };
 		FC3EBDEF2932125800A9C1F9 /* ProductTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EBDEE2932125800A9C1F9 /* ProductTableView.swift */; };
 		FC3EBDF1293266D100A9C1F9 /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EBDF0293266D100A9C1F9 /* ProductTableViewCell.swift */; };
+		FC3EBDF32932872100A9C1F9 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EBDF22932872100A9C1F9 /* Product.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 		32E9A56C292F295B000072EE /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		FC3EBDEE2932125800A9C1F9 /* ProductTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableView.swift; sourceTree = "<group>"; };
 		FC3EBDF0293266D100A9C1F9 /* ProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
+		FC3EBDF22932872100A9C1F9 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +226,7 @@
 				32E9A554292E1947000072EE /* TagReview.swift */,
 				32E9A560292E68CF000072EE /* DetailReview+User.swift */,
 				FC7D352A292F24D700335AAB /* StoreInfo.swift */,
+				FC3EBDF22932872100A9C1F9 /* Product.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				32E9A559292E1AFE000072EE /* VotedTagCollectionView.swift in Sources */,
 				FC3EBDEF2932125800A9C1F9 /* ProductTableView.swift in Sources */,
 				32E9A55F292E64DC000072EE /* DetailReviewTableView.swift in Sources */,
+				FC3EBDF32932872100A9C1F9 /* Product.swift in Sources */,
 				32E9A56D292F295B000072EE /* TagCollectionViewCell.swift in Sources */,
 				32E9A557292E195E000072EE /* TagReviewView.swift in Sources */,
 				32E9A561292E68CF000072EE /* DetailReview+User.swift in Sources */,
