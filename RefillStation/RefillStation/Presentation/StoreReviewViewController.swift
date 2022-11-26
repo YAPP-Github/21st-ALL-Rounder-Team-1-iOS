@@ -169,6 +169,8 @@ extension StoreReviewViewController {
     }
 }
 
+// MARK: - Constraints
+
 extension StoreReviewViewController {
 
     enum Constraints {
