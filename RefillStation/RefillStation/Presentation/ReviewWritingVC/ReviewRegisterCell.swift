@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class reviewRegisterCell: UICollectionViewCell {
+final class ReviewRegisterCell: UICollectionViewCell {
 
     static let reuseIdentifier = "reviewRegisterCell"
 
@@ -22,6 +22,7 @@ final class reviewRegisterCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        layout()
     }
 
     required init?(coder: NSCoder) {

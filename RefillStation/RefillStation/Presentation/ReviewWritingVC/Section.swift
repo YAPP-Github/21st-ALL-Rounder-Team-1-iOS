@@ -14,6 +14,7 @@ extension ReviewWritingViewController {
         case tagReview
         case photoReview
         case reviewDescription
+        case registerButton
 
         var layoutSection: NSCollectionLayoutSection {
             let defaultItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
@@ -52,6 +53,11 @@ extension ReviewWritingViewController {
             case .reviewDescription:
                 let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                        heightDimension: .absolute(400))
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [defaultItem])
+                section = NSCollectionLayoutSection(group: group)
+            case .registerButton:
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                       heightDimension: .absolute(70))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [defaultItem])
                 section = NSCollectionLayoutSection(group: group)
             }

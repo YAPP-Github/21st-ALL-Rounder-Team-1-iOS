@@ -40,6 +40,8 @@ final class ReviewWritingViewController: UIViewController {
                                 forCellWithReuseIdentifier: ReviewPhotosCell.reuseIdentifier)
         outerCollectionView.register(ReviewDescriptionCell.self,
                                 forCellWithReuseIdentifier: ReviewDescriptionCell.reuseIdentifier)
+        outerCollectionView.register(ReviewRegisterCell.self,
+                                     forCellWithReuseIdentifier: ReviewRegisterCell.reuseIdentifier)
         outerCollectionView.dataSource = self
         outerCollectionView.delegate = self
         outerCollectionView.allowsMultipleSelection = true
@@ -101,6 +103,11 @@ extension ReviewWritingViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: ReviewDescriptionCell.reuseIdentifier,
                 for: indexPath) as? ReviewDescriptionCell else { return UICollectionViewCell() }
+            return cell
+        case Section.registerButton.rawValue:
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: ReviewRegisterCell.reuseIdentifier,
+                for: indexPath) as? ReviewRegisterCell else { return UICollectionViewCell() }
             return cell
         default:
             return UICollectionViewCell()
