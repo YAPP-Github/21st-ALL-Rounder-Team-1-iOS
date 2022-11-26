@@ -7,11 +7,12 @@
 
 import UIKit
 import SnapKit
+import PhotosUI
 
 final class ReviewPhotosCell: UICollectionViewCell {
 
     static let reuseIdentifier = "reviewPhotosCell"
-
+    weak var delegate: ReviewPhotoDelegate?
     private let outerScrollView = UIScrollView()
 
     private let pleaseReviewLabel: UILabel = {
@@ -36,11 +37,12 @@ final class ReviewPhotosCell: UICollectionViewCell {
         return button
     }()
 
-    private let photoImageViews = [UIImage]()
+    private var photoImages = [UIImage]()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
+        addPhotoButtonTarget()
     }
 
     required init?(coder: NSCoder) {
@@ -48,11 +50,13 @@ final class ReviewPhotosCell: UICollectionViewCell {
     }
 
     func addPhotos() {
-        photoImageViews.forEach { image in
+        photoImages.forEach { image in
             let imageView = UIImageView(image: image)
             imageView.layer.borderColor = UIColor.lightGray.cgColor
             imageView.layer.cornerRadius = 5
             imageView.layer.borderWidth = 1
+            imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+            imageView.clipsToBounds = true
             orthogonalStackView.addArrangedSubview(imageView)
         }
     }
@@ -80,6 +84,44 @@ final class ReviewPhotosCell: UICollectionViewCell {
         orthogonalStackView.addArrangedSubview(addPhotoButton)
         addPhotoButton.snp.makeConstraints { addPhotoButton in
             addPhotoButton.width.height.equalTo(100)
+        }
+    }
+
+    private func addPhotoButtonTarget() {
+        addPhotoButton.addTarget(self, action: #selector(addPhotoButtonTapped(_:)), for: .touchUpInside)
+    }
+
+    @objc
+    private func addPhotoButtonTapped(_ sender: UIButton) {
+        delegate?.imageAddButtonTapped()
+    }
+}
+
+extension ReviewPhotosCell: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        let dispatchGroup = DispatchGroup()
+        let items = results.map { $0.itemProvider }
+        let lastIndex = items.count - 1
+
+        dispatchGroup.enter()
+        for itemIndex in 0...lastIndex {
+            if items[itemIndex].canLoadObject(ofClass: UIImage.self) == false {
+                return
+            }
+
+            items[itemIndex].loadObject(ofClass: UIImage.self) { [weak self] image, error in
+                if let image = image as? UIImage {
+                    self?.photoImages.append(image)
+                }
+                if itemIndex == lastIndex {
+                    dispatchGroup.leave()
+                }
+            }
+        }
+
+        dispatchGroup.notify(queue: .main) { [weak self] in
+            self?.addPhotos()
+            self?.delegate?.dismiss()
         }
     }
 }

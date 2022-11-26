@@ -7,33 +7,26 @@
 
 import UIKit
 import SnapKit
+import PhotosUI
 
 final class ReviewWritingViewController: UIViewController {
 
-    private var reviewSelectingViewModel = TagReviewViewModel()
-
+    private lazy var reviewSelectingViewModel = makeMockViewModel()
     private lazy var outerCollectionView = UICollectionView(frame: .zero,
                                                             collectionViewLayout: compositionalLayout())
+    private let phPickerViewController: PHPickerViewController = {
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+        configuration.selectionLimit = 10
+        let phPickerVC = PHPickerViewController(configuration: configuration)
+        return phPickerVC
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        makeMockViewModel()
         setUpCollectionView()
         layout()
-    }
-
-    private func makeMockViewModel() {
-        reviewSelectingViewModel.reviews = [
-            .init(tagTitle: "점원이 친절해요", voteCount: 0),
-            .init(tagTitle: "품목이 다양해요", voteCount: 0),
-            .init(tagTitle: "매장이 청결해요", voteCount: 0),
-            .init(tagTitle: "사장님이 맛있어요", voteCount: 0),
-            .init(tagTitle: "음식이 친절해요", voteCount: 0),
-            .init(tagTitle: "개발자가 죽어가요", voteCount: 0),
-            .init(tagTitle: "일정이 빡빡해요", voteCount: 0),
-            .init(tagTitle: "도움이 필요해요", voteCount: 0)
-        ]
     }
 
     private func setUpCollectionView() {
@@ -99,6 +92,8 @@ extension ReviewWritingViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: ReviewPhotosCell.reuseIdentifier,
                 for: indexPath) as? ReviewPhotosCell else { return UICollectionViewCell() }
+            cell.delegate = self
+            phPickerViewController.delegate = cell
             return cell
         case Section.reviewDescription.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
@@ -120,58 +115,13 @@ extension ReviewWritingViewController {
     }
 }
 
-// MARK: - Section
+// MARK: - ReviewPhotoDelegate
+extension ReviewWritingViewController: ReviewPhotoDelegate {
+    func imageAddButtonTapped() {
+        present(phPickerViewController, animated: true)
+    }
 
-extension ReviewWritingViewController {
-    enum Section: Int, CaseIterable {
-        case storeInfo
-        case voteTitle
-        case tagReview
-        case photoReview
-        case reviewDescription
-
-        var layoutSection: NSCollectionLayoutSection {
-            let defaultItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                  heightDimension: .fractionalHeight(1))
-            let defaultItem = NSCollectionLayoutItem(layoutSize: defaultItemSize)
-            defaultItem.contentInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
-            var section: NSCollectionLayoutSection
-
-            switch self {
-            case .storeInfo:
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                       heightDimension: .absolute(60))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [defaultItem])
-                section = NSCollectionLayoutSection(group: group)
-            case .voteTitle:
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                       heightDimension: .absolute(40))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [defaultItem])
-                section = NSCollectionLayoutSection(group: group)
-            case .tagReview:
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                      heightDimension: .fractionalHeight(1/4))
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                item.contentInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(7/10),
-                                                       heightDimension: .absolute(200))
-                let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-                section = NSCollectionLayoutSection(group: group)
-                section.interGroupSpacing = 10
-                section.orthogonalScrollingBehavior = .continuous
-            case .photoReview:
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                       heightDimension: .absolute(150))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [defaultItem])
-                section = NSCollectionLayoutSection(group: group)
-            case .reviewDescription:
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                       heightDimension: .absolute(400))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [defaultItem])
-                section = NSCollectionLayoutSection(group: group)
-            }
-
-            return section
-        }
+    func dismiss() {
+        dismiss(animated: true)
     }
 }

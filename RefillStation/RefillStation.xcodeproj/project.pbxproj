@@ -24,6 +24,9 @@
 		324CCBE129321616001F6FDA /* MoveToWriteReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324CCBDE29321616001F6FDA /* MoveToWriteReviewCell.swift */; };
 		324CCBE229321616001F6FDA /* VotedCountLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324CCBDF29321616001F6FDA /* VotedCountLabelCell.swift */; };
 		325C359F293216D4001B3741 /* StoreReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325C359E293216D4001B3741 /* StoreReviewViewController.swift */; };
+		325C35A1293223AC001B3741 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325C35A0293223AC001B3741 /* MockData.swift */; };
+		325C35A32932243E001B3741 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325C35A22932243E001B3741 /* Section.swift */; };
+		325C35A529322467001B3741 /* ReviewPhotoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325C35A429322467001B3741 /* ReviewPhotoDelegate.swift */; };
 		32E0140A2931B565000B8350 /* ReviewPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E014092931B565000B8350 /* ReviewPhotosCell.swift */; };
 		32E0140C2931BCC2000B8350 /* ReviewDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E0140B2931BCC2000B8350 /* ReviewDescriptionCell.swift */; };
 		32E014102931BF55000B8350 /* ReviewWritingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E0140F2931BF55000B8350 /* ReviewWritingViewController.swift */; };
@@ -77,6 +80,9 @@
 		324CCBDE29321616001F6FDA /* MoveToWriteReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveToWriteReviewCell.swift; sourceTree = "<group>"; };
 		324CCBDF29321616001F6FDA /* VotedCountLabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VotedCountLabelCell.swift; sourceTree = "<group>"; };
 		325C359E293216D4001B3741 /* StoreReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreReviewViewController.swift; sourceTree = "<group>"; };
+		325C35A0293223AC001B3741 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		325C35A22932243E001B3741 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		325C35A429322467001B3741 /* ReviewPhotoDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPhotoDelegate.swift; sourceTree = "<group>"; };
 		32E014092931B565000B8350 /* ReviewPhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPhotosCell.swift; sourceTree = "<group>"; };
 		32E0140B2931BCC2000B8350 /* ReviewDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDescriptionCell.swift; sourceTree = "<group>"; };
 		32E0140F2931BF55000B8350 /* ReviewWritingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewWritingViewController.swift; sourceTree = "<group>"; };
@@ -215,11 +221,14 @@
 			isa = PBXGroup;
 			children = (
 				32E0140F2931BF55000B8350 /* ReviewWritingViewController.swift */,
+				325C35A22932243E001B3741 /* Section.swift */,
+				325C35A0293223AC001B3741 /* MockData.swift */,
 				32E014152931C7B2000B8350 /* StoreInfoCell.swift */,
 				32E014132931C79D000B8350 /* VoteTitleCell.swift */,
 				32E9A56C292F295B000072EE /* TagReviewCell.swift */,
 				32E9A56A292F25B7000072EE /* TagReviewViewModel.swift */,
 				32E014092931B565000B8350 /* ReviewPhotosCell.swift */,
+				325C35A429322467001B3741 /* ReviewPhotoDelegate.swift */,
 				32E0140B2931BCC2000B8350 /* ReviewDescriptionCell.swift */,
 			);
 			path = ReviewWritingVC;
@@ -437,6 +446,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				325C35A32932243E001B3741 /* Section.swift in Sources */,
 				325C359F293216D4001B3741 /* StoreReviewViewController.swift in Sources */,
 				32E9A55D292E4F37000072EE /* VotedTagCollectionViewCell.swift in Sources */,
 				32E9A555292E1947000072EE /* TagReview.swift in Sources */,
@@ -450,6 +460,7 @@
 				324CCBE129321616001F6FDA /* MoveToWriteReviewCell.swift in Sources */,
 				32E0140A2931B565000B8350 /* ReviewPhotosCell.swift in Sources */,
 				32E014142931C79D000B8350 /* VoteTitleCell.swift in Sources */,
+				325C35A1293223AC001B3741 /* MockData.swift in Sources */,
 				32E9A56D292F295B000072EE /* TagReviewCell.swift in Sources */,
 				32E9A561292E68CF000072EE /* DetailReview+User.swift in Sources */,
 				324CCBE029321616001F6FDA /* DetailReviewCollectionViewCell.swift in Sources */,
@@ -458,6 +469,7 @@
 				FC7D3527292EC72400335AAB /* StoreDetailViewModel.swift in Sources */,
 				FC7D3529292F22B300335AAB /* StoreDetailInfoStackView.swift in Sources */,
 				3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */,
+				325C35A529322467001B3741 /* ReviewPhotoDelegate.swift in Sources */,
 				32E9A55B292E24D2000072EE /* VotedTagViewModel.swift in Sources */,
 				32E9A565292E704A000072EE /* DetailReviewViewModel.swift in Sources */,
 			);
