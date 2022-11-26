@@ -20,6 +20,12 @@ final class ReviewDescriptionCell: UICollectionViewCell {
         return textView
     }()
 
+    private let textCountLabel: UILabel = {
+        let label = UILabel()
+        label.text = "0/500"
+        return label
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpReviewTextView()
@@ -31,10 +37,17 @@ final class ReviewDescriptionCell: UICollectionViewCell {
     }
 
     private func layout() {
-        contentView.addSubview(reviewTextView)
+        [reviewTextView, textCountLabel].forEach {
+            contentView.addSubview($0)
+        }
 
         reviewTextView.snp.makeConstraints { textView in
-            textView.edges.equalToSuperview()
+            textView.leading.top.trailing.equalToSuperview()
+        }
+
+        textCountLabel.snp.makeConstraints { label in
+            label.trailing.bottom.equalToSuperview()
+            label.top.equalTo(reviewTextView.snp.bottom).offset(5)
         }
     }
 
