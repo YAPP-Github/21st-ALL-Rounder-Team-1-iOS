@@ -42,7 +42,7 @@ final class StoreInfoCell: UICollectionViewCell {
         }
 
         storeNamelabel.snp.makeConstraints { label in
-            label.top.leading.trailing.equalToSuperview().inset(5)
+            label.top.leading.trailing.equalToSuperview()
         }
 
         storeLocationLabel.snp.makeConstraints { label in
