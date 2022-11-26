@@ -14,11 +14,13 @@ final class VoteTitleCell: UICollectionViewCell {
 
     private let voteTitleLabel: UILabel = {
         let label = UILabel()
+        label.text = "이 매장의 좋은 점은 무엇인가요?"
         return label
     }()
 
     private let maximumVoteLabel: UILabel = {
         let label = UILabel()
+        label.text = "1~3개"
         return label
     }()
 
@@ -40,8 +42,10 @@ final class VoteTitleCell: UICollectionViewCell {
             titleLabel.leading.top.bottom.equalToSuperview().inset(5)
         }
 
+        voteTitleLabel.setContentHuggingPriority(.required, for: .horizontal)
+
         maximumVoteLabel.snp.makeConstraints { voteLabel in
-            voteLabel.leading.equalTo(voteTitleLabel.snp.trailing).inset(5)
+            voteLabel.leading.equalTo(voteTitleLabel.snp.trailing).offset(5)
             voteLabel.trailing.top.bottom.equalToSuperview().inset(5)
         }
     }
