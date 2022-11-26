@@ -14,6 +14,12 @@ final class ReviewPhotosCell: UICollectionViewCell {
 
     private let outerScrollView = UIScrollView()
 
+    private let pleaseReviewLabel: UILabel = {
+        let label = UILabel()
+        label.text = "리뷰를 남겨주세요!"
+        return label
+    }()
+
     private let orthogonalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -43,11 +49,19 @@ final class ReviewPhotosCell: UICollectionViewCell {
     }
 
     private func layout() {
-        contentView.addSubview(outerScrollView)
+        [pleaseReviewLabel, outerScrollView].forEach {
+            contentView.addSubview($0)
+        }
+
+        pleaseReviewLabel.snp.makeConstraints { label in
+            label.leading.top.equalTo(contentView)
+        }
+
         outerScrollView.addSubview(orthogonalStackView)
 
         outerScrollView.snp.makeConstraints { scrollView in
-            scrollView.edges.equalTo(contentView)
+            scrollView.top.equalTo(pleaseReviewLabel.snp.bottom).offset(10)
+            scrollView.leading.trailing.bottom.equalTo(contentView)
         }
 
         orthogonalStackView.snp.makeConstraints { stackView in
