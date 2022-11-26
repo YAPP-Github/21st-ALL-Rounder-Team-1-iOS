@@ -15,11 +15,14 @@ final class ReviewDescriptionCell: UICollectionViewCell {
     private let reviewTextView: UITextView = {
         let textView = UITextView()
         textView.isEditable = true
+        textView.text = "placeholder"
+        textView.textColor = .lightGray
         return textView
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setUpReviewTextView()
         layout()
     }
 
@@ -32,6 +35,23 @@ final class ReviewDescriptionCell: UICollectionViewCell {
 
         reviewTextView.snp.makeConstraints { textView in
             textView.edges.equalToSuperview()
+        }
+    }
+
+    private func setUpReviewTextView() {
+        reviewTextView.delegate = self
+    }
+}
+
+extension ReviewDescriptionCell: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textView.text = nil
+        textView.textColor = .label
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "placeholder"
         }
     }
 }
