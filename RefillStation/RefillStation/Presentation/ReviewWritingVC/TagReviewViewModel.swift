@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class ReviewSelectingViewModel {
+final class TagReviewViewModel {
 
     var reviews = [TagReview]()
 }

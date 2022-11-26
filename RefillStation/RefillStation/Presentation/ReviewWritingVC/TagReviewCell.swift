@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class TagCollectionViewCell: UICollectionViewCell {
+final class TagReviewCell: UICollectionViewCell {
 
     static let reuseIdentifier = "tagCollectionViewCell"
 

@@ -10,7 +10,7 @@ import SnapKit
 
 final class ReviewWritingViewController: UIViewController {
 
-    private var reviewSelectingViewModel = ReviewSelectingViewModel()
+    private var reviewSelectingViewModel = TagReviewViewModel()
 
     private lazy var outerCollectionView = UICollectionView(frame: .zero,
                                                             collectionViewLayout: compositionalLayout())
@@ -41,8 +41,8 @@ final class ReviewWritingViewController: UIViewController {
                                      forCellWithReuseIdentifier: StoreInfoCell.reuseIdentifier)
         outerCollectionView.register(VoteTitleCell.self,
                                      forCellWithReuseIdentifier: VoteTitleCell.reuseIdentifier)
-        outerCollectionView.register(TagCollectionViewCell.self,
-                                     forCellWithReuseIdentifier: TagCollectionViewCell.reuseIdentifier)
+        outerCollectionView.register(TagReviewCell.self,
+                                     forCellWithReuseIdentifier: TagReviewCell.reuseIdentifier)
         outerCollectionView.register(ReviewPhotosCell.self,
                                 forCellWithReuseIdentifier: ReviewPhotosCell.reuseIdentifier)
         outerCollectionView.register(ReviewDescriptionCell.self,
@@ -91,8 +91,8 @@ extension ReviewWritingViewController: UICollectionViewDataSource {
             return cell
         case Section.tagReview.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: TagCollectionViewCell.reuseIdentifier,
-                for: indexPath) as? TagCollectionViewCell else { return UICollectionViewCell() }
+                withReuseIdentifier: TagReviewCell.reuseIdentifier,
+                for: indexPath) as? TagReviewCell else { return UICollectionViewCell() }
             cell.setUpContents(title: reviewSelectingViewModel.reviews[indexPath.row].tagTitle)
             return cell
         case Section.photoReview.rawValue:
