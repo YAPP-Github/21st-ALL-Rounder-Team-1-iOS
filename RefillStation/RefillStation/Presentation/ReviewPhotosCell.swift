@@ -10,6 +10,8 @@ import SnapKit
 
 final class ReviewPhotosCell: UICollectionViewCell {
 
+    static let reuseIdentifier = "reviewPhotosCell"
+
     private let outerScrollView = UIScrollView()
 
     private let orthogonalStackView: UIStackView = {
