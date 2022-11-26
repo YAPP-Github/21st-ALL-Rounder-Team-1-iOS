@@ -1,15 +1,13 @@
 //
-//  DetailReviewTableViewCell.swift
+//  DetailReviewCollectionViewCell.swift
 //  RefillStation
 //
-//  Created by 천수현 on 2022/11/23.
+//  Created by 천수현 on 2022/11/25.
 //
 
 import UIKit
-import SnapKit
 
-final class DetailReviewTableViewCell: UITableViewCell {
-
+final class DetailReviewCollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier = "detailReviewTableViewCell"
 
     private let profileImageView: UIImageView = {
@@ -38,8 +36,8 @@ final class DetailReviewTableViewCell: UITableViewCell {
         return label
     }()
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         layout()
     }
 
@@ -61,12 +59,12 @@ final class DetailReviewTableViewCell: UITableViewCell {
         }
 
         profileImageView.snp.makeConstraints { profile in
-            profile.leading.top.equalTo(contentView).inset(10)
+            profile.leading.top.equalTo(contentView)
         }
 
         userNameLabel.snp.makeConstraints { nameLabel in
             nameLabel.leading.equalTo(profileImageView.snp.trailing).offset(10)
-            nameLabel.top.trailing.equalTo(contentView).inset(10)
+            nameLabel.top.trailing.equalTo(contentView)
         }
 
         writtenDateLabel.snp.makeConstraints { dateLabel in
@@ -82,13 +80,13 @@ final class DetailReviewTableViewCell: UITableViewCell {
         }
 
         reviewImageView.snp.makeConstraints { reviewImage in
-            reviewImage.leading.trailing.equalTo(contentView).inset(10)
+            reviewImage.leading.trailing.equalTo(contentView)
             reviewImage.top.equalTo(writtenDateLabel.snp.bottom).offset(10)
             reviewImage.height.equalTo(100)
         }
 
         descriptionLabel.snp.makeConstraints { description in
-            description.leading.trailing.bottom.equalTo(contentView).inset(10)
+            description.leading.trailing.bottom.equalTo(contentView)
             description.top.equalTo(reviewImageView.snp.bottom).offset(10)
         }
     }
