@@ -20,6 +20,7 @@
 		3244A23B292DCB6A00716A2B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3244A23A292DCB6A00716A2B /* RxCocoa */; };
 		3244A23D292DCB6A00716A2B /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 3244A23C292DCB6A00716A2B /* RxRelay */; };
 		3244A23F292DCB6A00716A2B /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3244A23E292DCB6A00716A2B /* RxSwift */; };
+		32E0140A2931B565000B8350 /* ReviewPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E014092931B565000B8350 /* ReviewPhotosCell.swift */; };
 		32E9A555292E1947000072EE /* TagReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A554292E1947000072EE /* TagReview.swift */; };
 		32E9A557292E195E000072EE /* TagReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A556292E195E000072EE /* TagReviewView.swift */; };
 		32E9A559292E1AFE000072EE /* VotedTagCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A558292E1AFE000072EE /* VotedTagCollectionView.swift */; };
@@ -62,6 +63,7 @@
 		3244A21F292DC13B00716A2B /* RefillStationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefillStationUITests.swift; sourceTree = "<group>"; };
 		3244A221292DC13B00716A2B /* RefillStationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefillStationUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		3244A232292DC48300716A2B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		32E014092931B565000B8350 /* ReviewPhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPhotosCell.swift; sourceTree = "<group>"; };
 		32E9A554292E1947000072EE /* TagReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagReview.swift; sourceTree = "<group>"; };
 		32E9A556292E195E000072EE /* TagReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagReviewView.swift; sourceTree = "<group>"; };
 		32E9A558292E1AFE000072EE /* VotedTagCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotedTagCollectionView.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				3244A1FF292DC13A00716A2B /* ViewController.swift */,
+				32E014092931B565000B8350 /* ReviewPhotosCell.swift */,
 				32E9A556292E195E000072EE /* TagReviewView.swift */,
 				32E9A55A292E24D2000072EE /* TagReviewViewModel.swift */,
 				32E9A558292E1AFE000072EE /* VotedTagCollectionView.swift */,
@@ -368,6 +371,7 @@
 				32E9A55D292E4F37000072EE /* VotedTagCollectionViewCell.swift in Sources */,
 				32E9A555292E1947000072EE /* TagReview.swift in Sources */,
 				3244A200292DC13A00716A2B /* ViewController.swift in Sources */,
+				32E0140A2931B565000B8350 /* ReviewPhotosCell.swift in Sources */,
 				32E9A559292E1AFE000072EE /* VotedTagCollectionView.swift in Sources */,
 				32E9A55F292E64DC000072EE /* DetailReviewTableView.swift in Sources */,
 				32E9A557292E195E000072EE /* TagReviewView.swift in Sources */,
