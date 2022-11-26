@@ -44,12 +44,10 @@
 		FC7D3527292EC72400335AAB /* StoreDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7D3526292EC72400335AAB /* StoreDetailViewModel.swift */; };
 		FC7D3529292F22B300335AAB /* StoreDetailInfoStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7D3528292F22B300335AAB /* StoreDetailInfoStackView.swift */; };
 		FC7D352B292F24D700335AAB /* StoreInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7D352A292F24D700335AAB /* StoreInfo.swift */; };
-<<<<<<< HEAD
-=======
 		FC3EBDF32932872100A9C1F9 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EBDF22932872100A9C1F9 /* Product.swift */; };
 		FC3EBDF1293266D100A9C1F9 /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EBDF0293266D100A9C1F9 /* ProductTableViewCell.swift */; };
 		FC3EBDEF2932125800A9C1F9 /* ProductTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EBDEE2932125800A9C1F9 /* ProductTableView.swift */; };
->>>>>>> develop
+
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
