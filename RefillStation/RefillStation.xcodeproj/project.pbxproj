@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3209974B2935153300956FBE /* DetailReviewCountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3209974A2935153300956FBE /* DetailReviewCountCell.swift */; };
+		3209974D293519A500956FBE /* StoreReviewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3209974C293519A500956FBE /* StoreReviewSection.swift */; };
 		3244A1FC292DC13A00716A2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A1FB292DC13A00716A2B /* AppDelegate.swift */; };
 		3244A200292DC13A00716A2B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A1FF292DC13A00716A2B /* ViewController.swift */; };
 		3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3244A204292DC13A00716A2B /* RefillStation.xcdatamodeld */; };
@@ -76,6 +77,7 @@
 
 /* Begin PBXFileReference section */
 		3209974A2935153300956FBE /* DetailReviewCountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReviewCountCell.swift; sourceTree = "<group>"; };
+		3209974C293519A500956FBE /* StoreReviewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewSection.swift; sourceTree = "<group>"; };
 		3244A1F8292DC13A00716A2B /* RefillStation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RefillStation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3244A1FB292DC13A00716A2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3244A1FF292DC13A00716A2B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				325C359E293216D4001B3741 /* StoreReviewViewController.swift */,
+				3209974C293519A500956FBE /* StoreReviewSection.swift */,
 				3209974A2935153300956FBE /* DetailReviewCountCell.swift */,
 				32A1FC0B29351045009DF915 /* StoreReviewMockData.swift */,
 				32A1FC09293507D1009DF915 /* FirstReviewRequestCell.swift */,
@@ -543,6 +546,7 @@
 				325C35A529322467001B3741 /* ReviewPhotoDelegate.swift in Sources */,
 				32E9A55B292E24D2000072EE /* VotedTagViewModel.swift in Sources */,
 				32E9A565292E704A000072EE /* DetailReviewViewModel.swift in Sources */,
+				3209974D293519A500956FBE /* StoreReviewSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

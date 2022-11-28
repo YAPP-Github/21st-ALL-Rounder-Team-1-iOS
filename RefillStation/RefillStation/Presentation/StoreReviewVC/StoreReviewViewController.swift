@@ -128,23 +128,8 @@ extension StoreReviewViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width - 2 * Constraints.outerCollectionViewInset // inset 좌 우 각각 20
-
-        switch indexPath.section {
-        case Section.moveToWriteReview.rawValue:
-            return CGSize(width: width, height: Constraints.moveToWriteReviewHeight)
-        case Section.firstReviewRequest.rawValue:
-            return CGSize(width: width, height: Constraints.firstReviewRequestHeight)
-        case Section.VotedCountLabel.rawValue:
-            return CGSize(width: width, height: Constraints.votedCountLabelHeight)
-        case Section.VotedTagCollectionView.rawValue:
-            return CGSize(width: width, height: Constraints.votedCollectionViewCellHeight)
-        case Section.detailReviewCount.rawValue:
-            return CGSize(width: width, height: Constraints.detailReviewCountHeight)
-        case Section.DetailReviewCollectionView.rawValue:
-            return CGSize(width: width, height: Constraints.detailReviewCellHeight)
-        default:
-            return .zero
-        }
+        guard let height = Section(rawValue: indexPath.section)?.cellHeight else { return .zero }
+        return CGSize(width: width, height: height)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -153,31 +138,11 @@ extension StoreReviewViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: - Section
-
-extension StoreReviewViewController {
-
-    enum Section: Int, CaseIterable {
-        case moveToWriteReview
-        case firstReviewRequest
-        case VotedCountLabel
-        case VotedTagCollectionView
-        case detailReviewCount
-        case DetailReviewCollectionView
-    }
-}
-
 // MARK: - Constraints
 
 extension StoreReviewViewController {
 
     enum Constraints {
-        static let moveToWriteReviewHeight: CGFloat = 40
-        static let firstReviewRequestHeight: CGFloat = 190
-        static let votedCountLabelHeight: CGFloat = 40
-        static let votedCollectionViewCellHeight: CGFloat = 240
-        static let detailReviewCellHeight: CGFloat = 200
-        static let detailReviewCountHeight: CGFloat = 40
         static let outerCollectionViewInset: CGFloat = 10
     }
 }
