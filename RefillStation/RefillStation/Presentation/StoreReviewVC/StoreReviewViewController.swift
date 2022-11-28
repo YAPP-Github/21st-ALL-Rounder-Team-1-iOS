@@ -128,7 +128,7 @@ extension StoreReviewViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         let inset = Constraints.outerCollectionViewInset
-        return UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
+        return UIEdgeInsets(top: inset, left: inset, bottom: 0, right: inset)
     }
 }
 
@@ -137,6 +137,6 @@ extension StoreReviewViewController: UICollectionViewDelegateFlowLayout {
 extension StoreReviewViewController {
 
     enum Constraints {
-        static let outerCollectionViewInset: CGFloat = 10
+        static let outerCollectionViewInset: CGFloat = 16
     }
 }

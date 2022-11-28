@@ -14,11 +14,14 @@ final class DetailReviewCountCell: UICollectionViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "리뷰"
+        label.font = UIFont.font(style: .titleMedium)
         return label
     }()
 
     private let reviewCountLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.font(style: .titleMedium)
+        label.textColor = Asset.Colors.primary3.color
         return label
     }()
 
