@@ -8,9 +8,12 @@
 import UIKit
 import SnapKit
 import PhotosUI
+import RxSwift
+import RxCocoa
 
 final class ReviewWritingViewController: UIViewController {
 
+    private var disposeBag = DisposeBag()
     private lazy var reviewSelectingViewModel = makeMockViewModel()
     private lazy var outerCollectionView = UICollectionView(frame: .zero,
                                                             collectionViewLayout: compositionalLayout())
@@ -27,6 +30,7 @@ final class ReviewWritingViewController: UIViewController {
         view.backgroundColor = .white
         setUpCollectionView()
         layout()
+        bind()
     }
 
     private func setUpCollectionView() {
@@ -53,6 +57,16 @@ final class ReviewWritingViewController: UIViewController {
         outerCollectionView.snp.makeConstraints { collection in
             collection.edges.equalTo(view.safeAreaLayoutGuide)
         }
+    }
+
+    private func bind() {
+        outerCollectionView.rx.itemSelected.subscribe(onNext: { [weak self] indexPath in
+            self?.reviewSelectingViewModel.didSelectItemAt(indexPath: indexPath)
+        }).disposed(by: disposeBag)
+
+        outerCollectionView.rx.itemDeselected.subscribe(onNext: { [weak self] indexPath in
+            self?.reviewSelectingViewModel.didDeSelectItemAt(indexPath: indexPath)
+        }).disposed(by: disposeBag)
     }
 }
 
@@ -127,9 +141,7 @@ extension ReviewWritingViewController {
 //
 extension ReviewWritingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        guard indexPath.section == Section.tagReview.rawValue,
-              let selectedItems = collectionView.indexPathsForSelectedItems else { return false }
-        return selectedItems.count < 3
+        return reviewSelectingViewModel.shouldSelectCell
     }
 }
 

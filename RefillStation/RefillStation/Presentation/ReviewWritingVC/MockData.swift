@@ -8,8 +8,8 @@
 import Foundation
 
 extension ReviewWritingViewController {
-    func makeMockViewModel() -> TagReviewViewModel {
-        let viewModel = TagReviewViewModel()
+    func makeMockViewModel() -> DefaultTagReviewViewModel {
+        let viewModel = DefaultTagReviewViewModel()
         viewModel.reviews = [
             .init(tagTitle: "점원이 친절해요", voteCount: 0),
             .init(tagTitle: "품목이 다양해요", voteCount: 0),
