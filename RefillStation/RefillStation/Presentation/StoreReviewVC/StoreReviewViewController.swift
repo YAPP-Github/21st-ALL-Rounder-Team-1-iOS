@@ -82,16 +82,6 @@ extension StoreReviewViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
-        case Section.moveToWriteReview.rawValue:
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: MoveToWriteReviewCell.reuseIdentifier,
-                for: indexPath) as? MoveToWriteReviewCell else { return UICollectionViewCell() }
-            return cell
-        case Section.firstReviewRequest.rawValue:
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: FirstReviewRequestCell.reuseIdentifier,
-                for: indexPath) as? FirstReviewRequestCell else { return UICollectionViewCell() }
-            return cell
         case Section.VotedCountLabel.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: VotedCountLabelCell.reuseIdentifier,
@@ -117,7 +107,11 @@ extension StoreReviewViewController: UICollectionViewDataSource {
             cell.setUpContents(detailReview: detailReviewViewModel.detailReviews[indexPath.row])
             return cell
         default:
-            return UICollectionViewCell()
+            guard let reuseIdentifier = Section(rawValue: indexPath.section)?.reuseIdentifier else {
+                return UICollectionViewCell()
+            }
+            return collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
+                                                      for: indexPath)
         }
     }
 }

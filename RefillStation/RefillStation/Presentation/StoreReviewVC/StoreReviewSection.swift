@@ -33,5 +33,22 @@ extension StoreReviewViewController {
                 return 200
             }
         }
+
+        var reuseIdentifier: String {
+            switch self {
+            case .moveToWriteReview:
+                return MoveToWriteReviewCell.reuseIdentifier
+            case .firstReviewRequest:
+                return FirstReviewRequestCell.reuseIdentifier
+            case .VotedCountLabel:
+                return VotedCountLabelCell.reuseIdentifier
+            case .VotedTagCollectionView:
+                return VotedTagCollectionViewCell.reuseIdentifier
+            case .detailReviewCount:
+                return DetailReviewCountCell.reuseIdentifier
+            case .DetailReviewCollectionView:
+                return DetailReviewCollectionViewCell.reuseIdentifier
+            }
+        }
     }
 }
