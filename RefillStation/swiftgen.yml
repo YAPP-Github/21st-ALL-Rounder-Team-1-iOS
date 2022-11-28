@@ -1,0 +1,12 @@
+input_dir: RefillStation/Resources/
+output_dir: RefillStation/Resources/
+
+xcassets:
+  inputs:
+    - Images.xcassets
+    - Colors.xcassets
+  outputs:
+    - templateName: swift5
+      params:
+        forceProvidesNamespaces: true
+      output: Assets+Generated.swift
