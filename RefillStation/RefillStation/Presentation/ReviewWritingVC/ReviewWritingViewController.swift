@@ -84,6 +84,9 @@ final class ReviewWritingViewController: UIViewController {
             return
         }
         outerCollectionView.contentInset = .init(top: 0, left: 0, bottom: keyboardRect.height, right: 0)
+
+        outerCollectionView.scrollToItem(at: IndexPath(item: 0, section: Section.reviewDescription.rawValue),
+                                         at: .top, animated: true)
     }
 
     @objc
