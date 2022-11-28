@@ -12,10 +12,10 @@ final class ReviewDescriptionCell: UICollectionViewCell {
 
     static let reuseIdentifier = "reviewDescriptionCell"
 
+    private let placeholder = "다른 손님에게도 도움이 되도록 매장을 이용하며 느꼈던 점을 솔직하게 알려주세요!"
     private let reviewTextView: UITextView = {
         let textView = UITextView()
         textView.isEditable = true
-        textView.text = "placeholder"
         textView.textColor = .lightGray
         textView.textContainerInset = .init(top: 16, left: 16, bottom: 16, right: 16)
         return textView
@@ -47,6 +47,7 @@ final class ReviewDescriptionCell: UICollectionViewCell {
 
     private func setUpReviewTextView() {
         reviewTextView.delegate = self
+        reviewTextView.text = placeholder
     }
 
     private func layout() {
@@ -73,7 +74,7 @@ extension ReviewDescriptionCell: UITextViewDelegate {
 
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = "placeholder"
+            textView.text = placeholder
         }
     }
 }

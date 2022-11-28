@@ -52,7 +52,7 @@ extension ReviewWritingViewController {
                 section = NSCollectionLayoutSection(group: group)
             case .reviewDescription:
                 let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                       heightDimension: .absolute(400))
+                                                       heightDimension: .absolute(220))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [defaultItem])
                 section = NSCollectionLayoutSection(group: group)
             case .registerButton:
