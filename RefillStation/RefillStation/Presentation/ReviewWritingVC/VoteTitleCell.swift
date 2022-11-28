@@ -39,14 +39,14 @@ final class VoteTitleCell: UICollectionViewCell {
         }
 
         voteTitleLabel.snp.makeConstraints { titleLabel in
-            titleLabel.leading.top.bottom.equalToSuperview().inset(5)
+            titleLabel.leading.top.bottom.equalToSuperview()
         }
 
         voteTitleLabel.setContentHuggingPriority(.required, for: .horizontal)
 
         maximumVoteLabel.snp.makeConstraints { voteLabel in
             voteLabel.leading.equalTo(voteTitleLabel.snp.trailing).offset(5)
-            voteLabel.trailing.top.bottom.equalToSuperview().inset(5)
+            voteLabel.trailing.top.bottom.equalToSuperview()
         }
     }
 }

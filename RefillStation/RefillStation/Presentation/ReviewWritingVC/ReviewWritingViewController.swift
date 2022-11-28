@@ -132,9 +132,13 @@ extension ReviewWritingViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewCompositionalLayout
 extension ReviewWritingViewController {
     private func compositionalLayout() -> UICollectionViewCompositionalLayout {
-        UICollectionViewCompositionalLayout { section, environment in
+        let configuration = UICollectionViewCompositionalLayoutConfiguration()
+        configuration.interSectionSpacing = 20
+        configuration.contentInsetsReference = .readableContent
+
+        return UICollectionViewCompositionalLayout(sectionProvider: { section, environment in
             return Section(rawValue: section)?.layoutSection
-        }
+        }, configuration: configuration)
     }
 }
 

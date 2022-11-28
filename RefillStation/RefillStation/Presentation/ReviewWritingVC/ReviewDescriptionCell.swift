@@ -17,6 +17,7 @@ final class ReviewDescriptionCell: UICollectionViewCell {
         textView.isEditable = true
         textView.text = "placeholder"
         textView.textColor = .lightGray
+        textView.textContainerInset = .init(top: 16, left: 16, bottom: 16, right: 16)
         return textView
     }()
 
@@ -28,12 +29,24 @@ final class ReviewDescriptionCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setUpContentView()
         setUpReviewTextView()
         layout()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+
+    private func setUpContentView() {
+        contentView.layer.borderWidth = 1
+        contentView.layer.cornerRadius = 6
+        contentView.layer.borderColor = UIColor.lightGray.cgColor
+        contentView.clipsToBounds = true
+    }
+
+    private func setUpReviewTextView() {
+        reviewTextView.delegate = self
     }
 
     private func layout() {
@@ -46,13 +59,9 @@ final class ReviewDescriptionCell: UICollectionViewCell {
         }
 
         textCountLabel.snp.makeConstraints { label in
-            label.trailing.bottom.equalToSuperview()
-            label.top.equalTo(reviewTextView.snp.bottom).offset(5)
+            label.trailing.bottom.equalToSuperview().inset(16)
+            label.top.equalTo(reviewTextView.snp.bottom).offset(16)
         }
-    }
-
-    private func setUpReviewTextView() {
-        reviewTextView.delegate = self
     }
 }
 

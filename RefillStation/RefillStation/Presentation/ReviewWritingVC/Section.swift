@@ -39,7 +39,7 @@ extension ReviewWritingViewController {
                                                       heightDimension: .fractionalHeight(1/4))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 item.contentInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(7/10),
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.55),
                                                        heightDimension: .absolute(200))
                 let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
