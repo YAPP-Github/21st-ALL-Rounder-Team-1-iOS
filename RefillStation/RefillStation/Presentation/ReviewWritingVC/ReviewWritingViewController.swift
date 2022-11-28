@@ -31,6 +31,7 @@ final class ReviewWritingViewController: UIViewController {
         setUpCollectionView()
         layout()
         bind()
+        addKeyboardNotification()
     }
 
     private func setUpCollectionView() {
@@ -67,6 +68,27 @@ final class ReviewWritingViewController: UIViewController {
         outerCollectionView.rx.itemDeselected.subscribe(onNext: { [weak self] indexPath in
             self?.reviewSelectingViewModel.didDeSelectItemAt(indexPath: indexPath)
         }).disposed(by: disposeBag)
+    }
+
+    private func addKeyboardNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc
+    private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+           let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        outerCollectionView.contentInset = .init(top: 0, left: 0, bottom: keyboardRect.height, right: 0)
+    }
+
+    @objc
+    private func keyboardWillHide(_ notification: Notification) {
+        outerCollectionView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 0)
     }
 }
 

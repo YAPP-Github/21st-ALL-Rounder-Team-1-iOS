@@ -102,6 +102,8 @@ extension ReviewDescriptionCell: UITextViewDelegate {
         guard let textViewText = textView.text,
               let rangeToChange = Range(range, in: textViewText) else { return false }
 
+        if text == "\n" { textView.resignFirstResponder() }
+
         let updatedText = textViewText.replacingCharacters(in: rangeToChange, with: text)
         return updatedText.count <= 500
     }
