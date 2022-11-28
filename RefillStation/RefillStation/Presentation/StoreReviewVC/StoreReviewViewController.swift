@@ -58,14 +58,14 @@ extension StoreReviewViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-        case Section.firstReviewRequest.rawValue:
-            return votedTagViewModel.totalVoteCount + detailReviewViewModel.detailReviews.count == 0 ? 1 : 0
         case Section.moveToWriteReview.rawValue:
             return 1
+        case Section.firstReviewRequest.rawValue:
+            return votedTagViewModel.totalVoteCount + detailReviewViewModel.detailReviews.count == 0 ? 1 : 0
         case Section.VotedCountLabel.rawValue:
-            return 1
+            return votedTagViewModel.totalVoteCount == 0 ? 0 : 1
         case Section.VotedTagCollectionView.rawValue:
-            return 1
+            return votedTagViewModel.totalVoteCount == 0 ? 0 : 1
         case Section.DetailReviewCollectionView.rawValue:
             return detailReviewViewModel.detailReviews.count
         default:
@@ -95,7 +95,7 @@ extension StoreReviewViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: VotedTagCollectionViewCell.reuseIdentifier,
                 for: indexPath) as? VotedTagCollectionViewCell else { return UICollectionViewCell() }
-            cell.setUpContents(tagReview: votedTagViewModel.tagReviews)
+            cell.setUpContents(tagReviews: votedTagViewModel.tagReviews)
             return cell
         case Section.DetailReviewCollectionView.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
@@ -143,8 +143,8 @@ extension StoreReviewViewController: UICollectionViewDelegateFlowLayout {
 extension StoreReviewViewController {
 
     enum Section: Int, CaseIterable {
-        case firstReviewRequest
         case moveToWriteReview
+        case firstReviewRequest
         case VotedCountLabel
         case VotedTagCollectionView
         case DetailReviewCollectionView
@@ -156,8 +156,8 @@ extension StoreReviewViewController {
 extension StoreReviewViewController {
 
     enum Constraints {
-        static let firstReviewRequestHeight: CGFloat = 190
         static let moveToWriteReviewHeight: CGFloat = 40
+        static let firstReviewRequestHeight: CGFloat = 190
         static let votedCountLabelHeight: CGFloat = 40
         static let votedCollectionViewCellHeight: CGFloat = 240
         static let detailReviewCellHeight: CGFloat = 200

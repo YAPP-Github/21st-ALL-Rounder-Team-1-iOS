@@ -34,7 +34,7 @@ extension StoreReviewViewController {
 
     func makeMockVoteTagViewModel() -> VotedTagViewModel {
         let viewModel = VotedTagViewModel()
-        viewModel.totalVoteCount = 10
+        viewModel.totalVoteCount = 2
         viewModel.tagReviews = [
             .init(tagTitle: "친절해요", voteCount: 3, image: UIImage(systemName: "zzz")),
             .init(tagTitle: "청결해요", voteCount: 4, image: UIImage(systemName: "zzz")),

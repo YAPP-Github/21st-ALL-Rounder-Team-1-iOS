@@ -35,11 +35,11 @@ final class VotedTagCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
-    func setUpContents(tagReview: [TagReview]) {
+    func setUpContents(tagReviews: [TagReview]) {
         let classes = [firstClassBox, secondClassBox, thirdClassBox, forthClassBox]
 
-        classes.enumerated().forEach { index, item in
-            item.setUpContents(tagReview: tagReview[index])
+        for index in 0..<tagReviews.count {
+            classes[index].setUpContents(tagReview: tagReviews[index])
         }
     }
 
