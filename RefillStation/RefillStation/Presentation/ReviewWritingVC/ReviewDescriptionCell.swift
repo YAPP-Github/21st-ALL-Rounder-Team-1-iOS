@@ -18,12 +18,23 @@ final class ReviewDescriptionCell: UICollectionViewCell {
         textView.isEditable = true
         textView.textColor = .lightGray
         textView.textContainerInset = .init(top: 16, left: 16, bottom: 16, right: 16)
+        textView.font = UIFont.font(style: .bodyMedium)
         return textView
     }()
 
     private let textCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "0/500"
+        label.text = "0"
+        label.font = .systemFont(ofSize: 12)
+        label.textColor = Asset.Colors.gray7.color
+        return label
+    }()
+
+    private let maxTextLabel: UILabel = {
+        let label = UILabel()
+        label.text = "/500"
+        label.font = .systemFont(ofSize: 12)
+        label.textColor = Asset.Colors.gray4.color
         return label
     }()
 
@@ -41,7 +52,7 @@ final class ReviewDescriptionCell: UICollectionViewCell {
     private func setUpContentView() {
         contentView.layer.borderWidth = 1
         contentView.layer.cornerRadius = 6
-        contentView.layer.borderColor = UIColor.lightGray.cgColor
+        contentView.layer.borderColor = Asset.Colors.gray2.color.cgColor
         contentView.clipsToBounds = true
     }
 
@@ -51,7 +62,7 @@ final class ReviewDescriptionCell: UICollectionViewCell {
     }
 
     private func layout() {
-        [reviewTextView, textCountLabel].forEach {
+        [reviewTextView, textCountLabel, maxTextLabel].forEach {
             contentView.addSubview($0)
         }
 
@@ -59,9 +70,14 @@ final class ReviewDescriptionCell: UICollectionViewCell {
             textView.leading.top.trailing.equalToSuperview()
         }
 
-        textCountLabel.snp.makeConstraints { label in
+        maxTextLabel.snp.makeConstraints { label in
             label.trailing.bottom.equalToSuperview().inset(16)
             label.top.equalTo(reviewTextView.snp.bottom).offset(16)
+        }
+
+        textCountLabel.snp.makeConstraints { label in
+            label.trailing.equalTo(maxTextLabel.snp.leading)
+            label.bottom.equalToSuperview().inset(16)
         }
     }
 }

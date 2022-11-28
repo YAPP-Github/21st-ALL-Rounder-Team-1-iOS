@@ -15,8 +15,10 @@ final class ReviewRegisterCell: UICollectionViewCell {
     private let registerButton: UIButton = {
         let button = UIButton()
         button.setTitle("등록하기", for: .normal)
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 5
+        button.backgroundColor = Asset.Colors.primary3.color
+        button.layer.cornerRadius = 8
+        button.titleLabel?.font = UIFont.font(style: .buttonLarge)
+        button.titleLabel?.textColor = .white
         return button
     }()
 

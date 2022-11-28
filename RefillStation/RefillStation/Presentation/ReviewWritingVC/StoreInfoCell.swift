@@ -14,11 +14,15 @@ final class StoreInfoCell: UICollectionViewCell {
 
     private let storeNamelabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.font(style: .titleSmall)
+        label.textColor = Asset.Colors.gray6.color
         return label
     }()
 
     private let storeLocationLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.font(style: .bodySmall)
+        label.textColor = Asset.Colors.gray4.color
         return label
     }()
 

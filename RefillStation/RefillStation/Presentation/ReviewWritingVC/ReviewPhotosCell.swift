@@ -18,6 +18,8 @@ final class ReviewPhotosCell: UICollectionViewCell {
     private let pleaseReviewLabel: UILabel = {
         let label = UILabel()
         label.text = "리뷰를 남겨주세요!"
+        label.font = UIFont.font(style: .titleMedium)
+        label.textColor = Asset.Colors.gray7.color
         return label
     }()
 
@@ -31,11 +33,12 @@ final class ReviewPhotosCell: UICollectionViewCell {
     private let addPhotoButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "camera"), for: .normal)
-        button.layer.borderColor = UIColor.lightGray.cgColor
-        button.layer.cornerRadius = 5
+        button.layer.borderColor = Asset.Colors.gray3.color.cgColor
+        button.layer.cornerRadius = 4
         button.layer.borderWidth = 1
-        button.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 90).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 90).isActive = true
+        button.tintColor = Asset.Colors.gray5.color
         return button
     }()
 
@@ -43,11 +46,11 @@ final class ReviewPhotosCell: UICollectionViewCell {
 
     private var defaultImageView: UIImageView {
         let imageView = UIImageView()
-        imageView.layer.borderColor = UIColor.lightGray.cgColor
-        imageView.layer.cornerRadius = 5
+        imageView.layer.borderColor = Asset.Colors.gray3.color.cgColor
+        imageView.layer.cornerRadius = 4
         imageView.layer.borderWidth = 1
-        imageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 90).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 90).isActive = true
         imageView.clipsToBounds = true
         return imageView
     }
