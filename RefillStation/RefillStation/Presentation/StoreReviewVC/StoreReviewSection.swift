@@ -12,10 +12,10 @@ extension StoreReviewViewController {
     enum Section: Int, CaseIterable {
         case moveToWriteReview
         case firstReviewRequest
-        case VotedCountLabel
-        case VotedTagCollectionView
+        case votedCount
+        case votedTagBoxes
         case detailReviewCount
-        case DetailReviewCollectionView
+        case detailReviews
 
         var cellHeight: CGFloat {
             switch self {
@@ -23,13 +23,13 @@ extension StoreReviewViewController {
                 return 40
             case .firstReviewRequest:
                 return 190
-            case .VotedCountLabel:
+            case .votedCount:
                 return 40
-            case .VotedTagCollectionView:
+            case .votedTagBoxes:
                 return 240
             case .detailReviewCount:
                 return 40
-            case .DetailReviewCollectionView:
+            case .detailReviews:
                 return 200
             }
         }
@@ -40,13 +40,13 @@ extension StoreReviewViewController {
                 return MoveToWriteReviewCell.reuseIdentifier
             case .firstReviewRequest:
                 return FirstReviewRequestCell.reuseIdentifier
-            case .VotedCountLabel:
+            case .votedCount:
                 return VotedCountLabelCell.reuseIdentifier
-            case .VotedTagCollectionView:
+            case .votedTagBoxes:
                 return VotedTagCollectionViewCell.reuseIdentifier
             case .detailReviewCount:
                 return DetailReviewCountCell.reuseIdentifier
-            case .DetailReviewCollectionView:
+            case .detailReviews:
                 return DetailReviewCollectionViewCell.reuseIdentifier
             }
         }

@@ -67,13 +67,13 @@ extension StoreReviewViewController: UICollectionViewDataSource {
             return 1
         case Section.firstReviewRequest.rawValue:
             return votedTagViewModel.totalVoteCount + detailReviewViewModel.detailReviews.count == 0 ? 1 : 0
-        case Section.VotedCountLabel.rawValue:
+        case Section.votedCount.rawValue:
             return votedTagViewModel.totalVoteCount == 0 ? 0 : 1
-        case Section.VotedTagCollectionView.rawValue:
+        case Section.votedTagBoxes.rawValue:
             return votedTagViewModel.totalVoteCount == 0 ? 0 : 1
         case Section.detailReviewCount.rawValue:
             return detailReviewViewModel.detailReviews.count == 0 ? 0 : 1
-        case Section.DetailReviewCollectionView.rawValue:
+        case Section.detailReviews.rawValue:
             return detailReviewViewModel.detailReviews.count
         default:
             return 0
@@ -82,13 +82,13 @@ extension StoreReviewViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
-        case Section.VotedCountLabel.rawValue:
+        case Section.votedCount.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: VotedCountLabelCell.reuseIdentifier,
                 for: indexPath) as? VotedCountLabelCell else { return UICollectionViewCell() }
             cell.setUpContents(totalVote: votedTagViewModel.totalVoteCount)
             return cell
-        case Section.VotedTagCollectionView.rawValue:
+        case Section.votedTagBoxes.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: VotedTagCollectionViewCell.reuseIdentifier,
                 for: indexPath) as? VotedTagCollectionViewCell else { return UICollectionViewCell() }
@@ -100,7 +100,7 @@ extension StoreReviewViewController: UICollectionViewDataSource {
                 for: indexPath) as? DetailReviewCountCell else { return UICollectionViewCell() }
             cell.setUpContents(totalDetailReviewCount: detailReviewViewModel.detailReviews.count)
             return cell
-        case Section.DetailReviewCollectionView.rawValue:
+        case Section.detailReviews.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: DetailReviewCollectionViewCell.reuseIdentifier,
                 for: indexPath) as? DetailReviewCollectionViewCell else { return UICollectionViewCell() }
