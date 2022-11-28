@@ -91,6 +91,7 @@ extension ReviewDescriptionCell: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = placeholder
+            textView.textColor = Asset.Colors.gray4.color
         }
     }
 
