@@ -93,4 +93,16 @@ extension ReviewDescriptionCell: UITextViewDelegate {
             textView.text = placeholder
         }
     }
+
+    func textViewDidChange(_ textView: UITextView) {
+        self.textCountLabel.text = "\(textView.text.count)"
+    }
+
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard let textViewText = textView.text,
+              let rangeToChange = Range(range, in: textViewText) else { return false }
+
+        let updatedText = textViewText.replacingCharacters(in: rangeToChange, with: text)
+        return updatedText.count <= 500
+    }
 }
