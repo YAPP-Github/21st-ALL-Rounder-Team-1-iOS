@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3209974B2935153300956FBE /* DetailReviewCountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3209974A2935153300956FBE /* DetailReviewCountCell.swift */; };
 		3244A1FC292DC13A00716A2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A1FB292DC13A00716A2B /* AppDelegate.swift */; };
 		3244A200292DC13A00716A2B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A1FF292DC13A00716A2B /* ViewController.swift */; };
 		3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3244A204292DC13A00716A2B /* RefillStation.xcdatamodeld */; };
@@ -74,6 +75,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3209974A2935153300956FBE /* DetailReviewCountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReviewCountCell.swift; sourceTree = "<group>"; };
 		3244A1F8292DC13A00716A2B /* RefillStation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RefillStation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3244A1FB292DC13A00716A2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3244A1FF292DC13A00716A2B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				325C359E293216D4001B3741 /* StoreReviewViewController.swift */,
+				3209974A2935153300956FBE /* DetailReviewCountCell.swift */,
 				32A1FC0B29351045009DF915 /* StoreReviewMockData.swift */,
 				32A1FC09293507D1009DF915 /* FirstReviewRequestCell.swift */,
 				324CCBDE29321616001F6FDA /* MoveToWriteReviewCell.swift */,
@@ -524,6 +527,7 @@
 				FC3EBDF1293266D100A9C1F9 /* ProductTableViewCell.swift in Sources */,
 				3244A200292DC13A00716A2B /* ViewController.swift in Sources */,
 				32A1FC0C29351045009DF915 /* StoreReviewMockData.swift in Sources */,
+				3209974B2935153300956FBE /* DetailReviewCountCell.swift in Sources */,
 				FC3EBDEF2932125800A9C1F9 /* ProductTableView.swift in Sources */,
 				FCEE102F2934CCB8002E629D /* Fonts.swift in Sources */,
 				FC3EBDF32932872100A9C1F9 /* Product.swift in Sources */,
