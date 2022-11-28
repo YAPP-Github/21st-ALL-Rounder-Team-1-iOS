@@ -85,17 +85,22 @@ final class VotedTagReviewBox: UIView {
 
     private let tagTitleLabel: UILabel = {
         let label = UILabel()
+        label.textColor = Asset.Colors.gray6.color
+        label.textAlignment = .center
         return label
     }()
 
     private let voteCountLabel: UILabel = {
         let label = UILabel()
+        label.textColor = Asset.Colors.primary2.color
         return label
     }()
 
     init(tagClass: TagClass) {
         self.tagClass = tagClass
         super.init(frame: .zero)
+        setLabelFont()
+        setUpSelf()
         layout()
     }
 
@@ -110,6 +115,22 @@ final class VotedTagReviewBox: UIView {
         voteCountLabel.text = "\(tagReview.voteCount)"
     }
 
+    private func setLabelFont() {
+        [tagTitleLabel, voteCountLabel].forEach {
+            if self.tagClass == .first {
+                $0.font = UIFont.font(style: .titleSmall)
+            } else {
+                $0.font = .systemFont(ofSize: 12)
+            }
+        }
+    }
+
+    private func setUpSelf() {
+        layer.cornerRadius = 6
+        clipsToBounds = true
+        backgroundColor = Asset.Colors.gray1.color
+    }
+
     private func layout() {
         [tagImageView, tagTitleLabel, voteCountLabel].forEach {
             addSubview($0)
@@ -119,24 +140,38 @@ final class VotedTagReviewBox: UIView {
             image.centerX.equalToSuperview()
         }
 
-        tagTitleLabel.snp.makeConstraints { title in
-            title.top.equalTo(tagImageView.snp.bottom).offset(15)
-            title.centerX.equalToSuperview()
-        }
-
-        addVoteCountLabelConstraints()
+        addConstraintsWithTagClassOption()
     }
 
-    private func addVoteCountLabelConstraints() {
+    private func addConstraintsWithTagClassOption() {
         if tagClass == .first {
+            tagTitleLabel.snp.remakeConstraints { title in
+                title.top.equalTo(tagImageView.snp.bottom).offset(10)
+                title.centerX.equalToSuperview()
+            }
+
             voteCountLabel.snp.makeConstraints { count in
                 count.top.equalTo(tagTitleLabel.snp.top)
                 count.leading.equalTo(tagTitleLabel.snp.trailing).offset(5)
             }
+
+            tagImageView.snp.makeConstraints { image in
+                image.centerY.equalToSuperview().multipliedBy(0.8)
+            }
+
         } else {
+            tagTitleLabel.snp.makeConstraints { title in
+                title.top.equalTo(tagImageView.snp.bottom).offset(10)
+                title.leading.trailing.equalToSuperview().inset(20)
+            }
+
             voteCountLabel.snp.makeConstraints { count in
                 count.top.equalTo(tagTitleLabel.snp.bottom).offset(5)
                 count.centerX.equalToSuperview()
+            }
+
+            tagImageView.snp.makeConstraints { image in
+                image.centerY.equalToSuperview().multipliedBy(0.7)
             }
         }
     }
