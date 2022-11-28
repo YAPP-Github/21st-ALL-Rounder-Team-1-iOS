@@ -84,8 +84,10 @@ final class ReviewDescriptionCell: UICollectionViewCell {
 
 extension ReviewDescriptionCell: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        textView.text = nil
-        textView.textColor = .label
+        if textView.text == placeholder {
+            textView.text = nil
+            textView.textColor = .label
+        }
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
