@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3209974B2935153300956FBE /* DetailReviewCountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3209974A2935153300956FBE /* DetailReviewCountCell.swift */; };
 		3209974D293519A500956FBE /* StoreReviewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3209974C293519A500956FBE /* StoreReviewSection.swift */; };
+		320997532935E8F300956FBE /* StoreDetailTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320997522935E8F300956FBE /* StoreDetailTabViewController.swift */; };
+		320997552935EDE700956FBE /* TabViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320997542935EDE700956FBE /* TabViewDelegate.swift */; };
 		3244A1FC292DC13A00716A2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A1FB292DC13A00716A2B /* AppDelegate.swift */; };
 		3244A200292DC13A00716A2B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A1FF292DC13A00716A2B /* ViewController.swift */; };
 		3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3244A204292DC13A00716A2B /* RefillStation.xcdatamodeld */; };
@@ -78,6 +80,8 @@
 /* Begin PBXFileReference section */
 		3209974A2935153300956FBE /* DetailReviewCountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReviewCountCell.swift; sourceTree = "<group>"; };
 		3209974C293519A500956FBE /* StoreReviewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewSection.swift; sourceTree = "<group>"; };
+		320997522935E8F300956FBE /* StoreDetailTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailTabViewController.swift; sourceTree = "<group>"; };
+		320997542935EDE700956FBE /* TabViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewDelegate.swift; sourceTree = "<group>"; };
 		3244A1F8292DC13A00716A2B /* RefillStation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RefillStation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3244A1FB292DC13A00716A2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3244A1FF292DC13A00716A2B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -234,6 +238,8 @@
 			isa = PBXGroup;
 			children = (
 				3244A1FF292DC13A00716A2B /* ViewController.swift */,
+				320997522935E8F300956FBE /* StoreDetailTabViewController.swift */,
+				320997542935EDE700956FBE /* TabViewDelegate.swift */,
 				FC7D3523292EC1C500335AAB /* StoreDetailScene */,
 				324CCBDA29321578001F6FDA /* ReviewWritingVC */,
 				324CCBE3293216A6001F6FDA /* StoreReviewVC */,
@@ -515,6 +521,7 @@
 				32E9A55D292E4F37000072EE /* VotedTagCollectionViewCell.swift in Sources */,
 				32E9A555292E1947000072EE /* TagReview.swift in Sources */,
 				FC7D351F292E99D400335AAB /* StoreDetailInfoView.swift in Sources */,
+				320997552935EDE700956FBE /* TabViewDelegate.swift in Sources */,
 				325C35A72932CE17001B3741 /* ReviewRegisterCell.swift in Sources */,
 				32E014172932138F000B8350 /* DefaultTagReviewViewModel.swift in Sources */,
 				3244A200292DC13A00716A2B /* ViewController.swift in Sources */,
@@ -537,6 +544,7 @@
 				32E9A561292E68CF000072EE /* DetailReview+User.swift in Sources */,
 				324CCBE029321616001F6FDA /* DetailReviewCollectionViewCell.swift in Sources */,
 				32A1FC0A293507D1009DF915 /* FirstReviewRequestCell.swift in Sources */,
+				320997532935E8F300956FBE /* StoreDetailTabViewController.swift in Sources */,
 				3244A1FC292DC13A00716A2B /* AppDelegate.swift in Sources */,
 				FCEE10312934D287002E629D /* Assets+Generated.swift in Sources */,
 				FC7D352B292F24D700335AAB /* StoreInfo.swift in Sources */,

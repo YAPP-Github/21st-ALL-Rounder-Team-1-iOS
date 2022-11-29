@@ -109,10 +109,12 @@ final class StoreDetailInfoView: UIView {
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.bottom.equalToSuperview()
             $0.height.equalTo(60)
+            $0.top.equalTo(closeTimeLabel.snp.bottom).offset(10)
         }
     }
 
     private func render() {
+        backgroundColor = .white
         mapButton.clipsToBounds = true
         storeInfoStackView.clipsToBounds = true
         mapButton.layer.cornerRadius = 22

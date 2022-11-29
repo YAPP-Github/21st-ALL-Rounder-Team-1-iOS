@@ -16,6 +16,8 @@ final class StoreReviewViewController: UIViewController {
     private lazy var detailReviewCollectionView = UICollectionView(frame: .zero,
                                                                    collectionViewLayout: UICollectionViewFlowLayout())
 
+    weak var tabViewDelegate: TabViewDelegate?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -41,7 +43,11 @@ final class StoreReviewViewController: UIViewController {
 
         detailReviewCollectionView.dataSource = self
         detailReviewCollectionView.delegate = self
+
         detailReviewCollectionView.allowsSelection = false
+
+        detailReviewCollectionView.bounces = false
+        detailReviewCollectionView.showsVerticalScrollIndicator = false
     }
 
     private func layout() {
@@ -138,5 +144,13 @@ extension StoreReviewViewController {
 
     enum Constraints {
         static let outerCollectionViewInset: CGFloat = 16
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+
+extension StoreReviewViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        tabViewDelegate?.scrollViewDidScroll(offset: scrollView.contentOffset)
     }
 }
