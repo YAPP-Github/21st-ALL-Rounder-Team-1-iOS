@@ -35,6 +35,7 @@ final class StoreDetailTabViewController: UIViewController {
 
     private func setUpTabman() {
         tabmanViewController.dataSource = self
+        tabmanViewController.isScrollEnabled = false
 
         let bar = TMBar.ButtonBar()
         bar.layout.transitionStyle = .snap
