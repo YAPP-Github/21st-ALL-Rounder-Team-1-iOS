@@ -23,7 +23,7 @@ final class ProductDetailViewController: UIViewController {
         view.addSubview(productTableView)
 
         productTableView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.edges.equalToSuperview().inset(16)
         }
     }
 
