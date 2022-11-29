@@ -11,6 +11,7 @@
 		3209974D293519A500956FBE /* StoreReviewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3209974C293519A500956FBE /* StoreReviewSection.swift */; };
 		320997532935E8F300956FBE /* StoreDetailTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320997522935E8F300956FBE /* StoreDetailTabViewController.swift */; };
 		320997552935EDE700956FBE /* TabViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320997542935EDE700956FBE /* TabViewDelegate.swift */; };
+		32099757293609F600956FBE /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32099756293609F600956FBE /* ProductDetailViewController.swift */; };
 		3244A1FC292DC13A00716A2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A1FB292DC13A00716A2B /* AppDelegate.swift */; };
 		3244A200292DC13A00716A2B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A1FF292DC13A00716A2B /* ViewController.swift */; };
 		3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3244A204292DC13A00716A2B /* RefillStation.xcdatamodeld */; };
@@ -82,6 +83,7 @@
 		3209974C293519A500956FBE /* StoreReviewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewSection.swift; sourceTree = "<group>"; };
 		320997522935E8F300956FBE /* StoreDetailTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailTabViewController.swift; sourceTree = "<group>"; };
 		320997542935EDE700956FBE /* TabViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewDelegate.swift; sourceTree = "<group>"; };
+		32099756293609F600956FBE /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
 		3244A1F8292DC13A00716A2B /* RefillStation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RefillStation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3244A1FB292DC13A00716A2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3244A1FF292DC13A00716A2B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 			children = (
 				FC7D351E292E99D400335AAB /* StoreDetailInfoView.swift */,
 				FC7D3528292F22B300335AAB /* StoreDetailInfoStackView.swift */,
+				32099756293609F600956FBE /* ProductDetailViewController.swift */,
 				FC3EBDEE2932125800A9C1F9 /* ProductTableView.swift */,
 				FC3EBDF0293266D100A9C1F9 /* ProductTableViewCell.swift */,
 			);
@@ -553,6 +556,7 @@
 				3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */,
 				325C35A529322467001B3741 /* ReviewPhotoDelegate.swift in Sources */,
 				32E9A55B292E24D2000072EE /* VotedTagViewModel.swift in Sources */,
+				32099757293609F600956FBE /* ProductDetailViewController.swift in Sources */,
 				32E9A565292E704A000072EE /* DetailReviewViewModel.swift in Sources */,
 				3209974D293519A500956FBE /* StoreReviewSection.swift in Sources */,
 			);

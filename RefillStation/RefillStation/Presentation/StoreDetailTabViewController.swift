@@ -12,8 +12,8 @@ import Pageboy
 final class StoreDetailTabViewController: UIViewController {
     lazy var tabmanViewController = TabmanViewController()
     private let storeReviewViewController = StoreReviewViewController()
-    private let reviewWritingViewController = ReviewWritingViewController()
-    private lazy var tabViewControllers = [storeReviewViewController, reviewWritingViewController]
+    private let productDetailViewController = ProductDetailViewController()
+    private lazy var tabViewControllers = [productDetailViewController, storeReviewViewController]
 
     private let storeDetailInfoView: StoreDetailInfoView = {
         let viewModel = StoreDetailViewModel()
@@ -23,9 +23,18 @@ final class StoreDetailTabViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        storeReviewViewController.tabViewDelegate = self
-        tabmanViewController.dataSource = self
+        setUpDelegate()
+        setUpTabman()
         layout()
+    }
+
+    private func setUpDelegate() {
+        storeReviewViewController.tabViewDelegate = self
+        productDetailViewController.tabViewDelegate = self
+    }
+
+    private func setUpTabman() {
+        tabmanViewController.dataSource = self
 
         let bar = TMBar.ButtonBar()
         bar.layout.transitionStyle = .snap
