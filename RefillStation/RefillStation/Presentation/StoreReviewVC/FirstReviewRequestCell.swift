@@ -15,6 +15,8 @@ final class FirstReviewRequestCell: UICollectionViewCell {
     private let reviewRequestLabel: UILabel = {
         let label = UILabel()
         label.text = "리필스테이션 매장이름'의 첫 리뷰를 남겨주세요!"
+        label.font = UIFont.font(style: .bodySmall)
+        label.textColor = Asset.Colors.gray5.color
         return label
     }()
 
@@ -33,10 +35,11 @@ final class FirstReviewRequestCell: UICollectionViewCell {
         imageView.snp.makeConstraints { image in
             image.centerX.equalToSuperview()
             image.width.height.equalTo(90)
+            image.top.equalToSuperview().inset(40)
         }
 
         reviewRequestLabel.snp.makeConstraints { review in
-            review.top.equalTo(imageView.snp.bottom)
+            review.top.equalTo(imageView.snp.bottom).offset(20)
             review.centerX.equalToSuperview()
         }
     }
