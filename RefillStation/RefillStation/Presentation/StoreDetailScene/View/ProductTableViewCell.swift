@@ -47,7 +47,7 @@ final class ProductTableViewCell: UITableViewCell {
 
 // MARK: - Default Setting Methods
     private func layout() {
-        [productImage, brandLabel, productNameLabel, pricePerGramLabel].forEach { addSubview($0) }
+        [productImage, brandLabel, productNameLabel, pricePerGramLabel].forEach { contentView.addSubview($0) }
         productImage.snp.makeConstraints {
             $0.width.equalTo(80)
             $0.height.equalTo(90)
