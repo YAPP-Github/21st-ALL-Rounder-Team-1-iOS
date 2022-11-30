@@ -106,15 +106,17 @@ final class StoreCollectionViewCell: UICollectionViewCell {
             $0.centerY.equalTo(distanceLabel)
             $0.leading.equalTo(distanceLabel.snp.trailing).offset(6)
             $0.width.equalTo(1)
+            $0.height.equalTo(11)
         }
         openStateLabel.snp.makeConstraints {
             $0.centerY.equalTo(firstDividerView)
-            $0.leading.equalTo(distanceLabel.snp.trailing).offset(6)
+            $0.leading.equalTo(firstDividerView.snp.trailing).offset(6)
         }
         secondDividerView.snp.makeConstraints {
             $0.centerY.equalTo(openStateLabel)
             $0.leading.equalTo(openStateLabel.snp.trailing).offset(6)
             $0.width.equalTo(1)
+            $0.height.equalTo(11)
         }
         timeLabel.snp.makeConstraints {
             $0.centerY.equalTo(secondDividerView)
