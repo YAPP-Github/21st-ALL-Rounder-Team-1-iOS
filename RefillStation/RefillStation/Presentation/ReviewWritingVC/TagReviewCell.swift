@@ -8,28 +8,34 @@
 import UIKit
 import SnapKit
 
-final class TagCollectionViewCell: UICollectionViewCell {
+final class TagReviewCell: UICollectionViewCell {
 
     static let reuseIdentifier = "tagCollectionViewCell"
 
     override var isSelected: Bool {
         didSet {
             if isSelected {
-                contentView.backgroundColor = .lightGray
-            } else {
                 contentView.backgroundColor = .white
+                contentView.layer.borderColor = Asset.Colors.primary3.color.cgColor
+                tagTitleLabel.textColor = Asset.Colors.primary3.color
+            } else {
+                contentView.backgroundColor = Asset.Colors.gray1.color
+                contentView.layer.borderColor = Asset.Colors.gray1.color.cgColor
+                tagTitleLabel.textColor = Asset.Colors.gray5.color
             }
         }
     }
 
     private let tagTitleLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.font(style: .buttonLarge)
+        label.textColor = Asset.Colors.gray5.color
         return label
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        makeContentViewLayer()
+        setUpContentView()
         layout()
     }
 
@@ -41,10 +47,11 @@ final class TagCollectionViewCell: UICollectionViewCell {
         tagTitleLabel.text = title
     }
 
-    private func makeContentViewLayer() {
-        contentView.layer.cornerRadius = 5
+    private func setUpContentView() {
+        contentView.backgroundColor = Asset.Colors.gray1.color
+        contentView.layer.cornerRadius = 6
         contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = UIColor.gray.cgColor
+        contentView.layer.borderColor = Asset.Colors.gray1.color.cgColor
     }
 
     private func layout() {

@@ -13,15 +13,20 @@ final class StoreDetailInfoView: UIView {
     // MARK: - UI Components
     private var storeNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.font = UIFont.font(style: .titleLarge)
+        label.textColor = Asset.Colors.gray7.color
         return label
     }()
     private var storeAddressLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.font(style: .bodyMedium)
+        label.textColor = Asset.Colors.gray5.color
         return label
     }()
     private var openStateLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.font(style: .buttonLarge)
+        label.textColor = Asset.Colors.gray7.color
         return label
     }()
     private let separatorLine: UIView = {
@@ -31,21 +36,36 @@ final class StoreDetailInfoView: UIView {
     }()
     private var closeTimeLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.font(style: .bodyMedium)
+        label.textColor = Asset.Colors.gray5.color
         return label
     }()
-    private var mapButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .blue
-        return button
-    }()
-    private var distanceLabel: UILabel = {
-        let label = UILabel()
-        return label
+    private var dividerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Asset.Colors.gray1.color
+        return view
     }()
     private var storeInfoStackView: StoreDetailInfoStackView = {
         let stackView = StoreDetailInfoStackView()
         stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
         return stackView
+    }()
+    private var refillGuideButton: UIView = {
+        let view = UIView()
+        return view
+    }()
+    private var refillGuideLabel: UILabel = {
+        let label = UILabel()
+        label.text = "방문 전 리필 가이드를 확인해보세요!"
+        label.textColor = Asset.Colors.gray5.color
+        label.font = .font(style: .bodyMedium)
+        return label
+    }()
+    private var refillGuideArrowImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Asset.Images.iconArrowRightSmall.image
+        return imageView
     }()
 
     // MARK: - Properties
@@ -55,6 +75,7 @@ final class StoreDetailInfoView: UIView {
     init(viewModel: StoreDetailViewModel) {
         self.viewModel = viewModel
         super.init(frame: .zero)
+        backgroundColor = .white
         bind()
         layout()
         render()
@@ -71,12 +92,13 @@ final class StoreDetailInfoView: UIView {
         storeAddressLabel.text = viewModel.address
         openStateLabel.text = viewModel.openState ? "영업중" : "휴무"
         closeTimeLabel.text = viewModel.closeTime
-        distanceLabel.text = "\(viewModel.distance)km"
     }
 
     private func layout() {
         [storeNameLabel, storeAddressLabel, openStateLabel, separatorLine,
-         closeTimeLabel, mapButton, distanceLabel, storeInfoStackView].forEach { addSubview($0) }
+         closeTimeLabel, dividerView, storeInfoStackView, refillGuideButton].forEach { addSubview($0) }
+        [refillGuideLabel, refillGuideArrowImage].forEach { refillGuideButton.addSubview($0) }
+
         storeNameLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview().inset(20)
         }
@@ -97,25 +119,34 @@ final class StoreDetailInfoView: UIView {
             $0.centerY.equalTo(openStateLabel)
             $0.leading.equalTo(separatorLine.snp.trailing).offset(10)
         }
-        mapButton.snp.makeConstraints {
-            $0.top.trailing.equalToSuperview().inset(20)
-            $0.width.height.equalTo(44)
-        }
-        distanceLabel.snp.makeConstraints {
-            $0.top.equalTo(mapButton.snp.bottom).offset(10)
-            $0.centerX.equalTo(mapButton)
+        dividerView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.bottom.equalTo(storeInfoStackView).inset(-1)
         }
         storeInfoStackView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(80)
+        }
+
+        refillGuideButton.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(dividerView.snp.bottom)
             $0.bottom.equalToSuperview()
-            $0.height.equalTo(60)
+            $0.height.equalTo(54)
+        }
+        refillGuideLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().inset(20)
+        }
+        refillGuideArrowImage.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(20)
         }
     }
 
     private func render() {
-        mapButton.clipsToBounds = true
-        storeInfoStackView.clipsToBounds = true
-        mapButton.layer.cornerRadius = 22
-        storeInfoStackView.layer.cornerRadius = 10
+        self.clipsToBounds = true
+        self.layer.cornerRadius = 10
+        self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
     }
 }
