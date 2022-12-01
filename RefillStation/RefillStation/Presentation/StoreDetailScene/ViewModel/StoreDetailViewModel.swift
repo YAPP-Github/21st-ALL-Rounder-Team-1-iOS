@@ -13,6 +13,7 @@ final class StoreDetailViewModel {
     var address: String = "서울시 성북구 삼선동"
     var openState: Bool = true
     var closeTime: String = "8:00"
+
     var products: [Product] = [.init(name: "스킨",
                                      brand: "아로마티카",
                                      pricePerGram: 123,

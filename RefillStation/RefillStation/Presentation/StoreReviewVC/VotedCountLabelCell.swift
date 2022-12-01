@@ -13,11 +13,22 @@ final class VotedCountLabelCell: UICollectionViewCell {
 
     private let titleLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.font(style: .titleMedium)
         return label
     }()
 
-    private let totalVotePeopleLabel: UILabel = {
+    private let votedCountLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.font(style: .buttonLarge)
+        label.textColor = Asset.Colors.gray6.color
+        return label
+    }()
+
+    private let participateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "참여"
+        label.font = UIFont.font(style: .bodyMedium)
+        label.textColor = Asset.Colors.gray5.color
         return label
     }()
 
@@ -32,18 +43,23 @@ final class VotedCountLabelCell: UICollectionViewCell {
 
     func setUpContents(totalVote: Int) {
         titleLabel.text = "이 매장의 좋은 점은"
-        totalVotePeopleLabel.text = "\(totalVote)명 참여"
+        votedCountLabel.text = "\(totalVote)명 "
     }
 
     private func layout() {
-        [titleLabel, totalVotePeopleLabel].forEach { addSubview($0) }
+        [titleLabel, votedCountLabel, participateLabel].forEach { contentView.addSubview($0) }
 
         titleLabel.snp.makeConstraints { title in
-            title.leading.top.bottom.equalTo(self)
+            title.leading.top.bottom.equalToSuperview()
         }
 
-        totalVotePeopleLabel.snp.makeConstraints { vote in
-            vote.trailing.top.bottom.equalTo(self)
+        participateLabel.snp.makeConstraints { vote in
+            vote.trailing.top.bottom.equalToSuperview()
+        }
+
+        votedCountLabel.snp.makeConstraints { count in
+            count.trailing.equalTo(participateLabel.snp.leading)
+            count.top.bottom.equalToSuperview()
         }
     }
 }
