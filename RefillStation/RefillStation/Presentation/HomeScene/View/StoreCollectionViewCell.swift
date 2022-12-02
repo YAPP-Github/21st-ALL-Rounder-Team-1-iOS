@@ -81,27 +81,28 @@ final class StoreCollectionViewCell: UICollectionViewCell {
         [storeImage, storeInfoView].forEach { contentView.addSubview($0) }
         [nameLabel, addressLabel, distanceLabel, firstDividerView,
          openStateLabel, secondDividerView, timeLabel].forEach { storeInfoView.addSubview($0) }
-
         storeImage.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(storeInfoView.snp.top)
+            $0.width.equalTo(UIScreen.main.bounds.width - Constraints.inset * 2)
+            $0.height.equalTo(Constraints.imageHeight)
         }
         storeInfoView.snp.makeConstraints {
-            $0.height.equalTo(107)
+            $0.top.equalTo(storeImage.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
 
         nameLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(20)
-            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.top.equalToSuperview().inset(Constraints.labelTopBottomInset)
+            $0.leading.trailing.equalToSuperview().inset(Constraints.inset)
         }
         addressLabel.snp.makeConstraints {
             $0.top.equalTo(nameLabel.snp.bottom).offset(8)
-            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.leading.trailing.equalToSuperview().inset(Constraints.inset)
         }
         distanceLabel.snp.makeConstraints {
             $0.top.equalTo(addressLabel.snp.bottom).offset(6)
-            $0.leading.equalToSuperview().offset(16)
+            $0.bottom.equalToSuperview().inset(Constraints.labelTopBottomInset)
+            $0.leading.equalToSuperview().inset(Constraints.inset)
         }
         firstDividerView.snp.makeConstraints {
             $0.centerY.equalTo(distanceLabel)
@@ -143,5 +144,13 @@ final class StoreCollectionViewCell: UICollectionViewCell {
         distanceLabel.text = "\(distance)km"
         openStateLabel.text = openState ? "영업중" : "영업 종료"
         timeLabel.text = time
+    }
+}
+
+extension StoreCollectionViewCell {
+    enum Constraints {
+        static let inset: CGFloat = 16
+        static let imageHeight: CGFloat = 190
+        static let labelTopBottomInset: CGFloat = 20
     }
 }

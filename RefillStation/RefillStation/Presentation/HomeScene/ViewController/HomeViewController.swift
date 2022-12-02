@@ -12,8 +12,11 @@ final class HomeViewController: UIViewController {
 
     // MARK: - UI Components
     private var storeCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        layout.minimumLineSpacing = 12
         let collectionView = UICollectionView(frame: .zero,
-                                              collectionViewLayout: UICollectionViewFlowLayout())
+                                              collectionViewLayout: layout)
         collectionView.register(StoreCollectionViewCell.self,
                                 forCellWithReuseIdentifier: StoreCollectionViewCell.reuseIdentifier)
         collectionView.showsVerticalScrollIndicator = false
@@ -28,7 +31,6 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         storeCollectionView.dataSource = self
-        storeCollectionView.delegate = self
         layout()
     }
     // MARK: - Default Setting Methods
@@ -61,14 +63,5 @@ extension HomeViewController: UICollectionViewDataSource {
                            openState: data.openState,
                            time: data.closeTime)
         return cell
-    }
-}
-
-extension HomeViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.bounds.width - 32, height: 267)
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 12
     }
 }
