@@ -13,8 +13,10 @@ final class MoveToWriteReviewCell: UICollectionViewCell {
 
     private let moveToWritingReviewLabel: UILabel = {
         let label = UILabel()
-        label.text = "방문하셨다면 리뷰를 남겨주세요! ✏️"
+        label.text = "리뷰 남기기 ✎"
         label.textAlignment = .center
+        label.font = UIFont.font(style: .buttonLarge)
+        label.textColor = Asset.Colors.primary3.color
         return label
     }()
 
@@ -29,8 +31,9 @@ final class MoveToWriteReviewCell: UICollectionViewCell {
     }
 
     private func setUpContentView() {
-        contentView.backgroundColor = .lightGray
-        contentView.layer.cornerRadius = 3
+        contentView.layer.borderWidth = 1
+        contentView.layer.borderColor = Asset.Colors.primary3.color.cgColor
+        contentView.layer.cornerRadius = 6
     }
 
     private func layout() {

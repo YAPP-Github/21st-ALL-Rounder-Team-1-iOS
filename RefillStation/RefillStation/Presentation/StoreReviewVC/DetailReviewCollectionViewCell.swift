@@ -17,22 +17,30 @@ final class DetailReviewCollectionViewCell: UICollectionViewCell {
 
     private let userNameLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.font(style: .buttonLarge)
+        label.textColor = Asset.Colors.gray7.color
         return label
     }()
 
     private let writtenDateLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.font(style: .captionLarge)
+        label.textColor = Asset.Colors.gray5.color
         return label
     }()
 
     private let reviewImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.layer.cornerRadius = 4
+        imageView.clipsToBounds = true
         return imageView
     }()
 
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 3
+        label.textColor = Asset.Colors.gray5.color
+        label.font = UIFont.font(style: .bodyMedium)
         return label
     }()
 
@@ -46,7 +54,7 @@ final class DetailReviewCollectionViewCell: UICollectionViewCell {
     }
 
     func setUpContents(detailReview: DetailReview) {
-        profileImageView.image = UIImage(systemName: "person") // 서버연결 작업 후 fetch로직 통해 받아올 예정
+        profileImageView.image = UIImage(systemName: "person")
         userNameLabel.text = detailReview.user.name
         writtenDateLabel.text = detailReview.writtenDate.description
         reviewImageView.image = UIImage(systemName: "zzz")

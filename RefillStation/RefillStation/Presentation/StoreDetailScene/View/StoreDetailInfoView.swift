@@ -126,6 +126,7 @@ final class StoreDetailInfoView: UIView {
         storeInfoStackView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(80)
+            $0.top.equalTo(closeTimeLabel.snp.bottom).offset(5)
         }
 
         refillGuideButton.snp.makeConstraints {

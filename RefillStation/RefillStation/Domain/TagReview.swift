@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import UIKit
 
 struct TagReview {
     let tagTitle: String
     let voteCount: Int
+    let image: UIImage?
 }

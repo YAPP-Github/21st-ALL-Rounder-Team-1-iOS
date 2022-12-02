@@ -50,6 +50,7 @@ final class ReviewWritingViewController: UIViewController {
         outerCollectionView.dataSource = self
         outerCollectionView.delegate = self
         outerCollectionView.allowsMultipleSelection = true
+        outerCollectionView.keyboardDismissMode = .onDrag
     }
 
     private func layout() {
