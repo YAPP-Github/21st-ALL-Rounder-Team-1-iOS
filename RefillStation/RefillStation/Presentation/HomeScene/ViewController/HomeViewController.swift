@@ -11,7 +11,7 @@ import SnapKit
 final class HomeViewController: UIViewController {
 
     // MARK: - UI Components
-    private var storeCollectionView: UICollectionView = {
+    private let storeCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         layout.minimumLineSpacing = 12
