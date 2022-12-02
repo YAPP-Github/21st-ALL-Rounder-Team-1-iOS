@@ -8,10 +8,9 @@
 import Foundation
 
 struct StoreInfo {
-    let name: String
+    let store: Store
+    let callNumber: String
     let reviewCount: Int
-    let address: String
-    let openState: Bool
-    let closeTime: String
-    let distance: Double
+    let snsURL: String
+    let likeCount: Int
 }
