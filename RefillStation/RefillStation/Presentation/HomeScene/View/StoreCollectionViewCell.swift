@@ -68,6 +68,7 @@ final class StoreCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
+        render()
     }
 
     required init?(coder: NSCoder) {
@@ -123,7 +124,7 @@ final class StoreCollectionViewCell: UICollectionViewCell {
             $0.leading.equalTo(secondDividerView.snp.trailing).offset(6)
         }
     }
-    func render() {
+    private func render() {
         contentView.clipsToBounds = true
         contentView.layer.cornerRadius = 6
         contentView.layer.borderWidth = 1

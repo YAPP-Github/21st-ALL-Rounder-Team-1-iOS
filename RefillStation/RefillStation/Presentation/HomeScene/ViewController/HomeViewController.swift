@@ -54,7 +54,6 @@ extension HomeViewController: UICollectionViewDataSource {
         }
 
         let data = viewModel.stores[indexPath.row]
-        cell.render()
         cell.setUpContents(image: data.imageURL,
                            name: data.name,
                            address: data.address,
