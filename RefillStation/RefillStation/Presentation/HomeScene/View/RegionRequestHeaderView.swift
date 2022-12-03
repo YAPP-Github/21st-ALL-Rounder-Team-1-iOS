@@ -67,18 +67,18 @@ final class RegionRequestHeaderView: UICollectionReusableView {
         guidanceLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(24)
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(imageView.snp.top).offset(8)
         }
         imageView.snp.makeConstraints {
+            $0.top.equalTo(guidanceLabel.snp.bottom).offset(8)
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(requestButton.snp.top).inset(6)
         }
         requestButton.snp.makeConstraints {
+            $0.top.equalTo(imageView.snp.bottom).offset(6)
             $0.leading.trailing.equalToSuperview().inset(48)
             $0.height.equalTo(40)
-            $0.bottom.equalTo(dividerView.snp.top).offset(20)
         }
         dividerView.snp.makeConstraints {
+            $0.top.equalTo(requestButton.snp.bottom).offset(20)
             $0.height.equalTo(8)
             $0.leading.trailing.equalToSuperview()
         }
