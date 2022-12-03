@@ -12,8 +12,8 @@ import Pageboy
 final class StoreDetailTabViewController: UIViewController {
     lazy var tabmanViewController = TabmanViewController()
     private let storeReviewViewController = StoreReviewViewController()
-    private let productDetailViewController = ProductDetailViewController()
-    private lazy var tabViewControllers = [productDetailViewController, storeReviewViewController]
+    private let productListViewController = ProductListViewController()
+    private lazy var tabViewControllers = [productListViewController, storeReviewViewController]
 
     private let storeDetailInfoView: StoreDetailInfoView = {
         let viewModel = StoreDetailViewModel()
@@ -30,7 +30,7 @@ final class StoreDetailTabViewController: UIViewController {
 
     private func setUpDelegate() {
         storeReviewViewController.tabViewDelegate = self
-        productDetailViewController.tabViewDelegate = self
+        productListViewController.tabViewDelegate = self
     }
 
     private func setUpTabman() {

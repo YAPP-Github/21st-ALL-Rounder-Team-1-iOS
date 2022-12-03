@@ -1,5 +1,5 @@
 //
-//  ProductDetailViewController.swift
+//  ProductListViewController.swift
 //  RefillStation
 //
 //  Created by 천수현 on 2022/11/29.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ProductDetailViewController: UIViewController {
+final class ProductListViewController: UIViewController {
 
     private var productTableView: ProductTableView!
     private var storeDetailViewModel: StoreDetailViewModel!
@@ -23,7 +23,7 @@ final class ProductDetailViewController: UIViewController {
         view.addSubview(productTableView)
 
         productTableView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(16)
+            $0.edges.equalTo(view.safeAreaLayoutGuide).inset(16)
         }
     }
 
@@ -36,7 +36,7 @@ final class ProductDetailViewController: UIViewController {
     }
 }
 
-extension ProductDetailViewController: UIScrollViewDelegate, UITableViewDelegate {
+extension ProductListViewController: UIScrollViewDelegate, UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         tabViewDelegate?.scrollViewDidScroll(offset: scrollView.contentOffset)
     }
