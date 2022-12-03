@@ -145,6 +145,6 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let headerHeight: CGFloat = viewModel.isServiceRegion ? 0 : 325
 
-        return CGSize(width: view.frame.width, height: headerHeight)
+        return CGSize(width: collectionView.frame.width, height: headerHeight)
     }
 }
