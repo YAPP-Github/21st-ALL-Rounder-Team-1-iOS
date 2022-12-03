@@ -52,9 +52,9 @@ final class HomeViewController: UIViewController {
                                               collectionViewLayout: layout)
         collectionView.register(StoreCollectionViewCell.self,
                                 forCellWithReuseIdentifier: StoreCollectionViewCell.reuseIdentifier)
-        collectionView.register(ApplyForRegionHeaderView.self,
+        collectionView.register(RegionRequestHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: ApplyForRegionHeaderView.reuseIdentifier)
+                                withReuseIdentifier: RegionRequestHeaderView.reuseIdentifier)
         collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }()
@@ -138,7 +138,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                     withReuseIdentifier: ApplyForRegionHeaderView.reuseIdentifier,
+                                                                     withReuseIdentifier: RegionRequestHeaderView.reuseIdentifier,
                                                                      for: indexPath)
         return header
     }

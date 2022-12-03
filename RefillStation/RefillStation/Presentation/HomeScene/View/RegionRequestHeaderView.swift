@@ -1,5 +1,5 @@
 //
-//  ApplyForRegionHeaderView.swift
+//  RegionRequestHeaderView.swift
 //  RefillStation
 //
 //  Created by kong on 2022/12/03.
@@ -8,9 +8,9 @@
 import UIKit
 import SnapKit
 
-final class ApplyForRegionHeaderView: UICollectionReusableView {
+final class RegionRequestHeaderView: UICollectionReusableView {
 
-    static let reuseIdentifier = "applyForRegionHeaderView"
+    static let reuseIdentifier = "regionRequestHeaderView"
 
     // MARK: - UIComponents
     private let guidanceLabel: UILabel = {
@@ -27,13 +27,13 @@ final class ApplyForRegionHeaderView: UICollectionReusableView {
         return imageView
     }()
 
-    private lazy var applyButton: UIButton = {
+    private lazy var requestButton: UIButton = {
         let button = UIButton()
         button.setTitle("서비스 지역 신청하러 가기", for: .normal)
         button.backgroundColor = Asset.Colors.primary1.color
         button.setTitleColor(Asset.Colors.primary3.color, for: .normal)
         button.titleLabel?.font = .font(style: .buttonLarge)
-        button.addTarget(self, action: #selector(applyButtonDidTap), for: .touchUpInside)
+        button.addTarget(self, action: #selector(requestButtonDidTap), for: .touchUpInside)
         button.layer.cornerRadius = 6
         return button
     }()
@@ -63,7 +63,7 @@ final class ApplyForRegionHeaderView: UICollectionReusableView {
 
     // MARK: - Default Setting Methods
     private func layout() {
-        [guidanceLabel, imageView, applyButton, dividerView, headerTitleLabel].forEach { addSubview($0) }
+        [guidanceLabel, imageView, requestButton, dividerView, headerTitleLabel].forEach { addSubview($0) }
         guidanceLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(24)
             $0.centerX.equalToSuperview()
@@ -71,9 +71,9 @@ final class ApplyForRegionHeaderView: UICollectionReusableView {
         }
         imageView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(applyButton.snp.top).inset(6)
+            $0.bottom.equalTo(requestButton.snp.top).inset(6)
         }
-        applyButton.snp.makeConstraints {
+        requestButton.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(48)
             $0.height.equalTo(40)
             $0.bottom.equalTo(dividerView.snp.top).offset(20)
@@ -90,7 +90,7 @@ final class ApplyForRegionHeaderView: UICollectionReusableView {
     }
 
     // MARK: - Function
-    @objc private func applyButtonDidTap() {
-        print("applyButtonDidTap")
+    @objc private func requestButtonDidTap() {
+        print("requestButtonDidTap")
     }
 }
