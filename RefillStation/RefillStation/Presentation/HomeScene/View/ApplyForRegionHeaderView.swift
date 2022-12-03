@@ -10,7 +10,7 @@ import SnapKit
 
 final class ApplyForRegionHeaderView: UICollectionReusableView {
 
-    static let reuseIdentifier = "ApplyForRegionHeaderView"
+    static let reuseIdentifier = "applyForRegionHeaderView"
 
     // MARK: - UIComponents
     private let guidanceLabel: UILabel = {
