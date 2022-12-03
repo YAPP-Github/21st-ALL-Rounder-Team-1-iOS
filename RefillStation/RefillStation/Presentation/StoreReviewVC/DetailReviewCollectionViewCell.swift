@@ -53,6 +53,11 @@ final class DetailReviewCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
+    func setUpImages(userImage: UIImage, reviewImage: UIImage) {
+        profileImageView.image = userImage
+        reviewImageView.image = reviewImage
+    }
+
     func setUpContents(detailReview: DetailReview) {
         profileImageView.image = UIImage(systemName: "person")
         userNameLabel.text = detailReview.user.name

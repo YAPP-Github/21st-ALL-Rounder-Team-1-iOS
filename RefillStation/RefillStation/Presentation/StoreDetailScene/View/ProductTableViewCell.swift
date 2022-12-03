@@ -71,6 +71,10 @@ final class ProductTableViewCell: UITableViewCell {
         productImage.layer.cornerRadius = 4
     }
 
+    func setUpImage(image: UIImage) {
+        productImage.image = image
+    }
+
     func setUpContents(productName: String,
                        imageURL: String?,
                        brand: String,

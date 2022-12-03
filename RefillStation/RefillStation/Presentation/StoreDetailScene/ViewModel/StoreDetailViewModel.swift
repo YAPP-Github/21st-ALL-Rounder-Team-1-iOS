@@ -14,20 +14,20 @@ final class StoreDetailViewModel {
     var openState: Bool = true
     var closeTime: String = "8:00"
 
-    var products: [Product] = [.init(name: "스킨",
+    var products: [Product] = [.init(name: "로즈마리 솔트 스크럽 샴푸",
                                      brand: "아로마티카",
-                                     pricePerGram: 123,
+                                     pricePerGram: 24,
                                      imageURL: ""),
-                               .init(name: "로션",
+                               .init(name: "티트리 퓨리파잉 샴푸",
                                      brand: "아로마티카",
-                                     pricePerGram: 423,
+                                     pricePerGram: 16,
                                      imageURL: ""),
-                               .init(name: "바디오일",
-                                     brand: "아로마티카",
-                                     pricePerGram: 2435,
+                               .init(name: "시어버터 바디워시",
+                                     brand: "해피바스",
+                                     pricePerGram: 32,
                                      imageURL: ""),
-                               .init(name: "샴푸",
-                                     brand: "아로마티카",
-                                     pricePerGram: 1241,
+                               .init(name: "오가니스트 아르간 영양샴푸",
+                                     brand: "LG 생활건강",
+                                     pricePerGram: 19,
                                      imageURL: "")]
 }

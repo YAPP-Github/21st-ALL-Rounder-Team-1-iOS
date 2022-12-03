@@ -132,6 +132,10 @@ final class StoreCollectionViewCell: UICollectionViewCell {
         contentView.layer.borderColor = Asset.Colors.gray1.color.cgColor
     }
 
+    func setUpImage(image: UIImage) {
+        storeImage.image = image
+    }
+
     func setUpContents(image: String?,
                        name: String,
                        address: String,
