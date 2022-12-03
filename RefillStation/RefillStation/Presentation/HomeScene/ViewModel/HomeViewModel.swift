@@ -38,4 +38,5 @@ final class HomeViewModel {
                                  openState: true,
                                  closeTime: "20:00",
                                  distance: 30)]
+    var isServiceRegion: Bool = false
 }
