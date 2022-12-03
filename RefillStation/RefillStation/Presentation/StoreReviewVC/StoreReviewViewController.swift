@@ -88,6 +88,15 @@ extension StoreReviewViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
+        case Section.moveToWriteReview.rawValue:
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: MoveToWriteReviewCell.reuseIdentifier,
+                for: indexPath) as? MoveToWriteReviewCell else { return UICollectionViewCell() }
+            cell.moveToWriteReview = { [weak self] in
+                self?.navigationController?.pushViewController(ReviewWritingViewController(),
+                                                               animated: true)
+            }
+            return cell
         case Section.votedCount.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: VotedCountLabelCell.reuseIdentifier,

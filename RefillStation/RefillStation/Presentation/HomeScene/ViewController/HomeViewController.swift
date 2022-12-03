@@ -66,10 +66,18 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationController?.isNavigationBarHidden = true
         storeCollectionView.dataSource = self
         storeCollectionView.delegate = self
+        navigationItem.title = ""
         layout()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isNavigationBarHidden = true
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.isNavigationBarHidden = false
     }
 
     // MARK: - Default Setting Methods
@@ -138,14 +146,28 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                     withReuseIdentifier: RegionRequestHeaderView.reuseIdentifier,
-                                                                     for: indexPath)
+        guard let header = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: RegionRequestHeaderView.reuseIdentifier,
+            for: indexPath) as? RegionRequestHeaderView else { return UICollectionReusableView() }
+
+        header.moveToRegionRequest = { [weak self] in
+            self?.navigationController?.pushViewController(RequestRegionViewController(),
+                                                     animated: true)
+        }
+
         return header
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let headerHeight: CGFloat = viewModel.isServiceRegion ? 0 : 325
 
         return CGSize(width: collectionView.frame.width, height: headerHeight)
+    }
+}
+
+extension HomeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        navigationController?.pushViewController(StoreDetailTabViewController(),
+                                                 animated: true)
     }
 }
