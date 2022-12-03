@@ -66,6 +66,7 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        navigationController?.isNavigationBarHidden = true
         storeCollectionView.dataSource = self
         storeCollectionView.delegate = self
         layout()
