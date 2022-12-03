@@ -11,19 +11,21 @@ final class MoveToWriteReviewCell: UICollectionViewCell {
 
     static let reuseIdentifier  = "writeReviewButtonCell"
 
-    private let moveToWritingReviewLabel: UILabel = {
-        let label = UILabel()
-        label.text = "리뷰 남기기 ✎"
-        label.textAlignment = .center
-        label.font = UIFont.font(style: .buttonLarge)
-        label.textColor = Asset.Colors.primary3.color
-        return label
+    weak var delegate: MoveToWriteReviewCellDelegate?
+
+    private let moveToWritingReviewButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("리뷰 남기기 ✎", for: .normal)
+        button.titleLabel?.font = UIFont.font(style: .buttonLarge)
+        button.setTitleColor(Asset.Colors.primary3.color, for: .normal)
+        return button
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpContentView()
         layout()
+        addMoveToWriteReviewButtonTarget()
     }
 
     required init?(coder: NSCoder) {
@@ -37,9 +39,21 @@ final class MoveToWriteReviewCell: UICollectionViewCell {
     }
 
     private func layout() {
-        contentView.addSubview(moveToWritingReviewLabel)
-        moveToWritingReviewLabel.snp.makeConstraints { label in
-            label.edges.equalToSuperview()
+        contentView.addSubview(moveToWritingReviewButton)
+        moveToWritingReviewButton.snp.makeConstraints { button in
+            button.edges.equalToSuperview()
         }
+    }
+
+    private func addMoveToWriteReviewButtonTarget() {
+        moveToWritingReviewButton.addTarget(
+            self,
+            action: #selector(moveToWriteReviewButtonTapped(_:)),
+            for: .touchUpInside)
+    }
+
+    @objc
+    private func moveToWriteReviewButtonTapped(_ sender: UIButton) {
+        delegate?.moveToWriteReviewButtonTapped()
     }
 }

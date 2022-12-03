@@ -26,6 +26,8 @@ final class StoreDetailTabViewController: UIViewController {
         setUpDelegate()
         setUpTabman()
         layout()
+        navigationController?.navigationBar.tintColor = .black
+        navigationItem.title = ""
     }
 
     private func setUpDelegate() {
