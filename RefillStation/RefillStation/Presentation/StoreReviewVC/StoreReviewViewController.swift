@@ -92,7 +92,10 @@ extension StoreReviewViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: MoveToWriteReviewCell.reuseIdentifier,
                 for: indexPath) as? MoveToWriteReviewCell else { return UICollectionViewCell() }
-            cell.delegate = self
+            cell.moveToWriteReview = { [weak self] in
+                self?.navigationController?.pushViewController(ReviewWritingViewController(),
+                                                               animated: true)
+            }
             return cell
         case Section.votedCount.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
@@ -158,12 +161,5 @@ extension StoreReviewViewController {
 extension StoreReviewViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         tabViewDelegate?.scrollViewDidScroll(offset: scrollView.contentOffset)
-    }
-}
-
-extension StoreReviewViewController: MoveToWriteReviewCellDelegate {
-    func moveToWriteReviewButtonTapped() {
-        navigationController?.pushViewController(ReviewWritingViewController(),
-                                                 animated: true)
     }
 }

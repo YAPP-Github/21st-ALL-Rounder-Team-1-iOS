@@ -12,6 +12,8 @@ final class RegionRequestHeaderView: UICollectionReusableView {
 
     static let reuseIdentifier = "regionRequestHeaderView"
 
+    var moveToRegionRequest: (() -> Void)?
+
     // MARK: - UIComponents
     private let guidanceLabel: UILabel = {
         let label = UILabel()
@@ -91,6 +93,6 @@ final class RegionRequestHeaderView: UICollectionReusableView {
 
     // MARK: - Function
     @objc private func requestButtonDidTap() {
-        print("requestButtonDidTap")
+        moveToRegionRequest?()
     }
 }

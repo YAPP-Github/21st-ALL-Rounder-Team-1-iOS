@@ -11,7 +11,7 @@ final class MoveToWriteReviewCell: UICollectionViewCell {
 
     static let reuseIdentifier  = "writeReviewButtonCell"
 
-    weak var delegate: MoveToWriteReviewCellDelegate?
+    var moveToWriteReview: (() -> Void)?
 
     private let moveToWritingReviewButton: UIButton = {
         let button = UIButton()
@@ -54,6 +54,6 @@ final class MoveToWriteReviewCell: UICollectionViewCell {
 
     @objc
     private func moveToWriteReviewButtonTapped(_ sender: UIButton) {
-        delegate?.moveToWriteReviewButtonTapped()
+        moveToWriteReview?()
     }
 }

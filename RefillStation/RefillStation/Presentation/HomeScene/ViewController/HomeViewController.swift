@@ -146,9 +146,16 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                     withReuseIdentifier: RegionRequestHeaderView.reuseIdentifier,
-                                                                     for: indexPath)
+        guard let header = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: RegionRequestHeaderView.reuseIdentifier,
+            for: indexPath) as? RegionRequestHeaderView else { return UICollectionReusableView() }
+
+        header.moveToRegionRequest = { [weak self] in
+            self?.navigationController?.pushViewController(RequestRegionViewController(),
+                                                     animated: true)
+        }
+
         return header
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
