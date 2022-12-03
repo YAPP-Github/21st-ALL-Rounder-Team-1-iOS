@@ -41,6 +41,7 @@ final class StoreDetailTabViewController: UIViewController {
 
         let bar = TMBar.ButtonBar()
         bar.layout.transitionStyle = .snap
+        bar.layout.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
         tabmanViewController.addBar(bar, dataSource: self, at: .top)
     }
 
@@ -63,7 +64,7 @@ final class StoreDetailTabViewController: UIViewController {
 
 extension StoreDetailTabViewController: PageboyViewControllerDataSource {
     func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
-        return tabViewControllers.count
+        return Section.allCases.count
     }
 
     func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {
@@ -77,7 +78,8 @@ extension StoreDetailTabViewController: PageboyViewControllerDataSource {
 
 extension StoreDetailTabViewController: TMBarDataSource {
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
-        return TMBarItem(title: index.description)
+        guard let title = Section(rawValue: index)?.title else { return TMBarItem(title: "") }
+        return TMBarItem(title: title)
     }
 }
 
@@ -90,5 +92,21 @@ extension StoreDetailTabViewController: TabViewDelegate {
         }
 
         view.layoutSubviews()
+    }
+}
+
+extension StoreDetailTabViewController {
+    enum Section: Int, CaseIterable {
+        case products
+        case reviews
+
+        var title: String {
+            switch self {
+            case .products:
+                return "판매상품"
+            case .reviews:
+                return "리뷰"
+            }
+        }
     }
 }
