@@ -34,6 +34,7 @@ final class ApplyForRegionHeaderView: UICollectionReusableView {
         button.setTitleColor(Asset.Colors.primary3.color, for: .normal)
         button.titleLabel?.font = .font(style: .buttonLarge)
         button.addTarget(self, action: #selector(applyButtonDidTap), for: .touchUpInside)
+        button.layer.cornerRadius = 6
         return button
     }()
 
@@ -55,7 +56,6 @@ final class ApplyForRegionHeaderView: UICollectionReusableView {
         super.init(frame: frame)
         backgroundColor = .white
         layout()
-        render()
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -87,9 +87,6 @@ final class ApplyForRegionHeaderView: UICollectionReusableView {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview()
         }
-    }
-    private func render() {
-        applyButton.layer.cornerRadius = 6
     }
 
     // MARK: - Function
