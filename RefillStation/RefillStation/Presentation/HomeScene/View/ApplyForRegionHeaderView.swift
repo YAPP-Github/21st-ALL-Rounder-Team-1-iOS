@@ -76,7 +76,7 @@ final class ApplyForRegionHeaderView: UICollectionReusableView {
         applyButton.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(48)
             $0.height.equalTo(40)
-            $0.bottom.equalTo(dividerView.snp.top).inset(-20)
+            $0.bottom.equalTo(dividerView.snp.top).offset(20)
         }
         dividerView.snp.makeConstraints {
             $0.height.equalTo(8)
