@@ -49,6 +49,7 @@ final class RequestRegionViewController: UIViewController {
         button.setTitleColor(Asset.Colors.gray4.color, for: .disabled)
         button.setTitleColor(.white, for: .normal)
         button.setTitle("신청하기", for: .normal)
+        button.titleLabel?.font = .font(style: .buttonLarge)
         button.layer.cornerRadius = 8
         button.backgroundColor = Asset.Colors.primary3.color
         return button
