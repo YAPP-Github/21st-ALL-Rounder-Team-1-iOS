@@ -59,6 +59,7 @@
 		FC7D3529292F22B300335AAB /* StoreDetailInfoStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7D3528292F22B300335AAB /* StoreDetailInfoStackView.swift */; };
 		FC7D352B292F24D700335AAB /* StoreInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7D352A292F24D700335AAB /* StoreInfo.swift */; };
 		FC84FAC5293AB04800428AAA /* RegionRequestHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC84FAC4293AB04800428AAA /* RegionRequestHeaderView.swift */; };
+		FC84FAC9293B640300428AAA /* RequestRegionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC84FAC8293B640300428AAA /* RequestRegionViewController.swift */; };
 		FC84FACC293B944900428AAA /* RequestRegionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC84FACB293B944900428AAA /* RequestRegionViewModel.swift */; };
 		FCB6667D29346285004F38B0 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = FCB6667C29346285004F38B0 /* Tabman */; };
 		FCEE10232934C385002E629D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCEE10222934C385002E629D /* Colors.xcassets */; };
@@ -137,6 +138,7 @@
 		FC7D3528292F22B300335AAB /* StoreDetailInfoStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailInfoStackView.swift; sourceTree = "<group>"; };
 		FC7D352A292F24D700335AAB /* StoreInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfo.swift; sourceTree = "<group>"; };
 		FC84FAC4293AB04800428AAA /* RegionRequestHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionRequestHeaderView.swift; sourceTree = "<group>"; };
+		FC84FAC8293B640300428AAA /* RequestRegionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestRegionViewController.swift; sourceTree = "<group>"; };
 		FC84FACB293B944900428AAA /* RequestRegionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestRegionViewModel.swift; sourceTree = "<group>"; };
 		FCEE10222934C385002E629D /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		FCEE10242934C855002E629D /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
@@ -387,8 +389,17 @@
 			isa = PBXGroup;
 			children = (
 				FC84FACA293B943000428AAA /* ViewModel */,
+				FC84FAC7293B63D600428AAA /* ViewController */,
 			);
 			path = RequestRegionScene;
+			sourceTree = "<group>";
+		};
+		FC84FAC7293B63D600428AAA /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FC84FAC8293B640300428AAA /* RequestRegionViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		FC84FACA293B943000428AAA /* ViewModel */ = {
@@ -625,6 +636,7 @@
 				FC7D3529292F22B300335AAB /* StoreDetailInfoStackView.swift in Sources */,
 				3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */,
 				325C35A529322467001B3741 /* ReviewPhotoDelegate.swift in Sources */,
+				FC84FAC9293B640300428AAA /* RequestRegionViewController.swift in Sources */,
 				FC47394729376BA500DB9BDB /* HomeViewModel.swift in Sources */,
 				32E9A55B292E24D2000072EE /* VotedTagViewModel.swift in Sources */,
 				FC84FACC293B944900428AAA /* RequestRegionViewModel.swift in Sources */,
