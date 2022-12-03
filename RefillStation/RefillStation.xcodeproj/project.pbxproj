@@ -59,6 +59,8 @@
 		FC7D3529292F22B300335AAB /* StoreDetailInfoStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7D3528292F22B300335AAB /* StoreDetailInfoStackView.swift */; };
 		FC7D352B292F24D700335AAB /* StoreInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7D352A292F24D700335AAB /* StoreInfo.swift */; };
 		FC84FAC5293AB04800428AAA /* RegionRequestHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC84FAC4293AB04800428AAA /* RegionRequestHeaderView.swift */; };
+		FC84FAC9293B640300428AAA /* RequestRegionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC84FAC8293B640300428AAA /* RequestRegionViewController.swift */; };
+		FC84FACC293B944900428AAA /* RequestRegionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC84FACB293B944900428AAA /* RequestRegionViewModel.swift */; };
 		FCB6667D29346285004F38B0 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = FCB6667C29346285004F38B0 /* Tabman */; };
 		FCEE10232934C385002E629D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCEE10222934C385002E629D /* Colors.xcassets */; };
 		FCEE10252934C855002E629D /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCEE10242934C855002E629D /* images.xcassets */; };
@@ -136,6 +138,8 @@
 		FC7D3528292F22B300335AAB /* StoreDetailInfoStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailInfoStackView.swift; sourceTree = "<group>"; };
 		FC7D352A292F24D700335AAB /* StoreInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfo.swift; sourceTree = "<group>"; };
 		FC84FAC4293AB04800428AAA /* RegionRequestHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionRequestHeaderView.swift; sourceTree = "<group>"; };
+		FC84FAC8293B640300428AAA /* RequestRegionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestRegionViewController.swift; sourceTree = "<group>"; };
+		FC84FACB293B944900428AAA /* RequestRegionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestRegionViewModel.swift; sourceTree = "<group>"; };
 		FCEE10222934C385002E629D /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		FCEE10242934C855002E629D /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		FCEE10262934C8EE002E629D /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
@@ -253,6 +257,7 @@
 				FC47393D2936AB0400DB9BDB /* HomeScene */,
 				320997522935E8F300956FBE /* StoreDetailTabViewController.swift */,
 				320997542935EDE700956FBE /* TabViewDelegate.swift */,
+				FC84FAC6293B63CD00428AAA /* RequestRegionScene */,
 				FC7D3523292EC1C500335AAB /* StoreDetailScene */,
 				324CCBDA29321578001F6FDA /* ReviewWritingVC */,
 				324CCBE3293216A6001F6FDA /* StoreReviewVC */,
@@ -376,6 +381,31 @@
 			isa = PBXGroup;
 			children = (
 				FC7D3526292EC72400335AAB /* StoreDetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FC84FAC6293B63CD00428AAA /* RequestRegionScene */ = {
+			isa = PBXGroup;
+			children = (
+				FC84FACA293B943000428AAA /* ViewModel */,
+				FC84FAC7293B63D600428AAA /* ViewController */,
+			);
+			path = RequestRegionScene;
+			sourceTree = "<group>";
+		};
+		FC84FAC7293B63D600428AAA /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FC84FAC8293B640300428AAA /* RequestRegionViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		FC84FACA293B943000428AAA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FC84FACB293B944900428AAA /* RequestRegionViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -606,8 +636,10 @@
 				FC7D3529292F22B300335AAB /* StoreDetailInfoStackView.swift in Sources */,
 				3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */,
 				325C35A529322467001B3741 /* ReviewPhotoDelegate.swift in Sources */,
+				FC84FAC9293B640300428AAA /* RequestRegionViewController.swift in Sources */,
 				FC47394729376BA500DB9BDB /* HomeViewModel.swift in Sources */,
 				32E9A55B292E24D2000072EE /* VotedTagViewModel.swift in Sources */,
+				FC84FACC293B944900428AAA /* RequestRegionViewModel.swift in Sources */,
 				32099757293609F600956FBE /* ProductDetailViewController.swift in Sources */,
 				32E9A565292E704A000072EE /* DetailReviewViewModel.swift in Sources */,
 				3209974D293519A500956FBE /* StoreReviewSection.swift in Sources */,
