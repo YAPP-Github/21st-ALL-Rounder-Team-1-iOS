@@ -69,10 +69,10 @@ final class StoreDetailInfoView: UIView {
     }()
 
     // MARK: - Properties
-    private var viewModel: StoreDetailViewModel
+    private var viewModel: StoreInfoViewModel
 
     // MARK: - Initialization
-    init(viewModel: StoreDetailViewModel) {
+    init(viewModel: StoreInfoViewModel) {
         self.viewModel = viewModel
         super.init(frame: .zero)
         backgroundColor = .white
@@ -82,7 +82,7 @@ final class StoreDetailInfoView: UIView {
     }
 
     required init?(coder: NSCoder) {
-        self.viewModel = StoreDetailViewModel()
+        self.viewModel = StoreInfoViewModel()
         super.init(coder: coder)
     }
 

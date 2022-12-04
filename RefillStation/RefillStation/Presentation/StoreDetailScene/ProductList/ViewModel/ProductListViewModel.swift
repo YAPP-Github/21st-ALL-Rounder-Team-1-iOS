@@ -7,13 +7,7 @@
 
 import Foundation
 
-final class StoreDetailViewModel {
-    var name: String = "알맹 상점"
-    var reviewCount: Int = 1018
-    var address: String = "서울시 성북구 삼선동"
-    var openState: Bool = true
-    var closeTime: String = "8:00"
-
+final class ProductListViewModel {
     var products: [Product] = [.init(name: "로즈마리 솔트 스크럽 샴푸",
                                      brand: "아로마티카",
                                      pricePerGram: 24,

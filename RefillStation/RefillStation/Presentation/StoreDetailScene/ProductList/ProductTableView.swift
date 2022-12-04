@@ -10,10 +10,10 @@ import SnapKit
 
 final class ProductTableView: UITableView {
 
-    private var viewModel: StoreDetailViewModel!
+    private var viewModel: ProductListViewModel!
 
     // MARK: - Initializer
-    convenience init(viewModel: StoreDetailViewModel) {
+    convenience init(viewModel: ProductListViewModel) {
         self.init()
         self.viewModel = viewModel
         register(ProductTableViewCell.self,
