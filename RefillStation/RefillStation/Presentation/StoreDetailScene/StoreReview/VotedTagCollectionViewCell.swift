@@ -80,6 +80,7 @@ final class VotedTagReviewBox: UIView {
 
     private let tagImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
 

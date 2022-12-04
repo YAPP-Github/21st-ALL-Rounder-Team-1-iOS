@@ -62,9 +62,10 @@ final class StoreDetailInfoView: UIView {
         label.font = .font(style: .bodyMedium)
         return label
     }()
-    private var refillGuideArrowImage: UIImageView = {
+    private var refillGuideArrowImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Asset.Images.iconArrowRightSmall.image
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
 
@@ -97,7 +98,7 @@ final class StoreDetailInfoView: UIView {
     private func layout() {
         [storeNameLabel, storeAddressLabel, openStateLabel, separatorLine,
          closeTimeLabel, dividerView, storeInfoStackView, refillGuideButton].forEach { addSubview($0) }
-        [refillGuideLabel, refillGuideArrowImage].forEach { refillGuideButton.addSubview($0) }
+        [refillGuideLabel, refillGuideArrowImageView].forEach { refillGuideButton.addSubview($0) }
 
         storeNameLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview().inset(20)
@@ -139,7 +140,7 @@ final class StoreDetailInfoView: UIView {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().inset(20)
         }
-        refillGuideArrowImage.snp.makeConstraints {
+        refillGuideArrowImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.trailing.equalToSuperview().inset(20)
         }

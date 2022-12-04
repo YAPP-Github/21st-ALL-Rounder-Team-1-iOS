@@ -10,8 +10,12 @@ import UIKit
 final class DetailReviewCollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier = "detailReviewTableViewCell"
 
-    private let profileImageView: UIImageView = {
+    private let profileImageHeight: CGFloat = 40
+
+    private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = profileImageHeight / 2
         return imageView
     }()
 
@@ -33,6 +37,7 @@ final class DetailReviewCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 4
         imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
 
@@ -73,6 +78,7 @@ final class DetailReviewCollectionViewCell: UICollectionViewCell {
 
         profileImageView.snp.makeConstraints { profile in
             profile.leading.top.equalTo(contentView)
+            profile.height.width.equalTo(profileImageHeight)
         }
 
         userNameLabel.snp.makeConstraints { nameLabel in
@@ -95,7 +101,7 @@ final class DetailReviewCollectionViewCell: UICollectionViewCell {
         reviewImageView.snp.makeConstraints { reviewImage in
             reviewImage.leading.trailing.equalTo(contentView)
             reviewImage.top.equalTo(writtenDateLabel.snp.bottom).offset(10)
-            reviewImage.height.equalTo(100)
+            reviewImage.height.equalTo(168)
         }
 
         descriptionLabel.snp.makeConstraints { description in

@@ -26,6 +26,7 @@ final class RegionRequestHeaderView: UICollectionReusableView {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Asset.Images.regionImage.image
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
 

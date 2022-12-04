@@ -34,6 +34,7 @@ final class RequestRegionViewController: UIViewController {
     private let descriptionIcon: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Asset.Images.iconBell.image
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     private let descriptionLabel: UILabel = {

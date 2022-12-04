@@ -30,6 +30,7 @@ final class HomeViewController: UIViewController {
     private let locationIcon: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Asset.Images.iconPosition.image
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     private let currentLocationLabel: UILabel = {

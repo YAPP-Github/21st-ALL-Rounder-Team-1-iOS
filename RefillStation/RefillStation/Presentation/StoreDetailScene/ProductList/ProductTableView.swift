@@ -36,7 +36,6 @@ extension ProductTableView: UITableViewDataSource {
         }
 
         let data = viewModel.products[indexPath.row]
-        cell.render()
         cell.setUpContents(productName: data.name,
                            imageURL: data.imageURL,
                            brand: data.brand,

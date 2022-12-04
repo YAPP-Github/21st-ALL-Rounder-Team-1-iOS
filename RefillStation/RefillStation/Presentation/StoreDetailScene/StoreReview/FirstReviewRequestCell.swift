@@ -11,7 +11,12 @@ import SnapKit
 final class FirstReviewRequestCell: UICollectionViewCell {
     static let reuseIdentifier = "firstReviewRequestCell"
 
-    private let imageView = UIImageView(image: UIImage(systemName: "zzz"))
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.image = UIImage(systemName: "zzz")
+        return imageView
+    }()
     private let reviewRequestLabel: UILabel = {
         let label = UILabel()
         label.text = "리필스테이션 매장이름'의 첫 리뷰를 남겨주세요!"
