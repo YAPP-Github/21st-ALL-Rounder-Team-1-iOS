@@ -45,7 +45,7 @@ final class DetailReviewCell: UICollectionViewCell {
 
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 3
+        label.numberOfLines = 0
         label.textColor = Asset.Colors.gray5.color
         label.font = UIFont.font(style: .bodyMedium)
         return label
@@ -71,6 +71,7 @@ final class DetailReviewCell: UICollectionViewCell {
         writtenDateLabel.text = detailReview.writtenDate.toString()
         reviewImageView.image = UIImage(systemName: "zzz")
         descriptionLabel.text = detailReview.description
+        layoutIfNeeded()
     }
 
     private func layout() {
