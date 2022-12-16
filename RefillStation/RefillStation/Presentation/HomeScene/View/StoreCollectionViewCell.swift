@@ -13,9 +13,10 @@ final class StoreCollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier = "StoreCollectionViewCell"
 
     // MARK: - UI Components
-    private var storeImage: UIImageView = {
+    private var storeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = Asset.Colors.gray1.color
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     private var storeInfoView: UIView = {
@@ -78,16 +79,16 @@ final class StoreCollectionViewCell: UICollectionViewCell {
     // MARK: - Default Setting Methods
 
     private func layout() {
-        [storeImage, storeInfoView].forEach { contentView.addSubview($0) }
+        [storeImageView, storeInfoView].forEach { contentView.addSubview($0) }
         [nameLabel, addressLabel, distanceLabel, firstDividerView,
          openStateLabel, secondDividerView, timeLabel].forEach { storeInfoView.addSubview($0) }
-        storeImage.snp.makeConstraints {
+        storeImageView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
             $0.width.equalTo(UIScreen.main.bounds.width - Constraints.inset * 2)
             $0.height.equalTo(Constraints.imageHeight)
         }
         storeInfoView.snp.makeConstraints {
-            $0.top.equalTo(storeImage.snp.bottom)
+            $0.top.equalTo(storeImageView.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
 
@@ -130,6 +131,10 @@ final class StoreCollectionViewCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 6
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = Asset.Colors.gray1.color.cgColor
+    }
+
+    func setUpImage(image: UIImage) {
+        storeImageView.image = image
     }
 
     func setUpContents(image: String?,

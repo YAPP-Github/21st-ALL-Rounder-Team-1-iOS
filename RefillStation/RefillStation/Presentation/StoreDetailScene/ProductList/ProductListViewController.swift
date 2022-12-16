@@ -10,7 +10,7 @@ import UIKit
 final class ProductListViewController: UIViewController {
 
     private var productTableView: ProductTableView!
-    private var storeDetailViewModel: StoreDetailViewModel!
+    private var productListViewModel: ProductListViewModel!
     weak var tabViewDelegate: TabViewDelegate?
 
     override func viewDidLoad() {
@@ -28,8 +28,8 @@ final class ProductListViewController: UIViewController {
     }
 
     private func setUpTableView() {
-        storeDetailViewModel = StoreDetailViewModel()
-        productTableView = ProductTableView(viewModel: storeDetailViewModel)
+        productListViewModel = ProductListViewModel()
+        productTableView = ProductTableView(viewModel: productListViewModel)
         productTableView.showsVerticalScrollIndicator = false
         productTableView.delegate = self
         productTableView.bounces = false

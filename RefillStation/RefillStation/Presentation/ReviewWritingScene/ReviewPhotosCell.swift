@@ -52,6 +52,7 @@ final class ReviewPhotosCell: UICollectionViewCell {
         imageView.widthAnchor.constraint(equalToConstant: 90).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: 90).isActive = true
         imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }
 

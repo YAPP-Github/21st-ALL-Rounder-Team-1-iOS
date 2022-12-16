@@ -57,7 +57,8 @@ final class TagReviewCell: UICollectionViewCell {
     private func layout() {
         contentView.addSubview(tagTitleLabel)
         tagTitleLabel.snp.makeConstraints { tag in
-            tag.edges.equalTo(contentView).inset(5)
+            tag.top.bottom.equalToSuperview().inset(5)
+            tag.leading.trailing.equalToSuperview().inset(15)
         }
     }
 }

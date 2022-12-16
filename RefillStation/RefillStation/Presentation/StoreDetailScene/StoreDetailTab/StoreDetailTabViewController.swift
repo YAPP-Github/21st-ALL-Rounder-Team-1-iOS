@@ -16,7 +16,7 @@ final class StoreDetailTabViewController: UIViewController {
     private lazy var tabViewControllers = [productListViewController, storeReviewViewController]
 
     private let storeDetailInfoView: StoreDetailInfoView = {
-        let viewModel = StoreDetailViewModel()
+        let viewModel = StoreInfoViewModel()
         return StoreDetailInfoView(viewModel: viewModel)
     }()
 
@@ -25,9 +25,8 @@ final class StoreDetailTabViewController: UIViewController {
         view.backgroundColor = .white
         setUpDelegate()
         setUpTabman()
+        setUpNavigationBar()
         layout()
-        navigationController?.navigationBar.tintColor = .black
-        navigationItem.title = ""
     }
 
     private func setUpDelegate() {
@@ -43,6 +42,11 @@ final class StoreDetailTabViewController: UIViewController {
         bar.layout.transitionStyle = .snap
         bar.layout.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
         tabmanViewController.addBar(bar, dataSource: self, at: .top)
+    }
+
+    private func setUpNavigationBar() {
+        navigationController?.navigationBar.tintColor = .black
+        navigationItem.title = ""
     }
 
     private func layout() {

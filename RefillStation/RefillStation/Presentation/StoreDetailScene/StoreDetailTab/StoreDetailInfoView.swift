@@ -62,17 +62,18 @@ final class StoreDetailInfoView: UIView {
         label.font = .font(style: .bodyMedium)
         return label
     }()
-    private var refillGuideArrowImage: UIImageView = {
+    private var refillGuideArrowImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Asset.Images.iconArrowRightSmall.image
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
 
     // MARK: - Properties
-    private var viewModel: StoreDetailViewModel
+    private var viewModel: StoreInfoViewModel
 
     // MARK: - Initialization
-    init(viewModel: StoreDetailViewModel) {
+    init(viewModel: StoreInfoViewModel) {
         self.viewModel = viewModel
         super.init(frame: .zero)
         backgroundColor = .white
@@ -82,7 +83,7 @@ final class StoreDetailInfoView: UIView {
     }
 
     required init?(coder: NSCoder) {
-        self.viewModel = StoreDetailViewModel()
+        self.viewModel = StoreInfoViewModel()
         super.init(coder: coder)
     }
 
@@ -97,7 +98,7 @@ final class StoreDetailInfoView: UIView {
     private func layout() {
         [storeNameLabel, storeAddressLabel, openStateLabel, separatorLine,
          closeTimeLabel, dividerView, storeInfoStackView, refillGuideButton].forEach { addSubview($0) }
-        [refillGuideLabel, refillGuideArrowImage].forEach { refillGuideButton.addSubview($0) }
+        [refillGuideLabel, refillGuideArrowImageView].forEach { refillGuideButton.addSubview($0) }
 
         storeNameLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview().inset(20)
@@ -139,7 +140,7 @@ final class StoreDetailInfoView: UIView {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().inset(20)
         }
-        refillGuideArrowImage.snp.makeConstraints {
+        refillGuideArrowImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.trailing.equalToSuperview().inset(20)
         }
@@ -151,3 +152,14 @@ final class StoreDetailInfoView: UIView {
         self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
     }
 }
+
+/*
+ 
+ let request = ... request 만들기
+ header, urlpath, parameter 등등
+
+ baseService.request(request: request) {
+
+ }
+
+ */

@@ -13,10 +13,13 @@ final class ProductTableViewCell: UITableViewCell {
     static let reuseIdentifier = "ProductTableViewCell"
 
     // MARK: - UIComponents
-    private var productImage: UIImageView = {
-        let image = UIImageView()
-        image.backgroundColor = .systemGray6
-        return image
+    private var productImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .systemGray6
+        imageView.layer.cornerRadius = 6
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        return imageView
     }()
     private var brandLabel: UILabel = {
         let label = UILabel()
@@ -47,15 +50,15 @@ final class ProductTableViewCell: UITableViewCell {
 
 // MARK: - Default Setting Methods
     private func layout() {
-        [productImage, brandLabel, productNameLabel, pricePerGramLabel].forEach { contentView.addSubview($0) }
-        productImage.snp.makeConstraints {
+        [productImageView, brandLabel, productNameLabel, pricePerGramLabel].forEach { contentView.addSubview($0) }
+        productImageView.snp.makeConstraints {
             $0.width.equalTo(80)
-            $0.height.equalTo(90)
+            $0.height.equalTo(90).priority(.required)
             $0.top.bottom.equalToSuperview().inset(16)
         }
         brandLabel.snp.makeConstraints {
-            $0.top.equalTo(productImage)
-            $0.leading.equalTo(productImage.snp.trailing).offset(12)
+            $0.top.equalToSuperview().inset(16)
+            $0.leading.equalTo(productImageView.snp.trailing).offset(12)
         }
         productNameLabel.snp.makeConstraints {
             $0.top.equalTo(brandLabel.snp.bottom).offset(5)
@@ -67,8 +70,8 @@ final class ProductTableViewCell: UITableViewCell {
         }
     }
 
-    func render() {
-        productImage.layer.cornerRadius = 4
+    func setUpImage(image: UIImage) {
+        productImageView.image = image
     }
 
     func setUpContents(productName: String,
