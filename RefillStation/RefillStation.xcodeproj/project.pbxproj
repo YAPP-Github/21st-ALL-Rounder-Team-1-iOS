@@ -403,11 +403,8 @@
 		32E9A553292E1936000072EE /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				32E9A554292E1947000072EE /* TagReview.swift */,
+				FCE00A6F294C5E6600B5C05F /* Entities */,
 				32E9A560292E68CF000072EE /* DetailReview+User.swift */,
-				FC47394829376E2200DB9BDB /* Store.swift */,
-				FC7D352A292F24D700335AAB /* StoreInfo.swift */,
-				FC3EBDF22932872100A9C1F9 /* Product.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -530,6 +527,17 @@
 			path = CoreDataStorage;
 			sourceTree = "<group>";
 		};
+		FCE00A6F294C5E6600B5C05F /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				32E9A554292E1947000072EE /* TagReview.swift */,
+				32E9A560292E68CF000072EE /* DetailReview+User.swift */,
+				FC47394829376E2200DB9BDB /* Store.swift */,
+				FC7D352A292F24D700335AAB /* StoreInfo.swift */,
+				FC3EBDF22932872100A9C1F9 /* Product.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
