@@ -120,6 +120,26 @@ extension StoreReviewViewController: UICollectionViewDataSource {
                 withReuseIdentifier: DetailReviewCell.reuseIdentifier,
                 for: indexPath) as? DetailReviewCell else { return UICollectionViewCell() }
             cell.setUpContents(detailReview: detailReviewViewModel.detailReviews[indexPath.row])
+
+            cell.setUpSeeMore(
+                isSeeMoreButtonAlreadyTapped: detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath)
+            )
+
+            cell.reloadCell = {
+                if self.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath) {
+                    self.detailReviewViewModel.seeMoreTappedIndexPaths.remove(
+                        at: self.detailReviewViewModel.seeMoreTappedIndexPaths.firstIndex(of: indexPath)!
+                    )
+                } else {
+                    self.detailReviewViewModel.seeMoreTappedIndexPaths.append(indexPath)
+                }
+
+                cell.setUpSeeMore(
+                    isSeeMoreButtonAlreadyTapped: self.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath)
+                )
+                self.detailReviewCollectionView.reloadItems(at: [indexPath])
+            }
+
             return cell
         default:
             guard let reuseIdentifier = Section(rawValue: indexPath.section)?.reuseIdentifier else {
@@ -143,6 +163,9 @@ extension StoreReviewViewController: UICollectionViewDelegateFlowLayout {
             let dummyCellForCalculateheight = DetailReviewCell(frame: CGRect(origin: CGPoint(x: 0, y: 0),
                                                       size: CGSize(width: width, height: height)))
             dummyCellForCalculateheight.setUpContents(detailReview: detailReviewViewModel.detailReviews[indexPath.row])
+            dummyCellForCalculateheight.setUpSeeMore(
+                isSeeMoreButtonAlreadyTapped: self.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath)
+            )
             let heightThatFits = dummyCellForCalculateheight.systemLayoutSizeFitting(CGSize(width: width, height: height)).height
             return CGSize(width: width, height: heightThatFits)
         }
