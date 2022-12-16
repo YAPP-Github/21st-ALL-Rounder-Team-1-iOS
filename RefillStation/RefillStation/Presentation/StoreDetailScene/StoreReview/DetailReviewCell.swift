@@ -72,8 +72,6 @@ final class DetailReviewCell: UICollectionViewCell {
 
     @objc
     private func seeMoreButtonTapped(_ sender: UIButton) {
-        layoutSubviews()
-        layoutIfNeeded()
         reloadCell?()
     }
 

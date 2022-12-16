@@ -133,10 +133,6 @@ extension StoreReviewViewController: UICollectionViewDataSource {
                 } else {
                     self.detailReviewViewModel.seeMoreTappedIndexPaths.append(indexPath)
                 }
-
-                cell.setUpSeeMore(
-                    isSeeMoreButtonAlreadyTapped: self.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath)
-                )
                 self.detailReviewCollectionView.reloadItems(at: [indexPath])
             }
 
