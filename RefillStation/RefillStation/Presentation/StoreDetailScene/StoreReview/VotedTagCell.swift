@@ -8,9 +8,9 @@
 import UIKit
 import SnapKit
 
-final class VotedTagCollectionViewCell: UICollectionViewCell {
+final class VotedTagCell: UICollectionViewCell {
 
-    static let reuseIdentifier = "votedTagCollectionViewCell"
+    static let reuseIdentifier = "votedTagCell"
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -88,6 +88,7 @@ final class VotedTagReviewBox: UIView {
         let label = UILabel()
         label.textColor = Asset.Colors.gray6.color
         label.textAlignment = .center
+        label.numberOfLines = 0
         return label
     }()
 
@@ -158,12 +159,13 @@ final class VotedTagReviewBox: UIView {
 
             tagImageView.snp.makeConstraints { image in
                 image.centerY.equalToSuperview().multipliedBy(0.8)
+                image.width.height.equalTo(50)
             }
 
         } else {
             tagTitleLabel.snp.makeConstraints { title in
                 title.top.equalTo(tagImageView.snp.bottom).offset(10)
-                title.leading.trailing.equalToSuperview().inset(20)
+                title.leading.trailing.equalToSuperview().inset(10)
             }
 
             voteCountLabel.snp.makeConstraints { count in
@@ -173,6 +175,7 @@ final class VotedTagReviewBox: UIView {
 
             tagImageView.snp.makeConstraints { image in
                 image.centerY.equalToSuperview().multipliedBy(0.7)
+                image.width.height.equalTo(20)
             }
         }
     }

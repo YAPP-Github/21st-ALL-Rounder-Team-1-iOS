@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class DetailReviewCollectionViewCell: UICollectionViewCell {
-    static let reuseIdentifier = "detailReviewTableViewCell"
+final class DetailReviewCell: UICollectionViewCell {
+    static let reuseIdentifier = "detailReviewCell"
 
     private let profileImageHeight: CGFloat = 40
 
@@ -16,6 +16,8 @@ final class DetailReviewCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = profileImageHeight / 2
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
 
@@ -66,7 +68,7 @@ final class DetailReviewCollectionViewCell: UICollectionViewCell {
     func setUpContents(detailReview: DetailReview) {
         profileImageView.image = UIImage(systemName: "person")
         userNameLabel.text = detailReview.user.name
-        writtenDateLabel.text = detailReview.writtenDate.description
+        writtenDateLabel.text = detailReview.writtenDate.toString()
         reviewImageView.image = UIImage(systemName: "zzz")
         descriptionLabel.text = detailReview.description
     }
@@ -95,7 +97,7 @@ final class DetailReviewCollectionViewCell: UICollectionViewCell {
         profileImageView.snp.makeConstraints { profile in
             profile.top.equalTo(userNameLabel.snp.top)
             profile.bottom.equalTo(writtenDateLabel.snp.bottom)
-            profile.width.equalTo(profileImageView.snp.height)
+            profile.width.height.equalTo(profileImageHeight)
         }
 
         reviewImageView.snp.makeConstraints { reviewImage in
@@ -105,8 +107,18 @@ final class DetailReviewCollectionViewCell: UICollectionViewCell {
         }
 
         descriptionLabel.snp.makeConstraints { description in
-            description.leading.trailing.bottom.equalTo(contentView)
+            description.leading.trailing.bottom.equalToSuperview()
             description.top.equalTo(reviewImageView.snp.bottom).offset(10)
         }
+    }
+}
+
+fileprivate extension Date {
+    func toString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+
+        return dateFormatter.string(from: self)
     }
 }

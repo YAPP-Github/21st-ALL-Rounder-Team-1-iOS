@@ -13,7 +13,7 @@ extension StoreReviewViewController {
         case moveToWriteReview
         case firstReviewRequest
         case votedCount
-        case votedTagBoxes
+        case votedTag
         case detailReviewCount
         case detailReviews
 
@@ -25,12 +25,12 @@ extension StoreReviewViewController {
                 return 190
             case .votedCount:
                 return 40
-            case .votedTagBoxes:
+            case .votedTag:
                 return 240
             case .detailReviewCount:
                 return 40
             case .detailReviews:
-                return 200
+                return 280
             }
         }
 
@@ -42,12 +42,12 @@ extension StoreReviewViewController {
                 return FirstReviewRequestCell.reuseIdentifier
             case .votedCount:
                 return VotedCountLabelCell.reuseIdentifier
-            case .votedTagBoxes:
-                return VotedTagCollectionViewCell.reuseIdentifier
+            case .votedTag:
+                return VotedTagCell.reuseIdentifier
             case .detailReviewCount:
                 return DetailReviewCountCell.reuseIdentifier
             case .detailReviews:
-                return DetailReviewCollectionViewCell.reuseIdentifier
+                return DetailReviewCell.reuseIdentifier
             }
         }
     }

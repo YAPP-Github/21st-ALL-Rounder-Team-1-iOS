@@ -33,13 +33,13 @@ final class StoreReviewViewController: UIViewController {
 
         detailReviewCollectionView.register(VotedCountLabelCell.self,
                                             forCellWithReuseIdentifier: VotedCountLabelCell.reuseIdentifier)
-        detailReviewCollectionView.register(VotedTagCollectionViewCell.self,
-                                            forCellWithReuseIdentifier: VotedTagCollectionViewCell.reuseIdentifier)
+        detailReviewCollectionView.register(VotedTagCell.self,
+                                            forCellWithReuseIdentifier: VotedTagCell.reuseIdentifier)
 
         detailReviewCollectionView.register(DetailReviewCountCell.self,
                                             forCellWithReuseIdentifier: DetailReviewCountCell.reuseIdentifier)
-        detailReviewCollectionView.register(DetailReviewCollectionViewCell.self,
-                                            forCellWithReuseIdentifier: DetailReviewCollectionViewCell.reuseIdentifier)
+        detailReviewCollectionView.register(DetailReviewCell.self,
+                                            forCellWithReuseIdentifier: DetailReviewCell.reuseIdentifier)
 
         detailReviewCollectionView.dataSource = self
         detailReviewCollectionView.delegate = self
@@ -75,7 +75,7 @@ extension StoreReviewViewController: UICollectionViewDataSource {
             return votedTagViewModel.totalVoteCount + detailReviewViewModel.detailReviews.count == 0 ? 1 : 0
         case Section.votedCount.rawValue:
             return votedTagViewModel.totalVoteCount == 0 ? 0 : 1
-        case Section.votedTagBoxes.rawValue:
+        case Section.votedTag.rawValue:
             return votedTagViewModel.totalVoteCount == 0 ? 0 : 1
         case Section.detailReviewCount.rawValue:
             return detailReviewViewModel.detailReviews.count == 0 ? 0 : 1
@@ -103,10 +103,10 @@ extension StoreReviewViewController: UICollectionViewDataSource {
                 for: indexPath) as? VotedCountLabelCell else { return UICollectionViewCell() }
             cell.setUpContents(totalVote: votedTagViewModel.totalVoteCount)
             return cell
-        case Section.votedTagBoxes.rawValue:
+        case Section.votedTag.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: VotedTagCollectionViewCell.reuseIdentifier,
-                for: indexPath) as? VotedTagCollectionViewCell else { return UICollectionViewCell() }
+                withReuseIdentifier: VotedTagCell.reuseIdentifier,
+                for: indexPath) as? VotedTagCell else { return UICollectionViewCell() }
             cell.setUpContents(tagReviews: votedTagViewModel.tagReviews)
             return cell
         case Section.detailReviewCount.rawValue:
@@ -117,8 +117,8 @@ extension StoreReviewViewController: UICollectionViewDataSource {
             return cell
         case Section.detailReviews.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: DetailReviewCollectionViewCell.reuseIdentifier,
-                for: indexPath) as? DetailReviewCollectionViewCell else { return UICollectionViewCell() }
+                withReuseIdentifier: DetailReviewCell.reuseIdentifier,
+                for: indexPath) as? DetailReviewCell else { return UICollectionViewCell() }
             cell.setUpContents(detailReview: detailReviewViewModel.detailReviews[indexPath.row])
             return cell
         default:

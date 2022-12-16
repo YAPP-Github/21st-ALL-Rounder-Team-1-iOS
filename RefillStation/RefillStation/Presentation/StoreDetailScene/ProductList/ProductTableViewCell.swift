@@ -18,6 +18,7 @@ final class ProductTableViewCell: UITableViewCell {
         imageView.backgroundColor = .systemGray6
         imageView.layer.cornerRadius = 6
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView
     }()
     private var brandLabel: UILabel = {
@@ -52,11 +53,11 @@ final class ProductTableViewCell: UITableViewCell {
         [productImageView, brandLabel, productNameLabel, pricePerGramLabel].forEach { contentView.addSubview($0) }
         productImageView.snp.makeConstraints {
             $0.width.equalTo(80)
-            $0.height.equalTo(90)
+            $0.height.equalTo(90).priority(.required)
             $0.top.bottom.equalToSuperview().inset(16)
         }
         brandLabel.snp.makeConstraints {
-            $0.top.equalTo(productImageView)
+            $0.top.equalToSuperview().inset(16)
             $0.leading.equalTo(productImageView.snp.trailing).offset(12)
         }
         productNameLabel.snp.makeConstraints {

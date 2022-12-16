@@ -152,3 +152,14 @@ final class StoreDetailInfoView: UIView {
         self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
     }
 }
+
+/*
+ 
+ let request = ... request 만들기
+ header, urlpath, parameter 등등
+
+ baseService.request(request: request) {
+
+ }
+
+ */
