@@ -136,8 +136,17 @@ extension StoreReviewViewController: UICollectionViewDataSource {
 extension StoreReviewViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width - 2 * Constraints.outerCollectionViewInset // inset 좌 우 각각 20
-        guard let height = Section(rawValue: indexPath.section)?.cellHeight else { return .zero }
+        let width = collectionView.frame.width - 2 * Constraints.outerCollectionViewInset
+        guard let height = Section(rawValue: indexPath.section)?.estimatedCellHeight else { return .zero }
+
+        if Section(rawValue: indexPath.section) == .detailReviews {
+            let dummyCellForCalculateheight = DetailReviewCell(frame: CGRect(origin: CGPoint(x: 0, y: 0),
+                                                      size: CGSize(width: width, height: height)))
+            dummyCellForCalculateheight.setUpContents(detailReview: detailReviewViewModel.detailReviews[indexPath.row])
+            let heightThatFits = dummyCellForCalculateheight.systemLayoutSizeFitting(CGSize(width: width, height: height)).height
+            return CGSize(width: width, height: heightThatFits)
+        }
+
         return CGSize(width: width, height: height)
     }
 
