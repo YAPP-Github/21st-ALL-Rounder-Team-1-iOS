@@ -45,11 +45,21 @@ final class DetailReviewCell: UICollectionViewCell {
 
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
+        label.numberOfLines = 3
         label.textColor = Asset.Colors.gray5.color
         label.font = UIFont.font(style: .bodyMedium)
         return label
     }()
+
+    private lazy var seeMoreButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("더보기", for: .normal)
+        button.setTitleColor(UIColor.blue, for: .normal)
+        button.addTarget(self, action: #selector(seeMoreButtonTapped(_:)), for: .touchUpInside)
+        return button
+    }()
+
+    var reloadCell: (() -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -58,6 +68,15 @@ final class DetailReviewCell: UICollectionViewCell {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+
+    @objc
+    private func seeMoreButtonTapped(_ sender: UIButton) {
+        reloadCell?()
+    }
+
+    func setUpSeeMore(isSeeMoreButtonAlreadyTapped: Bool) {
+        descriptionLabel.numberOfLines = isSeeMoreButtonAlreadyTapped ? 0 : 3
     }
 
     func setUpImages(userImage: UIImage, reviewImage: UIImage) {
@@ -75,7 +94,7 @@ final class DetailReviewCell: UICollectionViewCell {
     }
 
     private func layout() {
-        [profileImageView, userNameLabel, writtenDateLabel, reviewImageView, descriptionLabel].forEach {
+        [profileImageView, userNameLabel, writtenDateLabel, reviewImageView, descriptionLabel, seeMoreButton].forEach {
             contentView.addSubview($0)
         }
 
@@ -108,8 +127,13 @@ final class DetailReviewCell: UICollectionViewCell {
         }
 
         descriptionLabel.snp.makeConstraints { description in
-            description.leading.trailing.bottom.equalToSuperview()
+            description.leading.trailing.equalToSuperview()
             description.top.equalTo(reviewImageView.snp.bottom).offset(10)
+        }
+
+        seeMoreButton.snp.makeConstraints { button in
+            button.top.equalTo(descriptionLabel.snp.bottom)
+            button.trailing.bottom.equalToSuperview()
         }
     }
 }
