@@ -112,9 +112,9 @@ final class VotedTagReviewBox: UIView {
     }
 
     func setUpContents(tagReview: TagReview) {
-        tagImageView.image = tagReview.image
-        tagTitleLabel.text = tagReview.tagTitle
-        voteCountLabel.text = "\(tagReview.voteCount)"
+        tagImageView.image = tagReview.tag.image
+        tagTitleLabel.text = tagReview.tag.title
+        voteCountLabel.text = "\(tagReview.recommendedCount)"
     }
 
     private func setLabelFont() {

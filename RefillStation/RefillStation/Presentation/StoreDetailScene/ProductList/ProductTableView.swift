@@ -39,7 +39,8 @@ extension ProductTableView: UITableViewDataSource {
         cell.setUpContents(productName: data.name,
                            imageURL: data.imageURL,
                            brand: data.brand,
-                           price: data.pricePerGram)
+                           price: data.price,
+                           measurement: data.measurement)
         return cell
     }
 }
