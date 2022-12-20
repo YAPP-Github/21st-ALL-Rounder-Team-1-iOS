@@ -8,7 +8,7 @@
 import Foundation
 
 final class HomeRepository: HomeRepositoryInterface {
-    private var networkService: NetworkService
+    private let networkService: NetworkService
 
     init(service: NetworkService) {
         self.networkService = service
