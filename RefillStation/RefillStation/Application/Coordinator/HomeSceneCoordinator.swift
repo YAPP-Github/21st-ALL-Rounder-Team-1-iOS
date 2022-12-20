@@ -29,13 +29,13 @@ final class HomeSceneCoordinator: Coordinator {
 }
 
 extension HomeSceneCoordinator: HomeViewModelCoordinatorDelegate {
-    func showRequestRegion() {
+    func requestRegionButtonTapped() {
 
     }
 }
 
 extension HomeSceneCoordinator: RequestRegionViewModelCoordinatorDelegate {
-    func requestRegionDidFinished() {
+    func requestButtonTapped() {
 
     }
 }
