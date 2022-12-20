@@ -100,6 +100,8 @@
 		FCE00A9C2950E1C700B5C05F /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A9B2950E1C700B5C05F /* Review.swift */; };
 		FCE00AA029517E6E00B5C05F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A9F29517E6E00B5C05F /* NetworkService.swift */; };
 		FCE00AA329517EE900B5C05F /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FCE00AA229517EE900B5C05F /* Alamofire */; };
+		FCE00AA6295187B500B5C05F /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00AA5295187B500B5C05F /* Cancellable.swift */; };
+		FCE00AA92951925600B5C05F /* RepositoryTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00AA82951925600B5C05F /* RepositoryTask.swift */; };
 		FCEE10232934C385002E629D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCEE10222934C385002E629D /* Colors.xcassets */; };
 		FCEE10252934C855002E629D /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCEE10242934C855002E629D /* images.xcassets */; };
 		FCEE102F2934CCB8002E629D /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCEE102E2934CCB8002E629D /* Fonts.swift */; };
@@ -215,6 +217,8 @@
 		FCE00A992950E07900B5C05F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FCE00A9B2950E1C700B5C05F /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		FCE00A9F29517E6E00B5C05F /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		FCE00AA5295187B500B5C05F /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
+		FCE00AA82951925600B5C05F /* RepositoryTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryTask.swift; sourceTree = "<group>"; };
 		FCEE10222934C385002E629D /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		FCEE10242934C855002E629D /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		FCEE10262934C8EE002E629D /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
@@ -299,6 +303,7 @@
 				32E9A553292E1936000072EE /* Domain */,
 				3244A22E292DC16A00716A2B /* Data */,
 				FCE00A9D29517E4E00B5C05F /* Infrastructure */,
+				FCE00AA42951879A00B5C05F /* Common */,
 				3244A22F292DC17800716A2B /* Resources */,
 			);
 			path = RefillStation;
@@ -324,6 +329,7 @@
 		3244A22E292DC16A00716A2B /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				FCE00AA72951924700B5C05F /* Utils */,
 				FCE00A80294C95CD00B5C05F /* Repositories */,
 				FCE00A64294C598800B5C05F /* PersistentStorages */,
 			);
@@ -651,6 +657,21 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		FCE00AA42951879A00B5C05F /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				FCE00AA5295187B500B5C05F /* Cancellable.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		FCE00AA72951924700B5C05F /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				FCE00AA82951925600B5C05F /* RepositoryTask.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -882,6 +903,7 @@
 				FC3EBDEF2932125800A9C1F9 /* ProductTableView.swift in Sources */,
 				325985E7294C525800D26A37 /* Coordinator.swift in Sources */,
 				FCE00A82294C95E100B5C05F /* DefaultHomeRepository.swift in Sources */,
+				FCE00AA6295187B500B5C05F /* Cancellable.swift in Sources */,
 				FCE00A9C2950E1C700B5C05F /* Review.swift in Sources */,
 				FCEE102F2934CCB8002E629D /* Fonts.swift in Sources */,
 				FC3EBDF32932872100A9C1F9 /* Product.swift in Sources */,
