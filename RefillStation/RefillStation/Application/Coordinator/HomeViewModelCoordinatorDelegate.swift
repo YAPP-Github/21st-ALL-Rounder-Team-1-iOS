@@ -8,5 +8,5 @@
 import Foundation
 
 protocol HomeViewModelCoordinatorDelegate: AnyObject {
-    func showRequestRegion()
+    func requestRegionButtonTapped()
 }

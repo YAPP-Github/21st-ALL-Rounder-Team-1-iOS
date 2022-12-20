@@ -8,5 +8,5 @@
 import Foundation
 
 protocol RequestRegionViewModelCoordinatorDelegate: AnyObject {
-    func requestRegionDidFinished()
+    func requestButtonTapped()
 }
