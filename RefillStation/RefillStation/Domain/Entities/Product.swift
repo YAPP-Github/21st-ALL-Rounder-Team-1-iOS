@@ -10,6 +10,7 @@ import Foundation
 struct Product {
     let name: String
     let brand: String
-    let pricePerGram: Int
-    let imageURL: String?
+    let measurement: String
+    let price: Int
+    let imageURL: String
 }

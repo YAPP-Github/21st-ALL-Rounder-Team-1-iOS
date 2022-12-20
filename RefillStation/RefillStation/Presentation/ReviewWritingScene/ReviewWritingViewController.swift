@@ -130,7 +130,7 @@ extension ReviewWritingViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: TagReviewCell.reuseIdentifier,
                 for: indexPath) as? TagReviewCell else { return UICollectionViewCell() }
-            cell.setUpContents(title: reviewSelectingViewModel.reviews[indexPath.row].tagTitle)
+            cell.setUpContents(title: reviewSelectingViewModel.reviews[indexPath.row].tag.title)
             return cell
         case Section.photoReview.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
