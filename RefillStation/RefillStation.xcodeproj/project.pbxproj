@@ -98,6 +98,7 @@
 		FCE00A982950E04300B5C05F /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A972950E04300B5C05F /* Tag.swift */; };
 		FCE00A9A2950E07900B5C05F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A992950E07900B5C05F /* User.swift */; };
 		FCE00A9C2950E1C700B5C05F /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A9B2950E1C700B5C05F /* Review.swift */; };
+		FCE00AA029517E6E00B5C05F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A9F29517E6E00B5C05F /* NetworkService.swift */; };
 		FCE00AA329517EE900B5C05F /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FCE00AA229517EE900B5C05F /* Alamofire */; };
 		FCEE10232934C385002E629D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCEE10222934C385002E629D /* Colors.xcassets */; };
 		FCEE10252934C855002E629D /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCEE10242934C855002E629D /* images.xcassets */; };
@@ -213,6 +214,7 @@
 		FCE00A972950E04300B5C05F /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		FCE00A992950E07900B5C05F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FCE00A9B2950E1C700B5C05F /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		FCE00A9F29517E6E00B5C05F /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		FCEE10222934C385002E629D /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		FCEE10242934C855002E629D /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		FCEE10262934C8EE002E629D /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 				3244A230292DC19200716A2B /* Presentation */,
 				32E9A553292E1936000072EE /* Domain */,
 				3244A22E292DC16A00716A2B /* Data */,
+				FCE00A9D29517E4E00B5C05F /* Infrastructure */,
 				3244A22F292DC17800716A2B /* Resources */,
 			);
 			path = RefillStation;
@@ -632,6 +635,23 @@
 			path = Repositories;
 			sourceTree = "<group>";
 		};
+		FCE00A9D29517E4E00B5C05F /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				FCE00A9E29517E5600B5C05F /* Network */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		FCE00A9E29517E5600B5C05F /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				FCE00A9F29517E6E00B5C05F /* NetworkService.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -832,6 +852,7 @@
 				320997552935EDE700956FBE /* TabViewDelegate.swift in Sources */,
 				325C35A72932CE17001B3741 /* ReviewRegisterCell.swift in Sources */,
 				FCE00A79294C919A00B5C05F /* FetchReviewUseCase.swift in Sources */,
+				FCE00AA029517E6E00B5C05F /* NetworkService.swift in Sources */,
 				32E014172932138F000B8350 /* DefaultTagReviewViewModel.swift in Sources */,
 				32E014162931C7B2000B8350 /* StoreInfoCell.swift in Sources */,
 				FC84FAC5293AB04800428AAA /* RegionRequestHeaderView.swift in Sources */,
