@@ -98,6 +98,7 @@
 		FCE00A982950E04300B5C05F /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A972950E04300B5C05F /* Tag.swift */; };
 		FCE00A9A2950E07900B5C05F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A992950E07900B5C05F /* User.swift */; };
 		FCE00A9C2950E1C700B5C05F /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A9B2950E1C700B5C05F /* Review.swift */; };
+		FCE00AA329517EE900B5C05F /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FCE00AA229517EE900B5C05F /* Alamofire */; };
 		FCEE10232934C385002E629D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCEE10222934C385002E629D /* Colors.xcassets */; };
 		FCEE10252934C855002E629D /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCEE10242934C855002E629D /* images.xcassets */; };
 		FCEE102F2934CCB8002E629D /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCEE102E2934CCB8002E629D /* Fonts.swift */; };
@@ -227,6 +228,7 @@
 				FCB6667D29346285004F38B0 /* Tabman in Frameworks */,
 				3244A23D292DCB6A00716A2B /* RxRelay in Frameworks */,
 				3244A23B292DCB6A00716A2B /* RxCocoa in Frameworks */,
+				FCE00AA329517EE900B5C05F /* Alamofire in Frameworks */,
 				3244A23F292DCB6A00716A2B /* RxSwift in Frameworks */,
 				3244A238292DCB1F00716A2B /* SnapKit in Frameworks */,
 			);
@@ -654,6 +656,7 @@
 				3244A23C292DCB6A00716A2B /* RxRelay */,
 				3244A23E292DCB6A00716A2B /* RxSwift */,
 				FCB6667C29346285004F38B0 /* Tabman */,
+				FCE00AA229517EE900B5C05F /* Alamofire */,
 			);
 			productName = RefillStation;
 			productReference = 3244A1F8292DC13A00716A2B /* RefillStation.app */;
@@ -731,6 +734,7 @@
 				3244A236292DCB1F00716A2B /* XCRemoteSwiftPackageReference "SnapKit" */,
 				3244A239292DCB6A00716A2B /* XCRemoteSwiftPackageReference "RxSwift" */,
 				FCB6667B29346285004F38B0 /* XCRemoteSwiftPackageReference "Tabman" */,
+				FCE00AA129517EE900B5C05F /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 3244A1F9292DC13A00716A2B /* Products */;
 			projectDirPath = "";
@@ -1255,6 +1259,14 @@
 				kind = branch;
 			};
 		};
+		FCE00AA129517EE900B5C05F /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1282,6 +1294,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FCB6667B29346285004F38B0 /* XCRemoteSwiftPackageReference "Tabman" */;
 			productName = Tabman;
+		};
+		FCE00AA229517EE900B5C05F /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FCE00AA129517EE900B5C05F /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 
