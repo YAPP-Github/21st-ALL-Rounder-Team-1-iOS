@@ -49,6 +49,15 @@ extension StoreDetailViewModel {
                 return "리뷰"
             }
         }
+
+        var sectionCount: Int {
+            switch self {
+            case .productLists:
+                return 1
+            case .reviews:
+                return Section.allCases.count
+            }
+        }
     }
 
     enum Section: Int, CaseIterable {

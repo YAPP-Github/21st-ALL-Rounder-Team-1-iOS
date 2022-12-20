@@ -42,8 +42,10 @@ final class StoreDetailViewController: UIViewController {
         )
 
         StoreDetailViewModel.Section.allCases.forEach {
-            self.collectionView.register($0.cell,
-                                         forCellWithReuseIdentifier: $0.reuseIdentifier)
+            self.collectionView.register(
+                $0.cell,
+                forCellWithReuseIdentifier: $0.reuseIdentifier
+            )
         }
 
         collectionView.dataSource = self
@@ -55,16 +57,18 @@ final class StoreDetailViewController: UIViewController {
         collectionView.showsVerticalScrollIndicator = false
 
         collectionView.contentInset = UIEdgeInsets(
-            top: viewModel.storeDetailInfoViewHeight, left: 0, bottom: 0, right: 0)
+            top: viewModel.storeDetailInfoViewHeight, left: 0, bottom: 0, right: 0
+        )
     }
 
     private func layout() {
+        [collectionView, storeDetailInfoView].forEach { view.addSubview($0) }
         view.addSubview(collectionView)
         view.addSubview(storeDetailInfoView)
 
-        collectionView.snp.makeConstraints { collection in
-            collection.leading.trailing.bottom.equalTo(view)
-            collection.top.equalTo(view.safeAreaLayoutGuide)
+        collectionView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalTo(view)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
         }
 
         storeDetailInfoView.snp.makeConstraints {
@@ -77,34 +81,30 @@ final class StoreDetailViewController: UIViewController {
 extension StoreDetailViewController: UICollectionViewDataSource {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if viewModel.mode == .productLists {
-            return 1
-        } else {
-            return StoreDetailViewModel.Section.allCases.count
-        }
+        return viewModel.mode.sectionCount
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if viewModel.mode == .productLists {
             return viewModel.productListViewModel.products.count
-        } else {
-            switch section {
-            case StoreDetailViewModel.Section.moveToWriteReview.rawValue:
-                return 1
-            case StoreDetailViewModel.Section.firstReviewRequest.rawValue:
-                return viewModel.votedTagViewModel.totalVoteCount
-                + viewModel.detailReviewViewModel.detailReviews.count == 0 ? 1 : 0
-            case StoreDetailViewModel.Section.votedCount.rawValue:
-                return viewModel.votedTagViewModel.totalVoteCount == 0 ? 0 : 1
-            case StoreDetailViewModel.Section.votedTag.rawValue:
-                return viewModel.votedTagViewModel.totalVoteCount == 0 ? 0 : 1
-            case StoreDetailViewModel.Section.detailReviewCount.rawValue:
-                return viewModel.detailReviewViewModel.detailReviews.count == 0 ? 0 : 1
-            case StoreDetailViewModel.Section.detailReviews.rawValue:
-                return viewModel.detailReviewViewModel.detailReviews.count
-            default:
-                return 0
-            }
+        }
+
+        switch section {
+        case StoreDetailViewModel.Section.moveToWriteReview.rawValue:
+            return 1
+        case StoreDetailViewModel.Section.firstReviewRequest.rawValue:
+            return viewModel.votedTagViewModel.totalVoteCount
+            + viewModel.detailReviewViewModel.detailReviews.count == 0 ? 1 : 0
+        case StoreDetailViewModel.Section.votedCount.rawValue:
+            return viewModel.votedTagViewModel.totalVoteCount == 0 ? 0 : 1
+        case StoreDetailViewModel.Section.votedTag.rawValue:
+            return viewModel.votedTagViewModel.totalVoteCount == 0 ? 0 : 1
+        case StoreDetailViewModel.Section.detailReviewCount.rawValue:
+            return viewModel.detailReviewViewModel.detailReviews.count == 0 ? 0 : 1
+        case StoreDetailViewModel.Section.detailReviews.rawValue:
+            return viewModel.detailReviewViewModel.detailReviews.count
+        default:
+            return 0
         }
     }
 
@@ -152,9 +152,30 @@ extension StoreDetailViewController: UICollectionViewDataSource {
                 withReuseIdentifier: DetailReviewCell.reuseIdentifier,
                 for: indexPath) as? DetailReviewCell else { return UICollectionViewCell() }
             cell.setUpContents(detailReview: viewModel.detailReviewViewModel.detailReviews[indexPath.row])
+
+            cell.setUpSeeMore(
+                isSeeMoreButtonAlreadyTapped: viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath)
+            )
+
+            cell.reloadCell = {
+                if self.viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath) {
+                    self.viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.remove(
+                        at: self.viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.firstIndex(of: indexPath)!
+                    )
+                } else {
+                    self.viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.append(indexPath)
+                }
+                self.collectionView.reloadItems(at: [indexPath])
+            }
+
             return cell
         default:
-            return UICollectionViewCell()
+            guard let reuseIdentifier = StoreDetailViewModel.Section(
+                rawValue: indexPath.section)?.reuseIdentifier else {
+                return UICollectionViewCell()
+            }
+            return collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
+                                                      for: indexPath)
         }
     }
 }
@@ -162,10 +183,32 @@ extension StoreDetailViewController: UICollectionViewDataSource {
 extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width - 2 * Constraints.outerCollectionViewInset // inset 좌 우 각각 20
-        guard let height = StoreDetailViewModel.Section(
-            rawValue: indexPath.section
-        )?.cellHeight else { return .zero }
+        let width = collectionView.frame.width - 2 * Constraints.outerCollectionViewInset
+        guard let height = StoreDetailViewModel.Section(rawValue: indexPath.section)?.cellHeight else { return .zero }
+
+        if viewModel.mode == .productLists {
+            let dummyCellForCalculateheight = ProductCell(frame: CGRect(
+                origin: CGPoint(x: 0, y: 0),
+                size: CGSize(width: width, height: height))
+            )
+            dummyCellForCalculateheight.setUpContents(
+                product: viewModel.productListViewModel.products[indexPath.row]
+            )
+            let heightThatFits = dummyCellForCalculateheight.systemLayoutSizeFitting(CGSize(width: width, height: height)).height
+            return CGSize(width: width, height: heightThatFits)
+        }
+
+        if StoreDetailViewModel.Section(rawValue: indexPath.section) == .detailReviews {
+            let dummyCellForCalculateheight = DetailReviewCell(frame: CGRect(origin: CGPoint(x: 0, y: 0),
+                                                                             size: CGSize(width: width, height: height)))
+            dummyCellForCalculateheight.setUpContents(detailReview: viewModel.detailReviewViewModel.detailReviews[indexPath.row])
+            dummyCellForCalculateheight.setUpSeeMore(
+                isSeeMoreButtonAlreadyTapped: self.viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath)
+            )
+            let heightThatFits = dummyCellForCalculateheight.systemLayoutSizeFitting(CGSize(width: width, height: height)).height
+            return CGSize(width: width, height: heightThatFits)
+        }
+
         return CGSize(width: width, height: height)
     }
 

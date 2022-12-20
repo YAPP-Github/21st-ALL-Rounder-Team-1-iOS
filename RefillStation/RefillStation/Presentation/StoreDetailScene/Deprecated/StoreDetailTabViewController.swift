@@ -16,7 +16,7 @@ final class StoreDetailTabViewController: UIViewController {
     private lazy var tabViewControllers = [productListViewController, storeReviewViewController]
 
     private let storeDetailInfoView: StoreDetailInfoView = {
-        let viewModel = StoreInfoViewModel()
+        let viewModel = StoreDetailInfoViewModel()
         return StoreDetailInfoView(viewModel: viewModel)
     }()
 

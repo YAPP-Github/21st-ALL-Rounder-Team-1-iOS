@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class StoreInfoViewModel {
+final class StoreDetailInfoViewModel {
     var name: String = "알맹 상점"
     var reviewCount: Int = 1018
     var address: String = "서울시 성북구 삼선동"

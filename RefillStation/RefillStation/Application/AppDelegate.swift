@@ -16,8 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setUpNavigationBar()
         let storeDetailViewController = StoreDetailViewController(
             viewModel: StoreDetailViewModel(
-                detailReviewViewModel: DetailReviewViewModel(),
-                votedTagViewModel: VotedTagViewModel(),
+                detailReviewViewModel: makeMockDetailReviewViewModel(),
+                votedTagViewModel: makeMockVoteTagViewModel(),
                 storeDetailInfoViewModel: StoreDetailInfoViewModel(),
                 productListViewModel: ProductListViewModel())
         )

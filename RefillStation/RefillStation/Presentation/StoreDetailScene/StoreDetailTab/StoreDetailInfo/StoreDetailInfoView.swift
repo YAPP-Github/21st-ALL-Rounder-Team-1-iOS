@@ -70,10 +70,10 @@ final class StoreDetailInfoView: UIView {
     }()
 
     // MARK: - Properties
-    private var viewModel: StoreInfoViewModel
+    private var viewModel: StoreDetailInfoViewModel
 
     // MARK: - Initialization
-    init(viewModel: StoreInfoViewModel) {
+    init(viewModel: StoreDetailInfoViewModel) {
         self.viewModel = viewModel
         super.init(frame: .zero)
         backgroundColor = .white
@@ -83,7 +83,7 @@ final class StoreDetailInfoView: UIView {
     }
 
     required init?(coder: NSCoder) {
-        self.viewModel = StoreInfoViewModel()
+        self.viewModel = StoreDetailInfoViewModel()
         super.init(coder: coder)
     }
 
@@ -152,14 +152,3 @@ final class StoreDetailInfoView: UIView {
         self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
     }
 }
-
-/*
- 
- let request = ... request 만들기
- header, urlpath, parameter 등등
-
- baseService.request(request: request) {
-
- }
-
- */
