@@ -12,6 +12,7 @@
 		320997532935E8F300956FBE /* StoreDetailTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320997522935E8F300956FBE /* StoreDetailTabViewController.swift */; };
 		320997552935EDE700956FBE /* TabViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320997542935EDE700956FBE /* TabViewDelegate.swift */; };
 		32099757293609F600956FBE /* ProductListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32099756293609F600956FBE /* ProductListViewController.swift */; };
+		320BB2572951A03500D5E9CB /* StoreDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320BB2562951A03500D5E9CB /* StoreDetailHeaderView.swift */; };
 		320DCDDD293C1AE800C09C43 /* StoreDetailInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320DCDDC293C1AE800C09C43 /* StoreDetailInfoViewModel.swift */; };
 		3244A1FC292DC13A00716A2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A1FB292DC13A00716A2B /* AppDelegate.swift */; };
 		3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3244A204292DC13A00716A2B /* RefillStation.xcdatamodeld */; };
@@ -131,6 +132,7 @@
 		320997522935E8F300956FBE /* StoreDetailTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailTabViewController.swift; sourceTree = "<group>"; };
 		320997542935EDE700956FBE /* TabViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewDelegate.swift; sourceTree = "<group>"; };
 		32099756293609F600956FBE /* ProductListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListViewController.swift; sourceTree = "<group>"; };
+		320BB2562951A03500D5E9CB /* StoreDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailHeaderView.swift; sourceTree = "<group>"; };
 		320DCDDC293C1AE800C09C43 /* StoreDetailInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailInfoViewModel.swift; sourceTree = "<group>"; };
 		3244A1F8292DC13A00716A2B /* RefillStation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RefillStation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3244A1FB292DC13A00716A2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -487,6 +489,7 @@
 				3295574C29519DBC00F5AB53 /* ProductList */,
 				3295574D29519DCA00F5AB53 /* Review */,
 				32F2D9B02951862E00131EB1 /* StoreDetailViewController.swift */,
+				320BB2562951A03500D5E9CB /* StoreDetailHeaderView.swift */,
 			);
 			path = StoreDetailTab;
 			sourceTree = "<group>";
@@ -921,6 +924,7 @@
 				325985EF294C535B00D26A37 /* HomeViewModelCoordinatorDelegate.swift in Sources */,
 				FCE00A7F294C91B600B5C05F /* UploadReviewImageUseCase.swift in Sources */,
 				325985E1294C50D200D26A37 /* AppDIContainer.swift in Sources */,
+				320BB2572951A03500D5E9CB /* StoreDetailHeaderView.swift in Sources */,
 				3244A1FC292DC13A00716A2B /* AppDelegate.swift in Sources */,
 				FCE00A77294C919100B5C05F /* RequestRegionUseCase.swift in Sources */,
 				FCEE10312934D287002E629D /* Assets+Generated.swift in Sources */,

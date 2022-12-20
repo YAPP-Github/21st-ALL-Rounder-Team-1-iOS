@@ -48,6 +48,11 @@ final class StoreDetailViewController: UIViewController {
             )
         }
 
+        collectionView.register(
+            StoreDetailHeaderView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: StoreDetailHeaderView.reuseIdentifier)
+
         collectionView.dataSource = self
         collectionView.delegate = self
 
@@ -178,6 +183,16 @@ extension StoreDetailViewController: UICollectionViewDataSource {
                                                       for: indexPath)
         }
     }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+
+        let header = collectionView.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: StoreDetailHeaderView.reuseIdentifier,
+            for: indexPath)
+
+        return header
+    }
 }
 
 extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
@@ -215,6 +230,10 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         let inset = Constraints.outerCollectionViewInset
         return UIEdgeInsets(top: inset, left: inset, bottom: 0, right: inset)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 50)
     }
 }
 
