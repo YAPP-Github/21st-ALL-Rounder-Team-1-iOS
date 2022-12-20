@@ -14,8 +14,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setUpNavigationBar()
+        let storeDetailViewController = StoreDetailViewController(
+            viewModel: StoreDetailViewModel(
+                detailReviewViewModel: DetailReviewViewModel(),
+                votedTagViewModel: VotedTagViewModel(),
+                storeDetailInfoViewModel: StoreDetailInfoViewModel(),
+                productListViewModel: ProductListViewModel())
+        )
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = UINavigationController(rootViewController: HomeViewController())
+        window?.rootViewController = UINavigationController(rootViewController: storeDetailViewController)
         window?.makeKeyAndVisible()
         return true
     }
