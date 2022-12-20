@@ -17,7 +17,7 @@ extension StoreReviewViewController {
         case detailReviewCount
         case detailReviews
 
-        var cellHeight: CGFloat {
+        var estimatedCellHeight: CGFloat {
             switch self {
             case .moveToWriteReview:
                 return 40

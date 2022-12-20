@@ -38,6 +38,16 @@ internal enum Asset {
     internal static let primary3 = ColorAsset(name: "Primary3")
   }
   internal enum Images {
+    internal enum MockData {
+      internal static let almaengShop = ImageAsset(name: "almaengShop")
+      internal static let arganShampoo = ImageAsset(name: "arganShampoo")
+      internal static let bodyWash = ImageAsset(name: "bodyWash")
+      internal static let earthShop = ImageAsset(name: "earthShop")
+      internal static let eco = ImageAsset(name: "eco")
+      internal static let purifyingShampoo = ImageAsset(name: "purifyingShampoo")
+      internal static let scrupShampoo = ImageAsset(name: "scrupShampoo")
+      internal static let youngGram = ImageAsset(name: "youngGram")
+    }
     internal static let iconArrowLeft = ImageAsset(name: "icon_arrow_left")
     internal static let iconArrowRightSmall = ImageAsset(name: "icon_arrow_right_small")
     internal static let iconBell = ImageAsset(name: "icon_bell")

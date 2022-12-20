@@ -10,4 +10,5 @@ import Foundation
 final class DetailReviewViewModel {
 
     var detailReviews = [DetailReview]()
+    var seeMoreTappedIndexPaths = [IndexPath]()
 }

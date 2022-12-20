@@ -120,6 +120,22 @@ extension StoreReviewViewController: UICollectionViewDataSource {
                 withReuseIdentifier: DetailReviewCell.reuseIdentifier,
                 for: indexPath) as? DetailReviewCell else { return UICollectionViewCell() }
             cell.setUpContents(detailReview: detailReviewViewModel.detailReviews[indexPath.row])
+
+            cell.setUpSeeMore(
+                isSeeMoreButtonAlreadyTapped: detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath)
+            )
+
+            cell.reloadCell = {
+                if self.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath) {
+                    self.detailReviewViewModel.seeMoreTappedIndexPaths.remove(
+                        at: self.detailReviewViewModel.seeMoreTappedIndexPaths.firstIndex(of: indexPath)!
+                    )
+                } else {
+                    self.detailReviewViewModel.seeMoreTappedIndexPaths.append(indexPath)
+                }
+                self.detailReviewCollectionView.reloadItems(at: [indexPath])
+            }
+
             return cell
         default:
             guard let reuseIdentifier = Section(rawValue: indexPath.section)?.reuseIdentifier else {
@@ -136,8 +152,20 @@ extension StoreReviewViewController: UICollectionViewDataSource {
 extension StoreReviewViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width - 2 * Constraints.outerCollectionViewInset // inset 좌 우 각각 20
-        guard let height = Section(rawValue: indexPath.section)?.cellHeight else { return .zero }
+        let width = collectionView.frame.width - 2 * Constraints.outerCollectionViewInset
+        guard let height = Section(rawValue: indexPath.section)?.estimatedCellHeight else { return .zero }
+
+        if Section(rawValue: indexPath.section) == .detailReviews {
+            let dummyCellForCalculateheight = DetailReviewCell(frame: CGRect(origin: CGPoint(x: 0, y: 0),
+                                                      size: CGSize(width: width, height: height)))
+            dummyCellForCalculateheight.setUpContents(detailReview: detailReviewViewModel.detailReviews[indexPath.row])
+            dummyCellForCalculateheight.setUpSeeMore(
+                isSeeMoreButtonAlreadyTapped: self.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath)
+            )
+            let heightThatFits = dummyCellForCalculateheight.systemLayoutSizeFitting(CGSize(width: width, height: height)).height
+            return CGSize(width: width, height: heightThatFits)
+        }
+
         return CGSize(width: width, height: height)
     }
 
