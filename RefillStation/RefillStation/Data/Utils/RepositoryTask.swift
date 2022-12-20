@@ -8,7 +8,7 @@
 import Foundation
 
 class RepositoryTask: Cancellable {
-    var networkTask: URLSessionTask?
+    var networkTask: Cancellable?
     var isCancelled: Bool = false
 
     func cancel() {
