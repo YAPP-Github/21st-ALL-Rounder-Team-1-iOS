@@ -77,7 +77,8 @@ final class ProductTableViewCell: UITableViewCell {
     func setUpContents(productName: String,
                        imageURL: String?,
                        brand: String,
-                       price: Int) {
+                       price: Int,
+                       measurement: String) {
         /*
         if let imageURL = imageURL {
          // 킹피셔 등을 통해 이미지를 캐싱해 이미지를 로드하는 작업 필요
@@ -87,6 +88,6 @@ final class ProductTableViewCell: UITableViewCell {
         */
         brandLabel.text = brand
         productNameLabel.text = productName
-        pricePerGramLabel.text = "\(price)원/g"
+        pricePerGramLabel.text = "\(price)원/\(measurement)"
     }
 }

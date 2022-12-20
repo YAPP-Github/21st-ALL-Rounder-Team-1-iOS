@@ -8,10 +8,14 @@
 import Foundation
 
 struct Store {
-    let imageURL: String?
     let name: String
     let address: String
-    let openState: Bool
-    let closeTime: String
     let distance: Double
+    let phoneNumber: String
+    let snsAddress: String
+    let didUserRecommended: Bool
+    let recommendedCount: Int
+    let thumbnailImageURL: String?
+    let imageURL: [String]
 }
+

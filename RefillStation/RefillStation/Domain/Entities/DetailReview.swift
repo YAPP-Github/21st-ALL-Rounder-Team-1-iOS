@@ -6,15 +6,10 @@
 //
 
 import Foundation
-struct DetailReview {
 
+struct DetailReview {
     let user: User
     let writtenDate: Date
-    let imageURLs: [String]
+    let imageURL: String?
     let description: String
-
-    struct User {
-        let name: String
-        let profileImageURL: String
-    }
 }

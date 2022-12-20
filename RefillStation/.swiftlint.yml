@@ -8,6 +8,10 @@ disabled_rules:
 excluded:
 - Resources
 
+
 line_length:
  ignores_function_declarations: true
  ignores_comments: true
+
+type_name:
+ max_length: 100/1000

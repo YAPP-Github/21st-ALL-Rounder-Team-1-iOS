@@ -140,15 +140,11 @@ final class StoreCollectionViewCell: UICollectionViewCell {
     func setUpContents(image: String?,
                        name: String,
                        address: String,
-                       distance: Double,
-                       openState: Bool,
-                       time: String) {
+                       distance: Double) {
         // set storeImage
         nameLabel.text = name
         addressLabel.text = address
         distanceLabel.text = "\(distance)km"
-        openStateLabel.text = openState ? "영업중" : "영업 종료"
-        timeLabel.text = time
     }
 }
 
