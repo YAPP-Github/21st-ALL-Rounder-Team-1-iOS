@@ -101,7 +101,8 @@ final class StoreDetailInfoView: UIView {
         [refillGuideLabel, refillGuideArrowImageView].forEach { refillGuideButton.addSubview($0) }
 
         storeNameLabel.snp.makeConstraints {
-            $0.top.leading.equalToSuperview().inset(20)
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview().inset(20)
         }
         storeAddressLabel.snp.makeConstraints {
             $0.top.equalTo(storeNameLabel.snp.bottom).offset(10)
