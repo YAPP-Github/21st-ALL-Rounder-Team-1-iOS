@@ -179,10 +179,22 @@ extension StoreDetailViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 
-        let header = collectionView.dequeueReusableSupplementaryView(
+        guard let header = collectionView.dequeueReusableSupplementaryView(
             ofKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: StoreDetailHeaderView.reuseIdentifier,
-            for: indexPath)
+            for: indexPath) as? StoreDetailHeaderView else { return UICollectionReusableView() }
+        header.productListButtonTapped = {
+            if self.viewModel.mode == .reviews {
+                self.viewModel.mode = .productLists
+                collectionView.reloadData()
+            }
+        }
+        header.reviewButtonTapped = {
+            if self.viewModel.mode == .productLists {
+                self.viewModel.mode = .reviews
+                collectionView.reloadData()
+            }
+        }
 
         return header
     }
