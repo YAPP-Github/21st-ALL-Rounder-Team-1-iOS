@@ -97,39 +97,39 @@ final class StoreDetailHeaderView: UICollectionReusableView {
         }
 
         productListButton.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(25)
+            $0.leading.equalToSuperview().inset(Constraint.headerViewLeadingInset)
             $0.top.bottom.equalToSuperview()
         }
 
         reviewButton.snp.makeConstraints {
-            $0.leading.equalTo(productListSelectLine.snp.trailing).offset(15)
+            $0.leading.equalTo(productListSelectLine.snp.trailing).offset(Constraint.tabSpacing)
             $0.top.bottom.equalToSuperview()
         }
 
         divisionLine.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview().inset(2.5)
-            $0.height.equalTo(1)
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.height.equalTo(Constraint.divisionLineHeight)
         }
 
-        divisionLine.layer.zPosition = 0
+        divisionLine.layer.zPosition = Constraint.divisionLineZPosition
 
         productListSelectLine.snp.makeConstraints {
             $0.centerX.equalTo(productListButton)
-            $0.width.equalTo(productListButton).multipliedBy(1.5)
+            $0.width.equalTo(productListButton).multipliedBy(Constraint.selectLineMultiplier)
             $0.centerY.equalTo(divisionLine)
-            $0.height.equalTo(2)
+            $0.height.equalTo(Constraint.selectLineHeight)
         }
 
-        productListSelectLine.layer.zPosition = 1
+        productListSelectLine.layer.zPosition = Constraint.selectLineZPosition
 
         reviewSelectLine.snp.makeConstraints {
             $0.centerX.equalTo(reviewButton)
-            $0.width.equalTo(reviewButton).multipliedBy(1.5)
+            $0.width.equalTo(reviewButton).multipliedBy(Constraint.selectLineMultiplier)
             $0.centerY.equalTo(divisionLine)
-            $0.height.equalTo(2)
+            $0.height.equalTo(Constraint.selectLineHeight)
         }
 
-        reviewSelectLine.layer.zPosition = 1
+        reviewSelectLine.layer.zPosition = Constraint.selectLineZPosition
     }
 
     @objc
@@ -142,5 +142,17 @@ final class StoreDetailHeaderView: UICollectionReusableView {
     private func reviewButtonTapped(_ sender: UIButton) {
         reviewButtonTapped?()
         mode = .reviews
+    }
+}
+
+extension StoreDetailHeaderView {
+    enum Constraint {
+        static let headerViewLeadingInset: CGFloat = 25
+        static let tabSpacing: CGFloat = 15
+        static let divisionLineZPosition: CGFloat = 0
+        static let selectLineZPosition: CGFloat = 1
+        static let selectLineHeight: CGFloat = 2
+        static let divisionLineHeight: CGFloat = 1
+        static let selectLineMultiplier: CGFloat = 1.5
     }
 }
