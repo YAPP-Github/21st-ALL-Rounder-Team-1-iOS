@@ -14,7 +14,7 @@ extension AppDelegate {
             .init(user: .init(name: "hello", imageURL: ""),
                   writtenDate: Date(),
                   imageURL: "",
-                  description: "description"),
+                  description: "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription"),
             .init(user: .init(name: "hello", imageURL: ""),
                   writtenDate: Date(),
                   imageURL: "",

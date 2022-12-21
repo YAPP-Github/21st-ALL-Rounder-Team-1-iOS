@@ -114,48 +114,46 @@ extension StoreDetailViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        if viewModel.mode == .productLists {
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: ProductCell.reuseIdentifier,
-                for: indexPath) as? ProductCell else {
-                return UICollectionViewCell()
-            }
+        if viewModel.mode == .productLists,
+           let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: ProductCell.reuseIdentifier,
+            for: indexPath) as? ProductCell {
             cell.setUpContents(product: viewModel.productListViewModel.products[indexPath.row])
             return cell
         }
-        switch indexPath.section {
-        case StoreDetailViewModel.Section.moveToWriteReview.rawValue:
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: MoveToWriteReviewCell.reuseIdentifier,
-                for: indexPath) as? MoveToWriteReviewCell else { return UICollectionViewCell() }
+
+        guard let reuseIdentifier = StoreDetailViewModel.Section(rawValue: indexPath.section)?.reuseIdentifier else {
+            return UICollectionViewCell()
+        }
+
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+
+        if let cell = cell as? MoveToWriteReviewCell {
             cell.moveToWriteReview = { [weak self] in
-                self?.navigationController?.pushViewController(ReviewWritingViewController(),
-                                                               animated: true)
+                self?.navigationController?.pushViewController(
+                    ReviewWritingViewController(),
+                    animated: true
+                )
             }
             return cell
-        case StoreDetailViewModel.Section.votedCount.rawValue:
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: VotedCountLabelCell.reuseIdentifier,
-                for: indexPath) as? VotedCountLabelCell else { return UICollectionViewCell() }
+        }
+
+        if let cell = cell as? VotedCountLabelCell {
             cell.setUpContents(totalVote: viewModel.votedTagViewModel.totalVoteCount)
             return cell
-        case StoreDetailViewModel.Section.votedTag.rawValue:
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: VotedTagCell.reuseIdentifier,
-                for: indexPath) as? VotedTagCell else { return UICollectionViewCell() }
+        }
+
+        if let cell = cell as? VotedTagCell {
             cell.setUpContents(tagReviews: viewModel.votedTagViewModel.tagReviews)
             return cell
-        case StoreDetailViewModel.Section.detailReviewCount.rawValue:
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: DetailReviewCountCell.reuseIdentifier,
-                for: indexPath) as? DetailReviewCountCell else { return UICollectionViewCell() }
+        }
+
+        if let cell = cell as? DetailReviewCountCell {
             cell.setUpContents(totalDetailReviewCount: viewModel.detailReviewViewModel.detailReviews.count)
             return cell
-        case StoreDetailViewModel.Section.detailReviews.rawValue:
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: DetailReviewCell.reuseIdentifier,
-                for: indexPath) as? DetailReviewCell else { return UICollectionViewCell() }
+        }
+
+        if let cell = cell as? DetailReviewCell {
             cell.setUpContents(detailReview: viewModel.detailReviewViewModel.detailReviews[indexPath.row])
 
             cell.setUpSeeMore(
@@ -163,25 +161,20 @@ extension StoreDetailViewController: UICollectionViewDataSource {
             )
 
             cell.reloadCell = {
-                if self.viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath) {
-                    self.viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.remove(
-                        at: self.viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.firstIndex(of: indexPath)!
-                    )
+                if self.viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath),
+                let indexPathToRemove = self.viewModel.detailReviewViewModel
+                    .seeMoreTappedIndexPaths.firstIndex(of: indexPath) {
+                    self.viewModel.detailReviewViewModel
+                        .seeMoreTappedIndexPaths.remove(at: indexPathToRemove)
                 } else {
                     self.viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.append(indexPath)
                 }
                 self.collectionView.reloadItems(at: [indexPath])
             }
-
             return cell
-        default:
-            guard let reuseIdentifier = StoreDetailViewModel.Section(
-                rawValue: indexPath.section)?.reuseIdentifier else {
-                return UICollectionViewCell()
-            }
-            return collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
-                                                      for: indexPath)
         }
+
+        return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

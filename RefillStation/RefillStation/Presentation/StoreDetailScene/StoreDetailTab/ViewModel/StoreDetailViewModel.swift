@@ -14,7 +14,7 @@ final class StoreDetailViewModel {
     let productListViewModel: ProductListViewModel
 
     let storeDetailInfoViewHeight: CGFloat = 300
-    var mode: Mode = .productLists
+    var mode: Mode = .reviews
 
     init() {
         detailReviewViewModel = DetailReviewViewModel()
