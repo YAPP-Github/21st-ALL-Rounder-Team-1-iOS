@@ -14,23 +14,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setUpNavigationBar()
-        let storeDetailViewController = StoreDetailViewController(
-            viewModel: StoreDetailViewModel(
-                detailReviewViewModel: makeMockDetailReviewViewModel(),
-                votedTagViewModel: makeMockVoteTagViewModel(),
-                storeDetailInfoViewModel: StoreDetailInfoViewModel(),
-                productListViewModel: ProductListViewModel())
-        )
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = UINavigationController(rootViewController: storeDetailViewController)
+        window?.rootViewController = UINavigationController(rootViewController: HomeViewController())
         window?.makeKeyAndVisible()
         return true
     }
 
     private func setUpNavigationBar() {
         let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .white
+        appearance.configureWithTransparentBackground()
+        appearance.backgroundColor = .clear
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }

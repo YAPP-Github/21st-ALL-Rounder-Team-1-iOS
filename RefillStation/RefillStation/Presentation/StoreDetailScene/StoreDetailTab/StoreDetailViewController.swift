@@ -33,6 +33,10 @@ final class StoreDetailViewController: UIViewController {
         super.viewDidLoad()
         setUpCollectionView()
         layout()
+        view.backgroundColor = .white
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.backgroundColor = .clear
+        navigationItem.title = ""
     }
 
     private func setUpCollectionView() {
@@ -73,11 +77,12 @@ final class StoreDetailViewController: UIViewController {
 
         collectionView.snp.makeConstraints {
             $0.leading.trailing.bottom.equalTo(view)
-            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(view)
         }
 
         storeDetailInfoView.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(view)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(viewModel.storeDetailInfoViewHeight)
         }
     }
@@ -248,14 +253,17 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
 extension StoreDetailViewController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let storeInfoViewY = view.safeAreaLayoutGuide.layoutFrame.minY
+        let storeInfoViewY = view.frame.minY
         - scrollView.contentOffset.y
         - viewModel.storeDetailInfoViewHeight
 
-        storeDetailInfoView.frame = CGRect(
-            origin: CGPoint(x: 0, y: storeInfoViewY),
-            size: storeDetailInfoView.frame.size
-        )
+        storeDetailInfoView.snp.remakeConstraints {
+            $0.top.equalTo(view).offset(storeInfoViewY)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(viewModel.storeDetailInfoViewHeight)
+        }
+
+        view.layoutSubviews()
     }
 }
 

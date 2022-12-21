@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension AppDelegate {
+extension HomeViewController {
     func makeMockDetailReviewViewModel() -> DetailReviewViewModel {
         let viewModel = DetailReviewViewModel()
         viewModel.detailReviews = [
