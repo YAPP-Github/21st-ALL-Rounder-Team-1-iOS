@@ -233,6 +233,9 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        guard section == 0 else {
+            return .zero
+        }
         return CGSize(width: collectionView.frame.width, height: 50)
     }
 }
