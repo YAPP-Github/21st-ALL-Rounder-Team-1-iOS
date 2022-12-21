@@ -55,12 +55,12 @@ extension StoreDetailViewModel {
             case .productLists:
                 return 1
             case .reviews:
-                return Section.allCases.count
+                return ReviewSection.allCases.count
             }
         }
     }
 
-    enum Section: Int, CaseIterable {
+    enum ReviewSection: Int, CaseIterable {
         case moveToWriteReview
         case firstReviewRequest
         case votedCount

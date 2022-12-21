@@ -49,7 +49,7 @@ final class StoreDetailViewController: UIViewController {
             forCellWithReuseIdentifier: ProductCell.reuseIdentifier
         )
 
-        StoreDetailViewModel.Section.allCases.forEach {
+        StoreDetailViewModel.ReviewSection.allCases.forEach {
             self.collectionView.register(
                 $0.cell,
                 forCellWithReuseIdentifier: $0.reuseIdentifier
@@ -103,18 +103,18 @@ extension StoreDetailViewController: UICollectionViewDataSource {
         }
 
         switch section {
-        case StoreDetailViewModel.Section.moveToWriteReview.rawValue:
+        case StoreDetailViewModel.ReviewSection.moveToWriteReview.rawValue:
             return 1
-        case StoreDetailViewModel.Section.firstReviewRequest.rawValue:
+        case StoreDetailViewModel.ReviewSection.firstReviewRequest.rawValue:
             return viewModel.votedTagViewModel.totalVoteCount
             + viewModel.detailReviewViewModel.detailReviews.count == 0 ? 1 : 0
-        case StoreDetailViewModel.Section.votedCount.rawValue:
+        case StoreDetailViewModel.ReviewSection.votedCount.rawValue:
             return viewModel.votedTagViewModel.totalVoteCount == 0 ? 0 : 1
-        case StoreDetailViewModel.Section.votedTag.rawValue:
+        case StoreDetailViewModel.ReviewSection.votedTag.rawValue:
             return viewModel.votedTagViewModel.totalVoteCount == 0 ? 0 : 1
-        case StoreDetailViewModel.Section.detailReviewCount.rawValue:
+        case StoreDetailViewModel.ReviewSection.detailReviewCount.rawValue:
             return viewModel.detailReviewViewModel.detailReviews.count == 0 ? 0 : 1
-        case StoreDetailViewModel.Section.detailReviews.rawValue:
+        case StoreDetailViewModel.ReviewSection.detailReviews.rawValue:
             return viewModel.detailReviewViewModel.detailReviews.count
         default:
             return 0
@@ -130,7 +130,7 @@ extension StoreDetailViewController: UICollectionViewDataSource {
             return cell
         }
 
-        guard let reuseIdentifier = StoreDetailViewModel.Section(rawValue: indexPath.section)?.reuseIdentifier else {
+        guard let reuseIdentifier = StoreDetailViewModel.ReviewSection(rawValue: indexPath.section)?.reuseIdentifier else {
             return UICollectionViewCell()
         }
 
@@ -169,14 +169,7 @@ extension StoreDetailViewController: UICollectionViewDataSource {
             )
 
             cell.reloadCell = {
-                if self.viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath),
-                let indexPathToRemove = self.viewModel.detailReviewViewModel
-                    .seeMoreTappedIndexPaths.firstIndex(of: indexPath) {
-                    self.viewModel.detailReviewViewModel
-                        .seeMoreTappedIndexPaths.remove(at: indexPathToRemove)
-                } else {
-                    self.viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.append(indexPath)
-                }
+                self.viewModel.detailReviewViewModel.seeMoreDidTapped(indexPath: indexPath)
                 self.collectionView.reloadItems(at: [indexPath])
             }
             return cell
@@ -192,13 +185,13 @@ extension StoreDetailViewController: UICollectionViewDataSource {
             withReuseIdentifier: StoreDetailHeaderView.reuseIdentifier,
             for: indexPath) as? StoreDetailHeaderView else { return UICollectionReusableView() }
         header.productListButtonTapped = {
-            if self.viewModel.mode == .reviews {
+            if self.viewModel.mode != .productLists {
                 self.viewModel.mode = .productLists
                 collectionView.reloadData()
             }
         }
         header.reviewButtonTapped = {
-            if self.viewModel.mode == .productLists {
+            if self.viewModel.mode != .reviews {
                 self.viewModel.mode = .reviews
                 collectionView.reloadData()
             }
@@ -212,7 +205,8 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width - 2 * Constraints.outerCollectionViewInset
-        guard let height = StoreDetailViewModel.Section(rawValue: indexPath.section)?.cellHeight else { return .zero }
+        guard let height = StoreDetailViewModel
+            .ReviewSection(rawValue: indexPath.section)?.cellHeight else { return .zero }
 
         if viewModel.mode == .productLists {
             let dummyCellForCalculateheight = ProductCell(frame: CGRect(
@@ -226,12 +220,12 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: width, height: heightThatFits)
         }
 
-        if StoreDetailViewModel.Section(rawValue: indexPath.section) == .detailReviews {
+        if StoreDetailViewModel.ReviewSection(rawValue: indexPath.section) == .detailReviews {
             let dummyCellForCalculateheight = DetailReviewCell(frame: CGRect(origin: CGPoint(x: 0, y: 0),
                                                                              size: CGSize(width: width, height: height)))
             dummyCellForCalculateheight.setUpContents(detailReview: viewModel.detailReviewViewModel.detailReviews[indexPath.row])
             dummyCellForCalculateheight.setUpSeeMore(
-                isSeeMoreButtonAlreadyTapped: self.viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath)
+                isSeeMoreButtonAlreadyTapped: viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath)
             )
             let heightThatFits = dummyCellForCalculateheight.systemLayoutSizeFitting(CGSize(width: width, height: height)).height
             return CGSize(width: width, height: heightThatFits)
@@ -249,7 +243,7 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
         guard section == 0 else {
             return .zero
         }
-        return CGSize(width: collectionView.frame.width, height: 50)
+        return CGSize(width: collectionView.frame.width, height: Constraints.tabBarHeight)
     }
 }
 
@@ -274,5 +268,6 @@ extension StoreDetailViewController {
 
     enum Constraints {
         static let outerCollectionViewInset: CGFloat = 16
+        static let tabBarHeight: CGFloat = 50
     }
 }
