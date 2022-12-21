@@ -31,9 +31,13 @@ final class StoreDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
+        setUpNavigationBar()
         setUpCollectionView()
         layout()
-        view.backgroundColor = .white
+    }
+
+    private func setUpNavigationBar() {
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.backgroundColor = .clear
         navigationItem.title = ""
@@ -62,7 +66,6 @@ final class StoreDetailViewController: UIViewController {
 
         collectionView.allowsSelection = false
 
-        collectionView.bounces = false
         collectionView.showsVerticalScrollIndicator = false
 
         collectionView.contentInset = UIEdgeInsets(
