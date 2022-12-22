@@ -12,10 +12,10 @@ public enum NetworkError: Error {
 
 }
 
-protocol NetworkService {
+protocol NetworkServiceInterface {
 
 }
 
-final class BaseNetworkService: NetworkService {
+final class NetworkService: NetworkServiceInterface {
 
 }
