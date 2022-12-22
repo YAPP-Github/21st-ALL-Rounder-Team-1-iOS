@@ -46,11 +46,7 @@ final class StoreDetailHeaderView: UICollectionReusableView {
 
     private var mode: StoreDetailViewModel.Mode = .productLists {
         didSet {
-            if mode == .productLists {
-                setTabForProductList()
-            } else {
-                setTabForReview()
-            }
+            mode == .productLists ? setTabForProductList() : setTabForReview()
         }
     }
 
