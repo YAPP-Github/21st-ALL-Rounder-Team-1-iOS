@@ -102,7 +102,7 @@ final class StoreDetailInfoView: UIView {
 
         storeNameLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.leading.equalToSuperview().inset(20)
+            $0.leading.trailing.equalToSuperview().inset(20)
         }
         storeAddressLabel.snp.makeConstraints {
             $0.top.equalTo(storeNameLabel.snp.bottom).offset(10)
