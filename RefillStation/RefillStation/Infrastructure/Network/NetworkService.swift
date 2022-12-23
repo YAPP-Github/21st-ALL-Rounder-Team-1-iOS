@@ -12,6 +12,8 @@ public enum NetworkError: Error {
 
 }
 
+extension Alamofire.DataTask: Cancellable { }
+
 protocol NetworkServiceInterface {
 
 }
