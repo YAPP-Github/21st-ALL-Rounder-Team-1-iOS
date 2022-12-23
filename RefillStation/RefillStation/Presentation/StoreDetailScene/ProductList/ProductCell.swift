@@ -12,25 +12,36 @@ final class ProductCell: UICollectionViewCell {
 
     private var productImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .systemGray6
-        imageView.layer.cornerRadius = 6
+        imageView.backgroundColor = Asset.Colors.gray1.color
+        imageView.layer.cornerRadius = 4
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
     }()
     private var brandLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        label.font = UIFont.font(style: .captionLarge)
+        label.textColor = Asset.Colors.gray5.color
         return label
     }()
     private var productNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        label.font = UIFont.font(style: .titleSmall)
+        label.textColor = Asset.Colors.gray7.color
         return label
     }()
+
+    private var priceLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.font(style: .buttonLarge)
+        label.textColor = Asset.Colors.primary2.color
+        return label
+    }()
+
     private var pricePerGramLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        label.font = UIFont.font(style: .buttonLarge)
+        label.textColor = Asset.Colors.gray7.color
         return label
     }()
 
@@ -50,11 +61,12 @@ final class ProductCell: UICollectionViewCell {
     func setUpContents(product: Product) {
         brandLabel.text = product.brand
         productNameLabel.text = product.name
-        pricePerGramLabel.text = "\(product.price)원/\(product.measurement)"
+        priceLabel.text = "\(product.price)원"
+        pricePerGramLabel.text = "/\(product.measurement)"
     }
 
     private func layout() {
-        [productImageView, brandLabel, productNameLabel, pricePerGramLabel].forEach { contentView.addSubview($0) }
+        [productImageView, brandLabel, productNameLabel, priceLabel, pricePerGramLabel].forEach { contentView.addSubview($0) }
         productImageView.snp.makeConstraints {
             $0.width.equalTo(80)
             $0.height.equalTo(90).priority(.required)
@@ -68,9 +80,14 @@ final class ProductCell: UICollectionViewCell {
             $0.top.equalTo(brandLabel.snp.bottom).offset(5)
             $0.leading.equalTo(brandLabel)
         }
-        pricePerGramLabel.snp.makeConstraints {
+        priceLabel.snp.makeConstraints {
             $0.top.equalTo(productNameLabel.snp.bottom).offset(7)
             $0.leading.equalTo(productNameLabel)
+        }
+
+        pricePerGramLabel.snp.makeConstraints {
+            $0.top.equalTo(productNameLabel.snp.bottom).offset(7)
+            $0.leading.equalTo(priceLabel.snp.trailing)
         }
     }
 }
