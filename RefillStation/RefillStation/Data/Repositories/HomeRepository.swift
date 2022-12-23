@@ -10,8 +10,8 @@ import Foundation
 final class HomeRepository: HomeRepositoryInterface {
     private let networkService: NetworkService
 
-    init(service: NetworkService) {
-        self.networkService = service
+    init(networkService: NetworkService) {
+        self.networkService = networkService
     }
 
     func fetchStoreList(query: FetchStoreListUseCaseRequestValue,
