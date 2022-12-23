@@ -3,6 +3,7 @@
 disabled_rules:
 - identifier_name
 - unused_closure_parameter
+- line_length
 
 # 컨벤션 검사에서 제외할 폴더, 파일
 excluded:

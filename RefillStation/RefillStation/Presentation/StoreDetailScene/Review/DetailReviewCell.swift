@@ -59,6 +59,12 @@ final class DetailReviewCell: UICollectionViewCell {
         return button
     }()
 
+    private let divisionLine: UIView = {
+        let line = UIView(frame: .zero)
+        line.backgroundColor = Asset.Colors.gray1.color
+        return line
+    }()
+
     var reloadCell: (() -> Void)?
 
     override init(frame: CGRect) {
@@ -94,18 +100,19 @@ final class DetailReviewCell: UICollectionViewCell {
     }
 
     private func layout() {
-        [profileImageView, userNameLabel, writtenDateLabel, reviewImageView, descriptionLabel, seeMoreButton].forEach {
+        [profileImageView, userNameLabel, writtenDateLabel, reviewImageView, descriptionLabel, seeMoreButton, divisionLine].forEach {
             contentView.addSubview($0)
         }
 
         profileImageView.snp.makeConstraints { profile in
-            profile.leading.top.equalTo(contentView)
+            profile.leading.equalToSuperview()
+            profile.top.equalToSuperview().inset(20)
             profile.height.width.equalTo(profileImageHeight)
         }
 
         userNameLabel.snp.makeConstraints { nameLabel in
             nameLabel.leading.equalTo(profileImageView.snp.trailing).offset(10)
-            nameLabel.top.trailing.equalTo(contentView)
+            nameLabel.top.trailing.equalToSuperview().inset(20)
         }
 
         writtenDateLabel.snp.makeConstraints { dateLabel in
@@ -133,7 +140,13 @@ final class DetailReviewCell: UICollectionViewCell {
 
         seeMoreButton.snp.makeConstraints { button in
             button.top.equalTo(descriptionLabel.snp.bottom)
-            button.trailing.bottom.equalToSuperview()
+            button.trailing.equalToSuperview()
+        }
+
+        divisionLine.snp.makeConstraints {
+            $0.top.equalTo(seeMoreButton.snp.bottom).offset(20)
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.height.equalTo(1)
         }
     }
 }

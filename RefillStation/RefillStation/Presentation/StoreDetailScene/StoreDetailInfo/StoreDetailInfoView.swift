@@ -70,10 +70,10 @@ final class StoreDetailInfoView: UIView {
     }()
 
     // MARK: - Properties
-    private var viewModel: StoreInfoViewModel
+    private var viewModel: StoreDetailInfoViewModel
 
     // MARK: - Initialization
-    init(viewModel: StoreInfoViewModel) {
+    init(viewModel: StoreDetailInfoViewModel) {
         self.viewModel = viewModel
         super.init(frame: .zero)
         backgroundColor = .white
@@ -83,7 +83,7 @@ final class StoreDetailInfoView: UIView {
     }
 
     required init?(coder: NSCoder) {
-        self.viewModel = StoreInfoViewModel()
+        self.viewModel = StoreDetailInfoViewModel()
         super.init(coder: coder)
     }
 
@@ -101,7 +101,8 @@ final class StoreDetailInfoView: UIView {
         [refillGuideLabel, refillGuideArrowImageView].forEach { refillGuideButton.addSubview($0) }
 
         storeNameLabel.snp.makeConstraints {
-            $0.top.leading.equalToSuperview().inset(20)
+            $0.top.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
         }
         storeAddressLabel.snp.makeConstraints {
             $0.top.equalTo(storeNameLabel.snp.bottom).offset(10)
@@ -152,14 +153,3 @@ final class StoreDetailInfoView: UIView {
         self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
     }
 }
-
-/*
- 
- let request = ... request 만들기
- header, urlpath, parameter 등등
-
- baseService.request(request: request) {
-
- }
-
- */
