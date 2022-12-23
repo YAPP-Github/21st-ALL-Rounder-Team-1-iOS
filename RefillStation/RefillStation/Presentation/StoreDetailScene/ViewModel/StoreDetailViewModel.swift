@@ -60,6 +60,38 @@ extension StoreDetailViewModel {
         }
     }
 
+    enum ProductListSection: Int, CaseIterable {
+        case productsCount
+        case productList
+
+        var cellHeight: CGFloat {
+            switch self {
+            case .productsCount:
+                return 80
+            case .productList:
+                return 150
+            }
+        }
+
+        var reuseIdentifier: String {
+            switch self {
+            case .productsCount:
+                return ProductListHeaderCell.reuseIdentifier
+            case .productList:
+                return ProductCell.reuseIdentifier
+            }
+        }
+
+        var cell: UICollectionViewCell.Type {
+            switch self {
+            case .productsCount:
+                return ProductListHeaderCell.self
+            case .productList:
+                return ProductCell.self
+            }
+        }
+    }
+
     enum ReviewSection: Int, CaseIterable {
         case moveToWriteReview
         case firstReviewRequest
