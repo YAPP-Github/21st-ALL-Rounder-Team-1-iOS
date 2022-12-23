@@ -1,20 +1,20 @@
 //
-//  MockData.swift
+//  StoreDetailViewMockData.swift
 //  RefillStation
 //
-//  Created by 천수현 on 2022/11/29.
+//  Created by 천수현 on 2022/12/20.
 //
 
 import UIKit
 
-extension StoreReviewViewController {
+extension HomeViewController {
     func makeMockDetailReviewViewModel() -> DetailReviewViewModel {
         let viewModel = DetailReviewViewModel()
         viewModel.detailReviews = [
             .init(user: .init(name: "hello", imageURL: ""),
                   writtenDate: Date(),
                   imageURL: "",
-                  description: "description"),
+                  description: "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription"),
             .init(user: .init(name: "hello", imageURL: ""),
                   writtenDate: Date(),
                   imageURL: "",
