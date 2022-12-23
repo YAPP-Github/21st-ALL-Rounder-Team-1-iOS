@@ -44,10 +44,12 @@ final class StoreDetailViewController: UIViewController {
     }
 
     private func setUpCollectionView() {
-        collectionView.register(
-            ProductCell.self,
-            forCellWithReuseIdentifier: ProductCell.reuseIdentifier
-        )
+        StoreDetailViewModel.ProductListSection.allCases.forEach {
+            self.collectionView.register(
+                $0.cell,
+                forCellWithReuseIdentifier: $0.reuseIdentifier
+            )
+        }
 
         StoreDetailViewModel.ReviewSection.allCases.forEach {
             self.collectionView.register(
@@ -99,83 +101,98 @@ extension StoreDetailViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if viewModel.mode == .productLists {
-            return viewModel.productListViewModel.products.count
-        }
-
-        switch section {
-        case StoreDetailViewModel.ReviewSection.moveToWriteReview.rawValue:
-            return 1
-        case StoreDetailViewModel.ReviewSection.firstReviewRequest.rawValue:
-            return viewModel.votedTagViewModel.totalVoteCount
-            + viewModel.detailReviewViewModel.detailReviews.count == 0 ? 1 : 0
-        case StoreDetailViewModel.ReviewSection.votedCount.rawValue:
-            return viewModel.votedTagViewModel.totalVoteCount == 0 ? 0 : 1
-        case StoreDetailViewModel.ReviewSection.votedTag.rawValue:
-            return viewModel.votedTagViewModel.totalVoteCount == 0 ? 0 : 1
-        case StoreDetailViewModel.ReviewSection.detailReviewCount.rawValue:
-            return viewModel.detailReviewViewModel.detailReviews.count == 0 ? 0 : 1
-        case StoreDetailViewModel.ReviewSection.detailReviews.rawValue:
-            return viewModel.detailReviewViewModel.detailReviews.count
-        default:
-            return 0
+            switch section {
+            case StoreDetailViewModel.ProductListSection.productsCount.rawValue:
+                return 1
+            case StoreDetailViewModel.ProductListSection.productList.rawValue:
+                return viewModel.productListViewModel.products.count
+            default:
+                return 0
+            }
+        } else {
+            switch section {
+            case StoreDetailViewModel.ReviewSection.moveToWriteReview.rawValue:
+                return 1
+            case StoreDetailViewModel.ReviewSection.firstReviewRequest.rawValue:
+                return viewModel.votedTagViewModel.totalVoteCount
+                + viewModel.detailReviewViewModel.detailReviews.count == 0 ? 1 : 0
+            case StoreDetailViewModel.ReviewSection.votedCount.rawValue:
+                return viewModel.votedTagViewModel.totalVoteCount == 0 ? 0 : 1
+            case StoreDetailViewModel.ReviewSection.votedTag.rawValue:
+                return viewModel.votedTagViewModel.totalVoteCount == 0 ? 0 : 1
+            case StoreDetailViewModel.ReviewSection.detailReviewCount.rawValue:
+                return viewModel.detailReviewViewModel.detailReviews.count == 0 ? 0 : 1
+            case StoreDetailViewModel.ReviewSection.detailReviews.rawValue:
+                return viewModel.detailReviewViewModel.detailReviews.count
+            default:
+                return 0
+            }
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if viewModel.mode == .productLists,
-           let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: ProductCell.reuseIdentifier,
-            for: indexPath) as? ProductCell {
-            cell.setUpContents(product: viewModel.productListViewModel.products[indexPath.row])
+        if viewModel.mode == .productLists {
+            guard let reuseIdentifier = StoreDetailViewModel
+                .ProductListSection(rawValue: indexPath.section)?.reuseIdentifier else {
+                return UICollectionViewCell()
+            }
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+            if let cell = cell as? ProductListHeaderCell {
+                cell.setUpContents(productsCount: viewModel.productListViewModel.products.count)
+            }
+            if let cell = cell as? ProductCell {
+                cell.setUpContents(product: viewModel.productListViewModel.products[indexPath.row])
+                return cell
+            }
             return cell
-        }
+        } else {
+            guard let reuseIdentifier = StoreDetailViewModel.ReviewSection(rawValue: indexPath.section)?.reuseIdentifier else {
+                return UICollectionViewCell()
+            }
 
-        guard let reuseIdentifier = StoreDetailViewModel.ReviewSection(rawValue: indexPath.section)?.reuseIdentifier else {
-            return UICollectionViewCell()
-        }
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
 
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+            if let cell = cell as? MoveToWriteReviewCell {
+                cell.moveToWriteReview = { [weak self] in
+                    self?.navigationController?.pushViewController(
+                        ReviewWritingViewController(),
+                        animated: true
+                    )
+                }
+                return cell
+            }
 
-        if let cell = cell as? MoveToWriteReviewCell {
-            cell.moveToWriteReview = { [weak self] in
-                self?.navigationController?.pushViewController(
-                    ReviewWritingViewController(),
-                    animated: true
+            if let cell = cell as? VotedCountLabelCell {
+                cell.setUpContents(totalVote: viewModel.votedTagViewModel.totalVoteCount)
+                return cell
+            }
+
+            if let cell = cell as? VotedTagCell {
+                cell.setUpContents(tagReviews: viewModel.votedTagViewModel.tagReviews)
+                return cell
+            }
+
+            if let cell = cell as? DetailReviewCountCell {
+                cell.setUpContents(totalDetailReviewCount: viewModel.detailReviewViewModel.detailReviews.count)
+                return cell
+            }
+
+            if let cell = cell as? DetailReviewCell {
+                cell.setUpContents(detailReview: viewModel.detailReviewViewModel.detailReviews[indexPath.row])
+
+                cell.setUpSeeMore(
+                    isSeeMoreButtonAlreadyTapped: viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath)
                 )
+
+                cell.reloadCell = {
+                    self.viewModel.detailReviewViewModel.seeMoreDidTapped(indexPath: indexPath)
+                    self.collectionView.reloadItems(at: [indexPath])
+                }
+                return cell
             }
+
             return cell
         }
-
-        if let cell = cell as? VotedCountLabelCell {
-            cell.setUpContents(totalVote: viewModel.votedTagViewModel.totalVoteCount)
-            return cell
-        }
-
-        if let cell = cell as? VotedTagCell {
-            cell.setUpContents(tagReviews: viewModel.votedTagViewModel.tagReviews)
-            return cell
-        }
-
-        if let cell = cell as? DetailReviewCountCell {
-            cell.setUpContents(totalDetailReviewCount: viewModel.detailReviewViewModel.detailReviews.count)
-            return cell
-        }
-
-        if let cell = cell as? DetailReviewCell {
-            cell.setUpContents(detailReview: viewModel.detailReviewViewModel.detailReviews[indexPath.row])
-
-            cell.setUpSeeMore(
-                isSeeMoreButtonAlreadyTapped: viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath)
-            )
-
-            cell.reloadCell = {
-                self.viewModel.detailReviewViewModel.seeMoreDidTapped(indexPath: indexPath)
-                self.collectionView.reloadItems(at: [indexPath])
-            }
-            return cell
-        }
-
-        return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -205,38 +222,37 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width - 2 * Constraints.outerCollectionViewInset
-        guard let height = StoreDetailViewModel
-            .ReviewSection(rawValue: indexPath.section)?.cellHeight else { return .zero }
 
         if viewModel.mode == .productLists {
-            let dummyCellForCalculateheight = ProductCell(frame: CGRect(
-                origin: CGPoint(x: 0, y: 0),
-                size: CGSize(width: width, height: height))
-            )
-            dummyCellForCalculateheight.setUpContents(
-                product: viewModel.productListViewModel.products[indexPath.row]
-            )
-            let heightThatFits = dummyCellForCalculateheight.systemLayoutSizeFitting(CGSize(width: width, height: height)).height
-            return CGSize(width: width, height: heightThatFits)
+            guard let height = StoreDetailViewModel
+                .ProductListSection(rawValue: indexPath.section)?.cellHeight else {
+                return .zero
+}
+            return CGSize(width: width, height: height)
+        } else {
+            guard let height = StoreDetailViewModel
+                .ReviewSection(rawValue: indexPath.section)?.cellHeight else { return .zero }
+            if StoreDetailViewModel.ReviewSection(rawValue: indexPath.section) == .detailReviews {
+                let dummyCellForCalculateheight = DetailReviewCell(frame: CGRect(origin: CGPoint(x: 0, y: 0),
+                                                                                 size: CGSize(width: width, height: height)))
+                dummyCellForCalculateheight.setUpContents(detailReview: viewModel.detailReviewViewModel.detailReviews[indexPath.row])
+                dummyCellForCalculateheight.setUpSeeMore(
+                    isSeeMoreButtonAlreadyTapped: viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath)
+                )
+                let heightThatFits = dummyCellForCalculateheight.systemLayoutSizeFitting(CGSize(width: width, height: height)).height
+                return CGSize(width: width, height: heightThatFits)
+            }
+            return CGSize(width: width, height: height)
         }
-
-        if StoreDetailViewModel.ReviewSection(rawValue: indexPath.section) == .detailReviews {
-            let dummyCellForCalculateheight = DetailReviewCell(frame: CGRect(origin: CGPoint(x: 0, y: 0),
-                                                                             size: CGSize(width: width, height: height)))
-            dummyCellForCalculateheight.setUpContents(detailReview: viewModel.detailReviewViewModel.detailReviews[indexPath.row])
-            dummyCellForCalculateheight.setUpSeeMore(
-                isSeeMoreButtonAlreadyTapped: viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath)
-            )
-            let heightThatFits = dummyCellForCalculateheight.systemLayoutSizeFitting(CGSize(width: width, height: height)).height
-            return CGSize(width: width, height: heightThatFits)
-        }
-
-        return CGSize(width: width, height: height)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         let inset = Constraints.outerCollectionViewInset
         return UIEdgeInsets(top: inset, left: inset, bottom: 0, right: inset)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

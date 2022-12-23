@@ -19,17 +19,22 @@ final class ProductListHeaderCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        layout()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
+    func setUpContents(productsCount: Int) {
+        productsCountLabel.text = "판매상품 \(productsCount)건"
+    }
+
     private func layout() {
         contentView.addSubview(productsCountLabel)
 
         productsCountLabel.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(16)
+            $0.edges.equalToSuperview()
         }
     }
 }

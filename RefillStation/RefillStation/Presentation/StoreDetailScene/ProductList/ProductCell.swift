@@ -45,6 +45,12 @@ final class ProductCell: UICollectionViewCell {
         return label
     }()
 
+    private let divisionLine: UIView = {
+        let line = UIView(frame: .zero)
+        line.backgroundColor = Asset.Colors.gray1.color
+        return line
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
@@ -66,11 +72,12 @@ final class ProductCell: UICollectionViewCell {
     }
 
     private func layout() {
-        [productImageView, brandLabel, productNameLabel, priceLabel, pricePerGramLabel].forEach { contentView.addSubview($0) }
+        [productImageView, brandLabel, productNameLabel, priceLabel, pricePerGramLabel, divisionLine].forEach {
+            contentView.addSubview($0)
+        }
         productImageView.snp.makeConstraints {
             $0.width.equalTo(80)
-            $0.height.equalTo(90).priority(.required)
-            $0.top.bottom.equalToSuperview().inset(16)
+            $0.top.equalToSuperview().inset(16)
         }
         brandLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
@@ -88,6 +95,12 @@ final class ProductCell: UICollectionViewCell {
         pricePerGramLabel.snp.makeConstraints {
             $0.top.equalTo(productNameLabel.snp.bottom).offset(7)
             $0.leading.equalTo(priceLabel.snp.trailing)
+        }
+
+        divisionLine.snp.makeConstraints {
+            $0.top.equalTo(productImageView.snp.bottom).offset(16)
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.height.equalTo(1)
         }
     }
 }

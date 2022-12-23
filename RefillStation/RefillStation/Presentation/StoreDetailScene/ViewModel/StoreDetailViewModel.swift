@@ -53,7 +53,7 @@ extension StoreDetailViewModel {
         var sectionCount: Int {
             switch self {
             case .productLists:
-                return 1
+                return ProductListSection.allCases.count
             case .reviews:
                 return ReviewSection.allCases.count
             }
@@ -67,9 +67,9 @@ extension StoreDetailViewModel {
         var cellHeight: CGFloat {
             switch self {
             case .productsCount:
-                return 80
+                return 30
             case .productList:
-                return 150
+                return 125
             }
         }
 
