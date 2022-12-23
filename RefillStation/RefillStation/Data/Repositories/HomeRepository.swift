@@ -16,10 +16,10 @@ final class HomeRepository: HomeRepositoryInterface {
 
     func fetchStoreList(query: FetchStoreListUseCaseRequestValue,
                         completion: @escaping (Result<[Store], Error>) -> Void) -> Cancellable? {
-        return RepositoryTask()
+        return nil
     }
     func searchStoreList(query: SearchStoreListUseCaseRequestValue,
                          completion: @escaping (Result<[Store], Error>) -> Void) -> Cancellable? {
-        return RepositoryTask()
+        return nil
     }
 }
