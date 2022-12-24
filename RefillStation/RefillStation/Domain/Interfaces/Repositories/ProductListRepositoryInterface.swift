@@ -11,5 +11,5 @@ protocol ProductListRepositoryInterface {
     func fetchProductList(
         query: FetchProductListRequestValue,
         completion: @escaping (Result<[Product], Error>) -> Void
-    )
+    ) -> Cancellable
 }
