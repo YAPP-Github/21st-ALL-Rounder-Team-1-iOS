@@ -12,7 +12,7 @@ public enum NetworkError: Error {
 
 }
 
-extension Alamofire.DataTask: Cancellable { }
+extension URLSessionDataTask: Cancellable { }
 
 protocol NetworkServiceInterface {
 
