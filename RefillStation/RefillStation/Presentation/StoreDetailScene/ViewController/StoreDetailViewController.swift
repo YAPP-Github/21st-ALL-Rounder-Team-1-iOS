@@ -9,7 +9,7 @@ import UIKit
 
 final class StoreDetailViewController: UIViewController {
 
-    private let viewModel: StoreDetailViewModel
+    private var viewModel: StoreDetailViewModel!
 
     private lazy var storeDetailInfoView = StoreDetailInfoView(viewModel: viewModel.storeDetailInfoViewModel)
 
@@ -25,7 +25,6 @@ final class StoreDetailViewController: UIViewController {
     }
 
     required init?(coder: NSCoder) {
-        viewModel = StoreDetailViewModel()
         super.init(coder: coder)
     }
 

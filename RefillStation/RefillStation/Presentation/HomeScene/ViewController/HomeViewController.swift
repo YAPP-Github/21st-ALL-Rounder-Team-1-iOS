@@ -166,13 +166,6 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let storeDetailViewController = StoreDetailViewController(
-            viewModel: StoreDetailViewModel(
-                detailReviewViewModel: makeMockDetailReviewViewModel(),
-                votedTagViewModel: makeMockVoteTagViewModel(),
-                storeDetailInfoViewModel: StoreDetailInfoViewModel(),
-                productListViewModel: ProductListViewModel())
-        )
-        navigationController?.pushViewController(storeDetailViewController, animated: true)
+        // TODO: Make Coordinator to push StoreDetailViewController
     }
 }

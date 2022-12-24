@@ -8,6 +8,8 @@
 import Foundation
 
 final class ProductListViewModel {
+
+    let fetchProductListUseCase: FetchProductListUseCaseInterface
     var products: [Product] = [
         .init(name: "티트리 퓨리파잉 샴푸", brand: "아로마티카", measurement: "g", price: 100, imageURL: ""),
         .init(name: "티트리 퓨리파잉 샴푸", brand: "아로마티카", measurement: "g", price: 100, imageURL: ""),
@@ -15,4 +17,8 @@ final class ProductListViewModel {
         .init(name: "티트리 퓨리파잉 샴푸", brand: "아로마티카", measurement: "g", price: 100, imageURL: ""),
         .init(name: "티트리 퓨리파잉 샴푸", brand: "아로마티카", measurement: "g", price: 100, imageURL: "")
     ]
+
+    init(fetchProductListUseCase: FetchProductListUseCaseInterface) {
+        self.fetchProductListUseCase = fetchProductListUseCase
+    }
 }
