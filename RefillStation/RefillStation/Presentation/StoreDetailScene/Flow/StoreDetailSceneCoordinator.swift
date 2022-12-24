@@ -8,7 +8,7 @@
 import Foundation
 
 final class StoreDetailSceneCoordinator: Coordinator {
-    var DIContainer: DIContainer
+    var DIContainer: StoreDetailDIContainer
 
     init(storeDetailDIContainer: StoreDetailDIContainer) {
         self.DIContainer = storeDetailDIContainer

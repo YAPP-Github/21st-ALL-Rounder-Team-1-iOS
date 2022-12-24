@@ -8,7 +8,7 @@
 import Foundation
 
 final class OnboardingSceneCoordinator: Coordinator, OnboardingViewModelCoordinatorDelegate {
-    var DIContainer: DIContainer
+    var DIContainer: OnboardingDIContainer
     // onboardingViewController
 
     init(DIContainer: OnboardingDIContainer) {
