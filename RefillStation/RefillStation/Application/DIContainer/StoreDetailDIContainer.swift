@@ -7,6 +7,6 @@
 
 import Foundation
 
-final class StoreDetailDIContainer {
+final class StoreDetailDIContainer: DIContainer {
     
 }
