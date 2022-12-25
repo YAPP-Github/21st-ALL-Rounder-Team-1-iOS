@@ -8,7 +8,7 @@
 import Foundation
 
 final class HomeSceneCoordinator: Coordinator {
-    var DIContainer: DIContainer
+    var DIContainer: HomeSceneDIContainer
     let homeViewController = HomeViewController()
 
     init(DIContainer: HomeSceneDIContainer) {

@@ -8,7 +8,8 @@
 import Foundation
 
 protocol Coordinator: AnyObject {
-    var DIContainer: DIContainer { get }
+    associatedtype DIContainerProtocol: DIContainer
+    var DIContainer: DIContainerProtocol { get }
 
     func start()
 }
