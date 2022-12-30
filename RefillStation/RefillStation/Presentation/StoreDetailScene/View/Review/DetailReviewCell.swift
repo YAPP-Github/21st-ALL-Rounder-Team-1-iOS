@@ -8,7 +8,9 @@
 import UIKit
 
 final class DetailReviewCell: UICollectionViewCell {
+
     static let reuseIdentifier = "detailReviewCell"
+    private var detailReview: DetailReview?
 
     private let profileImageHeight: CGFloat = 40
 
@@ -56,6 +58,10 @@ final class DetailReviewCell: UICollectionViewCell {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.register(
+            DetailReviewTagCollectionViewCell.self,
+            forCellWithReuseIdentifier: DetailReviewTagCollectionViewCell.reuseIdentifier
+        )
         return collectionView
     }()
 
@@ -99,11 +105,13 @@ final class DetailReviewCell: UICollectionViewCell {
     }
 
     func setUpContents(detailReview: DetailReview) {
+        self.detailReview = detailReview
         profileImageView.image = UIImage(systemName: "person")
         userNameLabel.text = detailReview.user.name
         writtenDateLabel.text = detailReview.writtenDate.toString()
         reviewImageView.image = UIImage(systemName: "zzz")
         descriptionLabel.text = detailReview.description
+        tagCollectionView.reloadData()
         layoutIfNeeded()
     }
 
@@ -161,11 +169,16 @@ final class DetailReviewCell: UICollectionViewCell {
 
 extension DetailReviewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return detailReview?.tags.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: DetailReviewTagCollectionViewCell.reuseIdentifier,
+            for: indexPath
+        ) as? DetailReviewTagCollectionViewCell else { return UICollectionViewCell() }
+        cell.setUpContents(title: detailReview?.tags[indexPath.row].tag.title ?? "")
+        return cell
     }
 }
 

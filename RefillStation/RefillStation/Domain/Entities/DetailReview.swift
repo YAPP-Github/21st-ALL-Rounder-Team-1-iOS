@@ -12,4 +12,5 @@ struct DetailReview {
     let writtenDate: Date
     let imageURL: String?
     let description: String
+    let tags: [TagReview]
 }

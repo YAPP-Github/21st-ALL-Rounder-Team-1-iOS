@@ -8,32 +8,32 @@
 import UIKit
 
 extension HomeViewController {
-    func makeMockDetailReviewViewModel() -> DetailReviewViewModel {
-        let viewModel = DetailReviewViewModel()
-        viewModel.detailReviews = [
-            .init(user: .init(name: "hello", imageURL: ""),
-                  writtenDate: Date(),
-                  imageURL: "",
-                  description: "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription"),
-            .init(user: .init(name: "hello", imageURL: ""),
-                  writtenDate: Date(),
-                  imageURL: "",
-                  description: "description"),
-            .init(user: .init(name: "hello", imageURL: ""),
-                  writtenDate: Date(),
-                  imageURL: "",
-                  description: "description"),
-            .init(user: .init(name: "hello", imageURL: ""),
-                  writtenDate: Date(),
-                  imageURL: "",
-                  description: "description"),
-            .init(user: .init(name: "hello", imageURL: ""),
-                  writtenDate: Date(),
-                  imageURL: "",
-                  description: "description")
-        ]
-        return viewModel
-    }
+//    func makeMockDetailReviewViewModel() -> DetailReviewViewModel {
+//        let viewModel = DetailReviewViewModel()
+//        viewModel.detailReviews = [
+//            .init(user: .init(name: "hello", imageURL: ""),
+//                  writtenDate: Date(),
+//                  imageURL: "",
+//                  description: "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription"),
+//            .init(user: .init(name: "hello", imageURL: ""),
+//                  writtenDate: Date(),
+//                  imageURL: "",
+//                  description: "description"),
+//            .init(user: .init(name: "hello", imageURL: ""),
+//                  writtenDate: Date(),
+//                  imageURL: "",
+//                  description: "description"),
+//            .init(user: .init(name: "hello", imageURL: ""),
+//                  writtenDate: Date(),
+//                  imageURL: "",
+//                  description: "description"),
+//            .init(user: .init(name: "hello", imageURL: ""),
+//                  writtenDate: Date(),
+//                  imageURL: "",
+//                  description: "description")
+//        ]
+//        return viewModel
+//    }
 
     func makeMockVoteTagViewModel() -> VotedTagViewModel {
         let viewModel = VotedTagViewModel()
