@@ -62,6 +62,7 @@ final class DetailReviewCell: UICollectionViewCell {
             DetailReviewTagCollectionViewCell.self,
             forCellWithReuseIdentifier: DetailReviewTagCollectionViewCell.reuseIdentifier
         )
+        collectionView.isScrollEnabled = false
         return collectionView
     }()
 
@@ -116,7 +117,8 @@ final class DetailReviewCell: UICollectionViewCell {
     }
 
     private func layout() {
-        [profileImageView, userNameLabel, writtenDateLabel, reviewImageView, descriptionLabel, seeMoreButton, divisionLine].forEach {
+        [profileImageView, userNameLabel, writtenDateLabel, reviewImageView,
+         descriptionLabel, seeMoreButton, divisionLine, tagCollectionView].forEach {
             contentView.addSubview($0)
         }
 
@@ -183,7 +185,16 @@ extension DetailReviewCell: UICollectionViewDataSource {
 }
 
 extension DetailReviewCell: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let estimatedSize = CGSize(width: 200, height: 80)
+        let dummyCell = DetailReviewTagCollectionViewCell(
+            frame: CGRect(origin: .zero, size: estimatedSize)
+        )
 
+        dummyCell.setUpContents(title: detailReview?.tags[indexPath.row].tag.title ?? "")
+
+        return dummyCell.systemLayoutSizeFitting(estimatedSize)
+    }
 }
 
 fileprivate extension Date {
