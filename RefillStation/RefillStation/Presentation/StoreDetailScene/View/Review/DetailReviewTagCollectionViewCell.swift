@@ -34,7 +34,8 @@ final class DetailReviewTagCollectionViewCell: UICollectionViewCell {
     private func layout() {
         contentView.addSubview(tagTitleLabel)
         tagTitleLabel.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.leading.trailing.top.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(10)
         }
     }
 }

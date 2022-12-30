@@ -13,6 +13,9 @@ final class DetailReviewCell: UICollectionViewCell {
     private var detailReview: DetailReview?
 
     private let profileImageHeight: CGFloat = 40
+    private var tagCollectionViewheight: CGFloat = 40 {
+        didSet { tagCollectionViewLayout() }
+    }
 
     private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
@@ -54,14 +57,14 @@ final class DetailReviewCell: UICollectionViewCell {
     }()
 
     private lazy var tagCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.delegate = self
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: tagCollectionLayout())
         collectionView.dataSource = self
         collectionView.register(
             DetailReviewTagCollectionViewCell.self,
             forCellWithReuseIdentifier: DetailReviewTagCollectionViewCell.reuseIdentifier
         )
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
         collectionView.isScrollEnabled = false
         return collectionView
     }()
@@ -113,12 +116,14 @@ final class DetailReviewCell: UICollectionViewCell {
         reviewImageView.image = UIImage(systemName: "zzz")
         descriptionLabel.text = detailReview.description
         tagCollectionView.reloadData()
+        tagCollectionView.layoutIfNeeded()
+        tagCollectionViewheight = tagCollectionView.contentSize.height
         layoutIfNeeded()
     }
 
     private func layout() {
         [profileImageView, userNameLabel, writtenDateLabel, reviewImageView,
-         descriptionLabel, seeMoreButton, divisionLine, tagCollectionView].forEach {
+         descriptionLabel, divisionLine, tagCollectionView].forEach {
             contentView.addSubview($0)
         }
 
@@ -136,7 +141,6 @@ final class DetailReviewCell: UICollectionViewCell {
         writtenDateLabel.snp.makeConstraints { dateLabel in
             dateLabel.leading.equalTo(profileImageView.snp.trailing).offset(10)
             dateLabel.top.equalTo(userNameLabel.snp.bottom).offset(5)
-
         }
 
         profileImageView.snp.makeConstraints { profile in
@@ -156,16 +160,35 @@ final class DetailReviewCell: UICollectionViewCell {
             description.top.equalTo(reviewImageView.snp.bottom).offset(10)
         }
 
-        seeMoreButton.snp.makeConstraints { button in
-            button.top.equalTo(descriptionLabel.snp.bottom)
-            button.trailing.equalToSuperview()
-        }
+        tagCollectionViewLayout()
 
         divisionLine.snp.makeConstraints {
-            $0.top.equalTo(seeMoreButton.snp.bottom).offset(20)
+            $0.top.equalTo(tagCollectionView.snp.bottom).offset(20)
             $0.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(1)
         }
+    }
+
+    private func tagCollectionViewLayout() {
+        tagCollectionView.snp.remakeConstraints {
+            $0.leading.equalToSuperview()
+            $0.trailing.equalToSuperview()
+            $0.top.equalTo(descriptionLabel.snp.bottom).offset(10)
+            $0.height.equalTo(tagCollectionViewheight)
+        }
+    }
+
+    private func tagCollectionLayout() -> UICollectionViewLayout {
+        let item = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(40), heightDimension: .estimated(40))
+        )
+        item.contentInsets = .init(top: 10, leading: 0, bottom: 10, trailing: 0)
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50)),
+            subitems: [item]
+        )
+        group.interItemSpacing = .fixed(10)
+        return UICollectionViewCompositionalLayout(section: .init(group: group))
     }
 }
 
@@ -178,22 +201,11 @@ extension DetailReviewCell: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: DetailReviewTagCollectionViewCell.reuseIdentifier,
             for: indexPath
-        ) as? DetailReviewTagCollectionViewCell else { return UICollectionViewCell() }
+        ) as? DetailReviewTagCollectionViewCell else {
+            return UICollectionViewCell()
+        }
         cell.setUpContents(title: detailReview?.tags[indexPath.row].tag.title ?? "")
         return cell
-    }
-}
-
-extension DetailReviewCell: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let estimatedSize = CGSize(width: 200, height: 80)
-        let dummyCell = DetailReviewTagCollectionViewCell(
-            frame: CGRect(origin: .zero, size: estimatedSize)
-        )
-
-        dummyCell.setUpContents(title: detailReview?.tags[indexPath.row].tag.title ?? "")
-
-        return dummyCell.systemLayoutSizeFitting(estimatedSize)
     }
 }
 
