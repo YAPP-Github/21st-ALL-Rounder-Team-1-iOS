@@ -51,6 +51,14 @@ final class DetailReviewCell: UICollectionViewCell {
         return label
     }()
 
+    private lazy var tagCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        return collectionView
+    }()
+
     private lazy var seeMoreButton: UIButton = {
         let button = UIButton()
         button.setTitle("더보기", for: .normal)
@@ -149,6 +157,20 @@ final class DetailReviewCell: UICollectionViewCell {
             $0.height.equalTo(1)
         }
     }
+}
+
+extension DetailReviewCell: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 0
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
+}
+
+extension DetailReviewCell: UICollectionViewDelegateFlowLayout {
+
 }
 
 fileprivate extension Date {
