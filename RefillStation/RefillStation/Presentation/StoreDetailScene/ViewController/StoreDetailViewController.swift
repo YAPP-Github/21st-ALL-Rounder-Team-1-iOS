@@ -180,13 +180,15 @@ extension StoreDetailViewController: UICollectionViewDataSource {
                 cell.setUpContents(detailReview: viewModel.detailReviewViewModel.detailReviews[indexPath.row])
 
                 cell.setUpSeeMore(
-                    isSeeMoreButtonAlreadyTapped: viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath)
+                    shouldSeeMore: viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath)
                 )
 
                 cell.reloadCell = {
                     self.viewModel.detailReviewViewModel.seeMoreDidTapped(indexPath: indexPath)
                     self.collectionView.reloadItems(at: [indexPath])
                 }
+
+                cell.hideSeeMoreButtonIfNeed()
                 return cell
             }
 
@@ -236,7 +238,7 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
                                                                                  size: CGSize(width: width, height: height)))
                 dummyCellForCalculateheight.setUpContents(detailReview: viewModel.detailReviewViewModel.detailReviews[indexPath.row])
                 dummyCellForCalculateheight.setUpSeeMore(
-                    isSeeMoreButtonAlreadyTapped: viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath)
+                    shouldSeeMore: viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath)
                 )
                 let heightThatFits = dummyCellForCalculateheight.systemLayoutSizeFitting(CGSize(width: width, height: height)).height
                 return CGSize(width: width, height: heightThatFits)

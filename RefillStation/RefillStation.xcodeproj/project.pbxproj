@@ -13,6 +13,7 @@
 		3240987029602A7400911306 /* ProductCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3240986F29602A7400911306 /* ProductCategory.swift */; };
 		3240987229602B2300911306 /* ProductCategoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3240987129602B2300911306 /* ProductCategoriesCell.swift */; };
 		3240987429602B2C00911306 /* ProductCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3240987329602B2C00911306 /* ProductCategoryCollectionViewCell.swift */; };
+		32409866295F51DB00911306 /* DetailReviewTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32409865295F51DB00911306 /* DetailReviewTagCollectionViewCell.swift */; };
 		324355532956D3F70043E53B /* StoreDetailSceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324355522956D3F70043E53B /* StoreDetailSceneCoordinator.swift */; };
 		3244A1FC292DC13A00716A2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A1FB292DC13A00716A2B /* AppDelegate.swift */; };
 		3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3244A204292DC13A00716A2B /* RefillStation.xcdatamodeld */; };
@@ -133,6 +134,7 @@
 		3240986F29602A7400911306 /* ProductCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCategory.swift; sourceTree = "<group>"; };
 		3240987129602B2300911306 /* ProductCategoriesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCategoriesCell.swift; sourceTree = "<group>"; };
 		3240987329602B2C00911306 /* ProductCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		32409865295F51DB00911306 /* DetailReviewTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReviewTagCollectionViewCell.swift; sourceTree = "<group>"; };
 		324355522956D3F70043E53B /* StoreDetailSceneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailSceneCoordinator.swift; sourceTree = "<group>"; };
 		3244A1F8292DC13A00716A2B /* RefillStation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RefillStation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3244A1FB292DC13A00716A2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -478,6 +480,7 @@
 				32E9A55C292E4F37000072EE /* VotedTagCell.swift */,
 				3209974A2935153300956FBE /* DetailReviewCountCell.swift */,
 				324CCBDD29321616001F6FDA /* DetailReviewCell.swift */,
+				32409865295F51DB00911306 /* DetailReviewTagCollectionViewCell.swift */,
 			);
 			path = Review;
 			sourceTree = "<group>";
@@ -952,6 +955,7 @@
 				FCE00A8A294C960000B5C05F /* DefaultRegisterReviewRepository.swift in Sources */,
 				FC84FACC293B944900428AAA /* RequestRegionViewModel.swift in Sources */,
 				FCE00A6A294C5B3400B5C05F /* TagResponseStorage.swift in Sources */,
+				32409866295F51DB00911306 /* DetailReviewTagCollectionViewCell.swift in Sources */,
 				329557462951992900F5AB53 /* StoreDetailViewModel.swift in Sources */,
 				FCE00A90294C965900B5C05F /* ProductListRepositoryInterface.swift in Sources */,
 				FCE00A8E294C965000B5C05F /* HomeRepositoryInterface.swift in Sources */,
@@ -1126,7 +1130,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = T47D3HUWDJ;
+				DEVELOPMENT_TEAM = 267JUTDVY2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RefillStation/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1153,7 +1157,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = T47D3HUWDJ;
+				DEVELOPMENT_TEAM = 267JUTDVY2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RefillStation/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

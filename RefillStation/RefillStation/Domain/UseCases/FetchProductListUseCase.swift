@@ -21,7 +21,7 @@ protocol FetchProductListUseCaseInterface {
 final class FetchProductListUseCase: FetchProductListUseCaseInterface {
     private let productListRepository: ProductListRepositoryInterface
 
-    init(productListRepository: ProductListRepositoryInterface) {
+    init(productListRepository: ProductListRepositoryInterface = MockProductListRepository()) {
         self.productListRepository = productListRepository
     }
 
@@ -39,5 +39,11 @@ final class FetchProductListUseCase: FetchProductListUseCaseInterface {
                 completion(.failure(error))
             }
         }
+    }
+}
+
+class MockProductListRepository: ProductListRepositoryInterface {
+    func fetchProductList(query: FetchProductListRequestValue, completion: @escaping (Result<[Product], Error>) -> Void) -> Cancellable {
+        return URLSessionDataTask()
     }
 }
