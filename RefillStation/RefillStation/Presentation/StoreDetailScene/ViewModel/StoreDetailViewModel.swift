@@ -106,7 +106,7 @@ extension StoreDetailViewModel {
             case .detailReviewCount:
                 return 40
             case .detailReviews:
-                return 280
+                return 400
             }
         }
 
