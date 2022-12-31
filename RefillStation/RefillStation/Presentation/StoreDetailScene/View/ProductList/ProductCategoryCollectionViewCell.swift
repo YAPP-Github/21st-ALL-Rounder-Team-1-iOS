@@ -6,52 +6,68 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class ProductCategoryCollectionViewCell: UICollectionViewCell {
 
     static let reuseIdentifier = "productCategoryCollectionViewCell"
 
-    private lazy var categoryButton: UIButton = {
-        let button = UIButton()
-        button.addTarget(self, action: #selector(categoryButtonTapped(_:)), for: .touchUpInside)
-        button.setTitleColor(Asset.Colors.gray4.color, for: .normal)
-        button.titleLabel?.font = UIFont.font(style: .buttomMedium)
-        return button
-    }()
+    private var category: ProductCategory?
 
-    var categoryButtonTapped: (() -> Void)?
+    override var isSelected: Bool {
+        didSet {
+            isSelected ? setUpSelected() : setUpDeselected()
+        }
+    }
+
+    private let categoryLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = Asset.Colors.gray4.color
+        label.font = UIFont.font(style: .buttomMedium)
+        return label
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
-        setUpLayer()
+        setUpDeselected()
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
 
-    func setUpContents(title: String) {
-        categoryButton.setTitle(title, for: .normal)
+    func setUpContents(category: ProductCategory) {
+        self.category = category
+        categoryLabel.text = category.title
+    }
+
+    private func bind() {
+
     }
 
     private func layout() {
-        contentView.addSubview(categoryButton)
-        categoryButton.snp.makeConstraints {
+        contentView.addSubview(categoryLabel)
+        categoryLabel.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(12)
             $0.top.bottom.equalToSuperview().inset(8)
         }
     }
 
-    private func setUpLayer() {
+    private func setUpDeselected() {
         layer.cornerRadius = 25
         layer.borderColor = Asset.Colors.gray4.color.cgColor
+        categoryLabel.textColor = Asset.Colors.gray4.color
         layer.borderWidth = 1
         clipsToBounds = true
     }
 
-    @objc
-    private func categoryButtonTapped(_ sender: UIButton) {
-        categoryButtonTapped?()
+    private func setUpSelected() {
+        layer.cornerRadius = 25
+        layer.borderColor = Asset.Colors.primary3.color.cgColor
+        layer.borderWidth = 1
+        categoryLabel.textColor = Asset.Colors.primary3.color
+        clipsToBounds = true
     }
 }

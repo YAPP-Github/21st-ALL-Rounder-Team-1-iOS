@@ -10,6 +10,18 @@ import Foundation
 final class ProductListViewModel {
 
     let fetchProductListUseCase: FetchProductListUseCaseInterface
+    var currentCategoryFilters = Set<ProductCategory>()
+    var filteredProducts: [Product] {
+        let filtered = products.filter({
+            if currentCategoryFilters == [ProductCategory.all] {
+                return true
+            } else {
+                return currentCategoryFilters.contains($0.category)
+            }
+        })
+        print(currentCategoryFilters)
+        return filtered
+    }
     var products: [Product] = [
         .init(name: "티트리 퓨리파잉 샴푸", brand: "아로마티카", measurement: "g", price: 100, imageURL: "", category: .init(title: "샴푸")),
         .init(name: "티트리 퓨리파잉 샴푸", brand: "아로마티카", measurement: "g", price: 100, imageURL: "", category: .init(title: "콜라")),
@@ -24,6 +36,23 @@ final class ProductListViewModel {
 
     init(fetchProductListUseCase: FetchProductListUseCaseInterface) {
         self.fetchProductListUseCase = fetchProductListUseCase
+    }
+
+    func categoryButtonDidTapped(category: ProductCategory?) {
+        guard let category = category else { return }
+
+        if currentCategoryFilters.contains(category) {
+            currentCategoryFilters.remove(category)
+            return
+        }
+
+        if category == ProductCategory.all {
+            currentCategoryFilters.removeAll()
+        } else {
+            currentCategoryFilters.remove(ProductCategory.all)
+        }
+
+        currentCategoryFilters.insert(category)
     }
 
     func fetchProductList(storeId: Int, completion: @escaping (Result<[Product], Error>) -> Void) {

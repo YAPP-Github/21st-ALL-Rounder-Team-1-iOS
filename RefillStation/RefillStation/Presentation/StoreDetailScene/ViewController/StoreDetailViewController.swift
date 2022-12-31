@@ -106,7 +106,7 @@ extension StoreDetailViewController: UICollectionViewDataSource {
             case StoreDetailViewModel.ProductListSection.productsCount.rawValue:
                 return 1
             case StoreDetailViewModel.ProductListSection.productList.rawValue:
-                return viewModel.productListViewModel.products.count
+                return viewModel.productListViewModel.filteredProducts.count
             default:
                 return 0
             }
@@ -142,6 +142,12 @@ extension StoreDetailViewController: UICollectionViewDataSource {
                 var categories = [ProductCategory]()
                 viewModel.productListViewModel.products.forEach {
                     if !categories.contains($0.category) { categories.append($0.category) }
+                }
+                cell.categoryButtonTapped = { [weak self] category in
+                    self?.viewModel.productListViewModel.categoryButtonDidTapped(category: category)
+                    self?.collectionView.reloadSections(
+                        IndexSet(integer: StoreDetailViewModel.ProductListSection.productList.rawValue)
+                    )
                 }
                 cell.setUpContents(categories: [ProductCategory.all] + categories)
             }

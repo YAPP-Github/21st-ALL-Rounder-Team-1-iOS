@@ -19,10 +19,14 @@ final class ProductCategoriesCell: UICollectionViewCell {
         collectionView.register(ProductCategoryCollectionViewCell.self,
                                 forCellWithReuseIdentifier: ProductCategoryCollectionViewCell.reuseIdentifier)
         collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.allowsMultipleSelection = true
         return collectionView
     }()
+
+    var categoryButtonTapped: ((ProductCategory?) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,6 +40,8 @@ final class ProductCategoriesCell: UICollectionViewCell {
     func setUpContents(categories: [ProductCategory]) {
         self.categories = categories
         categoryCollectionView.reloadData()
+        categoryCollectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .left)
+        categoryButtonTapped?(categories[IndexPath(row: 0, section: 0).row])
     }
 
     private func layout() {
@@ -67,7 +73,26 @@ extension ProductCategoriesCell: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: ProductCategoryCollectionViewCell.reuseIdentifier,
             for: indexPath) as? ProductCategoryCollectionViewCell else { return UICollectionViewCell() }
-        cell.setUpContents(title: categories?[indexPath.row].title ?? "")
+        cell.setUpContents(category: categories?[indexPath.row] ?? ProductCategory.all)
         return cell
+    }
+}
+
+extension ProductCategoriesCell: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let categories = categories else { return }
+        categoryButtonTapped?(categories[indexPath.row])
+
+        if categories[indexPath.row] == ProductCategory.all { // all 빼고 나머지 다 지우기
+            (1..<categories.count).forEach {
+                collectionView.deselectItem(at: IndexPath(row: $0, section: 0), animated: true)
+            }
+        } else { // all 있으면 지우기
+            collectionView.deselectItem(at: IndexPath(row: 0, section: 0), animated: true)
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        categoryButtonTapped?(categories?[indexPath.row])
     }
 }
