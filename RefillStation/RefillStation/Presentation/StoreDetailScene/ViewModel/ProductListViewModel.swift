@@ -19,7 +19,6 @@ final class ProductListViewModel {
                 return currentCategoryFilters.contains($0.category)
             }
         })
-        print(currentCategoryFilters)
         return filtered
     }
     var products: [Product] = [
@@ -41,18 +40,18 @@ final class ProductListViewModel {
     func categoryButtonDidTapped(category: ProductCategory?) {
         guard let category = category else { return }
 
-        if currentCategoryFilters.contains(category) {
+        if currentCategoryFilters.contains(category) { // deselect된 경우
             currentCategoryFilters.remove(category)
             return
         }
 
         if category == ProductCategory.all {
-            currentCategoryFilters.removeAll()
+            currentCategoryFilters.removeAll() // "전체"가 선택된 경우 나머지를 모두 리스트에서 삭제
         } else {
-            currentCategoryFilters.remove(ProductCategory.all)
+            currentCategoryFilters.remove(ProductCategory.all) // "전체" 말고 다른것이 선택된 경우, "전체"를 리스트에서 삭제
         }
 
-        currentCategoryFilters.insert(category)
+        currentCategoryFilters.insert(category) // 리스트에 선택된 category 삽입
     }
 
     func fetchProductList(storeId: Int, completion: @escaping (Result<[Product], Error>) -> Void) {

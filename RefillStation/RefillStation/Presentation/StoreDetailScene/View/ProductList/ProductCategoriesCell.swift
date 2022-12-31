@@ -12,6 +12,7 @@ final class ProductCategoriesCell: UICollectionViewCell {
     static let reuseIdentifier = "productCategoriesCell"
 
     private var categories: [ProductCategory]?
+    private let indexPathForAll = IndexPath(row: 0, section: 0)
 
     private lazy var categoryCollectionView: UICollectionView = {
         let layout = categoryCollectionViewLayout()
@@ -34,7 +35,7 @@ final class ProductCategoriesCell: UICollectionViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
 
     func setUpContents(categories: [ProductCategory]) {
@@ -83,12 +84,13 @@ extension ProductCategoriesCell: UICollectionViewDelegate {
         guard let categories = categories else { return }
         categoryButtonTapped?(categories[indexPath.row])
 
-        if categories[indexPath.row] == ProductCategory.all { // all 빼고 나머지 다 지우기
-            (1..<categories.count).forEach {
-                collectionView.deselectItem(at: IndexPath(row: $0, section: 0), animated: true)
+        if categories[indexPath.row] == ProductCategory.all,
+           let indexPathsForSelectedItems = collectionView.indexPathsForSelectedItems {
+            for indexPath in indexPathsForSelectedItems where indexPath != indexPathForAll {
+                collectionView.deselectItem(at: indexPath, animated: true)
             }
-        } else { // all 있으면 지우기
-            collectionView.deselectItem(at: IndexPath(row: 0, section: 0), animated: true)
+        } else {
+            collectionView.deselectItem(at: indexPathForAll, animated: true)
         }
     }
 

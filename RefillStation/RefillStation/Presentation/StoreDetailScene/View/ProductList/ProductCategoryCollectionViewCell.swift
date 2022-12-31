@@ -43,10 +43,6 @@ final class ProductCategoryCollectionViewCell: UICollectionViewCell {
         categoryLabel.text = category.title
     }
 
-    private func bind() {
-
-    }
-
     private func layout() {
         contentView.addSubview(categoryLabel)
         categoryLabel.snp.makeConstraints {
