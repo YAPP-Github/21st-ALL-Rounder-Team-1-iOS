@@ -88,7 +88,7 @@
 		FCE00A84294C95E900B5C05F /* ProductListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A83294C95E900B5C05F /* ProductListRepository.swift */; };
 		FCE00A86294C95F200B5C05F /* DefaultRequestRegionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A85294C95F200B5C05F /* DefaultRequestRegionRepository.swift */; };
 		FCE00A88294C95FA00B5C05F /* DefaultStoreReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A87294C95FA00B5C05F /* DefaultStoreReviewRepository.swift */; };
-		FCE00A8A294C960000B5C05F /* DefaultRegisterReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A89294C960000B5C05F /* DefaultRegisterReviewRepository.swift */; };
+		FCE00A8A294C960000B5C05F /* RegisterReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A89294C960000B5C05F /* RegisterReviewRepository.swift */; };
 		FCE00A8E294C965000B5C05F /* HomeRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A8D294C965000B5C05F /* HomeRepositoryInterface.swift */; };
 		FCE00A90294C965900B5C05F /* ProductListRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A8F294C965900B5C05F /* ProductListRepositoryInterface.swift */; };
 		FCE00A92294C966000B5C05F /* RequestRegionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A91294C966000B5C05F /* RequestRegionRepository.swift */; };
@@ -205,7 +205,7 @@
 		FCE00A83294C95E900B5C05F /* ProductListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListRepository.swift; sourceTree = "<group>"; };
 		FCE00A85294C95F200B5C05F /* DefaultRequestRegionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRequestRegionRepository.swift; sourceTree = "<group>"; };
 		FCE00A87294C95FA00B5C05F /* DefaultStoreReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultStoreReviewRepository.swift; sourceTree = "<group>"; };
-		FCE00A89294C960000B5C05F /* DefaultRegisterReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRegisterReviewRepository.swift; sourceTree = "<group>"; };
+		FCE00A89294C960000B5C05F /* RegisterReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReviewRepository.swift; sourceTree = "<group>"; };
 		FCE00A8D294C965000B5C05F /* HomeRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepositoryInterface.swift; sourceTree = "<group>"; };
 		FCE00A8F294C965900B5C05F /* ProductListRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListRepositoryInterface.swift; sourceTree = "<group>"; };
 		FCE00A91294C966000B5C05F /* RequestRegionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestRegionRepository.swift; sourceTree = "<group>"; };
@@ -629,7 +629,7 @@
 				FCE00A83294C95E900B5C05F /* ProductListRepository.swift */,
 				FCE00A85294C95F200B5C05F /* DefaultRequestRegionRepository.swift */,
 				FCE00A87294C95FA00B5C05F /* DefaultStoreReviewRepository.swift */,
-				FCE00A89294C960000B5C05F /* DefaultRegisterReviewRepository.swift */,
+				FCE00A89294C960000B5C05F /* RegisterReviewRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -941,7 +941,7 @@
 				FC47394729376BA500DB9BDB /* HomeViewModel.swift in Sources */,
 				325985EB294C529C00D26A37 /* OnboardingSceneCoordinatorDelegate.swift in Sources */,
 				32E9A55B292E24D2000072EE /* VotedTagViewModel.swift in Sources */,
-				FCE00A8A294C960000B5C05F /* DefaultRegisterReviewRepository.swift in Sources */,
+				FCE00A8A294C960000B5C05F /* RegisterReviewRepository.swift in Sources */,
 				FC84FACC293B944900428AAA /* RequestRegionViewModel.swift in Sources */,
 				FCE00A6A294C5B3400B5C05F /* TagResponseStorage.swift in Sources */,
 				329557462951992900F5AB53 /* StoreDetailViewModel.swift in Sources */,
