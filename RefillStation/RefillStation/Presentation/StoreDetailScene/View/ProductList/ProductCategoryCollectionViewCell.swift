@@ -11,6 +11,11 @@ final class ProductCategoryCollectionViewCell: UICollectionViewCell {
 
     static let reuseIdentifier = "productCategoryCollectionViewCell"
 
+    private let categoryLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -19,7 +24,14 @@ final class ProductCategoryCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func layout() {
+    func setUpContents(title: String) {
+        categoryLabel.text = title
+    }
 
+    private func layout() {
+        contentView.addSubview(categoryLabel)
+        categoryLabel.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
 }

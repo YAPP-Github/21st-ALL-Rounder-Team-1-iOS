@@ -11,12 +11,16 @@ final class ProductCategoriesCell: UICollectionViewCell {
 
     static let reuseIdentifier = "productCategoriesCell"
 
+    private var categories: [ProductCategory]?
+
     private lazy var categoryCollectionView: UICollectionView = {
         let layout = categoryCollectionViewLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(ProductCategoryCollectionViewCell.self,
                                 forCellWithReuseIdentifier: ProductCategoryCollectionViewCell.reuseIdentifier)
         collectionView.dataSource = self
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
 
@@ -28,8 +32,16 @@ final class ProductCategoriesCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func layout() {
+    func setUpContents(categories: [ProductCategory]) {
+        self.categories = categories
+        categoryCollectionView.reloadData()
+    }
 
+    private func layout() {
+        contentView.addSubview(categoryCollectionView)
+        categoryCollectionView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
 
     private func categoryCollectionViewLayout() -> UICollectionViewCompositionalLayout {
@@ -42,10 +54,14 @@ final class ProductCategoriesCell: UICollectionViewCell {
 
 extension ProductCategoriesCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return categories?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: ProductCategoryCollectionViewCell.reuseIdentifier,
+            for: indexPath) as? ProductCategoryCollectionViewCell else { return UICollectionViewCell() }
+        cell.setUpContents(title: categories?[indexPath.row].title ?? "")
+        return cell
     }
 }
