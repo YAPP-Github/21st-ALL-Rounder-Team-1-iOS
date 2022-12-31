@@ -104,6 +104,7 @@
 		FCEE10252934C855002E629D /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCEE10242934C855002E629D /* images.xcassets */; };
 		FCEE102F2934CCB8002E629D /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCEE102E2934CCB8002E629D /* Fonts.swift */; };
 		FCEE10312934D287002E629D /* Assets+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCEE10302934D287002E629D /* Assets+Generated.swift */; };
+		FCF0181A295F08E50027078A /* UserLevelInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF01819295F08E50027078A /* UserLevelInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -220,6 +221,7 @@
 		FCEE10262934C8EE002E629D /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		FCEE102E2934CCB8002E629D /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		FCEE10302934D287002E629D /* Assets+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Assets+Generated.swift"; sourceTree = "<group>"; };
+		FCF01819295F08E50027078A /* UserLevelInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLevelInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -615,6 +617,7 @@
 				FCE00A9B2950E1C700B5C05F /* Review.swift */,
 				FC47394829376E2200DB9BDB /* Store.swift */,
 				FC3EBDF22932872100A9C1F9 /* Product.swift */,
+				FCF01819295F08E50027078A /* UserLevelInfo.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -864,6 +867,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FCE00A67294C5ADF00B5C05F /* CoreDataStorage.swift in Sources */,
+				FCF0181A295F08E50027078A /* UserLevelInfo.swift in Sources */,
 				320DCDDD293C1AE800C09C43 /* StoreDetailInfoViewModel.swift in Sources */,
 				325C35A32932243E001B3741 /* Section.swift in Sources */,
 				32E9A55D292E4F37000072EE /* VotedTagCell.swift in Sources */,
