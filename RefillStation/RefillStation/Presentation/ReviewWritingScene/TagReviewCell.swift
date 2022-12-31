@@ -15,16 +15,23 @@ final class TagReviewCell: UICollectionViewCell {
     override var isSelected: Bool {
         didSet {
             if isSelected {
-                contentView.backgroundColor = .white
+                contentView.backgroundColor = Asset.Colors.primary0.color
                 contentView.layer.borderColor = Asset.Colors.primary3.color.cgColor
                 tagTitleLabel.textColor = Asset.Colors.primary3.color
             } else {
-                contentView.backgroundColor = Asset.Colors.gray1.color
-                contentView.layer.borderColor = Asset.Colors.gray1.color.cgColor
+                contentView.backgroundColor = .white
+                contentView.layer.borderColor = Asset.Colors.gray2.color.cgColor
                 tagTitleLabel.textColor = Asset.Colors.gray5.color
             }
         }
     }
+
+    private let tagImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = Asset.Colors.gray2.color
+        return imageView
+    }()
 
     private let tagTitleLabel: UILabel = {
         let label = UILabel()
@@ -43,22 +50,29 @@ final class TagReviewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
-    func setUpContents(title: String) {
+    func setUpContents(image: UIImage, title: String) {
+        tagImageView.image = image
         tagTitleLabel.text = title
     }
 
     private func setUpContentView() {
-        contentView.backgroundColor = Asset.Colors.gray1.color
-        contentView.layer.cornerRadius = 6
+        contentView.backgroundColor = .white
+        contentView.layer.cornerRadius = 22
         contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = Asset.Colors.gray1.color.cgColor
+        contentView.layer.borderColor = Asset.Colors.gray2.color.cgColor
     }
 
     private func layout() {
-        contentView.addSubview(tagTitleLabel)
-        tagTitleLabel.snp.makeConstraints { tag in
-            tag.top.bottom.equalToSuperview().inset(5)
-            tag.leading.trailing.equalToSuperview().inset(15)
+        [tagImageView, tagTitleLabel].forEach { contentView.addSubview($0) }
+        tagImageView.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview().inset(11)
+            $0.width.equalTo(tagImageView.snp.height)
+            $0.leading.equalToSuperview().inset(15)
+        }
+        tagTitleLabel.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview().inset(5)
+            $0.leading.equalTo(tagImageView.snp.trailing).offset(6)
+            $0.trailing.equalToSuperview().inset(15)
         }
     }
 }
