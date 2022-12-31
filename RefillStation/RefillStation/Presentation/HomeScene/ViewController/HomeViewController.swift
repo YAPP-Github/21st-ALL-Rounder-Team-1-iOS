@@ -171,14 +171,8 @@ extension HomeViewController: UICollectionViewDelegate {
                 detailReviewViewModel: makeMockDetailReviewViewModel(),
                 votedTagViewModel: makeMockVoteTagViewModel(),
                 storeDetailInfoViewModel: StoreDetailInfoViewModel(),
-                productListViewModel: ProductListViewModel(fetchProductListUseCase: FetchProductListUseCase(productListRepository: MockProductListRepository())))
+                productListViewModel: ProductListViewModel(fetchProductListUseCase: FetchProductListUseCase()))
         )
         navigationController?.pushViewController(storeDetailViewController, animated: true)
-    }
-}
-
-class MockProductListRepository: ProductListRepositoryInterface {
-    func fetchProductList(query: FetchProductListRequestValue, completion: @escaping (Result<[Product], Error>) -> Void) -> Cancellable {
-        return URLSessionDataTask()
     }
 }
