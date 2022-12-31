@@ -11,6 +11,12 @@ final class DetailReviewTagCollectionViewCell: UICollectionViewCell {
 
     static let reuseIdentifier = "detailReviewTagCollectionViewCell"
 
+    private let tagImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = Asset.Colors.gray3.color
+        return imageView
+    }()
+
     private let tagTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.gray5.color
@@ -27,14 +33,21 @@ final class DetailReviewTagCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
-    func setUpContents(title: String) {
-        tagTitleLabel.text = title
+    func setUpContents(tag: Tag) {
+        tagTitleLabel.text = tag.title
+        tagImageView.image = tag.image
     }
 
     private func layout() {
-        contentView.addSubview(tagTitleLabel)
+        [tagImageView, tagTitleLabel].forEach { contentView.addSubview($0) }
+        tagImageView.snp.makeConstraints {
+            $0.leading.top.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(10)
+            $0.width.equalTo(tagImageView.snp.height)
+        }
         tagTitleLabel.snp.makeConstraints {
-            $0.leading.trailing.top.equalToSuperview()
+            $0.leading.equalTo(tagImageView.snp.trailing).offset(5)
+            $0.trailing.top.equalToSuperview()
             $0.bottom.equalToSuperview().inset(10)
         }
     }

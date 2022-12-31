@@ -206,13 +206,14 @@ extension DetailReviewCell: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
+        guard let detailReview = detailReview,
+              let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: DetailReviewTagCollectionViewCell.reuseIdentifier,
             for: indexPath
         ) as? DetailReviewTagCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.setUpContents(title: detailReview?.tags[indexPath.row].tag.title ?? "")
+        cell.setUpContents(tag: detailReview.tags[indexPath.row].tag)
         return cell
     }
 }
