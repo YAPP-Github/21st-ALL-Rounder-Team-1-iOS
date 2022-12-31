@@ -13,7 +13,7 @@ final class DetailReviewCell: UICollectionViewCell {
     private var detailReview: DetailReview?
 
     private let profileImageHeight: CGFloat = 40
-    private var tagCollectionViewheight: CGFloat = 40 {
+    private var tagCollectionViewHeight: CGFloat = 40 {
         didSet {
             tagCollectionViewLayout()
         }
@@ -124,7 +124,7 @@ final class DetailReviewCell: UICollectionViewCell {
         descriptionLabel.text = detailReview.description
         tagCollectionView.reloadData()
         tagCollectionView.layoutIfNeeded()
-        tagCollectionViewheight = tagCollectionView.contentSize.height
+        tagCollectionViewHeight = tagCollectionView.contentSize.height
         layoutIfNeeded()
     }
 
@@ -185,9 +185,11 @@ final class DetailReviewCell: UICollectionViewCell {
         tagCollectionView.snp.remakeConstraints {
             $0.leading.equalToSuperview()
             $0.trailing.equalToSuperview()
-            $0.top.equalTo(seeMoreButton.snp.bottom).offset(10).priority(.required)
+            if contentView.subviews.contains(seeMoreButton) {
+                $0.top.equalTo(seeMoreButton.snp.bottom).offset(10).priority(.required)
+            }
             $0.top.equalTo(descriptionLabel.snp.bottom).offset(10).priority(.medium)
-            $0.height.equalTo(tagCollectionViewheight)
+            $0.height.equalTo(tagCollectionViewHeight)
         }
     }
 
