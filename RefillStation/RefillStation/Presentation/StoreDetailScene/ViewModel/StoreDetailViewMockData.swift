@@ -18,19 +18,26 @@ extension HomeViewController {
             .init(user: .init(name: "hello", imageURL: ""),
                   writtenDate: Date(),
                   imageURL: "",
-                  description: "description", tags: []),
+                  description: "description", tags: [.init(tag: .init(image: UIImage(), title: "이런태그 저런태그"), recommendedCount: 0), .init(tag: .init(image: UIImage(), title: "이런태그 저런태그 어쩌구"), recommendedCount: 0), .init(tag: .init(image: UIImage(), title: "이런태그 저런태그"), recommendedCount: 0), .init(tag: .init(image: UIImage(), title: "이런태그 저런태그 어쩌구 저쩌구"), recommendedCount: 0)]),
             .init(user: .init(name: "hello", imageURL: ""),
                   writtenDate: Date(),
                   imageURL: "",
-                  description: "description", tags: []),
+                  description: "description",
+                  tags: [.init(tag: .init(image: UIImage(), title: "이런태그"), recommendedCount: 0),
+                         .init(tag: .init(image: UIImage(), title: "이런태그"), recommendedCount: 0),
+                         .init(tag: .init(image: UIImage(), title: "이런"), recommendedCount: 0),
+                         .init(tag: .init(image: UIImage(), title: "이런태그 저런"), recommendedCount: 0)]),
             .init(user: .init(name: "hello", imageURL: ""),
                   writtenDate: Date(),
                   imageURL: "",
-                  description: "description", tags: []),
+                  description: "description",
+                  tags: [.init(tag: .init(image: UIImage(), title: "이런태그"), recommendedCount: 0)]),
             .init(user: .init(name: "hello", imageURL: ""),
                   writtenDate: Date(),
                   imageURL: "",
-                  description: "description", tags: [])
+                  description: "description",
+                  tags: [.init(tag: .init(image: UIImage(), title: "이런태그"), recommendedCount: 0),
+                         .init(tag: .init(image: UIImage(), title: "이런태그"), recommendedCount: 0)])
         ]
         return viewModel
     }

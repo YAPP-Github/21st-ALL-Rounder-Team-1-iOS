@@ -187,6 +187,8 @@ extension StoreDetailViewController: UICollectionViewDataSource {
                     self.viewModel.detailReviewViewModel.seeMoreDidTapped(indexPath: indexPath)
                     self.collectionView.reloadItems(at: [indexPath])
                 }
+
+                cell.hideSeeMoreButtonIfNeed()
                 return cell
             }
 

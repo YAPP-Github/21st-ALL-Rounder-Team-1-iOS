@@ -15,9 +15,7 @@ final class DetailReviewCell: UICollectionViewCell {
     private let profileImageHeight: CGFloat = 40
     private var tagCollectionViewheight: CGFloat = 40 {
         didSet {
-            if tagCollectionViewheight != 0 {
-                tagCollectionViewLayout()
-            }
+            tagCollectionViewLayout()
         }
     }
 
@@ -59,6 +57,10 @@ final class DetailReviewCell: UICollectionViewCell {
         label.font = UIFont.font(style: .bodyMedium)
         return label
     }()
+
+    var isDescriptionLabelTruncated: Bool {
+        return descriptionLabel.isTruncated
+    }
 
     private lazy var tagCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: tagCollectionLayout())
@@ -126,6 +128,12 @@ final class DetailReviewCell: UICollectionViewCell {
         layoutIfNeeded()
     }
 
+    func hideSeeMoreButtonIfNeed() {
+        if !isDescriptionLabelTruncated {
+            seeMoreButton.removeFromSuperview()
+        }
+    }
+
     private func layout() {
         [profileImageView, userNameLabel, writtenDateLabel, reviewImageView,
          descriptionLabel, divisionLine, tagCollectionView, seeMoreButton].forEach {
@@ -177,7 +185,8 @@ final class DetailReviewCell: UICollectionViewCell {
         tagCollectionView.snp.remakeConstraints {
             $0.leading.equalToSuperview()
             $0.trailing.equalToSuperview()
-            $0.top.equalTo(seeMoreButton.snp.bottom).offset(10)
+            $0.top.equalTo(seeMoreButton.snp.bottom).offset(10).priority(.required)
+            $0.top.equalTo(descriptionLabel.snp.bottom).offset(10).priority(.medium)
             $0.height.equalTo(tagCollectionViewheight)
         }
     }
