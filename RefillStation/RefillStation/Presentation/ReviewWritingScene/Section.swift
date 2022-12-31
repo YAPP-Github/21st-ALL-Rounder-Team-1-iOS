@@ -35,16 +35,16 @@ extension ReviewWritingViewController {
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [defaultItem])
                 section = NSCollectionLayoutSection(group: group)
             case .tagReview:
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                      heightDimension: .fractionalHeight(1/4))
+                let itemSize = NSCollectionLayoutSize(widthDimension: .estimated(100),
+                                                      heightDimension: .absolute(42))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                item.contentInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.55),
-                                                       heightDimension: .absolute(220))
-                let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                       heightDimension: .absolute(42))
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                               subitems: [item])
+                group.interItemSpacing = .fixed(6)
                 section = NSCollectionLayoutSection(group: group)
-                section.interGroupSpacing = 10
-                section.orthogonalScrollingBehavior = .continuous
+                section.interGroupSpacing = 8
             case .photoReview:
                 let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                        heightDimension: .absolute(150))
