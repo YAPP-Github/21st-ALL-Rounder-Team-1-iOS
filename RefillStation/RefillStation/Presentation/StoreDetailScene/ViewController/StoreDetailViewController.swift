@@ -101,14 +101,10 @@ extension StoreDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if viewModel.mode == .productLists {
             switch section {
-            case StoreDetailViewModel.ProductListSection.productCategory.rawValue:
-                return 1
-            case StoreDetailViewModel.ProductListSection.productsCount.rawValue:
-                return 1
             case StoreDetailViewModel.ProductListSection.productList.rawValue:
                 return viewModel.productListViewModel.filteredProducts.count
             default:
-                return 0
+                return 1
             }
         } else {
             switch section {
@@ -243,7 +239,7 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
             guard let height = StoreDetailViewModel
                 .ProductListSection(rawValue: indexPath.section)?.cellHeight else {
                 return .zero
-}
+            }
             return CGSize(width: width, height: height)
         } else {
             guard let height = StoreDetailViewModel
