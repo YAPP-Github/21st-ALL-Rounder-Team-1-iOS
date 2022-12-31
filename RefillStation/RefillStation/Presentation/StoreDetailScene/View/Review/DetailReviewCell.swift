@@ -186,11 +186,12 @@ final class DetailReviewCell: UICollectionViewCell {
         let item = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(40), heightDimension: .estimated(40))
         )
+        item.edgeSpacing = .init(leading: .fixed(5), top: .fixed(5), trailing: .fixed(5), bottom: .fixed(5))
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50)),
             subitems: [item]
         )
-        group.interItemSpacing = .flexible(10)
+
         return UICollectionViewCompositionalLayout(section: .init(group: group))
     }
 }

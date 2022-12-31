@@ -27,6 +27,7 @@ final class DetailReviewTagCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
+        setUpCellAppearance()
     }
 
     required init?(coder: NSCoder) {
@@ -41,14 +42,21 @@ final class DetailReviewTagCollectionViewCell: UICollectionViewCell {
     private func layout() {
         [tagImageView, tagTitleLabel].forEach { contentView.addSubview($0) }
         tagImageView.snp.makeConstraints {
-            $0.leading.top.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(10)
+            $0.leading.equalToSuperview().inset(5)
+            $0.top.bottom.equalToSuperview().inset(8)
             $0.width.equalTo(tagImageView.snp.height)
         }
+
         tagTitleLabel.snp.makeConstraints {
             $0.leading.equalTo(tagImageView.snp.trailing).offset(5)
-            $0.trailing.top.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(10)
+            $0.trailing.equalToSuperview().inset(5)
+            $0.top.bottom.equalToSuperview().inset(8)
         }
+    }
+
+    private func setUpCellAppearance() {
+        backgroundColor = Asset.Colors.gray1.color
+        layer.cornerRadius = 4
+        clipsToBounds = true
     }
 }
