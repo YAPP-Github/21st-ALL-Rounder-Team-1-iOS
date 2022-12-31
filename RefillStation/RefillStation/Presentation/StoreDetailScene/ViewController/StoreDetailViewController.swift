@@ -101,6 +101,8 @@ extension StoreDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if viewModel.mode == .productLists {
             switch section {
+            case StoreDetailViewModel.ProductListSection.productCategory.rawValue:
+                return 1
             case StoreDetailViewModel.ProductListSection.productsCount.rawValue:
                 return 1
             case StoreDetailViewModel.ProductListSection.productList.rawValue:
@@ -136,6 +138,13 @@ extension StoreDetailViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+            if let cell = cell as? ProductCategoriesCell {
+                var categories = [ProductCategory]()
+                viewModel.productListViewModel.products.forEach {
+                    if !categories.contains($0.category) { categories.append($0.category) }
+                }
+                cell.setUpContents(categories: [ProductCategory.all] + categories)
+            }
             if let cell = cell as? ProductListHeaderCell {
                 cell.setUpContents(productsCount: viewModel.productListViewModel.products.count)
             }

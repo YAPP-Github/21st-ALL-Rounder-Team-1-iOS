@@ -7,6 +7,7 @@
 
 import Foundation
 
-struct ProductCategory {
+struct ProductCategory: Hashable {
+    static let all = ProductCategory(title: "전체")
     let title: String
 }

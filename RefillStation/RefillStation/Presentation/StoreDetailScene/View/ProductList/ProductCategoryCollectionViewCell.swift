@@ -13,11 +13,13 @@ final class ProductCategoryCollectionViewCell: UICollectionViewCell {
 
     private let categoryLabel: UILabel = {
         let label = UILabel()
+        label.textColor = Asset.Colors.gray4.color
         return label
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        layout()
     }
 
     required init?(coder: NSCoder) {
