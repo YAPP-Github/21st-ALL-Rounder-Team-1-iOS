@@ -1064,8 +1064,8 @@
             filePath = "RefillStation/Presentation/StoreDetailScene/View/Review/DetailReviewCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "205"
-            endingLineNumber = "205"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
             landmarkName = "collectionView(_:numberOfItemsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1080,8 +1080,8 @@
             filePath = "RefillStation/Presentation/StoreDetailScene/View/Review/DetailReviewCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
             landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1096,8 +1096,8 @@
             filePath = "RefillStation/Presentation/StoreDetailScene/View/Review/DetailReviewCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "214"
-            endingLineNumber = "214"
+            startingLineNumber = "209"
+            endingLineNumber = "209"
             landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>

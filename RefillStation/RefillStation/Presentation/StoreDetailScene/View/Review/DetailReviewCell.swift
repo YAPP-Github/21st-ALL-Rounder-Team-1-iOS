@@ -15,7 +15,9 @@ final class DetailReviewCell: UICollectionViewCell {
     private let profileImageHeight: CGFloat = 40
     private var tagCollectionViewheight: CGFloat = 40 {
         didSet {
-            tagCollectionViewLayout()
+            if tagCollectionViewheight != 0 {
+                tagCollectionViewLayout()
+            }
         }
     }
 
@@ -146,14 +148,8 @@ final class DetailReviewCell: UICollectionViewCell {
             dateLabel.top.equalTo(userNameLabel.snp.bottom).offset(5)
         }
 
-        profileImageView.snp.makeConstraints { profile in
-            profile.top.equalTo(userNameLabel.snp.top)
-            profile.bottom.equalTo(writtenDateLabel.snp.bottom)
-            profile.width.height.equalTo(profileImageHeight)
-        }
-
         reviewImageView.snp.makeConstraints { reviewImage in
-            reviewImage.leading.trailing.equalTo(contentView)
+            reviewImage.leading.trailing.equalToSuperview()
             reviewImage.top.equalTo(writtenDateLabel.snp.bottom).offset(10)
             reviewImage.height.equalTo(168)
         }
@@ -190,12 +186,11 @@ final class DetailReviewCell: UICollectionViewCell {
         let item = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(40), heightDimension: .estimated(40))
         )
-        item.contentInsets = .init(top: 10, leading: 0, bottom: 10, trailing: 0)
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50)),
             subitems: [item]
         )
-        group.interItemSpacing = .fixed(10)
+        group.interItemSpacing = .flexible(10)
         return UICollectionViewCompositionalLayout(section: .init(group: group))
     }
 }
@@ -225,5 +220,22 @@ fileprivate extension Date {
         dateFormatter.timeStyle = .none
 
         return dateFormatter.string(from: self)
+    }
+}
+
+fileprivate extension UILabel {
+    var isTruncated: Bool { return self.countLabelLines() > self.numberOfLines }
+
+    private func countLabelLines() -> Int {
+        self.layoutIfNeeded()
+        guard let text = self.text as? NSString else { return 0 }
+        let attributes = [NSAttributedString.Key.font: self.font]
+
+        let labelSize = text.boundingRect(
+            with: CGSize(width: self.bounds.width, height: CGFloat.greatestFiniteMagnitude),
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: attributes as [NSAttributedString.Key: Any], context: nil
+        )
+        return Int(ceil(CGFloat(labelSize.height) / self.font.lineHeight))
     }
 }
