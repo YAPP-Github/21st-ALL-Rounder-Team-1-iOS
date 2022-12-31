@@ -14,7 +14,9 @@ final class DetailReviewCell: UICollectionViewCell {
 
     private let profileImageHeight: CGFloat = 40
     private var tagCollectionViewheight: CGFloat = 40 {
-        didSet { tagCollectionViewLayout() }
+        didSet {
+            tagCollectionViewLayout()
+        }
     }
 
     private lazy var profileImageView: UIImageView = {
@@ -71,8 +73,8 @@ final class DetailReviewCell: UICollectionViewCell {
 
     private lazy var seeMoreButton: UIButton = {
         let button = UIButton()
-        button.setTitle("더보기", for: .normal)
-        button.setTitleColor(UIColor.blue, for: .normal)
+        button.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+        button.tintColor = Asset.Colors.gray5.color
         button.addTarget(self, action: #selector(seeMoreButtonTapped(_:)), for: .touchUpInside)
         return button
     }()
@@ -99,8 +101,9 @@ final class DetailReviewCell: UICollectionViewCell {
         reloadCell?()
     }
 
-    func setUpSeeMore(isSeeMoreButtonAlreadyTapped: Bool) {
-        descriptionLabel.numberOfLines = isSeeMoreButtonAlreadyTapped ? 0 : 3
+    func setUpSeeMore(shouldSeeMore: Bool) {
+        descriptionLabel.numberOfLines = shouldSeeMore ? 0 : 3
+        seeMoreButton.isHidden = shouldSeeMore
     }
 
     func setUpImages(userImage: UIImage, reviewImage: UIImage) {
@@ -123,7 +126,7 @@ final class DetailReviewCell: UICollectionViewCell {
 
     private func layout() {
         [profileImageView, userNameLabel, writtenDateLabel, reviewImageView,
-         descriptionLabel, divisionLine, tagCollectionView].forEach {
+         descriptionLabel, divisionLine, tagCollectionView, seeMoreButton].forEach {
             contentView.addSubview($0)
         }
 
@@ -162,6 +165,11 @@ final class DetailReviewCell: UICollectionViewCell {
 
         tagCollectionViewLayout()
 
+        seeMoreButton.snp.makeConstraints {
+            $0.top.equalTo(descriptionLabel.snp.bottom)
+            $0.trailing.equalTo(descriptionLabel.snp.trailing)
+        }
+
         divisionLine.snp.makeConstraints {
             $0.top.equalTo(tagCollectionView.snp.bottom).offset(20)
             $0.leading.trailing.bottom.equalToSuperview()
@@ -173,7 +181,7 @@ final class DetailReviewCell: UICollectionViewCell {
         tagCollectionView.snp.remakeConstraints {
             $0.leading.equalToSuperview()
             $0.trailing.equalToSuperview()
-            $0.top.equalTo(descriptionLabel.snp.bottom).offset(10)
+            $0.top.equalTo(seeMoreButton.snp.bottom).offset(10)
             $0.height.equalTo(tagCollectionViewheight)
         }
     }
