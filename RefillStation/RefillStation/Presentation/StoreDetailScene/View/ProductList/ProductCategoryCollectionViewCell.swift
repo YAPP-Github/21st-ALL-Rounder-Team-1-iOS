@@ -11,15 +11,20 @@ final class ProductCategoryCollectionViewCell: UICollectionViewCell {
 
     static let reuseIdentifier = "productCategoryCollectionViewCell"
 
-    private let categoryLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = Asset.Colors.gray4.color
-        return label
+    private lazy var categoryButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(categoryButtonTapped(_:)), for: .touchUpInside)
+        button.setTitleColor(Asset.Colors.gray4.color, for: .normal)
+        button.titleLabel?.font = UIFont.font(style: .buttomMedium)
+        return button
     }()
+
+    var categoryButtonTapped: (() -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
+        setUpLayer()
     }
 
     required init?(coder: NSCoder) {
@@ -27,13 +32,26 @@ final class ProductCategoryCollectionViewCell: UICollectionViewCell {
     }
 
     func setUpContents(title: String) {
-        categoryLabel.text = title
+        categoryButton.setTitle(title, for: .normal)
     }
 
     private func layout() {
-        contentView.addSubview(categoryLabel)
-        categoryLabel.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+        contentView.addSubview(categoryButton)
+        categoryButton.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(12)
+            $0.top.bottom.equalToSuperview().inset(8)
         }
+    }
+
+    private func setUpLayer() {
+        layer.cornerRadius = 25
+        layer.borderColor = Asset.Colors.gray4.color.cgColor
+        layer.borderWidth = 1
+        clipsToBounds = true
+    }
+
+    @objc
+    private func categoryButtonTapped(_ sender: UIButton) {
+        categoryButtonTapped?()
     }
 }
