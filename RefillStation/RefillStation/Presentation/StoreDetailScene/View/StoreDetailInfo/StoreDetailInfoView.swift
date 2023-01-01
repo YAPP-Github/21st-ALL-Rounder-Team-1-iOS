@@ -78,12 +78,13 @@ final class StoreDetailInfoView: UIView {
     private var viewModel: StoreDetailInfoViewModel
 
     // MARK: - Initialization
-    init(viewModel: StoreDetailInfoViewModel) {
+    init(viewModel: StoreDetailInfoViewModel, storeDetailInfoStackViewDelegate: StoreDetailInfoStackViewDelegate) {
         self.viewModel = viewModel
         super.init(frame: .zero)
         backgroundColor = .white
         bind()
         layout()
+        storeInfoStackView.delegate = storeDetailInfoStackViewDelegate
     }
 
     required init?(coder: NSCoder) {

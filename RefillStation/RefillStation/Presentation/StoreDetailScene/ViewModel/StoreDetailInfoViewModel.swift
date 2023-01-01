@@ -13,4 +13,6 @@ final class StoreDetailInfoViewModel {
     var address: String = "서울시 성북구 삼선동"
     var openState: Bool = true
     var closeTime: String = "8:00"
+    var phoneNumber: String = "0212345678"
+    var storeLink: URL? = URL(string: "https://naver.com")
 }

@@ -10,6 +10,8 @@ import SnapKit
 
 final class StoreDetailInfoStackView: UIStackView {
 
+    weak var delegate: StoreDetailInfoStackViewDelegate?
+
     // MARK: - UI Components
     private let callButton: UIButton = {
         let button = UIButton()
@@ -45,6 +47,7 @@ final class StoreDetailInfoStackView: UIStackView {
         backgroundColor = .white
         layout()
         setUpButtons()
+        setButtonActions()
     }
 
     required init(coder: NSCoder) {
@@ -63,5 +66,19 @@ final class StoreDetailInfoStackView: UIStackView {
             button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
             button.setTitleColor(Asset.Colors.gray6.color, for: .normal)
         }
+    }
+
+    private func setButtonActions() {
+        callButton.addAction(UIAction { [weak self] action in
+            self?.delegate?.callButtonTapped()
+        }, for: .touchUpInside)
+
+        storeLinkButton.addAction(UIAction { [weak self] action in
+            self?.delegate?.storeLinkButtonTapped()
+        }, for: .touchUpInside)
+
+        recommendedButton.addAction(UIAction { [weak self] action in
+            self?.delegate?.recommendButtonTapped()
+        }, for: .touchUpInside)
     }
 }

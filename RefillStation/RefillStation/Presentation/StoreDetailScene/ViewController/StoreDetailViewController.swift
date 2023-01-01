@@ -11,7 +11,9 @@ final class StoreDetailViewController: UIViewController {
 
     private var viewModel: StoreDetailViewModel!
 
-    private lazy var storeDetailInfoView = StoreDetailInfoView(viewModel: viewModel.storeDetailInfoViewModel)
+    private lazy var storeDetailInfoView = StoreDetailInfoView(
+        viewModel: viewModel.storeDetailInfoViewModel,
+        storeDetailInfoStackViewDelegate: self)
 
     private lazy var backButton: UIButton = {
         let button = UIButton()
@@ -304,6 +306,29 @@ extension StoreDetailViewController: UIScrollViewDelegate {
     }
 }
 
+// MARK: - StoreDetailInfoStackViewDelegate
+extension StoreDetailViewController: StoreDetailInfoStackViewDelegate {
+    func callButtonTapped() {
+        let phoneNumber = viewModel.storeDetailInfoViewModel.phoneNumber
+        if let url = URL(string: "tel://\(phoneNumber)"),
+           UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+
+    func storeLinkButtonTapped() {
+        if let url = viewModel.storeDetailInfoViewModel.storeLink,
+            UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
+    }
+
+    func recommendButtonTapped() {
+        // TODO: viewModel에서 UseCase 통해 추천 올리기
+    }
+}
+
+// MARK: - Constraints Enum
 extension StoreDetailViewController {
 
     enum Constraints {
