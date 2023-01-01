@@ -12,6 +12,7 @@
 		320DCDDD293C1AE800C09C43 /* StoreDetailInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320DCDDC293C1AE800C09C43 /* StoreDetailInfoViewModel.swift */; };
 		32409866295F51DB00911306 /* DetailReviewTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32409865295F51DB00911306 /* DetailReviewTagCollectionViewCell.swift */; };
 		324098762961367300911306 /* MockRepositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324098752961367300911306 /* MockRepositories.swift */; };
+		3240987829613CC300911306 /* MockEntityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3240987729613CC300911306 /* MockEntityData.swift */; };
 		324355532956D3F70043E53B /* StoreDetailSceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324355522956D3F70043E53B /* StoreDetailSceneCoordinator.swift */; };
 		3244A1FC292DC13A00716A2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A1FB292DC13A00716A2B /* AppDelegate.swift */; };
 		3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3244A204292DC13A00716A2B /* RefillStation.xcdatamodeld */; };
@@ -47,7 +48,6 @@
 		325C35A72932CE17001B3741 /* ReviewRegisterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325C35A62932CE17001B3741 /* ReviewRegisterCell.swift */; };
 		329557462951992900F5AB53 /* StoreDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F2D9B22951864700131EB1 /* StoreDetailViewModel.swift */; };
 		329557472951992C00F5AB53 /* StoreDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F2D9B02951862E00131EB1 /* StoreDetailViewController.swift */; };
-		3295574929519ABB00F5AB53 /* StoreDetailViewMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3295574829519ABB00F5AB53 /* StoreDetailViewMockData.swift */; };
 		32A1FC0A293507D1009DF915 /* FirstReviewRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A1FC09293507D1009DF915 /* FirstReviewRequestCell.swift */; };
 		32C1969129552C48001D87B1 /* ProductListHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C1969029552C48001D87B1 /* ProductListHeaderCell.swift */; };
 		32E0140A2931B565000B8350 /* ReviewPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E014092931B565000B8350 /* ReviewPhotosCell.swift */; };
@@ -132,6 +132,7 @@
 		320DCDDC293C1AE800C09C43 /* StoreDetailInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailInfoViewModel.swift; sourceTree = "<group>"; };
 		32409865295F51DB00911306 /* DetailReviewTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReviewTagCollectionViewCell.swift; sourceTree = "<group>"; };
 		324098752961367300911306 /* MockRepositories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRepositories.swift; sourceTree = "<group>"; };
+		3240987729613CC300911306 /* MockEntityData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockEntityData.swift; sourceTree = "<group>"; };
 		324355522956D3F70043E53B /* StoreDetailSceneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailSceneCoordinator.swift; sourceTree = "<group>"; };
 		3244A1F8292DC13A00716A2B /* RefillStation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RefillStation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3244A1FB292DC13A00716A2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -165,7 +166,6 @@
 		325C35A22932243E001B3741 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		325C35A429322467001B3741 /* ReviewPhotoDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPhotoDelegate.swift; sourceTree = "<group>"; };
 		325C35A62932CE17001B3741 /* ReviewRegisterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRegisterCell.swift; sourceTree = "<group>"; };
-		3295574829519ABB00F5AB53 /* StoreDetailViewMockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailViewMockData.swift; sourceTree = "<group>"; };
 		32A1FC09293507D1009DF915 /* FirstReviewRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstReviewRequestCell.swift; sourceTree = "<group>"; };
 		32C1969029552C48001D87B1 /* ProductListHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListHeaderCell.swift; sourceTree = "<group>"; };
 		32E014092931B565000B8350 /* ReviewPhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPhotosCell.swift; sourceTree = "<group>"; };
@@ -264,7 +264,6 @@
 			children = (
 				32F2D9B22951864700131EB1 /* StoreDetailViewModel.swift */,
 				320DCDDC293C1AE800C09C43 /* StoreDetailInfoViewModel.swift */,
-				3295574829519ABB00F5AB53 /* StoreDetailViewMockData.swift */,
 				32E9A564292E704A000072EE /* DetailReviewViewModel.swift */,
 				32E9A55A292E24D2000072EE /* VotedTagViewModel.swift */,
 				FC7D3526292EC72400335AAB /* ProductListViewModel.swift */,
@@ -357,6 +356,7 @@
 			children = (
 				FCE00A80294C95CD00B5C05F /* Repositories */,
 				FCE00A64294C598800B5C05F /* PersistentStorages */,
+				3240987729613CC300911306 /* MockEntityData.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -939,10 +939,10 @@
 				FCEE10312934D287002E629D /* Assets+Generated.swift in Sources */,
 				FC4739412936AB3300DB9BDB /* StoreCollectionViewCell.swift in Sources */,
 				FC7D3527292EC72400335AAB /* ProductListViewModel.swift in Sources */,
+				3240987829613CC300911306 /* MockEntityData.swift in Sources */,
 				FC7D3529292F22B300335AAB /* StoreDetailInfoStackView.swift in Sources */,
 				3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */,
 				FCE00A96294C966C00B5C05F /* RegisterReviewRepositoryInterface.swift in Sources */,
-				3295574929519ABB00F5AB53 /* StoreDetailViewMockData.swift in Sources */,
 				325C35A529322467001B3741 /* ReviewPhotoDelegate.swift in Sources */,
 				FC84FAC9293B640300428AAA /* RequestRegionViewController.swift in Sources */,
 				FC47394729376BA500DB9BDB /* HomeViewModel.swift in Sources */,
