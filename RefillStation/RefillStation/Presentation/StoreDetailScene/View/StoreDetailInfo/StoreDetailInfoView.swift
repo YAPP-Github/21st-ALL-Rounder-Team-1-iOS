@@ -11,6 +11,19 @@ import SnapKit
 final class StoreDetailInfoView: UIView {
 
     // MARK: - UI Components
+    private let storeImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Asset.Images.MockData.earthShop.image
+        return imageView
+    }()
+    private let storeInfoOuterView: UIView = {
+        let outerView = UIView()
+        outerView.backgroundColor = .white
+        outerView.clipsToBounds = true
+        outerView.layer.cornerRadius = 10
+        outerView.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
+        return outerView
+    }()
     private let storeNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.font(style: .titleLarge)
@@ -70,7 +83,6 @@ final class StoreDetailInfoView: UIView {
         backgroundColor = .white
         bind()
         layout()
-        render()
     }
 
     required init?(coder: NSCoder) {
@@ -85,11 +97,22 @@ final class StoreDetailInfoView: UIView {
     }
 
     private func layout() {
-        [storeNameLabel, checkRefillGuideLabel, storeAddressLabel, moveToRefillGuideButton, storeStackOuterView, bottomDivisionLine].forEach { addSubview($0) }
+        [storeImageView, storeInfoOuterView].forEach { addSubview($0) }
+        [storeNameLabel, checkRefillGuideLabel, storeAddressLabel, moveToRefillGuideButton, storeStackOuterView, bottomDivisionLine].forEach { storeInfoOuterView.addSubview($0) }
         storeStackOuterView.addSubview(storeInfoStackView)
 
+        storeImageView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(220)
+        }
+
+        storeInfoOuterView.snp.makeConstraints {
+            $0.top.equalTo(storeImageView.snp.bottom).offset(-10)
+            $0.leading.trailing.equalToSuperview()
+        }
+
         storeNameLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.equalToSuperview().inset(26)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
         checkRefillGuideLabel.snp.makeConstraints {
@@ -116,12 +139,7 @@ final class StoreDetailInfoView: UIView {
         bottomDivisionLine.snp.makeConstraints {
             $0.top.equalTo(storeStackOuterView.snp.bottom).offset(16)
             $0.leading.trailing.bottom.equalToSuperview()
+            $0.height.equalTo(8)
         }
-    }
-
-    private func render() {
-        self.clipsToBounds = true
-        self.layer.cornerRadius = 10
-        self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
     }
 }
