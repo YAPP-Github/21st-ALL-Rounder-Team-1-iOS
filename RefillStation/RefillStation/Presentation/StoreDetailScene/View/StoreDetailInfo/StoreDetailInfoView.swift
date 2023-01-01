@@ -14,6 +14,7 @@ final class StoreDetailInfoView: UIView {
     private let storeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Asset.Images.MockData.earthShop.image
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     private let storeInfoOuterView: UIView = {
