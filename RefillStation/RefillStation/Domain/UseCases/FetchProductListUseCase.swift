@@ -41,9 +41,3 @@ final class FetchProductListUseCase: FetchProductListUseCaseInterface {
         }
     }
 }
-
-class MockProductListRepository: ProductListRepositoryInterface {
-    func fetchProductList(query: FetchProductListRequestValue, completion: @escaping (Result<[Product], Error>) -> Void) -> Cancellable {
-        return URLSessionDataTask()
-    }
-}
