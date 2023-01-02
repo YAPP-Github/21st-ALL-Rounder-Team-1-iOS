@@ -17,12 +17,20 @@ final class RegisterReviewViewController: UIViewController {
     private lazy var reviewSelectingViewModel = makeMockViewModel()
     private lazy var outerCollectionView = UICollectionView(frame: .zero,
                                                             collectionViewLayout: compositionalLayout())
+    private let collectionViewBottomInset: CGFloat = 80
+
     private let phPickerViewController: PHPickerViewController = {
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
         configuration.selectionLimit = 10
         let phPickerVC = PHPickerViewController(configuration: configuration)
         return phPickerVC
+    }()
+
+    private let registerButton: CTAButton = {
+        let button = CTAButton()
+        button.setTitle("등록하기", for: .normal)
+        return button
     }()
 
     override func viewDidLoad() {
@@ -45,19 +53,22 @@ final class RegisterReviewViewController: UIViewController {
                                 forCellWithReuseIdentifier: ReviewPhotosCell.reuseIdentifier)
         outerCollectionView.register(ReviewDescriptionCell.self,
                                 forCellWithReuseIdentifier: ReviewDescriptionCell.reuseIdentifier)
-        outerCollectionView.register(ReviewRegisterCell.self,
-                                     forCellWithReuseIdentifier: ReviewRegisterCell.reuseIdentifier)
         outerCollectionView.dataSource = self
         outerCollectionView.delegate = self
         outerCollectionView.allowsMultipleSelection = true
         outerCollectionView.keyboardDismissMode = .onDrag
+        outerCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: collectionViewBottomInset, right: 0)
     }
 
     private func layout() {
-        view.addSubview(outerCollectionView)
-
+        [outerCollectionView, registerButton].forEach { view.addSubview($0) }
         outerCollectionView.snp.makeConstraints { collection in
             collection.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        registerButton.snp.makeConstraints { button in
+            button.bottom.equalTo(view.safeAreaLayoutGuide)
+            button.leading.trailing.equalToSuperview().inset(16)
+            button.height.equalTo(50)
         }
     }
 
@@ -74,15 +85,20 @@ final class RegisterReviewViewController: UIViewController {
            let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
             return
         }
-        outerCollectionView.contentInset = .init(top: 0, left: 0, bottom: keyboardRect.height, right: 0)
-
+        outerCollectionView.contentInset = .init(top: 0, left: 0, bottom: keyboardRect.height + collectionViewBottomInset, right: 0)
         outerCollectionView.scrollToItem(at: IndexPath(item: 0, section: Section.reviewDescription.rawValue),
                                          at: .top, animated: true)
+        UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseOut, animations: {
+            self.registerButton.transform = CGAffineTransform(translationX: 0, y: -keyboardRect.height)
+        })
     }
 
     @objc
     private func keyboardWillHide(_ notification: Notification) {
-        outerCollectionView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 0)
+        outerCollectionView.contentInset = .init(top: 0, left: 0, bottom: collectionViewBottomInset, right: 0)
+        UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseOut, animations: {
+            self.registerButton.transform = CGAffineTransform(translationX: 0, y: 0)
+        })
     }
 }
 
@@ -135,11 +151,6 @@ extension RegisterReviewViewController: UICollectionViewDataSource {
                 withReuseIdentifier: ReviewDescriptionCell.reuseIdentifier,
                 for: indexPath) as? ReviewDescriptionCell else { return UICollectionViewCell() }
             return cell
-        case Section.registerButton.rawValue:
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: ReviewRegisterCell.reuseIdentifier,
-                for: indexPath) as? ReviewRegisterCell else { return UICollectionViewCell() }
-            return cell
         default:
             return UICollectionViewCell()
         }
@@ -151,7 +162,6 @@ extension RegisterReviewViewController {
     private func compositionalLayout() -> UICollectionViewCompositionalLayout {
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
         configuration.interSectionSpacing = 20
-
         return UICollectionViewCompositionalLayout(sectionProvider: { section, environment in
             return Section(rawValue: section)?.layoutSection
         }, configuration: configuration)

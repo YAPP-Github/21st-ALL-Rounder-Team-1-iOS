@@ -14,7 +14,6 @@ extension RegisterReviewViewController {
         case tagReview
         case photoReview
         case reviewDescription
-        case registerButton
 
         var layoutSection: NSCollectionLayoutSection {
             let defaultItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),

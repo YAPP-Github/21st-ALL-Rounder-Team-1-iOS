@@ -64,7 +64,6 @@
 		FC60D83B2962C36F00C676A6 /* TagReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC60D82E2962C36F00C676A6 /* TagReviewCell.swift */; };
 		FC60D83C2962C36F00C676A6 /* ReviewDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC60D82F2962C36F00C676A6 /* ReviewDescriptionCell.swift */; };
 		FC60D83D2962C36F00C676A6 /* ReviewPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC60D8302962C36F00C676A6 /* ReviewPhotosCell.swift */; };
-		FC60D83E2962C36F00C676A6 /* ReviewRegisterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC60D8312962C36F00C676A6 /* ReviewRegisterCell.swift */; };
 		FC60D83F2962C36F00C676A6 /* VoteTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC60D8322962C36F00C676A6 /* VoteTitleCell.swift */; };
 		FC60D8412962C36F00C676A6 /* RegisterReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC60D8352962C36F00C676A6 /* RegisterReviewViewController.swift */; };
 		FC60D8422962C36F00C676A6 /* ReviewWritingMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC60D8362962C36F00C676A6 /* ReviewWritingMockData.swift */; };
@@ -185,7 +184,6 @@
 		FC60D82E2962C36F00C676A6 /* TagReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagReviewCell.swift; sourceTree = "<group>"; };
 		FC60D82F2962C36F00C676A6 /* ReviewDescriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewDescriptionCell.swift; sourceTree = "<group>"; };
 		FC60D8302962C36F00C676A6 /* ReviewPhotosCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewPhotosCell.swift; sourceTree = "<group>"; };
-		FC60D8312962C36F00C676A6 /* ReviewRegisterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewRegisterCell.swift; sourceTree = "<group>"; };
 		FC60D8322962C36F00C676A6 /* VoteTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteTitleCell.swift; sourceTree = "<group>"; };
 		FC60D8352962C36F00C676A6 /* RegisterReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterReviewViewController.swift; sourceTree = "<group>"; };
 		FC60D8362962C36F00C676A6 /* ReviewWritingMockData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewWritingMockData.swift; sourceTree = "<group>"; };
@@ -539,7 +537,6 @@
 				FC60D82E2962C36F00C676A6 /* TagReviewCell.swift */,
 				FC60D82F2962C36F00C676A6 /* ReviewDescriptionCell.swift */,
 				FC60D8302962C36F00C676A6 /* ReviewPhotosCell.swift */,
-				FC60D8312962C36F00C676A6 /* ReviewRegisterCell.swift */,
 				FC60D8322962C36F00C676A6 /* VoteTitleCell.swift */,
 			);
 			path = View;
@@ -970,7 +967,6 @@
 				FCE00A77294C919100B5C05F /* RequestRegionUseCase.swift in Sources */,
 				FCEE10312934D287002E629D /* Assets+Generated.swift in Sources */,
 				FC4739412936AB3300DB9BDB /* StoreCollectionViewCell.swift in Sources */,
-				FC60D83E2962C36F00C676A6 /* ReviewRegisterCell.swift in Sources */,
 				FC7D3527292EC72400335AAB /* ProductListViewModel.swift in Sources */,
 				FC60D83B2962C36F00C676A6 /* TagReviewCell.swift in Sources */,
 				FC7D3529292F22B300335AAB /* StoreDetailInfoStackView.swift in Sources */,
