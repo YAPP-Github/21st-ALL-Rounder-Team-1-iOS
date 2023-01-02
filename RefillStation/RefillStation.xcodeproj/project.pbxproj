@@ -106,6 +106,7 @@
 		FCEE102F2934CCB8002E629D /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCEE102E2934CCB8002E629D /* Fonts.swift */; };
 		FCEE10312934D287002E629D /* Assets+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCEE10302934D287002E629D /* Assets+Generated.swift */; };
 		FCF0181A295F08E50027078A /* UserLevelInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF01819295F08E50027078A /* UserLevelInfo.swift */; };
+		FCF0181D296095AD0027078A /* CTAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF0181C296095AD0027078A /* CTAButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -224,6 +225,7 @@
 		FCEE102E2934CCB8002E629D /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		FCEE10302934D287002E629D /* Assets+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Assets+Generated.swift"; sourceTree = "<group>"; };
 		FCF01819295F08E50027078A /* UserLevelInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLevelInfo.swift; sourceTree = "<group>"; };
+		FCF0181C296095AD0027078A /* CTAButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTAButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -376,6 +378,7 @@
 		3244A230292DC19200716A2B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				FCF0181B2960958C0027078A /* Component */,
 				FC47393D2936AB0400DB9BDB /* HomeScene */,
 				FC84FAC6293B63CD00428AAA /* RequestRegionScene */,
 				FC7D3523292EC1C500335AAB /* StoreDetailScene */,
@@ -681,6 +684,14 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		FCF0181B2960958C0027078A /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				FCF0181C296095AD0027078A /* CTAButton.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -903,6 +914,7 @@
 				FC4739442937664F00DB9BDB /* HomeViewController.swift in Sources */,
 				FCE00A7D294C91AD00B5C05F /* RegisterReviewUseCase.swift in Sources */,
 				3209974B2935153300956FBE /* DetailReviewCountCell.swift in Sources */,
+				FCF0181D296095AD0027078A /* CTAButton.swift in Sources */,
 				329557472951992C00F5AB53 /* StoreDetailViewController.swift in Sources */,
 				325985F9294C54CB00D26A37 /* StoreDetailDIContainer.swift in Sources */,
 				FCE00A73294C917200B5C05F /* SearchStoreListUseCase.swift in Sources */,
