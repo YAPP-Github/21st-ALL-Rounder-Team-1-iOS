@@ -19,6 +19,9 @@ final class ReviewDescriptionCell: UICollectionViewCell {
         textView.textColor = .lightGray
         textView.textContainerInset = .init(top: 16, left: 16, bottom: 16, right: 16)
         textView.font = UIFont.font(style: .bodyMedium)
+        textView.layer.cornerRadius = 6
+        textView.layer.borderWidth = 1
+        textView.layer.borderColor = Asset.Colors.gray2.color.cgColor
         return textView
     }()
 
@@ -37,10 +40,14 @@ final class ReviewDescriptionCell: UICollectionViewCell {
         label.textColor = Asset.Colors.gray4.color
         return label
     }()
+    private let dividerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Asset.Colors.gray1.color
+        return view
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUpContentView()
         setUpReviewTextView()
         layout()
     }
@@ -49,35 +56,31 @@ final class ReviewDescriptionCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
-    private func setUpContentView() {
-        contentView.layer.borderWidth = 1
-        contentView.layer.cornerRadius = 6
-        contentView.layer.borderColor = Asset.Colors.gray2.color.cgColor
-        contentView.clipsToBounds = true
-    }
-
     private func setUpReviewTextView() {
         reviewTextView.delegate = self
         reviewTextView.text = placeholder
     }
 
     private func layout() {
-        [reviewTextView, textCountLabel, maxTextLabel].forEach {
-            contentView.addSubview($0)
-        }
-
+        [reviewTextView, dividerView, textCountLabel, maxTextLabel].forEach { contentView.addSubview($0) }
         reviewTextView.snp.makeConstraints { textView in
-            textView.leading.top.trailing.equalToSuperview()
+            textView.top.equalToSuperview()
+            textView.leading.trailing.equalToSuperview().inset(16)
         }
 
         maxTextLabel.snp.makeConstraints { label in
-            label.trailing.bottom.equalToSuperview().inset(16)
-            label.top.equalTo(reviewTextView.snp.bottom).offset(16)
+            label.trailing.bottom.equalTo(reviewTextView).inset(16)
         }
 
         textCountLabel.snp.makeConstraints { label in
             label.trailing.equalTo(maxTextLabel.snp.leading)
-            label.bottom.equalToSuperview().inset(16)
+            label.centerY.equalTo(maxTextLabel)
+        }
+
+        dividerView.snp.makeConstraints { view in
+            view.height.equalTo(1)
+            view.top.equalTo(reviewTextView.snp.bottom).offset(20)
+            view.leading.trailing.bottom.equalToSuperview()
         }
     }
 }
