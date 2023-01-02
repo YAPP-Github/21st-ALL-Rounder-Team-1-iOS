@@ -30,7 +30,7 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
         indexPathsForSelectedItems.append(indexPath)
     }
 
-    func didDeSelectItemAt(indexPath: IndexPath) {
+    func didDeselectItemAt(indexPath: IndexPath) {
         if let indexPathToRemove = indexPathsForSelectedItems.firstIndex(of: indexPath) {
             indexPathsForSelectedItems.remove(at: indexPathToRemove)
         }
