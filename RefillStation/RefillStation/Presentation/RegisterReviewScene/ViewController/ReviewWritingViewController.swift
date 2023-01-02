@@ -27,6 +27,7 @@ final class ReviewWritingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "리뷰 쓰기"
         view.backgroundColor = .white
         setUpCollectionView()
         layout()
@@ -161,7 +162,6 @@ extension ReviewWritingViewController {
     private func compositionalLayout() -> UICollectionViewCompositionalLayout {
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
         configuration.interSectionSpacing = 20
-        configuration.contentInsetsReference = .readableContent
 
         return UICollectionViewCompositionalLayout(sectionProvider: { section, environment in
             return Section(rawValue: section)?.layoutSection
@@ -169,7 +169,6 @@ extension ReviewWritingViewController {
     }
 }
 
-//
 extension ReviewWritingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return reviewSelectingViewModel.shouldSelectCell
