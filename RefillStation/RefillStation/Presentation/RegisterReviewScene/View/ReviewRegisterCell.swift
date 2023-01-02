@@ -12,13 +12,9 @@ final class ReviewRegisterCell: UICollectionViewCell {
 
     static let reuseIdentifier = "reviewRegisterCell"
 
-    private let registerButton: UIButton = {
-        let button = UIButton()
+    private let registerButton: CTAButton = {
+        let button = CTAButton()
         button.setTitle("등록하기", for: .normal)
-        button.backgroundColor = Asset.Colors.primary3.color
-        button.layer.cornerRadius = 8
-        button.titleLabel?.font = UIFont.font(style: .buttonLarge)
-        button.titleLabel?.textColor = .white
         return button
     }()
 
@@ -28,7 +24,7 @@ final class ReviewRegisterCell: UICollectionViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
 
     private func layout() {

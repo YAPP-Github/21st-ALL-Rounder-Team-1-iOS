@@ -15,6 +15,12 @@ final class ReviewPhotosCell: UICollectionViewCell {
     weak var delegate: ReviewPhotoDelegate?
     private let outerScrollView = UIScrollView()
 
+    private let dividerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Asset.Colors.gray1.color
+        return view
+    }()
+
     private let pleaseReviewLabel: UILabel = {
         let label = UILabel()
         label.text = "리뷰를 남겨주세요!"
@@ -32,7 +38,7 @@ final class ReviewPhotosCell: UICollectionViewCell {
 
     private let addPhotoButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "camera"), for: .normal)
+        button.setImage(Asset.Images.iconPhoto.image, for: .normal)
         button.layer.borderColor = Asset.Colors.gray3.color.cgColor
         button.layer.cornerRadius = 4
         button.layer.borderWidth = 1
@@ -75,12 +81,18 @@ final class ReviewPhotosCell: UICollectionViewCell {
     }
 
     private func layout() {
-        [pleaseReviewLabel, addPhotoButton, outerScrollView].forEach {
+        [dividerView, pleaseReviewLabel, addPhotoButton, outerScrollView].forEach {
             contentView.addSubview($0)
         }
 
+        dividerView.snp.makeConstraints { view in
+            view.leading.trailing.top.equalToSuperview()
+            view.height.equalTo(1)
+        }
+
         pleaseReviewLabel.snp.makeConstraints { label in
-            label.leading.top.equalTo(contentView)
+            label.top.equalTo(dividerView.snp.bottom).offset(20)
+            label.leading.trailing.equalTo(contentView)
         }
 
         addPhotoButton.snp.makeConstraints { button in

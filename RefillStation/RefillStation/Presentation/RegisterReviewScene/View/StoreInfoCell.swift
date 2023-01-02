@@ -26,6 +26,12 @@ final class StoreInfoCell: UICollectionViewCell {
         return label
     }()
 
+    private let dividerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Asset.Colors.gray1.color
+        return view
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
@@ -41,17 +47,24 @@ final class StoreInfoCell: UICollectionViewCell {
     }
 
     private func layout() {
-        [storeNamelabel, storeLocationLabel].forEach {
+        [storeNamelabel, storeLocationLabel, dividerView].forEach {
             contentView.addSubview($0)
         }
 
         storeNamelabel.snp.makeConstraints { label in
-            label.top.leading.trailing.equalToSuperview()
+            label.top.equalToSuperview()
+            label.leading.trailing.equalToSuperview().inset(16)
         }
 
         storeLocationLabel.snp.makeConstraints { label in
             label.top.equalTo(storeNamelabel.snp.bottom).offset(5)
-            label.leading.trailing.bottom.equalToSuperview()
+            label.leading.trailing.equalTo(storeNamelabel)
+        }
+
+        dividerView.snp.makeConstraints { view in
+            view.top.equalTo(storeLocationLabel.snp.bottom).offset(16)
+            view.leading.trailing.bottom.equalToSuperview()
+            view.height.equalTo(1)
         }
     }
 }
