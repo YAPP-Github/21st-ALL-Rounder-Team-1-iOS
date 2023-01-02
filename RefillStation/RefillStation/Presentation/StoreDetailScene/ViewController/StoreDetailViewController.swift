@@ -11,7 +11,21 @@ final class StoreDetailViewController: UIViewController {
 
     private var viewModel: StoreDetailViewModel!
 
-    private lazy var storeDetailInfoView = StoreDetailInfoView(viewModel: viewModel.storeDetailInfoViewModel)
+    private lazy var storeDetailInfoView = StoreDetailInfoView(
+        viewModel: viewModel.storeDetailInfoViewModel,
+        storeDetailInfoStackViewDelegate: self)
+
+    private lazy var backButton: UIButton = {
+        let button = UIButton()
+        button.tintColor = .white
+        let imageConfiguration = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 24))
+        let image = UIImage(systemName: "chevron.backward", withConfiguration: imageConfiguration)
+        button.setImage(image, for: .normal)
+        button.addAction(UIAction(handler: { [weak self] action in
+            self?.navigationController?.popViewController(animated: true)
+        }), for: .touchUpInside)
+        return button
+    }()
 
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -34,6 +48,14 @@ final class StoreDetailViewController: UIViewController {
         setUpNavigationBar()
         setUpCollectionView()
         layout()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = false
     }
 
     private func setUpNavigationBar() {
@@ -75,9 +97,7 @@ final class StoreDetailViewController: UIViewController {
     }
 
     private func layout() {
-        [collectionView, storeDetailInfoView].forEach { view.addSubview($0) }
-        view.addSubview(collectionView)
-        view.addSubview(storeDetailInfoView)
+        [collectionView, storeDetailInfoView, backButton].forEach { view.addSubview($0) }
 
         collectionView.snp.makeConstraints {
             $0.leading.trailing.bottom.equalTo(view)
@@ -88,6 +108,11 @@ final class StoreDetailViewController: UIViewController {
             $0.top.equalTo(view)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(viewModel.storeDetailInfoViewHeight)
+        }
+
+        backButton.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(10)
+            $0.leading.equalTo(view.safeAreaLayoutGuide).inset(16)
         }
     }
 }
@@ -281,6 +306,29 @@ extension StoreDetailViewController: UIScrollViewDelegate {
     }
 }
 
+// MARK: - StoreDetailInfoStackViewDelegate
+extension StoreDetailViewController: StoreDetailInfoStackViewDelegate {
+    func callButtonTapped() {
+        let phoneNumber = viewModel.storeDetailInfoViewModel.phoneNumber
+        if let url = URL(string: "tel://\(phoneNumber)"),
+           UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+
+    func storeLinkButtonTapped() {
+        if let url = viewModel.storeDetailInfoViewModel.storeLink,
+            UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
+    }
+
+    func recommendButtonTapped() {
+        // TODO: viewModel에서 UseCase 통해 추천 올리기
+    }
+}
+
+// MARK: - Constraints Enum
 extension StoreDetailViewController {
 
     enum Constraints {

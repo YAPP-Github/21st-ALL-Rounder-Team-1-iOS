@@ -10,29 +10,34 @@ import SnapKit
 
 final class StoreDetailInfoStackView: UIStackView {
 
+    weak var delegate: StoreDetailInfoStackViewDelegate?
+
     // MARK: - UI Components
-    private var callButton: UIButton = {
+    private let callButton: UIButton = {
         let button = UIButton()
-        button.setImage(Asset.Images.iconCall.image, for: .normal)
+        button.tintColor = Asset.Colors.gray5.color
+        button.setImage(UIImage(systemName: "phone"), for: .normal)
         button.setTitle("전화", for: .normal)
+        button.backgroundColor = .white
+        button.contentHorizontalAlignment = .center
         return button
     }()
-    private var instagramButton: UIButton = {
+    private let storeLinkButton: UIButton = {
         let button = UIButton()
-        button.setImage(Asset.Images.iconSns.image, for: .normal)
-        button.setTitle("SNS", for: .normal)
+        button.tintColor = Asset.Colors.gray5.color
+        button.setImage(UIImage(systemName: "link"), for: .normal)
+        button.setTitle("매장", for: .normal)
+        button.backgroundColor = .white
+        button.contentHorizontalAlignment = .center
         return button
     }()
-    private var directionButton: UIButton = {
+    private let recommendedButton: UIButton = {
         let button = UIButton()
-        button.setImage(Asset.Images.iconDirection.image, for: .normal)
-        button.setTitle("길찾기", for: .normal)
-        return button
-    }()
-    private var recommendedButton: UIButton = {
-        let button = UIButton()
-        button.setImage(Asset.Images.iconThumbsup.image, for: .normal)
-        button.setTitle("추천해요", for: .normal)
+        button.tintColor = Asset.Colors.gray5.color
+        button.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
+        button.setTitle("추천", for: .normal)
+        button.backgroundColor = .white
+        button.contentHorizontalAlignment = .center
         return button
     }()
 
@@ -42,6 +47,7 @@ final class StoreDetailInfoStackView: UIStackView {
         backgroundColor = .white
         layout()
         setUpButtons()
+        setButtonActions()
     }
 
     required init(coder: NSCoder) {
@@ -51,27 +57,28 @@ final class StoreDetailInfoStackView: UIStackView {
 
     // MARK: - Default Setting Methods
     private func layout() {
-        [callButton, instagramButton, directionButton, recommendedButton].forEach {  addArrangedSubview($0) }
+        [callButton, storeLinkButton, recommendedButton].forEach {  addArrangedSubview($0) }
     }
 
     private func setUpButtons() {
-        [callButton, instagramButton, directionButton, recommendedButton].forEach { button in
+        [callButton, storeLinkButton, recommendedButton].forEach { button in
             button.titleLabel?.font = .font(style: .buttomMedium)
-            guard let image = button.imageView?.image else { return }
-            guard let titleLabel = button.titleLabel else { return }
-            guard let titleText = titleLabel.text else { return }
-            let titleSize = titleText.size(withAttributes: [
-                NSAttributedString.Key.font: titleLabel.font as Any
-            ])
-            button.titleEdgeInsets = UIEdgeInsets(top: 5,
-                                                  left: -image.size.width,
-                                                  bottom: -image.size.height,
-                                                  right: 0)
-            button.imageEdgeInsets = UIEdgeInsets(top: -(titleSize.height + 5),
-                                                  left: 0,
-                                                  bottom: 0,
-                                                  right: -titleSize.width)
+            button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
             button.setTitleColor(Asset.Colors.gray6.color, for: .normal)
         }
+    }
+
+    private func setButtonActions() {
+        callButton.addAction(UIAction { [weak self] action in
+            self?.delegate?.callButtonTapped()
+        }, for: .touchUpInside)
+
+        storeLinkButton.addAction(UIAction { [weak self] action in
+            self?.delegate?.storeLinkButtonTapped()
+        }, for: .touchUpInside)
+
+        recommendedButton.addAction(UIAction { [weak self] action in
+            self?.delegate?.recommendButtonTapped()
+        }, for: .touchUpInside)
     }
 }
