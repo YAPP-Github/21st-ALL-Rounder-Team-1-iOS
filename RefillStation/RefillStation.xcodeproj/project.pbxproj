@@ -51,6 +51,7 @@
 		32E9A561292E68CF000072EE /* DetailReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A560292E68CF000072EE /* DetailReview.swift */; };
 		32E9A565292E704A000072EE /* DetailReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A564292E704A000072EE /* DetailReviewViewModel.swift */; };
 		32F2D9D529518F5900131EB1 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F2D9D429518F5900131EB1 /* ProductCell.swift */; };
+		FC1FD6A12962C4AF00869F5F /* RegisterReviewPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1FD6A02962C4AF00869F5F /* RegisterReviewPopUpViewController.swift */; };
 		FC3EBDF32932872100A9C1F9 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EBDF22932872100A9C1F9 /* Product.swift */; };
 		FC4739412936AB3300DB9BDB /* StoreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4739402936AB3300DB9BDB /* StoreCollectionViewCell.swift */; };
 		FC4739442937664F00DB9BDB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4739432937664F00DB9BDB /* HomeViewController.swift */; };
@@ -171,6 +172,7 @@
 		32F2D9B02951862E00131EB1 /* StoreDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailViewController.swift; sourceTree = "<group>"; };
 		32F2D9B22951864700131EB1 /* StoreDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailViewModel.swift; sourceTree = "<group>"; };
 		32F2D9D429518F5900131EB1 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
+		FC1FD6A02962C4AF00869F5F /* RegisterReviewPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReviewPopUpViewController.swift; sourceTree = "<group>"; };
 		FC3EBDF22932872100A9C1F9 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		FC4739402936AB3300DB9BDB /* StoreCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreCollectionViewCell.swift; sourceTree = "<group>"; };
 		FC4739432937664F00DB9BDB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -547,6 +549,7 @@
 			isa = PBXGroup;
 			children = (
 				FC60D8352962C36F00C676A6 /* ReviewWritingViewController.swift */,
+				FC1FD6A02962C4AF00869F5F /* RegisterReviewPopUpViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -957,6 +960,7 @@
 				32A1FC0A293507D1009DF915 /* FirstReviewRequestCell.swift in Sources */,
 				FCE00A982950E04300B5C05F /* Tag.swift in Sources */,
 				325985F7294C544400D26A37 /* HomeSceneCoordinator.swift in Sources */,
+				FC1FD6A12962C4AF00869F5F /* RegisterReviewPopUpViewController.swift in Sources */,
 				325985EF294C535B00D26A37 /* HomeViewModelCoordinatorDelegate.swift in Sources */,
 				324355532956D3F70043E53B /* StoreDetailSceneCoordinator.swift in Sources */,
 				FCE00A7F294C91B600B5C05F /* UploadReviewImageUseCase.swift in Sources */,
