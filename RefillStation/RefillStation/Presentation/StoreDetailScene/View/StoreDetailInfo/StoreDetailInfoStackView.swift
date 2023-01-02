@@ -56,7 +56,7 @@ final class StoreDetailInfoStackView: UIStackView {
 
     private func setUpButtons() {
         [callButton, instagramButton, directionButton, recommendedButton].forEach { button in
-            button.titleLabel?.font = .font(style: .buttomMedium)
+            button.titleLabel?.font = .font(style: .buttonMedium)
             guard let image = button.imageView?.image else { return }
             guard let titleLabel = button.titleLabel else { return }
             guard let titleText = titleLabel.text else { return }

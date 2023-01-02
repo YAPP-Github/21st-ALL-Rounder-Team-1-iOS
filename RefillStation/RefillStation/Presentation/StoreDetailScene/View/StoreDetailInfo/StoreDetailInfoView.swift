@@ -13,7 +13,7 @@ final class StoreDetailInfoView: UIView {
     // MARK: - UI Components
     private var storeNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.font(style: .titleLarge)
+        label.font = UIFont.font(style: .titleLarge1)
         label.textColor = Asset.Colors.gray7.color
         return label
     }()
