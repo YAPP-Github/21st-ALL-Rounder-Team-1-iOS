@@ -48,6 +48,9 @@ final class HomeViewController: UIViewController {
     private let storeCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        // FIXME: 해당부분에 estimatedSize를 view의 frame을 계산해서 넣어주어야 Console에러가 나지 않습니다.
+        // UICollectionViewFlowLayout.automaticSize의 height가 50이 반환되는것에 반해 실제 cell의 사이즈는 이보다 크기에
+        // console에러가 발생하고 있습니다. 수정 부탁드립니다.
         layout.minimumLineSpacing = 12
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: layout)
@@ -168,10 +171,11 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let storeDetailViewController = StoreDetailViewController(
             viewModel: StoreDetailViewModel(
-                detailReviewViewModel: makeMockDetailReviewViewModel(),
-                votedTagViewModel: makeMockVoteTagViewModel(),
+                detailReviewViewModel: DetailReviewViewModel(),
+                votedTagViewModel: VotedTagViewModel(),
                 storeDetailInfoViewModel: StoreDetailInfoViewModel(),
-                productListViewModel: ProductListViewModel(fetchProductListUseCase: FetchProductListUseCase()))
+                productListViewModel: ProductListViewModel(fetchProductListUseCase: FetchProductListUseCase())
+            )
         )
         navigationController?.pushViewController(storeDetailViewController, animated: true)
     }

@@ -15,7 +15,7 @@ protocol SearchStoreListUseCaseInterface {
 final class SearchStoreListUseCase: SearchStoreListUseCaseInterface {
     private let repository: HomeRepositoryInterface
 
-    init(repository: HomeRepositoryInterface) {
+    init(repository: HomeRepositoryInterface = MockHomeRepository()) {
         self.repository = repository
     }
 

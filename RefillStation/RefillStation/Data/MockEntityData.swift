@@ -1,16 +1,51 @@
 //
-//  StoreDetailViewMockData.swift
+//  MockEntityData.swift
 //  RefillStation
 //
-//  Created by 천수현 on 2022/12/20.
+//  Created by 천수현 on 2023/01/01.
 //
 
 import UIKit
 
-extension HomeViewController {
-    func makeMockDetailReviewViewModel() -> DetailReviewViewModel {
-        let viewModel = DetailReviewViewModel()
-        viewModel.detailReviews = [
+final class MockEntityData {
+    static func products() -> [Product] {
+        return []
+    }
+
+    static func stores() -> [Store] {
+        return [
+            .init(name: "지구샵 제로웨이스트홈",
+                  address: "서울 마포구 성미산로 155 1층",
+                  distance: 30,
+                  phoneNumber: "01012345678",
+                  snsAddress: "",
+                  didUserRecommended: true,
+                  recommendedCount: 10,
+                  thumbnailImageURL: "",
+                  imageURL: []),
+            .init(name: "지구샵 제로웨이스트홈",
+                  address: "서울 마포구 성미산로 155 1층",
+                  distance: 30,
+                  phoneNumber: "01012345678",
+                  snsAddress: "",
+                  didUserRecommended: true,
+                  recommendedCount: 10,
+                  thumbnailImageURL: "",
+                  imageURL: []),
+            .init(name: "지구샵 제로웨이스트홈",
+                  address: "서울 마포구 성미산로 155 1층",
+                  distance: 30,
+                  phoneNumber: "01012345678",
+                  snsAddress: "",
+                  didUserRecommended: true,
+                  recommendedCount: 10,
+                  thumbnailImageURL: "",
+                  imageURL: [])
+        ]
+    }
+
+    static func detailReviews() -> [DetailReview] {
+        return [
             .init(user: .init(name: "hello", imageURL: ""),
                   writtenDate: Date(),
                   imageURL: "",
@@ -39,13 +74,10 @@ extension HomeViewController {
                   tags: [.init(tag: .init(image: UIImage(), title: "이런태그"), recommendedCount: 0),
                          .init(tag: .init(image: UIImage(), title: "이런태그"), recommendedCount: 0)])
         ]
-        return viewModel
     }
 
-    func makeMockVoteTagViewModel() -> VotedTagViewModel {
-        let viewModel = VotedTagViewModel()
-        viewModel.totalVoteCount = 2
-        viewModel.tagReviews = [
+    static func tagReviews() -> [TagReview] {
+        return [
             .init(tag: .init(image: UIImage(systemName: "zzz") ?? UIImage(), title: "친절해요"),
                   recommendedCount: 3),
             .init(tag: .init(image: UIImage(systemName: "zzz") ?? UIImage(), title: "청결해요"),
@@ -55,7 +87,7 @@ extension HomeViewController {
             .init(tag: .init(image: UIImage(systemName: "zzz") ?? UIImage(), title: "살려줘요"),
                   recommendedCount: 6)
         ]
-
-        return viewModel
     }
+
+    private init() {}
 }

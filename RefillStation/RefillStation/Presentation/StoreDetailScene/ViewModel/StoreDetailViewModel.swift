@@ -13,7 +13,7 @@ final class StoreDetailViewModel {
     let storeDetailInfoViewModel: StoreDetailInfoViewModel
     let productListViewModel: ProductListViewModel
 
-    let storeDetailInfoViewHeight: CGFloat = 240
+    let storeDetailInfoViewHeight: CGFloat = 400
     var mode: Mode = .productLists
 
     init(
@@ -54,11 +54,14 @@ extension StoreDetailViewModel {
     }
 
     enum ProductListSection: Int, CaseIterable {
+        case productCategory
         case productsCount
         case productList
 
         var cellHeight: CGFloat {
             switch self {
+            case .productCategory:
+                return 50
             case .productsCount:
                 return 30
             case .productList:
@@ -68,6 +71,8 @@ extension StoreDetailViewModel {
 
         var reuseIdentifier: String {
             switch self {
+            case .productCategory:
+                return ProductCategoriesCell.reuseIdentifier
             case .productsCount:
                 return ProductListHeaderCell.reuseIdentifier
             case .productList:
@@ -77,6 +82,8 @@ extension StoreDetailViewModel {
 
         var cell: UICollectionViewCell.Type {
             switch self {
+            case .productCategory:
+                return ProductCategoriesCell.self
             case .productsCount:
                 return ProductListHeaderCell.self
             case .productList:
