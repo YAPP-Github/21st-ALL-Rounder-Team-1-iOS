@@ -21,7 +21,7 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
 
     var disposeBag = DisposeBag()
     var reviews = [TagReview]()
-    var indexPathsForSelectedItems =  [IndexPath]()
+    var indexPathsForSelectedItems = [IndexPath]()
     var shouldSelectCell: Bool {
         return indexPathsForSelectedItems.count < 3
     }
