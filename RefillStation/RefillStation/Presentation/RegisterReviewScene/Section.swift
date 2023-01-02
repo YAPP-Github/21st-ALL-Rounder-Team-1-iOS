@@ -20,11 +20,12 @@ extension ReviewWritingViewController {
             let defaultItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                   heightDimension: .fractionalHeight(1))
             let defaultItem = NSCollectionLayoutItem(layoutSize: defaultItemSize)
-            defaultItem.contentInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
+            defaultItem.contentInsets = .init(top: 5, leading: 16, bottom: 5, trailing: 16)
             var section: NSCollectionLayoutSection
 
             switch self {
             case .storeInfo:
+                defaultItem.contentInsets = .init(top: 5, leading: 0, bottom: 0, trailing: 0)
                 let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                        heightDimension: .absolute(60))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [defaultItem])
@@ -40,8 +41,8 @@ extension ReviewWritingViewController {
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                        heightDimension: .absolute(42))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                               subitems: [item])
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+                group.contentInsets = .init(top: 0, leading: 16, bottom: 16, trailing: 0)
                 group.interItemSpacing = .fixed(6)
                 section = NSCollectionLayoutSection(group: group)
                 section.interGroupSpacing = 8
