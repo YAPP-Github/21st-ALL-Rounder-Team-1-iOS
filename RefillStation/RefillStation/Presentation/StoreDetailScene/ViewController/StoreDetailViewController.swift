@@ -126,12 +126,10 @@ extension StoreDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if viewModel.mode == .productLists {
             switch section {
-            case StoreDetailViewModel.ProductListSection.productsCount.rawValue:
-                return 1
             case StoreDetailViewModel.ProductListSection.productList.rawValue:
-                return viewModel.productListViewModel.products.count
+                return viewModel.productListViewModel.filteredProducts.count
             default:
-                return 0
+                return 1
             }
         } else {
             switch section {
@@ -161,11 +159,24 @@ extension StoreDetailViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+            if let cell = cell as? ProductCategoriesCell {
+                var categories = [ProductCategory]()
+                viewModel.productListViewModel.products.forEach {
+                    if !categories.contains($0.category) { categories.append($0.category) }
+                }
+                cell.categoryButtonTapped = { [weak self] category in
+                    self?.viewModel.productListViewModel.categoryButtonDidTapped(category: category)
+                    self?.collectionView.reloadSections(
+                        IndexSet(integer: StoreDetailViewModel.ProductListSection.productList.rawValue)
+                    )
+                }
+                cell.setUpContents(categories: [ProductCategory.all] + categories)
+            }
             if let cell = cell as? ProductListHeaderCell {
                 cell.setUpContents(productsCount: viewModel.productListViewModel.products.count)
             }
             if let cell = cell as? ProductCell {
-                cell.setUpContents(product: viewModel.productListViewModel.products[indexPath.row])
+                cell.setUpContents(product: viewModel.productListViewModel.filteredProducts[indexPath.row])
                 return cell
             }
             return cell
@@ -253,7 +264,7 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
             guard let height = StoreDetailViewModel
                 .ProductListSection(rawValue: indexPath.section)?.cellHeight else {
                 return .zero
-}
+            }
             return CGSize(width: width, height: height)
         } else {
             guard let height = StoreDetailViewModel

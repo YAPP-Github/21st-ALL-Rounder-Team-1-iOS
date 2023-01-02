@@ -13,4 +13,5 @@ struct Product {
     let measurement: String
     let price: Int
     let imageURL: String
+    let category: ProductCategory
 }
