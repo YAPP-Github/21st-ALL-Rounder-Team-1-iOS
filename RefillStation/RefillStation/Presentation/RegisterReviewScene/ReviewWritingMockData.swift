@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension ReviewWritingViewController {
+extension RegisterReviewViewController {
     func makeMockViewModel() -> DefaultTagReviewViewModel {
         let viewModel = DefaultTagReviewViewModel()
         viewModel.reviews = [

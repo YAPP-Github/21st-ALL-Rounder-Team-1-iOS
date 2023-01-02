@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension ReviewWritingViewController {
+extension RegisterReviewViewController {
     enum Section: Int, CaseIterable {
         case storeInfo
         case voteTitle

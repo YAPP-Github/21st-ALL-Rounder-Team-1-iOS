@@ -1,5 +1,5 @@
 //
-//  ReviewWritingViewController.swift
+//  RegisterReviewViewController.swift
 //  RefillStation
 //
 //  Created by 천수현 on 2022/11/26.
@@ -11,7 +11,7 @@ import PhotosUI
 import RxSwift
 import RxCocoa
 
-final class ReviewWritingViewController: UIViewController {
+final class RegisterReviewViewController: UIViewController {
 
     private var disposeBag = DisposeBag()
     private lazy var reviewSelectingViewModel = makeMockViewModel()
@@ -88,7 +88,7 @@ final class ReviewWritingViewController: UIViewController {
 
 // MARK: - UICollectionViewDataSource
 
-extension ReviewWritingViewController: UICollectionViewDataSource {
+extension RegisterReviewViewController: UICollectionViewDataSource {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return Section.allCases.count
@@ -147,7 +147,7 @@ extension ReviewWritingViewController: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewCompositionalLayout
-extension ReviewWritingViewController {
+extension RegisterReviewViewController {
     private func compositionalLayout() -> UICollectionViewCompositionalLayout {
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
         configuration.interSectionSpacing = 20
@@ -158,7 +158,7 @@ extension ReviewWritingViewController {
     }
 }
 
-extension ReviewWritingViewController: UICollectionViewDelegate {
+extension RegisterReviewViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return reviewSelectingViewModel.shouldSelectCell
     }
@@ -171,7 +171,7 @@ extension ReviewWritingViewController: UICollectionViewDelegate {
 }
 
 // MARK: - ReviewPhotoDelegate
-extension ReviewWritingViewController: ReviewPhotoDelegate {
+extension RegisterReviewViewController: ReviewPhotoDelegate {
     func imageAddButtonTapped() {
         present(phPickerViewController, animated: true)
     }

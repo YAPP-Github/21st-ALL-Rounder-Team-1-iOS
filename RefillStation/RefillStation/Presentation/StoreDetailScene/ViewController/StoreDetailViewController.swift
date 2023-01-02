@@ -154,7 +154,7 @@ extension StoreDetailViewController: UICollectionViewDataSource {
             if let cell = cell as? MoveToWriteReviewCell {
                 cell.moveToWriteReview = { [weak self] in
                     self?.navigationController?.pushViewController(
-                        ReviewWritingViewController(),
+                        RegisterReviewViewController(),
                         animated: true
                     )
                 }
