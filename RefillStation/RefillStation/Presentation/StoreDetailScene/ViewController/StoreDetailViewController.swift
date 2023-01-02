@@ -151,7 +151,7 @@ extension StoreDetailViewController: UICollectionViewDataSource {
                 cell.setUpContents(productsCount: viewModel.productListViewModel.products.count)
             }
             if let cell = cell as? ProductCell {
-                cell.setUpContents(product: viewModel.productListViewModel.products[indexPath.row])
+                cell.setUpContents(product: viewModel.productListViewModel.filteredProducts[indexPath.row])
                 return cell
             }
             return cell

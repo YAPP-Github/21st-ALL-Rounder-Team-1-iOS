@@ -23,7 +23,6 @@ final class ProductCategoriesCell: UICollectionViewCell {
         collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.allowsMultipleSelection = true
         return collectionView
     }()
 
@@ -41,8 +40,7 @@ final class ProductCategoriesCell: UICollectionViewCell {
     func setUpContents(categories: [ProductCategory]) {
         self.categories = categories
         categoryCollectionView.reloadData()
-        categoryCollectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .left)
-        categoryButtonTapped?(categories[IndexPath(row: 0, section: 0).row])
+        categoryCollectionView.selectItem(at: indexPathForAll, animated: true, scrollPosition: .left)
     }
 
     private func layout() {
@@ -83,18 +81,5 @@ extension ProductCategoriesCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let categories = categories else { return }
         categoryButtonTapped?(categories[indexPath.row])
-
-        if categories[indexPath.row] == ProductCategory.all,
-           let indexPathsForSelectedItems = collectionView.indexPathsForSelectedItems {
-            for indexPath in indexPathsForSelectedItems where indexPath != indexPathForAll {
-                collectionView.deselectItem(at: indexPath, animated: true)
-            }
-        } else {
-            collectionView.deselectItem(at: indexPathForAll, animated: true)
-        }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        categoryButtonTapped?(categories?[indexPath.row])
     }
 }

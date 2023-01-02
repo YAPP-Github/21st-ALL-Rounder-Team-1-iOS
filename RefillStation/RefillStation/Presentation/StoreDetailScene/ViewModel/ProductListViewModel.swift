@@ -10,25 +10,25 @@ import Foundation
 final class ProductListViewModel {
 
     let fetchProductListUseCase: FetchProductListUseCaseInterface
-    var currentCategoryFilters = Set<ProductCategory>()
+    var currentCategoryFilter = ProductCategory.all
     var filteredProducts: [Product] {
         let filtered = products.filter({
-            if currentCategoryFilters == [ProductCategory.all] {
+            if currentCategoryFilter == ProductCategory.all {
                 return true
             } else {
-                return currentCategoryFilters.contains($0.category)
+                return $0.category == currentCategoryFilter
             }
         })
         return filtered
     }
     var products: [Product] = [
         .init(name: "티트리 퓨리파잉 샴푸", brand: "아로마티카", measurement: "g", price: 100, imageURL: "", category: .init(title: "샴푸")),
-        .init(name: "티트리 퓨리파잉 샴푸", brand: "아로마티카", measurement: "g", price: 100, imageURL: "", category: .init(title: "콜라")),
-        .init(name: "티트리 퓨리파잉 샴푸", brand: "아로마티카", measurement: "g", price: 100, imageURL: "", category: .init(title: "치킨")),
-        .init(name: "티트리 퓨리파잉 샴푸", brand: "아로마티카", measurement: "g", price: 100, imageURL: "", category: .init(title: "피자")),
-        .init(name: "티트리 퓨리파잉 샴푸", brand: "아로마티카", measurement: "g", price: 100, imageURL: "", category: .init(title: "리필하는 물건")),
-        .init(name: "티트리 퓨리파잉 샴푸", brand: "아로마티카", measurement: "g", price: 100, imageURL: "", category: .init(title: "긴거긴거긴거긴거긴거")),
-        .init(name: "티트리 퓨리파잉 샴푸", brand: "아로마티카", measurement: "g", price: 100, imageURL: "", category: .init(title: "뭔가 되게 멋진 카테고리"))
+        .init(name: "티트리 퓨리파잉 콜라", brand: "아로마티카", measurement: "g", price: 100, imageURL: "", category: .init(title: "콜라")),
+        .init(name: "티트리 퓨리파잉 치킨", brand: "아로마티카", measurement: "g", price: 100, imageURL: "", category: .init(title: "치킨")),
+        .init(name: "티트리 퓨리파잉 피자", brand: "아로마티카", measurement: "g", price: 100, imageURL: "", category: .init(title: "피자")),
+        .init(name: "티트리 퓨리파잉 리필하는 물", brand: "아로마티카", measurement: "g", price: 100, imageURL: "", category: .init(title: "리필하는 물건")),
+        .init(name: "티트리 퓨리파잉 긴거긴거긴거긴거긴거", brand: "아로마티카", measurement: "g", price: 100, imageURL: "", category: .init(title: "긴거긴거긴거긴거긴거")),
+        .init(name: "티트리 퓨리파잉 뭔가 되게 멋진 카테고리", brand: "아로마티카", measurement: "g", price: 100, imageURL: "", category: .init(title: "뭔가 되게 멋진 카테고리"))
     ]
 
     private var productListLoadTask: Cancellable?
@@ -39,19 +39,7 @@ final class ProductListViewModel {
 
     func categoryButtonDidTapped(category: ProductCategory?) {
         guard let category = category else { return }
-
-        if currentCategoryFilters.contains(category) { // deselect된 경우
-            currentCategoryFilters.remove(category)
-            return
-        }
-
-        if category == ProductCategory.all {
-            currentCategoryFilters.removeAll() // "전체"가 선택된 경우 나머지를 모두 리스트에서 삭제
-        } else {
-            currentCategoryFilters.remove(ProductCategory.all) // "전체" 말고 다른것이 선택된 경우, "전체"를 리스트에서 삭제
-        }
-
-        currentCategoryFilters.insert(category) // 리스트에 선택된 category 삽입
+        currentCategoryFilter = category
     }
 
     func fetchProductList(storeId: Int, completion: @escaping (Result<[Product], Error>) -> Void) {
