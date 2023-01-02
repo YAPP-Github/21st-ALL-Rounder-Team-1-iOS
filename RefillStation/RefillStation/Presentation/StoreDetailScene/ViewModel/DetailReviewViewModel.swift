@@ -9,7 +9,7 @@ import Foundation
 
 final class DetailReviewViewModel {
 
-    var detailReviews = [DetailReview]()
+    var detailReviews = MockEntityData.detailReviews()
     var seeMoreTappedIndexPaths = [IndexPath]()
 
     func seeMoreDidTapped(indexPath: IndexPath) {

@@ -15,7 +15,7 @@ protocol FetchStoreListUseCaseInterface {
 final class FetchStoreListUseCase: FetchStoreListUseCaseInterface {
     private let repository: HomeRepositoryInterface
 
-    init(repository: HomeRepositoryInterface) {
+    init(repository: HomeRepositoryInterface = MockHomeRepository()) {
         self.repository = repository
     }
 
