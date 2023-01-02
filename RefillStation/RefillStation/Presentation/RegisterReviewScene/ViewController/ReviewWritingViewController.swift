@@ -31,7 +31,6 @@ final class ReviewWritingViewController: UIViewController {
         view.backgroundColor = .white
         setUpCollectionView()
         layout()
-        bind()
         addKeyboardNotification()
     }
 
@@ -60,16 +59,6 @@ final class ReviewWritingViewController: UIViewController {
         outerCollectionView.snp.makeConstraints { collection in
             collection.edges.equalTo(view.safeAreaLayoutGuide)
         }
-    }
-
-    private func bind() {
-        outerCollectionView.rx.itemSelected.subscribe(onNext: { [weak self] indexPath in
-            self?.reviewSelectingViewModel.didSelectItemAt(indexPath: indexPath)
-        }).disposed(by: disposeBag)
-
-        outerCollectionView.rx.itemDeselected.subscribe(onNext: { [weak self] indexPath in
-            self?.reviewSelectingViewModel.didDeSelectItemAt(indexPath: indexPath)
-        }).disposed(by: disposeBag)
     }
 
     private func addKeyboardNotification() {
@@ -172,6 +161,12 @@ extension ReviewWritingViewController {
 extension ReviewWritingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return reviewSelectingViewModel.shouldSelectCell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        reviewSelectingViewModel.didSelectItemAt(indexPath: indexPath)
+    }
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        reviewSelectingViewModel.didDeselectItemAt(indexPath: indexPath)
     }
 }
 
