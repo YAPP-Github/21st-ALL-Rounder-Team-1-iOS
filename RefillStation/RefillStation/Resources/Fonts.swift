@@ -8,41 +8,61 @@
 import UIKit
 
 enum TextStyles {
-    case titleLarge
+    /// Title
+    case titleLarge1
+    case titleLarge2
     case titleMedium
     case titleSmall
+
+    /// Body
     case bodyLarge
     case bodyMedium
     case bodySmall
-    case buttonLarge
-    case buttomMedium
+
+    /// Caption
     case captionLarge
     case captionMedium
+
+    /// Button
+    case buttonLarge
+    case buttonMedium
+    case buttonSmall
 }
 
 extension UIFont {
     static func font(style: TextStyles) -> UIFont {
         switch style {
-        case .titleLarge:
+        /// Title
+        case .titleLarge1:
+            return UIFont.systemFont(ofSize: 22, weight: .bold)
+        case .titleLarge2:
             return UIFont.systemFont(ofSize: 20, weight: .bold)
         case .titleMedium:
             return UIFont.systemFont(ofSize: 17, weight: .bold)
         case .titleSmall:
             return UIFont.systemFont(ofSize: 15, weight: .bold)
+
+        /// Body
         case .bodyLarge:
             return UIFont.systemFont(ofSize: 17, weight: .regular)
         case .bodyMedium:
             return UIFont.systemFont(ofSize: 15, weight: .regular)
         case .bodySmall:
             return UIFont.systemFont(ofSize: 14, weight: .regular)
-        case .buttonLarge:
-            return UIFont.systemFont(ofSize: 15, weight: .semibold)
-        case .buttomMedium:
-            return UIFont.systemFont(ofSize: 14, weight: .medium)
+
+        /// Caption
         case .captionLarge:
             return UIFont.systemFont(ofSize: 12, weight: .medium)
         case .captionMedium:
             return UIFont.systemFont(ofSize: 11, weight: .medium)
+
+        /// Button
+        case .buttonLarge:
+            return UIFont.systemFont(ofSize: 15, weight: .bold)
+        case .buttonMedium:
+            return UIFont.systemFont(ofSize: 14, weight: .medium)
+        case .buttonSmall:
+            return UIFont.systemFont(ofSize: 13, weight: .medium)
         }
     }
 }

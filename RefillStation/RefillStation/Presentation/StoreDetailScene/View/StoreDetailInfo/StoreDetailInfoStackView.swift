@@ -62,7 +62,7 @@ final class StoreDetailInfoStackView: UIStackView {
 
     private func setUpButtons() {
         [callButton, storeLinkButton, recommendedButton].forEach { button in
-            button.titleLabel?.font = .font(style: .buttomMedium)
+            button.titleLabel?.font = .font(style: .buttonMedium)
             button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
             button.setTitleColor(Asset.Colors.gray6.color, for: .normal)
         }
