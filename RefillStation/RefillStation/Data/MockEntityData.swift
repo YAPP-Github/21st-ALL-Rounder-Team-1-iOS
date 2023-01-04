@@ -89,5 +89,18 @@ final class MockEntityData {
         ]
     }
 
+    static func tags() -> [Tag] {
+        return [
+            .init(image: UIImage(), title: "포인트 적립이 가능해요"),
+            .init(image: UIImage(), title: "품목이 다양해요"),
+            .init(image: UIImage(), title: "점원이 친절해요"),
+            .init(image: UIImage(), title: "위치 접근성이 좋아요"),
+            .init(image: UIImage(), title: "가격이 합리적이에요"),
+            .init(image: UIImage(), title: "매장이 커요"),
+            .init(image: UIImage(), title: "매장이 청결해요"),
+            .init(image: UIImage(), title: "선택할 키워드가 없어요")
+        ]
+    }
+
     private init() {}
 }

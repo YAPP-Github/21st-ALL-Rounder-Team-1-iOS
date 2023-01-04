@@ -1,5 +1,5 @@
 //
-//  ReviewWritingViewController.swift
+//  RegisterReviewViewController.swift
 //  RefillStation
 //
 //  Created by 천수현 on 2022/11/26.
@@ -11,12 +11,14 @@ import PhotosUI
 import RxSwift
 import RxCocoa
 
-final class ReviewWritingViewController: UIViewController {
+final class RegisterReviewViewController: UIViewController {
 
     private var disposeBag = DisposeBag()
-    private lazy var reviewSelectingViewModel = makeMockViewModel()
+    private lazy var tagReviewViewModel = DefaultTagReviewViewModel()
     private lazy var outerCollectionView = UICollectionView(frame: .zero,
                                                             collectionViewLayout: compositionalLayout())
+    private let collectionViewBottomInset: CGFloat = 80
+
     private let phPickerViewController: PHPickerViewController = {
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
@@ -25,12 +27,18 @@ final class ReviewWritingViewController: UIViewController {
         return phPickerVC
     }()
 
+    private let registerButton: CTAButton = {
+        let button = CTAButton()
+        button.setTitle("등록하기", for: .normal)
+        return button
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "리뷰 쓰기"
         view.backgroundColor = .white
         setUpCollectionView()
         layout()
-        bind()
         addKeyboardNotification()
     }
 
@@ -45,30 +53,23 @@ final class ReviewWritingViewController: UIViewController {
                                 forCellWithReuseIdentifier: ReviewPhotosCell.reuseIdentifier)
         outerCollectionView.register(ReviewDescriptionCell.self,
                                 forCellWithReuseIdentifier: ReviewDescriptionCell.reuseIdentifier)
-        outerCollectionView.register(ReviewRegisterCell.self,
-                                     forCellWithReuseIdentifier: ReviewRegisterCell.reuseIdentifier)
         outerCollectionView.dataSource = self
         outerCollectionView.delegate = self
         outerCollectionView.allowsMultipleSelection = true
         outerCollectionView.keyboardDismissMode = .onDrag
+        outerCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: collectionViewBottomInset, right: 0)
     }
 
     private func layout() {
-        view.addSubview(outerCollectionView)
-
+        [outerCollectionView, registerButton].forEach { view.addSubview($0) }
         outerCollectionView.snp.makeConstraints { collection in
             collection.edges.equalTo(view.safeAreaLayoutGuide)
         }
-    }
-
-    private func bind() {
-        outerCollectionView.rx.itemSelected.subscribe(onNext: { [weak self] indexPath in
-            self?.reviewSelectingViewModel.didSelectItemAt(indexPath: indexPath)
-        }).disposed(by: disposeBag)
-
-        outerCollectionView.rx.itemDeselected.subscribe(onNext: { [weak self] indexPath in
-            self?.reviewSelectingViewModel.didDeSelectItemAt(indexPath: indexPath)
-        }).disposed(by: disposeBag)
+        registerButton.snp.makeConstraints { button in
+            button.bottom.equalTo(view.safeAreaLayoutGuide)
+            button.leading.trailing.equalToSuperview().inset(16)
+            button.height.equalTo(50)
+        }
     }
 
     private func addKeyboardNotification() {
@@ -84,21 +85,26 @@ final class ReviewWritingViewController: UIViewController {
            let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
             return
         }
-        outerCollectionView.contentInset = .init(top: 0, left: 0, bottom: keyboardRect.height, right: 0)
-
+        outerCollectionView.contentInset = .init(top: 0, left: 0, bottom: keyboardRect.height + collectionViewBottomInset, right: 0)
         outerCollectionView.scrollToItem(at: IndexPath(item: 0, section: Section.reviewDescription.rawValue),
                                          at: .top, animated: true)
+        UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseOut, animations: {
+            self.registerButton.transform = CGAffineTransform(translationX: 0, y: -keyboardRect.height)
+        })
     }
 
     @objc
     private func keyboardWillHide(_ notification: Notification) {
-        outerCollectionView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 0)
+        outerCollectionView.contentInset = .init(top: 0, left: 0, bottom: collectionViewBottomInset, right: 0)
+        UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseOut, animations: {
+            self.registerButton.transform = CGAffineTransform(translationX: 0, y: 0)
+        })
     }
 }
 
 // MARK: - UICollectionViewDataSource
 
-extension ReviewWritingViewController: UICollectionViewDataSource {
+extension RegisterReviewViewController: UICollectionViewDataSource {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return Section.allCases.count
@@ -107,7 +113,7 @@ extension ReviewWritingViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case Section.tagReview.rawValue:
-            return reviewSelectingViewModel.reviews.count
+            return tagReviewViewModel.tags.count
         default:
             return 1
         }
@@ -130,7 +136,8 @@ extension ReviewWritingViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: TagReviewCell.reuseIdentifier,
                 for: indexPath) as? TagReviewCell else { return UICollectionViewCell() }
-            cell.setUpContents(title: reviewSelectingViewModel.reviews[indexPath.row].tag.title)
+            cell.setUpContents(image: UIImage(),
+                               title: tagReviewViewModel.tags[indexPath.row].title)
             return cell
         case Section.photoReview.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
@@ -144,11 +151,6 @@ extension ReviewWritingViewController: UICollectionViewDataSource {
                 withReuseIdentifier: ReviewDescriptionCell.reuseIdentifier,
                 for: indexPath) as? ReviewDescriptionCell else { return UICollectionViewCell() }
             return cell
-        case Section.registerButton.rawValue:
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: ReviewRegisterCell.reuseIdentifier,
-                for: indexPath) as? ReviewRegisterCell else { return UICollectionViewCell() }
-            return cell
         default:
             return UICollectionViewCell()
         }
@@ -156,27 +158,30 @@ extension ReviewWritingViewController: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewCompositionalLayout
-extension ReviewWritingViewController {
+extension RegisterReviewViewController {
     private func compositionalLayout() -> UICollectionViewCompositionalLayout {
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
         configuration.interSectionSpacing = 20
-        configuration.contentInsetsReference = .readableContent
-
         return UICollectionViewCompositionalLayout(sectionProvider: { section, environment in
             return Section(rawValue: section)?.layoutSection
         }, configuration: configuration)
     }
 }
 
-//
-extension ReviewWritingViewController: UICollectionViewDelegate {
+extension RegisterReviewViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return reviewSelectingViewModel.shouldSelectCell
+        return tagReviewViewModel.shouldSelectCell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        tagReviewViewModel.didSelectItemAt(indexPath: indexPath)
+    }
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        tagReviewViewModel.didDeselectItemAt(indexPath: indexPath)
     }
 }
 
 // MARK: - ReviewPhotoDelegate
-extension ReviewWritingViewController: ReviewPhotoDelegate {
+extension RegisterReviewViewController: ReviewPhotoDelegate {
     func imageAddButtonTapped() {
         present(phPickerViewController, animated: true)
     }

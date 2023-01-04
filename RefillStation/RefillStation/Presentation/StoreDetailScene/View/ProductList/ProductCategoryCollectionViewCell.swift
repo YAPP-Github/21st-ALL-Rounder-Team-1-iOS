@@ -24,7 +24,7 @@ final class ProductCategoryCollectionViewCell: UICollectionViewCell {
     private let categoryLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.gray4.color
-        label.font = UIFont.font(style: .buttomMedium)
+        label.font = UIFont.font(style: .buttonMedium)
         return label
     }()
 
