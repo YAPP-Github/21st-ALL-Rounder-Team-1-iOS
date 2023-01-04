@@ -21,7 +21,7 @@ final class RequestRegionViewController: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "어느 지역을 신청할까요?"
-        label.font = .font(style: .titleLarge)
+        label.font = .font(style: .titleLarge2)
         return label
     }()
     private let exampleLabel: UILabel = {

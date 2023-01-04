@@ -19,7 +19,7 @@ protocol UploadReviewImageUseCaseInterface {
 final class UploadReviewImageUseCase: UploadReviewImageUseCaseInterface {
     private let registerReviewRepository: RegisterReviewRepositoryInterface
 
-    init(registerReviewRepository: RegisterReviewRepositoryInterface) {
+    init(registerReviewRepository: RegisterReviewRepositoryInterface = MockRegisterReviewRepository()) {
         self.registerReviewRepository = registerReviewRepository
     }
 

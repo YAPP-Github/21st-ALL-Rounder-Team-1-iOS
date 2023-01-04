@@ -10,4 +10,3 @@ import Foundation
 final class RequestRegionViewModel {
 
 }
-

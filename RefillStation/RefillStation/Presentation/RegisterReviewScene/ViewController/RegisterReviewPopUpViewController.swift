@@ -52,7 +52,7 @@ final class RegisterReviewPopUpViewController: UIViewController {
         let button = UIButton()
         button.setTitle("자세히 알아보기", for: .normal)
         button.setTitleColor(Asset.Colors.gray5.color, for: .normal)
-        button.titleLabel?.font = .font(style: .buttomMedium)
+        button.titleLabel?.font = .font(style: .buttonMedium)
         return button
     }()
 

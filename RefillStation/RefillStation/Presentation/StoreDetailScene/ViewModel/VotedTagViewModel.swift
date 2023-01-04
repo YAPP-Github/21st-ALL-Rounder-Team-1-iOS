@@ -9,6 +9,6 @@ import Foundation
 
 final class VotedTagViewModel {
 
-    var totalVoteCount = 0
-    var tagReviews = [TagReview]()
+    var totalVoteCount = 5
+    var tagReviews = MockEntityData.tagReviews()
 }
