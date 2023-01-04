@@ -14,7 +14,7 @@ import RxCocoa
 final class RegisterReviewViewController: UIViewController {
 
     private var disposeBag = DisposeBag()
-    private lazy var reviewSelectingViewModel = makeMockViewModel()
+    private lazy var tagReviewViewModel = DefaultTagReviewViewModel()
     private lazy var outerCollectionView = UICollectionView(frame: .zero,
                                                             collectionViewLayout: compositionalLayout())
     private let collectionViewBottomInset: CGFloat = 80
@@ -113,7 +113,7 @@ extension RegisterReviewViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case Section.tagReview.rawValue:
-            return reviewSelectingViewModel.reviews.count
+            return tagReviewViewModel.tags.count
         default:
             return 1
         }
@@ -137,7 +137,7 @@ extension RegisterReviewViewController: UICollectionViewDataSource {
                 withReuseIdentifier: TagReviewCell.reuseIdentifier,
                 for: indexPath) as? TagReviewCell else { return UICollectionViewCell() }
             cell.setUpContents(image: UIImage(),
-                               title: reviewSelectingViewModel.reviews[indexPath.row].tag.title)
+                               title: tagReviewViewModel.tags[indexPath.row].title)
             return cell
         case Section.photoReview.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
@@ -170,13 +170,13 @@ extension RegisterReviewViewController {
 
 extension RegisterReviewViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return reviewSelectingViewModel.shouldSelectCell
+        return tagReviewViewModel.shouldSelectCell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        reviewSelectingViewModel.didSelectItemAt(indexPath: indexPath)
+        tagReviewViewModel.didSelectItemAt(indexPath: indexPath)
     }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        reviewSelectingViewModel.didDeselectItemAt(indexPath: indexPath)
+        tagReviewViewModel.didDeselectItemAt(indexPath: indexPath)
     }
 }
 

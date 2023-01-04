@@ -1,5 +1,5 @@
 //
-//  ReviewSelectingViewModel.swift
+//  DefaultTagReviewViewModel.swift
 //  RefillStation
 //
 //  Created by 천수현 on 2022/11/24.
@@ -20,7 +20,7 @@ protocol TagReviewViewModel: TagReviewViewModelInput, TagReviewViewModelOutput {
 final class DefaultTagReviewViewModel: TagReviewViewModel {
 
     var disposeBag = DisposeBag()
-    var reviews = [TagReview]()
+    var tags = MockEntityData.tags()
     var indexPathsForSelectedItems = [IndexPath]()
     var shouldSelectCell: Bool {
         return indexPathsForSelectedItems.count < 3
