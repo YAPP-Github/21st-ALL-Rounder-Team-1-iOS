@@ -14,15 +14,7 @@ final class TagReviewCell: UICollectionViewCell {
 
     override var isSelected: Bool {
         didSet {
-            if isSelected {
-                contentView.backgroundColor = Asset.Colors.primary0.color
-                contentView.layer.borderColor = Asset.Colors.primary3.color.cgColor
-                tagTitleLabel.textColor = Asset.Colors.primary3.color
-            } else {
-                contentView.backgroundColor = .white
-                contentView.layer.borderColor = Asset.Colors.gray2.color.cgColor
-                tagTitleLabel.textColor = Asset.Colors.gray5.color
-            }
+            isSelected ? setUpSelectedButton() : setUpUnselectedButton()
         }
     }
 
@@ -60,6 +52,18 @@ final class TagReviewCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 22
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = Asset.Colors.gray2.color.cgColor
+    }
+
+    private func setUpSelectedButton() {
+        contentView.backgroundColor = Asset.Colors.primary0.color
+        contentView.layer.borderColor = Asset.Colors.primary3.color.cgColor
+        tagTitleLabel.textColor = Asset.Colors.primary3.color
+    }
+
+    private func setUpUnselectedButton() {
+        contentView.backgroundColor = .white
+        contentView.layer.borderColor = Asset.Colors.gray2.color.cgColor
+        tagTitleLabel.textColor = Asset.Colors.gray5.color
     }
 
     private func layout() {
