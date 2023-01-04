@@ -34,10 +34,11 @@ final class RegisterReviewPopUpViewController: UIViewController {
 
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "‘리필 유망주’까지 리뷰 2회가 남았어요 :)"
+        label.text = "‘리필 유망주’까지\n리뷰 2회가 남았어요"
         label.textColor = Asset.Colors.gray6.color
         label.font = .font(style: .bodyMedium)
         label.textAlignment = .center
+        label.numberOfLines = 0
         return label
     }()
 
@@ -68,7 +69,6 @@ final class RegisterReviewPopUpViewController: UIViewController {
 
         containerView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(40)
-            $0.height.equalTo(312)
             $0.centerY.equalToSuperview()
         }
         levelImageView.snp.makeConstraints {
