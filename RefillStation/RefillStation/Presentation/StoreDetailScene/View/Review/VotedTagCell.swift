@@ -12,8 +12,33 @@ final class VotedTagCell: UICollectionViewCell {
 
     static let reuseIdentifier = "votedTagCell"
 
+    private let firstRankView: FirstRankView = {
+        let firstRankView = FirstRankView()
+        firstRankView.setUpContents(tagReview: TagReview(
+            tag: Tag(image: UIImage(), title: "점원이 친절해요"),
+            recommendedCount: 10
+        ))
+        return firstRankView
+    }()
+
+    private let divisionLine: UIView = {
+        let line = UIView()
+        line.backgroundColor = Asset.Colors.gray0.color
+        return line
+    }()
+
+    private let otherClassStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.spacing = 10
+        return stackView
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
+        layout()
+        setUpContentView()
     }
 
     required init?(coder: NSCoder) {
@@ -21,44 +46,172 @@ final class VotedTagCell: UICollectionViewCell {
     }
 
     func setUpContents(tagReviews: [TagReview]) {
+        if tagReviews.isEmpty {
+            [firstRankView, otherClassStackView].forEach { $0.isHidden = true }
+            return
+        }
 
+        if tagReviews.count < 10 {
+
+        } else {
+            guard let first = tagReviews.first else { return }
+            firstRankView.setUpContents(tagReview: first)
+
+            for index in 1..<4 {
+                let other = OtherRankView()
+                other.setUpContents(tagReview: tagReviews[index], rank: index + 1)
+                otherClassStackView.addArrangedSubview(other)
+            }
+        }
+    }
+
+    private func layout() {
+        [firstRankView, divisionLine, otherClassStackView].forEach { contentView.addSubview($0) }
+
+        firstRankView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(24)
+            $0.top.equalToSuperview()
+        }
+
+        divisionLine.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(24)
+        }
+
+        otherClassStackView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(24)
+            $0.top.equalTo(firstRankView.snp.bottom).offset(18)
+            $0.bottom.equalToSuperview().inset(28)
+        }
+    }
+
+    private func setUpContentView() {
+        contentView.backgroundColor = Asset.Colors.gray0.color
+        contentView.layer.cornerRadius = 16
     }
 }
 
 fileprivate final class FirstRankView: UIView {
+
     private let tagImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.backgroundColor = Asset.Colors.gray0.color
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 85 / 2
         return imageView
     }()
 
     private let rankLabel: UILabel = {
         let label = UILabel()
+        label.text = "1순위"
+        label.backgroundColor = Asset.Colors.primary2.color
+        label.layer.cornerRadius = 4
+        label.textColor = .white
+        label.clipsToBounds = true
+        label.textAlignment = .center
         return label
     }()
 
     private let titleLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.font(style: .buttonLarge)
         return label
     }()
 
-    private let divisionLine: UIView = {
-        let view = UIView(frame: .zero)
-        return view
+    private let rankTitleStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 5
+        return stackView
     }()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        layout()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+    func setUpContents(tagReview: TagReview) {
+        tagImageView.image = tagReview.tag.image
+        titleLabel.text = tagReview.tag.title
+    }
+
+    private func layout() {
+        [tagImageView, rankTitleStackView].forEach { addSubview($0) }
+        tagImageView.snp.makeConstraints {
+            $0.centerX.centerY.equalToSuperview()
+            $0.height.width.equalTo(85)
+        }
+
+        [rankLabel, titleLabel].forEach { rankTitleStackView.addArrangedSubview($0) }
+
+        rankTitleStackView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(tagImageView.snp.bottom).offset(10)
+        }
+
+        rankLabel.snp.makeConstraints {
+            $0.height.equalTo(25)
+            $0.width.equalTo(40)
+        }
+    }
 }
 
 fileprivate final class OtherRankView: UIView {
+
+    private let divisionLine: UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = Asset.Colors.gray2.color
+        return view
+    }()
     private let rankLabel: UILabel = {
         let label = UILabel()
+        label.textColor = Asset.Colors.gray4.color
         return label
     }()
     private let tagImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-
     private let titleLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.font(style: .buttonMedium)
         return label
     }()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        layout()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+    func setUpContents(tagReview: TagReview, rank: Int) {
+        rankLabel.text = "\(rank)순위"
+        titleLabel.text = tagReview.tag.title
+        tagImageView.image = tagReview.tag.image
+    }
+
+    private func layout() {
+        [rankLabel, tagImageView, titleLabel].forEach { addSubview($0) }
+
+        rankLabel.setContentHuggingPriority(.required, for: .horizontal)
+        rankLabel.snp.makeConstraints {
+            $0.leading.top.bottom.equalToSuperview()
+        }
+        tagImageView.snp.makeConstraints {
+            $0.leading.equalTo(rankLabel.snp.trailing).offset(13)
+            $0.top.bottom.equalToSuperview()
+            $0.width.equalTo(tagImageView.snp.height)
+        }
+        titleLabel.snp.makeConstraints {
+            $0.leading.equalTo(tagImageView.snp.trailing).offset(10)
+            $0.top.bottom.trailing.equalToSuperview()
+        }
+    }
 }
