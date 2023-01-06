@@ -61,7 +61,7 @@ extension StoreDetailViewModel {
         var cellHeight: CGFloat {
             switch self {
             case .productCategory:
-                return 50
+                return 35
             case .productsCount:
                 return 30
             case .productList:
