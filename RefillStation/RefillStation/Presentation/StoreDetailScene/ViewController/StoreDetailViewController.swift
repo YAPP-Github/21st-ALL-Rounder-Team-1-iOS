@@ -278,6 +278,13 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
                 )
                 let heightThatFits = dummyCellForCalculateheight.systemLayoutSizeFitting(CGSize(width: width, height: height)).height
                 return CGSize(width: width, height: heightThatFits)
+            } else if StoreDetailViewModel.ReviewSection(rawValue: indexPath.section) == .votedTag {
+                let dummyCellForCalculateheight = VotedTagCell(frame: CGRect(origin: CGPoint(x: 0, y: 0),
+                                                                                 size: CGSize(width: width, height: height)))
+                dummyCellForCalculateheight.setUpContents(tagReviews: viewModel.votedTagViewModel.tagReviews)
+
+                let heightThatFits = dummyCellForCalculateheight.systemLayoutSizeFitting(CGSize(width: width, height: height)).height
+                return CGSize(width: width, height: heightThatFits)
             }
             return CGSize(width: width, height: height)
         }

@@ -109,7 +109,7 @@ extension StoreDetailViewModel {
             case .votedCount:
                 return 40
             case .votedTag:
-                return 240
+                return 300
             case .detailReviewCount:
                 return 40
             case .detailReviews:
