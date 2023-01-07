@@ -16,6 +16,8 @@ final class MoveToWriteReviewCell: UICollectionViewCell {
     private let backgroundColorView: UIView = {
         let view = UIView()
         view.backgroundColor = Asset.Colors.primary1.color
+        view.layer.cornerRadius = 4
+        view.clipsToBounds = true
         return view
     }()
 
