@@ -47,12 +47,11 @@ class LevelCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(levelContentView)
         [levelImageView, levelTitleLabel, levelTagView].forEach { levelContentView.addSubview($0) }
         levelContentView.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalToSuperview().inset(8)
         }
         levelImageView.snp.makeConstraints {
-            $0.top.leading.bottom.equalToSuperview().inset(16)
+            $0.top.leading.bottom.equalToSuperview().inset(15)
             $0.width.equalTo(levelImageView.snp.height)
         }
         levelTitleLabel.snp.makeConstraints {
