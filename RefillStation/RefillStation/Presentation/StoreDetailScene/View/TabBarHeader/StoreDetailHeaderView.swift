@@ -26,6 +26,14 @@ final class StoreDetailHeaderView: UICollectionReusableView {
         return button
     }()
 
+    private let operationInfoButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("운영정보", for: .normal)
+        button.setTitleColor(Asset.Colors.gray7.color, for: .normal)
+        button.titleLabel?.font = UIFont.font(style: .bodyLarge)
+        return button
+    }()
+
     private let productListSelectLine: UIView = {
         let line = UIView(frame: .zero)
         line.backgroundColor = Asset.Colors.gray7.color
@@ -33,6 +41,12 @@ final class StoreDetailHeaderView: UICollectionReusableView {
     }()
 
     private let reviewSelectLine: UIView = {
+        let line = UIView(frame: .zero)
+        line.backgroundColor = Asset.Colors.gray7.color
+        return line
+    }()
+
+    private let operationInfoSelectLine: UIView = {
         let line = UIView(frame: .zero)
         line.backgroundColor = Asset.Colors.gray7.color
         return line
@@ -46,12 +60,19 @@ final class StoreDetailHeaderView: UICollectionReusableView {
 
     private var mode: StoreDetailViewModel.Mode = .productLists {
         didSet {
-            mode == .productLists ? setTabForProductList() : setTabForReview()
+            if mode == .productLists {
+                setTabForProductList()
+            } else if mode == .reviews {
+                setTabForReview()
+            } else {
+                setTabForOperationInfo()
+            }
         }
     }
 
     var productListButtonTapped: (() -> Void)?
     var reviewButtonTapped: (() -> Void)?
+    var operationInfoButtonTapped: (() -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -67,28 +88,58 @@ final class StoreDetailHeaderView: UICollectionReusableView {
     private func setTabForProductList() {
         productListSelectLine.isHidden = false
         reviewSelectLine.isHidden = true
+        operationInfoSelectLine.isHidden = true
         productListButton.titleLabel?.font = UIFont.font(style: .titleMedium)
         reviewButton.titleLabel?.font = UIFont.font(style: .bodyLarge)
+        operationInfoButton.titleLabel?.font = UIFont.font(style: .bodyLarge)
         productListButton.setTitleColor(Asset.Colors.gray7.color, for: .normal)
         reviewButton.setTitleColor(Asset.Colors.gray4.color, for: .normal)
+        operationInfoButton.setTitleColor(Asset.Colors.gray4.color, for: .normal)
     }
 
     private func setTabForReview() {
         productListSelectLine.isHidden = true
         reviewSelectLine.isHidden = false
-        productListButton.titleLabel?.font = UIFont.font(style: .bodyLarge)
-        reviewButton.titleLabel?.font = UIFont.font(style: .titleMedium)
+        operationInfoSelectLine.isHidden = true
+        productListButton.titleLabel?.font = UIFont.font(style: .titleMedium)
+        reviewButton.titleLabel?.font = UIFont.font(style: .bodyLarge)
+        operationInfoButton.titleLabel?.font = UIFont.font(style: .titleMedium)
         productListButton.setTitleColor(Asset.Colors.gray4.color, for: .normal)
         reviewButton.setTitleColor(Asset.Colors.gray7.color, for: .normal)
+        operationInfoButton.setTitleColor(Asset.Colors.gray4.color, for: .normal)
+    }
+
+    private func setTabForOperationInfo() {
+        productListSelectLine.isHidden = true
+        reviewSelectLine.isHidden = true
+        operationInfoSelectLine.isHidden = false
+        productListButton.titleLabel?.font = UIFont.font(style: .bodyLarge)
+        reviewButton.titleLabel?.font = UIFont.font(style: .bodyLarge)
+        operationInfoButton.titleLabel?.font = UIFont.font(style: .titleMedium)
+        productListButton.setTitleColor(Asset.Colors.gray4.color, for: .normal)
+        reviewButton.setTitleColor(Asset.Colors.gray4.color, for: .normal)
+        operationInfoButton.setTitleColor(Asset.Colors.gray7.color, for: .normal)
     }
 
     private func addButtonTargets() {
-        productListButton.addTarget(self, action: #selector(productListButtonTapped(_:)), for: .touchUpInside)
-        reviewButton.addTarget(self, action: #selector(reviewButtonTapped(_:)), for: .touchUpInside)
+        productListButton.addAction(UIAction { [weak self] _ in
+            self?.productListButtonTapped?()
+            self?.mode = .productLists
+        }, for: .touchUpInside)
+
+        reviewButton.addAction(UIAction { [weak self] _ in
+            self?.reviewButtonTapped?()
+            self?.mode = .reviews
+        }, for: .touchUpInside)
+
+        operationInfoButton.addAction(UIAction { [weak self] _ in
+            self?.operationInfoButtonTapped?()
+            self?.mode = .operationInfo
+        }, for: .touchUpInside)
     }
 
     private func layout() {
-        [productListButton, reviewButton, divisionLine, productListSelectLine, reviewSelectLine].forEach {
+        [productListButton, reviewButton, divisionLine, productListSelectLine, reviewSelectLine, operationInfoButton, operationInfoSelectLine].forEach {
             addSubview($0)
         }
 
@@ -99,6 +150,11 @@ final class StoreDetailHeaderView: UICollectionReusableView {
 
         reviewButton.snp.makeConstraints {
             $0.leading.equalTo(productListSelectLine.snp.trailing).offset(Constraint.tabSpacing)
+            $0.top.bottom.equalToSuperview()
+        }
+
+        operationInfoButton.snp.makeConstraints {
+            $0.leading.equalTo(reviewButton.snp.trailing).offset(Constraint.tabSpacing * 2)
             $0.top.bottom.equalToSuperview()
         }
 
@@ -126,18 +182,15 @@ final class StoreDetailHeaderView: UICollectionReusableView {
         }
 
         reviewSelectLine.layer.zPosition = Constraint.selectLineZPosition
-    }
 
-    @objc
-    private func productListButtonTapped(_ sender: UIButton) {
-        productListButtonTapped?()
-        mode = .productLists
-    }
+        operationInfoSelectLine.snp.makeConstraints {
+            $0.centerX.equalTo(operationInfoButton)
+            $0.width.equalTo(operationInfoButton).multipliedBy(Constraint.selectLineMultiplier)
+            $0.centerY.equalTo(divisionLine)
+            $0.height.equalTo(Constraint.selectLineHeight)
+        }
 
-    @objc
-    private func reviewButtonTapped(_ sender: UIButton) {
-        reviewButtonTapped?()
-        mode = .reviews
+        operationInfoSelectLine.layer.zPosition = Constraint.selectLineZPosition
     }
 }
 

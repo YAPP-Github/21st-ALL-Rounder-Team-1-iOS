@@ -84,6 +84,9 @@ final class StoreDetailViewController: UIViewController {
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: StoreDetailHeaderView.reuseIdentifier)
 
+        collectionView.register(OperationInfoCell.self,
+                                forCellWithReuseIdentifier: OperationInfoCell.reuseIdentifier)
+
         collectionView.dataSource = self
         collectionView.delegate = self
 
@@ -124,14 +127,15 @@ extension StoreDetailViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if viewModel.mode == .productLists {
+        switch viewModel.mode {
+        case .productLists:
             switch section {
             case StoreDetailViewModel.ProductListSection.productList.rawValue:
                 return viewModel.productListViewModel.filteredProducts.count
             default:
                 return 1
             }
-        } else {
+        case .reviews:
             switch section {
             case StoreDetailViewModel.ReviewSection.moveToWriteReview.rawValue:
                 return 1
@@ -149,6 +153,8 @@ extension StoreDetailViewController: UICollectionViewDataSource {
             default:
                 return 0
             }
+        case .operationInfo:
+            return 1
         }
     }
 
@@ -180,7 +186,7 @@ extension StoreDetailViewController: UICollectionViewDataSource {
                 return cell
             }
             return cell
-        } else {
+        } else if viewModel.mode == .reviews {
             guard let reuseIdentifier = StoreDetailViewModel.ReviewSection(rawValue: indexPath.section)?.reuseIdentifier else {
                 return UICollectionViewCell()
             }
@@ -229,6 +235,10 @@ extension StoreDetailViewController: UICollectionViewDataSource {
             }
 
             return cell
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OperationInfoCell.reuseIdentifier, for: indexPath) as? OperationInfoCell else { return UICollectionViewCell() }
+            cell.setUpContents()
+            return cell
         }
     }
 
@@ -250,6 +260,12 @@ extension StoreDetailViewController: UICollectionViewDataSource {
                 collectionView.reloadData()
             }
         }
+        header.operationInfoButtonTapped = {
+            if self.viewModel.mode != .operationInfo {
+                self.viewModel.mode = .operationInfo
+                collectionView.reloadData()
+            }
+        }
 
         return header
     }
@@ -266,7 +282,7 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
                 return .zero
             }
             return CGSize(width: width, height: height)
-        } else {
+        } else if viewModel.mode == .reviews {
             guard let height = StoreDetailViewModel
                 .ReviewSection(rawValue: indexPath.section)?.cellHeight else { return .zero }
             if StoreDetailViewModel.ReviewSection(rawValue: indexPath.section) == .detailReviews {
@@ -283,6 +299,8 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
                 return CGSize(width: width, height: height)
             }
             return CGSize(width: width, height: height)
+        } else {
+            return CGSize(width: width, height: 400)
         }
     }
 

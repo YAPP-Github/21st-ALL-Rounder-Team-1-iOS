@@ -33,6 +33,7 @@ extension StoreDetailViewModel {
     enum Mode {
         case productLists
         case reviews
+        case operationInfo
 
         var name: String {
             switch self {
@@ -40,6 +41,8 @@ extension StoreDetailViewModel {
                 return "판매상품"
             case .reviews:
                 return "리뷰"
+            case .operationInfo:
+                return "운영정보"
             }
         }
 
@@ -49,6 +52,8 @@ extension StoreDetailViewModel {
                 return ProductListSection.allCases.count
             case .reviews:
                 return ReviewSection.allCases.count
+            case .operationInfo:
+                return 1
             }
         }
     }
