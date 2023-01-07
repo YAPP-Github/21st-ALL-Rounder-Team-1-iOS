@@ -278,6 +278,9 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
                 )
                 let heightThatFits = dummyCellForCalculateheight.systemLayoutSizeFitting(CGSize(width: width, height: height)).height
                 return CGSize(width: width, height: heightThatFits)
+            } else if StoreDetailViewModel.ReviewSection(rawValue: indexPath.section) == .votedTag {
+                let height: CGFloat = viewModel.votedTagViewModel.totalVoteCount < 10 ? 190 : 300
+                return CGSize(width: width, height: height)
             }
             return CGSize(width: width, height: height)
         }

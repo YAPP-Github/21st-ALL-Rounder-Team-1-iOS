@@ -13,11 +13,32 @@ final class MoveToWriteReviewCell: UICollectionViewCell {
 
     var moveToWriteReview: (() -> Void)?
 
+    private let backgroundColorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Asset.Colors.primary1.color
+        view.layer.cornerRadius = 4
+        view.clipsToBounds = true
+        return view
+    }()
+
+    private let didVisitedLabel: UILabel = {
+        let label = UILabel()
+        label.text = "매장에 방문한 적이 있다면?"
+        label.textColor = Asset.Colors.gray5.color
+        label.font = UIFont.font(style: .bodySmall)
+        return label
+    }()
+
     private let moveToWritingReviewButton: UIButton = {
         let button = UIButton()
-        button.setTitle("리뷰 남기기 ✎", for: .normal)
-        button.titleLabel?.font = UIFont.font(style: .buttonLarge)
-        button.setTitleColor(Asset.Colors.primary3.color, for: .normal)
+        button.setTitle("리뷰 쓰기", for: .normal)
+        button.titleLabel?.font = UIFont.font(style: .buttonMedium)
+        button.setTitleColor(Asset.Colors.gray6.color, for: .normal)
+        button.setImage(Asset.Images.iconEdit.image, for: .normal)
+        button.tintColor = Asset.Colors.gray6.color
+        button.semanticContentAttribute = .forceRightToLeft
+        button.imageView?.contentMode = .scaleAspectFit
+        button.imageEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
         return button
     }()
 
@@ -29,19 +50,32 @@ final class MoveToWriteReviewCell: UICollectionViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
 
     private func setUpContentView() {
-        contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = Asset.Colors.primary3.color.cgColor
         contentView.layer.cornerRadius = 6
     }
 
     private func layout() {
-        contentView.addSubview(moveToWritingReviewButton)
-        moveToWritingReviewButton.snp.makeConstraints { button in
-            button.edges.equalToSuperview()
+        contentView.addSubview(backgroundColorView)
+
+        [didVisitedLabel, moveToWritingReviewButton].forEach {
+            backgroundColorView.addSubview($0)
+        }
+
+        backgroundColorView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+
+        didVisitedLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(25)
+            $0.top.bottom.equalToSuperview().inset(8)
+        }
+
+        moveToWritingReviewButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(20)
+            $0.top.bottom.equalToSuperview().inset(8)
         }
     }
 

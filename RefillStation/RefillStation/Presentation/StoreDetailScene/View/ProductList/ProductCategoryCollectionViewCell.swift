@@ -52,7 +52,7 @@ final class ProductCategoryCollectionViewCell: UICollectionViewCell {
     }
 
     private func setUpDeselected() {
-        layer.cornerRadius = 25
+        layer.cornerRadius = 16
         layer.borderColor = Asset.Colors.gray4.color.cgColor
         categoryLabel.textColor = Asset.Colors.gray4.color
         layer.borderWidth = 1
@@ -60,7 +60,7 @@ final class ProductCategoryCollectionViewCell: UICollectionViewCell {
     }
 
     private func setUpSelected() {
-        layer.cornerRadius = 25
+        layer.cornerRadius = 16
         layer.borderColor = Asset.Colors.primary3.color.cgColor
         layer.borderWidth = 1
         categoryLabel.textColor = Asset.Colors.primary3.color
