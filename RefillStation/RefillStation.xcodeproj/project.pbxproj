@@ -55,6 +55,7 @@
 		32E9A55D292E4F37000072EE /* VotedTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A55C292E4F37000072EE /* VotedTagCell.swift */; };
 		32E9A561292E68CF000072EE /* DetailReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A560292E68CF000072EE /* DetailReview.swift */; };
 		32E9A565292E704A000072EE /* DetailReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A564292E704A000072EE /* DetailReviewViewModel.swift */; };
+		32ED747A2969441D007EA791 /* OperationInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32ED74792969441D007EA791 /* OperationInfoCell.swift */; };
 		32F2D9D529518F5900131EB1 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F2D9D429518F5900131EB1 /* ProductCell.swift */; };
 		FC1FD6A12962C4AF00869F5F /* RegisterReviewPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1FD6A02962C4AF00869F5F /* RegisterReviewPopUpViewController.swift */; };
 		FC3EBDF32932872100A9C1F9 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EBDF22932872100A9C1F9 /* Product.swift */; };
@@ -177,6 +178,7 @@
 		32E9A55C292E4F37000072EE /* VotedTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotedTagCell.swift; sourceTree = "<group>"; };
 		32E9A560292E68CF000072EE /* DetailReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReview.swift; sourceTree = "<group>"; };
 		32E9A564292E704A000072EE /* DetailReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReviewViewModel.swift; sourceTree = "<group>"; };
+		32ED74792969441D007EA791 /* OperationInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationInfoCell.swift; sourceTree = "<group>"; };
 		32F2D9B02951862E00131EB1 /* StoreDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailViewController.swift; sourceTree = "<group>"; };
 		32F2D9B22951864700131EB1 /* StoreDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailViewModel.swift; sourceTree = "<group>"; };
 		32F2D9D429518F5900131EB1 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 				3266A8BF2953C98800B158A7 /* TabBarHeader */,
 				3295574C29519DBC00F5AB53 /* ProductList */,
 				3295574D29519DCA00F5AB53 /* Review */,
+				32ED74792969441D007EA791 /* OperationInfoCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -970,6 +973,7 @@
 				325985ED294C52ED00D26A37 /* OnboardingViewModelCoordinatorDelegate.swift in Sources */,
 				FCE00A75294C917B00B5C05F /* FetchProductListUseCase.swift in Sources */,
 				32A1FC0A293507D1009DF915 /* FirstReviewRequestCell.swift in Sources */,
+				32ED747A2969441D007EA791 /* OperationInfoCell.swift in Sources */,
 				FCE00A982950E04300B5C05F /* Tag.swift in Sources */,
 				325985F7294C544400D26A37 /* HomeSceneCoordinator.swift in Sources */,
 				FC1FD6A12962C4AF00869F5F /* RegisterReviewPopUpViewController.swift in Sources */,
