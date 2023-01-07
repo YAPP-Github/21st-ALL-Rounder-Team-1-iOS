@@ -10,6 +10,20 @@ import UIKit
 final class StoreDetailHeaderView: UICollectionReusableView {
     static let reuseIdentifier = "storeDetailHeaderView"
 
+    private var currentMode: StoreDetailViewModel.Mode = .productLists {
+        didSet {
+            removeSelected()
+            switch currentMode {
+            case .productLists:
+                setTabForProductList()
+            case .reviews:
+                setTabForReview()
+            case .operationInfo:
+                setTabForOperationInfo()
+            }
+        }
+    }
+
     private let productListButton: UIButton = {
         let button = UIButton()
         button.setTitle("판매상품", for: .normal)
@@ -70,14 +84,13 @@ final class StoreDetailHeaderView: UICollectionReusableView {
         }
     }
 
-    var productListButtonTapped: (() -> Void)?
-    var reviewButtonTapped: (() -> Void)?
-    var operationInfoButtonTapped: (() -> Void)?
+    var headerTapped: ((StoreDetailViewModel.Mode) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
         addButtonTargets()
+        removeSelected()
         setTabForProductList()
     }
 
@@ -85,56 +98,53 @@ final class StoreDetailHeaderView: UICollectionReusableView {
         super.init(coder: coder)
     }
 
-    private func setTabForProductList() {
-        productListSelectLine.isHidden = false
+    private func removeSelected() {
+        productListSelectLine.isHidden = true
         reviewSelectLine.isHidden = true
         operationInfoSelectLine.isHidden = true
-        productListButton.titleLabel?.font = UIFont.font(style: .titleMedium)
+        productListButton.titleLabel?.font = UIFont.font(style: .bodyLarge)
         reviewButton.titleLabel?.font = UIFont.font(style: .bodyLarge)
         operationInfoButton.titleLabel?.font = UIFont.font(style: .bodyLarge)
-        productListButton.setTitleColor(Asset.Colors.gray7.color, for: .normal)
+        productListButton.setTitleColor(Asset.Colors.gray4.color, for: .normal)
         reviewButton.setTitleColor(Asset.Colors.gray4.color, for: .normal)
         operationInfoButton.setTitleColor(Asset.Colors.gray4.color, for: .normal)
+    }
+
+    private func setTabForProductList() {
+        productListSelectLine.isHidden = false
+        productListButton.titleLabel?.font = UIFont.font(style: .titleMedium)
+        productListButton.setTitleColor(Asset.Colors.gray7.color, for: .normal)
     }
 
     private func setTabForReview() {
-        productListSelectLine.isHidden = true
         reviewSelectLine.isHidden = false
-        operationInfoSelectLine.isHidden = true
-        productListButton.titleLabel?.font = UIFont.font(style: .titleMedium)
         reviewButton.titleLabel?.font = UIFont.font(style: .bodyLarge)
-        operationInfoButton.titleLabel?.font = UIFont.font(style: .titleMedium)
-        productListButton.setTitleColor(Asset.Colors.gray4.color, for: .normal)
         reviewButton.setTitleColor(Asset.Colors.gray7.color, for: .normal)
-        operationInfoButton.setTitleColor(Asset.Colors.gray4.color, for: .normal)
     }
 
     private func setTabForOperationInfo() {
-        productListSelectLine.isHidden = true
-        reviewSelectLine.isHidden = true
         operationInfoSelectLine.isHidden = false
-        productListButton.titleLabel?.font = UIFont.font(style: .bodyLarge)
-        reviewButton.titleLabel?.font = UIFont.font(style: .bodyLarge)
         operationInfoButton.titleLabel?.font = UIFont.font(style: .titleMedium)
-        productListButton.setTitleColor(Asset.Colors.gray4.color, for: .normal)
-        reviewButton.setTitleColor(Asset.Colors.gray4.color, for: .normal)
         operationInfoButton.setTitleColor(Asset.Colors.gray7.color, for: .normal)
     }
 
     private func addButtonTargets() {
         productListButton.addAction(UIAction { [weak self] _ in
-            self?.productListButtonTapped?()
-            self?.mode = .productLists
+            guard let self = self else { return }
+            self.currentMode = .productLists
+            self.headerTapped?(self.currentMode)
         }, for: .touchUpInside)
 
         reviewButton.addAction(UIAction { [weak self] _ in
-            self?.reviewButtonTapped?()
-            self?.mode = .reviews
+            guard let self = self else { return }
+            self.currentMode = .reviews
+            self.headerTapped?(self.currentMode)
         }, for: .touchUpInside)
 
         operationInfoButton.addAction(UIAction { [weak self] _ in
-            self?.operationInfoButtonTapped?()
-            self?.mode = .operationInfo
+            guard let self = self else { return }
+            self.currentMode = .operationInfo
+            self.headerTapped?(self.currentMode)
         }, for: .touchUpInside)
     }
 

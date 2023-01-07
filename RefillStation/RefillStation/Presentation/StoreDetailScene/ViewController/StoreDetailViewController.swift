@@ -248,21 +248,9 @@ extension StoreDetailViewController: UICollectionViewDataSource {
             ofKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: StoreDetailHeaderView.reuseIdentifier,
             for: indexPath) as? StoreDetailHeaderView else { return UICollectionReusableView() }
-        header.productListButtonTapped = {
-            if self.viewModel.mode != .productLists {
-                self.viewModel.mode = .productLists
-                collectionView.reloadData()
-            }
-        }
-        header.reviewButtonTapped = {
-            if self.viewModel.mode != .reviews {
-                self.viewModel.mode = .reviews
-                collectionView.reloadData()
-            }
-        }
-        header.operationInfoButtonTapped = {
-            if self.viewModel.mode != .operationInfo {
-                self.viewModel.mode = .operationInfo
+        header.headerTapped = { [weak self] mode in
+            if self?.viewModel.mode != mode {
+                self?.viewModel.mode = mode
                 collectionView.reloadData()
             }
         }
