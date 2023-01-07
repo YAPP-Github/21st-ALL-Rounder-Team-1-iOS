@@ -13,6 +13,7 @@ final class VotedCountLabelCell: UICollectionViewCell {
 
     private let titleLabel: UILabel = {
         let label = UILabel()
+        label.text = "이 매장의 좋은점"
         label.font = UIFont.font(style: .titleMedium)
         return label
     }()
@@ -32,22 +33,33 @@ final class VotedCountLabelCell: UICollectionViewCell {
         return label
     }()
 
+    private let profileGroupImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Asset.Images.profileImageGroup.image
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
 
     func setUpContents(totalVote: Int) {
-        titleLabel.text = "이 매장의 좋은 점은"
-        votedCountLabel.text = "\(totalVote)명 "
+        if totalVote < 10 {
+            profileGroupImageView.isHidden = true
+            votedCountLabel.text = "현재까지 \(totalVote)명 "
+        } else {
+            votedCountLabel.text = "\(totalVote)명 "
+        }
     }
 
     private func layout() {
-        [titleLabel, votedCountLabel, participateLabel].forEach { contentView.addSubview($0) }
+        [titleLabel, votedCountLabel, participateLabel, profileGroupImageView].forEach { contentView.addSubview($0) }
 
         titleLabel.snp.makeConstraints { title in
             title.leading.top.bottom.equalToSuperview()
@@ -60,6 +72,11 @@ final class VotedCountLabelCell: UICollectionViewCell {
         votedCountLabel.snp.makeConstraints { count in
             count.trailing.equalTo(participateLabel.snp.leading)
             count.top.bottom.equalToSuperview()
+        }
+
+        profileGroupImageView.snp.makeConstraints {
+            $0.trailing.equalTo(votedCountLabel.snp.leading).offset(-4)
+            $0.top.bottom.equalToSuperview()
         }
     }
 }
