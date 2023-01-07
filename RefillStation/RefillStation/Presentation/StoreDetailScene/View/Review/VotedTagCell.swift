@@ -47,16 +47,16 @@ final class VotedTagCell: UICollectionViewCell {
 
     func setUpContents(tagReviews: [TagReview]) {
         if tagReviews.isEmpty {
-            [firstRankView, otherClassStackView].forEach { $0.isHidden = true }
+            [firstRankView, divisionLine, otherClassStackView].forEach { $0.isHidden = true }
             return
-        }
-
-        if tagReviews.count < 10 {
-
         } else {
             guard let first = tagReviews.first else { return }
             firstRankView.setUpContents(tagReview: first)
+        }
 
+        if tagReviews.count < 10 {
+            [divisionLine, otherClassStackView].forEach { $0.isHidden = true }
+        } else {
             for index in 1..<4 {
                 let other = OtherRankView()
                 other.setUpContents(tagReview: tagReviews[index], rank: index + 1)
@@ -74,12 +74,14 @@ final class VotedTagCell: UICollectionViewCell {
         }
 
         divisionLine.snp.makeConstraints {
+            $0.top.equalTo(firstRankView.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().inset(24)
+            $0.height.equalTo(1)
         }
 
         otherClassStackView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(24)
-            $0.top.equalTo(firstRankView.snp.bottom).offset(18)
+            $0.top.equalTo(divisionLine.snp.bottom).offset(18)
             $0.bottom.equalToSuperview().inset(28)
         }
     }
