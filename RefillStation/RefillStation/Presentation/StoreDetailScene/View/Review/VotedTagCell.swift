@@ -111,7 +111,7 @@ final class VotedTagCell: UICollectionViewCell {
         labelView.layer.shadowRadius = 6
         labelView.layer.shadowColor = UIColor.black.cgColor
         labelView.layer.shadowOffset = CGSize(width: 0, height: 3)
-        labelView.layer.shadowOpacity = 0.5
+        labelView.layer.shadowOpacity = 0.25
         labelView.layer.masksToBounds = false
 
         [visualEffectView, labelView].forEach { contentView.addSubview($0) }
