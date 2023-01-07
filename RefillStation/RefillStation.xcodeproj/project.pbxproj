@@ -78,6 +78,7 @@
 		FC84FAC9293B640300428AAA /* RequestRegionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC84FAC8293B640300428AAA /* RequestRegionViewController.swift */; };
 		FC84FACC293B944900428AAA /* RequestRegionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC84FACB293B944900428AAA /* RequestRegionViewModel.swift */; };
 		FC90448C2965E2E500B43BB9 /* PumpTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90448B2965E2E500B43BB9 /* PumpTagView.swift */; };
+		FC90448E29671FC900B43BB9 /* LevelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90448D29671FC900B43BB9 /* LevelCollectionViewCell.swift */; };
 		FCB6667D29346285004F38B0 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = FCB6667C29346285004F38B0 /* Tabman */; };
 		FCE00A67294C5ADF00B5C05F /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A66294C5ADF00B5C05F /* CoreDataStorage.swift */; };
 		FCE00A6A294C5B3400B5C05F /* TagResponseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A69294C5B3400B5C05F /* TagResponseStorage.swift */; };
@@ -203,6 +204,7 @@
 		FC84FAC8293B640300428AAA /* RequestRegionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestRegionViewController.swift; sourceTree = "<group>"; };
 		FC84FACB293B944900428AAA /* RequestRegionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestRegionViewModel.swift; sourceTree = "<group>"; };
 		FC90448B2965E2E500B43BB9 /* PumpTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpTagView.swift; sourceTree = "<group>"; };
+		FC90448D29671FC900B43BB9 /* LevelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelCollectionViewCell.swift; sourceTree = "<group>"; };
 		FCE00A66294C5ADF00B5C05F /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
 		FCE00A69294C5B3400B5C05F /* TagResponseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagResponseStorage.swift; sourceTree = "<group>"; };
 		FCE00A6C294C5D5F00B5C05F /* CoreDataTagResponseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTagResponseStorage.swift; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 				FC84FAC6293B63CD00428AAA /* RequestRegionScene */,
 				FC7D3523292EC1C500335AAB /* StoreDetailScene */,
 				FC60D80C2962C33300C676A6 /* RegisterReviewScene */,
+				FC9044842965DDBE00B43BB9 /* UserLevelScene */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -597,6 +600,22 @@
 				FC84FACB293B944900428AAA /* RequestRegionViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FC9044842965DDBE00B43BB9 /* UserLevelScene */ = {
+			isa = PBXGroup;
+			children = (
+				FC9044852965DFB400B43BB9 /* View */,
+			);
+			path = UserLevelScene;
+			sourceTree = "<group>";
+		};
+		FC9044852965DFB400B43BB9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FC90448D29671FC900B43BB9 /* LevelCollectionViewCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		FCE00A5E294C588A00B5C05F /* UseCases */ = {
@@ -962,6 +981,7 @@
 				FCE00A9C2950E1C700B5C05F /* Review.swift in Sources */,
 				FCEE102F2934CCB8002E629D /* Fonts.swift in Sources */,
 				FC3EBDF32932872100A9C1F9 /* Product.swift in Sources */,
+				FC90448E29671FC900B43BB9 /* LevelCollectionViewCell.swift in Sources */,
 				FCE00A7B294C91A200B5C05F /* RecommendStoreUseCase.swift in Sources */,
 				32E9A561292E68CF000072EE /* DetailReview.swift in Sources */,
 				325985E9294C527000D26A37 /* DIContainer.swift in Sources */,
