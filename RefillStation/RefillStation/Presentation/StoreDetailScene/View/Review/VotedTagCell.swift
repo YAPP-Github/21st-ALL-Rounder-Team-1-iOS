@@ -56,6 +56,7 @@ final class VotedTagCell: UICollectionViewCell {
 
         if tagReviews.count < 10 {
             [divisionLine, otherClassStackView].forEach { $0.isHidden = true }
+            makeBlurPlaceholder()
         } else {
             for index in 1..<4 {
                 let other = OtherRankView()
@@ -89,6 +90,44 @@ final class VotedTagCell: UICollectionViewCell {
     private func setUpContentView() {
         contentView.backgroundColor = Asset.Colors.gray0.color
         contentView.layer.cornerRadius = 16
+    }
+
+    private func makeBlurPlaceholder() {
+        let blurEffect = UIBlurEffect(style: .extraLight)
+        let visualEffectView = UIVisualEffectView(effect: blurEffect)
+        visualEffectView.layer.cornerRadius = 16
+        visualEffectView.clipsToBounds = true
+
+        let label = UILabel()
+        label.numberOfLines = 2
+        label.textAlignment = .center
+        label.text = "10명 이상 참여하시면 \n 공개됩니다!"
+        label.font = UIFont.font(style: .bodyMedium)
+
+        let labelView = UIView()
+        labelView.addSubview(label)
+        labelView.layer.cornerRadius = 6
+        labelView.backgroundColor = .white
+        labelView.layer.shadowRadius = 6
+        labelView.layer.shadowColor = UIColor.black.cgColor
+        labelView.layer.shadowOffset = CGSize(width: 0, height: 3)
+        labelView.layer.shadowOpacity = 0.5
+        labelView.layer.masksToBounds = false
+
+        [visualEffectView, labelView].forEach { contentView.addSubview($0) }
+        visualEffectView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+
+        labelView.snp.makeConstraints {
+            $0.centerX.centerY.equalToSuperview()
+            $0.width.equalTo(230)
+            $0.height.equalTo(110)
+        }
+
+        label.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
 }
 
