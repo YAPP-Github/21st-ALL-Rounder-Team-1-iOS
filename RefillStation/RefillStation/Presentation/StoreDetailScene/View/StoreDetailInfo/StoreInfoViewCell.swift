@@ -1,15 +1,14 @@
 //
-//  StoreDetailInfoView.swift
+//  StoreInfoViewCell.swift
 //  RefillStation
 //
-//  Created by kong on 2022/11/24.
+//  Created by 천수현 on 2023/01/07.
 //
 
 import UIKit
-import SnapKit
 
-final class StoreDetailInfoView: UIView {
-
+final class StoreInfoViewCell: UICollectionViewCell {
+    static let reuseIdentifier = "storeInfoViewCell"
     // MARK: - UI Components
     private let storeImageView: UIImageView = {
         let imageView = UIImageView()
@@ -75,25 +74,26 @@ final class StoreDetailInfoView: UIView {
     }()
 
     // MARK: - Properties
-    private var viewModel: StoreDetailInfoViewModel
+    var viewModel: StoreDetailInfoViewModel?
+    weak var delegate: StoreDetailInfoStackViewDelegate?
 
     // MARK: - Initialization
-    init(viewModel: StoreDetailInfoViewModel, storeDetailInfoStackViewDelegate: StoreDetailInfoStackViewDelegate) {
-        self.viewModel = viewModel
+    override init(frame: CGRect) {
         super.init(frame: .zero)
         backgroundColor = .white
-        bind()
         layout()
-        storeInfoStackView.delegate = storeDetailInfoStackViewDelegate
     }
 
     required init?(coder: NSCoder) {
-        self.viewModel = StoreDetailInfoViewModel()
         super.init(coder: coder)
     }
 
-    // MARK: - Default Setting Methods
-    private func bind() {
+    func setUpContents(
+        viewModel: StoreDetailInfoViewModel,
+        delegate: StoreDetailInfoStackViewDelegate
+    ) {
+        self.viewModel = viewModel
+        self.delegate = delegate
         storeNameLabel.text = viewModel.name
         storeAddressLabel.text = viewModel.address
     }
@@ -110,7 +110,7 @@ final class StoreDetailInfoView: UIView {
 
         storeInfoOuterView.snp.makeConstraints {
             $0.top.equalTo(storeImageView.snp.bottom).offset(-10)
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.trailing.bottom.equalToSuperview()
         }
 
         storeNameLabel.snp.makeConstraints {
