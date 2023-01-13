@@ -108,6 +108,25 @@ final class StoreDetailViewController: UIViewController {
             $0.leading.equalTo(view.safeAreaLayoutGuide).inset(16)
         }
     }
+
+    private func storeDetailButtonTapped(buttonType: StoreDetailInfoViewModel.ButtonType) {
+        switch buttonType {
+        case .phone:
+            let phoneNumber = viewModel.storeDetailInfoViewModel.phoneNumber
+            if let url = URL(string: "tel://\(phoneNumber)"),
+               UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        case .link:
+            let phoneNumber = viewModel.storeDetailInfoViewModel.phoneNumber
+            if let url = URL(string: "tel://\(phoneNumber)"),
+               UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        case .like:
+            break
+        }
+    }
 }
 
 extension StoreDetailViewController: UICollectionViewDataSource {
@@ -135,31 +154,19 @@ extension StoreDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StoreInfoViewCell.reuseIdentifier, for: indexPath) as? StoreInfoViewCell else { return UICollectionViewCell() }
-            cell.setUpContents(viewModel: viewModel.storeDetailInfoViewModel,
-                               delegate: self)
+            cell.setUpContents(storeName: viewModel.storeDetailInfoViewModel.name,
+                               storeAddress: viewModel.storeDetailInfoViewModel.address)
+            cell.storeButtonTapped = { buttonType in
+                self.storeDetailButtonTapped(buttonType: buttonType)
+            }
+
             return cell
         }
         if viewModel.mode == .productLists {
             let reuseIdentifier = viewModel.productListSection(for: indexPath).reuseIdentifier
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
             if let cell = cell as? ProductCategoriesCell {
-//                var categories = [ProductCategory]()
-//                viewModel.productListViewModel.products.forEach {
-//                    if !categories.contains($0.category) { categories.append($0.category) }
-//                }
                 cell.setUpContents2(viewModel: viewModel.productListViewModel)
-//                if cell.categories == nil {
-//                    cell.setUpContents(categories: [ProductCategory.all] + categories)
-//                }
-//                cell.categoryButtonTapped = { [weak self] category in
-//                    guard let self = self else { return }
-//                    self.viewModel.productListViewModel.categoryButtonDidTapped(category: category)
-//                    self.collectionView.reloadItems(
-//                        at: (2..<2 + self.viewModel.productListViewModel.filteredProducts.count).map {
-//                            return IndexPath(row: $0, section: 1)
-//                        }
-//                    )
-//                }
             }
             if let cell = cell as? ProductListHeaderCell {
                 cell.setUpContents(productsCount: viewModel.productListViewModel.products.count)
@@ -254,31 +261,8 @@ extension StoreDetailViewController: UICollectionViewDataSource {
     }
 }
 
-// MARK: - StoreDetailInfoStackViewDelegate
-extension StoreDetailViewController: StoreDetailInfoStackViewDelegate {
-    func callButtonTapped() {
-        let phoneNumber = viewModel.storeDetailInfoViewModel.phoneNumber
-        if let url = URL(string: "tel://\(phoneNumber)"),
-           UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }
-    }
-
-    func storeLinkButtonTapped() {
-        if let url = viewModel.storeDetailInfoViewModel.storeLink,
-           UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url)
-        }
-    }
-
-    func recommendButtonTapped() {
-        // TODO: viewModel에서 UseCase 통해 추천 올리기
-    }
-}
-
 // MARK: - Constraints Enum
 extension StoreDetailViewController {
-
     enum Constraints {
         static let outerCollectionViewInset: CGFloat = 16
         static let tabBarHeight: CGFloat = 50

@@ -8,8 +8,11 @@
 import UIKit
 
 final class StoreInfoViewCell: UICollectionViewCell {
-    static let reuseIdentifier = "storeInfoViewCell"
+
+    static let reuseIdentifier = String(describing: StoreInfoViewCell.self)
+
     // MARK: - UI Components
+
     private let storeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Asset.Images.MockData.earthShop.image
@@ -74,28 +77,35 @@ final class StoreInfoViewCell: UICollectionViewCell {
     }()
 
     // MARK: - Properties
-    var viewModel: StoreDetailInfoViewModel?
-    weak var delegate: StoreDetailInfoStackViewDelegate? // event 정의
+
+    var storeButtonTapped: ((StoreDetailInfoViewModel.ButtonType) -> Void)?
 
     // MARK: - Initialization
+
     override init(frame: CGRect) {
         super.init(frame: .zero)
         backgroundColor = .white
         layout()
+        addButtonActions()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
-    func setUpContents(
-        viewModel: StoreDetailInfoViewModel,
-        delegate: StoreDetailInfoStackViewDelegate
-    ) {
-        self.viewModel = viewModel
-        self.delegate = delegate
-        storeNameLabel.text = viewModel.name
-        storeAddressLabel.text = viewModel.address
+    func setUpContents(storeName: String, storeAddress: String) {
+        storeNameLabel.text = storeName
+        storeAddressLabel.text = storeAddress
+    }
+
+    private func addButtonActions() {
+        [storeInfoStackView.callButton,
+         storeInfoStackView.storeLinkButton,
+         storeInfoStackView.recommendedButton].forEach { storeButton in
+            storeButton.addAction(UIAction { _ in
+                self.storeButtonTapped?(storeButton.type)
+            }, for: .touchUpInside)
+        }
     }
 
     private func layout() {
