@@ -10,26 +10,38 @@ import SnapKit
 
 final class RegionRequestHeaderView: UICollectionReusableView {
 
-    static let reuseIdentifier = "regionRequestHeaderView"
-
+    static let reuseIdentifier = String.init(describing: RegionRequestHeaderView.self)
     var moveToRegionRequest: (() -> Void)?
 
     // MARK: - UIComponents
+    private let locationIcon: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Asset.Images.iconPosition.image
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
+    private let currentLocationLabel: UILabel = {
+        let label = UILabel()
+        label.font = .font(style: .captionLarge)
+        label.textColor = Asset.Colors.gray5.color
+        label.text = "서울 마포구 월드컵로 212"
+        return label
+    }()
     private let guidanceLabel: UILabel = {
         let label = UILabel()
         label.text = "현재 위치하고 계신 곳은\n아직 서비스 지역이 아니에요😭"
         label.font = .font(style: .titleMedium)
         label.textAlignment = .center
         label.numberOfLines = 0
+        label.sizeToFit()
         return label
     }()
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = Asset.Images.regionImage.image
+        imageView.image = Asset.Images.imgServiceArea.image
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-
     private lazy var requestButton: UIButton = {
         let button = UIButton()
         button.setTitle("서비스 지역 신청하러 가기", for: .normal)
@@ -66,13 +78,23 @@ final class RegionRequestHeaderView: UICollectionReusableView {
 
     // MARK: - Default Setting Methods
     private func layout() {
-        [guidanceLabel, imageView, requestButton, dividerView, headerTitleLabel].forEach { addSubview($0) }
+        [locationIcon, currentLocationLabel, guidanceLabel, imageView, requestButton, dividerView, headerTitleLabel].forEach { addSubview($0) }
+        locationIcon.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(66)
+            $0.leading.equalToSuperview().inset(16)
+            $0.width.height.equalTo(24)
+        }
+        currentLocationLabel.snp.makeConstraints {
+            $0.leading.equalTo(locationIcon.snp.trailing).offset(6)
+            $0.centerY.equalTo(locationIcon)
+        }
         guidanceLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(24)
+            $0.top.equalTo(locationIcon.snp.bottom).offset(24)
             $0.centerX.equalToSuperview()
         }
         imageView.snp.makeConstraints {
             $0.top.equalTo(guidanceLabel.snp.bottom).offset(8)
+            $0.height.equalTo(134)
             $0.centerX.equalToSuperview()
         }
         requestButton.snp.makeConstraints {
