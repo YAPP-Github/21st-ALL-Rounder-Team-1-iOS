@@ -28,7 +28,8 @@ final class StoreDetailDIContainer: DIContainer {
             detailReviewViewModel: makeDetailReviewViewModel(),
             votedTagViewModel: makeVotedTagViewModel(),
             storeDetailInfoViewModel: makeStoreDetailInfoViewModel(),
-            productListViewModel: makeProductListViewModel()
+            productListViewModel: makeProductListViewModel(),
+            operationInfoViewModel: makeOperationInfoViewModel()
         )
     }
 
@@ -46,5 +47,9 @@ final class StoreDetailDIContainer: DIContainer {
 
     func makeProductListViewModel() -> ProductListViewModel {
         return ProductListViewModel(fetchProductListUseCase: makeFetchProductListUseCase())
+    }
+
+    func makeOperationInfoViewModel() -> OperationInfoViewModel {
+        return OperationInfoViewModel()
     }
 }

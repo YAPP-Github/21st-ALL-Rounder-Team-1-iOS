@@ -34,7 +34,8 @@ final class ProductListHeaderCell: UICollectionViewCell {
         contentView.addSubview(productsCountLabel)
 
         productsCountLabel.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalToSuperview().inset(16)
         }
     }
 }

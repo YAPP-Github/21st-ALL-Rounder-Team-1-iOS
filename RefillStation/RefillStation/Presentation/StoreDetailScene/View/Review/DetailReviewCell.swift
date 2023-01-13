@@ -110,11 +110,6 @@ final class DetailReviewCell: UICollectionViewCell {
         seeMoreButton.isHidden = shouldSeeMore
     }
 
-    func setUpImages(userImage: UIImage, reviewImage: UIImage) {
-        profileImageView.image = userImage
-        reviewImageView.image = reviewImage
-    }
-
     func setUpContents(detailReview: DetailReview) {
         self.detailReview = detailReview
         profileImageView.image = UIImage(systemName: "person")

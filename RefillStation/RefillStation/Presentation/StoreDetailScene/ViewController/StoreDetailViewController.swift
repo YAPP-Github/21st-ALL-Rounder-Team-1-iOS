@@ -11,10 +11,6 @@ final class StoreDetailViewController: UIViewController {
 
     private var viewModel: StoreDetailViewModel!
 
-    private lazy var storeDetailInfoView = StoreDetailInfoView(
-        viewModel: viewModel.storeDetailInfoViewModel,
-        storeDetailInfoStackViewDelegate: self)
-
     private lazy var backButton: UIButton = {
         let button = UIButton()
         button.tintColor = .white
@@ -27,9 +23,8 @@ final class StoreDetailViewController: UIViewController {
         return button
     }()
 
-    private let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout())
         return collectionView
     }()
 
@@ -48,6 +43,7 @@ final class StoreDetailViewController: UIViewController {
         setUpNavigationBar()
         setUpCollectionView()
         layout()
+        bind()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -58,6 +54,12 @@ final class StoreDetailViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
     }
 
+    private func bind() {
+        viewModel.reloadItemsAt = { [weak self] indexPaths in
+            self?.collectionView.reloadItems(at: indexPaths)
+        }
+    }
+
     private func setUpNavigationBar() {
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.backgroundColor = .clear
@@ -65,6 +67,9 @@ final class StoreDetailViewController: UIViewController {
     }
 
     private func setUpCollectionView() {
+        collectionView.register(StoreInfoViewCell.self,
+                                forCellWithReuseIdentifier: StoreInfoViewCell.reuseIdentifier)
+
         StoreDetailViewModel.ProductListSection.allCases.forEach {
             self.collectionView.register(
                 $0.cell,
@@ -86,31 +91,16 @@ final class StoreDetailViewController: UIViewController {
 
         collectionView.register(OperationInfoCell.self,
                                 forCellWithReuseIdentifier: OperationInfoCell.reuseIdentifier)
-
         collectionView.dataSource = self
-        collectionView.delegate = self
-
         collectionView.allowsSelection = false
-
         collectionView.showsVerticalScrollIndicator = false
-
-        collectionView.contentInset = UIEdgeInsets(
-            top: viewModel.storeDetailInfoViewHeight, left: 0, bottom: 0, right: 0
-        )
     }
 
     private func layout() {
-        [collectionView, storeDetailInfoView, backButton].forEach { view.addSubview($0) }
+        [collectionView, backButton].forEach { view.addSubview($0) }
 
         collectionView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalTo(view)
-            $0.top.equalTo(view)
-        }
-
-        storeDetailInfoView.snp.makeConstraints {
-            $0.top.equalTo(view)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(viewModel.storeDetailInfoViewHeight)
+            $0.top.leading.trailing.bottom.equalToSuperview()
         }
 
         backButton.snp.makeConstraints {
@@ -123,73 +113,64 @@ final class StoreDetailViewController: UIViewController {
 extension StoreDetailViewController: UICollectionViewDataSource {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return viewModel.mode.sectionCount
+        return 2
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 0 { return 1 }
         switch viewModel.mode {
         case .productLists:
-            switch section {
-            case StoreDetailViewModel.ProductListSection.productList.rawValue:
-                return viewModel.productListViewModel.filteredProducts.count
-            default:
-                return 1
-            }
+            return 2 + viewModel.productListViewModel.filteredProducts.count
         case .reviews:
-            switch section {
-            case StoreDetailViewModel.ReviewSection.moveToWriteReview.rawValue:
-                return 1
-            case StoreDetailViewModel.ReviewSection.firstReviewRequest.rawValue:
-                return viewModel.votedTagViewModel.totalVoteCount
-                + viewModel.detailReviewViewModel.detailReviews.count == 0 ? 1 : 0
-            case StoreDetailViewModel.ReviewSection.votedCount.rawValue:
-                return viewModel.votedTagViewModel.totalVoteCount == 0 ? 0 : 1
-            case StoreDetailViewModel.ReviewSection.votedTag.rawValue:
-                return viewModel.votedTagViewModel.totalVoteCount == 0 ? 0 : 1
-            case StoreDetailViewModel.ReviewSection.detailReviewCount.rawValue:
-                return viewModel.detailReviewViewModel.detailReviews.count == 0 ? 0 : 1
-            case StoreDetailViewModel.ReviewSection.detailReviews.rawValue:
-                return viewModel.detailReviewViewModel.detailReviews.count
-            default:
-                return 0
+            var reviewSectionItemCount = 1
+            if viewModel.votedTagViewModel.totalVoteCount != 0 {
+                reviewSectionItemCount = viewModel.withoutReviewCount + viewModel.detailReviewViewModel.detailReviews.count
             }
+            return reviewSectionItemCount
         case .operationInfo:
-            return 1
+            return viewModel.operationInfoViewModel.operationInfos.count
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if indexPath.section == 0 {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StoreInfoViewCell.reuseIdentifier, for: indexPath) as? StoreInfoViewCell else { return UICollectionViewCell() }
+            cell.setUpContents(viewModel: viewModel.storeDetailInfoViewModel,
+                               delegate: self)
+            return cell
+        }
         if viewModel.mode == .productLists {
-            guard let reuseIdentifier = StoreDetailViewModel
-                .ProductListSection(rawValue: indexPath.section)?.reuseIdentifier else {
-                return UICollectionViewCell()
-            }
+            let reuseIdentifier = viewModel.productListSection(for: indexPath).reuseIdentifier
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
             if let cell = cell as? ProductCategoriesCell {
-                var categories = [ProductCategory]()
-                viewModel.productListViewModel.products.forEach {
-                    if !categories.contains($0.category) { categories.append($0.category) }
-                }
-                cell.categoryButtonTapped = { [weak self] category in
-                    self?.viewModel.productListViewModel.categoryButtonDidTapped(category: category)
-                    self?.collectionView.reloadSections(
-                        IndexSet(integer: StoreDetailViewModel.ProductListSection.productList.rawValue)
-                    )
-                }
-                cell.setUpContents(categories: [ProductCategory.all] + categories)
+//                var categories = [ProductCategory]()
+//                viewModel.productListViewModel.products.forEach {
+//                    if !categories.contains($0.category) { categories.append($0.category) }
+//                }
+                cell.setUpContents2(viewModel: viewModel.productListViewModel)
+//                if cell.categories == nil {
+//                    cell.setUpContents(categories: [ProductCategory.all] + categories)
+//                }
+//                cell.categoryButtonTapped = { [weak self] category in
+//                    guard let self = self else { return }
+//                    self.viewModel.productListViewModel.categoryButtonDidTapped(category: category)
+//                    self.collectionView.reloadItems(
+//                        at: (2..<2 + self.viewModel.productListViewModel.filteredProducts.count).map {
+//                            return IndexPath(row: $0, section: 1)
+//                        }
+//                    )
+//                }
             }
             if let cell = cell as? ProductListHeaderCell {
                 cell.setUpContents(productsCount: viewModel.productListViewModel.products.count)
             }
             if let cell = cell as? ProductCell {
-                cell.setUpContents(product: viewModel.productListViewModel.filteredProducts[indexPath.row])
+                cell.setUpContents(product: viewModel.productListViewModel.filteredProducts[indexPath.row - 2])
                 return cell
             }
             return cell
         } else if viewModel.mode == .reviews {
-            guard let reuseIdentifier = StoreDetailViewModel.ReviewSection(rawValue: indexPath.section)?.reuseIdentifier else {
-                return UICollectionViewCell()
-            }
+            let reuseIdentifier = viewModel.reviewListSection(for: indexPath).reuseIdentifier
 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
 
@@ -219,7 +200,7 @@ extension StoreDetailViewController: UICollectionViewDataSource {
             }
 
             if let cell = cell as? DetailReviewCell {
-                cell.setUpContents(detailReview: viewModel.detailReviewViewModel.detailReviews[indexPath.row])
+                cell.setUpContents(detailReview: viewModel.detailReviewViewModel.detailReviews[indexPath.row - viewModel.withoutReviewCount])
 
                 cell.setUpSeeMore(
                     shouldSeeMore: viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath)
@@ -237,7 +218,17 @@ extension StoreDetailViewController: UICollectionViewDataSource {
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OperationInfoCell.reuseIdentifier, for: indexPath) as? OperationInfoCell else { return UICollectionViewCell() }
-            cell.setUpContents()
+
+            cell.setUpContents(operation: self.viewModel.operationInfoViewModel.operationInfos[indexPath.row], shouldShowSeeMore: true)
+
+            cell.setUpSeeMore(
+                shouldSeeMore: viewModel.operationInfoViewModel.seeMoreTappedIndexPaths.contains(indexPath)
+            )
+
+            cell.reloadCell = {
+                self.viewModel.operationInfoViewModel.seeMoreDidTapped(indexPath: indexPath)
+                collectionView.reloadItems(at: [indexPath])
+            }
             return cell
         }
     }
@@ -254,75 +245,12 @@ extension StoreDetailViewController: UICollectionViewDataSource {
                 collectionView.reloadData()
             }
         }
-
-        return header
-    }
-}
-
-extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width - 2 * Constraints.outerCollectionViewInset
-
-        if viewModel.mode == .productLists {
-            guard let height = StoreDetailViewModel
-                .ProductListSection(rawValue: indexPath.section)?.cellHeight else {
-                return .zero
-            }
-            return CGSize(width: width, height: height)
-        } else if viewModel.mode == .reviews {
-            guard let height = StoreDetailViewModel
-                .ReviewSection(rawValue: indexPath.section)?.cellHeight else { return .zero }
-            if StoreDetailViewModel.ReviewSection(rawValue: indexPath.section) == .detailReviews {
-                let dummyCellForCalculateheight = DetailReviewCell(frame: CGRect(origin: CGPoint(x: 0, y: 0),
-                                                                                 size: CGSize(width: width, height: height)))
-                dummyCellForCalculateheight.setUpContents(detailReview: viewModel.detailReviewViewModel.detailReviews[indexPath.row])
-                dummyCellForCalculateheight.setUpSeeMore(
-                    shouldSeeMore: viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath)
-                )
-                let heightThatFits = dummyCellForCalculateheight.systemLayoutSizeFitting(CGSize(width: width, height: height)).height
-                return CGSize(width: width, height: heightThatFits)
-            } else if StoreDetailViewModel.ReviewSection(rawValue: indexPath.section) == .votedTag {
-                let height: CGFloat = viewModel.votedTagViewModel.totalVoteCount < 10 ? 190 : 300
-                return CGSize(width: width, height: height)
-            }
-            return CGSize(width: width, height: height)
+        if indexPath.section == 1 {
+            header.setUpContents()
         } else {
-            return CGSize(width: width, height: 400)
+            header.removeContents()
         }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        let inset = Constraints.outerCollectionViewInset
-        return UIEdgeInsets(top: inset, left: inset, bottom: 0, right: inset)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        guard section == 0 else {
-            return .zero
-        }
-        return CGSize(width: collectionView.frame.width, height: Constraints.tabBarHeight)
-    }
-}
-
-extension StoreDetailViewController: UIScrollViewDelegate {
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let storeInfoViewY = view.frame.minY
-        - scrollView.contentOffset.y
-        - viewModel.storeDetailInfoViewHeight
-
-        storeDetailInfoView.snp.remakeConstraints {
-            $0.top.equalTo(view).offset(storeInfoViewY)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(viewModel.storeDetailInfoViewHeight)
-        }
-
-        view.layoutSubviews()
+        return header
     }
 }
 
@@ -338,7 +266,7 @@ extension StoreDetailViewController: StoreDetailInfoStackViewDelegate {
 
     func storeLinkButtonTapped() {
         if let url = viewModel.storeDetailInfoViewModel.storeLink,
-            UIApplication.shared.canOpenURL(url) {
+           UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
         }
     }
@@ -354,5 +282,43 @@ extension StoreDetailViewController {
     enum Constraints {
         static let outerCollectionViewInset: CGFloat = 16
         static let tabBarHeight: CGFloat = 50
+    }
+}
+
+extension StoreDetailViewController {
+    private func compositionalLayout() -> UICollectionViewLayout {
+        let configuration = UICollectionViewCompositionalLayoutConfiguration()
+        configuration.interSectionSpacing = 0
+        configuration.scrollDirection = .vertical
+
+        let compositionalLayout = UICollectionViewCompositionalLayout(sectionProvider: { section, environment in
+            var layoutSection: NSCollectionLayoutSection
+            if section == 0 {
+                layoutSection = StoreDetailViewModel.StoreInfoSection.main.section
+            } else {
+                switch self.viewModel.mode {
+                case .productLists:
+                    layoutSection = StoreDetailViewModel.ProductListSection(rawValue: section)!.section
+                case .reviews:
+                    layoutSection = StoreDetailViewModel.ReviewSection(rawValue: section)!.section
+                case .operationInfo:
+                    layoutSection = StoreDetailViewModel.OperationInfoSection.main.section
+                }
+                let headerSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .estimated(300)
+                )
+                let header = NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: headerSize,
+                    elementKind: UICollectionView.elementKindSectionHeader,
+                    alignment: .top
+                )
+                header.pinToVisibleBounds = true
+                layoutSection.boundarySupplementaryItems = [header]
+            }
+            return layoutSection
+        }, configuration: configuration)
+
+        return compositionalLayout
     }
 }

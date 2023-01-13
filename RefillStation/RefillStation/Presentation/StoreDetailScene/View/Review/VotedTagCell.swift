@@ -67,7 +67,9 @@ final class VotedTagCell: UICollectionViewCell {
     }
 
     private func layout() {
-        [firstRankView, divisionLine, otherClassStackView].forEach { contentView.addSubview($0) }
+        [firstRankView, divisionLine, otherClassStackView].forEach {
+            contentView.addSubview($0)
+        }
 
         firstRankView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(24)
@@ -116,13 +118,14 @@ final class VotedTagCell: UICollectionViewCell {
 
         [visualEffectView, labelView].forEach { contentView.addSubview($0) }
         visualEffectView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.edges.equalToSuperview().inset(16)
         }
 
         labelView.snp.makeConstraints {
             $0.centerX.centerY.equalToSuperview()
             $0.width.equalTo(230)
             $0.height.equalTo(110)
+            $0.top.bottom.equalToSuperview().inset(25)
         }
 
         label.snp.makeConstraints {
@@ -131,7 +134,7 @@ final class VotedTagCell: UICollectionViewCell {
     }
 }
 
-fileprivate final class FirstRankView: UIView {
+private final class FirstRankView: UIView {
 
     private let tagImageView: UIImageView = {
         let imageView = UIImageView()
@@ -191,6 +194,7 @@ fileprivate final class FirstRankView: UIView {
         rankTitleStackView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(tagImageView.snp.bottom).offset(10)
+            $0.bottom.equalToSuperview()
         }
 
         rankLabel.snp.makeConstraints {

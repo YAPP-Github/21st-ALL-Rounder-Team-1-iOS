@@ -75,7 +75,7 @@ final class StoreInfoViewCell: UICollectionViewCell {
 
     // MARK: - Properties
     var viewModel: StoreDetailInfoViewModel?
-    weak var delegate: StoreDetailInfoStackViewDelegate?
+    weak var delegate: StoreDetailInfoStackViewDelegate? // event 정의
 
     // MARK: - Initialization
     override init(frame: CGRect) {

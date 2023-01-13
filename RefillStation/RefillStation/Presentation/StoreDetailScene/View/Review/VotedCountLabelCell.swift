@@ -62,21 +62,21 @@ final class VotedCountLabelCell: UICollectionViewCell {
         [titleLabel, votedCountLabel, participateLabel, profileGroupImageView].forEach { contentView.addSubview($0) }
 
         titleLabel.snp.makeConstraints { title in
-            title.leading.top.bottom.equalToSuperview()
+            title.leading.top.bottom.equalToSuperview().inset(16)
         }
 
         participateLabel.snp.makeConstraints { vote in
-            vote.trailing.top.bottom.equalToSuperview()
+            vote.trailing.top.bottom.equalToSuperview().inset(16)
         }
 
         votedCountLabel.snp.makeConstraints { count in
             count.trailing.equalTo(participateLabel.snp.leading)
-            count.top.bottom.equalToSuperview()
+            count.top.bottom.equalToSuperview().inset(16)
         }
 
         profileGroupImageView.snp.makeConstraints {
             $0.trailing.equalTo(votedCountLabel.snp.leading).offset(-4)
-            $0.top.bottom.equalToSuperview()
+            $0.top.bottom.equalToSuperview().inset(16)
         }
     }
 }

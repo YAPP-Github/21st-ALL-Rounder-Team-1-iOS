@@ -63,7 +63,9 @@ final class MoveToWriteReviewCell: UICollectionViewCell {
         }
 
         backgroundColorView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview()
         }
 
         didVisitedLabel.snp.makeConstraints {

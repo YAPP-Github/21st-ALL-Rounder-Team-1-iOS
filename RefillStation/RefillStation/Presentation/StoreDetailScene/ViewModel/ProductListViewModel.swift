@@ -10,7 +10,14 @@ import Foundation
 final class ProductListViewModel {
 
     let fetchProductListUseCase: FetchProductListUseCaseInterface
-    var currentCategoryFilter = ProductCategory.all
+    var categories = [ProductCategory]()
+    var currentCategoryFilter = ProductCategory.all {
+        didSet {
+            reloadItemsAt?((2..<2 + filteredProducts.count).map {
+                return IndexPath(row: $0, section: 1)
+            })
+        }
+    }
     var filteredProducts: [Product] {
         let filtered = products.filter({
             if currentCategoryFilter == ProductCategory.all {
@@ -31,10 +38,17 @@ final class ProductListViewModel {
         .init(name: "티트리 퓨리파잉 뭔가 되게 멋진 카테고리", brand: "아로마티카", measurement: "g", price: 100, imageURL: "", category: .init(title: "뭔가 되게 멋진 카테고리"))
     ]
 
+    var reloadItemsAt: (([IndexPath]) -> Void)?
+
     private var productListLoadTask: Cancellable?
 
     init(fetchProductListUseCase: FetchProductListUseCaseInterface) {
         self.fetchProductListUseCase = fetchProductListUseCase
+        products.forEach {
+            if !categories.contains($0.category) {
+                categories.append($0.category)
+            }
+        }
     }
 
     func categoryButtonDidTapped(category: ProductCategory?) {

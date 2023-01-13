@@ -9,7 +9,7 @@ import UIKit
 
 final class MockEntityData {
     static func products() -> [Product] {
-        return []
+        return [.init(name: "name", brand: "brand", measurement: "mea", price: 1, imageURL: "", category: .all)]
     }
 
     static func stores() -> [Store] {
@@ -99,6 +99,14 @@ final class MockEntityData {
             .init(image: UIImage(), title: "매장이 커요"),
             .init(image: UIImage(), title: "매장이 청결해요"),
             .init(image: UIImage(), title: "선택할 키워드가 없어요")
+        ]
+    }
+
+    static func operations() -> [OperationInfo] {
+        return [
+            .init(image: UIImage(systemName: "clock")!, content: "월 11:00 - 18:00 \n화 12:00 - 18:00\n수 13:00 - 18:00"),
+            .init(image: UIImage(systemName: "person")!, content: "뭔가 있음"),
+            .init(image: UIImage(systemName: "star")!, content: "뭔가 있음")
         ]
     }
 

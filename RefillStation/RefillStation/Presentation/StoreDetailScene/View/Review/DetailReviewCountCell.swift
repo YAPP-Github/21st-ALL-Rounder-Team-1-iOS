@@ -44,12 +44,14 @@ final class DetailReviewCountCell: UICollectionViewCell {
         }
 
         titleLabel.snp.makeConstraints { title in
-            title.leading.top.bottom.equalToSuperview()
+            title.leading.bottom.equalToSuperview()
+            title.top.equalToSuperview().inset(16)
         }
 
         reviewCountLabel.snp.makeConstraints { count in
             count.leading.equalTo(titleLabel.snp.trailing).offset(5)
-            count.top.bottom.equalToSuperview()
+            count.bottom.equalToSuperview()
+            count.top.equalToSuperview().inset(16)
         }
     }
 }

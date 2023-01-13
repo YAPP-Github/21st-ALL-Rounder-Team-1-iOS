@@ -174,7 +174,8 @@ extension HomeViewController: UICollectionViewDelegate {
                 detailReviewViewModel: DetailReviewViewModel(),
                 votedTagViewModel: VotedTagViewModel(),
                 storeDetailInfoViewModel: StoreDetailInfoViewModel(),
-                productListViewModel: ProductListViewModel(fetchProductListUseCase: FetchProductListUseCase())
+                productListViewModel: ProductListViewModel(fetchProductListUseCase: FetchProductListUseCase()),
+                operationInfoViewModel: OperationInfoViewModel()
             )
         )
         navigationController?.pushViewController(storeDetailViewController, animated: true)

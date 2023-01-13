@@ -57,6 +57,7 @@
 		32E9A565292E704A000072EE /* DetailReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A564292E704A000072EE /* DetailReviewViewModel.swift */; };
 		32ED747A2969441D007EA791 /* OperationInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32ED74792969441D007EA791 /* OperationInfoCell.swift */; };
 		32ED747C29696C52007EA791 /* StoreInfoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32ED747B29696C52007EA791 /* StoreInfoViewCell.swift */; };
+		32ED747E296A7E2B007EA791 /* OperationInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32ED747D296A7E2B007EA791 /* OperationInfoViewModel.swift */; };
 		32F2D9D529518F5900131EB1 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F2D9D429518F5900131EB1 /* ProductCell.swift */; };
 		FC1FD6A12962C4AF00869F5F /* RegisterReviewPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1FD6A02962C4AF00869F5F /* RegisterReviewPopUpViewController.swift */; };
 		FC3EBDF32932872100A9C1F9 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EBDF22932872100A9C1F9 /* Product.swift */; };
@@ -180,6 +181,7 @@
 		32E9A564292E704A000072EE /* DetailReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReviewViewModel.swift; sourceTree = "<group>"; };
 		32ED74792969441D007EA791 /* OperationInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationInfoCell.swift; sourceTree = "<group>"; };
 		32ED747B29696C52007EA791 /* StoreInfoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StoreInfoViewCell.swift; path = RefillStation/Presentation/StoreDetailScene/View/StoreDetailInfo/StoreInfoViewCell.swift; sourceTree = SOURCE_ROOT; };
+		32ED747D296A7E2B007EA791 /* OperationInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationInfoViewModel.swift; sourceTree = "<group>"; };
 		32F2D9B02951862E00131EB1 /* StoreDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailViewController.swift; sourceTree = "<group>"; };
 		32F2D9B22951864700131EB1 /* StoreDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailViewModel.swift; sourceTree = "<group>"; };
 		32F2D9D429518F5900131EB1 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				32E9A564292E704A000072EE /* DetailReviewViewModel.swift */,
 				32E9A55A292E24D2000072EE /* VotedTagViewModel.swift */,
 				FC7D3526292EC72400335AAB /* ProductListViewModel.swift */,
+				32ED747D296A7E2B007EA791 /* OperationInfoViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1007,6 +1010,7 @@
 				329557462951992900F5AB53 /* StoreDetailViewModel.swift in Sources */,
 				FCE00A90294C965900B5C05F /* ProductListRepositoryInterface.swift in Sources */,
 				FCE00A8E294C965000B5C05F /* HomeRepositoryInterface.swift in Sources */,
+				32ED747E296A7E2B007EA791 /* OperationInfoViewModel.swift in Sources */,
 				32E9A565292E704A000072EE /* DetailReviewViewModel.swift in Sources */,
 				FCE00A86294C95F200B5C05F /* RequestRegionRepository.swift in Sources */,
 				FCE00A92294C966000B5C05F /* RequestRegionRepositoryInterface.swift in Sources */,

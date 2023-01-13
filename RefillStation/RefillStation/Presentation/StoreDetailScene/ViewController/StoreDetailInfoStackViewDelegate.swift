@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol StoreDetailInfoStackViewDelegate: AnyObject {
+protocol StoreDetailInfoStackViewDelegate: AnyObject { // TODO: 클로저에 줄때 enum 케이스 줘서 분기처리
     func callButtonTapped()
     func storeLinkButtonTapped()
     func recommendButtonTapped()
