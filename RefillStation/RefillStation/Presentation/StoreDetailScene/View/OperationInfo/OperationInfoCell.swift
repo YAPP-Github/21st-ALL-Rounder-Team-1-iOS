@@ -22,6 +22,7 @@ final class OperationInfoCell: UICollectionViewCell {
         label.numberOfLines = 1
         label.font = UIFont.font(style: .bodySmall)
         label.textColor = Asset.Colors.gray6.color
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
 
@@ -34,10 +35,11 @@ final class OperationInfoCell: UICollectionViewCell {
     private lazy var seeMoreButton: UIButton = {
         let button = UIButton()
         button.setImage(Asset.Images.iconArrowBottomSmall.image, for: .normal)
+        button.isHidden = true
         return button
     }()
 
-    var reloadCell: (() -> Void)?
+    var seeMoreTapped: (() -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -49,14 +51,16 @@ final class OperationInfoCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
-    func setUpContents(operation: OperationInfo, shouldShowSeeMore: Bool = false) {
+    func setUpContents(operation: OperationInfo, shouldShowMore: Bool = false) {
         imageView.image = operation.image
         contentLabel.text = operation.content
-        seeMoreButton.isHidden = !shouldShowSeeMore
-    }
 
-    func setUpSeeMore(shouldSeeMore: Bool) {
-        if shouldSeeMore {
+        if let isNewLineIncluded = contentLabel.text?.contains("\n"),
+           isNewLineIncluded {
+            seeMoreButton.isHidden = false
+        }
+
+        if shouldShowMore {
             contentLabel.numberOfLines = 0
             seeMoreButton.setImage(Asset.Images.iconArrowTopSmall.image, for: .normal)
         } else {
@@ -76,6 +80,7 @@ final class OperationInfoCell: UICollectionViewCell {
         contentLabel.snp.makeConstraints {
             $0.leading.equalTo(imageView.snp.trailing).offset(15)
             $0.top.equalTo(imageView.snp.top)
+            $0.trailing.equalToSuperview().inset(16)
         }
 
         divisionLine.snp.makeConstraints {
@@ -94,13 +99,13 @@ final class OperationInfoCell: UICollectionViewCell {
 
     private func addSeeMoreButtonAction() {
         seeMoreButton.addAction(UIAction { [weak self] _ in
-            self?.reloadCell?()
+            guard let self = self else { return }
+            self.seeMoreTapped?()
         }, for: .touchUpInside)
     }
-
 }
 
-struct OperationInfo {
+struct OperationInfo: Hashable {
     let image: UIImage
     let content: String
 }
