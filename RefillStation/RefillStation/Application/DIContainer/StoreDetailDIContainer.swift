@@ -25,31 +25,7 @@ final class StoreDetailDIContainer: DIContainer {
 
     func makeStoreDetailViewModel() -> StoreDetailViewModel {
         return StoreDetailViewModel(
-            detailReviewViewModel: makeDetailReviewViewModel(),
-            votedTagViewModel: makeVotedTagViewModel(),
-            storeDetailInfoViewModel: makeStoreDetailInfoViewModel(),
-            productListViewModel: makeProductListViewModel(),
-            operationInfoViewModel: makeOperationInfoViewModel()
+            fetchProductListUseCase: makeFetchProductListUseCase()
         )
-    }
-
-    func makeStoreDetailInfoViewModel() -> StoreDetailInfoViewModel {
-        return StoreDetailInfoViewModel()
-    }
-
-    func makeDetailReviewViewModel() -> DetailReviewViewModel {
-        return DetailReviewViewModel()
-    }
-
-    func makeVotedTagViewModel() -> VotedTagViewModel {
-        return VotedTagViewModel()
-    }
-
-    func makeProductListViewModel() -> ProductListViewModel {
-        return ProductListViewModel(fetchProductListUseCase: makeFetchProductListUseCase())
-    }
-
-    func makeOperationInfoViewModel() -> OperationInfoViewModel {
-        return OperationInfoViewModel()
     }
 }

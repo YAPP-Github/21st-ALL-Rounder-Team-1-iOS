@@ -171,11 +171,7 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let storeDetailViewController = StoreDetailViewController(
             viewModel: StoreDetailViewModel(
-                detailReviewViewModel: DetailReviewViewModel(),
-                votedTagViewModel: VotedTagViewModel(),
-                storeDetailInfoViewModel: StoreDetailInfoViewModel(),
-                productListViewModel: ProductListViewModel(fetchProductListUseCase: FetchProductListUseCase()),
-                operationInfoViewModel: OperationInfoViewModel()
+                fetchProductListUseCase: FetchProductListUseCase()
             )
         )
         navigationController?.pushViewController(storeDetailViewController, animated: true)
