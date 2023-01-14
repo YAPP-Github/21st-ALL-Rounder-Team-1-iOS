@@ -8,13 +8,14 @@
 import UIKit
 
 final class StoreDetailViewModel {
+    // MARK: - TabBarMode
     var mode: TabBarMode = .productLists
-    var store = MockEntityData.stores().first!
-    var detailReviews = MockEntityData.detailReviews()
-    var totalVoteCount = 5
-    var tagReviews = MockEntityData.tagReviews()
 
-    private let fetchProductListUseCase: FetchProductListUseCaseInterface
+    // MARK: - Store Info
+    var store = MockEntityData.stores().first!
+
+    // MARK: - ProductList
+    var products: [Product] = MockEntityData.products()
     private(set) var categories = [ProductCategory]()
     private(set) var currentCategoryFilter = ProductCategory.all
     var filteredProducts: [Product] {
@@ -28,10 +29,18 @@ final class StoreDetailViewModel {
         return filtered
     }
 
-    var operationInfos = MockEntityData.operations()
-    var products: [Product] = MockEntityData.products()
+    // MARK: - Review
+    var detailReviews = MockEntityData.detailReviews()
+    var totalVoteCount = 5
+    var tagReviews = MockEntityData.tagReviews()
 
+    // MARK: - Operation Info
+    var operationInfos = MockEntityData.operations()
     var operationInfoSeeMoreIndexPaths = Set<IndexPath>()
+
+
+    // MARK: - UseCase
+    private let fetchProductListUseCase: FetchProductListUseCaseInterface
     private var productListLoadTask: Cancellable?
 
     init(fetchProductListUseCase: FetchProductListUseCaseInterface) {
