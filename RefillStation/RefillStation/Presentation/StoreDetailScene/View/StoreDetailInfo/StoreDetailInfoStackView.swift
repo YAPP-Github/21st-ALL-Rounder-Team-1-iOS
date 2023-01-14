@@ -24,8 +24,8 @@ final class StoreButton: UIButton {
 final class StoreDetailInfoStackView: UIStackView {
 
     let callButton = StoreButton(type: .phone)
-    let storeLinkButton = StoreButton(type: .phone)
-    let recommendedButton = StoreButton(type: .phone)
+    let storeLinkButton = StoreButton(type: .link)
+    let recommendedButton = StoreButton(type: .like)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
