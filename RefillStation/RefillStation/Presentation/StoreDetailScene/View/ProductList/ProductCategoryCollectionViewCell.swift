@@ -13,7 +13,6 @@ final class ProductCategoryCollectionViewCell: UICollectionViewCell {
 
     static let reuseIdentifier = "productCategoryCollectionViewCell"
 
-//    weak var viewModel: ProductListViewModel?
     private var category: ProductCategory?
 
     override var isSelected: Bool {
@@ -32,24 +31,16 @@ final class ProductCategoryCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
+        setUpDeselected()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
-    func setUpContents2(viewModel: ProductListViewModel) {
-//        self.viewModel = viewModel
-    }
-
     func setUpContents(category: ProductCategory) {
         self.category = category
         categoryLabel.text = category.title
-        if category == .all {
-            setUpSelected()
-        } else {
-            setUpDeselected()
-        }
     }
 
     private func layout() {

@@ -28,6 +28,8 @@ final class StoreDetailViewController: UIViewController {
         return collectionView
     }()
 
+    private lazy var storeDetailDataSource = diffableDataSource()
+
     init(viewModel: StoreDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -43,7 +45,6 @@ final class StoreDetailViewController: UIViewController {
         setUpNavigationBar()
         setUpCollectionView()
         layout()
-        bind()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -54,12 +55,6 @@ final class StoreDetailViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
     }
 
-    private func bind() {
-        viewModel.reloadItemsAt = { [weak self] indexPaths in
-            self?.collectionView.reloadItems(at: indexPaths)
-        }
-    }
-
     private func setUpNavigationBar() {
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.backgroundColor = .clear
@@ -67,33 +62,14 @@ final class StoreDetailViewController: UIViewController {
     }
 
     private func setUpCollectionView() {
-        collectionView.register(StoreInfoViewCell.self,
-                                forCellWithReuseIdentifier: StoreInfoViewCell.reuseIdentifier)
-
-        StoreDetailViewModel.ProductListSection.allCases.forEach {
-            self.collectionView.register(
-                $0.cell,
-                forCellWithReuseIdentifier: $0.reuseIdentifier
-            )
+        StoreDetailSection.allCases.forEach {
+            collectionView.register($0.cell, forCellWithReuseIdentifier: $0.reuseIdentifier)
         }
-
-        StoreDetailViewModel.ReviewSection.allCases.forEach {
-            self.collectionView.register(
-                $0.cell,
-                forCellWithReuseIdentifier: $0.reuseIdentifier
-            )
-        }
-
-        collectionView.register(
-            StoreDetailHeaderView.self,
-            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: StoreDetailHeaderView.reuseIdentifier)
-
-        collectionView.register(OperationInfoCell.self,
-                                forCellWithReuseIdentifier: OperationInfoCell.reuseIdentifier)
-        collectionView.dataSource = self
-        collectionView.allowsSelection = false
+        collectionView.dataSource = storeDetailDataSource
+        collectionView.delegate = self
+        collectionView.allowsMultipleSelection = true
         collectionView.showsVerticalScrollIndicator = false
+        applyDataSource()
     }
 
     private func layout() {
@@ -109,19 +85,18 @@ final class StoreDetailViewController: UIViewController {
         }
     }
 
-    private func storeDetailButtonTapped(buttonType: StoreDetailInfoViewModel.ButtonType) {
+    private func storeDetailButtonTapped(buttonType: StoreDetailViewModel.StoreInfoButtonType) {
         switch buttonType {
         case .phone:
-            let phoneNumber = viewModel.storeDetailInfoViewModel.phoneNumber
+            let phoneNumber = viewModel.store.phoneNumber
             if let url = URL(string: "tel://\(phoneNumber)"),
                UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         case .link:
-            let phoneNumber = viewModel.storeDetailInfoViewModel.phoneNumber
-            if let url = URL(string: "tel://\(phoneNumber)"),
-               UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            if let url = URL(string: viewModel.store.snsAddress),
+                UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
             }
         case .like:
             break
@@ -129,135 +104,136 @@ final class StoreDetailViewController: UIViewController {
     }
 }
 
-extension StoreDetailViewController: UICollectionViewDataSource {
-
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 { return 1 }
+// MARK: - DiffableDataSource
+extension StoreDetailViewController {
+    private func applyDataSource() {
+        var snapShot = NSDiffableDataSourceSnapshot<StoreDetailSection, StoreDetailItem>()
         switch viewModel.mode {
         case .productLists:
-            return 2 + viewModel.productListViewModel.filteredProducts.count
+            snapShot.appendSections([.storeDetailInfo, .tabBar, .productCategory, .productList])
+            snapShot.appendItems([.productCategory(viewModel.categories)],
+                                 toSection: .productCategory)
+            viewModel.filteredProducts.forEach {
+                snapShot.appendItems([.productList($0)], toSection: .productList)
+            }
         case .reviews:
-            var reviewSectionItemCount = 1
-            if viewModel.votedTagViewModel.totalVoteCount != 0 {
-                reviewSectionItemCount = viewModel.withoutReviewCount + viewModel.detailReviewViewModel.detailReviews.count
+            snapShot.appendSections([.storeDetailInfo, .tabBar, .reviewOverview, .review])
+            snapShot.appendItems([.reviewOverview(viewModel.tagReviews)], toSection: .reviewOverview)
+            viewModel.detailReviews.forEach {
+                snapShot.appendItems([.review($0)], toSection: .review)
             }
-            return reviewSectionItemCount
         case .operationInfo:
-            return viewModel.operationInfoViewModel.operationInfos.count
+            snapShot.appendSections([.storeDetailInfo, .tabBar, .operationInfo])
+            viewModel.operationInfos.forEach {
+                snapShot.appendItems([.operationInfo($0)], toSection: .operationInfo)
+            }
         }
+        snapShot.appendItems([.storeDetailInfo(viewModel.store)],
+                             toSection: .storeDetailInfo)
+        snapShot.appendItems([.tabBarMode(viewModel.mode)], toSection: .tabBar)
+        storeDetailDataSource.apply(snapShot)
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.section == 0 {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StoreInfoViewCell.reuseIdentifier, for: indexPath) as? StoreInfoViewCell else { return UICollectionViewCell() }
-            cell.setUpContents(storeName: viewModel.storeDetailInfoViewModel.name,
-                               storeAddress: viewModel.storeDetailInfoViewModel.address)
-            cell.storeButtonTapped = { buttonType in
-                self.storeDetailButtonTapped(buttonType: buttonType)
+    private func diffableDataSource() -> UICollectionViewDiffableDataSource<StoreDetailSection, StoreDetailItem> {
+        return UICollectionViewDiffableDataSource<StoreDetailSection, StoreDetailItem>(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
+
+            let storeDetailSection = self.section(mode: self.viewModel.mode, sectionIndex: indexPath.section)
+            let reuseIdentifier = storeDetailSection.reuseIdentifier
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+
+            if let cell = cell as? StoreDetailInfoViewCell {
+                cell.setUpContents(storeName: self.viewModel.store.name,
+                                   storeAddress: self.viewModel.store.address)
+                cell.storeButtonTapped = { buttonType in
+                    self.storeDetailButtonTapped(buttonType: buttonType)
+                }
             }
 
-            return cell
-        }
-        if viewModel.mode == .productLists {
-            let reuseIdentifier = viewModel.productListSection(for: indexPath).reuseIdentifier
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+            if let cell = cell as? StoreDetailTabBarCell {
+                cell.headerTapped = { [weak self] mode in
+                    if self?.viewModel.mode != mode {
+                        self?.viewModel.mode = mode
+                        self?.applyDataSource()
+                    }
+                }
+                cell.setUpContents(mode: self.viewModel.mode)
+            }
+
             if let cell = cell as? ProductCategoriesCell {
-                cell.setUpContents2(viewModel: viewModel.productListViewModel)
+                cell.setUpContents(categories: self.viewModel.categories)
+                cell.setUpContents(productsCount: self.viewModel.products.count)
+                cell.categoryButtonTapped = { self.updateProductList(category: $0) }
             }
-            if let cell = cell as? ProductListHeaderCell {
-                cell.setUpContents(productsCount: viewModel.productListViewModel.products.count)
-            }
-            if let cell = cell as? ProductCell {
-                cell.setUpContents(product: viewModel.productListViewModel.filteredProducts[indexPath.row - 2])
-                return cell
-            }
-            return cell
-        } else if viewModel.mode == .reviews {
-            let reuseIdentifier = viewModel.reviewListSection(for: indexPath).reuseIdentifier
 
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+            if let cell = cell as? ProductCell,
+               case let .productList(product) = itemIdentifier {
+                cell.setUpContents(product: product)
+            }
 
-            if let cell = cell as? MoveToWriteReviewCell {
-                cell.moveToWriteReview = { [weak self] in
-                    self?.navigationController?.pushViewController(
-                        RegisterReviewViewController(),
-                        animated: true
-                    )
+            if let cell = cell as? ReviewInfoCell {
+                cell.moveToRegisterReview = { [weak self] in
+                    self?.navigationController?.pushViewController(RegisterReviewViewController(), animated: true)
                 }
-                return cell
+                cell.setUpContents(totalVote: self.viewModel.totalVoteCount)
+                cell.setUpContents(tagReviews: self.viewModel.tagReviews)
+                cell.setUpContents(totalDetailReviewCount: self.viewModel.detailReviews.count)
             }
 
-            if let cell = cell as? VotedCountLabelCell {
-                cell.setUpContents(totalVote: viewModel.votedTagViewModel.totalVoteCount)
-                return cell
+            if let cell = cell as? DetailReviewCell,
+               case let .review(review) = itemIdentifier {
+                cell.setUpContents(detailReview: review)
             }
 
-            if let cell = cell as? VotedTagCell {
-                cell.setUpContents(tagReviews: viewModel.votedTagViewModel.tagReviews)
-                return cell
-            }
-
-            if let cell = cell as? DetailReviewCountCell {
-                cell.setUpContents(totalDetailReviewCount: viewModel.detailReviewViewModel.detailReviews.count)
-                return cell
-            }
-
-            if let cell = cell as? DetailReviewCell {
-                cell.setUpContents(detailReview: viewModel.detailReviewViewModel.detailReviews[indexPath.row - viewModel.withoutReviewCount])
-
-                cell.setUpSeeMore(
-                    shouldSeeMore: viewModel.detailReviewViewModel.seeMoreTappedIndexPaths.contains(indexPath)
-                )
-
-                cell.reloadCell = {
-                    self.viewModel.detailReviewViewModel.seeMoreDidTapped(indexPath: indexPath)
-                    self.collectionView.reloadItems(at: [indexPath])
+            if let cell = cell as? OperationInfoCell,
+               case let .operationInfo(operationInfo) = itemIdentifier {
+                let shouldShowMore = self.viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath)
+                cell.setUpContents(operation: operationInfo, shouldShowMore: shouldShowMore)
+                cell.seeMoreTapped = {
+                    if self.viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath) {
+                        self.viewModel.operationInfoSeeMoreIndexPaths.remove(indexPath)
+                    } else {
+                        self.viewModel.operationInfoSeeMoreIndexPaths.insert(indexPath)
+                    }
+                    self.cellTapped(indexPath: indexPath)
                 }
-
-                cell.hideSeeMoreButtonIfNeed()
-                return cell
             }
 
-            return cell
-        } else {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OperationInfoCell.reuseIdentifier, for: indexPath) as? OperationInfoCell else { return UICollectionViewCell() }
-
-            cell.setUpContents(operation: self.viewModel.operationInfoViewModel.operationInfos[indexPath.row], shouldShowSeeMore: true)
-
-            cell.setUpSeeMore(
-                shouldSeeMore: viewModel.operationInfoViewModel.seeMoreTappedIndexPaths.contains(indexPath)
-            )
-
-            cell.reloadCell = {
-                self.viewModel.operationInfoViewModel.seeMoreDidTapped(indexPath: indexPath)
-                collectionView.reloadItems(at: [indexPath])
-            }
             return cell
         }
     }
 
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    private func updateProductList(category: ProductCategory?) {
+        guard let category = category else { return }
+        self.viewModel.categoryButtonDidTapped(category: category)
+        var currentSnapshot = self.storeDetailDataSource.snapshot()
+        currentSnapshot.deleteItems(currentSnapshot.itemIdentifiers(inSection: .productList))
+        self.viewModel.filteredProducts.forEach {
+            currentSnapshot.appendItems([.productList($0)])
+        }
+        self.storeDetailDataSource.apply(currentSnapshot)
+    }
+}
 
-        guard let header = collectionView.dequeueReusableSupplementaryView(
-            ofKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: StoreDetailHeaderView.reuseIdentifier,
-            for: indexPath) as? StoreDetailHeaderView else { return UICollectionReusableView() }
-        header.headerTapped = { [weak self] mode in
-            if self?.viewModel.mode != mode {
-                self?.viewModel.mode = mode
-                collectionView.reloadData()
-            }
+// MARK: - UICollectionViewDelegate
+extension StoreDetailViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if section(mode: viewModel.mode, sectionIndex: indexPath.section) != .operationInfo {
+            cellTapped(indexPath: indexPath)
         }
-        if indexPath.section == 1 {
-            header.setUpContents()
-        } else {
-            header.removeContents()
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if section(mode: viewModel.mode, sectionIndex: indexPath.section) != .operationInfo {
+            cellTapped(indexPath: indexPath)
         }
-        return header
+    }
+
+    private func cellTapped(indexPath: IndexPath) {
+        if let item = storeDetailDataSource.itemIdentifier(for: indexPath) {
+            var currentSnapshot = storeDetailDataSource.snapshot()
+            currentSnapshot.reloadItems([item])
+            storeDetailDataSource.apply(currentSnapshot)
+        }
     }
 }
 
@@ -269,6 +245,7 @@ extension StoreDetailViewController {
     }
 }
 
+// MARK: - UICollectionViewLayout
 extension StoreDetailViewController {
     private func compositionalLayout() -> UICollectionViewLayout {
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
@@ -276,33 +253,45 @@ extension StoreDetailViewController {
         configuration.scrollDirection = .vertical
 
         let compositionalLayout = UICollectionViewCompositionalLayout(sectionProvider: { section, environment in
-            var layoutSection: NSCollectionLayoutSection
-            if section == 0 {
-                layoutSection = StoreDetailViewModel.StoreInfoSection.main.section
-            } else {
-                switch self.viewModel.mode {
-                case .productLists:
-                    layoutSection = StoreDetailViewModel.ProductListSection(rawValue: section)!.section
-                case .reviews:
-                    layoutSection = StoreDetailViewModel.ReviewSection(rawValue: section)!.section
-                case .operationInfo:
-                    layoutSection = StoreDetailViewModel.OperationInfoSection.main.section
-                }
-                let headerSize = NSCollectionLayoutSize(
-                    widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .estimated(300)
-                )
-                let header = NSCollectionLayoutBoundarySupplementaryItem(
-                    layoutSize: headerSize,
-                    elementKind: UICollectionView.elementKindSectionHeader,
-                    alignment: .top
-                )
-                header.pinToVisibleBounds = true
-                layoutSection.boundarySupplementaryItems = [header]
-            }
-            return layoutSection
+            let storeDetailSection = self.section(mode: self.viewModel.mode, sectionIndex: section)
+            let itemHeight = storeDetailSection.cellHeight
+            let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
+                                                                heightDimension: .estimated(itemHeight)))
+            let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1),
+                                                                           heightDimension: .estimated(itemHeight)),
+                                                         subitems: [item])
+            let section = NSCollectionLayoutSection(group: group)
+            section.contentInsets = storeDetailSection.contentInset
+            return section
         }, configuration: configuration)
 
         return compositionalLayout
+    }
+
+    private func section(mode: StoreDetailViewModel.TabBarMode, sectionIndex: Int) -> StoreDetailSection {
+        if sectionIndex == StoreDetailSection.storeDetailInfo.sectionIndex {
+            return StoreDetailSection.storeDetailInfo
+        } else if sectionIndex == StoreDetailSection.tabBar.sectionIndex {
+            return StoreDetailSection.tabBar
+        }
+
+        switch mode {
+        case .productLists:
+            if sectionIndex == 2 {
+                return StoreDetailSection.productCategory
+            } else if sectionIndex == 3 {
+                return StoreDetailSection.productList
+            }
+        case .reviews:
+            if sectionIndex == 2 {
+                return StoreDetailSection.reviewOverview
+            } else if sectionIndex == 3 {
+                return StoreDetailSection.review
+            }
+        case .operationInfo:
+            return StoreDetailSection.operationInfo
+        }
+
+        return .storeDetailInfo
     }
 }

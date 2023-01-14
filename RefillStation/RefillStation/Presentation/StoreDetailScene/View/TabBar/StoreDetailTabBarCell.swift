@@ -1,14 +1,14 @@
 //
-//  StoreDetailHeaderView.swift
+//  StoreDetailTabBarCell.swift
 //  RefillStation
 //
-//  Created by 천수현 on 2022/12/20.
+//  Created by 천수현 on 2023/01/14.
 //
 
 import UIKit
 
-final class StoreDetailHeaderView: UICollectionReusableView {
-    static let reuseIdentifier = "storeDetailHeaderView"
+final class StoreDetailTabBarCell: UICollectionViewCell {
+    static let reuseIdentifier = String(describing: StoreDetailTabBarCell.self)
 
     private let productListButton: UIButton = {
         let button = UIButton()
@@ -58,32 +58,23 @@ final class StoreDetailHeaderView: UICollectionReusableView {
         return line
     }()
 
-    private var mode: StoreDetailViewModel.Mode = .productLists {
-        didSet {
-            if mode == .productLists {
-                setTabForProductList()
-            } else if mode == .reviews {
-                setTabForReview()
-            } else {
-                setTabForOperationInfo()
-            }
-        }
-    }
+    private var mode: StoreDetailViewModel.TabBarMode = .productLists
 
-    var headerTapped: ((StoreDetailViewModel.Mode) -> Void)?
+    var headerTapped: ((StoreDetailViewModel.TabBarMode) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        layout()
+        addButtonTargets()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
-    func setUpContents() {
-        layout()
-        addButtonTargets()
+    func setUpContents(mode: StoreDetailViewModel.TabBarMode) {
         removeSelected()
+        self.mode = mode
         switch mode {
         case .productLists:
             setTabForProductList()
@@ -91,13 +82,6 @@ final class StoreDetailHeaderView: UICollectionReusableView {
             setTabForReview()
         case .operationInfo:
             setTabForOperationInfo()
-        }
-    }
-
-    func removeContents() {
-        [productListButton, reviewButton, divisionLine, productListSelectLine, reviewSelectLine, operationInfoButton, operationInfoSelectLine].forEach {
-            $0.removeFromSuperview()
-            $0.removeConstraints($0.constraints)
         }
     }
 
@@ -153,11 +137,11 @@ final class StoreDetailHeaderView: UICollectionReusableView {
 
     private func layout() {
         [productListButton, reviewButton, divisionLine, productListSelectLine, reviewSelectLine, operationInfoButton, operationInfoSelectLine].forEach {
-            addSubview($0)
+            contentView.addSubview($0)
         }
 
         productListButton.snp.makeConstraints {
-            $0.leading.equalToSuperview()
+            $0.leading.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview()
             $0.top.equalToSuperview().inset(16)
         }
@@ -210,7 +194,7 @@ final class StoreDetailHeaderView: UICollectionReusableView {
     }
 }
 
-extension StoreDetailHeaderView {
+extension StoreDetailTabBarCell {
     enum Constraint {
         static let headerViewLeadingInset: CGFloat = 25
         static let tabSpacing: CGFloat = 15

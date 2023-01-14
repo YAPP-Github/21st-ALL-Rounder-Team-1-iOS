@@ -7,11 +7,9 @@
 
 import UIKit
 
-final class StoreInfoViewCell: UICollectionViewCell {
+final class StoreDetailInfoViewCell: UICollectionViewCell {
 
-    static let reuseIdentifier = String(describing: StoreInfoViewCell.self)
-
-    // MARK: - UI Components
+    static let reuseIdentifier = String(describing: StoreDetailInfoViewCell.self)
 
     private let storeImageView: UIImageView = {
         let imageView = UIImageView()
@@ -76,11 +74,7 @@ final class StoreInfoViewCell: UICollectionViewCell {
         return line
     }()
 
-    // MARK: - Properties
-
-    var storeButtonTapped: ((StoreDetailInfoViewModel.ButtonType) -> Void)?
-
-    // MARK: - Initialization
+    var storeButtonTapped: ((StoreDetailViewModel.StoreInfoButtonType) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: .zero)

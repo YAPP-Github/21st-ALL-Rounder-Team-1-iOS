@@ -14,6 +14,7 @@ final class DetailReviewTagCollectionViewCell: UICollectionViewCell {
     private let tagImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = Asset.Colors.gray3.color
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
 

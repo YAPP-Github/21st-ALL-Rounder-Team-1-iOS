@@ -9,10 +9,9 @@ import UIKit
 import SnapKit
 
 // MARK: - StoreButton
-
 final class StoreButton: UIButton {
-    let type: StoreDetailInfoViewModel.ButtonType
-    init(type: StoreDetailInfoViewModel.ButtonType) {
+    let type: StoreDetailViewModel.StoreInfoButtonType
+    init(type: StoreDetailViewModel.StoreInfoButtonType) {
         self.type = type
         super.init(frame: .zero)
     }
@@ -21,6 +20,7 @@ final class StoreButton: UIButton {
     }
 }
 
+// MARK: - StoreDetailInfoStackView
 final class StoreDetailInfoStackView: UIStackView {
 
     let callButton = StoreButton(type: .phone)
