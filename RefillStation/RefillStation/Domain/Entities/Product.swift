@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Product {
+struct Product: Hashable {
     let name: String
     let brand: String
     let measurement: String

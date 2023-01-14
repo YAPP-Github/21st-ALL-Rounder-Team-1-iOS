@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DetailReview {
+struct DetailReview: Hashable {
     let user: User
     let writtenDate: Date
     let imageURL: String?
