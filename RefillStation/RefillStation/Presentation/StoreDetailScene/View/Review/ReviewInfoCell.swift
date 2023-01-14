@@ -11,8 +11,6 @@ final class ReviewInfoCell: UICollectionViewCell {
 
     static let reuseIdentifier = String(describing: ReviewInfoCell.self)
 
-    var moveToRegisterReview: (() -> Void)?
-
     private let outerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -186,9 +184,12 @@ final class ReviewInfoCell: UICollectionViewCell {
         return view
     }()
 
+    var moveToRegisterReview: (() -> Void)?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
+        addMoveToRegisterReviewAction()
     }
 
     required init?(coder: NSCoder) {
@@ -277,7 +278,9 @@ final class ReviewInfoCell: UICollectionViewCell {
         }
     }
 
-    private func addMoveToWriteReviewAction() {
-
+    private func addMoveToRegisterReviewAction() {
+        moveToRegisterReviewButton.addAction(UIAction { _ in
+            self.moveToRegisterReview?()
+        }, for: .touchUpInside)
     }
 }
