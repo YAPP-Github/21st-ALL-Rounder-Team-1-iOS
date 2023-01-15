@@ -84,14 +84,12 @@ final class StoreCollectionViewCell: UICollectionViewCell {
          openStateLabel, secondDividerView, timeLabel].forEach { storeInfoView.addSubview($0) }
         storeImageView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
-            $0.width.equalTo(UIScreen.main.bounds.width - Constraints.inset * 2)
-            $0.height.equalTo(Constraints.imageHeight)
+            $0.bottom.equalTo(storeInfoView.snp.top)
         }
         storeInfoView.snp.makeConstraints {
-            $0.top.equalTo(storeImageView.snp.bottom)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.leading.trailing.equalTo(storeImageView)
+            $0.bottom.equalToSuperview()
         }
-
         nameLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(Constraints.labelTopBottomInset)
             $0.leading.trailing.equalToSuperview().inset(Constraints.inset)
@@ -151,7 +149,6 @@ final class StoreCollectionViewCell: UICollectionViewCell {
 extension StoreCollectionViewCell {
     enum Constraints {
         static let inset: CGFloat = 16
-        static let imageHeight: CGFloat = 190
         static let labelTopBottomInset: CGFloat = 20
     }
 }

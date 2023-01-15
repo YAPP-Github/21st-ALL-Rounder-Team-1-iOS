@@ -23,7 +23,6 @@ final class HomeViewController: UIViewController {
     }()
     private let storeCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         layout.minimumLineSpacing = 12
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: layout)
@@ -117,6 +116,10 @@ extension HomeViewController: UICollectionViewDataSource {
 }
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width - 32, height: 267)
+    }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
     }
