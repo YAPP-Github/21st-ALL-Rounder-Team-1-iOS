@@ -88,6 +88,9 @@ internal enum Asset {
     internal static let iconSocialloginNaver = ImageAsset(name: "icon_sociallogin_naver")
     internal static let iconThumbsup = ImageAsset(name: "icon_thumbsup")
     internal static let iconWrite = ImageAsset(name: "icon_write")
+    internal static let imgOnboarding1 = ImageAsset(name: "img_onboarding1")
+    internal static let imgOnboarding2 = ImageAsset(name: "img_onboarding2")
+    internal static let imgOnboarding3 = ImageAsset(name: "img_onboarding3")
     internal static let profileImageGroup = ImageAsset(name: "profileImageGroup")
     internal static let regionImage = ImageAsset(name: "regionImage")
   }
