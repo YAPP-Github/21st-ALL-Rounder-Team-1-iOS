@@ -16,6 +16,7 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .font(style: .titleLarge1)
         label.textAlignment = .center
+        label.numberOfLines = 0
         return label
     }()
 
@@ -50,6 +51,7 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
             $0.top.equalTo(titleLabel.snp.bottom).offset(20)
             $0.leading.trailing.bottom.equalToSuperview()
         }
+
+        titleLabel.setContentHuggingPriority(.required, for: .vertical)
     }
 }
-
