@@ -68,6 +68,7 @@ final class StoreCollectionViewCell: UICollectionViewCell {
     // MARK: - Initalizer
     override init(frame: CGRect) {
         super.init(frame: frame)
+        contentView.backgroundColor = .white
         layout()
         render()
     }
