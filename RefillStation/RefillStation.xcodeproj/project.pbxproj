@@ -394,13 +394,11 @@
 			isa = PBXGroup;
 			children = (
 				FCF0181B2960958C0027078A /* Component */,
+				329EF91F29748481004934E7 /* OnboardingScene */,
 				FC47393D2936AB0400DB9BDB /* HomeScene */,
 				FC84FAC6293B63CD00428AAA /* RequestRegionScene */,
 				FC7D3523292EC1C500335AAB /* StoreDetailScene */,
 				FC60D80C2962C33300C676A6 /* RegisterReviewScene */,
-				329EF9192974794E004934E7 /* OnboardingViewController.swift */,
-				329EF91D29747A5C004934E7 /* OnboardingViewModel.swift */,
-				329EF91B29747974004934E7 /* OnboardingCollectionViewCell.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -482,6 +480,16 @@
 				32409865295F51DB00911306 /* DetailReviewTagCollectionViewCell.swift */,
 			);
 			path = Review;
+			sourceTree = "<group>";
+		};
+		329EF91F29748481004934E7 /* OnboardingScene */ = {
+			isa = PBXGroup;
+			children = (
+				329EF9192974794E004934E7 /* OnboardingViewController.swift */,
+				329EF91D29747A5C004934E7 /* OnboardingViewModel.swift */,
+				329EF91B29747974004934E7 /* OnboardingCollectionViewCell.swift */,
+			);
+			path = OnboardingScene;
 			sourceTree = "<group>";
 		};
 		32E9A553292E1936000072EE /* Domain */ = {
