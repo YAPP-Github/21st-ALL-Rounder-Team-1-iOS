@@ -58,7 +58,7 @@ extension UIFont {
 
         /// Button
         case .buttonLarge:
-            return UIFont.systemFont(ofSize: 15, weight: .bold)
+            return UIFont.systemFont(ofSize: 15, weight: .semibold)
         case .buttonMedium:
             return UIFont.systemFont(ofSize: 14, weight: .medium)
         case .buttonSmall:

@@ -78,6 +78,7 @@
 		FC84FAC5293AB04800428AAA /* RegionRequestHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC84FAC4293AB04800428AAA /* RegionRequestHeaderView.swift */; };
 		FC84FAC9293B640300428AAA /* RequestRegionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC84FAC8293B640300428AAA /* RequestRegionViewController.swift */; };
 		FC84FACC293B944900428AAA /* RequestRegionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC84FACB293B944900428AAA /* RequestRegionViewModel.swift */; };
+		FCAB262B296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAB262A296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift */; };
 		FC9044882965E00D00B43BB9 /* UserLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9044872965E00D00B43BB9 /* UserLevelViewController.swift */; };
 		FC90448C2965E2E500B43BB9 /* PumpTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90448B2965E2E500B43BB9 /* PumpTagView.swift */; };
 		FC90448E29671FC900B43BB9 /* LevelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90448D29671FC900B43BB9 /* LevelCollectionViewCell.swift */; };
@@ -206,6 +207,7 @@
 		FC84FAC4293AB04800428AAA /* RegionRequestHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionRequestHeaderView.swift; sourceTree = "<group>"; };
 		FC84FAC8293B640300428AAA /* RequestRegionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestRegionViewController.swift; sourceTree = "<group>"; };
 		FC84FACB293B944900428AAA /* RequestRegionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestRegionViewModel.swift; sourceTree = "<group>"; };
+		FCAB262A296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpLargeTitleNavigationBar.swift; sourceTree = "<group>"; };
 		FC9044872965E00D00B43BB9 /* UserLevelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLevelViewController.swift; sourceTree = "<group>"; };
 		FC90448B2965E2E500B43BB9 /* PumpTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpTagView.swift; sourceTree = "<group>"; };
 		FC90448D29671FC900B43BB9 /* LevelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -759,6 +761,7 @@
 			isa = PBXGroup;
 			children = (
 				FCF0181C296095AD0027078A /* CTAButton.swift */,
+				FCAB262A296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift */,
 				FC90448B2965E2E500B43BB9 /* PumpTagView.swift */,
 			);
 			path = Component;
@@ -967,6 +970,7 @@
 				FCE00AA029517E6E00B5C05F /* NetworkService.swift in Sources */,
 				32F2D9D529518F5900131EB1 /* ProductCell.swift in Sources */,
 				FC60D8412962C36F00C676A6 /* RegisterReviewViewController.swift in Sources */,
+				FCAB262B296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift in Sources */,
 				FC84FAC5293AB04800428AAA /* RegionRequestHeaderView.swift in Sources */,
 				324CCBE229321616001F6FDA /* VotedCountLabelCell.swift in Sources */,
 				FCE00A71294C916600B5C05F /* FetchStoreListUseCase.swift in Sources */,

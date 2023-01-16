@@ -78,8 +78,8 @@ internal enum Asset {
     internal static let iconSocialloginNaver = ImageAsset(name: "icon_sociallogin_naver")
     internal static let iconThumbsup = ImageAsset(name: "icon_thumbsup")
     internal static let iconWrite = ImageAsset(name: "icon_write")
+    internal static let imgServiceArea = ImageAsset(name: "img_service area")
     internal static let profileImageGroup = ImageAsset(name: "profileImageGroup")
-    internal static let regionImage = ImageAsset(name: "regionImage")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
