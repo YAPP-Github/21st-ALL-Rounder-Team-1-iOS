@@ -42,28 +42,6 @@ final class StoreCollectionViewCell: UICollectionViewCell {
         label.textColor = Asset.Colors.primary3.color
         return label
     }()
-    private var firstDividerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = Asset.Colors.gray2.color
-        return view
-    }()
-    private var openStateLabel: UILabel = {
-        let label = UILabel()
-        label.font = .font(style: .buttonLarge)
-        label.textColor = Asset.Colors.gray7.color
-        return label
-    }()
-    private var secondDividerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = Asset.Colors.gray2.color
-        return view
-    }()
-    private var timeLabel: UILabel = {
-        let label = UILabel()
-        label.font = .font(style: .buttonLarge)
-        label.textColor = Asset.Colors.gray5.color
-        return label
-    }()
 
     // MARK: - Initalizer
     override init(frame: CGRect) {
@@ -81,8 +59,7 @@ final class StoreCollectionViewCell: UICollectionViewCell {
 
     private func layout() {
         [storeImageView, storeInfoView].forEach { contentView.addSubview($0) }
-        [nameLabel, addressLabel, distanceLabel, firstDividerView,
-         openStateLabel, secondDividerView, timeLabel].forEach { storeInfoView.addSubview($0) }
+        [nameLabel, addressLabel, distanceLabel].forEach { storeInfoView.addSubview($0) }
         storeImageView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(storeInfoView.snp.top)
@@ -103,26 +80,6 @@ final class StoreCollectionViewCell: UICollectionViewCell {
             $0.top.equalTo(addressLabel.snp.bottom).offset(6)
             $0.bottom.equalToSuperview().inset(Constraints.labelTopBottomInset)
             $0.leading.equalToSuperview().inset(Constraints.inset)
-        }
-        firstDividerView.snp.makeConstraints {
-            $0.centerY.equalTo(distanceLabel)
-            $0.leading.equalTo(distanceLabel.snp.trailing).offset(6)
-            $0.width.equalTo(1)
-            $0.height.equalTo(11)
-        }
-        openStateLabel.snp.makeConstraints {
-            $0.centerY.equalTo(firstDividerView)
-            $0.leading.equalTo(firstDividerView.snp.trailing).offset(6)
-        }
-        secondDividerView.snp.makeConstraints {
-            $0.centerY.equalTo(openStateLabel)
-            $0.leading.equalTo(openStateLabel.snp.trailing).offset(6)
-            $0.width.equalTo(1)
-            $0.height.equalTo(11)
-        }
-        timeLabel.snp.makeConstraints {
-            $0.centerY.equalTo(secondDividerView)
-            $0.leading.equalTo(secondDividerView.snp.trailing).offset(6)
         }
     }
     private func render() {
