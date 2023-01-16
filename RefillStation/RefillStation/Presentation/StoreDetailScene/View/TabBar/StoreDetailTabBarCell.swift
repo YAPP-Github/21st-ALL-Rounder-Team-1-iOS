@@ -14,7 +14,7 @@ final class StoreDetailTabBarCell: UICollectionViewCell {
         let button = UIButton()
         button.setTitle("판매상품", for: .normal)
         button.setTitleColor(Asset.Colors.gray7.color, for: .normal)
-        button.titleLabel?.font = UIFont.font(style: .bodyLarge)
+        button.titleLabel?.font = .font(style: .titleMedium2)
         return button
     }()
 
@@ -22,7 +22,7 @@ final class StoreDetailTabBarCell: UICollectionViewCell {
         let button = UIButton()
         button.setTitle("리뷰", for: .normal)
         button.setTitleColor(Asset.Colors.gray7.color, for: .normal)
-        button.titleLabel?.font = UIFont.font(style: .bodyLarge)
+        button.titleLabel?.font = .font(style: .titleMedium2)
         return button
     }()
 
@@ -30,7 +30,7 @@ final class StoreDetailTabBarCell: UICollectionViewCell {
         let button = UIButton()
         button.setTitle("운영정보", for: .normal)
         button.setTitleColor(Asset.Colors.gray7.color, for: .normal)
-        button.titleLabel?.font = UIFont.font(style: .bodyLarge)
+        button.titleLabel?.font = .font(style: .titleMedium2)
         return button
     }()
 
@@ -83,7 +83,7 @@ final class StoreDetailTabBarCell: UICollectionViewCell {
             $0.isHidden = true
         }
         [productListButton, reviewButton, operationInfoButton].forEach {
-            $0.titleLabel?.font = .font(style: .titleMedium)
+            $0.titleLabel?.font = .font(style: .titleMedium2)
             $0.setTitleColor(Asset.Colors.gray4.color, for: .normal)
         }
     }

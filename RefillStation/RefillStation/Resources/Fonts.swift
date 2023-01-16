@@ -12,6 +12,7 @@ enum TextStyles {
     case titleLarge1
     case titleLarge2
     case titleMedium
+    case titleMedium2
     case titleSmall
 
     /// Body
@@ -39,6 +40,8 @@ extension UIFont {
             return UIFont.systemFont(ofSize: 20, weight: .bold)
         case .titleMedium:
             return UIFont.systemFont(ofSize: 17, weight: .bold)
+        case .titleMedium2:
+            return UIFont.systemFont(ofSize: 17, weight: .medium)
         case .titleSmall:
             return UIFont.systemFont(ofSize: 15, weight: .bold)
 
