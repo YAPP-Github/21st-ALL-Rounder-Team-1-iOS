@@ -10,7 +10,7 @@ import SnapKit
 
 final class RegionRequestHeaderView: UICollectionReusableView {
 
-    static let reuseIdentifier = String.init(describing: RegionRequestHeaderView.self)
+    static let reuseIdentifier = String(describing: RegionRequestHeaderView.self)
     var moveToRegionRequest: (() -> Void)?
 
     // MARK: - UIComponents
