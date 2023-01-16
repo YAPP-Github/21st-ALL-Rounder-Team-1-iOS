@@ -19,8 +19,7 @@ final class UserLevelViewController: UIViewController {
         collectionView.register(LevelHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: LevelHeaderView.reuseIdentifier)
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.isScrollEnabled = false
+        collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }()
 
