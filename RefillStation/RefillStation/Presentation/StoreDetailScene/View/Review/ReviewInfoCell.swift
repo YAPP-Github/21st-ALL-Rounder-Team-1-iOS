@@ -258,7 +258,6 @@ final class ReviewInfoCell: UICollectionViewCell {
         }
 
         labelView.snp.makeConstraints {
-            $0.centerX.centerY.equalToSuperview()
             $0.top.bottom.equalToSuperview().inset(40)
             $0.leading.trailing.equalToSuperview().inset(53)
         }
