@@ -55,10 +55,9 @@ final class OperationInfoCell: UICollectionViewCell {
         imageView.image = operation.image
         contentLabel.text = operation.content
 
-        if let isNewLineIncluded = contentLabel.text?.contains("\n"),
-           isNewLineIncluded {
-            seeMoreButton.isHidden = false
-        }
+        guard let isNewLineIncluded = contentLabel.text?.contains("\n") else { return }
+
+        seeMoreButton.isHidden = !isNewLineIncluded
 
         if shouldShowMore {
             contentLabel.numberOfLines = 0

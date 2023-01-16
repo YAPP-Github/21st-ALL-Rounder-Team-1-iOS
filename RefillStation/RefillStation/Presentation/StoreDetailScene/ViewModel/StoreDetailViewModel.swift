@@ -9,7 +9,9 @@ import UIKit
 
 final class StoreDetailViewModel {
     // MARK: - TabBarMode
-    var mode: TabBarMode = .productLists
+    var mode: TabBarMode = .productLists {
+        didSet { operationInfoSeeMoreIndexPaths.removeAll() }
+    }
 
     // MARK: - Store Info
     var store = MockEntityData.stores().first!
@@ -37,7 +39,6 @@ final class StoreDetailViewModel {
     // MARK: - Operation Info
     var operationInfos = MockEntityData.operations()
     var operationInfoSeeMoreIndexPaths = Set<IndexPath>()
-
 
     // MARK: - UseCase
     private let fetchProductListUseCase: FetchProductListUseCaseInterface
@@ -101,7 +102,7 @@ extension StoreDetailViewModel {
         var image: UIImage? {
             switch self {
             case .phone:
-                return Asset.Images.iconBell.image
+                return Asset.Images.iconCall.image
             case .link:
                 return Asset.Images.iconLink.image
             case .like:
