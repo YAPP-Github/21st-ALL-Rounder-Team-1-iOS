@@ -159,7 +159,7 @@ final class StoreDetailTabBarCell: UICollectionViewCell {
         divisionLine.layer.zPosition = Constraint.divisionLineZPosition
 
         productListSelectLine.snp.makeConstraints {
-            $0.leading.equalTo(productListButton.snp.leading)
+            $0.leading.equalTo(productListButton)
             $0.width.equalTo(productListButton).multipliedBy(Constraint.selectLineMultiplier)
             $0.centerY.equalTo(divisionLine)
             $0.height.equalTo(Constraint.selectLineHeight)

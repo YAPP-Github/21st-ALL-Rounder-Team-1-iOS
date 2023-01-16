@@ -101,11 +101,11 @@ extension StoreDetailViewModel {
         var image: UIImage? {
             switch self {
             case .phone:
-                return UIImage(systemName: "phone")
+                return Asset.Images.iconBell.image
             case .link:
-                return UIImage(systemName: "link")
+                return Asset.Images.iconLink.image
             case .like:
-                return UIImage(systemName: "hand.thumbsup")
+                return Asset.Images.iconThumbsup.image
             }
         }
 
