@@ -73,7 +73,8 @@ final class OperationInfoCell: UICollectionViewCell {
             contentView.addSubview($0)
         }
         imageView.snp.makeConstraints {
-            $0.leading.top.equalToSuperview().inset(15)
+            $0.top.equalToSuperview().inset(15)
+            $0.leading.equalToSuperview()
         }
 
         contentLabel.snp.makeConstraints {
