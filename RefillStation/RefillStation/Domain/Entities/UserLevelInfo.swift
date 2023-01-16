@@ -5,7 +5,7 @@
 //  Created by kong on 2022/12/30.
 //
 
-import Foundation
+import UIKit
 
 struct UserLevelInfo {
     enum Level: CaseIterable {
@@ -23,6 +23,30 @@ struct UserLevelInfo {
                 return "리필 유망주"
             case .fancier:
                 return "리필 애호가"
+            }
+        }
+        var standard: String {
+            switch self {
+            case .regular:
+                return "리뷰 0회"
+            case .beginner:
+                return "리뷰 1회 이상"
+            case .prospect:
+                return "리뷰 3회 이상"
+            case .fancier:
+                return "리뷰 5회 이상"
+            }
+        }
+        var color: UIColor {
+            switch self {
+            case .regular:
+                return Asset.Colors.gray6.color
+            case .beginner:
+                return Asset.Colors.lv1.color
+            case .prospect:
+                return Asset.Colors.lv2.color
+            case .fancier:
+                return Asset.Colors.lv3.color
             }
         }
     }

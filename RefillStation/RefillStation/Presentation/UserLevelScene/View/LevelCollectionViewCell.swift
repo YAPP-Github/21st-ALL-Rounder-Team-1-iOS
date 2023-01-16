@@ -45,20 +45,8 @@ final class LevelCollectionViewCell: UICollectionViewCell {
 
     func setUpContent(level: UserLevelInfo.Level) {
         levelTitleLabel.text = level.name
-        switch level {
-        case .regular:
-            levelTitleLabel.textColor = Asset.Colors.gray6.color
-            levelTagView.setTitle("리뷰 0회")
-        case .beginner:
-            levelTitleLabel.textColor = Asset.Colors.lv1.color
-            levelTagView.setTitle("리뷰 1회 이상")
-        case .prospect:
-            levelTitleLabel.textColor = Asset.Colors.lv2.color
-            levelTagView.setTitle("리뷰 3회 이상")
-        case .fancier:
-            levelTitleLabel.textColor = Asset.Colors.lv3.color
-            levelTagView.setTitle("리뷰 5회 이상")
-        }
+        levelTitleLabel.textColor = level.color
+        levelTagView.setTitle(level.standard)
     }
 
     private func layout() {
