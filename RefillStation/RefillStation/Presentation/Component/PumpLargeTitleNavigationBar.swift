@@ -31,6 +31,10 @@ final class PumpLargeTitleNavigationBar: UIView {
         super.init(coder: coder)
     }
 
+    func setNavigationTitle(_ title: String) {
+        titleLabel.text = title
+    }
+
     private func layout() {
         [titleLabel, dividerView].forEach { addSubview($0) }
         titleLabel.snp.makeConstraints {
@@ -41,9 +45,5 @@ final class PumpLargeTitleNavigationBar: UIView {
             $0.height.equalTo(1)
             $0.leading.trailing.bottom.equalToSuperview()
         }
-    }
-
-    func setNavigationTitle(_ title: String) {
-        titleLabel.text = title
     }
 }
