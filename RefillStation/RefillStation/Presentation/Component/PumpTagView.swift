@@ -27,6 +27,10 @@ final class PumpTagView: UIView {
         super.init(coder: coder)
     }
 
+    func setTitle(_ title: String) {
+        titleLabel.text = title
+    }
+
     private func layout() {
         self.addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
@@ -35,7 +39,4 @@ final class PumpTagView: UIView {
         }
     }
 
-    func setTitle(_ title: String) {
-        titleLabel.text = title
-    }
 }
