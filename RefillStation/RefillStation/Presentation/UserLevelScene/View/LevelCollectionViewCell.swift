@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 final class LevelCollectionViewCell: UICollectionViewCell {
-    static let reuseIdentifier = "levelCollectionViewCell"
+    static let reuseIdentifier = String(describing: LevelCollectionViewCell.self)
 
     private let levelContentView: UIView = {
         let view = UIView()
