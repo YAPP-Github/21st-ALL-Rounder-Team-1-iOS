@@ -11,7 +11,7 @@ import SnapKit
 final class HomeViewController: UIViewController {
 
     // MARK: - UI Components
-    private let navigationBar: PumpLargeTitleNavigationBar = {
+    private let homeTitleBar: PumpLargeTitleNavigationBar = {
         let navigationBar = PumpLargeTitleNavigationBar()
         navigationBar.setNavigationTitle("리필스테이션 탐색")
         return navigationBar
@@ -72,8 +72,8 @@ final class HomeViewController: UIViewController {
     // MARK: - Default Setting Methods
 
     private func layout() {
-        [storeCollectionView, topButton, navigationBar].forEach { view.addSubview($0) }
-        navigationBar.snp.makeConstraints {
+        [storeCollectionView, topButton, homeTitleBar].forEach { view.addSubview($0) }
+        homeTitleBar.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(58)
         }
