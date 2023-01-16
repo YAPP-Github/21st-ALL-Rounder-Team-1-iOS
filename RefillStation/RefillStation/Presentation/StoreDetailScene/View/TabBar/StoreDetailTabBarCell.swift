@@ -75,44 +75,37 @@ final class StoreDetailTabBarCell: UICollectionViewCell {
     func setUpContents(mode: StoreDetailViewModel.TabBarMode) {
         removeSelected()
         self.mode = mode
-        switch mode {
-        case .productLists:
-            setTabForProductList()
-        case .reviews:
-            setTabForReview()
-        case .operationInfo:
-            setTabForOperationInfo()
-        }
+        setTabAppearance(for: mode)
     }
 
     private func removeSelected() {
-        productListSelectLine.isHidden = true
-        reviewSelectLine.isHidden = true
-        operationInfoSelectLine.isHidden = true
-        productListButton.titleLabel?.font = UIFont.font(style: .bodyLarge)
-        reviewButton.titleLabel?.font = UIFont.font(style: .bodyLarge)
-        operationInfoButton.titleLabel?.font = UIFont.font(style: .bodyLarge)
-        productListButton.setTitleColor(Asset.Colors.gray4.color, for: .normal)
-        reviewButton.setTitleColor(Asset.Colors.gray4.color, for: .normal)
-        operationInfoButton.setTitleColor(Asset.Colors.gray4.color, for: .normal)
+        [productListSelectLine, reviewSelectLine, operationInfoSelectLine].forEach {
+            $0.isHidden = true
+        }
+        [productListButton, reviewButton, operationInfoButton].forEach {
+            $0.titleLabel?.font = .font(style: .titleMedium)
+            $0.setTitleColor(Asset.Colors.gray4.color, for: .normal)
+        }
     }
 
-    private func setTabForProductList() {
-        productListSelectLine.isHidden = false
-        productListButton.titleLabel?.font = UIFont.font(style: .titleMedium)
-        productListButton.setTitleColor(Asset.Colors.gray7.color, for: .normal)
-    }
+    private func setTabAppearance(for tabBarMode: StoreDetailViewModel.TabBarMode) {
+        var button: UIButton
+        var line: UIView
+        switch tabBarMode {
+        case .productLists:
+            button = productListButton
+            line = productListSelectLine
+        case .reviews:
+            button = reviewButton
+            line = reviewSelectLine
+        case .operationInfo:
+            button = operationInfoButton
+            line = operationInfoSelectLine
+        }
 
-    private func setTabForReview() {
-        reviewSelectLine.isHidden = false
-        reviewButton.titleLabel?.font = UIFont.font(style: .bodyLarge)
-        reviewButton.setTitleColor(Asset.Colors.gray7.color, for: .normal)
-    }
-
-    private func setTabForOperationInfo() {
-        operationInfoSelectLine.isHidden = false
-        operationInfoButton.titleLabel?.font = UIFont.font(style: .titleMedium)
-        operationInfoButton.setTitleColor(Asset.Colors.gray7.color, for: .normal)
+        line.isHidden = false
+        button.titleLabel?.font = UIFont.font(style: .titleMedium)
+        button.setTitleColor(Asset.Colors.gray7.color, for: .normal)
     }
 
     private func addButtonTargets() {
