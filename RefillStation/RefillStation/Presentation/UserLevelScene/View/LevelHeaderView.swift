@@ -65,10 +65,20 @@ final class LevelHeaderView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
-
     }
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+
+    func setUpContents(nickname: String,
+                       level: UserLevelInfo.Level,
+                       remainingCount: Int,
+                       totalCount: Int) {
+        nicknameLabel.text = "\(nickname)님은"
+        descriptionLabel.text = "'\(level.name)'까지 리뷰 \(remainingCount)회가 남았어요"
+        levelLabel.text = level.name
+        remainingReviewTagView.setTitle("누적 리뷰 \(totalCount)회")
     }
 
     private func layout() {
@@ -109,24 +119,6 @@ final class LevelHeaderView: UICollectionReusableView {
         remainingReviewTagView.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(24)
             $0.centerX.equalToSuperview()
-        }
-    }
-
-    func setUpContents(nickname: String,
-                       remainingCount: Int,
-                       level: UserLevelInfo.Level) {
-        nicknameLabel.text = "\(nickname)님은"
-        descriptionLabel.text = "'\(level.rawValue)'까지 리뷰 \(remainingCount)회가 남았어요"
-        levelLabel.text = level.rawValue
-        switch level {
-        case .regular:
-            remainingReviewTagView.setTitle("리뷰 0회")
-        case .beginner:
-            remainingReviewTagView.setTitle("리뷰 1회 이상")
-        case .prospect:
-            remainingReviewTagView.setTitle("리뷰 3회 이상")
-        case .fancier:
-            remainingReviewTagView.setTitle("리뷰 5회 이상")
         }
     }
 }

@@ -68,8 +68,9 @@ extension UserLevelViewController: UICollectionViewDelegateFlowLayout {
             withReuseIdentifier: LevelHeaderView.reuseIdentifier,
             for: indexPath) as? LevelHeaderView else { return UICollectionReusableView() }
         header.setUpContents(nickname: "뿡빵뿡빵",
+                             level: .beginner,
                              remainingCount: 5,
-                             level: .beginner)
+                             totalCount: 10)
         return header
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
