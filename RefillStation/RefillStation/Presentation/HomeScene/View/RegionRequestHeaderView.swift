@@ -33,7 +33,6 @@ final class RegionRequestHeaderView: UICollectionReusableView {
         label.font = .font(style: .titleMedium)
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.sizeToFit()
         return label
     }()
     private let imageView: UIImageView = {
