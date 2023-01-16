@@ -79,8 +79,7 @@ final class HomeViewController: UIViewController {
         }
         storeCollectionView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.leading.trailing.bottom.equalToSuperview()
         }
         topButton.snp.makeConstraints {
             $0.width.height.equalTo(46)
