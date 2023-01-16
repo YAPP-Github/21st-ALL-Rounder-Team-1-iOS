@@ -26,12 +26,13 @@ final class FirstRankView: UIView {
         label.textColor = .white
         label.clipsToBounds = true
         label.textAlignment = .center
+        label.font = .systemFont(ofSize: 10, weight: .medium)
         return label
     }()
 
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.font(style: .buttonLarge)
+        label.font = .font(style: .buttonLarge)
         return label
     }()
 
@@ -72,8 +73,7 @@ final class FirstRankView: UIView {
         }
 
         rankLabel.snp.makeConstraints {
-            $0.height.equalTo(25)
-            $0.width.equalTo(40)
+            $0.width.equalTo(30)
         }
     }
 }
