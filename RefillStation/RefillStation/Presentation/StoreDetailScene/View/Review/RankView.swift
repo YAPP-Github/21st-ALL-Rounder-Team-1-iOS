@@ -59,7 +59,7 @@ final class FirstRankView: UIView {
     private func layout() {
         [tagImageView, rankTitleStackView].forEach { addSubview($0) }
         tagImageView.snp.makeConstraints {
-            $0.centerX.centerY.equalToSuperview()
+            $0.center.equalToSuperview()
             $0.height.width.equalTo(85)
         }
 
