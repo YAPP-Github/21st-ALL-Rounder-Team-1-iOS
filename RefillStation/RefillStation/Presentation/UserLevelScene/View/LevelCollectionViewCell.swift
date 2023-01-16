@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class LevelCollectionViewCell: UICollectionViewCell {
+final class LevelCollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier = "levelCollectionViewCell"
 
     private let levelContentView: UIView = {
@@ -43,6 +43,24 @@ class LevelCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
+    func setUpContent(level: UserLevelInfo.Level) {
+        levelTitleLabel.text = level.name
+        switch level {
+        case .regular:
+            levelTitleLabel.textColor = Asset.Colors.gray6.color
+            levelTagView.setTitle("리뷰 0회")
+        case .beginner:
+            levelTitleLabel.textColor = Asset.Colors.lv1.color
+            levelTagView.setTitle("리뷰 1회 이상")
+        case .prospect:
+            levelTitleLabel.textColor = Asset.Colors.lv2.color
+            levelTagView.setTitle("리뷰 3회 이상")
+        case .fancier:
+            levelTitleLabel.textColor = Asset.Colors.lv3.color
+            levelTagView.setTitle("리뷰 5회 이상")
+        }
+    }
+
     private func layout() {
         contentView.addSubview(levelContentView)
         [levelImageView, levelTitleLabel, levelTagView].forEach { levelContentView.addSubview($0) }
@@ -61,24 +79,6 @@ class LevelCollectionViewCell: UICollectionViewCell {
         levelTagView.snp.makeConstraints {
             $0.top.equalTo(levelTitleLabel.snp.bottom).offset(6)
             $0.leading.equalTo(levelImageView.snp.trailing).offset(12)
-        }
-    }
-
-    func setUpContent(level: UserLevelInfo.Level) {
-        levelTitleLabel.text = level.rawValue
-        switch level {
-        case .regular:
-            levelTitleLabel.textColor = Asset.Colors.gray6.color
-            levelTagView.setTitle("리뷰 0회")
-        case .beginner:
-            levelTitleLabel.textColor = Asset.Colors.lv1.color
-            levelTagView.setTitle("리뷰 1회 이상")
-        case .prospect:
-            levelTitleLabel.textColor = Asset.Colors.lv2.color
-            levelTagView.setTitle("리뷰 3회 이상")
-        case .fancier:
-            levelTitleLabel.textColor = Asset.Colors.lv3.color
-            levelTagView.setTitle("리뷰 5회 이상")
         }
     }
 }
