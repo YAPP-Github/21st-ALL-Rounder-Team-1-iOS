@@ -61,7 +61,7 @@ final class OnboardingViewController: UIViewController {
         onboardingCollectionView.snp.makeConstraints {
             $0.centerY.equalTo(view.safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(400)
+            $0.height.equalTo(340)
         }
 
         pageControl.snp.makeConstraints {
