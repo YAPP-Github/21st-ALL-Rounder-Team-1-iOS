@@ -8,11 +8,23 @@
 import Foundation
 
 struct UserLevelInfo {
-    enum Level: String, CaseIterable {
-        case regular = "일반 회원"
-        case beginner = "리필 비기너"
-        case prospect  = "리필 유망주"
-        case fancier  = "리필 애호가"
+    enum Level: CaseIterable {
+        case regular
+        case beginner
+        case prospect
+        case fancier
+        var name: String {
+            switch self {
+            case .regular:
+                return "일반 회원"
+            case .beginner:
+                return "리필 비기너"
+            case .prospect:
+                return "리필 유망주"
+            case .fancier:
+                return "리필 애호가"
+            }
+        }
     }
     let level: Level
     let remainCountForNextLevel: Int
