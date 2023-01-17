@@ -10,23 +10,13 @@ import UIKit
 struct ProductCategoriesCellInfo: Hashable {
     let categories: [ProductCategory]
     let currentFilter: ProductCategory
-    let filteredCount: Int
 }
 
 final class ProductCategoriesCell: UICollectionViewCell {
 
-    static let reuseIdentifier = "productCategoriesCell"
+    static let reuseIdentifier = String(describing: ProductCategoriesCell.self)
 
     private(set) var categories: [ProductCategory]?
-    private let indexPathForAll = IndexPath(row: 0, section: 0)
-
-    private let productsCountLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.font(style: .bodyMedium)
-        label.textColor = Asset.Colors.gray4.color
-        return label
-    }()
-
     private lazy var categoryCollectionView: UICollectionView = {
         let layout = categoryCollectionViewLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -49,13 +39,16 @@ final class ProductCategoriesCell: UICollectionViewCell {
     }
 
     func setUpContents(info: ProductCategoriesCellInfo) {
-        productsCountLabel.text = "판매상품 \(info.filteredCount)건"
         self.categories = [ProductCategory.all] + info.categories
         applyDataSource()
-        if let indexPathToSelect = self.categories?.firstIndex(of: info.currentFilter) {
-            categoryCollectionView.selectItem(at: IndexPath(row: indexPathToSelect, section: 0),
-                                              animated: false, scrollPosition: .centeredHorizontally)
+        if let selected = categoryCollectionView.indexPathsForSelectedItems, selected.isEmpty {
+            if let indexPathToSelect = self.categories?.firstIndex(of: .all) {
+                categoryCollectionView.selectItem(at: IndexPath(row: indexPathToSelect, section: 0),
+                                                  animated: false, scrollPosition: .centeredHorizontally)
+                categoryButtonTapped?(.all)
+            }
         }
+
         layoutIfNeeded()
     }
 
@@ -70,27 +63,20 @@ final class ProductCategoriesCell: UICollectionViewCell {
     }
 
     private func layout() {
-        [categoryCollectionView, productsCountLabel].forEach {
+        [categoryCollectionView].forEach {
             contentView.addSubview($0)
         }
 
         categoryCollectionView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(35)
-        }
-
-        productsCountLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(16)
-            $0.trailing.bottom.equalToSuperview()
-            $0.top.equalTo(categoryCollectionView.snp.bottom).offset(16)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
 
     private func categoryCollectionViewLayout() -> UICollectionViewCompositionalLayout {
         let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .estimated(100), heightDimension: .estimated(35)))
         item.edgeSpacing = .init(leading: .fixed(8), top: .fixed(0), trailing: .fixed(0), bottom: .fixed(0))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .estimated(100), heightDimension: .fractionalHeight(1)), subitems: [item])
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .estimated(100), heightDimension: .estimated(35)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
         section.contentInsets = .init(top: 0, leading: 8, bottom: 0, trailing: 0)

@@ -16,12 +16,14 @@ extension StoreDetailViewController {
         case operationInfo(OperationInfo)
         case tabBarMode(StoreDetailViewModel.TabBarMode)
         case productCategory(ProductCategoriesCellInfo)
+        case filteredProduct(Int)
     }
 
     enum StoreDetailSection: Int, CaseIterable {
         case storeDetailInfo
         case tabBar
         case productCategory
+        case filteredProductsCount
         case productList
         case reviewOverview
         case review
@@ -35,8 +37,10 @@ extension StoreDetailViewController {
                 return 1
             case .productCategory:
                 return 2
-            case .productList:
+            case .filteredProductsCount:
                 return 3
+            case .productList:
+                return 4
             case .reviewOverview:
                 return 2
             case .review:
@@ -54,6 +58,8 @@ extension StoreDetailViewController {
                 return StoreDetailTabBarCell.self
             case .productCategory:
                 return ProductCategoriesCell.self
+            case .filteredProductsCount:
+                return FilteredProductCountCell.self
             case .productList:
                 return ProductCell.self
             case .reviewOverview:
@@ -73,6 +79,8 @@ extension StoreDetailViewController {
                 return StoreDetailTabBarCell.reuseIdentifier
             case .productCategory:
                 return ProductCategoriesCell.reuseIdentifier
+            case .filteredProductsCount:
+                return FilteredProductCountCell.reuseIdentifier
             case .productList:
                 return ProductCell.reuseIdentifier
             case .reviewOverview:
@@ -91,7 +99,9 @@ extension StoreDetailViewController {
             case .tabBar:
                 return 300
             case .productCategory:
-                return 300
+                return 50
+            case .filteredProductsCount:
+                return 50
             case .productList:
                 return 113
             case .reviewOverview:

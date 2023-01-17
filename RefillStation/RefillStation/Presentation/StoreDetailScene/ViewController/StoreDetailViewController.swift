@@ -95,11 +95,11 @@ extension StoreDetailViewController {
         var snapShot = NSDiffableDataSourceSnapshot<StoreDetailSection, StoreDetailItem>()
         switch viewModel.mode {
         case .productLists:
-            snapShot.appendSections([.storeDetailInfo, .tabBar, .productCategory, .productList])
+            snapShot.appendSections([.storeDetailInfo, .tabBar, .productCategory, .filteredProductsCount, .productList])
             snapShot.appendItems([.productCategory(.init(categories: viewModel.categories,
-                                                         currentFilter: viewModel.currentCategoryFilter,
-                                                         filteredCount: viewModel.filteredProducts.count))],
+                                                         currentFilter: viewModel.currentCategoryFilter))],
                                  toSection: .productCategory)
+            snapShot.appendItems([.filteredProduct(viewModel.filteredProducts.count)], toSection: .filteredProductsCount)
             viewModel.filteredProducts.forEach {
                 snapShot.appendItems([.productList($0)], toSection: .productList)
             }
@@ -148,12 +148,15 @@ extension StoreDetailViewController {
 
             if let cell = cell as? ProductCategoriesCell {
                 cell.setUpContents(info: .init(categories: self.viewModel.categories,
-                                               currentFilter: self.viewModel.currentCategoryFilter,
-                                               filteredCount: self.viewModel.filteredProducts.count))
+                                               currentFilter: self.viewModel.currentCategoryFilter))
                 cell.categoryButtonTapped = {
                     self.updateProductList(category: $0)
                     self.updateProductCategoriesCell()
                 }
+            }
+
+            if let cell = cell as? FilteredProductCountCell, case let .filteredProduct(count) = itemIdentifier {
+                cell.setUpContents(filteredCount: count)
             }
 
             if let cell = cell as? ProductCell, case let .productList(product) = itemIdentifier {
@@ -200,11 +203,9 @@ extension StoreDetailViewController {
 
     private func updateProductCategoriesCell() {
         var currentSnapshot = storeDetailDataSource.snapshot()
-        currentSnapshot.deleteItems(currentSnapshot.itemIdentifiers(inSection: .productCategory))
-        currentSnapshot.appendItems([.productCategory(.init(categories: viewModel.categories,
-                                                            currentFilter: viewModel.currentCategoryFilter,
-                                                            filteredCount: viewModel.filteredProducts.count))],
-                                    toSection: .productCategory)
+        currentSnapshot.deleteItems(currentSnapshot.itemIdentifiers(inSection: .filteredProductsCount))
+        currentSnapshot.appendItems([.filteredProduct(viewModel.filteredProducts.count)],
+                                    toSection: .filteredProductsCount)
         storeDetailDataSource.apply(currentSnapshot)
     }
 }
@@ -283,6 +284,8 @@ extension StoreDetailViewController {
             if sectionIndex == 2 {
                 return StoreDetailSection.productCategory
             } else if sectionIndex == 3 {
+                return StoreDetailSection.filteredProductsCount
+            } else if sectionIndex == 4 {
                 return StoreDetailSection.productList
             }
         case .reviews:

@@ -1,0 +1,41 @@
+//
+//  FilteredProductCountCell.swift
+//  RefillStation
+//
+//  Created by 천수현 on 2023/01/17.
+//
+
+import UIKit
+
+final class FilteredProductCountCell: UICollectionViewCell {
+
+    static let reuseIdentifier = String(describing: FilteredProductCountCell.self)
+
+    private let productsCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.font(style: .bodyMedium)
+        label.textColor = Asset.Colors.gray4.color
+        return label
+    }()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        layout()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+    func setUpContents(filteredCount: Int) {
+        productsCountLabel.text = "판매상품 \(filteredCount)건"
+    }
+
+    private func layout() {
+        contentView.addSubview(productsCountLabel)
+        productsCountLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(16)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+    }
+}
