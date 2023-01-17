@@ -95,6 +95,17 @@ final class DetailReviewCell: UICollectionViewCell {
         return line
     }()
 
+    private let imageCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.font(style: .buttonSmall)
+        label.textColor = .white
+        label.backgroundColor = Asset.Colors.gray3.color
+        label.clipsToBounds = true
+        label.layer.cornerRadius = 10
+        label.textAlignment = .center
+        return label
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
@@ -111,6 +122,8 @@ final class DetailReviewCell: UICollectionViewCell {
         writtenDateLabel.text = detailReview.writtenDate.toString()
         reviewImageView.image = UIImage(systemName: "zzz")
         descriptionLabel.text = detailReview.description
+        imageCountLabel.text = "1 / \(detailReview.imageURL.count)"
+        imageCountLabel.isHidden = detailReview.imageURL.count == 1
 
         tagCollectionView.reloadData()
         tagCollectionView.layoutIfNeeded()
@@ -120,7 +133,7 @@ final class DetailReviewCell: UICollectionViewCell {
 
     private func layout() {
         [profileImageView, userNameLabel, writtenDateLabel, reviewImageView,
-         descriptionLabel, divisionLine, tagCollectionView].forEach {
+         descriptionLabel, divisionLine, tagCollectionView, imageCountLabel].forEach {
             contentView.addSubview($0)
         }
 
@@ -157,6 +170,12 @@ final class DetailReviewCell: UICollectionViewCell {
             $0.top.equalTo(tagCollectionView.snp.bottom).offset(20)
             $0.leading.trailing.bottom.equalToSuperview().inset(16)
             $0.height.equalTo(1)
+        }
+
+        imageCountLabel.snp.makeConstraints {
+            $0.trailing.bottom.equalTo(reviewImageView).inset(14)
+            $0.height.equalTo(20)
+            $0.width.equalTo(42)
         }
     }
 

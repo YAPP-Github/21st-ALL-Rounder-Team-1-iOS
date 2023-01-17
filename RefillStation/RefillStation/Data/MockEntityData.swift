@@ -9,7 +9,20 @@ import UIKit
 
 final class MockEntityData {
     static func products() -> [Product] {
-        return [.init(name: "name", brand: "brand", measurement: "mea", price: 1, imageURL: "", category: .all)]
+        return [
+            .init(name: "name1", brand: "brand1", measurement: "mea", price: 1, imageURL: "", category: .init(title: "샴푸1샴푸1샴푸1샴푸1샴푸1샴푸1샴푸1샴푸1")),
+            .init(name: "name2", brand: "brand2", measurement: "mea", price: 1, imageURL: "", category: .init(title: "샴푸2샴푸2샴푸2")),
+            .init(name: "name3", brand: "brand3", measurement: "mea", price: 1, imageURL: "", category: .init(title: "샴푸3")),
+            .init(name: "name4", brand: "brand4", measurement: "mea", price: 1, imageURL: "", category: .init(title: "샴푸4")),
+            .init(name: "name5", brand: "brand1", measurement: "mea", price: 1, imageURL: "", category: .init(title: "샴푸1")),
+            .init(name: "name6", brand: "brand2", measurement: "mea", price: 1, imageURL: "", category: .init(title: "샴푸2")),
+            .init(name: "name7", brand: "brand3", measurement: "mea", price: 1, imageURL: "", category: .init(title: "샴푸3")),
+            .init(name: "name8", brand: "brand4", measurement: "mea", price: 1, imageURL: "", category: .init(title: "샴푸4")),
+            .init(name: "name9", brand: "brand1", measurement: "mea", price: 1, imageURL: "", category: .init(title: "샴푸1")),
+            .init(name: "name10", brand: "brand2", measurement: "mea", price: 1, imageURL: "", category: .init(title: "샴푸2")),
+            .init(name: "name11", brand: "brand3", measurement: "mea", price: 1, imageURL: "", category: .init(title: "샴푸3")),
+            .init(name: "name12", brand: "brand4", measurement: "mea", price: 1, imageURL: "", category: .init(title: "샴푸4"))
+        ]
     }
 
     static func stores() -> [Store] {
@@ -48,15 +61,15 @@ final class MockEntityData {
         return [
             .init(user: .init(name: "hello", imageURL: ""),
                   writtenDate: Date(),
-                  imageURL: "",
+                  imageURL: [""],
                   description: "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription", tags: [.init(tag: .init(image: UIImage(), title: "이런태그 저런태그"), recommendedCount: 0), .init(tag: .init(image: UIImage(), title: "이런태그 저런태그 어쩌구"), recommendedCount: 0), .init(tag: .init(image: UIImage(), title: "이런태그 저런태그"), recommendedCount: 0), .init(tag: .init(image: UIImage(), title: "이런태그 저런태그 어쩌구 저쩌구"), recommendedCount: 0)]),
             .init(user: .init(name: "hello", imageURL: ""),
                   writtenDate: Date(),
-                  imageURL: "",
+                  imageURL: [""],
                   description: "description", tags: [.init(tag: .init(image: UIImage(), title: "이런태그 저런태그"), recommendedCount: 0), .init(tag: .init(image: UIImage(), title: "이런태그 저런태그 어쩌구"), recommendedCount: 0), .init(tag: .init(image: UIImage(), title: "이런태그 저런태그"), recommendedCount: 0), .init(tag: .init(image: UIImage(), title: "이런태그 저런태그 어쩌구 저쩌구"), recommendedCount: 0)]),
             .init(user: .init(name: "hello", imageURL: ""),
                   writtenDate: Date(),
-                  imageURL: "",
+                  imageURL: [""],
                   description: "description",
                   tags: [.init(tag: .init(image: UIImage(), title: "이런태그"), recommendedCount: 0),
                          .init(tag: .init(image: UIImage(), title: "이런태그"), recommendedCount: 0),
@@ -64,12 +77,12 @@ final class MockEntityData {
                          .init(tag: .init(image: UIImage(), title: "이런태그 저런"), recommendedCount: 0)]),
             .init(user: .init(name: "hello", imageURL: ""),
                   writtenDate: Date(),
-                  imageURL: "",
+                  imageURL: [""],
                   description: "description",
                   tags: [.init(tag: .init(image: UIImage(), title: "이런태그"), recommendedCount: 0)]),
             .init(user: .init(name: "hello", imageURL: ""),
                   writtenDate: Date(),
-                  imageURL: "",
+                  imageURL: [""],
                   description: "description",
                   tags: [.init(tag: .init(image: UIImage(), title: "이런태그"), recommendedCount: 0),
                          .init(tag: .init(image: UIImage(), title: "이런태그"), recommendedCount: 0)])
@@ -78,6 +91,22 @@ final class MockEntityData {
 
     static func tagReviews() -> [TagReview] {
         return [
+            .init(tag: .init(image: UIImage(systemName: "zzz") ?? UIImage(), title: "친절해요"),
+                  recommendedCount: 3),
+            .init(tag: .init(image: UIImage(systemName: "zzz") ?? UIImage(), title: "청결해요"),
+                  recommendedCount: 4),
+            .init(tag: .init(image: UIImage(systemName: "zzz") ?? UIImage(), title: "배고파요"),
+                  recommendedCount: 5),
+            .init(tag: .init(image: UIImage(systemName: "zzz") ?? UIImage(), title: "살려줘요"),
+                  recommendedCount: 6),
+            .init(tag: .init(image: UIImage(systemName: "zzz") ?? UIImage(), title: "친절해요"),
+                  recommendedCount: 3),
+            .init(tag: .init(image: UIImage(systemName: "zzz") ?? UIImage(), title: "청결해요"),
+                  recommendedCount: 4),
+            .init(tag: .init(image: UIImage(systemName: "zzz") ?? UIImage(), title: "배고파요"),
+                  recommendedCount: 5),
+            .init(tag: .init(image: UIImage(systemName: "zzz") ?? UIImage(), title: "살려줘요"),
+                  recommendedCount: 6),
             .init(tag: .init(image: UIImage(systemName: "zzz") ?? UIImage(), title: "친절해요"),
                   recommendedCount: 3),
             .init(tag: .init(image: UIImage(systemName: "zzz") ?? UIImage(), title: "청결해요"),
