@@ -103,7 +103,7 @@ final class ReviewInfoCell: UICollectionViewCell {
         }
 
         profileGroupImageView.snp.makeConstraints {
-            $0.trailing.equalTo(votedCountLabel.snp.leading)
+            $0.trailing.equalTo(votedCountLabel.snp.leading).offset(-4)
             $0.top.bottom.equalToSuperview().inset(8)
         }
         return view
@@ -222,8 +222,9 @@ final class ReviewInfoCell: UICollectionViewCell {
             [divisionLine, otherClassStackView].forEach { $0.isHidden = true }
             makeBlurPlaceholder()
         } else {
-            for index in 1..<4 {
+            while otherClassStackView.arrangedSubviews.count < 3 {
                 let other = OtherRankView()
+                let index = otherClassStackView.arrangedSubviews.count
                 other.setUpContents(tagReview: tagReviews[index], rank: index + 1)
                 otherClassStackView.addArrangedSubview(other)
             }
