@@ -39,6 +39,7 @@ final class DetailReviewCell: UICollectionViewCell {
         imageView.layer.cornerRadius = profileImageHeight / 2
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
+        imageView.backgroundColor = Asset.Colors.gray1.color
         return imageView
     }()
 
@@ -64,6 +65,7 @@ final class DetailReviewCell: UICollectionViewCell {
         imageView.isUserInteractionEnabled = true
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageViewDidTapped(_:)))
         imageView.addGestureRecognizer(tapGestureRecognizer)
+        imageView.backgroundColor = Asset.Colors.gray1.color
         return imageView
     }()
 
@@ -117,13 +119,13 @@ final class DetailReviewCell: UICollectionViewCell {
 
     func setUpContents(detailReview: DetailReview) {
         self.detailReview = detailReview
-        profileImageView.image = UIImage(systemName: "person")
         userNameLabel.text = detailReview.user.name
         writtenDateLabel.text = detailReview.writtenDate.toString()
-        reviewImageView.image = UIImage(systemName: "zzz")
         descriptionLabel.text = detailReview.description
         imageCountLabel.text = "1 / \(detailReview.imageURL.count)"
-        imageCountLabel.isHidden = detailReview.imageURL.count == 1
+        imageCountLabel.isHidden = detailReview.imageURL.count <= 1
+        if detailReview.imageURL.isEmpty { reviewImageView.removeFromSuperview() }
+        // TODO: Fetch Image(profile, review) with URL
 
         tagCollectionView.reloadData()
         tagCollectionView.layoutIfNeeded()
@@ -156,12 +158,13 @@ final class DetailReviewCell: UICollectionViewCell {
         reviewImageView.snp.makeConstraints { reviewImage in
             reviewImage.leading.trailing.equalToSuperview().inset(16)
             reviewImage.top.equalTo(writtenDateLabel.snp.bottom).offset(10)
-            reviewImage.height.equalTo(168)
+            reviewImage.height.equalTo(168).priority(.high)
         }
 
         descriptionLabel.snp.makeConstraints { description in
             description.leading.trailing.equalToSuperview().inset(16)
             description.top.equalTo(reviewImageView.snp.bottom).offset(10)
+            description.top.equalTo(writtenDateLabel.snp.bottom).offset(10).priority(.medium)
         }
 
         remakeTagCollectionViewConstraints()
