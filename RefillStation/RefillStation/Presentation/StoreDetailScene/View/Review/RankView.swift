@@ -82,6 +82,7 @@ final class OtherRankView: UIView {
     private let rankLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.gray4.color
+        label.font = .font(style: .captionMedium)
         return label
     }()
     private let tagImageView: UIImageView = {
@@ -91,7 +92,7 @@ final class OtherRankView: UIView {
     }()
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.font(style: .buttonMedium)
+        label.font = .font(style: .buttonMedium)
         return label
     }()
 

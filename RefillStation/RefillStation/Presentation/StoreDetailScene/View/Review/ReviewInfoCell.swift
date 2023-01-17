@@ -225,7 +225,7 @@ final class ReviewInfoCell: UICollectionViewCell {
             while otherClassStackView.arrangedSubviews.count < 3 {
                 let other = OtherRankView()
                 let index = otherClassStackView.arrangedSubviews.count
-                other.setUpContents(tagReview: tagReviews[index], rank: index + 1)
+                other.setUpContents(tagReview: tagReviews[index], rank: index + 2)
                 otherClassStackView.addArrangedSubview(other)
             }
         }
