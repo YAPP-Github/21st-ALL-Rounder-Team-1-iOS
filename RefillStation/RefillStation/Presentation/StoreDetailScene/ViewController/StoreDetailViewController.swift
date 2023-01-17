@@ -11,18 +11,6 @@ final class StoreDetailViewController: UIViewController {
 
     private var viewModel: StoreDetailViewModel!
 
-    private lazy var backButton: UIButton = {
-        let button = UIButton()
-        button.tintColor = .white
-        let imageConfiguration = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 24))
-        let image = UIImage(systemName: "chevron.backward", withConfiguration: imageConfiguration)
-        button.setImage(image, for: .normal)
-        button.addAction(UIAction(handler: { [weak self] action in
-            self?.navigationController?.popViewController(animated: true)
-        }), for: .touchUpInside)
-        return button
-    }()
-
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout())
         return collectionView
@@ -47,18 +35,19 @@ final class StoreDetailViewController: UIViewController {
         layout()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = true
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = false
-    }
-
     private func setUpNavigationBar() {
-        navigationController?.navigationBar.tintColor = .black
-        navigationController?.navigationBar.backgroundColor = .clear
-        navigationItem.title = ""
+        let standardAppearance = UINavigationBarAppearance()
+        standardAppearance.configureWithTransparentBackground()
+        standardAppearance.backgroundColor = .white
+        standardAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        let scrollEdgeAppearance = UINavigationBarAppearance()
+        scrollEdgeAppearance.configureWithTransparentBackground()
+        scrollEdgeAppearance.backgroundColor = .clear
+        scrollEdgeAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
+        navigationController?.navigationBar.standardAppearance = standardAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = scrollEdgeAppearance
+        navigationController?.navigationBar.tintColor = .white
+        navigationItem.title = viewModel.store.name
     }
 
     private func setUpCollectionView() {
@@ -69,19 +58,15 @@ final class StoreDetailViewController: UIViewController {
         collectionView.delegate = self
         collectionView.allowsMultipleSelection = true
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.contentInsetAdjustmentBehavior = .never
         applyDataSource()
     }
 
     private func layout() {
-        [collectionView, backButton].forEach { view.addSubview($0) }
+        [collectionView].forEach { view.addSubview($0) }
 
         collectionView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalToSuperview()
-        }
-
-        backButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(10)
-            $0.leading.equalTo(view.safeAreaLayoutGuide).inset(16)
         }
     }
 
@@ -148,7 +133,6 @@ extension StoreDetailViewController {
                                    storeAddress: self.viewModel.store.address)
                 cell.storeButtonTapped = { buttonType in
                     self.storeDetailButtonTapped(buttonType: buttonType)
-                    self.updateProductCategoriesCell()
                 }
             }
 
@@ -172,8 +156,7 @@ extension StoreDetailViewController {
                 }
             }
 
-            if let cell = cell as? ProductCell,
-               case let .productList(product) = itemIdentifier {
+            if let cell = cell as? ProductCell, case let .productList(product) = itemIdentifier {
                 cell.setUpContents(product: product)
             }
 
@@ -186,8 +169,7 @@ extension StoreDetailViewController {
                 cell.setUpContents(totalDetailReviewCount: self.viewModel.detailReviews.count)
             }
 
-            if let cell = cell as? DetailReviewCell,
-               case let .review(review) = itemIdentifier {
+            if let cell = cell as? DetailReviewCell, case let .review(review) = itemIdentifier {
                 cell.setUpContents(detailReview: review)
             }
 
@@ -246,6 +228,14 @@ extension StoreDetailViewController: UICollectionViewDelegate {
             var currentSnapshot = storeDetailDataSource.snapshot()
             currentSnapshot.reloadItems([item])
             storeDetailDataSource.apply(currentSnapshot)
+        }
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > 0 {
+            navigationController?.navigationBar.tintColor = .black
+        } else {
+            navigationController?.navigationBar.tintColor = .white
         }
     }
 }
