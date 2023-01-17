@@ -111,7 +111,9 @@ extension StoreDetailViewController {
         switch viewModel.mode {
         case .productLists:
             snapShot.appendSections([.storeDetailInfo, .tabBar, .productCategory, .productList])
-            snapShot.appendItems([.productCategory(viewModel.categories)],
+            snapShot.appendItems([.productCategory(.init(categories: viewModel.categories,
+                                                         currentFilter: viewModel.currentCategoryFilter,
+                                                         filteredCount: viewModel.filteredProducts.count))],
                                  toSection: .productCategory)
             viewModel.filteredProducts.forEach {
                 snapShot.appendItems([.productList($0)], toSection: .productList)
@@ -146,6 +148,7 @@ extension StoreDetailViewController {
                                    storeAddress: self.viewModel.store.address)
                 cell.storeButtonTapped = { buttonType in
                     self.storeDetailButtonTapped(buttonType: buttonType)
+                    self.updateProductCategoriesCell()
                 }
             }
 
@@ -160,9 +163,13 @@ extension StoreDetailViewController {
             }
 
             if let cell = cell as? ProductCategoriesCell {
-                cell.setUpContents(categories: self.viewModel.categories)
-                cell.setUpContents(productsCount: self.viewModel.products.count)
-                cell.categoryButtonTapped = { self.updateProductList(category: $0) }
+                cell.setUpContents(info: .init(categories: self.viewModel.categories,
+                                               currentFilter: self.viewModel.currentCategoryFilter,
+                                               filteredCount: self.viewModel.filteredProducts.count))
+                cell.categoryButtonTapped = {
+                    self.updateProductList(category: $0)
+                    self.updateProductCategoriesCell()
+                }
             }
 
             if let cell = cell as? ProductCell,
@@ -211,6 +218,16 @@ extension StoreDetailViewController {
             currentSnapshot.appendItems([.productList($0)])
         }
         self.storeDetailDataSource.apply(currentSnapshot)
+    }
+
+    private func updateProductCategoriesCell() {
+        var currentSnapshot = storeDetailDataSource.snapshot()
+        currentSnapshot.deleteItems(currentSnapshot.itemIdentifiers(inSection: .productCategory))
+        currentSnapshot.appendItems([.productCategory(.init(categories: viewModel.categories,
+                                                            currentFilter: viewModel.currentCategoryFilter,
+                                                            filteredCount: viewModel.filteredProducts.count))],
+                                    toSection: .productCategory)
+        storeDetailDataSource.apply(currentSnapshot)
     }
 }
 
