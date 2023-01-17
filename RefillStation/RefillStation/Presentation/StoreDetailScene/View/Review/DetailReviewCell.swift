@@ -31,6 +31,8 @@ final class DetailReviewCell: UICollectionViewCell {
         }
     }
 
+    var photoImageTapped: (() -> Void)?
+
     private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -54,11 +56,14 @@ final class DetailReviewCell: UICollectionViewCell {
         return label
     }()
 
-    private let reviewImageView: UIImageView = {
+    private lazy var reviewImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 4
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
+        imageView.isUserInteractionEnabled = true
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageViewDidTapped(_:)))
+        imageView.addGestureRecognizer(tapGestureRecognizer)
         return imageView
     }()
 
@@ -174,6 +179,11 @@ final class DetailReviewCell: UICollectionViewCell {
         )
 
         return UICollectionViewCompositionalLayout(section: .init(group: group))
+    }
+
+    @objc
+    private func imageViewDidTapped(_ sender: UITapGestureRecognizer) {
+        photoImageTapped?()
     }
 }
 

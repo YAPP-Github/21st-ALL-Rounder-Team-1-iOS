@@ -9,7 +9,7 @@ import UIKit
 
 final class DetailPhotoReviewViewController: UIViewController {
 
-    private let viewModel = DetailPhotoReviewViewModel()
+    private let viewModel: DetailPhotoReviewViewModel
 
     private lazy var orthogonalScrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -85,8 +85,18 @@ final class DetailPhotoReviewViewController: UIViewController {
         return label
     }()
 
+    init(viewModel: DetailPhotoReviewViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        self.viewModel = DetailPhotoReviewViewModel(photoURLs: [])
+        super.init(coder: coder)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .black
         bind()
         layout()
         addPhotosToStackView()

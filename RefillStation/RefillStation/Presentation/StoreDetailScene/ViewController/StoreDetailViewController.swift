@@ -174,6 +174,11 @@ extension StoreDetailViewController {
 
             if let cell = cell as? DetailReviewCell, case let .review(review) = itemIdentifier {
                 cell.setUpContents(detailReview: review)
+                cell.photoImageTapped = { [weak self] in
+                    self?.navigationController?.pushViewController(
+                        DetailPhotoReviewViewController(viewModel: .init(photoURLs: review.imageURL)),
+                        animated: true)
+                }
             }
 
             if let cell = cell as? OperationInfoCell,

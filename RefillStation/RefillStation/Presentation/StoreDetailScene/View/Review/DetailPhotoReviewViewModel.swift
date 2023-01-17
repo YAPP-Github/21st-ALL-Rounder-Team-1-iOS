@@ -19,7 +19,11 @@ final class DetailPhotoReviewViewModel {
         UIImage(systemName: "star.fill")
     ]
     var setUpPageLabel: (() -> Void)?
-    private let photoURLs = [String]()
+    private let photoURLs: [String?]
+
+    init(photoURLs: [String?]) {
+        self.photoURLs = photoURLs
+    }
 
     func viewDidLoad() {
         fetchImages()
