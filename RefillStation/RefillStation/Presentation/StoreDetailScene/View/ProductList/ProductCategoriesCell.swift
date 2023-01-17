@@ -7,6 +7,12 @@
 
 import UIKit
 
+struct ProductCategoriesCellInfo: Hashable {
+    let categories: [ProductCategory]
+    let currentFilter: ProductCategory
+    let filteredCount: Int
+}
+
 final class ProductCategoriesCell: UICollectionViewCell {
 
     static let reuseIdentifier = "productCategoriesCell"
@@ -44,14 +50,14 @@ final class ProductCategoriesCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
-    func setUpContents(categories: [ProductCategory]) {
-        self.categories = [ProductCategory.all] + categories
-        categoryCollectionView.selectItem(at: indexPathForAll,
-                                          animated: true, scrollPosition: .left)
-    }
-
-    func setUpContents(productsCount: Int) {
-        productsCountLabel.text = "판매상품 \(productsCount)건"
+    func setUpContents(info: ProductCategoriesCellInfo) {
+        productsCountLabel.text = "판매상품 \(info.filteredCount)건"
+        self.categories = [ProductCategory.all] + info.categories
+        if let indexPathToSelect = self.categories?.firstIndex(of: info.currentFilter) {
+            categoryCollectionView.selectItem(at: IndexPath(row: indexPathToSelect, section: 0),
+                                              animated: false, scrollPosition: .centeredHorizontally)
+        }
+        layoutIfNeeded()
     }
 
     private func layout() {
@@ -75,10 +81,7 @@ final class ProductCategoriesCell: UICollectionViewCell {
     private func categoryCollectionViewLayout() -> UICollectionViewCompositionalLayout {
         let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .estimated(100), heightDimension: .estimated(35)))
         item.edgeSpacing = .init(leading: .fixed(8), top: .fixed(0), trailing: .fixed(0), bottom: .fixed(0))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(100), heightDimension: .estimated(35)), subitems: [item])
-        // group widthDimension의 fractionalWidth가 100인 이유는 item의 길이보다 group의 fractionalWidth가 짧으면
-        // UIKit이 자체적으로 group내의 subitem의 개수를 늘려 group이 두개가 되는데 이는 continuos scroll을 방해하기 때문입니다.
-        // fractionalWidth를 100이라는 보수적인 숫자로 설정하여 continuos scroll을 방해하지 않도록 하였습니다.
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .estimated(100), heightDimension: .estimated(35)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
         section.contentInsets = .init(top: 0, leading: 8, bottom: 0, trailing: 0)

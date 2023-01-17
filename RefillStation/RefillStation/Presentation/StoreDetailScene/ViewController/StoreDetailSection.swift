@@ -15,7 +15,7 @@ extension StoreDetailViewController {
         case reviewOverview([TagReview])
         case operationInfo(OperationInfo)
         case tabBarMode(StoreDetailViewModel.TabBarMode)
-        case productCategory([ProductCategory])
+        case productCategory(ProductCategoriesCellInfo)
     }
 
     enum StoreDetailSection: Int, CaseIterable {
