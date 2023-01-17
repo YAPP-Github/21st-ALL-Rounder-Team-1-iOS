@@ -196,12 +196,8 @@ extension StoreDetailViewController {
                 let shouldShowMore = self.viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath)
                 cell.setUpContents(operation: operationInfo, shouldShowMore: shouldShowMore)
                 cell.seeMoreTapped = {
-                    if self.viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath) {
-                        self.viewModel.operationInfoSeeMoreIndexPaths.remove(indexPath)
-                    } else {
-                        self.viewModel.operationInfoSeeMoreIndexPaths.insert(indexPath)
-                    }
-                    self.cellTapped(indexPath: indexPath)
+                    self.viewModel.operationInfoSeeMoreTapped(indexPath: indexPath)
+                    self.reloadCellAt(indexPath: indexPath)
                 }
             }
 
@@ -235,17 +231,17 @@ extension StoreDetailViewController {
 extension StoreDetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if section(mode: viewModel.mode, sectionIndex: indexPath.section) != .operationInfo {
-            cellTapped(indexPath: indexPath)
+            reloadCellAt(indexPath: indexPath)
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if section(mode: viewModel.mode, sectionIndex: indexPath.section) != .operationInfo {
-            cellTapped(indexPath: indexPath)
+            reloadCellAt(indexPath: indexPath)
         }
     }
 
-    private func cellTapped(indexPath: IndexPath) {
+    private func reloadCellAt(indexPath: IndexPath) {
         if let item = storeDetailDataSource.itemIdentifier(for: indexPath) {
             var currentSnapshot = storeDetailDataSource.snapshot()
             currentSnapshot.reloadItems([item])

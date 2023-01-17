@@ -58,6 +58,14 @@ final class StoreDetailViewModel {
         currentCategoryFilter = category
     }
 
+    func operationInfoSeeMoreTapped(indexPath: IndexPath) {
+        if operationInfoSeeMoreIndexPaths.contains(indexPath) {
+            operationInfoSeeMoreIndexPaths.remove(indexPath)
+        } else {
+            operationInfoSeeMoreIndexPaths.insert(indexPath)
+        }
+    }
+
     private func fetchProductList(storeId: Int, completion: @escaping (Result<[Product], Error>) -> Void) {
         productListLoadTask = fetchProductListUseCase
             .execute(requestValue: FetchProductListRequestValue(storeId: storeId)) { result in
