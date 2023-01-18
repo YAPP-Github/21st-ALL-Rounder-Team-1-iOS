@@ -11,19 +11,8 @@ final class DetailReviewCell: UICollectionViewCell {
 
     static let reuseIdentifier = String(describing: DetailReviewCell.self)
 
-    override var isSelected: Bool {
-        didSet {
-            if isSelected {
-                descriptionLabel.numberOfLines = 0
-            } else {
-                descriptionLabel.numberOfLines = 3
-            }
-            layoutIfNeeded()
-        }
-    }
-
-    private var detailReview: DetailReview?
-
+    // MARK: - Private Properties
+    private var tagReviews: [TagReview]?
     private let profileImageHeight: CGFloat = 40
     private var tagCollectionViewHeight: CGFloat = 40 {
         didSet {
@@ -31,8 +20,16 @@ final class DetailReviewCell: UICollectionViewCell {
         }
     }
 
+    // MARK: - Event Handling
+    override var isSelected: Bool {
+        didSet {
+            descriptionLabel.numberOfLines = isSelected ? 0 : 3
+            layoutIfNeeded()
+        }
+    }
     var photoImageTapped: (() -> Void)?
 
+    // MARK: - UI Components
     private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -118,15 +115,14 @@ final class DetailReviewCell: UICollectionViewCell {
     }
 
     func setUpContents(detailReview: DetailReview) {
-        self.detailReview = detailReview
+        self.tagReviews = detailReview.tags
         userNameLabel.text = detailReview.user.name
         writtenDateLabel.text = detailReview.writtenDate.toString()
         descriptionLabel.text = detailReview.description
         imageCountLabel.text = "1 / \(detailReview.imageURL.count)"
         imageCountLabel.isHidden = detailReview.imageURL.count <= 1
-        if detailReview.imageURL.isEmpty { reviewImageView.removeFromSuperview() }
+        remakeReviewImageViewConstraints(isReviewImageEmpty: detailReview.imageURL.isEmpty)
         // TODO: Fetch Image(profile, review) with URL
-
         tagCollectionView.reloadData()
         tagCollectionView.layoutIfNeeded()
         tagCollectionViewHeight = tagCollectionView.contentSize.height
@@ -155,11 +151,7 @@ final class DetailReviewCell: UICollectionViewCell {
             dateLabel.top.equalTo(userNameLabel.snp.bottom).offset(5)
         }
 
-        reviewImageView.snp.makeConstraints { reviewImage in
-            reviewImage.leading.trailing.equalToSuperview().inset(16)
-            reviewImage.top.equalTo(writtenDateLabel.snp.bottom).offset(10)
-            reviewImage.height.equalTo(168).priority(.high)
-        }
+        remakeReviewImageViewConstraints(isReviewImageEmpty: false)
 
         descriptionLabel.snp.makeConstraints { description in
             description.leading.trailing.equalToSuperview().inset(16)
@@ -190,6 +182,30 @@ final class DetailReviewCell: UICollectionViewCell {
         }
     }
 
+    private func remakeReviewImageViewConstraints(isReviewImageEmpty: Bool) {
+        if isReviewImageEmpty {
+            reviewImageView.snp.remakeConstraints {
+                $0.leading.trailing.equalToSuperview().inset(16)
+                $0.top.equalTo(writtenDateLabel.snp.bottom).offset(10)
+                $0.height.equalTo(0)
+            }
+        } else {
+            reviewImageView.snp.remakeConstraints {
+                $0.leading.trailing.equalToSuperview().inset(16)
+                $0.top.equalTo(writtenDateLabel.snp.bottom).offset(10)
+                $0.height.equalTo(168).priority(.high)
+            }
+        }
+    }
+
+    @objc
+    private func imageViewDidTapped(_ sender: UITapGestureRecognizer) {
+        photoImageTapped?()
+    }
+}
+
+// MARK: - tagCollectionView Layout
+extension DetailReviewCell {
     private func tagCollectionLayout() -> UICollectionViewLayout {
         let item = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(100), heightDimension: .estimated(70))
@@ -202,31 +218,28 @@ final class DetailReviewCell: UICollectionViewCell {
 
         return UICollectionViewCompositionalLayout(section: .init(group: group))
     }
-
-    @objc
-    private func imageViewDidTapped(_ sender: UITapGestureRecognizer) {
-        photoImageTapped?()
-    }
 }
 
+// MARK: - tagCollectionView DataSource
 extension DetailReviewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return detailReview?.tags.count ?? 0
+        return tagReviews?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let detailReview = detailReview,
+        guard let tagReviews = tagReviews,
               let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: DetailReviewTagCollectionViewCell.reuseIdentifier,
             for: indexPath
         ) as? DetailReviewTagCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.setUpContents(tag: detailReview.tags[indexPath.row].tag)
+        cell.setUpContents(tag: tagReviews[indexPath.row].tag)
         return cell
     }
 }
 
+// MARK: - Date Extension
 fileprivate extension Date {
     func toString() -> String {
         let dateFormatter = DateFormatter()
