@@ -9,7 +9,7 @@ import UIKit
 
 final class OperationInfoCell: UICollectionViewCell {
 
-    static let reuseIdentifier = "operationInfoCell"
+    static let reuseIdentifier = String(describing: OperationInfoCell.self)
 
     private let imageView: UIImageView = {
         let imageView = UIImageView()
