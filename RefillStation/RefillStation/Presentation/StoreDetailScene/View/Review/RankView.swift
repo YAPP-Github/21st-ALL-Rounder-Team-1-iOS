@@ -21,7 +21,7 @@ final class FirstRankView: UIView {
     private let rankLabel: UILabel = {
         let label = UILabel()
         label.text = "1순위"
-        label.backgroundColor = Asset.Colors.primary2.color
+        label.backgroundColor = Asset.Colors.primary8.color
         label.layer.cornerRadius = 4
         label.textColor = .white
         label.clipsToBounds = true

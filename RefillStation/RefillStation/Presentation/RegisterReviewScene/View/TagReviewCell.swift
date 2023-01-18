@@ -55,9 +55,9 @@ final class TagReviewCell: UICollectionViewCell {
     }
 
     private func setUpSelectedButton() {
-        contentView.backgroundColor = Asset.Colors.primary0.color
-        contentView.layer.borderColor = Asset.Colors.primary3.color.cgColor
-        tagTitleLabel.textColor = Asset.Colors.primary3.color
+        contentView.backgroundColor = Asset.Colors.primary1.color
+        contentView.layer.borderColor = Asset.Colors.primary10.color.cgColor
+        tagTitleLabel.textColor = Asset.Colors.primary10.color
     }
 
     private func setUpUnselectedButton() {

@@ -34,7 +34,7 @@ final class CTAButton: UIButton {
 
     private func setUpButtonState() {
         if isEnabled {
-            self.backgroundColor = Asset.Colors.primary3.color
+            self.backgroundColor = Asset.Colors.primary10.color
         } else {
             self.backgroundColor = Asset.Colors.gray2.color
         }

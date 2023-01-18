@@ -34,7 +34,7 @@ final class ProductCell: UICollectionViewCell {
     private var priceLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.font(style: .buttonLarge)
-        label.textColor = Asset.Colors.primary2.color
+        label.textColor = Asset.Colors.primary8.color
         return label
     }()
 
