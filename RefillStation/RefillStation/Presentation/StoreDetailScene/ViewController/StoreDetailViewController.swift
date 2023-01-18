@@ -39,9 +39,17 @@ final class StoreDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setUpNavigationBar()
         setUpCollectionView()
         layout()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        setUpNavigationBar()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        AppDelegate.setUpNavigationBar()
+        navigationController?.navigationBar.tintColor = .black
     }
 
     private func setUpNavigationBar() {
@@ -56,6 +64,7 @@ final class StoreDetailViewController: UIViewController {
         navigationController?.navigationBar.standardAppearance = standardAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = scrollEdgeAppearance
         navigationController?.navigationBar.tintColor = .white
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.title = viewModel.store.name
     }
 
