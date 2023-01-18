@@ -7,73 +7,104 @@
 
 import UIKit
 
+struct ProductCategoriesCellInfo: Hashable {
+    let categories: [ProductCategory]
+    let currentFilter: ProductCategory
+}
+
 final class ProductCategoriesCell: UICollectionViewCell {
 
-    static let reuseIdentifier = "productCategoriesCell"
+    static let reuseIdentifier = String(describing: ProductCategoriesCell.self)
 
-    private var categories: [ProductCategory]?
-    private let indexPathForAll = IndexPath(row: 0, section: 0)
-
+    private(set) var categories: [ProductCategory]?
     private lazy var categoryCollectionView: UICollectionView = {
         let layout = categoryCollectionViewLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(ProductCategoryCollectionViewCell.self,
-                                forCellWithReuseIdentifier: ProductCategoryCollectionViewCell.reuseIdentifier)
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
+
+    private lazy var categoryCollectionDataSource = diffableDataSource()
 
     var categoryButtonTapped: ((ProductCategory?) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setUpCategoryCollectionView()
         layout()
+        applyDataSource()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
-    func setUpContents(categories: [ProductCategory]) {
-        self.categories = categories
-        categoryCollectionView.reloadData()
-        categoryCollectionView.selectItem(at: indexPathForAll, animated: true, scrollPosition: .left)
+    func setUpContents(info: ProductCategoriesCellInfo) {
+        self.categories = [ProductCategory.all] + info.categories
+        applyDataSource()
+        if let selected = categoryCollectionView.indexPathsForSelectedItems, selected.isEmpty {
+            if let indexPathToSelect = self.categories?.firstIndex(of: .all) {
+                categoryCollectionView.selectItem(at: IndexPath(row: indexPathToSelect, section: 0),
+                                                  animated: false, scrollPosition: .centeredHorizontally)
+                categoryButtonTapped?(.all)
+            }
+        }
+
+        layoutIfNeeded()
+    }
+
+    private func setUpCategoryCollectionView() {
+        categoryCollectionView.register(ProductCategoryCollectionViewCell.self,
+                                forCellWithReuseIdentifier: ProductCategoryCollectionViewCell.reuseIdentifier)
+        categoryCollectionView.dataSource = categoryCollectionDataSource
+        categoryCollectionView.delegate = self
+        categoryCollectionView.showsVerticalScrollIndicator = false
+        categoryCollectionView.showsHorizontalScrollIndicator = false
+        categoryCollectionView.isScrollEnabled = false
     }
 
     private func layout() {
-        contentView.addSubview(categoryCollectionView)
+        [categoryCollectionView].forEach {
+            contentView.addSubview($0)
+        }
+
         categoryCollectionView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.equalToSuperview().inset(16)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
 
     private func categoryCollectionViewLayout() -> UICollectionViewCompositionalLayout {
-        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .estimated(100), heightDimension: .absolute(35)))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(100), heightDimension: .estimated(35)), subitems: [item])
-        // group widthDimension의 fractionalWidth가 100인 이유는 item의 길이보다 group의 fractionalWidth가 짧으면
-        // UIKit이 자체적으로 group내의 subitem의 개수를 늘려 group이 두개가 되는데 이는 continuos scroll을 방해하기 때문입니다.
-        // fractionalWidth를 100이라는 보수적인 숫자로 설정하여 continuos scroll을 방해하지 않도록 하였습니다.
-        group.interItemSpacing = .fixed(10)
+        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .estimated(100), heightDimension: .estimated(35)))
+        item.edgeSpacing = .init(leading: .fixed(8), top: .fixed(0), trailing: .fixed(0), bottom: .fixed(0))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .estimated(100), heightDimension: .estimated(35)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
+        section.contentInsets = .init(top: 0, leading: 8, bottom: 0, trailing: 0)
         return UICollectionViewCompositionalLayout(section: section)
     }
 }
 
-extension ProductCategoriesCell: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categories?.count ?? 0
+extension ProductCategoriesCell {
+    enum Section {
+        case main
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: ProductCategoryCollectionViewCell.reuseIdentifier,
-            for: indexPath) as? ProductCategoryCollectionViewCell else { return UICollectionViewCell() }
-        cell.setUpContents(category: categories?[indexPath.row] ?? ProductCategory.all)
-        return cell
+    private func diffableDataSource() -> UICollectionViewDiffableDataSource<Section, ProductCategory> {
+        return UICollectionViewDiffableDataSource<Section, ProductCategory>(collectionView: categoryCollectionView) { collectionView, indexPath, itemIdentifier in
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: ProductCategoryCollectionViewCell.reuseIdentifier,
+                for: indexPath) as? ProductCategoryCollectionViewCell else { return UICollectionViewCell() }
+            cell.setUpContents(category: itemIdentifier)
+            return cell
+        }
+    }
+
+    private func applyDataSource() {
+        guard let categories = categories else { return }
+        var snapShot = NSDiffableDataSourceSnapshot<Section, ProductCategory>()
+        snapShot.appendSections([.main])
+        snapShot.appendItems(categories, toSection: .main)
+        categoryCollectionDataSource.apply(snapShot)
     }
 }
 

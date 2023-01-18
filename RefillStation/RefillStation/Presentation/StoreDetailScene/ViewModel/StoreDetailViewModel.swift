@@ -8,31 +8,87 @@
 import UIKit
 
 final class StoreDetailViewModel {
-    let detailReviewViewModel: DetailReviewViewModel
-    let votedTagViewModel: VotedTagViewModel
-    let storeDetailInfoViewModel: StoreDetailInfoViewModel
-    let productListViewModel: ProductListViewModel
+    // MARK: - TabBarMode
+    var mode: TabBarMode = .productLists {
+        didSet { operationInfoSeeMoreIndexPaths.removeAll() }
+    }
 
-    let storeDetailInfoViewHeight: CGFloat = 400
-    var mode: Mode = .productLists
+    // MARK: - Store Info
+    var store = MockEntityData.stores().first!
 
-    init(
-        detailReviewViewModel: DetailReviewViewModel,
-        votedTagViewModel: VotedTagViewModel,
-        storeDetailInfoViewModel: StoreDetailInfoViewModel,
-        productListViewModel: ProductListViewModel
-    ) {
-        self.detailReviewViewModel = detailReviewViewModel
-        self.votedTagViewModel = votedTagViewModel
-        self.storeDetailInfoViewModel = storeDetailInfoViewModel
-        self.productListViewModel = productListViewModel
+    // MARK: - ProductList
+    var products: [Product] = MockEntityData.products()
+    private(set) var categories = [ProductCategory]()
+    private(set) var currentCategoryFilter = ProductCategory.all
+    var filteredProducts: [Product] {
+        let filtered = products.filter({
+            if currentCategoryFilter == ProductCategory.all {
+                return true
+            } else {
+                return $0.category == currentCategoryFilter
+            }
+        })
+        return filtered
+    }
+
+    // MARK: - Review
+    var detailReviews = MockEntityData.detailReviews()
+    var totalVoteCount = 5
+    var tagReviews = MockEntityData.tagReviews()
+
+    // MARK: - Operation Info
+    var operationInfos = MockEntityData.operations()
+    var operationInfoSeeMoreIndexPaths = Set<IndexPath>()
+
+    // MARK: - UseCase
+    private let fetchProductListUseCase: FetchProductListUseCaseInterface
+    private var productListLoadTask: Cancellable?
+
+    init(fetchProductListUseCase: FetchProductListUseCaseInterface) {
+        self.fetchProductListUseCase = fetchProductListUseCase
+        products.forEach {
+            if !categories.contains($0.category) {
+                categories.append($0.category)
+            }
+        }
+    }
+
+    func categoryButtonDidTapped(category: ProductCategory?) {
+        guard let category = category else { return }
+        currentCategoryFilter = category
+    }
+
+    func operationInfoSeeMoreTapped(indexPath: IndexPath) {
+        if operationInfoSeeMoreIndexPaths.contains(indexPath) {
+            operationInfoSeeMoreIndexPaths.remove(indexPath)
+        } else {
+            operationInfoSeeMoreIndexPaths.insert(indexPath)
+        }
+    }
+
+    private func fetchProductList(storeId: Int, completion: @escaping (Result<[Product], Error>) -> Void) {
+        productListLoadTask = fetchProductListUseCase
+            .execute(requestValue: FetchProductListRequestValue(storeId: storeId)) { result in
+                switch result {
+                case .success(let products):
+                    completion(.success(products))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+
+    private func cancelFetchingProductList() {
+        productListLoadTask?.cancel()
     }
 }
 
+// MARK: - Enums
 extension StoreDetailViewModel {
-    enum Mode {
+    enum TabBarMode {
         case productLists
         case reviews
+        case operationInfo
 
         var name: String {
             switch self {
@@ -40,114 +96,36 @@ extension StoreDetailViewModel {
                 return "판매상품"
             case .reviews:
                 return "리뷰"
-            }
-        }
-
-        var sectionCount: Int {
-            switch self {
-            case .productLists:
-                return ProductListSection.allCases.count
-            case .reviews:
-                return ReviewSection.allCases.count
+            case .operationInfo:
+                return "운영정보"
             }
         }
     }
 
-    enum ProductListSection: Int, CaseIterable {
-        case productCategory
-        case productsCount
-        case productList
+    enum StoreInfoButtonType {
+        case phone
+        case link
+        case like
 
-        var cellHeight: CGFloat {
+        var image: UIImage? {
             switch self {
-            case .productCategory:
-                return 35
-            case .productsCount:
-                return 30
-            case .productList:
-                return 125
+            case .phone:
+                return Asset.Images.iconCall.image
+            case .link:
+                return Asset.Images.iconLink.image
+            case .like:
+                return Asset.Images.iconThumbsup.image
             }
         }
 
-        var reuseIdentifier: String {
+        var title: String {
             switch self {
-            case .productCategory:
-                return ProductCategoriesCell.reuseIdentifier
-            case .productsCount:
-                return ProductListHeaderCell.reuseIdentifier
-            case .productList:
-                return ProductCell.reuseIdentifier
-            }
-        }
-
-        var cell: UICollectionViewCell.Type {
-            switch self {
-            case .productCategory:
-                return ProductCategoriesCell.self
-            case .productsCount:
-                return ProductListHeaderCell.self
-            case .productList:
-                return ProductCell.self
-            }
-        }
-    }
-
-    enum ReviewSection: Int, CaseIterable {
-        case moveToWriteReview
-        case firstReviewRequest
-        case votedCount
-        case votedTag
-        case detailReviewCount
-        case detailReviews
-
-        var cellHeight: CGFloat {
-            switch self {
-            case .moveToWriteReview:
-                return 40
-            case .firstReviewRequest:
-                return 190
-            case .votedCount:
-                return 40
-            case .votedTag:
-                return 300
-            case .detailReviewCount:
-                return 40
-            case .detailReviews:
-                return 400
-            }
-        }
-
-        var reuseIdentifier: String {
-            switch self {
-            case .moveToWriteReview:
-                return MoveToWriteReviewCell.reuseIdentifier
-            case .firstReviewRequest:
-                return FirstReviewRequestCell.reuseIdentifier
-            case .votedCount:
-                return VotedCountLabelCell.reuseIdentifier
-            case .votedTag:
-                return VotedTagCell.reuseIdentifier
-            case .detailReviewCount:
-                return DetailReviewCountCell.reuseIdentifier
-            case .detailReviews:
-                return DetailReviewCell.reuseIdentifier
-            }
-        }
-
-        var cell: UICollectionViewCell.Type {
-            switch self {
-            case .moveToWriteReview:
-                return MoveToWriteReviewCell.self
-            case .firstReviewRequest:
-                return FirstReviewRequestCell.self
-            case .votedCount:
-                return VotedCountLabelCell.self
-            case .votedTag:
-                return VotedTagCell.self
-            case .detailReviewCount:
-                return DetailReviewCountCell.self
-            case .detailReviews:
-                return DetailReviewCell.self
+            case .phone:
+                return "전화"
+            case .link:
+                return "매장"
+            case .like:
+                return "추천"
             }
         }
     }

@@ -41,10 +41,16 @@ internal enum Asset {
     internal static let lv2 = ColorAsset(name: "Lv.2")
     internal static let lv3Light = ColorAsset(name: "Lv.3 light")
     internal static let lv3 = ColorAsset(name: "Lv.3")
-    internal static let primary0 = ColorAsset(name: "Primary0")
     internal static let primary1 = ColorAsset(name: "Primary1")
+    internal static let primary10 = ColorAsset(name: "Primary10")
     internal static let primary2 = ColorAsset(name: "Primary2")
     internal static let primary3 = ColorAsset(name: "Primary3")
+    internal static let primary4 = ColorAsset(name: "Primary4")
+    internal static let primary5 = ColorAsset(name: "Primary5")
+    internal static let primary6 = ColorAsset(name: "Primary6")
+    internal static let primary7 = ColorAsset(name: "Primary7")
+    internal static let primary8 = ColorAsset(name: "Primary8")
+    internal static let primary9 = ColorAsset(name: "Primary9")
   }
   internal enum Images {
     internal enum MockData {
@@ -80,6 +86,7 @@ internal enum Asset {
     internal static let iconClosePhoto = ImageAsset(name: "icon_close_photo")
     internal static let iconDirection = ImageAsset(name: "icon_direction")
     internal static let iconEdit = ImageAsset(name: "icon_edit")
+    internal static let iconLink = ImageAsset(name: "icon_link")
     internal static let iconPhoto = ImageAsset(name: "icon_photo")
     internal static let iconPosition = ImageAsset(name: "icon_position")
     internal static let iconSns = ImageAsset(name: "icon_sns")

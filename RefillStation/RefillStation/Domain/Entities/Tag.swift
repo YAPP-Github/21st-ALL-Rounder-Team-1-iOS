@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Tag {
+struct Tag: Hashable {
     let image: UIImage
     let title: String
 }

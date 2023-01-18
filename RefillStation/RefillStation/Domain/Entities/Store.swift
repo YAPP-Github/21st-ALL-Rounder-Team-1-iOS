@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Store {
+struct Store: Hashable {
     let name: String
     let address: String
     let distance: Double

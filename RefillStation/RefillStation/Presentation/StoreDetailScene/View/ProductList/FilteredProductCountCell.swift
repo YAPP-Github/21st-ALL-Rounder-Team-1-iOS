@@ -1,14 +1,15 @@
 //
-//  ProductListHeaderCell.swift
+//  FilteredProductCountCell.swift
 //  RefillStation
 //
-//  Created by 천수현 on 2022/12/23.
+//  Created by 천수현 on 2023/01/17.
 //
 
 import UIKit
 
-final class ProductListHeaderCell: UICollectionViewCell {
-    static let reuseIdentifier = "productListHeaderCell"
+final class FilteredProductCountCell: UICollectionViewCell {
+
+    static let reuseIdentifier = String(describing: FilteredProductCountCell.self)
 
     private let productsCountLabel: UILabel = {
         let label = UILabel()
@@ -26,15 +27,15 @@ final class ProductListHeaderCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
-    func setUpContents(productsCount: Int) {
-        productsCountLabel.text = "판매상품 \(productsCount)건"
+    func setUpContents(filteredCount: Int) {
+        productsCountLabel.text = "판매상품 \(filteredCount)건"
     }
 
     private func layout() {
         contentView.addSubview(productsCountLabel)
-
         productsCountLabel.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.equalToSuperview().inset(16)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
 }

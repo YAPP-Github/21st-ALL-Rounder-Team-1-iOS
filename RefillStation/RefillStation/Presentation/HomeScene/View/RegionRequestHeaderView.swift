@@ -44,8 +44,8 @@ final class RegionRequestHeaderView: UICollectionReusableView {
     private lazy var requestButton: UIButton = {
         let button = UIButton()
         button.setTitle("서비스 지역 신청하러 가기", for: .normal)
-        button.backgroundColor = Asset.Colors.primary1.color
-        button.setTitleColor(Asset.Colors.primary3.color, for: .normal)
+        button.backgroundColor = Asset.Colors.primary3.color
+        button.setTitleColor(Asset.Colors.primary10.color, for: .normal)
         button.titleLabel?.font = .font(style: .buttonLarge)
         button.addTarget(self, action: #selector(requestButtonDidTap), for: .touchUpInside)
         button.layer.cornerRadius = 6

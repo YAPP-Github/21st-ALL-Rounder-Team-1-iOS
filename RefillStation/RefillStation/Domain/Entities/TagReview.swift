@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct TagReview {
+struct TagReview: Hashable {
     let tag: Tag
     let recommendedCount: Int
 }

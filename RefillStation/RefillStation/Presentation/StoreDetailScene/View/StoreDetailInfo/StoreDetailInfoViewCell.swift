@@ -1,16 +1,16 @@
 //
-//  StoreDetailInfoView.swift
+//  StoreInfoViewCell.swift
 //  RefillStation
 //
-//  Created by kong on 2022/11/24.
+//  Created by 천수현 on 2023/01/07.
 //
 
 import UIKit
-import SnapKit
 
-final class StoreDetailInfoView: UIView {
+final class StoreDetailInfoViewCell: UICollectionViewCell {
 
-    // MARK: - UI Components
+    static let reuseIdentifier = String(describing: StoreDetailInfoViewCell.self)
+
     private let storeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Asset.Images.MockData.earthShop.image
@@ -74,28 +74,32 @@ final class StoreDetailInfoView: UIView {
         return line
     }()
 
-    // MARK: - Properties
-    private var viewModel: StoreDetailInfoViewModel
+    var storeButtonTapped: ((StoreDetailViewModel.StoreInfoButtonType) -> Void)?
 
-    // MARK: - Initialization
-    init(viewModel: StoreDetailInfoViewModel, storeDetailInfoStackViewDelegate: StoreDetailInfoStackViewDelegate) {
-        self.viewModel = viewModel
+    override init(frame: CGRect) {
         super.init(frame: .zero)
         backgroundColor = .white
-        bind()
         layout()
-        storeInfoStackView.delegate = storeDetailInfoStackViewDelegate
+        addButtonActions()
     }
 
     required init?(coder: NSCoder) {
-        self.viewModel = StoreDetailInfoViewModel()
         super.init(coder: coder)
     }
 
-    // MARK: - Default Setting Methods
-    private func bind() {
-        storeNameLabel.text = viewModel.name
-        storeAddressLabel.text = viewModel.address
+    func setUpContents(storeName: String, storeAddress: String) {
+        storeNameLabel.text = storeName
+        storeAddressLabel.text = storeAddress
+    }
+
+    private func addButtonActions() {
+        [storeInfoStackView.callButton,
+         storeInfoStackView.storeLinkButton,
+         storeInfoStackView.recommendedButton].forEach { storeButton in
+            storeButton.addAction(UIAction { _ in
+                self.storeButtonTapped?(storeButton.type)
+            }, for: .touchUpInside)
+        }
     }
 
     private func layout() {
@@ -110,7 +114,7 @@ final class StoreDetailInfoView: UIView {
 
         storeInfoOuterView.snp.makeConstraints {
             $0.top.equalTo(storeImageView.snp.bottom).offset(-10)
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.trailing.bottom.equalToSuperview()
         }
 
         storeNameLabel.snp.makeConstraints {
@@ -126,13 +130,13 @@ final class StoreDetailInfoView: UIView {
             $0.top.bottom.equalTo(checkRefillGuideLabel)
         }
         storeAddressLabel.snp.makeConstraints {
-            $0.top.equalTo(checkRefillGuideLabel.snp.bottom).offset(10)
+            $0.top.equalTo(checkRefillGuideLabel.snp.bottom).offset(4)
             $0.leading.equalTo(storeNameLabel)
         }
         storeStackOuterView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(44)
-            $0.top.equalTo(storeAddressLabel.snp.bottom).offset(5)
+            $0.top.equalTo(storeAddressLabel.snp.bottom).offset(12)
         }
         storeInfoStackView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()

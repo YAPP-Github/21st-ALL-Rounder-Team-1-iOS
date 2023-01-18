@@ -52,18 +52,20 @@ final class ProductCategoryCollectionViewCell: UICollectionViewCell {
     }
 
     private func setUpDeselected() {
+        backgroundColor = .white
         layer.cornerRadius = 16
-        layer.borderColor = Asset.Colors.gray4.color.cgColor
+        layer.borderColor = Asset.Colors.gray2.color.cgColor
         categoryLabel.textColor = Asset.Colors.gray4.color
         layer.borderWidth = 1
         clipsToBounds = true
     }
 
     private func setUpSelected() {
+        backgroundColor = Asset.Colors.primary1.color
         layer.cornerRadius = 16
-        layer.borderColor = Asset.Colors.primary3.color.cgColor
+        layer.borderColor = Asset.Colors.primary8.color.cgColor
         layer.borderWidth = 1
-        categoryLabel.textColor = Asset.Colors.primary3.color
+        categoryLabel.textColor = Asset.Colors.primary10.color
         clipsToBounds = true
     }
 }
