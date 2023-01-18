@@ -42,6 +42,14 @@ final class RegisterReviewViewController: UIViewController {
         addKeyboardNotification()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        AppDelegate.setUpNavigationBar()
+    }
+
     private func setUpCollectionView() {
         outerCollectionView.register(StoreInfoCell.self,
                                      forCellWithReuseIdentifier: StoreInfoCell.reuseIdentifier)
