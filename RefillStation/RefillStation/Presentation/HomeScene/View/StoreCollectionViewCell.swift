@@ -39,7 +39,7 @@ final class StoreCollectionViewCell: UICollectionViewCell {
     private var distanceLabel: UILabel = {
         let label = UILabel()
         label.font = .font(style: .buttonLarge)
-        label.textColor = Asset.Colors.primary3.color
+        label.textColor = Asset.Colors.primary10.color
         return label
     }()
 

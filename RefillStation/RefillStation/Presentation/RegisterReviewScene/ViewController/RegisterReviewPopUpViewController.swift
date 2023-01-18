@@ -99,7 +99,7 @@ final class RegisterReviewPopUpViewController: UIViewController {
     private func setUpReviewCountTextColor(count: Int) {
         guard let text = self.descriptionLabel.text else { return }
         let attributeString = NSMutableAttributedString(string: text)
-        attributeString.addAttribute(.foregroundColor, value: Asset.Colors.primary3.color,
+        attributeString.addAttribute(.foregroundColor, value: Asset.Colors.primary10.color,
                                      range: (text as NSString).range(of: "\(count)"))
         descriptionLabel.attributedText = attributeString
     }
