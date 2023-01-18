@@ -19,6 +19,13 @@ final class StoreDetailViewController: UIViewController {
 
     private lazy var moveToTopButton: UIButton = {
         let button = UIButton()
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 26
+        button.layer.borderColor = Asset.Colors.gray2.color.cgColor
+        button.layer.borderWidth = 1
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.06
+        button.layer.shadowOffset = CGSize(width: 1, height: 1)
         button.setImage(Asset.Images.iconArrowTopSmall.image, for: .normal)
         button.addAction(UIAction { _ in
             self.collectionView.setContentOffset(.zero, animated: true)
@@ -88,7 +95,9 @@ final class StoreDetailViewController: UIViewController {
         }
 
         moveToTopButton.snp.makeConstraints {
-            $0.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(8)
+            $0.width.height.equalTo(52)
         }
     }
 
