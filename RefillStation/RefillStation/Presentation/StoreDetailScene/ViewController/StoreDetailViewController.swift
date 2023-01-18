@@ -10,13 +10,22 @@ import UIKit
 final class StoreDetailViewController: UIViewController {
 
     private var viewModel: StoreDetailViewModel!
+    private lazy var storeDetailDataSource = diffableDataSource()
 
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout())
         return collectionView
     }()
 
-    private lazy var storeDetailDataSource = diffableDataSource()
+    private lazy var moveToTopButton: UIButton = {
+        let button = UIButton()
+        button.setImage(Asset.Images.iconArrowTopSmall.image, for: .normal)
+        button.addAction(UIAction { _ in
+            self.collectionView.setContentOffset(.zero, animated: true)
+        }, for: .touchUpInside)
+        button.isHidden = true
+        return button
+    }()
 
     init(viewModel: StoreDetailViewModel) {
         self.viewModel = viewModel
@@ -63,10 +72,14 @@ final class StoreDetailViewController: UIViewController {
     }
 
     private func layout() {
-        [collectionView].forEach { view.addSubview($0) }
+        [collectionView, moveToTopButton].forEach { view.addSubview($0) }
 
         collectionView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalToSuperview()
+        }
+
+        moveToTopButton.snp.makeConstraints {
+            $0.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
         }
     }
 
@@ -131,9 +144,7 @@ extension StoreDetailViewController {
             if let cell = cell as? StoreDetailInfoViewCell {
                 cell.setUpContents(storeName: self.viewModel.store.name,
                                    storeAddress: self.viewModel.store.address)
-                cell.storeButtonTapped = { buttonType in
-                    self.storeDetailButtonTapped(buttonType: buttonType)
-                }
+                cell.storeButtonTapped = { self.storeDetailButtonTapped(buttonType: $0) }
             }
 
             if let cell = cell as? StoreDetailTabBarCell {
@@ -151,7 +162,7 @@ extension StoreDetailViewController {
                                                currentFilter: self.viewModel.currentCategoryFilter))
                 cell.categoryButtonTapped = {
                     self.updateProductList(category: $0)
-                    self.updateProductCategoriesCell()
+                    self.updateFilteredProductCountCell()
                 }
             }
 
@@ -206,7 +217,7 @@ extension StoreDetailViewController {
         self.storeDetailDataSource.apply(currentSnapshot)
     }
 
-    private func updateProductCategoriesCell() {
+    private func updateFilteredProductCountCell() {
         var currentSnapshot = storeDetailDataSource.snapshot()
         currentSnapshot.deleteItems(currentSnapshot.itemIdentifiers(inSection: .filteredProductsCount))
         currentSnapshot.appendItems([.filteredProduct(viewModel.filteredProducts.count)],
@@ -240,8 +251,10 @@ extension StoreDetailViewController: UICollectionViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y > 0 {
             navigationController?.navigationBar.tintColor = .black
+            moveToTopButton.isHidden = false
         } else {
             navigationController?.navigationBar.tintColor = .white
+            moveToTopButton.isHidden = true
         }
     }
 }
