@@ -76,7 +76,7 @@ final class ProductCell: UICollectionViewCell {
             contentView.addSubview($0)
         }
         productImageView.snp.makeConstraints {
-            $0.width.equalTo(80)
+            $0.width.height.equalTo(80)
             $0.top.equalToSuperview().inset(16)
         }
         brandLabel.snp.makeConstraints {

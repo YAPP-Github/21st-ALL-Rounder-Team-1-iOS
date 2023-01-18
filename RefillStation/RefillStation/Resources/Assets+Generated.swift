@@ -80,6 +80,7 @@ internal enum Asset {
     internal static let iconClosePhoto = ImageAsset(name: "icon_close_photo")
     internal static let iconDirection = ImageAsset(name: "icon_direction")
     internal static let iconEdit = ImageAsset(name: "icon_edit")
+    internal static let iconLink = ImageAsset(name: "icon_link")
     internal static let iconPhoto = ImageAsset(name: "icon_photo")
     internal static let iconPosition = ImageAsset(name: "icon_position")
     internal static let iconSns = ImageAsset(name: "icon_sns")

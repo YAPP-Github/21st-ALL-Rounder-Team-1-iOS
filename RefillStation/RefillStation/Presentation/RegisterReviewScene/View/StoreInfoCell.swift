@@ -10,7 +10,7 @@ import SnapKit
 
 final class StoreInfoCell: UICollectionViewCell {
 
-    static let reuseIdentifier = "storeInfoCell"
+    static let reuseIdentifier = "storeInfoCell" // TODO: String describe type
 
     private let storeNamelabel: UILabel = {
         let label = UILabel()

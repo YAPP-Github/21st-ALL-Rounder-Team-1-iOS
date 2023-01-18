@@ -9,22 +9,34 @@ import UIKit
 
 final class DetailReviewCell: UICollectionViewCell {
 
-    static let reuseIdentifier = "detailReviewCell"
-    private var detailReview: DetailReview?
+    static let reuseIdentifier = String(describing: DetailReviewCell.self)
 
+    // MARK: - Private Properties
+    private var tagReviews: [TagReview]?
     private let profileImageHeight: CGFloat = 40
     private var tagCollectionViewHeight: CGFloat = 40 {
         didSet {
-            tagCollectionViewLayout()
+            remakeTagCollectionViewConstraints()
         }
     }
 
+    // MARK: - Event Handling
+    override var isSelected: Bool {
+        didSet {
+            descriptionLabel.numberOfLines = isSelected ? 0 : 3
+            layoutIfNeeded()
+        }
+    }
+    var photoImageTapped: (() -> Void)?
+
+    // MARK: - UI Components
     private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = profileImageHeight / 2
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
+        imageView.backgroundColor = Asset.Colors.gray1.color
         return imageView
     }()
 
@@ -42,11 +54,15 @@ final class DetailReviewCell: UICollectionViewCell {
         return label
     }()
 
-    private let reviewImageView: UIImageView = {
+    private lazy var reviewImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 4
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
+        imageView.isUserInteractionEnabled = true
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageViewDidTapped(_:)))
+        imageView.addGestureRecognizer(tapGestureRecognizer)
+        imageView.backgroundColor = Asset.Colors.gray1.color
         return imageView
     }()
 
@@ -55,12 +71,9 @@ final class DetailReviewCell: UICollectionViewCell {
         label.numberOfLines = 3
         label.textColor = Asset.Colors.gray5.color
         label.font = UIFont.font(style: .bodyMedium)
+        label.lineBreakStrategy = .hangulWordPriority
         return label
     }()
-
-    var isDescriptionLabelTruncated: Bool {
-        return descriptionLabel.isTruncated
-    }
 
     private lazy var tagCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: tagCollectionLayout())
@@ -75,21 +88,22 @@ final class DetailReviewCell: UICollectionViewCell {
         return collectionView
     }()
 
-    private lazy var seeMoreButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "chevron.down"), for: .normal)
-        button.tintColor = Asset.Colors.gray5.color
-        button.addTarget(self, action: #selector(seeMoreButtonTapped(_:)), for: .touchUpInside)
-        return button
-    }()
-
     private let divisionLine: UIView = {
         let line = UIView(frame: .zero)
         line.backgroundColor = Asset.Colors.gray1.color
         return line
     }()
 
-    var reloadCell: (() -> Void)?
+    private let imageCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.font(style: .buttonSmall)
+        label.textColor = .white
+        label.backgroundColor = Asset.Colors.gray3.color
+        label.clipsToBounds = true
+        label.layer.cornerRadius = 10
+        label.textAlignment = .center
+        return label
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -100,48 +114,29 @@ final class DetailReviewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
-    @objc
-    private func seeMoreButtonTapped(_ sender: UIButton) {
-        reloadCell?()
-    }
-
-    func setUpSeeMore(shouldSeeMore: Bool) {
-        descriptionLabel.numberOfLines = shouldSeeMore ? 0 : 3
-        seeMoreButton.isHidden = shouldSeeMore
-    }
-
-    func setUpImages(userImage: UIImage, reviewImage: UIImage) {
-        profileImageView.image = userImage
-        reviewImageView.image = reviewImage
-    }
-
     func setUpContents(detailReview: DetailReview) {
-        self.detailReview = detailReview
-        profileImageView.image = UIImage(systemName: "person")
+        self.tagReviews = detailReview.tags
         userNameLabel.text = detailReview.user.name
         writtenDateLabel.text = detailReview.writtenDate.toString()
-        reviewImageView.image = UIImage(systemName: "zzz")
         descriptionLabel.text = detailReview.description
+        imageCountLabel.text = "1 / \(detailReview.imageURL.count)"
+        imageCountLabel.isHidden = detailReview.imageURL.count <= 1
+        remakeReviewImageViewConstraints(isReviewImageEmpty: detailReview.imageURL.isEmpty)
+        // TODO: Fetch Image(profile, review) with URL
         tagCollectionView.reloadData()
         tagCollectionView.layoutIfNeeded()
         tagCollectionViewHeight = tagCollectionView.contentSize.height
         layoutIfNeeded()
     }
 
-    func hideSeeMoreButtonIfNeed() {
-        if !isDescriptionLabelTruncated {
-            seeMoreButton.removeFromSuperview()
-        }
-    }
-
     private func layout() {
         [profileImageView, userNameLabel, writtenDateLabel, reviewImageView,
-         descriptionLabel, divisionLine, tagCollectionView, seeMoreButton].forEach {
+         descriptionLabel, divisionLine, tagCollectionView, imageCountLabel].forEach {
             contentView.addSubview($0)
         }
 
         profileImageView.snp.makeConstraints { profile in
-            profile.leading.equalToSuperview()
+            profile.leading.equalToSuperview().inset(16)
             profile.top.equalToSuperview().inset(20)
             profile.height.width.equalTo(profileImageHeight)
         }
@@ -156,50 +151,68 @@ final class DetailReviewCell: UICollectionViewCell {
             dateLabel.top.equalTo(userNameLabel.snp.bottom).offset(5)
         }
 
-        reviewImageView.snp.makeConstraints { reviewImage in
-            reviewImage.leading.trailing.equalToSuperview()
-            reviewImage.top.equalTo(writtenDateLabel.snp.bottom).offset(10)
-            reviewImage.height.equalTo(168)
-        }
+        remakeReviewImageViewConstraints(isReviewImageEmpty: false)
 
         descriptionLabel.snp.makeConstraints { description in
-            description.leading.trailing.equalToSuperview()
+            description.leading.trailing.equalToSuperview().inset(16)
             description.top.equalTo(reviewImageView.snp.bottom).offset(10)
+            description.top.equalTo(writtenDateLabel.snp.bottom).offset(10).priority(.medium)
         }
 
-        tagCollectionViewLayout()
-
-        seeMoreButton.snp.makeConstraints {
-            $0.top.equalTo(descriptionLabel.snp.bottom)
-            $0.trailing.equalTo(descriptionLabel.snp.trailing)
-        }
+        remakeTagCollectionViewConstraints()
 
         divisionLine.snp.makeConstraints {
             $0.top.equalTo(tagCollectionView.snp.bottom).offset(20)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.leading.trailing.bottom.equalToSuperview().inset(16)
             $0.height.equalTo(1)
+        }
+
+        imageCountLabel.snp.makeConstraints {
+            $0.trailing.bottom.equalTo(reviewImageView).inset(14)
+            $0.height.equalTo(20)
+            $0.width.equalTo(42)
         }
     }
 
-    private func tagCollectionViewLayout() {
+    private func remakeTagCollectionViewConstraints() {
         tagCollectionView.snp.remakeConstraints {
-            $0.leading.equalToSuperview()
-            $0.trailing.equalToSuperview()
-            if contentView.subviews.contains(seeMoreButton) {
-                $0.top.equalTo(seeMoreButton.snp.bottom).offset(10).priority(.required)
-            }
-            $0.top.equalTo(descriptionLabel.snp.bottom).offset(10).priority(.medium)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.top.equalTo(descriptionLabel.snp.bottom).offset(10)
             $0.height.equalTo(tagCollectionViewHeight)
         }
     }
 
+    private func remakeReviewImageViewConstraints(isReviewImageEmpty: Bool) {
+        if isReviewImageEmpty {
+            reviewImageView.snp.remakeConstraints {
+                $0.leading.trailing.equalToSuperview().inset(16)
+                $0.top.equalTo(writtenDateLabel.snp.bottom).offset(10)
+                $0.height.equalTo(0)
+            }
+        } else {
+            reviewImageView.snp.remakeConstraints {
+                $0.leading.trailing.equalToSuperview().inset(16)
+                $0.top.equalTo(writtenDateLabel.snp.bottom).offset(10)
+                $0.height.equalTo(168).priority(.high)
+            }
+        }
+    }
+
+    @objc
+    private func imageViewDidTapped(_ sender: UITapGestureRecognizer) {
+        photoImageTapped?()
+    }
+}
+
+// MARK: - tagCollectionView Layout
+extension DetailReviewCell {
     private func tagCollectionLayout() -> UICollectionViewLayout {
         let item = NSCollectionLayoutItem(
-            layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(40), heightDimension: .estimated(40))
+            layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(100), heightDimension: .estimated(70))
         )
         item.edgeSpacing = .init(leading: .fixed(5), top: .fixed(5), trailing: .fixed(5), bottom: .fixed(5))
         let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50)),
+            layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(70)),
             subitems: [item]
         )
 
@@ -207,24 +220,26 @@ final class DetailReviewCell: UICollectionViewCell {
     }
 }
 
+// MARK: - tagCollectionView DataSource
 extension DetailReviewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return detailReview?.tags.count ?? 0
+        return tagReviews?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let detailReview = detailReview,
+        guard let tagReviews = tagReviews,
               let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: DetailReviewTagCollectionViewCell.reuseIdentifier,
             for: indexPath
         ) as? DetailReviewTagCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.setUpContents(tag: detailReview.tags[indexPath.row].tag)
+        cell.setUpContents(tag: tagReviews[indexPath.row].tag)
         return cell
     }
 }
 
+// MARK: - Date Extension
 fileprivate extension Date {
     func toString() -> String {
         let dateFormatter = DateFormatter()
@@ -232,22 +247,5 @@ fileprivate extension Date {
         dateFormatter.timeStyle = .none
 
         return dateFormatter.string(from: self)
-    }
-}
-
-fileprivate extension UILabel {
-    var isTruncated: Bool { return self.countLabelLines() > self.numberOfLines }
-
-    private func countLabelLines() -> Int {
-        self.layoutIfNeeded()
-        guard let text = self.text as? NSString else { return 0 }
-        let attributes = [NSAttributedString.Key.font: self.font]
-
-        let labelSize = text.boundingRect(
-            with: CGSize(width: self.bounds.width, height: CGFloat.greatestFiniteMagnitude),
-            options: NSStringDrawingOptions.usesLineFragmentOrigin,
-            attributes: attributes as [NSAttributedString.Key: Any], context: nil
-        )
-        return Int(ceil(CGFloat(labelSize.height) / self.font.lineHeight))
     }
 }
