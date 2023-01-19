@@ -5,20 +5,30 @@
 //  Created by 천수현 on 2022/12/16.
 //
 
-import Foundation
 import UIKit
 
 final class OnboardingDIContainer: DIContainer {
     private let navigationController: UINavigationController
+    private let viewController: UIViewController
 
-    init(navigationController: UINavigationController) {
+    init(
+        navigationController: UINavigationController,
+        viewController: UIViewController
+    ) {
         self.navigationController = navigationController
+        self.viewController = viewController
+    }
+
+    // MARK: - TabBarDIContainer
+    func makeTabBarDIContainer() -> TabBarDIContainer {
+        return TabBarDIContainer()
     }
 
     // MARK: - Coordinator
     func makeOnboardingCoordinator() -> OnboardingCoordinator {
         return OnboardingCoordinator(DIContainer: self,
-                                     navigationController: navigationController)
+                                     navigationController: navigationController,
+                                     viewController: viewController)
     }
 
     // MARK: - Onboarding
