@@ -10,7 +10,7 @@ import UIKit
 final class TabBarCoordinator: Coordinator {
 
     let DIContainer: TabBarDIContainer
-    private let rootViewController: UIViewController
+    private var rootViewController: UIViewController
     private let tabBarController: UITabBarController
     private let homeNavigationController: UINavigationController
     private let myPageNavigationController: UINavigationController
@@ -30,7 +30,14 @@ final class TabBarCoordinator: Coordinator {
     }
 
     func start() {
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        window?.rootViewController = tabBarController
         tabBarController.addChild(homeNavigationController)
+        let homeDIContainer = DIContainer.makeHomeDIContainer()
+        let homeCoordinator = homeDIContainer.makeHomeCoordinator()
+        homeCoordinator.start()
         tabBarController.addChild(myPageNavigationController)
     }
 }

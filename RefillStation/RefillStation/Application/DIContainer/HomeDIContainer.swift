@@ -8,8 +8,12 @@
 import UIKit
 
 final class HomeDIContainer: DIContainer {
-    private let navigationController = UINavigationController()
+    private let navigationController: UINavigationController
     private let networkService = NetworkService()
+
+    init(navigationController: UINavigationController) {
+        self.navigationController = navigationController
+    }
 
     // MARK: - Store Detail
     func makeStoreDetailDIContainer() -> StoreDetailDIContainer {

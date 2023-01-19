@@ -28,7 +28,10 @@ final class OnboardingCoordinator: Coordinator {
     }
 
     func showOnboarding() {
-        viewController = DIContainer.makeOnboardingViewController()
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        window?.rootViewController = DIContainer.makeOnboardingViewController()
     }
 
     func showLogin() {

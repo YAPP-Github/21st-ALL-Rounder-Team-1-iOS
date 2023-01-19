@@ -9,7 +9,7 @@ import UIKit
 
 final class TabBarDIContainer: DIContainer {
     private let rootViewController: UIViewController
-    private let tabBarController = UITabBarController()
+    private let tabBarController = MainTabBarController()
     private let homeNavigationController = UINavigationController()
     private let myPageNaviagtionConroller = UINavigationController()
 
@@ -28,7 +28,7 @@ final class TabBarDIContainer: DIContainer {
     }
 
     func makeHomeDIContainer() -> HomeDIContainer {
-        return HomeDIContainer()
+        return HomeDIContainer(navigationController: homeNavigationController)
     }
 
     func makeMyPageDIContainer() {
