@@ -5,20 +5,23 @@
 //  Created by 천수현 on 2022/12/16.
 //
 
-import Foundation
+import UIKit
 
 final class StoreDetailDIContainer: DIContainer {
-
+    private let navigationController: UINavigationController
     private let networkService = NetworkService()
 
-    func makeFetchProductListUseCase() -> FetchProductListUseCaseInterface {
-        return FetchProductListUseCase(productListRepository: makeProductListRepository())
+    init(navigationController: UINavigationController) {
+        self.navigationController = navigationController
     }
 
-    func makeProductListRepository() -> ProductListRepositoryInterface {
-        return ProductListRepository(networkService: networkService)
+    // MARK: - Coordinator
+    func makeStoreDetailCoordinator() -> StoreDetailCoordinator {
+        return StoreDetailCoordinator(DIContainer: self,
+                                      navigationController: navigationController)
     }
 
+    // MARK: - Store Detail
     func makeStoreDetailViewController() -> StoreDetailViewController {
         return StoreDetailViewController(viewModel: makeStoreDetailViewModel())
     }
@@ -27,5 +30,13 @@ final class StoreDetailDIContainer: DIContainer {
         return StoreDetailViewModel(
             fetchProductListUseCase: makeFetchProductListUseCase()
         )
+    }
+
+    func makeFetchProductListUseCase() -> FetchProductListUseCase {
+        return FetchProductListUseCase(productListRepository: makeProductListRepository())
+    }
+
+    func makeProductListRepository() -> ProductListRepository {
+        return ProductListRepository(networkService: networkService)
     }
 }
