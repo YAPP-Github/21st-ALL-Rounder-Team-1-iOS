@@ -10,5 +10,8 @@ import UIKit
 final class TabBarDIContainer: DIContainer {
     private let tabBarController = UITabBarController()
 
-    
+    func makeTabBarCoordinator() -> TabBarCoordinator {
+        return TabBarCoordinator(DIContainer: self,
+                                 tabBarController: tabBarController)
+    }
 }

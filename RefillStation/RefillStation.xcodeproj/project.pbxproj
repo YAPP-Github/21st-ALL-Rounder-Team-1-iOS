@@ -47,6 +47,7 @@
 		329EF9172972DE30004934E7 /* StoreDetailSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329EF9162972DE30004934E7 /* StoreDetailSection.swift */; };
 		32CCC0D129791C9300C04231 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 32CCC0D029791C9300C04231 /* Toast */; };
 		32CCC0D32979302700C04231 /* TabBarDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CCC0D22979302700C04231 /* TabBarDIContainer.swift */; };
+		32CCC0D52979311D00C04231 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CCC0D42979311D00C04231 /* TabBarCoordinator.swift */; };
 		32DFDAE12976BAE400B6EDA3 /* FilteredProductCountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFDAE02976BAE400B6EDA3 /* FilteredProductCountCell.swift */; };
 		32DFDAE32976C93500B6EDA3 /* DetailPhotoReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFDAE22976C93500B6EDA3 /* DetailPhotoReviewViewController.swift */; };
 		32DFDAE52976CAE100B6EDA3 /* DetailPhotoReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFDAE42976CAE100B6EDA3 /* DetailPhotoReviewViewModel.swift */; };
@@ -172,6 +173,7 @@
 		329EF91429729679004934E7 /* StoreDetailTabBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailTabBarCell.swift; sourceTree = "<group>"; };
 		329EF9162972DE30004934E7 /* StoreDetailSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailSection.swift; sourceTree = "<group>"; };
 		32CCC0D22979302700C04231 /* TabBarDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarDIContainer.swift; sourceTree = "<group>"; };
+		32CCC0D42979311D00C04231 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		32DFDAE02976BAE400B6EDA3 /* FilteredProductCountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredProductCountCell.swift; sourceTree = "<group>"; };
 		32DFDAE22976C93500B6EDA3 /* DetailPhotoReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPhotoReviewViewController.swift; sourceTree = "<group>"; };
 		32DFDAE42976CAE100B6EDA3 /* DetailPhotoReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPhotoReviewViewModel.swift; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 				325985E2294C51A700D26A37 /* HomeSceneDIContainer.swift */,
 				325985E4294C51BA00D26A37 /* OnboardingDIContainer.swift */,
 				32CCC0D22979302700C04231 /* TabBarDIContainer.swift */,
+				32CCC0D42979311D00C04231 /* TabBarCoordinator.swift */,
 				325985F8294C54CB00D26A37 /* StoreDetailDIContainer.swift */,
 			);
 			path = DIContainer;
@@ -959,6 +962,7 @@
 			files = (
 				FCE00A67294C5ADF00B5C05F /* CoreDataStorage.swift in Sources */,
 				FCF0181A295F08E50027078A /* UserLevelInfo.swift in Sources */,
+				32CCC0D52979311D00C04231 /* TabBarCoordinator.swift in Sources */,
 				32ED747C29696C52007EA791 /* StoreDetailInfoViewCell.swift in Sources */,
 				329E80252977FA72004286B0 /* OnboardingCollectionViewCell.swift in Sources */,
 				32E9A55D292E4F37000072EE /* RankView.swift in Sources */,

@@ -40,6 +40,8 @@ final class OnboardingCoordinator: Coordinator {
     }
 
     func agreeAndStartButtonTapped() {
-
+        let tabBarDIContainer = DIContainer.makeTabBarDIContainer()
+        let tabBarCoordinator = tabBarDIContainer.makeTabBarCoordinator()
+        tabBarCoordinator.start()
     }
 }
