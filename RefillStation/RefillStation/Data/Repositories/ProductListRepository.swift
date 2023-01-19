@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Alamofire
 
 final class ProductListRepository: ProductListRepositoryInterface {
     private let networkService: NetworkServiceInterface
@@ -19,6 +18,6 @@ final class ProductListRepository: ProductListRepositoryInterface {
         query: FetchProductListRequestValue,
         completion: @escaping (Result<[Product], Error>) -> Void
     ) -> Cancellable {
-        return AF.session.dataTask(with: URL(string: "")!)
+        return URLSessionDataTask()
     }
 }

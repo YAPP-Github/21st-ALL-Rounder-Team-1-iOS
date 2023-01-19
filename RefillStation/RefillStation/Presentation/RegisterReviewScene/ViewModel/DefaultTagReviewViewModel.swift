@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import RxSwift
-import RxCocoa
 
 protocol TagReviewViewModelInput {
 }
@@ -19,7 +17,6 @@ protocol TagReviewViewModel: TagReviewViewModelInput, TagReviewViewModelOutput {
 
 final class DefaultTagReviewViewModel: TagReviewViewModel {
 
-    var disposeBag = DisposeBag()
     var tags = MockEntityData.tags()
     var indexPathsForSelectedItems = [IndexPath]()
     var shouldSelectCell: Bool {

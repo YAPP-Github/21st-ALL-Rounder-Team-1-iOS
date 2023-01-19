@@ -23,9 +23,6 @@
 		3244A222292DC13B00716A2B /* RefillStationUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A221292DC13B00716A2B /* RefillStationUITestsLaunchTests.swift */; };
 		3244A233292DC48300716A2B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3244A232292DC48300716A2B /* .swiftlint.yml */; };
 		3244A238292DCB1F00716A2B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3244A237292DCB1F00716A2B /* SnapKit */; };
-		3244A23B292DCB6A00716A2B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3244A23A292DCB6A00716A2B /* RxCocoa */; };
-		3244A23D292DCB6A00716A2B /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 3244A23C292DCB6A00716A2B /* RxRelay */; };
-		3244A23F292DCB6A00716A2B /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3244A23E292DCB6A00716A2B /* RxSwift */; };
 		324CCBE029321616001F6FDA /* DetailReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324CCBDD29321616001F6FDA /* DetailReviewCell.swift */; };
 		325985DF294C50BD00D26A37 /* AppFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325985DE294C50BD00D26A37 /* AppFlowCoordinator.swift */; };
 		325985E1294C50D200D26A37 /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325985E0294C50D200D26A37 /* AppDIContainer.swift */; };
@@ -48,6 +45,7 @@
 		329EF9132971F9AD004934E7 /* ReviewInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329EF9122971F9AD004934E7 /* ReviewInfoCell.swift */; };
 		329EF91529729679004934E7 /* StoreDetailTabBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329EF91429729679004934E7 /* StoreDetailTabBarCell.swift */; };
 		329EF9172972DE30004934E7 /* StoreDetailSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329EF9162972DE30004934E7 /* StoreDetailSection.swift */; };
+		32CCC0D129791C9300C04231 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 32CCC0D029791C9300C04231 /* Toast */; };
 		32DFDAE12976BAE400B6EDA3 /* FilteredProductCountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFDAE02976BAE400B6EDA3 /* FilteredProductCountCell.swift */; };
 		32DFDAE32976C93500B6EDA3 /* DetailPhotoReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFDAE22976C93500B6EDA3 /* DetailPhotoReviewViewController.swift */; };
 		32DFDAE52976CAE100B6EDA3 /* DetailPhotoReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFDAE42976CAE100B6EDA3 /* DetailPhotoReviewViewModel.swift */; };
@@ -81,7 +79,6 @@
 		FC90448C2965E2E500B43BB9 /* PumpTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90448B2965E2E500B43BB9 /* PumpTagView.swift */; };
 		FC90448E29671FC900B43BB9 /* LevelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90448D29671FC900B43BB9 /* LevelCollectionViewCell.swift */; };
 		FCAB262B296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAB262A296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift */; };
-		FCB6667D29346285004F38B0 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = FCB6667C29346285004F38B0 /* Tabman */; };
 		FCE00A67294C5ADF00B5C05F /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A66294C5ADF00B5C05F /* CoreDataStorage.swift */; };
 		FCE00A6A294C5B3400B5C05F /* TagResponseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A69294C5B3400B5C05F /* TagResponseStorage.swift */; };
 		FCE00A6D294C5D5F00B5C05F /* CoreDataTagResponseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A6C294C5D5F00B5C05F /* CoreDataTagResponseStorage.swift */; };
@@ -107,7 +104,6 @@
 		FCE00A9A2950E07900B5C05F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A992950E07900B5C05F /* User.swift */; };
 		FCE00A9C2950E1C700B5C05F /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A9B2950E1C700B5C05F /* Review.swift */; };
 		FCE00AA029517E6E00B5C05F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A9F29517E6E00B5C05F /* NetworkService.swift */; };
-		FCE00AA329517EE900B5C05F /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FCE00AA229517EE900B5C05F /* Alamofire */; };
 		FCE00AA6295187B500B5C05F /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00AA5295187B500B5C05F /* Cancellable.swift */; };
 		FCEE10232934C385002E629D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCEE10222934C385002E629D /* Colors.xcassets */; };
 		FCEE10252934C855002E629D /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCEE10242934C855002E629D /* images.xcassets */; };
@@ -249,11 +245,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCB6667D29346285004F38B0 /* Tabman in Frameworks */,
-				3244A23D292DCB6A00716A2B /* RxRelay in Frameworks */,
-				3244A23B292DCB6A00716A2B /* RxCocoa in Frameworks */,
-				FCE00AA329517EE900B5C05F /* Alamofire in Frameworks */,
-				3244A23F292DCB6A00716A2B /* RxSwift in Frameworks */,
+				32CCC0D129791C9300C04231 /* Toast in Frameworks */,
 				3244A238292DCB1F00716A2B /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -800,11 +792,7 @@
 			name = RefillStation;
 			packageProductDependencies = (
 				3244A237292DCB1F00716A2B /* SnapKit */,
-				3244A23A292DCB6A00716A2B /* RxCocoa */,
-				3244A23C292DCB6A00716A2B /* RxRelay */,
-				3244A23E292DCB6A00716A2B /* RxSwift */,
-				FCB6667C29346285004F38B0 /* Tabman */,
-				FCE00AA229517EE900B5C05F /* Alamofire */,
+				32CCC0D029791C9300C04231 /* Toast */,
 			);
 			productName = RefillStation;
 			productReference = 3244A1F8292DC13A00716A2B /* RefillStation.app */;
@@ -880,9 +868,7 @@
 			mainGroup = 3244A1EF292DC13A00716A2B;
 			packageReferences = (
 				3244A236292DCB1F00716A2B /* XCRemoteSwiftPackageReference "SnapKit" */,
-				3244A239292DCB6A00716A2B /* XCRemoteSwiftPackageReference "RxSwift" */,
-				FCB6667B29346285004F38B0 /* XCRemoteSwiftPackageReference "Tabman" */,
-				FCE00AA129517EE900B5C05F /* XCRemoteSwiftPackageReference "Alamofire" */,
+				32CCC0CF29791C9300C04231 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			productRefGroup = 3244A1F9292DC13A00716A2B /* Products */;
 			projectDirPath = "";
@@ -1403,25 +1389,9 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		3244A239292DCB6A00716A2B /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+		32CCC0CF29791C9300C04231 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
-			};
-		};
-		FCB6667B29346285004F38B0 /* XCRemoteSwiftPackageReference "Tabman" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/uias/Tabman";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		FCE00AA129517EE900B5C05F /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.0.0;
@@ -1435,30 +1405,10 @@
 			package = 3244A236292DCB1F00716A2B /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
-		3244A23A292DCB6A00716A2B /* RxCocoa */ = {
+		32CCC0D029791C9300C04231 /* Toast */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3244A239292DCB6A00716A2B /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxCocoa;
-		};
-		3244A23C292DCB6A00716A2B /* RxRelay */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3244A239292DCB6A00716A2B /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxRelay;
-		};
-		3244A23E292DCB6A00716A2B /* RxSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3244A239292DCB6A00716A2B /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxSwift;
-		};
-		FCB6667C29346285004F38B0 /* Tabman */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FCB6667B29346285004F38B0 /* XCRemoteSwiftPackageReference "Tabman" */;
-			productName = Tabman;
-		};
-		FCE00AA229517EE900B5C05F /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FCE00AA129517EE900B5C05F /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
+			package = 32CCC0CF29791C9300C04231 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
 		};
 /* End XCSwiftPackageProductDependency section */
 

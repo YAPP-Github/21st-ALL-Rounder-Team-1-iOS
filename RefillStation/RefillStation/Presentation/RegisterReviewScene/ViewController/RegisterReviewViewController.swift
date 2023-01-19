@@ -8,12 +8,9 @@
 import UIKit
 import SnapKit
 import PhotosUI
-import RxSwift
-import RxCocoa
 
 final class RegisterReviewViewController: UIViewController {
 
-    private var disposeBag = DisposeBag()
     private lazy var tagReviewViewModel = DefaultTagReviewViewModel()
     private lazy var outerCollectionView = UICollectionView(frame: .zero,
                                                             collectionViewLayout: compositionalLayout())

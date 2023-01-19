@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Alamofire
 
 public enum NetworkError: Error {
 
