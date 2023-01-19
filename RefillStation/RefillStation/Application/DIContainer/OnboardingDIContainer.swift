@@ -16,17 +16,18 @@ final class OnboardingDIContainer: DIContainer {
     }
 
     // MARK: - Coordinator
-    func makeOnboardingCoordinator() {
-
+    func makeOnboardingCoordinator() -> OnboardingCoordinator {
+        return OnboardingCoordinator(DIContainer: self,
+                                     navigationController: navigationController)
     }
 
     // MARK: - Onboarding
-    func makeOnboardingViewController() {
-
+    func makeOnboardingViewController() -> OnboardingViewController {
+        return OnboardingViewController(viewModel: makeOnboardingViewModel())
     }
 
-    func makeOnboardingViewModel() {
-
+    func makeOnboardingViewModel() -> OnboardingViewModel {
+        return OnboardingViewModel()
     }
 
     // MARK: - Login
