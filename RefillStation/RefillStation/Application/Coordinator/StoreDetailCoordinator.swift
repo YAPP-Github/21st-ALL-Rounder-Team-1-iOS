@@ -11,10 +11,7 @@ final class StoreDetailCoordinator: Coordinator {
     let DIContainer: StoreDetailDIContainer
     private let navigationController: UINavigationController
 
-    init(
-        DIContainer: StoreDetailDIContainer,
-        navigationController: UINavigationController
-    ) {
+    init(DIContainer: StoreDetailDIContainer, navigationController: UINavigationController) {
         self.DIContainer = DIContainer
         self.navigationController = navigationController
     }

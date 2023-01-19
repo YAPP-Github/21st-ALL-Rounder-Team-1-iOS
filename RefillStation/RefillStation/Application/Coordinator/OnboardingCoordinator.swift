@@ -11,16 +11,16 @@ import UIKit
 final class OnboardingCoordinator: Coordinator {
     var DIContainer: OnboardingDIContainer
     var navigationController: UINavigationController
-    var viewController: UIViewController
+    var window: UIWindow?
 
     init(
         DIContainer: OnboardingDIContainer,
         navigationController: UINavigationController,
-        viewController: UIViewController
+        window: UIWindow?
     ) {
         self.DIContainer = DIContainer
         self.navigationController = navigationController
-        self.viewController = viewController
+        self.window = window
     }
 
     func start() {
@@ -28,9 +28,6 @@ final class OnboardingCoordinator: Coordinator {
     }
 
     func showOnboarding() {
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
         window?.rootViewController = DIContainer.makeOnboardingViewController()
     }
 

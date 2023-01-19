@@ -9,26 +9,26 @@ import UIKit
 
 final class OnboardingDIContainer: DIContainer {
     private let navigationController: UINavigationController
-    private let rootViewController: UIViewController
+    private let window: UIWindow?
 
     init(
         navigationController: UINavigationController,
-        viewController: UIViewController
+        window: UIWindow?
     ) {
         self.navigationController = navigationController
-        self.rootViewController = viewController
+        self.window = window
     }
 
     // MARK: - TabBarDIContainer
     func makeTabBarDIContainer() -> TabBarDIContainer {
-        return TabBarDIContainer(rootViewController: rootViewController)
+        return TabBarDIContainer(window: window)
     }
 
     // MARK: - Coordinator
     func makeOnboardingCoordinator() -> OnboardingCoordinator {
         return OnboardingCoordinator(DIContainer: self,
                                      navigationController: navigationController,
-                                     viewController: rootViewController)
+                                     window: window)
     }
 
     // MARK: - Onboarding

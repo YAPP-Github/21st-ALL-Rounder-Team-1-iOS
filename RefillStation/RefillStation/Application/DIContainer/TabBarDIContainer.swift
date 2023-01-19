@@ -8,19 +8,31 @@
 import UIKit
 
 final class TabBarDIContainer: DIContainer {
-    private let rootViewController: UIViewController
+    private let window: UIWindow?
     private let tabBarController = MainTabBarController()
-    private let homeNavigationController = UINavigationController()
-    private let myPageNaviagtionConroller = UINavigationController()
+    private let homeNavigationController: UINavigationController = {
+        let navigationController = UINavigationController()
+        navigationController.tabBarItem = .init(title: "탐색",
+                                                image: UIImage(systemName: "magnifyingglass"),
+                                                selectedImage: UIImage(systemName: "magnifyingglass"))
+        return navigationController
+    }()
+    private let myPageNaviagtionConroller = {
+        let navigationController = UINavigationController()
+        navigationController.tabBarItem = .init(title: "마이",
+                                                image: UIImage(systemName: "person"),
+                                                selectedImage: UIImage(systemName: "person"))
+        return navigationController
+    }()
 
-    init(rootViewController: UIViewController) {
-        self.rootViewController = rootViewController
+    init(window: UIWindow?) {
+        self.window = window
     }
 
     func makeTabBarCoordinator() -> TabBarCoordinator {
         return TabBarCoordinator(
             DIContainer: self,
-            viewController: rootViewController,
+            window: window,
             tabBarController: tabBarController,
             homeNavigationController: homeNavigationController,
             myPageNavigationController: myPageNaviagtionConroller

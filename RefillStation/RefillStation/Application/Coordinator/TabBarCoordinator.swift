@@ -10,34 +10,35 @@ import UIKit
 final class TabBarCoordinator: Coordinator {
 
     let DIContainer: TabBarDIContainer
-    private var rootViewController: UIViewController
+    private var window: UIWindow?
     private let tabBarController: UITabBarController
     private let homeNavigationController: UINavigationController
     private let myPageNavigationController: UINavigationController
 
     init(
         DIContainer: TabBarDIContainer,
-        viewController: UIViewController,
+        window: UIWindow?,
         tabBarController: UITabBarController,
         homeNavigationController: UINavigationController,
         myPageNavigationController: UINavigationController
     ) {
         self.DIContainer = DIContainer
-        self.rootViewController = viewController
+        self.window = window
         self.tabBarController = tabBarController
         self.homeNavigationController = homeNavigationController
         self.myPageNavigationController = myPageNavigationController
     }
 
     func start() {
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
         window?.rootViewController = tabBarController
         tabBarController.addChild(homeNavigationController)
+        tabBarController.addChild(myPageNavigationController)
+        startHome()
+    }
+
+    private func startHome() {
         let homeDIContainer = DIContainer.makeHomeDIContainer()
         let homeCoordinator = homeDIContainer.makeHomeCoordinator()
         homeCoordinator.start()
-        tabBarController.addChild(myPageNavigationController)
     }
 }
