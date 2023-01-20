@@ -53,11 +53,13 @@ final class StoreDetailViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         setUpNavigationBar()
+        tabBarController?.tabBar.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
         navigationController?.navigationBar.tintColor = .black
+        tabBarController?.tabBar.isHidden = false
     }
 
     private func setUpNavigationBar() {

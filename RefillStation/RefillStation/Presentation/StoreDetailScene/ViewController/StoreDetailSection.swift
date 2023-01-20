@@ -99,7 +99,7 @@ extension StoreDetailViewController {
             case .tabBar:
                 return 300
             case .productCategory:
-                return 50
+                return 51
             case .filteredProductsCount:
                 return 50
             case .productList:

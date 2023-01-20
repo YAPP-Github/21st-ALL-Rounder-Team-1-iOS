@@ -70,13 +70,14 @@ final class ProductCategoriesCell: UICollectionViewCell {
         categoryCollectionView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
             $0.leading.trailing.bottom.equalToSuperview()
+            $0.height.equalTo(35)
         }
     }
 
     private func categoryCollectionViewLayout() -> UICollectionViewCompositionalLayout {
-        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .estimated(100), heightDimension: .estimated(35)))
+        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .estimated(100), heightDimension: .estimated(40)))
         item.edgeSpacing = .init(leading: .fixed(8), top: .fixed(0), trailing: .fixed(0), bottom: .fixed(0))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .estimated(100), heightDimension: .estimated(35)), subitems: [item])
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .estimated(100), heightDimension: .estimated(40)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
         section.contentInsets = .init(top: 0, leading: 8, bottom: 0, trailing: 0)
