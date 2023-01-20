@@ -8,5 +8,6 @@
 import Foundation
 
 final class MyPageViewModel {
-    
+    var userNickname = "Neph"
+    var userRank = "리필 유망주"
 }
