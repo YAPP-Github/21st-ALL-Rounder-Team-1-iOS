@@ -11,7 +11,8 @@ import PhotosUI
 
 final class RegisterReviewViewController: UIViewController {
 
-    private lazy var tagReviewViewModel = DefaultTagReviewViewModel()
+    var coordinator: RegisterReviewCoordinator?
+    private let viewModel: DefaultTagReviewViewModel
     private lazy var outerCollectionView = UICollectionView(frame: .zero,
                                                             collectionViewLayout: compositionalLayout())
     private let collectionViewBottomInset: CGFloat = 80
@@ -29,6 +30,15 @@ final class RegisterReviewViewController: UIViewController {
         button.setTitle("등록하기", for: .normal)
         return button
     }()
+
+    init(viewModel: DefaultTagReviewViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,7 +128,7 @@ extension RegisterReviewViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case Section.tagReview.rawValue:
-            return tagReviewViewModel.tags.count
+            return viewModel.tags.count
         default:
             return 1
         }
@@ -130,7 +140,7 @@ extension RegisterReviewViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: StoreInfoCell.reuseIdentifier,
                 for: indexPath) as? StoreInfoCell else { return UICollectionViewCell() }
-            cell.setUpContents(storeName: "가게이름", storeLocationInfo: "가게위치")
+            cell.setUpContents(storeName: viewModel.storeName, storeLocationInfo: viewModel.storeLocationInfo)
             return cell
         case Section.voteTitle.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
@@ -142,7 +152,7 @@ extension RegisterReviewViewController: UICollectionViewDataSource {
                 withReuseIdentifier: TagReviewCell.reuseIdentifier,
                 for: indexPath) as? TagReviewCell else { return UICollectionViewCell() }
             cell.setUpContents(image: UIImage(),
-                               title: tagReviewViewModel.tags[indexPath.row].title)
+                               title: viewModel.tags[indexPath.row].title)
             return cell
         case Section.photoReview.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
@@ -175,13 +185,13 @@ extension RegisterReviewViewController {
 
 extension RegisterReviewViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return tagReviewViewModel.shouldSelectCell
+        return viewModel.shouldSelectCell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        tagReviewViewModel.didSelectItemAt(indexPath: indexPath)
+        viewModel.didSelectItemAt(indexPath: indexPath)
     }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        tagReviewViewModel.didDeselectItemAt(indexPath: indexPath)
+        viewModel.didDeselectItemAt(indexPath: indexPath)
     }
 }
 

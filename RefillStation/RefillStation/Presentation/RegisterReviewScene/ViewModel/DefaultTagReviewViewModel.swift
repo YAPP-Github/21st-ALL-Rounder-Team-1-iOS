@@ -17,10 +17,17 @@ protocol TagReviewViewModel: TagReviewViewModelInput, TagReviewViewModelOutput {
 
 final class DefaultTagReviewViewModel: TagReviewViewModel {
 
+    let storeName: String
+    let storeLocationInfo: String
     var tags = MockEntityData.tags()
     var indexPathsForSelectedItems = [IndexPath]()
     var shouldSelectCell: Bool {
         return indexPathsForSelectedItems.count < 3
+    }
+
+    init(storeName: String, storeLocationInfo: String) {
+        self.storeName = storeName
+        self.storeLocationInfo = storeLocationInfo
     }
 
     func didSelectItemAt(indexPath: IndexPath) {
