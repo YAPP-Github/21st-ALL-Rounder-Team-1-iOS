@@ -15,6 +15,13 @@ final class PumpTagView: UIView {
         return label
     }()
 
+    private let disclosureImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Asset.Images.iconArrowRightSmall.image.withRenderingMode(.alwaysTemplate)
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: .zero)
         layer.cornerRadius = 4
@@ -29,20 +36,32 @@ final class PumpTagView: UIView {
         backgroundColor = level.backgroundColor
         titleLabel.textColor = level.labelColor
         titleLabel.text = level.name
+        disclosureImageView.tintColor = level.labelColor
     }
 
     func setUpTitle(title: String) {
+        disclosureImageView.removeFromSuperview()
         backgroundColor = UserLevelInfo.Level.regular.backgroundColor
         titleLabel.textColor = UserLevelInfo.Level.regular.labelColor
         titleLabel.text = title
     }
 
     private func layout() {
-        self.addSubview(titleLabel)
+        [titleLabel, disclosureImageView].forEach { addSubview($0) }
         titleLabel.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(4)
-            $0.leading.trailing.equalToSuperview().inset(6)
+            $0.leading.equalToSuperview().inset(6)
+            $0.trailing.equalToSuperview().inset(6).priority(.medium)
         }
+
+        disclosureImageView.snp.makeConstraints {
+            $0.leading.equalTo(titleLabel.snp.trailing)
+            $0.top.bottom.equalTo(titleLabel)
+            $0.trailing.equalToSuperview().inset(2)
+            $0.width.equalTo(disclosureImageView.snp.height)
+        }
+
+        titleLabel.setContentHuggingPriority(.required, for: .vertical)
     }
 }
 
