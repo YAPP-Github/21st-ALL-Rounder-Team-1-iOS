@@ -78,7 +78,7 @@ final class LevelHeaderView: UICollectionReusableView {
         nicknameLabel.text = "\(nickname)님은"
         descriptionLabel.text = "'\(level.name)'까지 리뷰 \(remainingCount)회가 남았어요"
         levelLabel.text = level.name
-        remainingReviewTagView.setUpTagView(level: .regular, title: "누적 리뷰 \(totalCount)회")
+        remainingReviewTagView.setUpTitle(title: "누적 리뷰 \(totalCount)회")
     }
 
     private func layout() {

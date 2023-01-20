@@ -46,7 +46,7 @@ final class LevelCollectionViewCell: UICollectionViewCell {
     func setUpContent(level: UserLevelInfo.Level) {
         levelTitleLabel.text = level.name
         levelTitleLabel.textColor = level.color
-        levelTagView.setUpTagView(level: level)
+        levelTagView.setUpTitle(title: level.standard)
     }
 
     private func layout() {

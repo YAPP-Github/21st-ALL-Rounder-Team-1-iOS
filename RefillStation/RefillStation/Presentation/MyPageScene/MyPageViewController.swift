@@ -32,7 +32,7 @@ final class MyPageViewController: UIViewController {
 
     private lazy var userLevelTagView: PumpTagView = {
         let tagView = PumpTagView()
-        tagView.setUpTagView(level: viewModel.userRank)
+        tagView.setUpTagLevel(level: viewModel.userRank)
         return tagView
     }()
 

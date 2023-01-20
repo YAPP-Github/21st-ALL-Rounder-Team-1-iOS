@@ -25,10 +25,16 @@ final class PumpTagView: UIView {
         super.init(coder: coder)
     }
 
-    func setUpTagView(level: UserLevelInfo.Level, title: String? = nil) {
+    func setUpTagLevel(level: UserLevelInfo.Level) {
         backgroundColor = level.backgroundColor
         titleLabel.textColor = level.labelColor
-        titleLabel.text = title == nil ? level.name : title
+        titleLabel.text = level.name
+    }
+
+    func setUpTitle(title: String) {
+        backgroundColor = UserLevelInfo.Level.regular.backgroundColor
+        titleLabel.textColor = UserLevelInfo.Level.regular.labelColor
+        titleLabel.text = title
     }
 
     private func layout() {
