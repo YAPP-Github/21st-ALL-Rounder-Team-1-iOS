@@ -18,6 +18,13 @@ final class StoreDetailCoordinator: Coordinator {
 
     func start() {
         let storeDetailViewController = DIContainer.makeStoreDetailViewController()
+        storeDetailViewController.coordinator = self
         navigationController.pushViewController(storeDetailViewController, animated: true)
+    }
+
+    func showRegisterReview() {
+        let registerReviewDIContainer = DIContainer.makeRegisterReviewDIContainer()
+        let registerReviewCoordinator = registerReviewDIContainer.makeRegisterReviewCoordinator()
+        registerReviewCoordinator.start()
     }
 }

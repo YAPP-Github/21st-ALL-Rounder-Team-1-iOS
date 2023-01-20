@@ -17,6 +17,15 @@ final class StoreDetailDIContainer: DIContainer {
         self.store = store
     }
 
+    // MARK: - RegisterReview
+    func makeRegisterReviewDIContainer() -> RegisterReviewDIContainer {
+        return RegisterReviewDIContainer(
+            navigationController: navigationController,
+            storeName: store.name,
+            storeLocationInfo: store.address
+        )
+    }
+
     // MARK: - Coordinator
     func makeStoreDetailCoordinator() -> StoreDetailCoordinator {
         return StoreDetailCoordinator(DIContainer: self,

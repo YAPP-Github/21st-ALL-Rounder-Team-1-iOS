@@ -9,6 +9,7 @@ import UIKit
 
 final class StoreDetailViewController: UIViewController {
 
+    var coordinator: StoreDetailCoordinator?
     private var viewModel: StoreDetailViewModel!
     private lazy var storeDetailDataSource = diffableDataSource()
 
@@ -194,7 +195,7 @@ extension StoreDetailViewController {
 
             if let cell = cell as? ReviewInfoCell {
                 cell.moveToRegisterReview = { [weak self] in
-                    self?.navigationController?.pushViewController(RegisterReviewViewController(), animated: true)
+                    self?.coordinator?.showRegisterReview()
                 }
                 cell.setUpContents(totalVote: self.viewModel.totalVoteCount)
                 cell.setUpContents(tagReviews: self.viewModel.tagReviews)

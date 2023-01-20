@@ -10,22 +10,32 @@ import UIKit
 final class RegisterReviewDIContainer: DIContainer {
     private let navigationController: UINavigationController
     private let networkService = NetworkService()
+    private let storeName: String
+    private let storeLocationInfo: String
 
-    init(navigationController: UINavigationController) {
+    init(
+        navigationController: UINavigationController,
+        storeName: String,
+        storeLocationInfo: String
+    ) {
         self.navigationController = navigationController
+        self.storeName = storeName
+        self.storeLocationInfo = storeLocationInfo
     }
 
     // MARK: - Coordinator
-    func makeHomeCoordinator() -> RegisterReviewCoordinator {
+    func makeRegisterReviewCoordinator() -> RegisterReviewCoordinator {
         return RegisterReviewCoordinator(DIContainer: self,
                                          navigationController: navigationController)
     }
 
-    // MARK: - Home
-    func makeRegisterReviewViewController() {
+    // MARK: - Register Review
+    func makeRegisterReviewViewController() -> RegisterReviewViewController {
+        return RegisterReviewViewController(viewModel: makeRegisterReviewViewModel())
     }
 
-    func makeRegisterReviewViewModel() {
+    func makeRegisterReviewViewModel() -> DefaultTagReviewViewModel {
+        return DefaultTagReviewViewModel(storeName: storeName, storeLocationInfo: storeLocationInfo)
     }
 
     func makeUseCase() {
@@ -33,5 +43,6 @@ final class RegisterReviewDIContainer: DIContainer {
     }
 
     func makeRegisterReviewRepository() {
+
     }
 }
