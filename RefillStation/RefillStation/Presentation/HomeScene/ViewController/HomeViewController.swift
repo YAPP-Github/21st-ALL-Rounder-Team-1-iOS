@@ -11,6 +11,7 @@ import SnapKit
 final class HomeViewController: UIViewController {
 
     // MARK: - Properties
+    var coordiantor: HomeCoordinator?
     private let viewModel: HomeViewModel
 
     // MARK: - UI Components
@@ -156,11 +157,6 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let storeDetailViewController = StoreDetailViewController(
-            viewModel: StoreDetailViewModel(
-                fetchProductListUseCase: FetchProductListUseCase()
-            )
-        )
-        navigationController?.pushViewController(storeDetailViewController, animated: true)
+        coordiantor?.showStoreDetail(store: viewModel.stores[indexPath.row])
     }
 }

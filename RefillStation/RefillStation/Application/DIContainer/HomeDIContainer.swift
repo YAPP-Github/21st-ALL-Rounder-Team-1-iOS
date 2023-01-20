@@ -16,8 +16,8 @@ final class HomeDIContainer: DIContainer {
     }
 
     // MARK: - Store Detail
-    func makeStoreDetailDIContainer() -> StoreDetailDIContainer {
-        return StoreDetailDIContainer(navigationController: navigationController)
+    func makeStoreDetailDIContainer(store: Store) -> StoreDetailDIContainer {
+        return StoreDetailDIContainer(navigationController: navigationController, store: store)
     }
 
     // MARK: - Coordinator

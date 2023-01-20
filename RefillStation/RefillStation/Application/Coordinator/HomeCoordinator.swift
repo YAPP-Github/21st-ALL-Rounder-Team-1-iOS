@@ -22,11 +22,12 @@ final class HomeCoordinator: Coordinator {
 
     func startHome() {
         let homeViewController = DIContainer.makeHomeViewController()
+        homeViewController.coordiantor = self
         navigationController.pushViewController(homeViewController, animated: true)
     }
 
-    func showStoreDetail() {
-        let storeDetailDIContainer = DIContainer.makeStoreDetailDIContainer()
+    func showStoreDetail(store: Store) {
+        let storeDetailDIContainer = DIContainer.makeStoreDetailDIContainer(store: store)
         let storeDetailCoordinator = storeDetailDIContainer.makeStoreDetailCoordinator()
         storeDetailCoordinator.start()
     }
