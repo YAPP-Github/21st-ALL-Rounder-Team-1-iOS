@@ -17,5 +17,8 @@ final class RegisterReviewCoordinator: Coordinator {
     }
 
     func start() {
+        let registerReviewViewController = DIContainer.makeRegisterReviewViewController()
+        registerReviewViewController.coordinator = self
+        navigationController.pushViewController(registerReviewViewController, animated: true)
     }
 }

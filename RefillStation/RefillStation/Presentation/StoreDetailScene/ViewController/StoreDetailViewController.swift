@@ -9,6 +9,7 @@ import UIKit
 
 final class StoreDetailViewController: UIViewController {
 
+    var coordinator: StoreDetailCoordinator?
     private var viewModel: StoreDetailViewModel!
     private lazy var storeDetailDataSource = diffableDataSource()
 
@@ -52,11 +53,13 @@ final class StoreDetailViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         setUpNavigationBar()
+        tabBarController?.tabBar.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
         navigationController?.navigationBar.tintColor = .black
+        tabBarController?.tabBar.isHidden = false
     }
 
     private func setUpNavigationBar() {
@@ -194,7 +197,7 @@ extension StoreDetailViewController {
 
             if let cell = cell as? ReviewInfoCell {
                 cell.moveToRegisterReview = { [weak self] in
-                    self?.navigationController?.pushViewController(RegisterReviewViewController(), animated: true)
+                    self?.coordinator?.showRegisterReview()
                 }
                 cell.setUpContents(totalVote: self.viewModel.totalVoteCount)
                 cell.setUpContents(tagReviews: self.viewModel.tagReviews)

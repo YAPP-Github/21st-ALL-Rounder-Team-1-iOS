@@ -10,9 +10,20 @@ import UIKit
 final class StoreDetailDIContainer: DIContainer {
     private let navigationController: UINavigationController
     private let networkService = NetworkService()
+    private let store: Store
 
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, store: Store) {
         self.navigationController = navigationController
+        self.store = store
+    }
+
+    // MARK: - RegisterReview
+    func makeRegisterReviewDIContainer() -> RegisterReviewDIContainer {
+        return RegisterReviewDIContainer(
+            navigationController: navigationController,
+            storeName: store.name,
+            storeLocationInfo: store.address
+        )
     }
 
     // MARK: - Coordinator
@@ -28,6 +39,7 @@ final class StoreDetailDIContainer: DIContainer {
 
     func makeStoreDetailViewModel() -> StoreDetailViewModel {
         return StoreDetailViewModel(
+            store: store,
             fetchProductListUseCase: makeFetchProductListUseCase()
         )
     }

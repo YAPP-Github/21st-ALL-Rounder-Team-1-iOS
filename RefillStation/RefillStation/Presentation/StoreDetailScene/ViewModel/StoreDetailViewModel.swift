@@ -14,7 +14,7 @@ final class StoreDetailViewModel {
     }
 
     // MARK: - Store Info
-    var store = MockEntityData.stores().first!
+    var store: Store
 
     // MARK: - ProductList
     var products: [Product] = MockEntityData.products()
@@ -44,13 +44,10 @@ final class StoreDetailViewModel {
     private let fetchProductListUseCase: FetchProductListUseCaseInterface
     private var productListLoadTask: Cancellable?
 
-    init(fetchProductListUseCase: FetchProductListUseCaseInterface) {
+    init(store: Store, fetchProductListUseCase: FetchProductListUseCaseInterface) {
+        self.store = store
         self.fetchProductListUseCase = fetchProductListUseCase
-        products.forEach {
-            if !categories.contains($0.category) {
-                categories.append($0.category)
-            }
-        }
+        setUpCategories()
     }
 
     func categoryButtonDidTapped(category: ProductCategory?) {
@@ -63,6 +60,14 @@ final class StoreDetailViewModel {
             operationInfoSeeMoreIndexPaths.remove(indexPath)
         } else {
             operationInfoSeeMoreIndexPaths.insert(indexPath)
+        }
+    }
+
+    private func setUpCategories() {
+        products.forEach {
+            if !categories.contains($0.category) {
+                categories.append($0.category)
+            }
         }
     }
 
