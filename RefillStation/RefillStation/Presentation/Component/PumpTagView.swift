@@ -11,24 +11,24 @@ import SnapKit
 final class PumpTagView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Asset.Colors.gray5.color
         label.font = .font(style: .captionLarge)
         return label
     }()
 
     override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = Asset.Colors.gray1.color
-        self.layer.cornerRadius = 4
+        super.init(frame: .zero)
+        layer.cornerRadius = 4
         layout()
-
     }
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
-    func setTitle(_ title: String) {
-        titleLabel.text = title
+    func setUpTagView(level: UserLevelInfo.Level, title: String? = nil) {
+        backgroundColor = level.backgroundColor
+        titleLabel.textColor = level.labelColor
+        titleLabel.text = title == nil ? level.name : title
     }
 
     private func layout() {
@@ -38,5 +38,32 @@ final class PumpTagView: UIView {
             $0.leading.trailing.equalToSuperview().inset(6)
         }
     }
+}
 
+fileprivate extension UserLevelInfo.Level {
+    var backgroundColor: UIColor {
+        switch self {
+        case .regular:
+            return Asset.Colors.gray1.color
+        case .beginner:
+            return Asset.Colors.lv1Light.color
+        case .prospect:
+            return Asset.Colors.lv2Light.color
+        case .fancier:
+            return Asset.Colors.lv3Light.color
+        }
+    }
+
+    var labelColor: UIColor {
+        switch self {
+        case .regular:
+            return Asset.Colors.gray5.color
+        case .beginner:
+            return Asset.Colors.lv1.color
+        case .prospect:
+            return Asset.Colors.lv2.color
+        case .fancier:
+            return Asset.Colors.lv3.color
+        }
+    }
 }

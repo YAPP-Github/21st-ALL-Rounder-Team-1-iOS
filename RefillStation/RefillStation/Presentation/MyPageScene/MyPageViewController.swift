@@ -32,8 +32,7 @@ final class MyPageViewController: UIViewController {
 
     private lazy var userLevelTagView: PumpTagView = {
         let tagView = PumpTagView()
-        tagView.setTitle(viewModel.userRank)
-        tagView.backgroundColor = Asset.Colors.lv2Light.color
+        tagView.setUpTagView(level: viewModel.userRank)
         return tagView
     }()
 
