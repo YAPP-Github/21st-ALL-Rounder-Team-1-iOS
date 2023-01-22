@@ -126,6 +126,9 @@ final class PumpPopUpViewController: UIViewController {
         contentVerticalStackView.insertArrangedSubview(imageView, at: 0)
     }
 
+    /// Pop-Up에 자체적으로 close button을 추가합니다.
+    /// title label의 경우 textAlignment를 natural로 조절하여 간격이 너무 좁아지는것을 방지합니다.
+    /// title label의 text가 길어질 경우 버튼과 텍스트가 겹칠 수 있습니다.
     func addCloseButton() {
         outerView.addSubview(closeButton)
         closeButton.snp.makeConstraints {
