@@ -28,7 +28,7 @@ final class RegisterReviewViewController: UIViewController {
     }()
 
     private let registerButton: CTAButton = {
-        let button = CTAButton()
+        let button = CTAButton(style: .basic)
         button.setTitle("등록하기", for: .normal)
         return button
     }()
