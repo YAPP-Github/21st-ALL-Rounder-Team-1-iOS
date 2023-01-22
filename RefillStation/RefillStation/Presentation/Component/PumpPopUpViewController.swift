@@ -10,18 +10,14 @@ import UIKit
 final class PumpPopUpViewController: UIViewController {
 
     var actionButtons = [CTAButton]()
+
     var titleFont: UIFont? {
         didSet { titleLabel.font = titleFont }
     }
+
     var descriptionFont: UIFont? {
         didSet { descriptionLabel.font = descriptionFont }
     }
-
-    let textView: UITextView = {
-        let textView = UITextView()
-        textView.isEditable = true
-        return textView
-    }()
 
     private let outerView: UIView = {
         let view = UIView()
@@ -58,6 +54,12 @@ final class PumpPopUpViewController: UIViewController {
         label.font = .font(style: .bodyMedium)
         label.numberOfLines = 0
         return label
+    }()
+
+    private let textView: UITextView = {
+        let textView = UITextView()
+        textView.isEditable = true
+        return textView
     }()
 
     private let actionButtonStackView: UIStackView = {
