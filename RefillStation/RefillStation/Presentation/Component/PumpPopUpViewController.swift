@@ -78,7 +78,7 @@ final class PumpPopUpViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black.withAlphaComponent(0.3)
+        view.backgroundColor = .black.withAlphaComponent(0.2)
     }
 
     func addAction(title: String?, handler: (() -> Void)? = nil) {
@@ -99,9 +99,9 @@ final class PumpPopUpViewController: UIViewController {
     ///  UITextViewDelegate이 사용되어야 하는 경우에도 configurationHandler를 통해 지정해줄 수 있습니다.
     func addTextView(configurationHandler: ((UITextView) -> Void)) {
         configurationHandler(textView)
-        if let indexOfDescriptionLabel = contentVerticalStackView
-            .arrangedSubviews.firstIndex(of: descriptionLabel) {
-            contentVerticalStackView.insertArrangedSubview(textView, at: indexOfDescriptionLabel + 1)
+        if let indexOfActionButtonStackView = contentVerticalStackView
+            .arrangedSubviews.firstIndex(of: actionButtonStackView) {
+            contentVerticalStackView.insertArrangedSubview(textView, at: indexOfActionButtonStackView)
         }
     }
 
