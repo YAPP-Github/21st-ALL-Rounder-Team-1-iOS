@@ -47,12 +47,16 @@ final class PumpPopUpViewController: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.font = .font(style: .titleLarge2)
+        label.numberOfLines = 0
         return label
     }()
 
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.font = .font(style: .bodyMedium)
+        label.numberOfLines = 0
         return label
     }()
 
