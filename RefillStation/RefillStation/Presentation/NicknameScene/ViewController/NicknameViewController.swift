@@ -51,6 +51,7 @@ final class NicknameViewController: UIViewController {
         button.backgroundColor = .white
         button.setImage(Asset.Images.iconPhoto.image.withRenderingMode(.alwaysTemplate),
                         for: .normal)
+        button.imageEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         button.tintColor = Asset.Colors.gray4.color
         button.layer.cornerRadius = 16
         button.layer.borderWidth = 1
