@@ -73,6 +73,7 @@ internal enum Asset {
       internal static let user4 = ImageAsset(name: "user(4)")
       internal static let youngGram = ImageAsset(name: "youngGram")
     }
+    internal static let avatar = ImageAsset(name: "avatar")
     internal static let iconAlbum = ImageAsset(name: "icon_Album")
     internal static let iconKebab = ImageAsset(name: "icon_Kebab")
     internal static let iconTrashcan = ImageAsset(name: "icon_Trashcan")
