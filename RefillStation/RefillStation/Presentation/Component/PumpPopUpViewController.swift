@@ -68,6 +68,16 @@ final class PumpPopUpViewController: UIViewController {
         return stackView
     }()
 
+    private lazy var closeButton: UIButton = {
+        let button = UIButton()
+        button.setImage(Asset.Images.iconClose.image, for: .normal)
+        button.tintColor = .black
+        button.addAction(UIAction { [weak self] _ in
+            self?.dismiss(animated: true)
+        }, for: .touchUpInside)
+        return button
+    }()
+
     init(title: String?, description: String?) {
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .overFullScreen
@@ -114,6 +124,14 @@ final class PumpPopUpViewController: UIViewController {
     func addImageView(configurationHandler: ((UIImageView) -> Void)) {
         configurationHandler(imageView)
         contentVerticalStackView.insertArrangedSubview(imageView, at: 0)
+    }
+
+    func addCloseButton() {
+        outerView.addSubview(closeButton)
+        closeButton.snp.makeConstraints {
+            $0.top.trailing.equalToSuperview().inset(29)
+        }
+        titleLabel.textAlignment = .natural
     }
 
     private func layout() {
