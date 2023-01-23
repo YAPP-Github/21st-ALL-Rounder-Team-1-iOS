@@ -95,7 +95,7 @@ final class PumpPopUpViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black.withAlphaComponent(0.2)
+        view.backgroundColor = .black.withAlphaComponent(0.6)
     }
 
     func addAction(title: String?, handler: (() -> Void)? = nil) {
