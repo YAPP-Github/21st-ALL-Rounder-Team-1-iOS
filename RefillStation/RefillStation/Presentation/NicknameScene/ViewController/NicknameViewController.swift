@@ -66,6 +66,24 @@ final class NicknameViewController: UIViewController {
         let phPickerVC = PHPickerViewController(configuration: configuration)
         return phPickerVC
     }()
+    private let editProfileView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black.withAlphaComponent(0.5)
+        view.isHidden = true
+        return view
+    }()
+    private lazy var editProfileBottomSheetView: EditProfileBottomSheetView = {
+        let bottomSheetView = EditProfileBottomSheetView()
+        bottomSheetView.albumButtonTapped = { [weak self] in
+            self?.moveToPhotoPicker()
+        }
+        bottomSheetView.deleteButtonTapped = { [weak self] in
+            self?.viewModel.profileImage = nil
+            self?.editProfileView.isHidden = true
+            self?.setUpProfileImage()
+        }
+        return bottomSheetView
+    }()
 
     // MARK: - Common Components
     private lazy var nicknameTextField: UITextField = {
@@ -120,28 +138,11 @@ final class NicknameViewController: UIViewController {
     }
 
     // MARK: - Methods
-
     private func addKeyboardNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),
                                                name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)),
                                                name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-
-    @objc private func keyboardWillShow(_ notification: Notification) {
-        guard let userInfo = notification.userInfo,
-           let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
-            return
-        }
-        UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseOut, animations: {
-            self.confirmButton.transform = CGAffineTransform(translationX: 0, y: -keyboardRect.height)
-        })
-    }
-
-    @objc private func keyboardWillHide(_ notification: Notification) {
-        UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseOut, animations: {
-            self.confirmButton.transform = CGAffineTransform(translationX: 0, y: 0)
-        })
     }
 
     private func setUpView() {
@@ -166,6 +167,7 @@ final class NicknameViewController: UIViewController {
     }
 
     private func layout() {
+        [nicknameTextField, descriptionLabel, doubleCheckButton, confirmButton].forEach { view.addSubview($0) }
         var topView: UIView
         switch viewType {
         case .onboarding:
@@ -175,7 +177,6 @@ final class NicknameViewController: UIViewController {
             topView = profileImageView
             myPageLayout()
         }
-        [nicknameTextField, descriptionLabel, doubleCheckButton, confirmButton].forEach { view.addSubview($0) }
         nicknameTextField.snp.makeConstraints {
             $0.top.equalTo(topView.snp.bottom).offset(32)
             $0.leading.equalToSuperview().inset(16)
@@ -212,7 +213,8 @@ final class NicknameViewController: UIViewController {
     }
 
     private func myPageLayout() {
-        [profileImageView, profileImageEditButton].forEach { view.addSubview($0) }
+        [profileImageView, profileImageEditButton, editProfileView].forEach { view.addSubview($0) }
+        editProfileView.addSubview(editProfileBottomSheetView)
         profileImageView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(32)
             $0.width.height.equalTo(72)
@@ -222,6 +224,13 @@ final class NicknameViewController: UIViewController {
             $0.trailing.equalTo(profileImageView).offset(8)
             $0.bottom.equalTo(profileImageView).offset(8)
             $0.width.height.equalTo(32)
+        }
+        editProfileView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        editProfileBottomSheetView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.height.equalTo(164)
         }
     }
 
@@ -252,6 +261,36 @@ final class NicknameViewController: UIViewController {
             descriptionLabel.text = "다른 사용자가 이미 사용중 입니다"
             setIncorrectNickname()
         }
+    }
+
+    private func moveToPhotoPicker() {
+        self.present(phPickerViewController, animated: true)
+    }
+
+    private func addTapGesture() {
+        editProfileView.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                                          action: #selector(hideEditProfileView)))
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                         action: #selector(dismissKeyboard)))
+    }
+}
+
+// MARK: - Action Methods
+extension NicknameViewController {
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseOut, animations: {
+            self.confirmButton.transform = CGAffineTransform(translationX: 0, y: -keyboardRect.height)
+        })
+    }
+
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseOut, animations: {
+            self.confirmButton.transform = CGAffineTransform(translationX: 0, y: 0)
+        })
     }
 
     @objc private func setUpTextFieldState(_ sender: UITextField) {
@@ -288,17 +327,14 @@ final class NicknameViewController: UIViewController {
     }
 
     @objc private func didTapProfileImageEditButton() {
-        self.present(phPickerViewController, animated: true)
+        editProfileView.isHidden = false
     }
-}
 
-extension NicknameViewController {
-    func addTapGesture() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
-            action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap)
+    @objc private func hideEditProfileView() {
+        editProfileView.isHidden = true
     }
-    @objc func dismissKeyboard() {
+
+    @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
 }
@@ -317,6 +353,7 @@ extension NicknameViewController: UITextFieldDelegate {
 extension NicknameViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
+        editProfileView.isHidden = true
         let item = results.first?.itemProvider
         if let item = item, item.canLoadObject(ofClass: UIImage.self) {
             item.loadObject(ofClass: UIImage.self) { (image, _) in
