@@ -32,4 +32,9 @@ final class StoreDetailCoordinator: Coordinator {
         let noLinkPopUpViewController = DIContainer.makeNoLinkPopUpViewController()
         navigationController.present(noLinkPopUpViewController, animated: true)
     }
+
+    func showReportPopUp() {
+        let reportPopUp = DIContainer.makeReportPopUpViewController()
+        navigationController.present(reportPopUp, animated: true)
+    }
 }

@@ -65,4 +65,9 @@ final class StoreDetailDIContainer: DIContainer {
         }
         return noLinkPopUp
     }
+
+    func makeReportPopUpViewController() -> ReviewReportPopUpViewController {
+        let reportPopUp = ReviewReportPopUpViewController(title: "어떤 이유로 신고하시나요?", description: nil)
+        return reportPopUp
+    }
 }

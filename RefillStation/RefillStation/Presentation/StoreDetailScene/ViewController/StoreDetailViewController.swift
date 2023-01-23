@@ -213,6 +213,7 @@ extension StoreDetailViewController {
                         DetailPhotoReviewViewController(viewModel: .init(photoURLs: review.imageURL)),
                         animated: true)
                 }
+                cell.coordinator = self.coordinator
             }
 
             if let cell = cell as? OperationInfoCell,

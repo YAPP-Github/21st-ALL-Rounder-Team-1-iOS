@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PumpPopUpViewController: UIViewController {
+class PumpPopUpViewController: UIViewController {
 
     var actionButtons = [CTAButton]()
 
@@ -62,6 +62,22 @@ final class PumpPopUpViewController: UIViewController {
         return textView
     }()
 
+    private lazy var textViewWithBottomLine: UIView = {
+        let textViewOuterView = UIView()
+        let line = UIView()
+        line.backgroundColor = Asset.Colors.gray2.color
+        [textView, line].forEach { textViewOuterView.addSubview($0) }
+        textView.snp.makeConstraints {
+            $0.leading.top.trailing.equalToSuperview()
+        }
+        line.snp.makeConstraints {
+            $0.top.equalTo(textView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.height.equalTo(1)
+        }
+        return textViewOuterView
+    }()
+
     private let actionButtonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -114,11 +130,15 @@ final class PumpPopUpViewController: UIViewController {
     /// TextView를 PopUp 내 descriptionLabel 하단에 삽입합니다.
     ///  configurationHandler에서 textView의 height을 포함한 여러 constraint들을 추가하거나 layer등에 변화를 줄 수 있습니다.
     ///  UITextViewDelegate이 사용되어야 하는 경우에도 configurationHandler를 통해 지정해줄 수 있습니다.
-    func addTextView(configurationHandler: ((UITextView) -> Void)) {
+    func addTextView(withBottomLine: Bool, configurationHandler: ((UITextView) -> Void)) {
         configurationHandler(textView)
         if let indexOfActionButtonStackView = contentVerticalStackView
             .arrangedSubviews.firstIndex(of: actionButtonStackView) {
-            contentVerticalStackView.insertArrangedSubview(textView, at: indexOfActionButtonStackView)
+            if withBottomLine {
+                contentVerticalStackView.insertArrangedSubview(textViewWithBottomLine, at: indexOfActionButtonStackView)
+            } else {
+                contentVerticalStackView.insertArrangedSubview(textView, at: indexOfActionButtonStackView)
+            }
         }
     }
 
