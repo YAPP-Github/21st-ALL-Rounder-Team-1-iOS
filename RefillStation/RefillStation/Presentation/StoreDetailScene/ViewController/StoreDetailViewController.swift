@@ -116,6 +116,8 @@ final class StoreDetailViewController: UIViewController {
             if let url = URL(string: viewModel.store.snsAddress),
                 UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url)
+            } else {
+                coordinator?.showNoLinkPopUp()
             }
         case .like:
             break

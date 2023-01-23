@@ -51,4 +51,18 @@ final class StoreDetailDIContainer: DIContainer {
     func makeProductListRepository() -> ProductListRepository {
         return ProductListRepository(networkService: networkService)
     }
+
+    func makeNoLinkPopUpViewController() -> PumpPopUpViewController {
+        let noLinkPopUp = PumpPopUpViewController(title: nil, description: "매장 링크가 등록되지 않은 곳이에요")
+        noLinkPopUp.addImageView { imageView in
+            imageView.snp.makeConstraints {
+                $0.height.equalTo(50)
+            }
+            imageView.image = Asset.Images.cryFace.image
+        }
+        noLinkPopUp.addAction(title: "확인") {
+            noLinkPopUp.dismiss(animated: true)
+        }
+        return noLinkPopUp
+    }
 }

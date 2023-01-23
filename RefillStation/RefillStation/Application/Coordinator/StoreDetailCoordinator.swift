@@ -27,4 +27,9 @@ final class StoreDetailCoordinator: Coordinator {
         let registerReviewCoordinator = registerReviewDIContainer.makeRegisterReviewCoordinator()
         registerReviewCoordinator.start()
     }
+
+    func showNoLinkPopUp() {
+        let noLinkPopUpViewController = DIContainer.makeNoLinkPopUpViewController()
+        navigationController.present(noLinkPopUpViewController, animated: true)
+    }
 }
