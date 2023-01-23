@@ -11,12 +11,12 @@ final class PumpPopUpViewController: UIViewController {
 
     var actionButtons = [CTAButton]()
 
-    var titleFont: UIFont? {
-        didSet { titleLabel.font = titleFont }
+    var titleConfigurationHandler: ((UILabel) -> Void)? {
+        didSet { titleConfigurationHandler?(titleLabel) }
     }
 
-    var descriptionFont: UIFont? {
-        didSet { descriptionLabel.font = descriptionFont }
+    var descriptionConfigurationHandler: ((UILabel) -> Void)? {
+        didSet { descriptionConfigurationHandler?(descriptionLabel) }
     }
 
     private let outerView: UIView = {
