@@ -86,6 +86,7 @@ final class PumpPopUpViewController: UIViewController {
         titleLabel.text = title
         descriptionLabel.text = description
         layout()
+        addTapGesture()
     }
 
     required init?(coder: NSCoder) {
@@ -156,5 +157,15 @@ final class PumpPopUpViewController: UIViewController {
             }
         }
         contentVerticalStackView.addArrangedSubview(actionButtonStackView)
+    }
+
+    private func addTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_:)))
+        view.addGestureRecognizer(tapGesture)
+    }
+
+    @objc
+    private func viewTapped(_ sender: UITapGestureRecognizer) {
+        view.endEditing(true)
     }
 }
