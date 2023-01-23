@@ -70,4 +70,12 @@ final class StoreDetailDIContainer: DIContainer {
         let reportPopUp = ReviewReportPopUpViewController(title: "어떤 이유로 신고하시나요?", description: nil)
         return reportPopUp
     }
+
+    func makeDetailPhotoReviewViewModel(photoURLs: [String?]) -> DetailPhotoReviewViewModel {
+        return DetailPhotoReviewViewModel(photoURLs: [])
+    }
+
+    func makeDetailPhotoReviewViewController(photoURLs: [String?]) -> DetailPhotoReviewViewController {
+        return DetailPhotoReviewViewController(viewModel: makeDetailPhotoReviewViewModel(photoURLs: photoURLs))
+    }
 }

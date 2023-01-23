@@ -37,4 +37,9 @@ final class StoreDetailCoordinator: Coordinator {
         let reportPopUp = DIContainer.makeReportPopUpViewController()
         navigationController.present(reportPopUp, animated: true)
     }
+
+    func showDetailPhotoReview(photoURLs: [String?]) {
+        let detailPhotoReviewViewController = DIContainer.makeDetailPhotoReviewViewController(photoURLs: photoURLs)
+        navigationController.pushViewController(detailPhotoReviewViewController, animated: true)
+    }
 }
