@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		320A767F297FD4F0003041D7 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A767E297FD4F0003041D7 /* KeychainManager.swift */; };
 		322E15E4297A0B3600FE2E2F /* MyPageDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322E15E3297A0B3600FE2E2F /* MyPageDIContainer.swift */; };
 		322E15E6297A0B6600FE2E2F /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322E15E5297A0B6600FE2E2F /* MyPageCoordinator.swift */; };
 		322E15E8297A0CD700FE2E2F /* RegisterReviewDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322E15E7297A0CD700FE2E2F /* RegisterReviewDIContainer.swift */; };
@@ -135,6 +136,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		320A767E297FD4F0003041D7 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		322E15E3297A0B3600FE2E2F /* MyPageDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageDIContainer.swift; sourceTree = "<group>"; };
 		322E15E5297A0B6600FE2E2F /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		322E15E7297A0CD700FE2E2F /* RegisterReviewDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReviewDIContainer.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 				FCE00A80294C95CD00B5C05F /* Repositories */,
 				FCE00A64294C598800B5C05F /* PersistentStorages */,
 				3240987729613CC300911306 /* MockEntityData.swift */,
+				320A767E297FD4F0003041D7 /* KeychainManager.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1060,6 +1063,7 @@
 				32409866295F51DB00911306 /* DetailReviewTagCollectionViewCell.swift in Sources */,
 				329557462951992900F5AB53 /* StoreDetailViewModel.swift in Sources */,
 				329E80262977FA72004286B0 /* OnboardingViewModel.swift in Sources */,
+				320A767F297FD4F0003041D7 /* KeychainManager.swift in Sources */,
 				FCE00A90294C965900B5C05F /* ProductListRepositoryInterface.swift in Sources */,
 				FCE00A8E294C965000B5C05F /* HomeRepositoryInterface.swift in Sources */,
 				FCE00A86294C95F200B5C05F /* RequestRegionRepository.swift in Sources */,
