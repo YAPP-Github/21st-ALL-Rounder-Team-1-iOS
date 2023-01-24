@@ -66,8 +66,16 @@ final class StoreDetailDIContainer: DIContainer {
         return noLinkPopUp
     }
 
-    func makeReportPopUpViewController() -> ReviewReportPopUpViewController {
-        let reportPopUp = ReviewReportPopUpViewController(title: "어떤 이유로 신고하시나요?", description: nil)
+    func makeReportPopUpViewModel(reportedUserId: Int) -> ReviewReportPopUpViewModel {
+        return ReviewReportPopUpViewModel(reportedUserId: reportedUserId)
+    }
+
+    func makeReportPopUpViewController(reportedUserId: Int) -> ReviewReportPopUpViewController {
+        let reportPopUp = ReviewReportPopUpViewController(
+            title: "어떤 이유로 신고하시나요?",
+            description: nil,
+            viewModel: makeReportPopUpViewModel(reportedUserId: reportedUserId)
+        )
         return reportPopUp
     }
 

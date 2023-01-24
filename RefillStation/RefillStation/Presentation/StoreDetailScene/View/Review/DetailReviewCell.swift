@@ -15,6 +15,7 @@ final class DetailReviewCell: UICollectionViewCell {
 
     // MARK: - Private Properties
     private var tagReviews: [TagReview]?
+    private var detailReview: DetailReview?
     private let profileImageHeight: CGFloat = 40
     private var tagCollectionViewHeight: CGFloat = 40 {
         didSet {
@@ -113,7 +114,9 @@ final class DetailReviewCell: UICollectionViewCell {
         button.titleLabel?.font = .font(style: .captionLarge)
         button.setTitleColor(Asset.Colors.gray5.color, for: .normal)
         button.addAction(UIAction { [weak self] _ in
-            self?.coordinator?.showReportPopUp()
+            guard let self = self,
+            let reportedUserId = self.detailReview?.user.id else { return }
+            self.coordinator?.showReportPopUp(reportedUserId: reportedUserId)
         }, for: .touchUpInside)
         return button
     }()
@@ -129,6 +132,7 @@ final class DetailReviewCell: UICollectionViewCell {
 
     func setUpContents(detailReview: DetailReview) {
         self.tagReviews = detailReview.tags
+        self.detailReview = detailReview
         userNameLabel.text = detailReview.user.name
         writtenDateLabel.text = detailReview.writtenDate.toString()
         descriptionLabel.text = detailReview.description

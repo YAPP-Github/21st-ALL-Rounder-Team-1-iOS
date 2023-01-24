@@ -10,8 +10,10 @@ import UIKit
 final class ReviewReportPopUpViewController: PumpPopUpViewController {
 
     private let placeholder = "신고할 사항을 입력해주세요"
+    private let viewModel: ReviewReportPopUpViewModel
 
-    override init(title: String?, description: String?) {
+    init(title: String?, description: String?, viewModel: ReviewReportPopUpViewModel) {
+        self.viewModel = viewModel
         super.init(title: title, description: description)
         addTextView()
         addAction()
