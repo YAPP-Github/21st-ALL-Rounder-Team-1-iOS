@@ -52,6 +52,7 @@ final class StoreDetailDIContainer: DIContainer {
         return ProductListRepository(networkService: networkService)
     }
 
+    // MARK: - Pop Up
     func makeNoLinkPopUpViewController() -> PumpPopUpViewController {
         let noLinkPopUp = PumpPopUpViewController(title: nil, description: "매장 링크가 등록되지 않은 곳이에요")
         noLinkPopUp.addImageView { imageView in
@@ -88,6 +89,7 @@ final class StoreDetailDIContainer: DIContainer {
         return reportedPopUp
     }
 
+    // MARK: - Detail Photo Review
     func makeDetailPhotoReviewViewModel(photoURLs: [String?]) -> DetailPhotoReviewViewModel {
         return DetailPhotoReviewViewModel(photoURLs: photoURLs)
     }
