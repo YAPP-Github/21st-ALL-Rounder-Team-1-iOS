@@ -9,7 +9,7 @@ import UIKit
 
 final class StoreDetailDIContainer: DIContainer {
     private let navigationController: UINavigationController
-    private let networkService = NetworkService()
+    private let networkService = NetworkService.shared
     private let store: Store
 
     init(navigationController: UINavigationController, store: Store) {
