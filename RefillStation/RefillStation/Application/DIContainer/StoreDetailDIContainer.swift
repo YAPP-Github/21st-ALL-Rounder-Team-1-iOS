@@ -79,6 +79,15 @@ final class StoreDetailDIContainer: DIContainer {
         return reportPopUp
     }
 
+    func makeReportCompletePopUpViewController() -> PumpPopUpViewController {
+        let reportedPopUp = PumpPopUpViewController(title: nil,
+                                                    description: "해당 댓글이 신고처리 되었습니다.")
+        reportedPopUp.addAction(title: "확인") {
+            self.navigationController.dismiss(animated: true)
+        }
+        return reportedPopUp
+    }
+
     func makeDetailPhotoReviewViewModel(photoURLs: [String?]) -> DetailPhotoReviewViewModel {
         return DetailPhotoReviewViewModel(photoURLs: photoURLs)
     }

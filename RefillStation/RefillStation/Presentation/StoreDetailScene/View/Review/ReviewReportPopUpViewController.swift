@@ -9,6 +9,7 @@ import UIKit
 
 final class ReviewReportPopUpViewController: PumpPopUpViewController {
 
+    var coordinator: StoreDetailCoordinator?
     private let placeholder = "신고할 사항을 입력해주세요"
     private let viewModel: ReviewReportPopUpViewModel
 
@@ -42,7 +43,11 @@ final class ReviewReportPopUpViewController: PumpPopUpViewController {
 
     private func addAction() {
         addAction(title: "신고하기") {
-            self.dismiss(animated: true)
+            self.viewModel.reportButtonTapped {
+                self.dismiss(animated: true) {
+                    self.coordinator?.showReportCompletePopUp()
+                }
+            }
         }
     }
 }

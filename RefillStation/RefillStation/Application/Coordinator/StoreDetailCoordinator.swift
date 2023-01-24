@@ -35,7 +35,13 @@ final class StoreDetailCoordinator: Coordinator {
 
     func showReportPopUp(reportedUserId: Int) {
         let reportPopUp = DIContainer.makeReportPopUpViewController(reportedUserId: reportedUserId)
+        reportPopUp.coordinator = self
         navigationController.present(reportPopUp, animated: true)
+    }
+
+    func showReportCompletePopUp() {
+        let reportCompletePopUpViewController = DIContainer.makeReportCompletePopUpViewController()
+        navigationController.present(reportCompletePopUpViewController, animated: true)
     }
 
     func showDetailPhotoReview(photoURLs: [String?]) {

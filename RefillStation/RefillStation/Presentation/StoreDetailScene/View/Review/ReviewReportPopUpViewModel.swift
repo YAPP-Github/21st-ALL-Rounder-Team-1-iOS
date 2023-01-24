@@ -15,7 +15,8 @@ final class ReviewReportPopUpViewModel {
     }
 
     func reportButtonTapped(completion: @escaping (() -> Void)) {
-
+        report()
+        completion()
     }
 
     private func report() {
