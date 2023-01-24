@@ -18,7 +18,6 @@ final class CTAButton: UIButton {
 
     enum Style {
         case basic
-        case doubleCheck
         case cancel
     }
 
@@ -43,11 +42,10 @@ final class CTAButton: UIButton {
 
     private func setUpInitialState() {
         self.titleLabel?.font = .font(style: .buttonLarge)
+        self.layer.cornerRadius = 8
         switch style {
         case .basic:
             setUpBasicButton()
-        case .doubleCheck:
-            setUpDoubleCheckButton()
         case .cancel:
             setUpCancelButton()
         }
@@ -56,18 +54,10 @@ final class CTAButton: UIButton {
     private func setUpBasicButton() {
         self.setTitleColor(.white, for: .normal)
         self.setTitleColor(Asset.Colors.gray4.color, for: .disabled)
-        self.layer.cornerRadius = 8
-    }
-
-    private func setUpDoubleCheckButton() {
-        self.setTitleColor(.white, for: .normal)
-        self.setTitleColor(Asset.Colors.gray4.color, for: .disabled)
-        self.layer.cornerRadius = 8
     }
 
     private func setUpCancelButton() {
         self.setTitleColor(Asset.Colors.gray6.color, for: .normal)
-        self.layer.cornerRadius = 8
         self.backgroundColor = Asset.Colors.gray2.color
     }
 
@@ -75,8 +65,6 @@ final class CTAButton: UIButton {
         switch style {
         case .basic:
             self.backgroundColor = isEnabled ? Asset.Colors.primary10.color : Asset.Colors.gray2.color
-        case .doubleCheck:
-            self.backgroundColor = isEnabled ? Asset.Colors.gray5.color : Asset.Colors.gray2.color
         case .cancel: // disabled 상태가 없는 버튼
             return
         }
