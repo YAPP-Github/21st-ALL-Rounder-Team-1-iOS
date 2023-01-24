@@ -72,7 +72,7 @@ final class StoreDetailDIContainer: DIContainer {
     }
 
     func makeDetailPhotoReviewViewModel(photoURLs: [String?]) -> DetailPhotoReviewViewModel {
-        return DetailPhotoReviewViewModel(photoURLs: [])
+        return DetailPhotoReviewViewModel(photoURLs: photoURLs)
     }
 
     func makeDetailPhotoReviewViewController(photoURLs: [String?]) -> DetailPhotoReviewViewController {
