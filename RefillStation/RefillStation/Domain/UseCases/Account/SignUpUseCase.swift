@@ -13,3 +13,21 @@ struct SignUpRequestValue {
     let imagePath: String
     let OAuthIdentity: String
 }
+
+protocol SignUpUseCaseInterface {
+    func execute(requestValue: SignUpRequestValue,
+                 completion: @escaping (Result<String, Error>) -> Void) -> Cancellable?
+}
+
+final class SignUpUseCase: SignUpUseCaseInterface {
+    private let accountRepository: AccountRepositoryInterface
+
+    init(accountRepository: AccountRepositoryInterface) {
+        self.accountRepository = accountRepository
+    }
+
+    func execute(requestValue: SignUpRequestValue,
+                 completion: @escaping (Result<String, Error>) -> Void) -> Cancellable? {
+        return nil
+    }
+}
