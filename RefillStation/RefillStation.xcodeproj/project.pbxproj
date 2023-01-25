@@ -51,6 +51,7 @@
 		32A0F4FF2981754B00A04ECC /* AccountRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F4FE2981754B00A04ECC /* AccountRepositoryInterface.swift */; };
 		32A0F5012981764D00A04ECC /* OAuthLoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F5002981764D00A04ECC /* OAuthLoginUseCase.swift */; };
 		32A0F5032981797800A04ECC /* CustomerSatisfactionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F5022981797800A04ECC /* CustomerSatisfactionUseCase.swift */; };
+		32A0F50529817B1600A04ECC /* UserInfoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F50429817B1600A04ECC /* UserInfoRepository.swift */; };
 		32C22965297D35BA0019EAF6 /* PumpPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C22964297D35BA0019EAF6 /* PumpPopUpViewController.swift */; };
 		32CCC0D129791C9300C04231 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 32CCC0D029791C9300C04231 /* Toast */; };
 		32CCC0D32979302700C04231 /* TabBarDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CCC0D22979302700C04231 /* TabBarDIContainer.swift */; };
@@ -191,6 +192,7 @@
 		32A0F4FE2981754B00A04ECC /* AccountRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRepositoryInterface.swift; sourceTree = "<group>"; };
 		32A0F5002981764D00A04ECC /* OAuthLoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthLoginUseCase.swift; sourceTree = "<group>"; };
 		32A0F5022981797800A04ECC /* CustomerSatisfactionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSatisfactionUseCase.swift; sourceTree = "<group>"; };
+		32A0F50429817B1600A04ECC /* UserInfoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoRepository.swift; sourceTree = "<group>"; };
 		32C22964297D35BA0019EAF6 /* PumpPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpPopUpViewController.swift; sourceTree = "<group>"; };
 		32CCC0D22979302700C04231 /* TabBarDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarDIContainer.swift; sourceTree = "<group>"; };
 		32CCC0D42979311D00C04231 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
@@ -818,6 +820,7 @@
 				FCE00A95294C966C00B5C05F /* RegisterReviewRepositoryInterface.swift */,
 				32A0F4FC2981728D00A04ECC /* UploadImageRepositoryInterface.swift */,
 				32A0F4FE2981754B00A04ECC /* AccountRepositoryInterface.swift */,
+				32A0F50429817B1600A04ECC /* UserInfoRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1121,6 +1124,7 @@
 				FC7D3529292F22B300335AAB /* StoreDetailInfoStackView.swift in Sources */,
 				FC60D8382962C36F00C676A6 /* Section.swift in Sources */,
 				322E15E4297A0B3600FE2E2F /* MyPageDIContainer.swift in Sources */,
+				32A0F50529817B1600A04ECC /* UserInfoRepository.swift in Sources */,
 				3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */,
 				3240987029602A7400911306 /* ProductCategory.swift in Sources */,
 				FCE00A96294C966C00B5C05F /* RegisterReviewRepositoryInterface.swift in Sources */,
