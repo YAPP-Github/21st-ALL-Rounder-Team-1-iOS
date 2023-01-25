@@ -35,7 +35,7 @@ final class HomeDIContainer: DIContainer {
         return HomeViewModel()
     }
 
-    func makeFetchStoreListUseCase() {
+    func makeFetchStoresUseCase() {
 
     }
 

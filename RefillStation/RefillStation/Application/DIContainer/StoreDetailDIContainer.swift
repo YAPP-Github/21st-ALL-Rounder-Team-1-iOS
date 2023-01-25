@@ -40,15 +40,15 @@ final class StoreDetailDIContainer: DIContainer {
     func makeStoreDetailViewModel() -> StoreDetailViewModel {
         return StoreDetailViewModel(
             store: store,
-            fetchProductListUseCase: makeFetchProductListUseCase()
+            fetchProductsUseCase: makeFetchProductsUseCase()
         )
     }
 
-    func makeFetchProductListUseCase() -> FetchProductListUseCase {
-        return FetchProductListUseCase(productListRepository: makeProductListRepository())
+    func makeFetchProductsUseCase() -> FetchProductsUseCase {
+        return FetchProductsUseCase(productsRepository: makeProductsRepository())
     }
 
-    func makeProductListRepository() -> ProductListRepository {
-        return ProductListRepository(networkService: networkService)
+    func makeProductsRepository() -> ProductsRepository {
+        return ProductsRepository(networkService: networkService)
     }
 }

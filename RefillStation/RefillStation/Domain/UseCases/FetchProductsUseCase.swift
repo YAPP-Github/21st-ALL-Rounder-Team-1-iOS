@@ -7,31 +7,31 @@
 
 import Foundation
 
-struct FetchProductListRequestValue {
+struct FetchProductsRequestValue {
     let storeId: Int
 }
 
-protocol FetchProductListUseCaseInterface {
+protocol FetchProductsUseCaseInterface {
     func execute(
-        requestValue: FetchProductListRequestValue,
+        requestValue: FetchProductsRequestValue,
         completion: @escaping (Result<[Product], Error>) -> Void
     ) -> Cancellable?
 }
 
-final class FetchProductListUseCase: FetchProductListUseCaseInterface {
-    private let productListRepository: ProductListRepositoryInterface
+final class FetchProductsUseCase: FetchProductsUseCaseInterface {
+    private let productsRepository: ProductsRepositoryInterface
 
-    init(productListRepository: ProductListRepositoryInterface = MockProductListRepository()) {
-        self.productListRepository = productListRepository
+    init(productsRepository: ProductsRepositoryInterface = MockProductsRepository()) {
+        self.productsRepository = productsRepository
     }
 
     @discardableResult
     func execute(
-        requestValue: FetchProductListRequestValue,
+        requestValue: FetchProductsRequestValue,
         completion: @escaping (Result<[Product], Error>) -> Void
     ) -> Cancellable? {
 
-        return productListRepository.fetchProductList(query: requestValue) { result in
+        return productsRepository.fetchProducts(query: requestValue) { result in
             switch result {
             case .success(let products):
                 completion(.success(products))

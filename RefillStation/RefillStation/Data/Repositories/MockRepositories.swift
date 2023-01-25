@@ -8,17 +8,13 @@
 import Foundation
 
 final class MockHomeRepository: HomeRepositoryInterface {
-    func fetchStoreList(query: FetchStoreListUseCaseRequestValue, completion: @escaping (Result<[Store], Error>) -> Void) -> Cancellable? {
-        return URLSession.shared.dataTask(with: URLRequest(url: URL(string: "")!))
-    }
-
-    func searchStoreList(query: SearchStoreListUseCaseRequestValue, completion: @escaping (Result<[Store], Error>) -> Void) -> Cancellable? {
+    func fetchStoreList(query: FetchStoresUseCaseRequestValue, completion: @escaping (Result<[Store], Error>) -> Void) -> Cancellable? {
         return URLSession.shared.dataTask(with: URLRequest(url: URL(string: "")!))
     }
 }
 
-final class MockProductListRepository: ProductListRepositoryInterface {
-    func fetchProductList(query: FetchProductListRequestValue, completion: @escaping (Result<[Product], Error>) -> Void) -> Cancellable {
+final class MockProductsRepository: ProductsRepositoryInterface {
+    func fetchProducts(query: FetchProductsRequestValue, completion: @escaping (Result<[Product], Error>) -> Void) -> Cancellable {
         return URLSession.shared.dataTask(with: URLRequest(url: URL(string: "")!))
     }
 }

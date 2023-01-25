@@ -1,5 +1,5 @@
 //
-//  FetchStoreListUseCase.swift
+//  FetchStoresUseCase.swift
 //  RefillStation
 //
 //  Created by kong on 2022/12/16.
@@ -7,26 +7,26 @@
 
 import Foundation
 
-protocol FetchStoreListUseCaseInterface {
-    func execute(requestValue: FetchStoreListUseCaseRequestValue,
+protocol FetchStoresUseCaseInterface {
+    func execute(requestValue: FetchStoresUseCaseRequestValue,
                  completion: @escaping (Result<[Store], Error>) -> Void) -> Cancellable?
 }
 
-final class FetchStoreListUseCase: FetchStoreListUseCaseInterface {
+final class FetchStoresUseCase: FetchStoresUseCaseInterface {
     private let repository: HomeRepositoryInterface
 
     init(repository: HomeRepositoryInterface = MockHomeRepository()) {
         self.repository = repository
     }
 
-    func execute(requestValue: FetchStoreListUseCaseRequestValue,
+    func execute(requestValue: FetchStoresUseCaseRequestValue,
                  completion: @escaping (Result<[Store], Error>) -> Void) -> Cancellable? {
         return repository.fetchStoreList(query: requestValue,
                                          completion: completion)
     }
 }
 
-struct FetchStoreListUseCaseRequestValue {
+struct FetchStoresUseCaseRequestValue {
     let latitude: Double
     let longitude: Double
 }

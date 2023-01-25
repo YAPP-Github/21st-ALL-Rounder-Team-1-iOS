@@ -51,6 +51,16 @@
 		32CCC0D52979311D00C04231 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CCC0D42979311D00C04231 /* TabBarCoordinator.swift */; };
 		32CCC0D7297939C800C04231 /* StoreDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CCC0D6297939C800C04231 /* StoreDetailCoordinator.swift */; };
 		32CCC0D929793EDE00C04231 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CCC0D829793EDE00C04231 /* MainTabBarController.swift */; };
+		32DB626429816605008C2522 /* FetchUserInfoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626329816605008C2522 /* FetchUserInfoUseCase.swift */; };
+		32DB62662981682B008C2522 /* KakaoLoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB62652981682B008C2522 /* KakaoLoginUseCase.swift */; };
+		32DB626829816831008C2522 /* NaverLoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626729816831008C2522 /* NaverLoginUseCase.swift */; };
+		32DB626A29816837008C2522 /* AppleLoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626929816837008C2522 /* AppleLoginUseCase.swift */; };
+		32DB626C29816849008C2522 /* SignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626B29816849008C2522 /* SignUpUseCase.swift */; };
+		32DB626E2981689C008C2522 /* WithdrawUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626D2981689C008C2522 /* WithdrawUseCase.swift */; };
+		32DB6270298168C4008C2522 /* ValidNicknameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626F298168C4008C2522 /* ValidNicknameUseCase.swift */; };
+		32DB627229816943008C2522 /* EditProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB627129816943008C2522 /* EditProfileUseCase.swift */; };
+		32DB6274298169EB008C2522 /* CreateNicknameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB6273298169EB008C2522 /* CreateNicknameUseCase.swift */; };
+		32DB627629816A52008C2522 /* FetchUserReviewsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB627529816A52008C2522 /* FetchUserReviewsUseCase.swift */; };
 		32DFDAE12976BAE400B6EDA3 /* FilteredProductCountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFDAE02976BAE400B6EDA3 /* FilteredProductCountCell.swift */; };
 		32DFDAE32976C93500B6EDA3 /* DetailPhotoReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFDAE22976C93500B6EDA3 /* DetailPhotoReviewViewController.swift */; };
 		32DFDAE52976CAE100B6EDA3 /* DetailPhotoReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFDAE42976CAE100B6EDA3 /* DetailPhotoReviewViewModel.swift */; };
@@ -87,21 +97,20 @@
 		FCE00A67294C5ADF00B5C05F /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A66294C5ADF00B5C05F /* CoreDataStorage.swift */; };
 		FCE00A6A294C5B3400B5C05F /* TagResponseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A69294C5B3400B5C05F /* TagResponseStorage.swift */; };
 		FCE00A6D294C5D5F00B5C05F /* CoreDataTagResponseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A6C294C5D5F00B5C05F /* CoreDataTagResponseStorage.swift */; };
-		FCE00A71294C916600B5C05F /* FetchStoreListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A70294C916600B5C05F /* FetchStoreListUseCase.swift */; };
-		FCE00A73294C917200B5C05F /* SearchStoreListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A72294C917200B5C05F /* SearchStoreListUseCase.swift */; };
-		FCE00A75294C917B00B5C05F /* FetchProductListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A74294C917B00B5C05F /* FetchProductListUseCase.swift */; };
+		FCE00A71294C916600B5C05F /* FetchStoresUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A70294C916600B5C05F /* FetchStoresUseCase.swift */; };
+		FCE00A75294C917B00B5C05F /* FetchProductsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A74294C917B00B5C05F /* FetchProductsUseCase.swift */; };
 		FCE00A77294C919100B5C05F /* RequestRegionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A76294C919100B5C05F /* RequestRegionUseCase.swift */; };
 		FCE00A79294C919A00B5C05F /* FetchReviewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A78294C919A00B5C05F /* FetchReviewUseCase.swift */; };
 		FCE00A7B294C91A200B5C05F /* RecommendStoreUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A7A294C91A200B5C05F /* RecommendStoreUseCase.swift */; };
 		FCE00A7D294C91AD00B5C05F /* RegisterReviewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A7C294C91AD00B5C05F /* RegisterReviewUseCase.swift */; };
 		FCE00A7F294C91B600B5C05F /* UploadReviewImageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A7E294C91B600B5C05F /* UploadReviewImageUseCase.swift */; };
 		FCE00A82294C95E100B5C05F /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A81294C95E100B5C05F /* HomeRepository.swift */; };
-		FCE00A84294C95E900B5C05F /* ProductListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A83294C95E900B5C05F /* ProductListRepository.swift */; };
+		FCE00A84294C95E900B5C05F /* ProductsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A83294C95E900B5C05F /* ProductsRepository.swift */; };
 		FCE00A86294C95F200B5C05F /* RequestRegionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A85294C95F200B5C05F /* RequestRegionRepository.swift */; };
 		FCE00A88294C95FA00B5C05F /* StoreReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A87294C95FA00B5C05F /* StoreReviewRepository.swift */; };
 		FCE00A8A294C960000B5C05F /* RegisterReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A89294C960000B5C05F /* RegisterReviewRepository.swift */; };
 		FCE00A8E294C965000B5C05F /* HomeRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A8D294C965000B5C05F /* HomeRepositoryInterface.swift */; };
-		FCE00A90294C965900B5C05F /* ProductListRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A8F294C965900B5C05F /* ProductListRepositoryInterface.swift */; };
+		FCE00A90294C965900B5C05F /* ProductsRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A8F294C965900B5C05F /* ProductsRepositoryInterface.swift */; };
 		FCE00A92294C966000B5C05F /* RequestRegionRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A91294C966000B5C05F /* RequestRegionRepositoryInterface.swift */; };
 		FCE00A94294C966700B5C05F /* StoreReviewRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A93294C966700B5C05F /* StoreReviewRepositoryInterface.swift */; };
 		FCE00A96294C966C00B5C05F /* RegisterReviewRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A95294C966C00B5C05F /* RegisterReviewRepositoryInterface.swift */; };
@@ -180,6 +189,16 @@
 		32CCC0D42979311D00C04231 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		32CCC0D6297939C800C04231 /* StoreDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailCoordinator.swift; sourceTree = "<group>"; };
 		32CCC0D829793EDE00C04231 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		32DB626329816605008C2522 /* FetchUserInfoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserInfoUseCase.swift; sourceTree = "<group>"; };
+		32DB62652981682B008C2522 /* KakaoLoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginUseCase.swift; sourceTree = "<group>"; };
+		32DB626729816831008C2522 /* NaverLoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginUseCase.swift; sourceTree = "<group>"; };
+		32DB626929816837008C2522 /* AppleLoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginUseCase.swift; sourceTree = "<group>"; };
+		32DB626B29816849008C2522 /* SignUpUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUseCase.swift; sourceTree = "<group>"; };
+		32DB626D2981689C008C2522 /* WithdrawUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawUseCase.swift; sourceTree = "<group>"; };
+		32DB626F298168C4008C2522 /* ValidNicknameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidNicknameUseCase.swift; sourceTree = "<group>"; };
+		32DB627129816943008C2522 /* EditProfileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileUseCase.swift; sourceTree = "<group>"; };
+		32DB6273298169EB008C2522 /* CreateNicknameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNicknameUseCase.swift; sourceTree = "<group>"; };
+		32DB627529816A52008C2522 /* FetchUserReviewsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FetchUserReviewsUseCase.swift; path = ../../../../../Blog/FetchUserReviewsUseCase.swift; sourceTree = "<group>"; };
 		32DFDAE02976BAE400B6EDA3 /* FilteredProductCountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredProductCountCell.swift; sourceTree = "<group>"; };
 		32DFDAE22976C93500B6EDA3 /* DetailPhotoReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPhotoReviewViewController.swift; sourceTree = "<group>"; };
 		32DFDAE42976CAE100B6EDA3 /* DetailPhotoReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPhotoReviewViewModel.swift; sourceTree = "<group>"; };
@@ -218,21 +237,20 @@
 		FCE00A66294C5ADF00B5C05F /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
 		FCE00A69294C5B3400B5C05F /* TagResponseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagResponseStorage.swift; sourceTree = "<group>"; };
 		FCE00A6C294C5D5F00B5C05F /* CoreDataTagResponseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTagResponseStorage.swift; sourceTree = "<group>"; };
-		FCE00A70294C916600B5C05F /* FetchStoreListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStoreListUseCase.swift; sourceTree = "<group>"; };
-		FCE00A72294C917200B5C05F /* SearchStoreListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStoreListUseCase.swift; sourceTree = "<group>"; };
-		FCE00A74294C917B00B5C05F /* FetchProductListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchProductListUseCase.swift; sourceTree = "<group>"; };
+		FCE00A70294C916600B5C05F /* FetchStoresUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStoresUseCase.swift; sourceTree = "<group>"; };
+		FCE00A74294C917B00B5C05F /* FetchProductsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchProductsUseCase.swift; sourceTree = "<group>"; };
 		FCE00A76294C919100B5C05F /* RequestRegionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestRegionUseCase.swift; sourceTree = "<group>"; };
 		FCE00A78294C919A00B5C05F /* FetchReviewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchReviewUseCase.swift; sourceTree = "<group>"; };
 		FCE00A7A294C91A200B5C05F /* RecommendStoreUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendStoreUseCase.swift; sourceTree = "<group>"; };
 		FCE00A7C294C91AD00B5C05F /* RegisterReviewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReviewUseCase.swift; sourceTree = "<group>"; };
 		FCE00A7E294C91B600B5C05F /* UploadReviewImageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadReviewImageUseCase.swift; sourceTree = "<group>"; };
 		FCE00A81294C95E100B5C05F /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
-		FCE00A83294C95E900B5C05F /* ProductListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListRepository.swift; sourceTree = "<group>"; };
+		FCE00A83294C95E900B5C05F /* ProductsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsRepository.swift; sourceTree = "<group>"; };
 		FCE00A85294C95F200B5C05F /* RequestRegionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestRegionRepository.swift; sourceTree = "<group>"; };
 		FCE00A87294C95FA00B5C05F /* StoreReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewRepository.swift; sourceTree = "<group>"; };
 		FCE00A89294C960000B5C05F /* RegisterReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReviewRepository.swift; sourceTree = "<group>"; };
 		FCE00A8D294C965000B5C05F /* HomeRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepositoryInterface.swift; sourceTree = "<group>"; };
-		FCE00A8F294C965900B5C05F /* ProductListRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListRepositoryInterface.swift; sourceTree = "<group>"; };
+		FCE00A8F294C965900B5C05F /* ProductsRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsRepositoryInterface.swift; sourceTree = "<group>"; };
 		FCE00A91294C966000B5C05F /* RequestRegionRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestRegionRepositoryInterface.swift; sourceTree = "<group>"; };
 		FCE00A93294C966700B5C05F /* StoreReviewRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewRepositoryInterface.swift; sourceTree = "<group>"; };
 		FCE00A95294C966C00B5C05F /* RegisterReviewRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReviewRepositoryInterface.swift; sourceTree = "<group>"; };
@@ -656,14 +674,23 @@
 		FCE00A5E294C588A00B5C05F /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				FCE00A70294C916600B5C05F /* FetchStoreListUseCase.swift */,
-				FCE00A72294C917200B5C05F /* SearchStoreListUseCase.swift */,
-				FCE00A74294C917B00B5C05F /* FetchProductListUseCase.swift */,
-				FCE00A76294C919100B5C05F /* RequestRegionUseCase.swift */,
+				32DB626329816605008C2522 /* FetchUserInfoUseCase.swift */,
+				32DB62652981682B008C2522 /* KakaoLoginUseCase.swift */,
+				32DB626729816831008C2522 /* NaverLoginUseCase.swift */,
+				32DB626929816837008C2522 /* AppleLoginUseCase.swift */,
+				32DB626B29816849008C2522 /* SignUpUseCase.swift */,
+				32DB626D2981689C008C2522 /* WithdrawUseCase.swift */,
+				32DB626F298168C4008C2522 /* ValidNicknameUseCase.swift */,
+				32DB627129816943008C2522 /* EditProfileUseCase.swift */,
+				FCE00A70294C916600B5C05F /* FetchStoresUseCase.swift */,
+				FCE00A74294C917B00B5C05F /* FetchProductsUseCase.swift */,
 				FCE00A78294C919A00B5C05F /* FetchReviewUseCase.swift */,
-				FCE00A7A294C91A200B5C05F /* RecommendStoreUseCase.swift */,
 				FCE00A7C294C91AD00B5C05F /* RegisterReviewUseCase.swift */,
+				FCE00A76294C919100B5C05F /* RequestRegionUseCase.swift */,
+				FCE00A7A294C91A200B5C05F /* RecommendStoreUseCase.swift */,
 				FCE00A7E294C91B600B5C05F /* UploadReviewImageUseCase.swift */,
+				32DB6273298169EB008C2522 /* CreateNicknameUseCase.swift */,
+				32DB627529816A52008C2522 /* FetchUserReviewsUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -723,7 +750,7 @@
 			isa = PBXGroup;
 			children = (
 				FCE00A81294C95E100B5C05F /* HomeRepository.swift */,
-				FCE00A83294C95E900B5C05F /* ProductListRepository.swift */,
+				FCE00A83294C95E900B5C05F /* ProductsRepository.swift */,
 				FCE00A85294C95F200B5C05F /* RequestRegionRepository.swift */,
 				FCE00A87294C95FA00B5C05F /* StoreReviewRepository.swift */,
 				FCE00A89294C960000B5C05F /* RegisterReviewRepository.swift */,
@@ -744,7 +771,7 @@
 			isa = PBXGroup;
 			children = (
 				FCE00A8D294C965000B5C05F /* HomeRepositoryInterface.swift */,
-				FCE00A8F294C965900B5C05F /* ProductListRepositoryInterface.swift */,
+				FCE00A8F294C965900B5C05F /* ProductsRepositoryInterface.swift */,
 				FCE00A91294C966000B5C05F /* RequestRegionRepositoryInterface.swift */,
 				FCE00A93294C966700B5C05F /* StoreReviewRepositoryInterface.swift */,
 				FCE00A95294C966C00B5C05F /* RegisterReviewRepositoryInterface.swift */,
@@ -971,18 +998,23 @@
 			files = (
 				FCE00A67294C5ADF00B5C05F /* CoreDataStorage.swift in Sources */,
 				322E15E6297A0B6600FE2E2F /* MyPageCoordinator.swift in Sources */,
+				32DB6274298169EB008C2522 /* CreateNicknameUseCase.swift in Sources */,
 				FCF0181A295F08E50027078A /* UserLevelInfo.swift in Sources */,
+				32DB62662981682B008C2522 /* KakaoLoginUseCase.swift in Sources */,
 				32CCC0D52979311D00C04231 /* TabBarCoordinator.swift in Sources */,
 				32ED747C29696C52007EA791 /* StoreDetailInfoViewCell.swift in Sources */,
 				329E80252977FA72004286B0 /* OnboardingCollectionViewCell.swift in Sources */,
+				32DB626C29816849008C2522 /* SignUpUseCase.swift in Sources */,
 				32E9A55D292E4F37000072EE /* RankView.swift in Sources */,
 				32CCC0D929793EDE00C04231 /* MainTabBarController.swift in Sources */,
+				32DB626829816831008C2522 /* NaverLoginUseCase.swift in Sources */,
 				322E15EC297A6C4900FE2E2F /* MyPageViewController.swift in Sources */,
 				32DFDAE52976CAE100B6EDA3 /* DetailPhotoReviewViewModel.swift in Sources */,
 				3240987229602B2300911306 /* ProductCategoriesCell.swift in Sources */,
 				FC9044882965E00D00B43BB9 /* UserLevelViewController.swift in Sources */,
 				325985E3294C51A700D26A37 /* HomeDIContainer.swift in Sources */,
 				329EF91529729679004934E7 /* StoreDetailTabBarCell.swift in Sources */,
+				32DB626429816605008C2522 /* FetchUserInfoUseCase.swift in Sources */,
 				32E9A555292E1947000072EE /* TagReview.swift in Sources */,
 				3240987429602B2C00911306 /* ProductCategoryCollectionViewCell.swift in Sources */,
 				FCE00A79294C919A00B5C05F /* FetchReviewUseCase.swift in Sources */,
@@ -991,10 +1023,10 @@
 				FC60D8412962C36F00C676A6 /* RegisterReviewViewController.swift in Sources */,
 				FCAB262B296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift in Sources */,
 				FC84FAC5293AB04800428AAA /* RegionRequestHeaderView.swift in Sources */,
-				FCE00A71294C916600B5C05F /* FetchStoreListUseCase.swift in Sources */,
+				FCE00A71294C916600B5C05F /* FetchStoresUseCase.swift in Sources */,
 				FCE00A9A2950E07900B5C05F /* User.swift in Sources */,
 				324098762961367300911306 /* MockRepositories.swift in Sources */,
-				FCE00A84294C95E900B5C05F /* ProductListRepository.swift in Sources */,
+				FCE00A84294C95E900B5C05F /* ProductsRepository.swift in Sources */,
 				FCE00A6D294C5D5F00B5C05F /* CoreDataTagResponseStorage.swift in Sources */,
 				FC60D8392962C36F00C676A6 /* ReviewPhotoDelegate.swift in Sources */,
 				FCE00A88294C95FA00B5C05F /* StoreReviewRepository.swift in Sources */,
@@ -1007,7 +1039,6 @@
 				FCF0181D296095AD0027078A /* CTAButton.swift in Sources */,
 				329557472951992C00F5AB53 /* StoreDetailViewController.swift in Sources */,
 				325985F9294C54CB00D26A37 /* StoreDetailDIContainer.swift in Sources */,
-				FCE00A73294C917200B5C05F /* SearchStoreListUseCase.swift in Sources */,
 				329EF9172972DE30004934E7 /* StoreDetailSection.swift in Sources */,
 				FC60D83F2962C36F00C676A6 /* VoteTitleCell.swift in Sources */,
 				325985E7294C525800D26A37 /* Coordinator.swift in Sources */,
@@ -1020,6 +1051,7 @@
 				FC90448E29671FC900B43BB9 /* LevelCollectionViewCell.swift in Sources */,
 				FCE00A7B294C91A200B5C05F /* RecommendStoreUseCase.swift in Sources */,
 				32E9A561292E68CF000072EE /* DetailReview.swift in Sources */,
+				32DB627629816A52008C2522 /* FetchUserReviewsUseCase.swift in Sources */,
 				32C22965297D35BA0019EAF6 /* PumpPopUpViewController.swift in Sources */,
 				325985E9294C527000D26A37 /* DIContainer.swift in Sources */,
 				324CCBE029321616001F6FDA /* DetailReviewCell.swift in Sources */,
@@ -1027,8 +1059,9 @@
 				322E15EA297A0CE100FE2E2F /* RegisterReviewCoordinator.swift in Sources */,
 				FCE00A94294C966700B5C05F /* StoreReviewRepositoryInterface.swift in Sources */,
 				FC60D8372962C36F00C676A6 /* DefaultTagReviewViewModel.swift in Sources */,
-				FCE00A75294C917B00B5C05F /* FetchProductListUseCase.swift in Sources */,
+				FCE00A75294C917B00B5C05F /* FetchProductsUseCase.swift in Sources */,
 				32ED747A2969441D007EA791 /* OperationInfoCell.swift in Sources */,
+				32DB626A29816837008C2522 /* AppleLoginUseCase.swift in Sources */,
 				322E15EE297A6C5300FE2E2F /* MyPageViewModel.swift in Sources */,
 				FCE00A982950E04300B5C05F /* Tag.swift in Sources */,
 				325985F7294C544400D26A37 /* HomeCoordinator.swift in Sources */,
@@ -1048,11 +1081,14 @@
 				3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */,
 				3240987029602A7400911306 /* ProductCategory.swift in Sources */,
 				FCE00A96294C966C00B5C05F /* RegisterReviewRepositoryInterface.swift in Sources */,
+				32DB626E2981689C008C2522 /* WithdrawUseCase.swift in Sources */,
 				FC84FAC9293B640300428AAA /* RequestRegionViewController.swift in Sources */,
 				322E15E8297A0CD700FE2E2F /* RegisterReviewDIContainer.swift in Sources */,
 				32DFDAE32976C93500B6EDA3 /* DetailPhotoReviewViewController.swift in Sources */,
+				32DB627229816943008C2522 /* EditProfileUseCase.swift in Sources */,
 				FC47394729376BA500DB9BDB /* HomeViewModel.swift in Sources */,
 				325985EB294C529C00D26A37 /* OnboardingCoordinator.swift in Sources */,
+				32DB6270298168C4008C2522 /* ValidNicknameUseCase.swift in Sources */,
 				FCE00A8A294C960000B5C05F /* RegisterReviewRepository.swift in Sources */,
 				FC84FACC293B944900428AAA /* RequestRegionViewModel.swift in Sources */,
 				FC3630172969316900532598 /* LevelHeaderView.swift in Sources */,
@@ -1064,7 +1100,7 @@
 				329557462951992900F5AB53 /* StoreDetailViewModel.swift in Sources */,
 				329E80262977FA72004286B0 /* OnboardingViewModel.swift in Sources */,
 				320A767F297FD4F0003041D7 /* KeychainManager.swift in Sources */,
-				FCE00A90294C965900B5C05F /* ProductListRepositoryInterface.swift in Sources */,
+				FCE00A90294C965900B5C05F /* ProductsRepositoryInterface.swift in Sources */,
 				FCE00A8E294C965000B5C05F /* HomeRepositoryInterface.swift in Sources */,
 				FCE00A86294C95F200B5C05F /* RequestRegionRepository.swift in Sources */,
 				FCE00A92294C966000B5C05F /* RequestRegionRepositoryInterface.swift in Sources */,
