@@ -65,7 +65,8 @@ final class RegisterReviewPopUpViewController: UIViewController {
 
     private func layout() {
         view.addSubview(containerView)
-        [levelImageView, titleLabel, descriptionLabel, confirmButton, learnMoreButton].forEach { containerView.addSubview($0) }
+        [levelImageView, titleLabel, descriptionLabel,
+         confirmButton, learnMoreButton].forEach { containerView.addSubview($0) }
 
         containerView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(40)

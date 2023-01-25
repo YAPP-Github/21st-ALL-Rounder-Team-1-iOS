@@ -133,7 +133,8 @@ extension StoreDetailViewController {
             snapShot.appendItems([.productCategory(.init(categories: viewModel.categories,
                                                          currentFilter: viewModel.currentCategoryFilter))],
                                  toSection: .productCategory)
-            snapShot.appendItems([.filteredProduct(viewModel.filteredProducts.count)], toSection: .filteredProductsCount)
+            snapShot.appendItems([.filteredProduct(viewModel.filteredProducts.count)],
+                                 toSection: .filteredProductsCount)
             viewModel.filteredProducts.forEach {
                 snapShot.appendItems([.productList($0)], toSection: .productList)
             }
@@ -156,7 +157,8 @@ extension StoreDetailViewController {
     }
 
     private func diffableDataSource() -> UICollectionViewDiffableDataSource<StoreDetailSection, StoreDetailItem> {
-        return UICollectionViewDiffableDataSource<StoreDetailSection, StoreDetailItem>(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
+        return UICollectionViewDiffableDataSource<StoreDetailSection, StoreDetailItem>(
+            collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
 
             let storeDetailSection = self.section(mode: self.viewModel.mode, sectionIndex: indexPath.section)
             let reuseIdentifier = storeDetailSection.reuseIdentifier

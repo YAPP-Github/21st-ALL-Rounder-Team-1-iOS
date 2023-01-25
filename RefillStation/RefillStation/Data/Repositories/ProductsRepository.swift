@@ -17,7 +17,7 @@ final class ProductsRepository: ProductsRepositoryInterface {
     func fetchProducts(
         query: FetchProductsRequestValue,
         completion: @escaping (Result<[Product], Error>) -> Void
-    ) -> Cancellable {
-        return URLSessionDataTask()
+    ) -> Cancellable? {
+        return nil
     }
 }

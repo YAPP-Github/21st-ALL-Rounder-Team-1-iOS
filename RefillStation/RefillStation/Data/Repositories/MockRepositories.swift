@@ -14,8 +14,8 @@ final class MockHomeRepository: HomeRepositoryInterface {
 }
 
 final class MockProductsRepository: ProductsRepositoryInterface {
-    func fetchProducts(query: FetchProductsRequestValue, completion: @escaping (Result<[Product], Error>) -> Void) -> Cancellable {
-        return URLSession.shared.dataTask(with: URLRequest(url: URL(string: "")!))
+    func fetchProducts(query: FetchProductsRequestValue, completion: @escaping (Result<[Product], Error>) -> Void) -> Cancellable? {
+        return nil
     }
 }
 
@@ -45,4 +45,8 @@ final class MockUploadImageRepository: UploadImageRepositoryInterface {
     func uploadImage(images: [UIImage], completion: @escaping (Result<[String], Error>) -> Void) -> Cancellable? {
         return nil
     }
+}
+
+final class MockStoreRepository: StoreRepositoryInterface {
+
 }

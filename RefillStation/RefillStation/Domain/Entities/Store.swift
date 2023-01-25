@@ -18,4 +18,3 @@ struct Store: Hashable {
     let thumbnailImageURL: String?
     let imageURL: [String]
 }
-
