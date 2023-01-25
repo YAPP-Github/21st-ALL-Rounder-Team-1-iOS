@@ -7,22 +7,19 @@
 
 import UIKit
 import SnapKit
-import PhotosUI
 
 final class NicknameViewController: UIViewController {
-
-    // MARK: - View Type Case
-    enum ViewType {
-        case onboarding
-        case myPage
-    }
-
-    // MARK: - Properties
-    private var viewType: ViewType
     private var viewModel: NicknameViewModel
-    private var workItem: DispatchWorkItem?
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.spacing = 10
+        return stackView
+    }()
 
     // MARK: - Onboarding Components
+
     private let guideLabel: UILabel = {
         let label = UILabel()
         label.text = "이 닉네임 어떠신가요?\n원하는 닉네임으로 바꿔도 괜찮아요!"
@@ -40,9 +37,15 @@ final class NicknameViewController: UIViewController {
     }()
 
     // MARK: - My page Components
+
+    private let profileView: UIView = {
+        let view = UIView()
+        return view
+    }()
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 36
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -59,33 +62,13 @@ final class NicknameViewController: UIViewController {
         button.addTarget(self, action: #selector(didTapProfileImageEditButton), for: .touchUpInside)
         return button
     }()
-    private let phPickerViewController: PHPickerViewController = {
-        var configuration = PHPickerConfiguration()
-        configuration.filter = .images
-        configuration.selectionLimit = 1
-        let phPickerVC = PHPickerViewController(configuration: configuration)
-        return phPickerVC
-    }()
-    private let editProfileView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .black.withAlphaComponent(0.5)
-        view.isHidden = true
-        return view
-    }()
-    private lazy var editProfileBottomSheetView: EditProfileBottomSheetView = {
-        let bottomSheetView = EditProfileBottomSheetView()
-        bottomSheetView.albumButtonTapped = { [weak self] in
-            self?.moveToPhotoPicker()
-        }
-        bottomSheetView.deleteButtonTapped = { [weak self] in
-            self?.viewModel.profileImage = nil
-            self?.editProfileView.isHidden = true
-            self?.setUpProfileImage()
-        }
-        return bottomSheetView
-    }()
 
     // MARK: - Common Components
+
+    private let nicknameView: UIView = {
+        let view = UIView()
+        return view
+    }()
     private lazy var nicknameTextField: UITextField = {
         let textField = UITextField()
         textField.layer.cornerRadius = 8
@@ -94,6 +77,7 @@ final class NicknameViewController: UIViewController {
         textField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 16.0, height: 0.0))
         textField.leftViewMode = .always
         textField.tintColor = Asset.Colors.primary10.color
+        textField.delegate = self
         textField.addTarget(self, action: #selector(setUpTextFieldState(_:)), for: .editingChanged)
         return textField
     }()
@@ -102,10 +86,15 @@ final class NicknameViewController: UIViewController {
         label.font = .font(style: .captionLarge)
         return label
     }()
-    private lazy var doubleCheckButton: CTAButton = {
-        let button = CTAButton(style: .doubleCheck)
+    private lazy var doubleCheckButton: UIButton = {
+        let button = UIButton()
         button.isEnabled = false
         button.setTitle("중복확인", for: .normal)
+        button.layer.cornerRadius = 8
+        button.titleLabel?.font = .font(style: .buttonLarge)
+        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(Asset.Colors.gray4.color, for: .disabled)
+        button.backgroundColor = Asset.Colors.gray2.color
         button.addTarget(self, action: #selector(didTapDoubleCheckButton), for: .touchUpInside)
         return button
     }()
@@ -115,9 +104,8 @@ final class NicknameViewController: UIViewController {
     }()
 
     // MARK: - initializer
-    init(viewModel: NicknameViewModel, viewType: ViewType) {
+    init(viewModel: NicknameViewModel) {
         self.viewModel = viewModel
-        self.viewType = viewType
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -130,7 +118,6 @@ final class NicknameViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         nicknameTextField.delegate = self
-        phPickerViewController.delegate = self
         addTapGesture()
         addKeyboardNotification()
         layout()
@@ -146,7 +133,7 @@ final class NicknameViewController: UIViewController {
     }
 
     private func setUpView() {
-        switch viewType {
+        switch viewModel.viewType {
         case .onboarding:
             nicknameTextField.text = viewModel.randomNickname
             confirmButton.setTitle("다음", for: .normal)
@@ -167,88 +154,75 @@ final class NicknameViewController: UIViewController {
     }
 
     private func layout() {
-        [nicknameTextField, descriptionLabel, doubleCheckButton, confirmButton].forEach { view.addSubview($0) }
-        var topView: UIView
-        switch viewType {
-        case .onboarding:
-            topView = subGuideLabel
-            onboardingLayout()
-        case .myPage:
-            topView = profileImageView
-            myPageLayout()
-        }
-        nicknameTextField.snp.makeConstraints {
-            $0.top.equalTo(topView.snp.bottom).offset(32)
-            $0.leading.equalToSuperview().inset(16)
-            $0.height.equalTo(44)
-        }
-        descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(nicknameTextField.snp.bottom).offset(6)
-            $0.leading.trailing.equalTo(nicknameTextField)
-        }
-        doubleCheckButton.snp.makeConstraints {
-            $0.top.equalTo(nicknameTextField)
-            $0.leading.equalTo(nicknameTextField.snp.trailing).offset(6)
-            $0.trailing.equalToSuperview().inset(16)
-            $0.width.equalTo(83)
-            $0.height.equalTo(44)
+        [stackView, confirmButton].forEach { view.addSubview($0) }
+        stackView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(32)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
         }
         confirmButton.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-6)
             $0.height.equalTo(50)
         }
-    }
 
-    private func onboardingLayout() {
-        [guideLabel, subGuideLabel].forEach { view.addSubview($0) }
-        guideLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(32)
-            $0.leading.trailing.equalToSuperview().inset(16)
-        }
-        subGuideLabel.snp.makeConstraints {
-            $0.top.equalTo(guideLabel.snp.bottom).offset(10)
-            $0.leading.trailing.equalTo(guideLabel)
-        }
-    }
-
-    private func myPageLayout() {
-        [profileImageView, profileImageEditButton, editProfileView].forEach { view.addSubview($0) }
-        editProfileView.addSubview(editProfileBottomSheetView)
+        [profileImageView, profileImageEditButton].forEach { profileView.addSubview($0) }
         profileImageView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(32)
+            $0.top.equalToSuperview()
             $0.width.height.equalTo(72)
             $0.centerX.equalToSuperview()
         }
         profileImageEditButton.snp.makeConstraints {
-            $0.trailing.equalTo(profileImageView).offset(8)
-            $0.bottom.equalTo(profileImageView).offset(8)
+            $0.bottom.trailing.equalTo(profileImageView).offset(8)
             $0.width.height.equalTo(32)
+            $0.bottom.equalToSuperview()
         }
-        editProfileView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+
+        [nicknameTextField, doubleCheckButton, descriptionLabel].forEach { nicknameView.addSubview($0) }
+        nicknameTextField.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(14)
+            $0.height.equalTo(44)
+            $0.leading.equalToSuperview()
         }
-        editProfileBottomSheetView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.height.equalTo(164)
+        doubleCheckButton.snp.makeConstraints {
+            $0.top.bottom.equalTo(nicknameTextField)
+            $0.trailing.equalToSuperview()
+            $0.leading.equalTo(nicknameTextField.snp.trailing).offset(8)
+            $0.width.equalTo(83)
+        }
+        descriptionLabel.snp.makeConstraints {
+            $0.top.equalTo(nicknameTextField.snp.bottom).offset(6)
+            $0.leading.equalTo(nicknameTextField)
+            $0.bottom.equalToSuperview()
+        }
+
+        switch viewModel.viewType {
+        case .myPage:
+            [profileView, nicknameView].forEach { stackView.addArrangedSubview($0)}
+        case .onboarding:
+            [guideLabel, subGuideLabel, nicknameView].forEach { stackView.addArrangedSubview($0) }
         }
     }
 
     private func setEmptyNickname() {
         nicknameTextField.layer.borderColor = Asset.Colors.gray4.color.cgColor
         descriptionLabel.textColor = Asset.Colors.gray3.color
-        doubleCheckButton.isEnabled = false
+        setDoubleCheckState(isEnabled: false)
     }
 
     private func setIncorrectNickname() {
         nicknameTextField.layer.borderColor = Asset.Colors.error.color.cgColor
         descriptionLabel.textColor = Asset.Colors.error.color
-        doubleCheckButton.isEnabled = false
+        setDoubleCheckState(isEnabled: false)
     }
 
     private func setCorrectNickname() {
         nicknameTextField.layer.borderColor = Asset.Colors.gray4.color.cgColor
-        doubleCheckButton.isEnabled = true
+        setDoubleCheckState(isEnabled: true)
+    }
+
+    private func setDoubleCheckState(isEnabled: Bool) {
+        doubleCheckButton.isEnabled = isEnabled
+        doubleCheckButton.backgroundColor = isEnabled ? Asset.Colors.gray5.color : Asset.Colors.gray2.color
     }
 
     private func setNicknameState(isValid: Bool) {
@@ -256,27 +230,17 @@ final class NicknameViewController: UIViewController {
             descriptionLabel.text = "사용 가능한 닉네임입니다"
             nicknameTextField.layer.borderColor = Asset.Colors.correct.color.cgColor
             descriptionLabel.textColor = Asset.Colors.correct.color
-            doubleCheckButton.isEnabled = true
+            setDoubleCheckState(isEnabled: false)
         } else {
             descriptionLabel.text = "다른 사용자가 이미 사용중 입니다"
             setIncorrectNickname()
         }
     }
-
-    private func moveToPhotoPicker() {
-        self.present(phPickerViewController, animated: true)
-    }
-
     private func addTapGesture() {
-        editProfileView.addGestureRecognizer(UITapGestureRecognizer(target: self,
-                                                                          action: #selector(hideEditProfileView)))
         view.addGestureRecognizer(UITapGestureRecognizer(target: self,
                                                          action: #selector(dismissKeyboard)))
     }
-}
 
-// MARK: - Action Methods
-extension NicknameViewController {
     @objc private func keyboardWillShow(_ notification: Notification) {
         guard let userInfo = notification.userInfo,
               let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
@@ -295,43 +259,40 @@ extension NicknameViewController {
 
     @objc private func setUpTextFieldState(_ sender: UITextField) {
         guard let text = sender.text else { return }
-        if text.isEmpty {
+        let nicknameState = viewModel.nicknameState(count: text.count)
+        switch nicknameState {
+        case .empty:
             descriptionLabel.text = "닉네임을 입력해주세요"
             setEmptyNickname()
-        } else {
-            if text.count < 2 {
-                descriptionLabel.text = "닉네임은 2자 이상 입력해주세요"
-                setIncorrectNickname()
-            } else if text.count > 10 {
-                descriptionLabel.text = "닉네임은 10자 이하로 입력해주세요"
-                setIncorrectNickname()
-            } else {
-                descriptionLabel.text = ""
-                setCorrectNickname()
-            }
+        case .underTwoCharacters:
+            descriptionLabel.text = "닉네임은 2자 이상 입력해주세요"
+            setIncorrectNickname()
+        case .overTenCharacters:
+            descriptionLabel.text = "닉네임은 10자 이하로 입력해주세요"
+            setIncorrectNickname()
+        case .correct:
+            descriptionLabel.text = ""
+            setCorrectNickname()
         }
     }
-
     @objc private func didTapDoubleCheckButton() {
-        if self.workItem == nil {
-            if viewModel.userNickname != nicknameTextField.text {
-                setNicknameState(isValid: viewModel.isVaild)
-            }
-            let workItem = DispatchWorkItem(block: { [weak self] in
-                self?.workItem?.cancel()
-                self?.workItem = nil
-            })
-            self.workItem = workItem
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: workItem)
+        if viewModel.userNickname != nicknameTextField.text {
+            setNicknameState(isValid: viewModel.isVaild)
         }
     }
 
     @objc private func didTapProfileImageEditButton() {
-        editProfileView.isHidden = false
-    }
-
-    @objc private func hideEditProfileView() {
-        editProfileView.isHidden = true
+        let viewContolller = EditProfileBottomSheetViewController()
+        viewContolller.modalPresentationStyle = .overFullScreen
+        viewContolller.modalTransitionStyle = .crossDissolve
+        viewContolller.deleteProfileImage = { [weak self] in
+            self?.viewModel.profileImage = nil
+            self?.setUpProfileImage()
+        }
+        viewContolller.didFinishPhotoPicker = { [weak self] image in
+            self?.profileImageView.image = image
+        }
+        self.present(viewContolller, animated: true)
     }
 
     @objc private func dismissKeyboard() {
@@ -343,42 +304,6 @@ extension NicknameViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
-        let utf8Char = string.cString(using: .utf8)
-        let isBackSpace = strcmp(utf8Char, "\\b")
-        if string.hasVaildCharacters() || isBackSpace == -92 { return true }
-        return false
-    }
-}
-
-extension NicknameViewController: PHPickerViewControllerDelegate {
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        picker.dismiss(animated: true)
-        editProfileView.isHidden = true
-        let item = results.first?.itemProvider
-        if let item = item, item.canLoadObject(ofClass: UIImage.self) {
-            item.loadObject(ofClass: UIImage.self) { (image, _) in
-                DispatchQueue.main.async {
-                    self.profileImageView.image = image as? UIImage
-                }
-            }
-        }
-    }
-}
-
-fileprivate extension String {
-    func hasVaildCharacters() -> Bool {
-        do {
-            let regex = try NSRegularExpression(pattern: "^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]$",
-                                                options: .caseInsensitive)
-            if regex.firstMatch(in: self,
-                                options: NSRegularExpression.MatchingOptions.reportCompletion,
-                                range: NSRange(location: 0, length: self.count)) != nil {
-                return true
-            }
-        } catch {
-            print(error.localizedDescription)
-            return false
-        }
-        return false
+        viewModel.isValidCharacters(string: string)
     }
 }
