@@ -8,8 +8,6 @@
 import Foundation
 
 protocol HomeRepositoryInterface {
-    func fetchStoreList(query: FetchStoreListUseCaseRequestValue,
+    func fetchStoreList(query: FetchStoresUseCaseRequestValue,
                         completion: @escaping (Result<[Store], Error>) -> Void) -> Cancellable?
-    func searchStoreList(query: SearchStoreListUseCaseRequestValue,
-                         completion: @escaping (Result<[Store], Error>) -> Void) -> Cancellable?
 }

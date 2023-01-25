@@ -84,7 +84,8 @@ final class LevelHeaderView: UICollectionReusableView {
     private func layout() {
         [levelView, titleLabel].forEach { addSubview($0) }
         levelView.addSubview(backgroundView)
-        [levelImage, nicknameLabel, levelLabel, descriptionLabel, remainingReviewTagView].forEach { backgroundView.addSubview($0) }
+        [levelImage, nicknameLabel, levelLabel,
+         descriptionLabel, remainingReviewTagView].forEach { backgroundView.addSubview($0) }
 
         levelView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()

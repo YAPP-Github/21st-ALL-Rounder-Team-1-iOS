@@ -11,12 +11,11 @@ struct RegiserReviewRequestValue {
     let storeId: Int
     let tagIds: [Int]
     let imageURLs: [String]
-    let description: String?
+    let description: String
 }
 
 protocol RegisterReviewUseCaseInterface {
-    func execute(requestValue: RegiserReviewRequestValue,
-                 completion: @escaping (Result<Never, Error>) -> Void) -> Cancellable?
+    func execute(requestValue: RegiserReviewRequestValue, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable?
 }
 
 final class RegisterReviewUseCase: RegisterReviewUseCaseInterface {
@@ -27,8 +26,7 @@ final class RegisterReviewUseCase: RegisterReviewUseCaseInterface {
         self.registerReviewRepository = registerReviewRepository
     }
 
-    func execute(requestValue: RegiserReviewRequestValue,
-                 completion: @escaping (Result<Never, Error>) -> Void) -> Cancellable? {
+    func execute(requestValue: RegiserReviewRequestValue, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
         return nil
     }
 }
