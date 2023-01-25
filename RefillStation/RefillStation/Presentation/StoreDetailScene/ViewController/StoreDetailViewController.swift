@@ -140,8 +140,8 @@ extension StoreDetailViewController {
             }
         case .reviews:
             snapShot.appendSections([.storeDetailInfo, .tabBar, .reviewOverview, .review])
-            snapShot.appendItems([.reviewOverview(viewModel.tagReviews)], toSection: .reviewOverview)
-            viewModel.detailReviews.forEach {
+            snapShot.appendItems([.reviewOverview(viewModel.reviews)], toSection: .reviewOverview)
+            viewModel.reviews.forEach {
                 snapShot.appendItems([.review($0)], toSection: .review)
             }
         case .operationInfo:
@@ -202,12 +202,12 @@ extension StoreDetailViewController {
                     self?.coordinator?.showRegisterReview()
                 }
                 cell.setUpContents(totalVote: self.viewModel.totalVoteCount)
-                cell.setUpContents(tagReviews: self.viewModel.tagReviews)
-                cell.setUpContents(totalDetailReviewCount: self.viewModel.detailReviews.count)
+                cell.setUpContents(reviews: self.viewModel.reviews)
+                cell.setUpContents(totalDetailReviewCount: self.viewModel.reviews.count)
             }
 
             if let cell = cell as? DetailReviewCell, case let .review(review) = itemIdentifier {
-                cell.setUpContents(detailReview: review)
+                cell.setUpContents(review: review)
                 cell.photoImageTapped = { [weak self] in
                     self?.navigationController?.pushViewController(
                         DetailPhotoReviewViewController(viewModel: .init(photoURLs: review.imageURL)),

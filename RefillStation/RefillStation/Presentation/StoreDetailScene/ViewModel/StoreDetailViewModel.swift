@@ -32,9 +32,8 @@ final class StoreDetailViewModel {
     }
 
     // MARK: - Review
-    var detailReviews = MockEntityData.detailReviews()
+    var reviews = [Review]()
     var totalVoteCount = 5
-    var tagReviews = MockEntityData.tagReviews()
 
     // MARK: - Operation Info
     var operationInfos = MockEntityData.operations()
