@@ -7,23 +7,23 @@
 
 import UIKit
 
-struct UploadReviewImageRequestValue {
+struct UploadImageRequestValue {
     let images: [UIImage]
 }
 
-protocol UploadReviewImageUseCaseInterface {
-    func execute(requestValue: UploadReviewImageRequestValue,
+protocol UploadImageUseCaseInterface {
+    func execute(requestValue: UploadImageRequestValue,
                  completion: @escaping (Result<[String], Error>) -> Void) -> Cancellable?
 }
 
-final class UploadReviewImageUseCase: UploadReviewImageUseCaseInterface {
+final class UploadImageUseCase: UploadImageUseCaseInterface {
     private let registerReviewRepository: RegisterReviewRepositoryInterface
 
     init(registerReviewRepository: RegisterReviewRepositoryInterface = MockRegisterReviewRepository()) {
         self.registerReviewRepository = registerReviewRepository
     }
 
-    func execute(requestValue: UploadReviewImageRequestValue,
+    func execute(requestValue: UploadImageRequestValue,
                  completion: @escaping (Result<[String], Error>) -> Void) -> Cancellable? {
         return nil
     }

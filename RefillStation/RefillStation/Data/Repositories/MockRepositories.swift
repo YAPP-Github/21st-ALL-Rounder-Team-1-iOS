@@ -36,7 +36,7 @@ final class MockRegisterReviewRepository: RegisterReviewRepositoryInterface {
         return URLSession.shared.dataTask(with: URLRequest(url: URL(string: "")!))
     }
 
-    func uploadReviewImage(query: UploadReviewImageRequestValue, completion: @escaping (Result<[String], Error>) -> Void) -> Cancellable? {
+    func uploadReviewImage(query: UploadImageRequestValue, completion: @escaping (Result<[String], Error>) -> Void) -> Cancellable? {
         return URLSession.shared.dataTask(with: URLRequest(url: URL(string: "")!))
     }
 }

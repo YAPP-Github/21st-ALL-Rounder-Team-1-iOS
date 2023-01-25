@@ -7,6 +7,11 @@
 
 import Foundation
 
+struct FetchStoresUseCaseRequestValue {
+    let latitude: Double
+    let longitude: Double
+}
+
 protocol FetchStoresUseCaseInterface {
     func execute(requestValue: FetchStoresUseCaseRequestValue,
                  completion: @escaping (Result<[Store], Error>) -> Void) -> Cancellable?
@@ -24,9 +29,4 @@ final class FetchStoresUseCase: FetchStoresUseCaseInterface {
         return repository.fetchStoreList(query: requestValue,
                                          completion: completion)
     }
-}
-
-struct FetchStoresUseCaseRequestValue {
-    let latitude: Double
-    let longitude: Double
 }
