@@ -17,7 +17,7 @@ final class TabBarDIContainer: DIContainer {
                                                 selectedImage: UIImage(systemName: "magnifyingglass"))
         return navigationController
     }()
-    private let myPageNaviagtionConroller = {
+    private let myPageNaviagtionConroller: UINavigationController = {
         let navigationController = UINavigationController()
         navigationController.tabBarItem = .init(title: "마이",
                                                 image: UIImage(systemName: "person"),
