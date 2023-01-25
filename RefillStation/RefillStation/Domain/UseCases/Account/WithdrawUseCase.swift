@@ -6,3 +6,19 @@
 //
 
 import Foundation
+
+protocol WithdrawUseCaseInterface {
+    func execute(completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable?
+}
+
+final class WithdrawUseCase: WithdrawUseCaseInterface {
+    private let accountRepository: AccountRepositoryInterface
+
+    init(accountRepository: AccountRepositoryInterface) {
+        self.accountRepository = accountRepository
+    }
+
+    func execute(completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
+        return nil
+    }
+}

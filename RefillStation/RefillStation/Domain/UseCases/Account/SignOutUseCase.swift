@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+protocol SignOutUseCaseInterface {
+    func execute(completion: @escaping (Result<Void, Error>) -> Void)
+}
+
+final class SignOutUseCase: SignOutUseCaseInterface {
+    func execute(completion: @escaping (Result<Void, Error>) -> Void) {
+    }
+}
