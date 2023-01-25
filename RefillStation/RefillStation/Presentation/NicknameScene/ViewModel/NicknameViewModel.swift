@@ -31,7 +31,7 @@ final class NicknameViewModel {
         self.viewType = viewType
     }
 
-    func nicknameState(count: Int) -> NicknameState {
+    func setNicknameState(count: Int) -> NicknameState {
         if count == 0 {
             return .empty
         } else if count < 2 {
