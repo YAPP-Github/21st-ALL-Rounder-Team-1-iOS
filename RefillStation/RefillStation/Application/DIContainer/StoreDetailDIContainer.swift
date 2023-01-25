@@ -45,10 +45,6 @@ final class StoreDetailDIContainer: DIContainer {
     }
 
     func makeFetchProductsUseCase() -> FetchProductsUseCase {
-        return FetchProductsUseCase(productsRepository: makeProductsRepository())
-    }
-
-    func makeProductsRepository() -> ProductsRepository {
-        return ProductsRepository(networkService: networkService)
+        return FetchProductsUseCase()
     }
 }

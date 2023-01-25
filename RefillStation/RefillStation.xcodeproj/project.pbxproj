@@ -576,9 +576,16 @@
 				FCE00A74294C917B00B5C05F /* FetchProductsUseCase.swift */,
 				FCE00A78294C919A00B5C05F /* FetchStoreReviewsUseCase.swift */,
 				FCE00A7A294C91A200B5C05F /* RecommendStoreUseCase.swift */,
-				FCE00A7C294C91AD00B5C05F /* RegisterReviewUseCase.swift */,
 			);
 			path = Store;
+			sourceTree = "<group>";
+		};
+		32A0F5082981855800A04ECC /* RegisterReview */ = {
+			isa = PBXGroup;
+			children = (
+				FCE00A7C294C91AD00B5C05F /* RegisterReviewUseCase.swift */,
+			);
+			path = RegisterReview;
 			sourceTree = "<group>";
 		};
 		32E9A553292E1936000072EE /* Domain */ = {
@@ -736,6 +743,7 @@
 				32A0F4EE29816F9F00A04ECC /* CustomerSatisfaction */,
 				32A0F4F22981709700A04ECC /* UserInfo */,
 				32A0F4FB298171E800A04ECC /* Store */,
+				32A0F5082981855800A04ECC /* RegisterReview */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";

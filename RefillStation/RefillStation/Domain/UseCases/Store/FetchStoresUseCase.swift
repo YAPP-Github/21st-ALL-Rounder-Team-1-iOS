@@ -18,15 +18,14 @@ protocol FetchStoresUseCaseInterface {
 }
 
 final class FetchStoresUseCase: FetchStoresUseCaseInterface {
-    private let repository: HomeRepositoryInterface
+    private let storeRepository: StoreRepositoryInterface
 
-    init(repository: HomeRepositoryInterface = MockHomeRepository()) {
-        self.repository = repository
+    init(storeRepository: StoreRepositoryInterface = MockStoreRepository()) {
+        self.storeRepository = storeRepository
     }
 
     func execute(requestValue: FetchStoresUseCaseRequestValue,
                  completion: @escaping (Result<[Store], Error>) -> Void) -> Cancellable? {
-        return repository.fetchStoreList(query: requestValue,
-                                         completion: completion)
+        return nil
     }
 }

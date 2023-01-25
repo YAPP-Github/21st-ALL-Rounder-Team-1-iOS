@@ -12,32 +12,17 @@ struct FetchProductsRequestValue {
 }
 
 protocol FetchProductsUseCaseInterface {
-    func execute(
-        requestValue: FetchProductsRequestValue,
-        completion: @escaping (Result<[Product], Error>) -> Void
-    ) -> Cancellable?
+    func execute(requestValue: FetchProductsRequestValue, completion: @escaping (Result<[Product], Error>) -> Void) -> Cancellable?
 }
 
 final class FetchProductsUseCase: FetchProductsUseCaseInterface {
-    private let productsRepository: ProductsRepositoryInterface
+    private let storeRepository: StoreRepositoryInterface
 
-    init(productsRepository: ProductsRepositoryInterface = MockProductsRepository()) {
-        self.productsRepository = productsRepository
+    init(storeRepository: StoreRepositoryInterface = MockStoreRepository()) {
+        self.storeRepository = storeRepository
     }
 
-    @discardableResult
-    func execute(
-        requestValue: FetchProductsRequestValue,
-        completion: @escaping (Result<[Product], Error>) -> Void
-    ) -> Cancellable? {
-
-        return productsRepository.fetchProducts(query: requestValue) { result in
-            switch result {
-            case .success(let products):
-                completion(.success(products))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+    func execute(requestValue: FetchProductsRequestValue, completion: @escaping (Result<[Product], Error>) -> Void) -> Cancellable? {
+        return nil
     }
 }
