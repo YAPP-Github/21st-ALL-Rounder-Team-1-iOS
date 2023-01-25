@@ -5,7 +5,7 @@
 //  Created by 천수현 on 2023/01/01.
 //
 
-import Foundation
+import UIKit
 
 final class MockHomeRepository: HomeRepositoryInterface {
     func fetchStoreList(query: FetchStoresUseCaseRequestValue, completion: @escaping (Result<[Store], Error>) -> Void) -> Cancellable? {
@@ -38,5 +38,11 @@ final class MockRegisterReviewRepository: RegisterReviewRepositoryInterface {
 
     func uploadReviewImage(query: UploadImageRequestValue, completion: @escaping (Result<[String], Error>) -> Void) -> Cancellable? {
         return URLSession.shared.dataTask(with: URLRequest(url: URL(string: "")!))
+    }
+}
+
+final class MockUploadImageRepository: UploadImageRepositoryInterface {
+    func uploadImage(images: [UIImage], completion: @escaping (Result<[String], Error>) -> Void) -> Cancellable? {
+        return nil
     }
 }

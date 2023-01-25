@@ -17,10 +17,10 @@ protocol UploadImageUseCaseInterface {
 }
 
 final class UploadImageUseCase: UploadImageUseCaseInterface {
-    private let registerReviewRepository: RegisterReviewRepositoryInterface
+    private let uploadImageRepository: UploadImageRepositoryInterface
 
-    init(registerReviewRepository: RegisterReviewRepositoryInterface = MockRegisterReviewRepository()) {
-        self.registerReviewRepository = registerReviewRepository
+    init(uploadImageRepository: UploadImageRepositoryInterface = MockUploadImageRepository()) {
+        self.uploadImageRepository = uploadImageRepository
     }
 
     func execute(requestValue: UploadImageRequestValue,

@@ -48,6 +48,7 @@
 		32A0F4ED29816F9000A04ECC /* ReportUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F4EC29816F9000A04ECC /* ReportUserUseCase.swift */; };
 		32A0F4F12981707100A04ECC /* SignOutUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F4F02981707100A04ECC /* SignOutUseCase.swift */; };
 		32A0F4F92981712D00A04ECC /* FetchUserReviewsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F4F82981712D00A04ECC /* FetchUserReviewsUseCase.swift */; };
+		32A0F4FD2981728D00A04ECC /* UploadImageRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F4FC2981728D00A04ECC /* UploadImageRepositoryInterface.swift */; };
 		32C22965297D35BA0019EAF6 /* PumpPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C22964297D35BA0019EAF6 /* PumpPopUpViewController.swift */; };
 		32CCC0D129791C9300C04231 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 32CCC0D029791C9300C04231 /* Toast */; };
 		32CCC0D32979302700C04231 /* TabBarDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CCC0D22979302700C04231 /* TabBarDIContainer.swift */; };
@@ -189,6 +190,7 @@
 		32A0F4EC29816F9000A04ECC /* ReportUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportUserUseCase.swift; sourceTree = "<group>"; };
 		32A0F4F02981707100A04ECC /* SignOutUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutUseCase.swift; sourceTree = "<group>"; };
 		32A0F4F82981712D00A04ECC /* FetchUserReviewsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchUserReviewsUseCase.swift; sourceTree = "<group>"; };
+		32A0F4FC2981728D00A04ECC /* UploadImageRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageRepositoryInterface.swift; sourceTree = "<group>"; };
 		32C22964297D35BA0019EAF6 /* PumpPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpPopUpViewController.swift; sourceTree = "<group>"; };
 		32CCC0D22979302700C04231 /* TabBarDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarDIContainer.swift; sourceTree = "<group>"; };
 		32CCC0D42979311D00C04231 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
@@ -821,6 +823,7 @@
 				FCE00A91294C966000B5C05F /* RequestRegionRepositoryInterface.swift */,
 				FCE00A93294C966700B5C05F /* StoreReviewRepositoryInterface.swift */,
 				FCE00A95294C966C00B5C05F /* RegisterReviewRepositoryInterface.swift */,
+				32A0F4FC2981728D00A04ECC /* UploadImageRepositoryInterface.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1092,6 +1095,7 @@
 				FC60D83D2962C36F00C676A6 /* ReviewPhotosCell.swift in Sources */,
 				FCE00A82294C95E100B5C05F /* HomeRepository.swift in Sources */,
 				FCE00AA6295187B500B5C05F /* Cancellable.swift in Sources */,
+				32A0F4FD2981728D00A04ECC /* UploadImageRepositoryInterface.swift in Sources */,
 				FCE00A9C2950E1C700B5C05F /* Review.swift in Sources */,
 				FCEE102F2934CCB8002E629D /* Fonts.swift in Sources */,
 				FC3EBDF32932872100A9C1F9 /* Product.swift in Sources */,
