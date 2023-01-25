@@ -13,8 +13,7 @@ final class CTAButton: UIButton {
     /// CTAButton Style
     ///
     /// basic - 기본 버튼,
-    /// cancel - 팝업에서 사용되는 취소 버튼,
-    /// doubleCheck - 중복확인 버튼
+    /// cancel - 팝업에서 사용되는 취소 버튼
 
     enum Style {
         case basic
