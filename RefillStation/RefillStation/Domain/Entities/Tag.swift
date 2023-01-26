@@ -17,6 +17,10 @@ enum Tag: Int, CaseIterable {
     case storeIsClean
     case noKeywordToChoose
 
+    var id: Int {
+        return rawValue
+    }
+
     var image: UIImage {
         switch self {
         case .canEarnPoint:
