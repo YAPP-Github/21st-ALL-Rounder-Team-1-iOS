@@ -260,18 +260,15 @@ final class NicknameViewController: UIViewController {
     @objc private func setUpTextFieldState(_ sender: UITextField) {
         guard let text = sender.text else { return }
         let nicknameState = viewModel.setNicknameState(count: text.count)
+        descriptionLabel.text = nicknameState.description
         switch nicknameState {
         case .empty:
-            descriptionLabel.text = "닉네임을 입력해주세요"
             setEmptyNickname()
         case .underTwoCharacters:
-            descriptionLabel.text = "닉네임은 2자 이상 입력해주세요"
             setIncorrectNickname()
         case .overTenCharacters:
-            descriptionLabel.text = "닉네임은 10자 이하로 입력해주세요"
             setIncorrectNickname()
         case .correct:
-            descriptionLabel.text = ""
             setCorrectNickname()
         }
     }

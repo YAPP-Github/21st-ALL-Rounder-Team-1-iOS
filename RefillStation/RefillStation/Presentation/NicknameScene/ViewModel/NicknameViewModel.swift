@@ -19,6 +19,19 @@ final class NicknameViewModel {
         case underTwoCharacters
         case overTenCharacters
         case correct
+
+        var description: String {
+            switch self {
+            case .empty:
+                return "닉네임을 입력해주세요"
+            case .underTwoCharacters:
+                return "닉네임은 2자 이상 입력해주세요"
+            case .overTenCharacters:
+                return "닉네임은 10자 이하로 입력해주세요"
+            case .correct:
+                return ""
+            }
+        }
     }
 
     let viewType: ViewType
