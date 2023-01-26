@@ -100,6 +100,7 @@ final class NicknameViewController: UIViewController {
     }()
     private let confirmButton: CTAButton = {
         let button = CTAButton(style: .basic)
+        button.isEnabled = false
         return button
     }()
 
@@ -225,7 +226,7 @@ final class NicknameViewController: UIViewController {
         doubleCheckButton.backgroundColor = isEnabled ? Asset.Colors.gray5.color : Asset.Colors.gray2.color
     }
 
-    private func setNicknameState(isValid: Bool) {
+    private func doubleCheckNickname(isValid: Bool) {
         if isValid {
             descriptionLabel.text = "사용 가능한 닉네임입니다"
             nicknameTextField.layer.borderColor = Asset.Colors.correct.color.cgColor
@@ -235,12 +236,20 @@ final class NicknameViewController: UIViewController {
             descriptionLabel.text = "다른 사용자가 이미 사용중 입니다"
             setIncorrectNickname()
         }
+        confirmButton.isEnabled = isValid
     }
+
+    private func setUpConfirmButtonState() {
+        confirmButton.isEnabled = viewModel.isVaild
+    }
+
     private func addTapGesture() {
         view.addGestureRecognizer(UITapGestureRecognizer(target: self,
                                                          action: #selector(dismissKeyboard)))
     }
+}
 
+extension NicknameViewController {
     @objc private func keyboardWillShow(_ notification: Notification) {
         guard let userInfo = notification.userInfo,
               let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
@@ -259,14 +268,13 @@ final class NicknameViewController: UIViewController {
 
     @objc private func setUpTextFieldState(_ sender: UITextField) {
         guard let text = sender.text else { return }
+        confirmButton.isEnabled = false
         let nicknameState = viewModel.setNicknameState(count: text.count)
         descriptionLabel.text = nicknameState.description
         switch nicknameState {
         case .empty:
             setEmptyNickname()
-        case .underTwoCharacters:
-            setIncorrectNickname()
-        case .overTenCharacters:
+        case .underTwoCharacters, .overTenCharacters:
             setIncorrectNickname()
         case .correct:
             setCorrectNickname()
@@ -274,7 +282,7 @@ final class NicknameViewController: UIViewController {
     }
     @objc private func didTapDoubleCheckButton() {
         if viewModel.userNickname != nicknameTextField.text {
-            setNicknameState(isValid: viewModel.isVaild)
+            doubleCheckNickname(isValid: viewModel.isVaild)
         }
     }
 
@@ -285,9 +293,11 @@ final class NicknameViewController: UIViewController {
         viewContolller.deleteProfileImage = { [weak self] in
             self?.viewModel.profileImage = nil
             self?.setUpProfileImage()
+            self?.setUpConfirmButtonState()
         }
         viewContolller.didFinishPhotoPicker = { [weak self] image in
             self?.profileImageView.image = image
+            self?.setUpConfirmButtonState()
         }
         self.present(viewContolller, animated: true)
     }
