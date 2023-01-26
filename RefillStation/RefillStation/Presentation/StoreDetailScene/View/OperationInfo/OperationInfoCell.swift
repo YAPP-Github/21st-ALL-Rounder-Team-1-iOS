@@ -14,6 +14,7 @@ final class OperationInfoCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = Asset.Colors.primary8.color
         return imageView
     }()
 
@@ -75,6 +76,7 @@ final class OperationInfoCell: UICollectionViewCell {
         imageView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(15)
             $0.leading.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(15).priority(.low)
         }
 
         contentLabel.snp.makeConstraints {
@@ -106,6 +108,6 @@ final class OperationInfoCell: UICollectionViewCell {
 }
 
 struct OperationInfo: Hashable {
-    let image: UIImage
+    let image: UIImage?
     let content: String
 }

@@ -41,7 +41,18 @@ final class StoreDetailViewModel {
     var rankTags = [RankTag]()
 
     // MARK: - Operation Info
-    var operationInfos = MockEntityData.operations()
+    lazy var operationInfos: [OperationInfo] = {
+        var operationInfos = [OperationInfo]()
+        let businessHourInfo = store.businessHour.reduce(into: "") { partialResult, businessHour in
+            partialResult += "\(businessHour.day.name) \(businessHour.time ?? "정기 휴무일") \n"
+        }
+        return [
+            OperationInfo(image: UIImage(systemName: "clock"), content: businessHourInfo),
+            OperationInfo(image: UIImage(systemName: "phone"), content: store.phoneNumber),
+            OperationInfo(image: UIImage(systemName: "link"), content: store.snsAddress),
+            OperationInfo(image: UIImage(systemName: "location"), content: store.address)
+        ]
+    }()
     var operationInfoSeeMoreIndexPaths = Set<IndexPath>()
 
     // MARK: - UseCase
