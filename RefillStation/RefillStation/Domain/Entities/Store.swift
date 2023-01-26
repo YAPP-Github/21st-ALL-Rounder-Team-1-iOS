@@ -16,7 +16,7 @@ struct Store: Hashable {
     let didUserRecommended: Bool
     let recommendedCount: Int
     let imageURL: [String]
-    let businessHour: BusinessHour
+    let businessHour: [BusinessHour]
 }
 
 struct BusinessHour: Hashable {
