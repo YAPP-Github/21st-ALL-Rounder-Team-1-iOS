@@ -21,21 +21,29 @@ final class MockEntityData {
         return [
             .init(name: "알맹상점", address: "서울시 송파구", distance: 2.5, phoneNumber: "010-1234-5678",
                   snsAddress: "", didUserRecommended: false, recommendedCount: 3,
-                  imageURL: [], businessHour: [])
+                  imageURL: [], businessHour: [
+                    .init(day: .mon, time: "10:00 - 18:00"),
+                    .init(day: .tue, time: "10:00 - 18:00"),
+                    .init(day: .wed, time: "10:00 - 18:00"),
+                    .init(day: .thu, time: "10:00 - 18:00"),
+                    .init(day: .fri, time: "10:00 - 18:00"),
+                    .init(day: .sat, time: "10:00 - 18:00"),
+                    .init(day: .sun, time: nil),
+                  ])
         ]
     }
 
     static func reviews() -> [Review] {
         return [
             .init(userId: 1, userNickname: "Neph1", profileImagePath: "",
-                  writtenDate: Date(), imageURL: [], description: "내용",
-                  tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
+                  writtenDate: Date(), imageURL: ["", "", ""], description: "내용",
+                  tags: [.storeIsBig]),
             .init(userId: 2, userNickname: "Neph2", profileImagePath: "",
-                  writtenDate: Date(), imageURL: [], description: "내용2",
-                  tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
+                  writtenDate: Date(), imageURL: [], description: "내용은 있어요",
+                  tags: []),
             .init(userId: 3, userNickname: "Neph3", profileImagePath: "",
                   writtenDate: Date(), imageURL: [], description: "내용3",
-                  tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
+                  tags: []),
             .init(userId: 4, userNickname: "Neph4", profileImagePath: "",
                   writtenDate: Date(), imageURL: [], description: "내용",
                   tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
@@ -49,10 +57,10 @@ final class MockEntityData {
                   writtenDate: Date(), imageURL: [], description: "내용",
                   tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
             .init(userId: 8, userNickname: "Neph8", profileImagePath: "",
-                  writtenDate: Date(), imageURL: [], description: "내용2",
+                  writtenDate: Date(), imageURL: [], description: "긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용",
                   tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
             .init(userId: 9, userNickname: "Neph9", profileImagePath: "",
-                  writtenDate: Date(), imageURL: [], description: "내용3",
+                  writtenDate: Date(), imageURL: [""], description: "내용3",
                   tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
             .init(userId: 10, userNickname: "Neph10", profileImagePath: "",
                   writtenDate: Date(), imageURL: [], description: "내용",
