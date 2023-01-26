@@ -100,7 +100,6 @@ final class NicknameViewController: UIViewController {
     }()
     private let confirmButton: CTAButton = {
         let button = CTAButton(style: .basic)
-        button.isEnabled = false
         return button
     }()
 
@@ -138,10 +137,12 @@ final class NicknameViewController: UIViewController {
         case .onboarding:
             nicknameTextField.text = viewModel.randomNickname
             confirmButton.setTitle("다음", for: .normal)
+            confirmButton.isEnabled = true
         case .myPage:
             title = "프로필 수정"
             nicknameTextField.text = viewModel.userNickname
             confirmButton.setTitle("완료", for: .normal)
+            confirmButton.isEnabled = false
             setUpProfileImage()
         }
     }
