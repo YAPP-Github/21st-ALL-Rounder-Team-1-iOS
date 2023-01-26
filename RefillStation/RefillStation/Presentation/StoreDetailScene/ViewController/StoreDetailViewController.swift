@@ -140,7 +140,7 @@ extension StoreDetailViewController {
             }
         case .reviews:
             snapShot.appendSections([.storeDetailInfo, .tabBar, .reviewOverview, .review])
-            snapShot.appendItems([.reviewOverview(viewModel.reviews)], toSection: .reviewOverview)
+            snapShot.appendItems([.reviewOverview(viewModel.rankTags)], toSection: .reviewOverview)
             viewModel.reviews.forEach {
                 snapShot.appendItems([.review($0)], toSection: .review)
             }
@@ -197,12 +197,12 @@ extension StoreDetailViewController {
                 cell.setUpContents(product: product)
             }
 
-            if let cell = cell as? ReviewInfoCell {
+            if let cell = cell as? ReviewInfoCell,
+               case let .reviewOverview(rankTags) = itemIdentifier {
                 cell.moveToRegisterReview = { [weak self] in
                     self?.coordinator?.showRegisterReview()
                 }
-                cell.setUpContents(totalVote: self.viewModel.totalVoteCount)
-                cell.setUpContents(reviews: self.viewModel.reviews)
+                cell.setUpContents(rankTags: rankTags)
                 cell.setUpContents(totalDetailReviewCount: self.viewModel.reviews.count)
             }
 

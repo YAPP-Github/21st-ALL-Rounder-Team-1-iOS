@@ -12,7 +12,7 @@ extension StoreDetailViewController {
         case storeDetailInfo(Store)
         case productList(Product)
         case review(Review)
-        case reviewOverview([Review])
+        case reviewOverview([StoreDetailViewModel.RankTag])
         case operationInfo(OperationInfo)
         case tabBarMode(StoreDetailViewModel.TabBarMode)
         case productCategory(ProductCategoriesCellInfo)

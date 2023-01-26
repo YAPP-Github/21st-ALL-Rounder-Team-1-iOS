@@ -193,41 +193,37 @@ final class ReviewInfoCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
-    func setUpContents(totalVote: Int) {
-        if totalVote < 10 {
-            profileGroupImageView.isHidden = true
-            votedCountLabel.text = "현재까지 \(totalVote)명 "
-        } else {
-            votedCountLabel.text = "\(totalVote)명 "
-        }
-    }
-
     func setUpContents(totalDetailReviewCount: Int) {
         reviewCountLabel.text = "\(totalDetailReviewCount)"
     }
 
-    func setUpContents(reviews: [Review]) {
+    func setUpContents(rankTags: [StoreDetailViewModel.RankTag]) {
+        var tags = rankTags
+        var lastElementVoteCount = -1
+        var rank = 1
+        if tags.count < 10 {
+            profileGroupImageView.isHidden = true
+            votedCountLabel.text = "현재까지 \(tags.count)명 "
+        } else {
+            votedCountLabel.text = "\(tags.count)명 "
+        }
 
-        // TODO: 로직 제작
-//        if reviews.isEmpty {
-//            [firstRankView, divisionLine, otherClassStackView].forEach { $0.isHidden = true }
-//            return
-//        } else {
-//            guard let first = reviews.first else { return }
-//            firstRankView.setUpContents(tagReview: first)
-//        }
-//
-//        if reviews.count < 10 {
-//            [divisionLine, otherClassStackView].forEach { $0.isHidden = true }
-//            makeBlurPlaceholder()
-//        } else {
-//            while otherClassStackView.arrangedSubviews.count < 3 {
-//                let other = OtherRankView()
-//                let index = otherClassStackView.arrangedSubviews.count
-//                other.setUpContents(tagReview: reviews[index], rank: index + 2)
-//                otherClassStackView.addArrangedSubview(other)
-//            }
-//        }
+        if tags.isEmpty {
+            [firstRankView, divisionLine, otherClassStackView].forEach { $0.isHidden = true }
+            return
+        } else {
+            let first = tags.removeFirst()
+            firstRankView.setUpContents(tag: first.tag)
+            lastElementVoteCount = first.voteCount
+        }
+
+        for tag in tags {
+            if otherClassStackView.arrangedSubviews.count == 3 { break }
+            let other = OtherRankView()
+            if lastElementVoteCount > tag.voteCount { rank += 1 }
+            other.setUpContents(tag: tag.tag, rank: rank)
+            otherClassStackView.addArrangedSubview(other)
+        }
     }
 
     private func makeBlurPlaceholder() {

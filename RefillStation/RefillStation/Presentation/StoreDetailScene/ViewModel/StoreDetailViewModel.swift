@@ -32,29 +32,13 @@ final class StoreDetailViewModel {
     }
 
     // MARK: - Review
-    var reviews = [Review]()
+    var reviews = MockEntityData.reviews() {
+        didSet {
+            setUpRankedTags()
+        }
+    }
     var totalVoteCount = 5
-    lazy var rankTags: [(Tag, Int)] = {
-        var rankTagDict = [Tag: Int]()
-        Tag.allCases.forEach {
-            rankTagDict.updateValue(0, forKey: $0)
-        }
-        reviews.flatMap {
-            return $0.tags
-        }.forEach {
-            if let voteCount = rankTagDict[$0] {
-                rankTagDict.updateValue(voteCount + 1, forKey: $0)
-            }
-        }
-
-        return rankTagDict.filter {
-            $0.value != 0 && $0.key != .noKeywordToChoose
-        }.sorted {
-            $0.value > $1.value
-        }.map {
-            return ($0.key, $0.value)
-        }
-    }()
+    var rankTags = [RankTag]()
 
     // MARK: - Operation Info
     var operationInfos = MockEntityData.operations()
@@ -68,6 +52,7 @@ final class StoreDetailViewModel {
         self.store = store
         self.fetchProductsUseCase = fetchProductsUseCase
         setUpCategories()
+        setUpRankedTags()
     }
 
     func categoryButtonDidTapped(category: ProductCategory?) {
@@ -105,6 +90,32 @@ final class StoreDetailViewModel {
 
     private func cancelFetchingProductList() {
         productListLoadTask?.cancel()
+    }
+
+    private func setUpRankedTags() {
+        var rankTagDict = [Tag: Int]()
+        Tag.allCases.forEach {
+            rankTagDict.updateValue(0, forKey: $0)
+        }
+        reviews.flatMap {
+            return $0.tags
+        }.forEach {
+            if let voteCount = rankTagDict[$0] {
+                rankTagDict.updateValue(voteCount + 1, forKey: $0)
+            }
+        }
+
+        rankTags = rankTagDict.filter {
+            $0.value != 0 && $0.key != .noKeywordToChoose
+        }.sorted {
+            if $0.value == $1.value {
+                return $0.key.text < $1.key.text
+            } else {
+                return $0.value > $1.value
+            }
+        }.map {
+            return RankTag(tag: $0.key, voteCount: $0.value)
+        }
     }
 }
 
@@ -153,5 +164,12 @@ extension StoreDetailViewModel {
                 return "추천"
             }
         }
+    }
+}
+
+extension StoreDetailViewModel {
+    struct RankTag: Hashable {
+        let tag: Tag
+        var voteCount: Int
     }
 }
