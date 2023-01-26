@@ -38,7 +38,7 @@ enum Tag: Int, CaseIterable {
         case .storeIsClean:
             return Asset.Images.imgKeywordClean.image
         case .noKeywordToChoose:
-            return Asset.Images.imgKeywordX.image
+            return Asset.Images.imgKeywordNoKeyword.image
         }
     }
 
