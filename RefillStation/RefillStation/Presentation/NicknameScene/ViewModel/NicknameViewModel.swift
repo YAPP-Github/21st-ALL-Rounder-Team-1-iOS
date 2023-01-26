@@ -5,35 +5,9 @@
 //  Created by kong on 2023/01/22.
 //
 
-import Foundation
+import UIKit
 
 final class NicknameViewModel {
-
-    enum ViewType {
-        case onboarding
-        case myPage
-    }
-
-    enum NicknameState {
-        case empty
-        case underTwoCharacters
-        case overTenCharacters
-        case correct
-
-        var description: String {
-            switch self {
-            case .empty:
-                return "닉네임을 입력해주세요"
-            case .underTwoCharacters:
-                return "닉네임은 2자 이상 입력해주세요"
-            case .overTenCharacters:
-                return "닉네임은 10자 이하로 입력해주세요"
-            case .correct:
-                return ""
-            }
-        }
-    }
-
     let viewType: ViewType
     var profileImage: String?
     var randomNickname = "냥냥이에오123"
@@ -79,5 +53,52 @@ fileprivate extension String {
             return false
         }
         return false
+    }
+}
+
+extension NicknameViewModel {
+    enum ViewType {
+        case onboarding
+        case myPage
+    }
+
+    enum NicknameState {
+        case empty
+        case underTwoCharacters
+        case overTenCharacters
+        case correct
+
+        var description: String {
+            switch self {
+            case .empty:
+                return "닉네임을 입력해주세요"
+            case .underTwoCharacters:
+                return "닉네임은 2자 이상 입력해주세요"
+            case .overTenCharacters:
+                return "닉네임은 10자 이하로 입력해주세요"
+            case .correct:
+                return ""
+            }
+        }
+        var borderColor: CGColor {
+            switch self {
+            case .empty:
+                return Asset.Colors.gray4.color.cgColor
+            case .underTwoCharacters, .overTenCharacters:
+                return Asset.Colors.error.color.cgColor
+            case .correct:
+                return Asset.Colors.gray4.color.cgColor
+            }
+        }
+        var textColor: UIColor {
+            switch self {
+            case .empty:
+                return Asset.Colors.gray3.color
+            case .underTwoCharacters, .overTenCharacters:
+                return Asset.Colors.error.color
+            case .correct:
+                return .clear
+            }
+        }
     }
 }
