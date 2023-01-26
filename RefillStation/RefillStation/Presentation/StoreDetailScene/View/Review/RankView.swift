@@ -121,7 +121,7 @@ final class OtherRankView: UIView {
         tagImageView.snp.makeConstraints {
             $0.leading.equalTo(rankLabel.snp.trailing).offset(13)
             $0.top.bottom.equalToSuperview()
-            $0.width.equalTo(tagImageView.snp.height)
+            $0.width.height.equalTo(24)
         }
         titleLabel.snp.makeConstraints {
             $0.leading.equalTo(tagImageView.snp.trailing).offset(10)

@@ -210,6 +210,7 @@ final class ReviewInfoCell: UICollectionViewCell {
         var tags = rankTags
         var lastElementVoteCount = -1
         var rank = 1
+        otherClassStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
         if tags.isEmpty {
             [firstRankView, divisionLine, otherClassStackView].forEach { $0.isHidden = true }
