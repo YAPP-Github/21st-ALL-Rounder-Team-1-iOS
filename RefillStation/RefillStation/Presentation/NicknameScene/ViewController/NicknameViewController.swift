@@ -219,7 +219,7 @@ final class NicknameViewController: UIViewController {
 
     private func setCorrectNickname() {
         nicknameTextField.layer.borderColor = Asset.Colors.gray4.color.cgColor
-        setDoubleCheckState(isEnabled: true)
+        setDoubleCheckState(isEnabled: viewModel.userNickname != nicknameTextField.text)
     }
 
     private func setDoubleCheckState(isEnabled: Bool) {
@@ -282,9 +282,7 @@ extension NicknameViewController {
         }
     }
     @objc private func didTapDoubleCheckButton() {
-        if viewModel.userNickname != nicknameTextField.text {
-            doubleCheckNickname(isValid: viewModel.isVaild)
-        }
+        doubleCheckNickname(isValid: viewModel.isVaild)
     }
 
     @objc private func didTapProfileImageEditButton() {
