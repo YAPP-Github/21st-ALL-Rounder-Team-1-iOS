@@ -164,7 +164,7 @@ final class ReviewInfoCell: UICollectionViewCell {
     private let reviewCountLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.font(style: .titleMedium)
-        label.textColor = Asset.Colors.primary3.color
+        label.textColor = Asset.Colors.lv2.color
         return label
     }()
 
@@ -175,7 +175,7 @@ final class ReviewInfoCell: UICollectionViewCell {
             $0.leading.top.bottom.equalToSuperview()
         }
         reviewCountLabel.snp.makeConstraints {
-            $0.leading.equalTo(reviewTextLabel.snp.trailing)
+            $0.leading.equalTo(reviewTextLabel.snp.trailing).offset(6)
             $0.top.bottom.equalToSuperview()
         }
         return view

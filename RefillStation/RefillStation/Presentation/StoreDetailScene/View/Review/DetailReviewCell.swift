@@ -274,8 +274,14 @@ extension DetailReviewCell: UICollectionViewDataSource {
 fileprivate extension Date {
     func toString() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        if let currentYear = Calendar.current.dateComponents([.year], from: Date()).year,
+           let dateYear = Calendar.current.dateComponents([.year], from: Date()).year,
+           currentYear == dateYear {
+            dateFormatter.dateFormat = "MM.dd.EE"
+        } else {
+            dateFormatter.dateFormat = "yyyy.MM.dd"
+        }
 
         return dateFormatter.string(from: self)
     }
