@@ -205,26 +205,25 @@ final class NicknameViewController: UIViewController {
         }
     }
 
-    private func setEmptyNickname() {
-        nicknameTextField.layer.borderColor = Asset.Colors.gray4.color.cgColor
-        descriptionLabel.textColor = Asset.Colors.gray3.color
-        setDoubleCheckState(isEnabled: false)
+    private func setNicknameButton(state: NicknameViewModel.NicknameState) {
+        descriptionLabel.text = state.description
+        nicknameTextField.layer.borderColor = state.borderColor
+        descriptionLabel.textColor = state.textColor
+        switch state {
+        case .empty, .overTenCharacters, .underTwoCharacters:
+            setDoubleCheckButtonState(isEnabled: false)
+        case .correct:
+            setDoubleCheckButtonState(isEnabled: viewModel.userNickname != nicknameTextField.text)
+        }
     }
 
-    private func setIncorrectNickname() {
-        nicknameTextField.layer.borderColor = Asset.Colors.error.color.cgColor
-        descriptionLabel.textColor = Asset.Colors.error.color
-        setDoubleCheckState(isEnabled: false)
-    }
-
-    private func setCorrectNickname() {
-        nicknameTextField.layer.borderColor = Asset.Colors.gray4.color.cgColor
-        setDoubleCheckState(isEnabled: viewModel.userNickname != nicknameTextField.text)
-    }
-
-    private func setDoubleCheckState(isEnabled: Bool) {
+    private func setDoubleCheckButtonState(isEnabled: Bool) {
         doubleCheckButton.isEnabled = isEnabled
         doubleCheckButton.backgroundColor = isEnabled ? Asset.Colors.gray5.color : Asset.Colors.gray2.color
+    }
+
+    private func setUpConfirmButtonState() {
+        confirmButton.isEnabled = viewModel.isVaild
     }
 
     private func doubleCheckNickname(isValid: Bool) {
@@ -232,16 +231,13 @@ final class NicknameViewController: UIViewController {
             descriptionLabel.text = "사용 가능한 닉네임입니다"
             nicknameTextField.layer.borderColor = Asset.Colors.correct.color.cgColor
             descriptionLabel.textColor = Asset.Colors.correct.color
-            setDoubleCheckState(isEnabled: false)
         } else {
             descriptionLabel.text = "다른 사용자가 이미 사용중 입니다"
-            setIncorrectNickname()
+            nicknameTextField.layer.borderColor = Asset.Colors.error.color.cgColor
+            descriptionLabel.textColor = Asset.Colors.error.color
         }
+        setDoubleCheckButtonState(isEnabled: false)
         confirmButton.isEnabled = isValid
-    }
-
-    private func setUpConfirmButtonState() {
-        confirmButton.isEnabled = viewModel.isVaild
     }
 
     private func addTapGesture() {
@@ -271,16 +267,9 @@ extension NicknameViewController {
         guard let text = sender.text else { return }
         confirmButton.isEnabled = false
         let nicknameState = viewModel.setNicknameState(count: text.count)
-        descriptionLabel.text = nicknameState.description
-        switch nicknameState {
-        case .empty:
-            setEmptyNickname()
-        case .underTwoCharacters, .overTenCharacters:
-            setIncorrectNickname()
-        case .correct:
-            setCorrectNickname()
-        }
+        setNicknameButton(state: nicknameState)
     }
+
     @objc private func didTapDoubleCheckButton() {
         doubleCheckNickname(isValid: viewModel.isVaild)
     }
