@@ -21,10 +21,40 @@ final class CTAButton: UIButton {
     }
 
     private let style: Style
+    private var buttonTitleColor: UIColor {
+        switch (style, isEnabled) {
+        case (.basic, true):
+            return .white
+        case (.basic, false):
+            return Asset.Colors.gray4.color
+        case (.cancel, _):
+            return Asset.Colors.gray6.color
+        }
+    }
+
+    private var buttonBorderColor: CGColor {
+        switch style {
+        case .basic:
+            return UIColor.clear.cgColor
+        case .cancel:
+            return Asset.Colors.gray3.color.cgColor
+        }
+    }
+
+    private var buttonBackgroundColor: UIColor {
+        switch (style, isEnabled) {
+        case (.basic, true):
+            return Asset.Colors.primary10.color
+        case (.basic, false):
+            return Asset.Colors.gray2.color
+        case (.cancel, _):
+            return .white
+        }
+    }
 
     override var isEnabled: Bool {
         didSet {
-            setUpButtonState()
+            setUpButtonColors()
         }
     }
 
@@ -32,7 +62,8 @@ final class CTAButton: UIButton {
         self.style = style
         super.init(frame: .zero)
         setUpInitialState()
-        setUpButtonState()
+        setUpButtonColors()
+        setUpButtonBorder()
     }
 
     required init?(coder: NSCoder) {
@@ -42,30 +73,15 @@ final class CTAButton: UIButton {
     private func setUpInitialState() {
         self.titleLabel?.font = .font(style: .buttonLarge)
         self.layer.cornerRadius = 8
-        switch style {
-        case .basic:
-            setUpBasicButton()
-        case .cancel:
-            setUpCancelButton()
-        }
     }
 
-    private func setUpBasicButton() {
-        self.setTitleColor(.white, for: .normal)
-        self.setTitleColor(Asset.Colors.gray4.color, for: .disabled)
+    private func setUpButtonColors() {
+        backgroundColor = buttonBackgroundColor
+        setTitleColor(buttonTitleColor, for: state)
     }
 
-    private func setUpCancelButton() {
-        self.setTitleColor(Asset.Colors.gray6.color, for: .normal)
-        self.backgroundColor = Asset.Colors.gray2.color
-    }
-
-    private func setUpButtonState() {
-        switch style {
-        case .basic:
-            self.backgroundColor = isEnabled ? Asset.Colors.primary10.color : Asset.Colors.gray2.color
-        case .cancel: // disabled 상태가 없는 버튼
-            return
-        }
+    private func setUpButtonBorder() {
+        self.layer.borderWidth = 1
+        self.layer.borderColor = buttonBorderColor
     }
 }
