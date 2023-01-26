@@ -111,7 +111,7 @@ final class ReviewInfoCell: UICollectionViewCell {
 
     private let firstRankView: FirstRankView = {
         let firstRankView = FirstRankView()
-        firstRankView.setUpContents(tag: Tag(id: 1, image: UIImage(), title: "점원이 친절해요"))
+        firstRankView.setUpContents(tag: Tag.clerkIsKind)
         return firstRankView
     }()
 

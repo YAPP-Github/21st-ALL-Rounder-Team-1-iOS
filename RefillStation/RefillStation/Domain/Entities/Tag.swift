@@ -7,13 +7,7 @@
 
 import UIKit
 
-struct Tag: Hashable {
-    let id: Int
-    let image: UIImage
-    let title: String
-}
-
-enum PumpTags: Int, CaseIterable {
+enum Tag: Int, CaseIterable {
     case canEarnPoint = 1
     case variousItems
     case clerkIsKind

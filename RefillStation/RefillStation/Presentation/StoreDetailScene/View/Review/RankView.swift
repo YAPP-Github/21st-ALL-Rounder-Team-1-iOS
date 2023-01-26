@@ -54,7 +54,7 @@ final class FirstRankView: UIView {
 
     func setUpContents(tag: Tag) {
         tagImageView.image = tag.image
-        titleLabel.text = tag.title
+        titleLabel.text = tag.text
     }
 
     private func layout() {
@@ -107,7 +107,7 @@ final class OtherRankView: UIView {
 
     func setUpContents(tag: Tag, rank: Int) {
         rankLabel.text = "\(rank)순위"
-        titleLabel.text = tag.title
+        titleLabel.text = tag.text
         tagImageView.image = tag.image
     }
 
