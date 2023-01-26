@@ -37,7 +37,7 @@ final class StoreDetailViewModel {
             setUpRankedTags()
         }
     }
-    var totalVoteCount = 5
+    var totalTagVoteCount = 5
     var rankTags = [RankTag]()
 
     // MARK: - Operation Info
@@ -97,6 +97,11 @@ final class StoreDetailViewModel {
         Tag.allCases.forEach {
             rankTagDict.updateValue(0, forKey: $0)
         }
+
+        totalTagVoteCount = reviews.reduce(into: 0) { partialResult, review in
+            partialResult += review.tags.contains(.noKeywordToChoose) ? 0 : 1
+        }
+
         reviews.flatMap {
             return $0.tags
         }.forEach {
