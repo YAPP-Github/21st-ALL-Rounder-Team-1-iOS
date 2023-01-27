@@ -7,9 +7,9 @@
 
 import Foundation
 
-protocol ProductsRepositoryInterface {
-    func fetchProducts(
-        query: FetchProductsRequestValue,
+protocol ProductListRepositoryInterface {
+    func fetchProductList(
+        query: FetchProductListRequestValue,
         completion: @escaping (Result<[Product], Error>) -> Void
-    ) -> Cancellable?
+    ) -> Cancellable
 }

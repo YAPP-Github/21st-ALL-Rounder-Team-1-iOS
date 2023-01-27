@@ -104,10 +104,7 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
 
     private func layout() {
         [storeImageView, storeInfoOuterView].forEach { addSubview($0) }
-        [storeNameLabel, checkRefillGuideLabel, storeAddressLabel,
-         moveToRefillGuideButton, storeStackOuterView, bottomDivisionLine].forEach {
-            storeInfoOuterView.addSubview($0)
-        }
+        [storeNameLabel, checkRefillGuideLabel, storeAddressLabel, moveToRefillGuideButton, storeStackOuterView, bottomDivisionLine].forEach { storeInfoOuterView.addSubview($0) }
         storeStackOuterView.addSubview(storeInfoStackView)
 
         storeImageView.snp.makeConstraints {

@@ -9,7 +9,7 @@ import UIKit
 
 final class HomeDIContainer: DIContainer {
     private let navigationController: UINavigationController
-    private let networkService = NetworkService.shared
+    private let networkService = NetworkService()
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -35,7 +35,7 @@ final class HomeDIContainer: DIContainer {
         return HomeViewModel()
     }
 
-    func makeFetchStoresUseCase() {
+    func makeFetchStoreListUseCase() {
 
     }
 

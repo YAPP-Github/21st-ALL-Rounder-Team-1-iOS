@@ -9,7 +9,7 @@ import UIKit
 
 final class StoreDetailDIContainer: DIContainer {
     private let navigationController: UINavigationController
-    private let networkService = NetworkService.shared
+    private let networkService = NetworkService()
     private let store: Store
 
     init(navigationController: UINavigationController, store: Store) {
@@ -40,11 +40,15 @@ final class StoreDetailDIContainer: DIContainer {
     func makeStoreDetailViewModel() -> StoreDetailViewModel {
         return StoreDetailViewModel(
             store: store,
-            fetchProductsUseCase: makeFetchProductsUseCase()
+            fetchProductListUseCase: makeFetchProductListUseCase()
         )
     }
 
-    func makeFetchProductsUseCase() -> FetchProductsUseCase {
-        return FetchProductsUseCase()
+    func makeFetchProductListUseCase() -> FetchProductListUseCase {
+        return FetchProductListUseCase(productListRepository: makeProductListRepository())
+    }
+
+    func makeProductListRepository() -> ProductListRepository {
+        return ProductListRepository(networkService: networkService)
     }
 }

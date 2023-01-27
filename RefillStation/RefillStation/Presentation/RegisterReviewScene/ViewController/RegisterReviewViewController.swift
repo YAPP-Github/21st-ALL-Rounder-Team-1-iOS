@@ -26,7 +26,7 @@ final class RegisterReviewViewController: UIViewController {
     }()
 
     private let registerButton: CTAButton = {
-        let button = CTAButton(style: .basic)
+        let button = CTAButton()
         button.setTitle("등록하기", for: .normal)
         return button
     }()
@@ -100,8 +100,7 @@ final class RegisterReviewViewController: UIViewController {
            let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
             return
         }
-        outerCollectionView.contentInset = .init(top: 0, left: 0,
-                                                 bottom: keyboardRect.height + collectionViewBottomInset, right: 0)
+        outerCollectionView.contentInset = .init(top: 0, left: 0, bottom: keyboardRect.height + collectionViewBottomInset, right: 0)
         outerCollectionView.scrollToItem(at: IndexPath(item: 0, section: Section.reviewDescription.rawValue),
                                          at: .top, animated: true)
         UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseOut, animations: {

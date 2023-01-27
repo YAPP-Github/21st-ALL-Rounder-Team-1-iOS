@@ -42,7 +42,7 @@ final class OnboardingViewController: UIViewController {
     }()
 
     private lazy var startButton: CTAButton = {
-        let button = CTAButton(style: .basic)
+        let button = CTAButton()
         button.setTitle("시작하기", for: .normal)
         return button
     }()
@@ -92,9 +92,7 @@ extension OnboardingViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: OnboardingCollectionViewCell.reuseIdentifier, for: indexPath
-        ) as? OnboardingCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCollectionViewCell.reuseIdentifier, for: indexPath) as? OnboardingCollectionViewCell else {
             return UICollectionViewCell()
         }
 

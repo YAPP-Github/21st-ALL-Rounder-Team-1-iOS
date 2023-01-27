@@ -32,20 +32,21 @@ final class StoreDetailViewModel {
     }
 
     // MARK: - Review
-    var reviews = [Review]()
+    var detailReviews = MockEntityData.detailReviews()
     var totalVoteCount = 5
+    var tagReviews = MockEntityData.tagReviews()
 
     // MARK: - Operation Info
     var operationInfos = MockEntityData.operations()
     var operationInfoSeeMoreIndexPaths = Set<IndexPath>()
 
     // MARK: - UseCase
-    private let fetchProductsUseCase: FetchProductsUseCaseInterface
+    private let fetchProductListUseCase: FetchProductListUseCaseInterface
     private var productListLoadTask: Cancellable?
 
-    init(store: Store, fetchProductsUseCase: FetchProductsUseCaseInterface) {
+    init(store: Store, fetchProductListUseCase: FetchProductListUseCaseInterface) {
         self.store = store
-        self.fetchProductsUseCase = fetchProductsUseCase
+        self.fetchProductListUseCase = fetchProductListUseCase
         setUpCategories()
     }
 
@@ -71,8 +72,8 @@ final class StoreDetailViewModel {
     }
 
     private func fetchProductList(storeId: Int, completion: @escaping (Result<[Product], Error>) -> Void) {
-        productListLoadTask = fetchProductsUseCase
-            .execute(requestValue: FetchProductsRequestValue(storeId: storeId)) { result in
+        productListLoadTask = fetchProductListUseCase
+            .execute(requestValue: FetchProductListRequestValue(storeId: storeId)) { result in
                 switch result {
                 case .success(let products):
                     completion(.success(products))

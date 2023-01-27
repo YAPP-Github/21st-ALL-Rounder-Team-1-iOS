@@ -11,6 +11,6 @@ protocol RegisterReviewRepositoryInterface {
     func fetchTags(completion: @escaping(Result<[Tag], Error>) -> Void) -> Cancellable?
     func registerReview(query: RegiserReviewRequestValue,
                         completion: @escaping (Result<Never, Error>) -> Void) -> Cancellable?
-    func uploadReviewImage(query: UploadImageRequestValue,
+    func uploadReviewImage(query: UploadReviewImageRequestValue,
                            completion: @escaping (Result<[String], Error>) -> Void) -> Cancellable?
 }

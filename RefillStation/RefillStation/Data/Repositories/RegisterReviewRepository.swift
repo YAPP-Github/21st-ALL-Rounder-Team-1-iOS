@@ -25,7 +25,7 @@ final class RegisterReviewRepository: RegisterReviewRepositoryInterface {
         return nil
     }
 
-    func uploadReviewImage(query: UploadImageRequestValue,
+    func uploadReviewImage(query: UploadReviewImageRequestValue,
                            completion: @escaping (Result<[String], Error>) -> Void) -> Cancellable? {
         return nil
     }

@@ -52,9 +52,9 @@ final class FirstRankView: UIView {
         super.init(coder: coder)
     }
 
-    func setUpContents(tag: Tag) {
-        tagImageView.image = tag.image
-        titleLabel.text = tag.title
+    func setUpContents(tagReview: TagReview) {
+        tagImageView.image = tagReview.tag.image
+        titleLabel.text = tagReview.tag.title
     }
 
     private func layout() {
@@ -105,10 +105,10 @@ final class OtherRankView: UIView {
         super.init(coder: coder)
     }
 
-    func setUpContents(tag: Tag, rank: Int) {
+    func setUpContents(tagReview: TagReview, rank: Int) {
         rankLabel.text = "\(rank)순위"
-        titleLabel.text = tag.title
-        tagImageView.image = tag.image
+        titleLabel.text = tagReview.tag.title
+        tagImageView.image = tagReview.tag.image
     }
 
     private func layout() {

@@ -98,12 +98,8 @@ final class PumpPopUpViewController: UIViewController {
         view.backgroundColor = .black.withAlphaComponent(0.2)
     }
 
-    func addAction(
-        title: String?,
-        style: CTAButton.Style,
-        handler: (() -> Void)? = nil
-    ) {
-        let ctaButton = CTAButton(style: style)
+    func addAction(title: String?, handler: (() -> Void)? = nil) {
+        let ctaButton = CTAButton()
         actionButtons.append(ctaButton)
         ctaButton.setTitle(title, for: .normal)
         actionButtonStackView.addArrangedSubview(ctaButton)

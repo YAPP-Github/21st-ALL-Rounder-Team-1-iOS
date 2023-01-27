@@ -118,7 +118,7 @@ extension HomeViewController: UICollectionViewDataSource {
         }
 
         let data = viewModel.stores[indexPath.row]
-        cell.setUpContents(image: data.imageURL.first,
+        cell.setUpContents(image: data.thumbnailImageURL,
                            name: data.name,
                            address: data.address,
                            distance: data.distance)

@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct UserLevelInfo: Hashable {
+struct UserLevelInfo {
     enum Level: CaseIterable {
         case regular
         case beginner
@@ -25,19 +25,7 @@ struct UserLevelInfo: Hashable {
                 return "리필 애호가"
             }
         }
-        var levelUpTriggerCount: Int {
-            switch self {
-            case .regular:
-                return 0
-            case .beginner:
-                return 1
-            case .prospect:
-                return 3
-            case .fancier:
-                return 5
-            }
-        }
-        var levelTagText: String {
+        var standard: String {
             switch self {
             case .regular:
                 return "리뷰 0회"

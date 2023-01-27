@@ -7,17 +7,17 @@
 
 import Foundation
 
-final class ProductsRepository: ProductsRepositoryInterface {
+final class ProductListRepository: ProductListRepositoryInterface {
     private let networkService: NetworkServiceInterface
 
     init(networkService: NetworkServiceInterface) {
         self.networkService = networkService
     }
 
-    func fetchProducts(
-        query: FetchProductsRequestValue,
+    func fetchProductList(
+        query: FetchProductListRequestValue,
         completion: @escaping (Result<[Product], Error>) -> Void
-    ) -> Cancellable? {
-        return nil
+    ) -> Cancellable {
+        return URLSessionDataTask()
     }
 }

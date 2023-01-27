@@ -75,13 +75,9 @@ final class ProductCategoriesCell: UICollectionViewCell {
     }
 
     private func categoryCollectionViewLayout() -> UICollectionViewCompositionalLayout {
-        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .estimated(100),
-                                                            heightDimension: .estimated(40)))
+        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .estimated(100), heightDimension: .estimated(40)))
         item.edgeSpacing = .init(leading: .fixed(8), top: .fixed(0), trailing: .fixed(0), bottom: .fixed(0))
-        let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: .init(widthDimension: .estimated(100),
-                              heightDimension: .estimated(40)),
-            subitems: [item])
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .estimated(100), heightDimension: .estimated(40)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
         section.contentInsets = .init(top: 0, leading: 8, bottom: 0, trailing: 0)
@@ -95,8 +91,7 @@ extension ProductCategoriesCell {
     }
 
     private func diffableDataSource() -> UICollectionViewDiffableDataSource<Section, ProductCategory> {
-        return UICollectionViewDiffableDataSource<Section, ProductCategory>(
-            collectionView: categoryCollectionView) { collectionView, indexPath, itemIdentifier in
+        return UICollectionViewDiffableDataSource<Section, ProductCategory>(collectionView: categoryCollectionView) { collectionView, indexPath, itemIdentifier in
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: ProductCategoryCollectionViewCell.reuseIdentifier,
                 for: indexPath) as? ProductCategoryCollectionViewCell else { return UICollectionViewCell() }
