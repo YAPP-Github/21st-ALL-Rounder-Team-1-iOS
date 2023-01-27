@@ -15,6 +15,7 @@ final class DetailReviewCell: UICollectionViewCell {
 
     // MARK: - Private Properties
     private var tags: [Tag]?
+    private var review: Review?
     private let profileImageHeight: CGFloat = 40
     private var tagCollectionViewHeight: CGFloat = 40 {
         didSet {
@@ -114,7 +115,7 @@ final class DetailReviewCell: UICollectionViewCell {
         button.setTitleColor(Asset.Colors.gray5.color, for: .normal)
         button.addAction(UIAction { [weak self] _ in
             guard let self = self,
-            let reportedUserId = self.detailReview?.user.id else { return }
+            let reportedUserId = self.review?.userId else { return }
             self.coordinator?.showReportPopUp(reportedUserId: reportedUserId)
         }, for: .touchUpInside)
         return button

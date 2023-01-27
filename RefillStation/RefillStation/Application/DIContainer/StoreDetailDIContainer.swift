@@ -57,7 +57,7 @@ final class StoreDetailDIContainer: DIContainer {
             }
             imageView.image = Asset.Images.cryFace.image
         }
-        noLinkPopUp.addAction(title: "확인") {
+        noLinkPopUp.addAction(title: "확인", style: .basic) {
             noLinkPopUp.dismiss(animated: true)
         }
         return noLinkPopUp
@@ -79,7 +79,7 @@ final class StoreDetailDIContainer: DIContainer {
     func makeReportCompletePopUpViewController() -> PumpPopUpViewController {
         let reportedPopUp = PumpPopUpViewController(title: nil,
                                                     description: "해당 댓글이 신고처리 되었습니다.")
-        reportedPopUp.addAction(title: "확인") {
+        reportedPopUp.addAction(title: "확인", style: .basic) {
             self.navigationController.dismiss(animated: true)
         }
         return reportedPopUp

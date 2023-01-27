@@ -42,7 +42,7 @@ final class ReviewReportPopUpViewController: PumpPopUpViewController {
     }
 
     private func addAction() {
-        addAction(title: "신고하기") {
+        addAction(title: "신고하기", style: .basic) {
             self.viewModel.reportButtonTapped {
                 self.dismiss(animated: true) {
                     self.coordinator?.showReportCompletePopUp()
