@@ -13,7 +13,7 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
 
     private let storeImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = Asset.Images.MockData.earthShop.image
+        imageView.backgroundColor = Asset.Colors.gray2.color
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -104,7 +104,10 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
 
     private func layout() {
         [storeImageView, storeInfoOuterView].forEach { addSubview($0) }
-        [storeNameLabel, checkRefillGuideLabel, storeAddressLabel, moveToRefillGuideButton, storeStackOuterView, bottomDivisionLine].forEach { storeInfoOuterView.addSubview($0) }
+        [storeNameLabel, checkRefillGuideLabel, storeAddressLabel,
+         moveToRefillGuideButton, storeStackOuterView, bottomDivisionLine].forEach {
+            storeInfoOuterView.addSubview($0)
+        }
         storeStackOuterView.addSubview(storeInfoStackView)
 
         storeImageView.snp.makeConstraints {

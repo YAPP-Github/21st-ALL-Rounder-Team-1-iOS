@@ -53,27 +53,8 @@ internal enum Asset {
     internal static let primary9 = ColorAsset(name: "Primary9")
   }
   internal enum Images {
-    internal enum MockData {
-      internal static let almaengShop = ImageAsset(name: "almaengShop")
-      internal static let arganShampoo = ImageAsset(name: "arganShampoo")
-      internal static let bodyWash = ImageAsset(name: "bodyWash")
-      internal static let bubbles = ImageAsset(name: "bubbles")
-      internal static let creditCard = ImageAsset(name: "credit-card")
-      internal static let earthShop = ImageAsset(name: "earthShop")
-      internal static let eco = ImageAsset(name: "eco")
-      internal static let purifyingShampoo = ImageAsset(name: "purifyingShampoo")
-      internal static let review3 = ImageAsset(name: "review(3)")
-      internal static let review4 = ImageAsset(name: "review(4)")
-      internal static let scrupShampoo = ImageAsset(name: "scrupShampoo")
-      internal static let shop = ImageAsset(name: "shop")
-      internal static let smilingFace = ImageAsset(name: "smiling-face")
-      internal static let user2 = ImageAsset(name: "user (2)")
-      internal static let user1 = ImageAsset(name: "user(1)")
-      internal static let user3 = ImageAsset(name: "user(3)")
-      internal static let user4 = ImageAsset(name: "user(4)")
-      internal static let youngGram = ImageAsset(name: "youngGram")
-    }
     internal static let avatar = ImageAsset(name: "avatar")
+    internal static let cryFace = ImageAsset(name: "cry_face")
     internal static let iconAlbum = ImageAsset(name: "icon_Album")
     internal static let iconKebab = ImageAsset(name: "icon_Kebab")
     internal static let iconTrashcan = ImageAsset(name: "icon_Trashcan")

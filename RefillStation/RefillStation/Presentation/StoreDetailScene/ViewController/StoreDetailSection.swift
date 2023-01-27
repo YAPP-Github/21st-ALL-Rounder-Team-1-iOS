@@ -11,8 +11,8 @@ extension StoreDetailViewController {
     enum StoreDetailItem: Hashable {
         case storeDetailInfo(Store)
         case productList(Product)
-        case review(DetailReview)
-        case reviewOverview([TagReview])
+        case review(Review)
+        case reviewOverview([Review])
         case operationInfo(OperationInfo)
         case tabBarMode(StoreDetailViewModel.TabBarMode)
         case productCategory(ProductCategoriesCellInfo)
@@ -99,7 +99,7 @@ extension StoreDetailViewController {
             case .tabBar:
                 return 300
             case .productCategory:
-                return 50
+                return 51
             case .filteredProductsCount:
                 return 50
             case .productList:

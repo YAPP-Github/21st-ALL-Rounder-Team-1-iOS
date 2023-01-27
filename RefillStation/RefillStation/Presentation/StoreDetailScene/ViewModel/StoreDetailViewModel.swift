@@ -14,7 +14,7 @@ final class StoreDetailViewModel {
     }
 
     // MARK: - Store Info
-    var store = MockEntityData.stores().first!
+    var store: Store
 
     // MARK: - ProductList
     var products: [Product] = MockEntityData.products()
@@ -32,25 +32,21 @@ final class StoreDetailViewModel {
     }
 
     // MARK: - Review
-    var detailReviews = MockEntityData.detailReviews()
+    var reviews = [Review]()
     var totalVoteCount = 5
-    var tagReviews = MockEntityData.tagReviews()
 
     // MARK: - Operation Info
     var operationInfos = MockEntityData.operations()
     var operationInfoSeeMoreIndexPaths = Set<IndexPath>()
 
     // MARK: - UseCase
-    private let fetchProductListUseCase: FetchProductListUseCaseInterface
+    private let fetchProductsUseCase: FetchProductsUseCaseInterface
     private var productListLoadTask: Cancellable?
 
-    init(fetchProductListUseCase: FetchProductListUseCaseInterface) {
-        self.fetchProductListUseCase = fetchProductListUseCase
-        products.forEach {
-            if !categories.contains($0.category) {
-                categories.append($0.category)
-            }
-        }
+    init(store: Store, fetchProductsUseCase: FetchProductsUseCaseInterface) {
+        self.store = store
+        self.fetchProductsUseCase = fetchProductsUseCase
+        setUpCategories()
     }
 
     func categoryButtonDidTapped(category: ProductCategory?) {
@@ -66,9 +62,17 @@ final class StoreDetailViewModel {
         }
     }
 
+    private func setUpCategories() {
+        products.forEach {
+            if !categories.contains($0.category) {
+                categories.append($0.category)
+            }
+        }
+    }
+
     private func fetchProductList(storeId: Int, completion: @escaping (Result<[Product], Error>) -> Void) {
-        productListLoadTask = fetchProductListUseCase
-            .execute(requestValue: FetchProductListRequestValue(storeId: storeId)) { result in
+        productListLoadTask = fetchProductsUseCase
+            .execute(requestValue: FetchProductsRequestValue(storeId: storeId)) { result in
                 switch result {
                 case .success(let products):
                     completion(.success(products))

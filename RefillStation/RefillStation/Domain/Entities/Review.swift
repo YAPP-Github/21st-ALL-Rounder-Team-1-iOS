@@ -7,7 +7,12 @@
 
 import Foundation
 
-struct Review {
-    let detailReviews: [DetailReview]
-    let tagReviews: [TagReview]
+struct Review: Hashable {
+    let userId: Int
+    let userNickname: String
+    let profileImagePath: String
+    let writtenDate: Date
+    let imageURL: [String]
+    let description: String
+    let tags: [Tag]
 }

@@ -10,6 +10,10 @@ import SnapKit
 
 final class HomeViewController: UIViewController {
 
+    // MARK: - Properties
+    var coordiantor: HomeCoordinator?
+    private let viewModel: HomeViewModel
+
     // MARK: - UI Components
     private let homeTitleBar: PumpLargeTitleNavigationBar = {
         let navigationBar = PumpLargeTitleNavigationBar()
@@ -49,8 +53,14 @@ final class HomeViewController: UIViewController {
         return button
     }()
 
-    // MARK: - Properties
-    private let viewModel = HomeViewModel()
+    init(viewModel: HomeViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -108,7 +118,7 @@ extension HomeViewController: UICollectionViewDataSource {
         }
 
         let data = viewModel.stores[indexPath.row]
-        cell.setUpContents(image: data.thumbnailImageURL,
+        cell.setUpContents(image: data.imageURL.first,
                            name: data.name,
                            address: data.address,
                            distance: data.distance)
@@ -147,11 +157,6 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let storeDetailViewController = StoreDetailViewController(
-            viewModel: StoreDetailViewModel(
-                fetchProductListUseCase: FetchProductListUseCase()
-            )
-        )
-        navigationController?.pushViewController(storeDetailViewController, animated: true)
+        coordiantor?.showStoreDetail(store: viewModel.stores[indexPath.row])
     }
 }

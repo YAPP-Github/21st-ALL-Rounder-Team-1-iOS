@@ -9,6 +9,7 @@ import UIKit
 
 final class StoreDetailViewController: UIViewController {
 
+    var coordinator: StoreDetailCoordinator?
     private var viewModel: StoreDetailViewModel!
     private lazy var storeDetailDataSource = diffableDataSource()
 
@@ -52,11 +53,13 @@ final class StoreDetailViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         setUpNavigationBar()
+        tabBarController?.tabBar.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
         navigationController?.navigationBar.tintColor = .black
+        tabBarController?.tabBar.isHidden = false
     }
 
     private func setUpNavigationBar() {
@@ -130,14 +133,15 @@ extension StoreDetailViewController {
             snapShot.appendItems([.productCategory(.init(categories: viewModel.categories,
                                                          currentFilter: viewModel.currentCategoryFilter))],
                                  toSection: .productCategory)
-            snapShot.appendItems([.filteredProduct(viewModel.filteredProducts.count)], toSection: .filteredProductsCount)
+            snapShot.appendItems([.filteredProduct(viewModel.filteredProducts.count)],
+                                 toSection: .filteredProductsCount)
             viewModel.filteredProducts.forEach {
                 snapShot.appendItems([.productList($0)], toSection: .productList)
             }
         case .reviews:
             snapShot.appendSections([.storeDetailInfo, .tabBar, .reviewOverview, .review])
-            snapShot.appendItems([.reviewOverview(viewModel.tagReviews)], toSection: .reviewOverview)
-            viewModel.detailReviews.forEach {
+            snapShot.appendItems([.reviewOverview(viewModel.reviews)], toSection: .reviewOverview)
+            viewModel.reviews.forEach {
                 snapShot.appendItems([.review($0)], toSection: .review)
             }
         case .operationInfo:
@@ -153,7 +157,8 @@ extension StoreDetailViewController {
     }
 
     private func diffableDataSource() -> UICollectionViewDiffableDataSource<StoreDetailSection, StoreDetailItem> {
-        return UICollectionViewDiffableDataSource<StoreDetailSection, StoreDetailItem>(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
+        return UICollectionViewDiffableDataSource<StoreDetailSection, StoreDetailItem>(
+            collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
 
             let storeDetailSection = self.section(mode: self.viewModel.mode, sectionIndex: indexPath.section)
             let reuseIdentifier = storeDetailSection.reuseIdentifier
@@ -194,15 +199,15 @@ extension StoreDetailViewController {
 
             if let cell = cell as? ReviewInfoCell {
                 cell.moveToRegisterReview = { [weak self] in
-                    self?.navigationController?.pushViewController(RegisterReviewViewController(), animated: true)
+                    self?.coordinator?.showRegisterReview()
                 }
                 cell.setUpContents(totalVote: self.viewModel.totalVoteCount)
-                cell.setUpContents(tagReviews: self.viewModel.tagReviews)
-                cell.setUpContents(totalDetailReviewCount: self.viewModel.detailReviews.count)
+                cell.setUpContents(reviews: self.viewModel.reviews)
+                cell.setUpContents(totalDetailReviewCount: self.viewModel.reviews.count)
             }
 
             if let cell = cell as? DetailReviewCell, case let .review(review) = itemIdentifier {
-                cell.setUpContents(detailReview: review)
+                cell.setUpContents(review: review)
                 cell.photoImageTapped = { [weak self] in
                     self?.navigationController?.pushViewController(
                         DetailPhotoReviewViewController(viewModel: .init(photoURLs: review.imageURL)),

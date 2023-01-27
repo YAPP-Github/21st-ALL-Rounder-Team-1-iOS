@@ -78,13 +78,14 @@ final class LevelHeaderView: UICollectionReusableView {
         nicknameLabel.text = "\(nickname)님은"
         descriptionLabel.text = "'\(level.name)'까지 리뷰 \(remainingCount)회가 남았어요"
         levelLabel.text = level.name
-        remainingReviewTagView.setTitle("누적 리뷰 \(totalCount)회")
+        remainingReviewTagView.setUpTitle(title: "누적 리뷰 \(totalCount)회")
     }
 
     private func layout() {
         [levelView, titleLabel].forEach { addSubview($0) }
         levelView.addSubview(backgroundView)
-        [levelImage, nicknameLabel, levelLabel, descriptionLabel, remainingReviewTagView].forEach { backgroundView.addSubview($0) }
+        [levelImage, nicknameLabel, levelLabel,
+         descriptionLabel, remainingReviewTagView].forEach { backgroundView.addSubview($0) }
 
         levelView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()

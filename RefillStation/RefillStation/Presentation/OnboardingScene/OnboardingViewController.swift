@@ -10,7 +10,7 @@ import SnapKit
 
 final class OnboardingViewController: UIViewController {
 
-    private let viewModel = OnboardingViewModel()
+    private let viewModel: OnboardingViewModel
 
     private lazy var onboardingCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -46,6 +46,15 @@ final class OnboardingViewController: UIViewController {
         button.setTitle("시작하기", for: .normal)
         return button
     }()
+
+    init(viewModel: OnboardingViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,7 +92,9 @@ extension OnboardingViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCollectionViewCell.reuseIdentifier, for: indexPath) as? OnboardingCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: OnboardingCollectionViewCell.reuseIdentifier, for: indexPath
+        ) as? OnboardingCollectionViewCell else {
             return UICollectionViewCell()
         }
 
