@@ -114,11 +114,16 @@ final class StoreDetailViewController: UIViewController {
             }
         case .link:
             if let url = URL(string: viewModel.store.snsAddress),
-                UIApplication.shared.canOpenURL(url) {
+               UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url)
             }
         case .like:
-            break
+            viewModel.storeLikeButtonTapped { response in
+                if let cell = collectionView
+                    .cellForItem(at: IndexPath(row: 0, section: 0)) as? StoreDetailInfoViewCell {
+                    cell.setUpLikeCount(response: response)
+                }
+            }
         }
     }
 }
@@ -163,6 +168,15 @@ extension StoreDetailViewController {
             let storeDetailSection = self.section(mode: self.viewModel.mode, sectionIndex: indexPath.section)
             let reuseIdentifier = storeDetailSection.reuseIdentifier
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+                let storeDetailSection = self.section(mode: self.viewModel.mode, sectionIndex: indexPath.section)
+                let reuseIdentifier = storeDetailSection.reuseIdentifier
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+
+                if let cell = cell as? StoreDetailInfoViewCell,
+                   case let .storeDetailInfo(store) = itemIdentifier {
+                    cell.setUpContents(store: store)
+                    cell.storeButtonTapped = { self.storeDetailButtonTapped(buttonType: $0) }
+                }
 
             if let cell = cell as? StoreDetailInfoViewCell {
                 cell.setUpContents(storeName: self.viewModel.store.name,

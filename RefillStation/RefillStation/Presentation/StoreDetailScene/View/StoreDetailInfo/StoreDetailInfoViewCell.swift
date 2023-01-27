@@ -87,9 +87,23 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
-    func setUpContents(storeName: String, storeAddress: String) {
-        storeNameLabel.text = storeName
-        storeAddressLabel.text = storeAddress
+    func setUpContents(store: Store) {
+        storeNameLabel.text = store.name
+        storeAddressLabel.text = store.address
+        setUpLikeCount(response: .init(recommendCount: store.recommendedCount,
+                                       didRecommended: store.didUserRecommended))
+    }
+
+    func setUpLikeCount(response: RecommendStoreResponseValue) {
+        if response.didRecommended {
+            storeInfoStackView.recommendedButton.tintColor = Asset.Colors.primary10.color
+            storeInfoStackView.recommendedButton.setTitleColor(Asset.Colors.primary10.color, for: .normal)
+            storeInfoStackView.recommendedButton.setTitle("\(response.recommendCount)", for: .normal)
+        } else {
+            storeInfoStackView.recommendedButton.tintColor = Asset.Colors.gray5.color
+            storeInfoStackView.recommendedButton.setTitleColor(Asset.Colors.gray5.color, for: .normal)
+            storeInfoStackView.recommendedButton.setTitle("추천", for: .normal)
+        }
     }
 
     private func addButtonActions() {

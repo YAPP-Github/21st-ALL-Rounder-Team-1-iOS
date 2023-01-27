@@ -79,6 +79,10 @@ final class StoreDetailViewModel {
         }
     }
 
+    func storeLikeButtonTapped(completion: (RecommendStoreResponseValue) -> Void) {
+        completion(.init(recommendCount: 10, didRecommended: Bool.random())) // TODO: get store like count
+    }
+
     private func setUpCategories() {
         products.forEach {
             if !categories.contains($0.category) {

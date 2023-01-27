@@ -48,8 +48,9 @@ final class StoreDetailInfoStackView: UIStackView {
             button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
             button.setTitleColor(Asset.Colors.gray6.color, for: .normal)
             button.tintColor = Asset.Colors.gray5.color
-            button.setImage(button.type.image, for: .normal)
+            button.setImage(button.type.image?.withRenderingMode(.alwaysTemplate), for: .normal)
             button.setTitle(button.type.title, for: .normal)
+            button.titleLabel?.font = .font(style: .buttonLarge)
             button.backgroundColor = .white
             button.contentHorizontalAlignment = .center
         }
