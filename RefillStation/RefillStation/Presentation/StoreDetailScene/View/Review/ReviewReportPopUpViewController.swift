@@ -18,7 +18,6 @@ final class ReviewReportPopUpViewController: PumpPopUpViewController {
         super.init(title: title, description: description)
         addTextView()
         addActions()
-        addCloseButton()
         actionButtons[1].isEnabled = false
     }
 
