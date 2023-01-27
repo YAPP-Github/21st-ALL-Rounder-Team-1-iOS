@@ -16,8 +16,13 @@ struct RecommendStoreRequestValue {
     let type: `Type`
 }
 
+struct RecommendStoreResponseValue {
+    let recommendCount: Int
+    let didRecommended: Bool
+}
+
 protocol RecommendStoreUseCaseInterface {
-    func execute(requestValue: RecommendStoreRequestValue, completion: @escaping (Result<Int, Error>) -> Void) -> Cancellable?
+    func execute(requestValue: RecommendStoreRequestValue, completion: @escaping (Result<RecommendStoreResponseValue, Error>) -> Void) -> Cancellable?
 }
 
 final class RecommendStoreUseCase: RecommendStoreUseCaseInterface {
@@ -27,7 +32,7 @@ final class RecommendStoreUseCase: RecommendStoreUseCaseInterface {
         self.storeRepository = storeRepository
     }
 
-    func execute(requestValue: RecommendStoreRequestValue, completion: @escaping (Result<Int, Error>) -> Void) -> Cancellable? {
+    func execute(requestValue: RecommendStoreRequestValue, completion: @escaping (Result<RecommendStoreResponseValue, Error>) -> Void) -> Cancellable? {
         return nil
     }
 }
