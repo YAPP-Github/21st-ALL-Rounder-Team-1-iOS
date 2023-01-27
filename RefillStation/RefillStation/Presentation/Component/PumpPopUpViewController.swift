@@ -59,6 +59,7 @@ class PumpPopUpViewController: UIViewController {
     private let textView: UITextView = {
         let textView = UITextView()
         textView.isEditable = true
+        textView.tintColor = Asset.Colors.primary10.color
         return textView
     }()
 
