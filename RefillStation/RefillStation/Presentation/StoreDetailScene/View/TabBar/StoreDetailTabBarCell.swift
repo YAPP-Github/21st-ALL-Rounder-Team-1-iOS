@@ -129,7 +129,8 @@ final class StoreDetailTabBarCell: UICollectionViewCell {
     }
 
     private func layout() {
-        [productListButton, reviewButton, divisionLine, productListSelectLine, reviewSelectLine, operationInfoButton, operationInfoSelectLine].forEach {
+        [productListButton, reviewButton, divisionLine, productListSelectLine,
+         reviewSelectLine, operationInfoButton, operationInfoSelectLine].forEach {
             contentView.addSubview($0)
         }
 

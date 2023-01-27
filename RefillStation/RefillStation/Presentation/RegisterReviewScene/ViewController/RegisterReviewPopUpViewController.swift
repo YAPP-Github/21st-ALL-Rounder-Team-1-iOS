@@ -43,7 +43,7 @@ final class RegisterReviewPopUpViewController: UIViewController {
     }()
 
     private let confirmButton: CTAButton = {
-        let button = CTAButton()
+        let button = CTAButton(style: .basic)
         button.setTitle("확인", for: .normal)
         return button
     }()
@@ -65,7 +65,8 @@ final class RegisterReviewPopUpViewController: UIViewController {
 
     private func layout() {
         view.addSubview(containerView)
-        [levelImageView, titleLabel, descriptionLabel, confirmButton, learnMoreButton].forEach { containerView.addSubview($0) }
+        [levelImageView, titleLabel, descriptionLabel,
+         confirmButton, learnMoreButton].forEach { containerView.addSubview($0) }
 
         containerView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(40)

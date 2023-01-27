@@ -9,7 +9,7 @@ import UIKit
 
 final class StoreDetailDIContainer: DIContainer {
     private let navigationController: UINavigationController
-    private let networkService = NetworkService()
+    private let networkService = NetworkService.shared
     private let store: Store
 
     init(navigationController: UINavigationController, store: Store) {
@@ -40,16 +40,12 @@ final class StoreDetailDIContainer: DIContainer {
     func makeStoreDetailViewModel() -> StoreDetailViewModel {
         return StoreDetailViewModel(
             store: store,
-            fetchProductListUseCase: makeFetchProductListUseCase()
+            fetchProductsUseCase: makeFetchProductsUseCase()
         )
     }
 
-    func makeFetchProductListUseCase() -> FetchProductListUseCase {
-        return FetchProductListUseCase(productListRepository: makeProductListRepository())
-    }
-
-    func makeProductListRepository() -> ProductListRepository {
-        return ProductListRepository(networkService: networkService)
+    func makeFetchProductsUseCase() -> FetchProductsUseCase {
+        return FetchProductsUseCase()
     }
 
     // MARK: - Pop Up

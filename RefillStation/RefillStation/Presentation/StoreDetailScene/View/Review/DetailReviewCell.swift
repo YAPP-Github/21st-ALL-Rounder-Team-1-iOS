@@ -14,8 +14,7 @@ final class DetailReviewCell: UICollectionViewCell {
     var coordinator: StoreDetailCoordinator?
 
     // MARK: - Private Properties
-    private var tagReviews: [TagReview]?
-    private var detailReview: DetailReview?
+    private var tags: [Tag]?
     private let profileImageHeight: CGFloat = 40
     private var tagCollectionViewHeight: CGFloat = 40 {
         didSet {
@@ -130,15 +129,14 @@ final class DetailReviewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
-    func setUpContents(detailReview: DetailReview) {
-        self.tagReviews = detailReview.tags
-        self.detailReview = detailReview
-        userNameLabel.text = detailReview.user.name
-        writtenDateLabel.text = detailReview.writtenDate.toString()
-        descriptionLabel.text = detailReview.description
-        imageCountLabel.text = "1 / \(detailReview.imageURL.count)"
-        imageCountLabel.isHidden = detailReview.imageURL.count <= 1
-        remakeReviewImageViewConstraints(isReviewImageEmpty: detailReview.imageURL.isEmpty)
+    func setUpContents(review: Review) {
+        self.tags = review.tags
+        userNameLabel.text = review.userNickname
+        writtenDateLabel.text = review.writtenDate.toString()
+        descriptionLabel.text = review.description
+        imageCountLabel.text = "1 / \(review.imageURL.count)"
+        imageCountLabel.isHidden = review.imageURL.count <= 1
+        remakeReviewImageViewConstraints(isReviewImageEmpty: review.imageURL.isEmpty)
         // TODO: Fetch Image(profile, review) with URL
         tagCollectionView.reloadData()
         tagCollectionView.layoutIfNeeded()
@@ -245,18 +243,18 @@ extension DetailReviewCell {
 // MARK: - tagCollectionView DataSource
 extension DetailReviewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tagReviews?.count ?? 0
+        return tags?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let tagReviews = tagReviews,
+        guard let tags = tags,
               let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: DetailReviewTagCollectionViewCell.reuseIdentifier,
             for: indexPath
         ) as? DetailReviewTagCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.setUpContents(tag: tagReviews[indexPath.row].tag)
+        cell.setUpContents(tag: tags[indexPath.row])
         return cell
     }
 }

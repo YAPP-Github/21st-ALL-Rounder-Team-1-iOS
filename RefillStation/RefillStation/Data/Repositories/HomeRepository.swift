@@ -14,12 +14,8 @@ final class HomeRepository: HomeRepositoryInterface {
         self.networkService = networkService
     }
 
-    func fetchStoreList(query: FetchStoreListUseCaseRequestValue,
+    func fetchStoreList(query: FetchStoresUseCaseRequestValue,
                         completion: @escaping (Result<[Store], Error>) -> Void) -> Cancellable? {
-        return nil
-    }
-    func searchStoreList(query: SearchStoreListUseCaseRequestValue,
-                         completion: @escaping (Result<[Store], Error>) -> Void) -> Cancellable? {
         return nil
     }
 }
