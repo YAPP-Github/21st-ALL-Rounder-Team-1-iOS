@@ -42,7 +42,7 @@ final class OnboardingViewController: UIViewController {
     }()
 
     private lazy var startButton: CTAButton = {
-        let button = CTAButton()
+        let button = CTAButton(style: .basic)
         button.setTitle("시작하기", for: .normal)
         return button
     }()

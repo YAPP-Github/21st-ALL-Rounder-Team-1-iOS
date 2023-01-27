@@ -43,7 +43,7 @@ final class RegisterReviewPopUpViewController: UIViewController {
     }()
 
     private let confirmButton: CTAButton = {
-        let button = CTAButton()
+        let button = CTAButton(style: .basic)
         button.setTitle("확인", for: .normal)
         return button
     }()
