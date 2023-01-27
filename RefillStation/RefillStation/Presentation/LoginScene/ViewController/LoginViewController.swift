@@ -32,6 +32,7 @@ final class LoginViewController: UIViewController {
         button.setImage(Asset.Images.iconKakao.image, for: .normal)
         button.titleLabel?.font = .font(style: .buttonLarge)
         button.backgroundColor = Asset.Colors.kakao.color
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
         button.layer.cornerRadius = 8
         return button
     }()
@@ -43,6 +44,7 @@ final class LoginViewController: UIViewController {
         button.setImage(Asset.Images.iconNaver.image, for: .normal)
         button.titleLabel?.font = .font(style: .buttonLarge)
         button.backgroundColor = Asset.Colors.naver.color
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
         button.layer.cornerRadius = 8
         return button
     }()
@@ -54,6 +56,7 @@ final class LoginViewController: UIViewController {
         button.setImage(Asset.Images.iconApple.image, for: .normal)
         button.titleLabel?.font = .font(style: .buttonLarge)
         button.backgroundColor = .black
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
         button.layer.cornerRadius = 8
         return button
     }()
