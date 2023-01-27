@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 final class NicknameViewController: UIViewController {
-    private var viewModel: NicknameViewModel
+    private let viewModel: NicknameViewModel
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
