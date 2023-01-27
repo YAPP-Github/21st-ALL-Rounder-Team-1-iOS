@@ -132,6 +132,7 @@ final class DetailReviewCell: UICollectionViewCell {
 
     func setUpContents(review: Review) {
         self.tags = review.tags
+        self.review = review
         userNameLabel.text = review.userNickname
         writtenDateLabel.text = review.writtenDate.toString()
         descriptionLabel.text = review.description

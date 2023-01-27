@@ -17,8 +17,9 @@ final class ReviewReportPopUpViewController: PumpPopUpViewController {
         self.viewModel = viewModel
         super.init(title: title, description: description)
         addTextView()
-        addAction()
+        addActions()
         addCloseButton()
+        actionButtons[1].isEnabled = false
     }
 
     required init?(coder: NSCoder) {
@@ -41,7 +42,10 @@ final class ReviewReportPopUpViewController: PumpPopUpViewController {
         }
     }
 
-    private func addAction() {
+    private func addActions() {
+        addAction(title: "취소", style: .cancel) {
+            self.dismiss(animated: true)
+        }
         addAction(title: "신고하기", style: .basic) {
             self.viewModel.reportButtonTapped {
                 self.dismiss(animated: true) {
@@ -58,12 +62,14 @@ extension ReviewReportPopUpViewController: UITextViewDelegate {
             textView.text = nil
             textView.textColor = Asset.Colors.gray7.color
         }
+        actionButtons[1].isEnabled = true
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = placeholder
             textView.textColor = Asset.Colors.gray4.color
+            actionButtons[1].isEnabled = false
         }
     }
 }
