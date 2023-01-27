@@ -80,7 +80,5 @@ final class LoginViewController: UIViewController {
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(32)
             $0.height.equalTo(160)
         }
-
     }
-
 }
