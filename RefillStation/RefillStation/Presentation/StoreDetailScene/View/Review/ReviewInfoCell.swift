@@ -197,20 +197,20 @@ final class ReviewInfoCell: UICollectionViewCell {
         reviewCountLabel.text = "\(totalDetailReviewCount)"
     }
 
-    func setUpContents(totalTagReviewCount: Int) {
-        if totalTagReviewCount < 10 {
-            profileGroupImageView.isHidden = true
-            votedCountLabel.text = "현재까지 \(totalTagReviewCount)명 "
-        } else {
-            votedCountLabel.text = "\(totalTagReviewCount)명 "
-        }
-    }
-
-    func setUpContents(rankTags: [StoreDetailViewModel.RankTag]) {
+    func setUpContents(totalTagReviewCount: Int, rankTags: [StoreDetailViewModel.RankTag]) {
         var tags = rankTags
         var lastElementVoteCount = -1
         var rank = 1
         otherClassStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+
+        if totalTagReviewCount < 10 {
+            profileGroupImageView.isHidden = true
+            votedCountLabel.text = "현재까지 \(totalTagReviewCount)명 "
+            makeBlurPlaceholder()
+            return
+        } else {
+            votedCountLabel.text = "\(totalTagReviewCount)명 "
+        }
 
         if tags.isEmpty {
             [firstRankView, divisionLine, otherClassStackView].forEach { $0.isHidden = true }

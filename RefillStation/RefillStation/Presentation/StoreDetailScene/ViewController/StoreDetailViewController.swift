@@ -207,9 +207,8 @@ extension StoreDetailViewController {
                     cell.moveToRegisterReview = { [weak self] in
                         self?.coordinator?.showRegisterReview()
                     }
-                    cell.setUpContents(rankTags: rankTags)
+                    cell.setUpContents(totalTagReviewCount: self.viewModel.totalTagVoteCount, rankTags: rankTags)
                     cell.setUpContents(totalDetailReviewCount: self.viewModel.reviews.count)
-                    cell.setUpContents(totalTagReviewCount: self.viewModel.totalTagVoteCount)
                 }
 
                 if let cell = cell as? DetailReviewCell, case let .review(review) = itemIdentifier {
