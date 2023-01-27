@@ -76,6 +76,7 @@ internal enum Asset {
     internal static let iconSocialloginApple = ImageAsset(name: "icon_sociallogin_apple")
     internal static let iconSocialloginNaver = ImageAsset(name: "icon_sociallogin_naver")
     internal static let iconThumbsup = ImageAsset(name: "icon_thumbsup")
+    internal static let iconThumbsupFill = ImageAsset(name: "icon_thumbsup_fill")
     internal static let iconWrite = ImageAsset(name: "icon_write")
     internal static let imgKeywordClean = ImageAsset(name: "img_keyword_clean")
     internal static let imgKeywordKind = ImageAsset(name: "img_keyword_kind")

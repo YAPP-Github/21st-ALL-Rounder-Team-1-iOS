@@ -95,15 +95,13 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
     }
 
     func setUpLikeCount(response: RecommendStoreResponseValue) {
-        if response.didRecommended {
-            storeInfoStackView.recommendedButton.tintColor = Asset.Colors.primary10.color
-            storeInfoStackView.recommendedButton.setTitleColor(Asset.Colors.primary10.color, for: .normal)
-            storeInfoStackView.recommendedButton.setTitle("\(response.recommendCount)", for: .normal)
-        } else {
-            storeInfoStackView.recommendedButton.tintColor = Asset.Colors.gray5.color
-            storeInfoStackView.recommendedButton.setTitleColor(Asset.Colors.gray5.color, for: .normal)
-            storeInfoStackView.recommendedButton.setTitle("추천", for: .normal)
-        }
+        let recommendState: RecommendButtonState = response.didRecommended ? .didRecommended : .didNotRecommended
+        let title = response.recommendCount == 0 ? "추천" : "\(response.recommendCount)"
+
+        storeInfoStackView.recommendedButton.tintColor = recommendState.color
+        storeInfoStackView.recommendedButton.setTitleColor(recommendState.color, for: .normal)
+        storeInfoStackView.recommendedButton.setImage(recommendState.image, for: .normal)
+        storeInfoStackView.recommendedButton.setTitle(title, for: .normal)
     }
 
     private func addButtonActions() {
@@ -163,6 +161,31 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
             $0.top.equalTo(storeStackOuterView.snp.bottom).offset(16)
             $0.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(8)
+        }
+    }
+}
+
+extension StoreDetailInfoViewCell {
+    enum RecommendButtonState {
+        case didRecommended
+        case didNotRecommended
+
+        var color: UIColor {
+            switch self {
+            case .didRecommended:
+                return Asset.Colors.primary10.color
+            case .didNotRecommended:
+                return Asset.Colors.gray5.color
+            }
+        }
+
+        var image: UIImage? {
+            switch self {
+            case .didRecommended:
+                return Asset.Images.iconThumbsupFill.image
+            case .didNotRecommended:
+                return Asset.Images.iconThumbsup.image
+            }
         }
     }
 }
