@@ -77,7 +77,8 @@ final class RegionRequestHeaderView: UICollectionReusableView {
 
     // MARK: - Default Setting Methods
     private func layout() {
-        [locationIcon, currentLocationLabel, guidanceLabel, imageView, requestButton, dividerView, headerTitleLabel].forEach { addSubview($0) }
+        [locationIcon, currentLocationLabel, guidanceLabel,
+         imageView, requestButton, dividerView, headerTitleLabel].forEach { addSubview($0) }
         locationIcon.snp.makeConstraints {
             $0.top.equalToSuperview().offset(66)
             $0.leading.equalToSuperview().inset(16)

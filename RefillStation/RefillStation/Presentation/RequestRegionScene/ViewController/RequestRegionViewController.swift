@@ -46,7 +46,7 @@ final class RequestRegionViewController: UIViewController {
         return label
     }()
     private let requestButton: CTAButton = {
-        let button = CTAButton()
+        let button = CTAButton(style: .basic)
         button.setTitle("신청하기", for: .normal)
         return button
     }()

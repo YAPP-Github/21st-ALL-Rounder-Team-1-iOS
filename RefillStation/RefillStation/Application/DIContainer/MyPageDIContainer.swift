@@ -9,7 +9,7 @@ import UIKit
 
 final class MyPageDIContainer: DIContainer {
     private let navigationController: UINavigationController
-    private let networkService = NetworkService()
+    private let networkService = NetworkService.shared
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
