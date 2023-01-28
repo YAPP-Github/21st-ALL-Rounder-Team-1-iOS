@@ -27,4 +27,9 @@ final class StoreDetailCoordinator: Coordinator {
         let registerReviewCoordinator = registerReviewDIContainer.makeRegisterReviewCoordinator()
         registerReviewCoordinator.start()
     }
+
+    func showDetailPhotoReview(photoURLs: [String?]) {
+        let detailPhotoReviewViewController = DIContainer.makeDetailPhotoReviewViewController(photoURLs: photoURLs)
+        navigationController.pushViewController(detailPhotoReviewViewController, animated: true)
+    }
 }

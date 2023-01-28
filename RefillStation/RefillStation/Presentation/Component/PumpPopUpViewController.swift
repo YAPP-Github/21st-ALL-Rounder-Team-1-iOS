@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PumpPopUpViewController: UIViewController {
+class PumpPopUpViewController: UIViewController {
 
     var actionButtons = [CTAButton]()
 
@@ -43,7 +43,7 @@ final class PumpPopUpViewController: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = .font(style: .titleLarge2)
+        label.font = .font(style: .titleMedium)
         label.numberOfLines = 0
         return label
     }()
@@ -59,7 +59,24 @@ final class PumpPopUpViewController: UIViewController {
     private let textView: UITextView = {
         let textView = UITextView()
         textView.isEditable = true
+        textView.tintColor = Asset.Colors.primary10.color
         return textView
+    }()
+
+    private lazy var textViewWithBottomLine: UIView = {
+        let textViewOuterView = UIView()
+        let line = UIView()
+        line.backgroundColor = Asset.Colors.gray2.color
+        [textView, line].forEach { textViewOuterView.addSubview($0) }
+        textView.snp.makeConstraints {
+            $0.leading.top.trailing.equalToSuperview()
+        }
+        line.snp.makeConstraints {
+            $0.top.equalTo(textView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.height.equalTo(1)
+        }
+        return textViewOuterView
     }()
 
     private let actionButtonStackView: UIStackView = {
@@ -68,16 +85,6 @@ final class PumpPopUpViewController: UIViewController {
         stackView.spacing = 6
         stackView.distribution = .fillEqually
         return stackView
-    }()
-
-    private lazy var closeButton: UIButton = {
-        let button = UIButton()
-        button.setImage(Asset.Images.iconClose.image, for: .normal)
-        button.tintColor = .black
-        button.addAction(UIAction { [weak self] _ in
-            self?.dismiss(animated: true)
-        }, for: .touchUpInside)
-        return button
     }()
 
     init(title: String?, description: String?) {
@@ -95,7 +102,7 @@ final class PumpPopUpViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black.withAlphaComponent(0.2)
+        view.backgroundColor = .black.withAlphaComponent(0.6)
     }
 
     func addAction(
@@ -118,30 +125,26 @@ final class PumpPopUpViewController: UIViewController {
     /// TextView를 PopUp 내 descriptionLabel 하단에 삽입합니다.
     ///  configurationHandler에서 textView의 height을 포함한 여러 constraint들을 추가하거나 layer등에 변화를 줄 수 있습니다.
     ///  UITextViewDelegate이 사용되어야 하는 경우에도 configurationHandler를 통해 지정해줄 수 있습니다.
-    func addTextView(configurationHandler: ((UITextView) -> Void)) {
+    func addTextView(withBottomLine: Bool, configurationHandler: ((UITextView) -> Void)) {
         configurationHandler(textView)
         if let indexOfActionButtonStackView = contentVerticalStackView
             .arrangedSubviews.firstIndex(of: actionButtonStackView) {
-            contentVerticalStackView.insertArrangedSubview(textView, at: indexOfActionButtonStackView)
+            if withBottomLine {
+                contentVerticalStackView.insertArrangedSubview(textViewWithBottomLine, at: indexOfActionButtonStackView)
+            } else {
+                contentVerticalStackView.insertArrangedSubview(textView, at: indexOfActionButtonStackView)
+            }
         }
     }
 
     /// ImageView를 PopUp 내 StackView의 최상단에 삽입합니다.
     ///  configurationHandler에서 표시될 image를 지정하거나 imageView의 height을 포함한 여러 constraint들을 추가하거나 layer등에 변화를 줄 수 있습니다.
     func addImageView(configurationHandler: ((UIImageView) -> Void)) {
+        imageView.snp.makeConstraints {
+            $0.height.equalTo(60)
+        }
         configurationHandler(imageView)
         contentVerticalStackView.insertArrangedSubview(imageView, at: 0)
-    }
-
-    /// Pop-Up에 자체적으로 close button을 추가합니다.
-    /// title label의 경우 textAlignment를 natural로 조절하여 간격이 너무 좁아지는것을 방지합니다.
-    /// title label의 text가 길어질 경우 버튼과 텍스트가 겹칠 수 있습니다.
-    func addCloseButton() {
-        outerView.addSubview(closeButton)
-        closeButton.snp.makeConstraints {
-            $0.top.trailing.equalToSuperview().inset(29)
-        }
-        titleLabel.textAlignment = .natural
     }
 
     private func layout() {

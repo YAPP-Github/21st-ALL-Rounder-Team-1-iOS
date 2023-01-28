@@ -13,6 +13,7 @@ final class DetailReviewCell: UICollectionViewCell {
 
     // MARK: - Private Properties
     private var tags: [Tag]?
+    private var review: Review?
     private let profileImageHeight: CGFloat = 40
     private var tagCollectionViewHeight: CGFloat = 40 {
         didSet {
@@ -28,6 +29,7 @@ final class DetailReviewCell: UICollectionViewCell {
         }
     }
     var photoImageTapped: (() -> Void)?
+    var reportButtonTapped: (() -> Void)?
 
     // MARK: - UI Components
     private lazy var profileImageView: UIImageView = {
@@ -105,6 +107,17 @@ final class DetailReviewCell: UICollectionViewCell {
         return label
     }()
 
+    private lazy var reportButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("신고", for: .normal)
+        button.titleLabel?.font = .font(style: .captionLarge)
+        button.setTitleColor(Asset.Colors.gray5.color, for: .normal)
+        button.addAction(UIAction { [weak self] _ in
+            self?.reportButtonTapped?()
+        }, for: .touchUpInside)
+        return button
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
@@ -116,6 +129,7 @@ final class DetailReviewCell: UICollectionViewCell {
 
     func setUpContents(review: Review) {
         self.tags = review.tags
+        self.review = review
         userNameLabel.text = review.userNickname
         writtenDateLabel.text = review.writtenDate.toString()
         descriptionLabel.text = review.description
@@ -131,7 +145,7 @@ final class DetailReviewCell: UICollectionViewCell {
 
     private func layout() {
         [profileImageView, userNameLabel, writtenDateLabel, reviewImageView,
-         descriptionLabel, divisionLine, tagCollectionView, imageCountLabel].forEach {
+         descriptionLabel, divisionLine, tagCollectionView, imageCountLabel, reportButton].forEach {
             contentView.addSubview($0)
         }
 
@@ -143,7 +157,8 @@ final class DetailReviewCell: UICollectionViewCell {
 
         userNameLabel.snp.makeConstraints { nameLabel in
             nameLabel.leading.equalTo(profileImageView.snp.trailing).offset(10)
-            nameLabel.top.trailing.equalToSuperview().inset(20)
+            nameLabel.top.equalToSuperview().inset(20)
+            nameLabel.trailing.equalTo(reportButton.snp.leading).offset(-10)
         }
 
         writtenDateLabel.snp.makeConstraints { dateLabel in
@@ -171,6 +186,10 @@ final class DetailReviewCell: UICollectionViewCell {
             $0.trailing.bottom.equalTo(reviewImageView).inset(14)
             $0.height.equalTo(20)
             $0.width.equalTo(42)
+        }
+
+        reportButton.snp.makeConstraints {
+            $0.trailing.top.equalToSuperview().inset(21)
         }
     }
 

@@ -116,6 +116,15 @@ final class StoreDetailViewController: UIViewController {
             if let url = URL(string: viewModel.store.snsAddress),
                 UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url)
+            } else {
+                let noLinkPopUp = PumpPopUpViewController(title: nil, description: "매장 링크가 등록되지 않은 곳이에요")
+                noLinkPopUp.addImageView { imageView in
+                    imageView.image = Asset.Images.cryFace.image
+                }
+                noLinkPopUp.addAction(title: "확인", style: .basic) {
+                    noLinkPopUp.dismiss(animated: true)
+                }
+                present(noLinkPopUp, animated: true)
             }
         case .like:
             break
@@ -209,9 +218,20 @@ extension StoreDetailViewController {
             if let cell = cell as? DetailReviewCell, case let .review(review) = itemIdentifier {
                 cell.setUpContents(review: review)
                 cell.photoImageTapped = { [weak self] in
-                    self?.navigationController?.pushViewController(
-                        DetailPhotoReviewViewController(viewModel: .init(photoURLs: review.imageURL)),
-                        animated: true)
+                    self?.coordinator?.showDetailPhotoReview(photoURLs: review.imageURL)
+                }
+                cell.reportButtonTapped = { [weak self] in
+                    let reportPopUp = ReviewReportPopUpViewController(
+                        viewModel: ReviewReportPopUpViewModel(reportedUserId: review.userId)
+                    ) {
+                        let reportedPopUp = PumpPopUpViewController(title: nil,
+                                                                    description: "해당 댓글이 신고처리 되었습니다.")
+                        reportedPopUp.addAction(title: "확인", style: .basic) {
+                            self?.dismiss(animated: true)
+                        }
+                        self?.present(reportedPopUp, animated: true)
+                    }
+                    self?.present(reportPopUp, animated: true)
                 }
             }
 
