@@ -150,7 +150,8 @@ extension StoreDetailViewController {
                 snapShot.appendItems([.review($0)], toSection: .review)
             }
         case .operationInfo:
-            snapShot.appendSections([.storeDetailInfo, .tabBar, .operationInfo])
+            snapShot.appendSections([.storeDetailInfo, .tabBar, .operationNotice, .operationInfo])
+            snapShot.appendItems([.oprationNotice("")], toSection: .operationNotice)
             viewModel.operationInfos.forEach {
                 snapShot.appendItems([.operationInfo($0)], toSection: .operationInfo)
             }
@@ -341,7 +342,11 @@ extension StoreDetailViewController {
                 return StoreDetailSection.review
             }
         case .operationInfo:
-            return StoreDetailSection.operationInfo
+            if sectionIndex == 2 {
+                return StoreDetailSection.operationNotice
+            } else {
+                return StoreDetailSection.operationInfo
+            }
         }
 
         return .storeDetailInfo

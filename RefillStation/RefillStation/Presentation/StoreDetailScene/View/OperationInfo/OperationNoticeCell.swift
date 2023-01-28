@@ -43,7 +43,7 @@ final class OperationNoticeCell: UICollectionViewCell {
     private func layout() {
         contentView.addSubview(noticeView)
         noticeView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.edges.equalToSuperview().inset(16)
         }
     }
 }

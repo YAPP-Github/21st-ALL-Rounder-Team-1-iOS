@@ -13,6 +13,7 @@ extension StoreDetailViewController {
         case productList(Product)
         case review(Review)
         case reviewOverview([StoreDetailViewModel.RankTag])
+        case oprationNotice(String)
         case operationInfo(OperationInfo)
         case tabBarMode(StoreDetailViewModel.TabBarMode)
         case productCategory(ProductCategoriesCellInfo)
@@ -27,6 +28,7 @@ extension StoreDetailViewController {
         case productList
         case reviewOverview
         case review
+        case operationNotice
         case operationInfo
 
         var sectionIndex: Int {
@@ -45,8 +47,10 @@ extension StoreDetailViewController {
                 return 2
             case .review:
                 return 3
-            case .operationInfo:
+            case .operationNotice:
                 return 2
+            case .operationInfo:
+                return 3
             }
         }
 
@@ -66,6 +70,8 @@ extension StoreDetailViewController {
                 return ReviewInfoCell.self
             case .review:
                 return DetailReviewCell.self
+            case .operationNotice:
+                return OperationNoticeCell.self
             case .operationInfo:
                 return OperationInfoCell.self
             }
@@ -87,6 +93,8 @@ extension StoreDetailViewController {
                 return ReviewInfoCell.reuseIdentifier
             case .review:
                 return DetailReviewCell.reuseIdentifier
+            case .operationNotice:
+                return OperationNoticeCell.reuseIdentifier
             case .operationInfo:
                 return OperationInfoCell.reuseIdentifier
             }
@@ -108,6 +116,8 @@ extension StoreDetailViewController {
                 return 800
             case .review:
                 return 1000
+            case .operationNotice:
+                return 300
             case .operationInfo:
                 return 300
             }
@@ -115,7 +125,7 @@ extension StoreDetailViewController {
 
         var contentInset: NSDirectionalEdgeInsets {
             switch self {
-            case .storeDetailInfo, .reviewOverview, .review, .productCategory, .tabBar:
+            case .storeDetailInfo, .reviewOverview, .review, .productCategory, .tabBar, .operationNotice:
                 return .zero
             default:
                 return .init(top: 0, leading: 16, bottom: 0, trailing: 16)
