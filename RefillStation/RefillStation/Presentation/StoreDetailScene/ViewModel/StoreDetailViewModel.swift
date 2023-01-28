@@ -49,17 +49,24 @@ final class StoreDetailViewModel {
         dateFormatter.dateFormat = "E"
         let today = dateFormatter.string(from: Date())
 
-        let businessHourInfo = store.businessHour
+        let todayInfo: String = {
+            if let today = self.store.businessHour.filter({ $0.day.name == today }).first {
+                return "\(today.day.name) \(today.time ?? "정기 휴무일") \n\n"
+            }
+            return ""
+        }()
+
+        let businessHourInfo = todayInfo
+        + store.businessHour
+            .filter { $0.day.name != today }
             .sorted {
-                if $0.day.name == today || $1.day.name == today {
-                    return $0.day.name == today
-                } else {
-                    return $0.day.rawValue < $1.day.rawValue
-                }
+                return $0.day.rawValue < $1.day.rawValue
             }
             .reduce(into: "") { partialResult, businessHour in
-            partialResult += "\(businessHour.day.name) \(businessHour.time ?? "정기 휴무일") \n"
-            } + store.notice
+                partialResult += "\(businessHour.day.name) \(businessHour.time ?? "정기 휴무일") \n"
+            }
+        + "\n"
+        + store.notice
 
         return [
             OperationInfo(image: UIImage(systemName: "clock"), content: businessHourInfo),
