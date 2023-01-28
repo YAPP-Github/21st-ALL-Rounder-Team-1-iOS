@@ -28,22 +28,6 @@ final class StoreDetailCoordinator: Coordinator {
         registerReviewCoordinator.start()
     }
 
-    func showNoLinkPopUp() {
-        let noLinkPopUpViewController = DIContainer.makeNoLinkPopUpViewController()
-        navigationController.present(noLinkPopUpViewController, animated: true)
-    }
-
-    func showReportPopUp(reportedUserId: Int) {
-        let reportPopUp = DIContainer.makeReportPopUpViewController(reportedUserId: reportedUserId)
-        reportPopUp.coordinator = self
-        navigationController.present(reportPopUp, animated: true)
-    }
-
-    func showReportCompletePopUp() {
-        let reportCompletePopUpViewController = DIContainer.makeReportCompletePopUpViewController()
-        navigationController.present(reportCompletePopUpViewController, animated: true)
-    }
-
     func showDetailPhotoReview(photoURLs: [String?]) {
         let detailPhotoReviewViewController = DIContainer.makeDetailPhotoReviewViewController(photoURLs: photoURLs)
         navigationController.pushViewController(detailPhotoReviewViewController, animated: true)

@@ -11,8 +11,6 @@ final class DetailReviewCell: UICollectionViewCell {
 
     static let reuseIdentifier = String(describing: DetailReviewCell.self)
 
-    var coordinator: StoreDetailCoordinator?
-
     // MARK: - Private Properties
     private var tags: [Tag]?
     private var review: Review?
@@ -31,6 +29,7 @@ final class DetailReviewCell: UICollectionViewCell {
         }
     }
     var photoImageTapped: (() -> Void)?
+    var reportButtonTapped: (() -> Void)?
 
     // MARK: - UI Components
     private lazy var profileImageView: UIImageView = {
@@ -114,9 +113,7 @@ final class DetailReviewCell: UICollectionViewCell {
         button.titleLabel?.font = .font(style: .captionLarge)
         button.setTitleColor(Asset.Colors.gray5.color, for: .normal)
         button.addAction(UIAction { [weak self] _ in
-            guard let self = self,
-            let reportedUserId = self.review?.userId else { return }
-            self.coordinator?.showReportPopUp(reportedUserId: reportedUserId)
+            self?.reportButtonTapped?()
         }, for: .touchUpInside)
         return button
     }()

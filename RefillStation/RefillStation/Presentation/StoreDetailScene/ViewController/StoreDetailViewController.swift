@@ -117,7 +117,14 @@ final class StoreDetailViewController: UIViewController {
                 UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url)
             } else {
-                coordinator?.showNoLinkPopUp()
+                let noLinkPopUp = PumpPopUpViewController(title: nil, description: "매장 링크가 등록되지 않은 곳이에요")
+                noLinkPopUp.addImageView { imageView in
+                    imageView.image = Asset.Images.cryFace.image
+                }
+                noLinkPopUp.addAction(title: "확인", style: .basic) {
+                    noLinkPopUp.dismiss(animated: true)
+                }
+                present(noLinkPopUp, animated: true)
             }
         case .like:
             break
@@ -213,7 +220,19 @@ extension StoreDetailViewController {
                 cell.photoImageTapped = { [weak self] in
                     self?.coordinator?.showDetailPhotoReview(photoURLs: review.imageURL)
                 }
-                cell.coordinator = self.coordinator
+                cell.reportButtonTapped = { [weak self] in
+                    let reportPopUp = ReviewReportPopUpViewController(
+                        viewModel: ReviewReportPopUpViewModel(reportedUserId: review.userId)
+                    ) {
+                        let reportedPopUp = PumpPopUpViewController(title: nil,
+                                                                    description: "해당 댓글이 신고처리 되었습니다.")
+                        reportedPopUp.addAction(title: "확인", style: .basic) {
+                            self?.dismiss(animated: true)
+                        }
+                        self?.present(reportedPopUp, animated: true)
+                    }
+                    self?.present(reportPopUp, animated: true)
+                }
             }
 
             if let cell = cell as? OperationInfoCell,

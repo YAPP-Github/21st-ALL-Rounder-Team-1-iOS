@@ -48,38 +48,6 @@ final class StoreDetailDIContainer: DIContainer {
         return FetchProductsUseCase()
     }
 
-    // MARK: - Pop Up
-    func makeNoLinkPopUpViewController() -> PumpPopUpViewController {
-        let noLinkPopUp = PumpPopUpViewController(title: nil, description: "매장 링크가 등록되지 않은 곳이에요")
-        noLinkPopUp.addImageView { imageView in
-            imageView.image = Asset.Images.cryFace.image
-        }
-        noLinkPopUp.addAction(title: "확인", style: .basic) {
-            noLinkPopUp.dismiss(animated: true)
-        }
-        return noLinkPopUp
-    }
-
-    func makeReportPopUpViewModel(reportedUserId: Int) -> ReviewReportPopUpViewModel {
-        return ReviewReportPopUpViewModel(reportedUserId: reportedUserId)
-    }
-
-    func makeReportPopUpViewController(reportedUserId: Int) -> ReviewReportPopUpViewController {
-        let reportPopUp = ReviewReportPopUpViewController(
-            viewModel: makeReportPopUpViewModel(reportedUserId: reportedUserId)
-        )
-        return reportPopUp
-    }
-
-    func makeReportCompletePopUpViewController() -> PumpPopUpViewController {
-        let reportedPopUp = PumpPopUpViewController(title: nil,
-                                                    description: "해당 댓글이 신고처리 되었습니다.")
-        reportedPopUp.addAction(title: "확인", style: .basic) {
-            self.navigationController.dismiss(animated: true)
-        }
-        return reportedPopUp
-    }
-
     // MARK: - Detail Photo Review
     func makeDetailPhotoReviewViewModel(photoURLs: [String?]) -> DetailPhotoReviewViewModel {
         return DetailPhotoReviewViewModel(photoURLs: photoURLs)

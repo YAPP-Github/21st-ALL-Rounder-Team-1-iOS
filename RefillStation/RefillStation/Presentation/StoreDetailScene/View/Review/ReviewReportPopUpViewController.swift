@@ -12,9 +12,11 @@ final class ReviewReportPopUpViewController: PumpPopUpViewController {
     var coordinator: StoreDetailCoordinator?
     private let placeholder = "신고할 사항을 입력해주세요"
     private let viewModel: ReviewReportPopUpViewModel
+    private let dismissCompletion: (() -> Void)
 
-    init(viewModel: ReviewReportPopUpViewModel) {
+    init(viewModel: ReviewReportPopUpViewModel, dismissCompletion: @escaping (() -> Void)) {
         self.viewModel = viewModel
+        self.dismissCompletion = dismissCompletion
         super.init(title: "어떤 이유로 신고하시나요?", description: nil)
         addTextView()
         addActions()
@@ -48,7 +50,7 @@ final class ReviewReportPopUpViewController: PumpPopUpViewController {
         addAction(title: "신고하기", style: .basic) {
             self.viewModel.reportButtonTapped {
                 self.dismiss(animated: true) {
-                    self.coordinator?.showReportCompletePopUp()
+                    self.dismissCompletion()
                 }
             }
         }
