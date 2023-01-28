@@ -51,4 +51,13 @@ final class StoreDetailDIContainer: DIContainer {
     func makeProductListRepository() -> ProductListRepository {
         return ProductListRepository(networkService: networkService)
     }
+
+    // MARK: - Detail Photo Review
+    func makeDetailPhotoReviewViewModel(photoURLs: [String?]) -> DetailPhotoReviewViewModel {
+        return DetailPhotoReviewViewModel(photoURLs: photoURLs)
+    }
+
+    func makeDetailPhotoReviewViewController(photoURLs: [String?]) -> DetailPhotoReviewViewController {
+        return DetailPhotoReviewViewController(viewModel: makeDetailPhotoReviewViewModel(photoURLs: photoURLs))
+    }
 }

@@ -27,6 +27,7 @@ final class MockEntityData {
 
     static func stores() -> [Store] {
         return [
+<<<<<<< HEAD
             .init(name: "지구샵 제로웨이스트홈",
                   address: "서울 마포구 성미산로 155 1층",
                   distance: 30,
@@ -115,6 +116,20 @@ final class MockEntityData {
                   recommendedCount: 5),
             .init(tag: .init(image: UIImage(systemName: "zzz") ?? UIImage(), title: "살려줘요"),
                   recommendedCount: 6)
+=======
+            Store(name: "알맹상점", address: "경기도 용인시 수지구 동천로", distance: 2.56,
+                  phoneNumber: "031-1588-1588", snsAddress: "www.naver.com", didUserRecommended: true,
+                  recommendedCount: 10, imageURL: [""],
+                  businessHour: .init(day: .mon, time: ""))
+        ]
+    }
+
+    static func reviews() -> [Review] {
+        return [
+            Review(userId: 1, userNickname: "Neph", profileImagePath: "",
+                   writtenDate: Date(), imageURL: [""], description: "내용",
+                   tags: [.init(id: 1, image: UIImage(systemName: "person")!, title: "태그 태그")])
+>>>>>>> develop
         ]
     }
 

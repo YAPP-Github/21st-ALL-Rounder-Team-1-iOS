@@ -32,7 +32,7 @@ final class StoreDetailViewModel {
     }
 
     // MARK: - Review
-    var detailReviews = MockEntityData.detailReviews()
+    var reviews = MockEntityData.reviews()
     var totalVoteCount = 5
     var tagReviews = MockEntityData.tagReviews()
 
