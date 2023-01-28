@@ -43,9 +43,24 @@ final class StoreDetailViewModel {
     // MARK: - Operation Info
     lazy var operationInfos: [OperationInfo] = {
         var operationInfos = [OperationInfo]()
-        let businessHourInfo = store.businessHour.reduce(into: "") { partialResult, businessHour in
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.timeZone = TimeZone(identifier: "ko_KR")
+        dateFormatter.dateFormat = "E"
+        let today = dateFormatter.string(from: Date())
+
+        let businessHourInfo = store.businessHour
+            .sorted {
+                if $0.day.name == today || $1.day.name == today {
+                    return $0.day.name == today
+                } else {
+                    return $0.day.rawValue < $1.day.rawValue
+                }
+            }
+            .reduce(into: "") { partialResult, businessHour in
             partialResult += "\(businessHour.day.name) \(businessHour.time ?? "정기 휴무일") \n"
-        }
+            } + store.notice
+
         return [
             OperationInfo(image: UIImage(systemName: "clock"), content: businessHourInfo),
             OperationInfo(image: UIImage(systemName: "phone"), content: store.phoneNumber),

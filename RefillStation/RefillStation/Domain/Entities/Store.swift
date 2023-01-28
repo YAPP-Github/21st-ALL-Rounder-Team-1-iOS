@@ -17,11 +17,12 @@ struct Store: Hashable {
     let recommendedCount: Int
     let imageURL: [String]
     let businessHour: [BusinessHour]
+    let notice: String
 }
 
 struct BusinessHour: Hashable {
-    enum Day {
-        case mon, tue, wed, thu, fri, sat, sun
+    enum Day: Int, CaseIterable {
+        case sun = 1, mon, tue, wed, thu, fri, sat
 
         var name: String {
             switch self {
