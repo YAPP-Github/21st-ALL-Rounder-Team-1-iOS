@@ -13,9 +13,9 @@ final class ReviewReportPopUpViewController: PumpPopUpViewController {
     private let placeholder = "신고할 사항을 입력해주세요"
     private let viewModel: ReviewReportPopUpViewModel
 
-    init(title: String?, description: String?, viewModel: ReviewReportPopUpViewModel) {
+    init(viewModel: ReviewReportPopUpViewModel) {
         self.viewModel = viewModel
-        super.init(title: title, description: description)
+        super.init(title: "어떤 이유로 신고하시나요?", description: nil)
         addTextView()
         addActions()
         actionButtons[1].isEnabled = false
