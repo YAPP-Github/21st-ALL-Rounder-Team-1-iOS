@@ -63,9 +63,16 @@ final class OperationInfoCell: UICollectionViewCell {
         if shouldShowMore {
             contentLabel.numberOfLines = 0
             seeMoreButton.setImage(Asset.Images.iconArrowTopSmall.image, for: .normal)
+            makeFirstLineBold(operation: operation)
         } else {
             contentLabel.numberOfLines = 1
             seeMoreButton.setImage(Asset.Images.iconArrowBottomSmall.image, for: .normal)
+        }
+    }
+
+    private func makeFirstLineBold(operation: OperationInfo) {
+        if let targetString = operation.content.split(separator: "\n").map({ String($0) }).first {
+            contentLabel.makeBold(targetString: targetString)
         }
     }
 
@@ -110,4 +117,15 @@ final class OperationInfoCell: UICollectionViewCell {
 struct OperationInfo: Hashable {
     let image: UIImage?
     let content: String
+}
+
+fileprivate extension UILabel {
+    func makeBold(targetString: String) {
+        let font = UIFont.boldSystemFont(ofSize: self.font.pointSize)
+        let fullText = self.text ?? ""
+        let range = (fullText as NSString).range(of: targetString)
+        let attributedString = NSMutableAttributedString(string: fullText)
+        attributedString.addAttribute(.font, value: font, range: range)
+        self.attributedText = attributedString
+    }
 }
