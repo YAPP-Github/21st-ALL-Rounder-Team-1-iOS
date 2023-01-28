@@ -102,7 +102,7 @@ final class StoreDetailViewModel {
     }
 
     func storeLikeButtonTapped(completion: (RecommendStoreResponseValue) -> Void) {
-        completion(.init(recommendCount: 10, didRecommended: Bool.random())) // TODO: get store like count
+        completion(.init(recommendCount: 4, didRecommended: true)) // TODO: get store like count
     }
 
     private func setUpCategories() {
