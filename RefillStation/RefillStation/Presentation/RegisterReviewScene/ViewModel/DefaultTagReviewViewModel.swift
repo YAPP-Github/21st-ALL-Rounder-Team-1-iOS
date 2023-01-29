@@ -19,7 +19,7 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
 
     let storeName: String
     let storeLocationInfo: String
-    var tags = MockEntityData.tags()
+    var tags = [Tag]()
     var indexPathsForSelectedItems = [IndexPath]()
     var shouldSelectCell: Bool {
         return indexPathsForSelectedItems.count < 3

@@ -114,20 +114,16 @@ final class StoreDetailViewController: UIViewController {
             }
         case .link:
             if let url = URL(string: viewModel.store.snsAddress),
-                UIApplication.shared.canOpenURL(url) {
+               UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url)
-            } else {
-                let noLinkPopUp = PumpPopUpViewController(title: nil, description: "매장 링크가 등록되지 않은 곳이에요")
-                noLinkPopUp.addImageView { imageView in
-                    imageView.image = Asset.Images.cryFace.image
-                }
-                noLinkPopUp.addAction(title: "확인", style: .basic) {
-                    noLinkPopUp.dismiss(animated: true)
-                }
-                present(noLinkPopUp, animated: true)
             }
         case .like:
-            break
+            viewModel.storeLikeButtonTapped { response in
+                if let cell = collectionView
+                    .cellForItem(at: IndexPath(row: 0, section: 0)) as? StoreDetailInfoViewCell {
+                    cell.setUpLikeCount(response: response)
+                }
+            }
         }
     }
 }
@@ -149,12 +145,13 @@ extension StoreDetailViewController {
             }
         case .reviews:
             snapShot.appendSections([.storeDetailInfo, .tabBar, .reviewOverview, .review])
-            snapShot.appendItems([.reviewOverview(viewModel.reviews)], toSection: .reviewOverview)
+            snapShot.appendItems([.reviewOverview(viewModel.rankTags)], toSection: .reviewOverview)
             viewModel.reviews.forEach {
                 snapShot.appendItems([.review($0)], toSection: .review)
             }
         case .operationInfo:
-            snapShot.appendSections([.storeDetailInfo, .tabBar, .operationInfo])
+            snapShot.appendSections([.storeDetailInfo, .tabBar, .operationNotice, .operationInfo])
+            snapShot.appendItems([.oprationNotice("")], toSection: .operationNotice)
             viewModel.operationInfos.forEach {
                 snapShot.appendItems([.operationInfo($0)], toSection: .operationInfo)
             }
@@ -169,84 +166,73 @@ extension StoreDetailViewController {
         return UICollectionViewDiffableDataSource<StoreDetailSection, StoreDetailItem>(
             collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
 
-            let storeDetailSection = self.section(mode: self.viewModel.mode, sectionIndex: indexPath.section)
-            let reuseIdentifier = storeDetailSection.reuseIdentifier
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+                let storeDetailSection = self.section(mode: self.viewModel.mode, sectionIndex: indexPath.section)
+                let reuseIdentifier = storeDetailSection.reuseIdentifier
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
 
-            if let cell = cell as? StoreDetailInfoViewCell {
-                cell.setUpContents(storeName: self.viewModel.store.name,
-                                   storeAddress: self.viewModel.store.address)
-                cell.storeButtonTapped = { self.storeDetailButtonTapped(buttonType: $0) }
-            }
-
-            if let cell = cell as? StoreDetailTabBarCell {
-                cell.headerTapped = { [weak self] mode in
-                    if self?.viewModel.mode != mode {
-                        self?.viewModel.mode = mode
-                        self?.applyDataSource()
-                    }
+                if let cell = cell as? StoreDetailInfoViewCell,
+                   case let .storeDetailInfo(store) = itemIdentifier {
+                    cell.setUpContents(store: store)
+                    cell.storeButtonTapped = { self.storeDetailButtonTapped(buttonType: $0) }
                 }
-                cell.setUpContents(mode: self.viewModel.mode)
-            }
 
-            if let cell = cell as? ProductCategoriesCell {
-                cell.setUpContents(info: .init(categories: self.viewModel.categories,
-                                               currentFilter: self.viewModel.currentCategoryFilter))
-                cell.categoryButtonTapped = {
-                    self.updateProductList(category: $0)
-                    self.updateFilteredProductCountCell()
-                }
-            }
-
-            if let cell = cell as? FilteredProductCountCell, case let .filteredProduct(count) = itemIdentifier {
-                cell.setUpContents(filteredCount: count)
-            }
-
-            if let cell = cell as? ProductCell, case let .productList(product) = itemIdentifier {
-                cell.setUpContents(product: product)
-            }
-
-            if let cell = cell as? ReviewInfoCell {
-                cell.moveToRegisterReview = { [weak self] in
-                    self?.coordinator?.showRegisterReview()
-                }
-                cell.setUpContents(totalVote: self.viewModel.totalVoteCount)
-                cell.setUpContents(reviews: self.viewModel.reviews)
-                cell.setUpContents(totalDetailReviewCount: self.viewModel.reviews.count)
-            }
-
-            if let cell = cell as? DetailReviewCell, case let .review(review) = itemIdentifier {
-                cell.setUpContents(review: review)
-                cell.photoImageTapped = { [weak self] in
-                    self?.coordinator?.showDetailPhotoReview(photoURLs: review.imageURL)
-                }
-                cell.reportButtonTapped = { [weak self] in
-                    let reportPopUp = ReviewReportPopUpViewController(
-                        viewModel: ReviewReportPopUpViewModel(reportedUserId: review.userId)
-                    ) {
-                        let reportedPopUp = PumpPopUpViewController(title: nil,
-                                                                    description: "해당 댓글이 신고처리 되었습니다.")
-                        reportedPopUp.addAction(title: "확인", style: .basic) {
-                            self?.dismiss(animated: true)
+                if let cell = cell as? StoreDetailTabBarCell {
+                    cell.headerTapped = { [weak self] mode in
+                        if self?.viewModel.mode != mode {
+                            self?.viewModel.mode = mode
+                            self?.applyDataSource()
                         }
-                        self?.present(reportedPopUp, animated: true)
                     }
-                    self?.present(reportPopUp, animated: true)
+                    cell.setUpContents(mode: self.viewModel.mode)
                 }
-            }
 
-            if let cell = cell as? OperationInfoCell,
-               case let .operationInfo(operationInfo) = itemIdentifier {
-                let shouldShowMore = self.viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath)
-                cell.setUpContents(operation: operationInfo, shouldShowMore: shouldShowMore)
-                cell.seeMoreTapped = {
-                    self.viewModel.operationInfoSeeMoreTapped(indexPath: indexPath)
-                    self.reloadCellAt(indexPath: indexPath)
+                if let cell = cell as? ProductCategoriesCell {
+                    cell.setUpContents(info: .init(categories: self.viewModel.categories,
+                                                   currentFilter: self.viewModel.currentCategoryFilter))
+                    cell.categoryButtonTapped = {
+                        self.updateProductList(category: $0)
+                        self.updateFilteredProductCountCell()
+                    }
                 }
-            }
 
-            return cell
-        }
+                if let cell = cell as? FilteredProductCountCell, case let .filteredProduct(count) = itemIdentifier {
+                    cell.setUpContents(filteredCount: count)
+                }
+
+                if let cell = cell as? ProductCell, case let .productList(product) = itemIdentifier {
+                    cell.setUpContents(product: product)
+                }
+
+                if let cell = cell as? ReviewInfoCell,
+                   case let .reviewOverview(rankTags) = itemIdentifier {
+                    cell.moveToRegisterReview = { [weak self] in
+                        self?.coordinator?.showRegisterReview()
+                    }
+                    cell.setUpContents(totalTagReviewCount: self.viewModel.totalTagVoteCount, rankTags: rankTags)
+                    cell.setUpContents(totalDetailReviewCount: self.viewModel.reviews.count)
+                }
+
+                if let cell = cell as? DetailReviewCell, case let .review(review) = itemIdentifier {
+                    cell.setUpContents(review: review)
+                    cell.photoImageTapped = { [weak self] in
+                        self?.navigationController?.pushViewController(
+                            DetailPhotoReviewViewController(viewModel: .init(photoURLs: review.imageURL)),
+                            animated: true)
+                    }
+                }
+
+                if let cell = cell as? OperationInfoCell,
+                   case let .operationInfo(operationInfo) = itemIdentifier {
+                    let shouldShowMore = self.viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath)
+                    cell.setUpContents(operation: operationInfo, shouldShowMore: shouldShowMore)
+                    cell.seeMoreTapped = {
+                        self.viewModel.operationInfoSeeMoreTapped(indexPath: indexPath)
+                        self.reloadCellAt(indexPath: indexPath)
+                    }
+                }
+
+                return cell
+            }
     }
 
     private func updateProductList(category: ProductCategory?) {
@@ -356,7 +342,11 @@ extension StoreDetailViewController {
                 return StoreDetailSection.review
             }
         case .operationInfo:
-            return StoreDetailSection.operationInfo
+            if sectionIndex == 2 {
+                return StoreDetailSection.operationNotice
+            } else {
+                return StoreDetailSection.operationInfo
+            }
         }
 
         return .storeDetailInfo

@@ -153,7 +153,7 @@ extension RegisterReviewViewController: UICollectionViewDataSource {
                 withReuseIdentifier: TagReviewCell.reuseIdentifier,
                 for: indexPath) as? TagReviewCell else { return UICollectionViewCell() }
             cell.setUpContents(image: UIImage(),
-                               title: viewModel.tags[indexPath.row].title)
+                               title: viewModel.tags[indexPath.row].text)
             return cell
         case Section.photoReview.rawValue:
             guard let cell = collectionView.dequeueReusableCell(

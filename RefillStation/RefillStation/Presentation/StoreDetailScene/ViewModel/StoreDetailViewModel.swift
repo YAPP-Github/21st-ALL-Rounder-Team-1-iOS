@@ -32,11 +32,53 @@ final class StoreDetailViewModel {
     }
 
     // MARK: - Review
-    var reviews = MockEntityData.reviews()
-    var totalVoteCount = 5
+    var reviews = MockEntityData.reviews() {
+        didSet {
+            setUpRankedTags()
+        }
+    }
+    var totalTagVoteCount = 5
+    var rankTags = [RankTag]()
 
     // MARK: - Operation Info
-    var operationInfos = MockEntityData.operations()
+    lazy var operationInfos: [OperationInfo] = {
+        var operationInfos = [OperationInfo]()
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.timeZone = TimeZone(identifier: "ko_KR")
+        dateFormatter.dateFormat = "E"
+        let today = dateFormatter.string(from: Date())
+
+        let todayInfo: String = {
+            if let today = self.store.businessHour.filter({ $0.day.name == today }).first {
+                return "\(today.day.name) \(today.time ?? "정기 휴무일") \n\n"
+            }
+            return ""
+        }()
+
+        let businessHourInfo = todayInfo
+        + store.businessHour
+            .filter { $0.day.name != today }
+            .sorted {
+                return $0.day.rawValue < $1.day.rawValue
+            }
+            .reduce(into: "") { partialResult, businessHour in
+                partialResult += "\(businessHour.day.name) \(businessHour.time ?? "정기 휴무일") \n"
+            }
+        + "\n"
+        + store.notice
+
+        return [
+            OperationInfo(image: Asset.Images.iconClock.image.withRenderingMode(.alwaysTemplate),
+                          content: businessHourInfo),
+            OperationInfo(image: Asset.Images.iconOperationCall.image.withRenderingMode(.alwaysTemplate),
+                          content: store.phoneNumber),
+            OperationInfo(image: Asset.Images.iconOperationLink.image.withRenderingMode(.alwaysTemplate),
+                          content: store.snsAddress),
+            OperationInfo(image: Asset.Images.iconLocation.image.withRenderingMode(.alwaysTemplate),
+                          content: store.address)
+        ]
+    }()
     var operationInfoSeeMoreIndexPaths = Set<IndexPath>()
 
     // MARK: - UseCase
@@ -47,6 +89,7 @@ final class StoreDetailViewModel {
         self.store = store
         self.fetchProductsUseCase = fetchProductsUseCase
         setUpCategories()
+        setUpRankedTags()
     }
 
     func categoryButtonDidTapped(category: ProductCategory?) {
@@ -60,6 +103,10 @@ final class StoreDetailViewModel {
         } else {
             operationInfoSeeMoreIndexPaths.insert(indexPath)
         }
+    }
+
+    func storeLikeButtonTapped(completion: (RecommendStoreResponseValue) -> Void) {
+        completion(.init(recommendCount: 4, didRecommended: true)) // TODO: get store like count
     }
 
     private func setUpCategories() {
@@ -84,6 +131,37 @@ final class StoreDetailViewModel {
 
     private func cancelFetchingProductList() {
         productListLoadTask?.cancel()
+    }
+
+    private func setUpRankedTags() {
+        var rankTagDict = [Tag: Int]()
+        Tag.allCases.forEach {
+            rankTagDict.updateValue(0, forKey: $0)
+        }
+
+        totalTagVoteCount = reviews.reduce(into: 0) { partialResult, review in
+            partialResult += review.tags.contains(.noKeywordToChoose) ? 0 : 1
+        }
+
+        reviews.flatMap {
+            return $0.tags
+        }.forEach {
+            if let voteCount = rankTagDict[$0] {
+                rankTagDict.updateValue(voteCount + 1, forKey: $0)
+            }
+        }
+
+        rankTags = rankTagDict.filter {
+            $0.value != 0 && $0.key != .noKeywordToChoose
+        }.sorted {
+            if $0.value == $1.value {
+                return $0.key.text < $1.key.text
+            } else {
+                return $0.value > $1.value
+            }
+        }.map {
+            return RankTag(tag: $0.key, voteCount: $0.value)
+        }
     }
 }
 
@@ -132,5 +210,12 @@ extension StoreDetailViewModel {
                 return "추천"
             }
         }
+    }
+}
+
+extension StoreDetailViewModel {
+    struct RankTag: Hashable {
+        let tag: Tag
+        var voteCount: Int
     }
 }

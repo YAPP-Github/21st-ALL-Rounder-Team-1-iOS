@@ -13,7 +13,6 @@ final class DetailReviewTagCollectionViewCell: UICollectionViewCell {
 
     private let tagImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = Asset.Colors.gray3.color
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -36,16 +35,16 @@ final class DetailReviewTagCollectionViewCell: UICollectionViewCell {
     }
 
     func setUpContents(tag: Tag) {
-        tagTitleLabel.text = tag.title
+        tagTitleLabel.text = tag.text
         tagImageView.image = tag.image
     }
 
     private func layout() {
         [tagImageView, tagTitleLabel].forEach { contentView.addSubview($0) }
         tagImageView.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(5)
-            $0.top.bottom.equalToSuperview().inset(8)
-            $0.width.equalTo(tagImageView.snp.height)
+            $0.leading.equalToSuperview().inset(8)
+            $0.top.bottom.equalTo(tagTitleLabel)
+            $0.height.equalTo(tagImageView.snp.width)
         }
 
         tagTitleLabel.snp.makeConstraints {
@@ -53,6 +52,7 @@ final class DetailReviewTagCollectionViewCell: UICollectionViewCell {
             $0.trailing.equalToSuperview().inset(5)
             $0.top.bottom.equalToSuperview().inset(8)
         }
+        tagTitleLabel.setContentHuggingPriority(.required, for: .vertical)
     }
 
     private func setUpCellAppearance() {

@@ -12,12 +12,13 @@ final class DetailReviewCell: UICollectionViewCell {
     static let reuseIdentifier = String(describing: DetailReviewCell.self)
 
     // MARK: - Private Properties
-    private var tags: [Tag]?
     private var review: Review?
-    private let profileImageHeight: CGFloat = 40
+    private var tags: [Tag]?
     private var tagCollectionViewHeight: CGFloat = 40 {
         didSet {
-            remakeTagCollectionViewConstraints()
+            tagCollectionView.snp.remakeConstraints {
+                $0.height.equalTo(tagCollectionViewHeight)
+            }
         }
     }
 
@@ -32,13 +33,13 @@ final class DetailReviewCell: UICollectionViewCell {
     var reportButtonTapped: (() -> Void)?
 
     // MARK: - UI Components
-    private lazy var profileImageView: UIImageView = {
+    private let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = profileImageHeight / 2
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = Asset.Colors.gray1.color
+        imageView.layer.cornerRadius = 19
         return imageView
     }()
 
@@ -56,6 +57,29 @@ final class DetailReviewCell: UICollectionViewCell {
         return label
     }()
 
+    private lazy var reviewInfoView: UIView = {
+        let reviewInfoView = UIView()
+        [profileImageView, userNameLabel, writtenDateLabel].forEach { reviewInfoView.addSubview($0) }
+        profileImageView.snp.makeConstraints { profile in
+            profile.leading.equalToSuperview()
+            profile.top.bottom.equalToSuperview()
+            profile.height.equalToSuperview()
+            profile.width.equalTo(profileImageView.snp.height)
+        }
+
+        userNameLabel.snp.makeConstraints { nameLabel in
+            nameLabel.leading.equalTo(profileImageView.snp.trailing).offset(10)
+            nameLabel.top.trailing.equalToSuperview()
+        }
+
+        writtenDateLabel.snp.makeConstraints { dateLabel in
+            dateLabel.leading.equalTo(profileImageView.snp.trailing).offset(10)
+            dateLabel.top.equalTo(userNameLabel.snp.bottom).offset(5)
+            dateLabel.bottom.equalToSuperview().inset(5)
+        }
+        return reviewInfoView
+    }()
+
     private lazy var reviewImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 4
@@ -66,6 +90,34 @@ final class DetailReviewCell: UICollectionViewCell {
         imageView.addGestureRecognizer(tapGestureRecognizer)
         imageView.backgroundColor = Asset.Colors.gray1.color
         return imageView
+    }()
+
+    private let imageCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.font(style: .buttonSmall)
+        label.textColor = .white
+        label.backgroundColor = Asset.Colors.gray3.color
+        label.clipsToBounds = true
+        label.layer.cornerRadius = 10
+        label.textAlignment = .center
+        return label
+    }()
+
+    private lazy var reviewImageOuterView: UIView = {
+        let reviewImageOuterView = UIView()
+        [reviewImageView, imageCountLabel].forEach { reviewImageOuterView.addSubview($0) }
+        reviewImageView.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalToSuperview()
+        }
+
+        imageCountLabel.snp.makeConstraints {
+            $0.trailing.bottom.equalTo(reviewImageView).inset(14)
+            $0.height.equalTo(20)
+            $0.width.equalTo(42)
+        }
+        return reviewImageOuterView
     }()
 
     private let descriptionLabel: UILabel = {
@@ -96,15 +148,12 @@ final class DetailReviewCell: UICollectionViewCell {
         return line
     }()
 
-    private let imageCountLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.font(style: .buttonSmall)
-        label.textColor = .white
-        label.backgroundColor = Asset.Colors.gray3.color
-        label.clipsToBounds = true
-        label.layer.cornerRadius = 10
-        label.textAlignment = .center
-        return label
+    private let outerStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 14
+        stackView.distribution = .fill
+        return stackView
     }()
 
     private lazy var reportButton: UIButton = {
@@ -129,91 +178,66 @@ final class DetailReviewCell: UICollectionViewCell {
 
     func setUpContents(review: Review) {
         self.tags = review.tags
+        tagCollectionView.reloadData()
+        tagCollectionView.layoutIfNeeded()
         self.review = review
         userNameLabel.text = review.userNickname
         writtenDateLabel.text = review.writtenDate.toString()
         descriptionLabel.text = review.description
         imageCountLabel.text = "1 / \(review.imageURL.count)"
         imageCountLabel.isHidden = review.imageURL.count <= 1
-        remakeReviewImageViewConstraints(isReviewImageEmpty: review.imageURL.isEmpty)
         // TODO: Fetch Image(profile, review) with URL
-        tagCollectionView.reloadData()
-        tagCollectionView.layoutIfNeeded()
-        tagCollectionViewHeight = tagCollectionView.contentSize.height
-        layoutIfNeeded()
+        addArrangedSubviewsToOuterStackview()
+        DispatchQueue.main.async {
+            self.tagCollectionView.snp.remakeConstraints {
+                $0.height.equalTo(self.tagCollectionView.contentSize.height)
+            }
+        }
     }
 
     private func layout() {
-        [profileImageView, userNameLabel, writtenDateLabel, reviewImageView,
-         descriptionLabel, divisionLine, tagCollectionView, imageCountLabel, reportButton].forEach {
+        [outerStackView, divisionLine].forEach {
             contentView.addSubview($0)
         }
 
-        profileImageView.snp.makeConstraints { profile in
-            profile.leading.equalToSuperview().inset(16)
-            profile.top.equalToSuperview().inset(20)
-            profile.height.width.equalTo(profileImageHeight)
+        outerStackView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview().inset(20)
         }
-
-        userNameLabel.snp.makeConstraints { nameLabel in
-            nameLabel.leading.equalTo(profileImageView.snp.trailing).offset(10)
-            nameLabel.top.equalToSuperview().inset(20)
-            nameLabel.trailing.equalTo(reportButton.snp.leading).offset(-10)
-        }
-
-        writtenDateLabel.snp.makeConstraints { dateLabel in
-            dateLabel.leading.equalTo(profileImageView.snp.trailing).offset(10)
-            dateLabel.top.equalTo(userNameLabel.snp.bottom).offset(5)
-        }
-
-        remakeReviewImageViewConstraints(isReviewImageEmpty: false)
-
-        descriptionLabel.snp.makeConstraints { description in
-            description.leading.trailing.equalToSuperview().inset(16)
-            description.top.equalTo(reviewImageView.snp.bottom).offset(10)
-            description.top.equalTo(writtenDateLabel.snp.bottom).offset(10).priority(.medium)
-        }
-
-        remakeTagCollectionViewConstraints()
 
         divisionLine.snp.makeConstraints {
-            $0.top.equalTo(tagCollectionView.snp.bottom).offset(20)
-            $0.leading.trailing.bottom.equalToSuperview().inset(16)
+            $0.top.equalTo(outerStackView.snp.bottom).offset(20)
+            $0.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(1)
         }
-
-        imageCountLabel.snp.makeConstraints {
-            $0.trailing.bottom.equalTo(reviewImageView).inset(14)
-            $0.height.equalTo(20)
-            $0.width.equalTo(42)
-        }
-
-        reportButton.snp.makeConstraints {
-            $0.trailing.top.equalToSuperview().inset(21)
-        }
     }
 
-    private func remakeTagCollectionViewConstraints() {
-        tagCollectionView.snp.remakeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(16)
-            $0.top.equalTo(descriptionLabel.snp.bottom).offset(10)
-            $0.height.equalTo(tagCollectionViewHeight)
-        }
-    }
+    private func addArrangedSubviewsToOuterStackview() {
+        guard let review = review else { return }
+        outerStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
-    private func remakeReviewImageViewConstraints(isReviewImageEmpty: Bool) {
-        if isReviewImageEmpty {
-            reviewImageView.snp.remakeConstraints {
-                $0.leading.trailing.equalToSuperview().inset(16)
-                $0.top.equalTo(writtenDateLabel.snp.bottom).offset(10)
-                $0.height.equalTo(0)
+        reviewInfoView.snp.makeConstraints {
+            $0.height.equalTo(38)
+        }
+        outerStackView.addArrangedSubview(reviewInfoView)
+
+        if !review.imageURL.isEmpty {
+            reviewImageOuterView.snp.makeConstraints {
+                $0.height.equalTo(168)
             }
-        } else {
-            reviewImageView.snp.remakeConstraints {
-                $0.leading.trailing.equalToSuperview().inset(16)
-                $0.top.equalTo(writtenDateLabel.snp.bottom).offset(10)
-                $0.height.equalTo(168).priority(.high)
+            outerStackView.addArrangedSubview(reviewImageOuterView)
+        }
+
+        if !review.description.isEmpty {
+            outerStackView.addArrangedSubview(descriptionLabel)
+            descriptionLabel.setContentHuggingPriority(.required, for: .vertical)
+        }
+
+        if !review.tags.isEmpty {
+            tagCollectionView.setContentHuggingPriority(.required, for: .vertical)
+            tagCollectionView.snp.remakeConstraints {
+                $0.height.lessThanOrEqualTo(80).priority(.high)
             }
+            outerStackView.addArrangedSubview(tagCollectionView)
         }
     }
 
@@ -227,11 +251,11 @@ final class DetailReviewCell: UICollectionViewCell {
 extension DetailReviewCell {
     private func tagCollectionLayout() -> UICollectionViewLayout {
         let item = NSCollectionLayoutItem(
-            layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(100), heightDimension: .estimated(70))
+            layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(100), heightDimension: .estimated(25))
         )
-        item.edgeSpacing = .init(leading: .fixed(5), top: .fixed(5), trailing: .fixed(5), bottom: .fixed(5))
+        item.edgeSpacing = .init(leading: .fixed(0), top: .fixed(5), trailing: .fixed(5), bottom: .fixed(5))
         let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(70)),
+            layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(25)),
             subitems: [item]
         )
 
@@ -262,8 +286,14 @@ extension DetailReviewCell: UICollectionViewDataSource {
 fileprivate extension Date {
     func toString() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        if let currentYear = Calendar.current.dateComponents([.year], from: Date()).year,
+           let dateYear = Calendar.current.dateComponents([.year], from: Date()).year,
+           currentYear == dateYear {
+            dateFormatter.dateFormat = "MM.dd.EE"
+        } else {
+            dateFormatter.dateFormat = "yyyy.MM.dd"
+        }
 
         return dateFormatter.string(from: self)
     }

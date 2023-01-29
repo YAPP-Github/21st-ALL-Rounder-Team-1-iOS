@@ -14,6 +14,7 @@ final class OperationInfoCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = Asset.Colors.primary8.color
         return imageView
     }()
 
@@ -62,9 +63,16 @@ final class OperationInfoCell: UICollectionViewCell {
         if shouldShowMore {
             contentLabel.numberOfLines = 0
             seeMoreButton.setImage(Asset.Images.iconArrowTopSmall.image, for: .normal)
+            makeFirstLineBold(operation: operation)
         } else {
             contentLabel.numberOfLines = 1
             seeMoreButton.setImage(Asset.Images.iconArrowBottomSmall.image, for: .normal)
+        }
+    }
+
+    private func makeFirstLineBold(operation: OperationInfo) {
+        if let targetString = operation.content.split(separator: "\n").map({ String($0) }).first {
+            contentLabel.makeBold(targetString: targetString)
         }
     }
 
@@ -75,6 +83,7 @@ final class OperationInfoCell: UICollectionViewCell {
         imageView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(15)
             $0.leading.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(15).priority(.low)
         }
 
         contentLabel.snp.makeConstraints {
@@ -106,6 +115,17 @@ final class OperationInfoCell: UICollectionViewCell {
 }
 
 struct OperationInfo: Hashable {
-    let image: UIImage
+    let image: UIImage?
     let content: String
+}
+
+fileprivate extension UILabel {
+    func makeBold(targetString: String) {
+        let font = UIFont.boldSystemFont(ofSize: self.font.pointSize)
+        let fullText = self.text ?? ""
+        let range = (fullText as NSString).range(of: targetString)
+        let attributedString = NSMutableAttributedString(string: fullText)
+        attributedString.addAttribute(.font, value: font, range: range)
+        self.attributedText = attributedString
+    }
 }
