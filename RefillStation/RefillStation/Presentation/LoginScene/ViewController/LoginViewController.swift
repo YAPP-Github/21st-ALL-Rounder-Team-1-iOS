@@ -12,7 +12,7 @@ final class LoginViewController: UIViewController {
 
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = Asset.Images.loginbackground.image
+//        imageView.image = Asset.Images.loginbackground.image
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -53,7 +53,7 @@ final class LoginViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Apple로 계속하기", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.setImage(Asset.Images.iconApple.image, for: .normal)
+//        button.setImage(Asset.Images.iconApple.image, for: .normal)
         button.titleLabel?.font = .font(style: .buttonLarge)
         button.backgroundColor = .black
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
