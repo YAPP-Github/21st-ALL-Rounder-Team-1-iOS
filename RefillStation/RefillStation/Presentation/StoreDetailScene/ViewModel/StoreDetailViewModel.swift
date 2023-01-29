@@ -69,10 +69,14 @@ final class StoreDetailViewModel {
         + store.notice
 
         return [
-            OperationInfo(image: UIImage(systemName: "clock"), content: businessHourInfo),
-            OperationInfo(image: UIImage(systemName: "phone"), content: store.phoneNumber),
-            OperationInfo(image: UIImage(systemName: "link"), content: store.snsAddress),
-            OperationInfo(image: UIImage(systemName: "location"), content: store.address)
+            OperationInfo(image: Asset.Images.iconClock.image.withRenderingMode(.alwaysTemplate),
+                          content: businessHourInfo),
+            OperationInfo(image: Asset.Images.iconOperationCall.image.withRenderingMode(.alwaysTemplate),
+                          content: store.phoneNumber),
+            OperationInfo(image: Asset.Images.iconOperationLink.image.withRenderingMode(.alwaysTemplate),
+                          content: store.snsAddress),
+            OperationInfo(image: Asset.Images.iconLocation.image.withRenderingMode(.alwaysTemplate),
+                          content: store.address)
         ]
     }()
     var operationInfoSeeMoreIndexPaths = Set<IndexPath>()
