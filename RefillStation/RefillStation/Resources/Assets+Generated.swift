@@ -35,12 +35,14 @@ internal enum Asset {
     internal static let gray5 = ColorAsset(name: "Gray5")
     internal static let gray6 = ColorAsset(name: "Gray6")
     internal static let gray7 = ColorAsset(name: "Gray7")
+    internal static let kakao = ColorAsset(name: "Kakao")
     internal static let lv1Light = ColorAsset(name: "Lv.1 light")
     internal static let lv1 = ColorAsset(name: "Lv.1")
     internal static let lv2Light = ColorAsset(name: "Lv.2 light")
     internal static let lv2 = ColorAsset(name: "Lv.2")
     internal static let lv3Light = ColorAsset(name: "Lv.3 light")
     internal static let lv3 = ColorAsset(name: "Lv.3")
+    internal static let naver = ColorAsset(name: "Naver")
     internal static let primary1 = ColorAsset(name: "Primary1")
     internal static let primary10 = ColorAsset(name: "Primary10")
     internal static let primary2 = ColorAsset(name: "Primary2")
@@ -53,6 +55,8 @@ internal enum Asset {
     internal static let primary9 = ColorAsset(name: "Primary9")
   }
   internal enum Images {
+    internal static let iconApple = ImageAsset(name: "Icon_apple")
+    internal static let iconKakao = ImageAsset(name: "Icon_kakao")
     internal static let avatar = ImageAsset(name: "avatar")
     internal static let cryFace = ImageAsset(name: "cry_face")
     internal static let iconAlbum = ImageAsset(name: "icon_Album")
@@ -71,6 +75,7 @@ internal enum Asset {
     internal static let iconEdit = ImageAsset(name: "icon_edit")
     internal static let iconLink = ImageAsset(name: "icon_link")
     internal static let iconLocation = ImageAsset(name: "icon_location")
+    internal static let iconNaver = ImageAsset(name: "icon_naver")
     internal static let iconOperationCall = ImageAsset(name: "icon_operation_call")
     internal static let iconOperationLink = ImageAsset(name: "icon_operation_link")
     internal static let iconPhoto = ImageAsset(name: "icon_photo")
@@ -94,6 +99,7 @@ internal enum Asset {
     internal static let imgOnboarding2 = ImageAsset(name: "img_onboarding2")
     internal static let imgOnboarding3 = ImageAsset(name: "img_onboarding3")
     internal static let imgServiceArea = ImageAsset(name: "img_service area")
+    internal static let loginbackground = ImageAsset(name: "loginbackground")
     internal static let profileImageGroup = ImageAsset(name: "profileImageGroup")
   }
 }
