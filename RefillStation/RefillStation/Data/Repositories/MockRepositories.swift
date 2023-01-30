@@ -122,7 +122,33 @@ final class MockUserInfoRepository: UserInfoRepositoryInterface {
 }
 
 final class MockStoreRepository: StoreRepositoryInterface {
+    func fetchStores(requestValue: FetchStoresUseCaseRequestValue, completion: @escaping (Result<[Store], Error>) -> Void) -> Cancellable? {
+        let dummyStores = MockEntityData.stores()
+        return MockTask {
+            completion(.success(dummyStores))
+        }
+    }
 
+    func fetchProducts(requestValue: FetchProductsRequestValue, completion: @escaping (Result<[Product], Error>) -> Void) -> Cancellable? {
+        let dummyProducts = MockEntityData.products()
+        return MockTask {
+            completion(.success(dummyProducts))
+        }
+    }
+
+    func fetchStoreReviews(requestValue: FetchStoreReviewsRequestValue, completion: @escaping (Result<[Review], Error>) -> Void) -> Cancellable? {
+        let dummyReviews = MockEntityData.reviews()
+        return MockTask {
+            completion(.success(dummyReviews))
+        }
+    }
+
+    func recommendStore(requestValue: RecommendStoreRequestValue, completion: @escaping (Result<RecommendStoreResponseValue, Error>) -> Void) -> Cancellable? {
+        let dummyResponse = RecommendStoreResponseValue(recommendCount: 10, didRecommended: true)
+        return MockTask {
+            completion(.success(dummyResponse))
+        }
+    }
 }
 
 /// init을 통해 내부 변수 task를 전달받습니다.
@@ -136,7 +162,9 @@ final class MockTask: Cancellable {
     }
 
     func resume() {
-        task?()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            self?.task?()
+        }
     }
 
     func cancel() {
