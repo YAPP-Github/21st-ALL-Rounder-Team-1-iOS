@@ -47,5 +47,6 @@ final class TermsDetailViewController: UIViewController {
     private func setUpNavigationBar() {
         self.title = termsType.title
         self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.navigationBar.tintColor = Asset.Colors.gray7.color
     }
 }
