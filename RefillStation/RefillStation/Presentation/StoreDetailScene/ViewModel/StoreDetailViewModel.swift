@@ -21,7 +21,7 @@ final class StoreDetailViewModel {
     var store: Store
 
     // MARK: - ProductList
-    var products: [Product] = MockEntityData.products()
+    var products = [Product]()
     private(set) var categories = [ProductCategory]()
     private(set) var currentCategoryFilter = ProductCategory.all
     var filteredProducts: [Product] {
@@ -36,12 +36,8 @@ final class StoreDetailViewModel {
     }
 
     // MARK: - Review
-    var reviews = MockEntityData.reviews() {
-        didSet {
-            setUpRankedTags()
-        }
-    }
-    var totalTagVoteCount = 5
+    var reviews = [Review]()
+    var totalTagVoteCount = 0
     var rankTags = [RankTag]()
 
     // MARK: - Operation Info
@@ -103,8 +99,6 @@ final class StoreDetailViewModel {
         self.fetchProductsUseCase = fetchProductsUseCase
         self.fetchStoreReviewsUseCase = fetchStoreReviewsUseCase
         self.recommendStoreUseCase = recommendStoreUseCase
-        setUpCategories()
-        setUpRankedTags()
     }
 
     func categoryButtonDidTapped(category: ProductCategory?) {
@@ -138,29 +132,42 @@ final class StoreDetailViewModel {
         recommendStoreTask?.resume()
     }
 
+    private func fetchProducts() {
+        productListLoadTask = fetchProductsUseCase
+            .execute(requestValue: FetchProductsRequestValue(storeId: store.storeId)) { result in
+                switch result {
+                case .success(let products):
+                    self.products = products
+                    self.setUpCategories()
+                    self.applyDataSource?()
+                case .failure(let error):
+                    break // TODO: Show Alert
+                }
+            }
+        productListLoadTask?.resume()
+    }
+
+    private func fetchStoreReviews() {
+        let requestValue = FetchStoreReviewsRequestValue(storeId: store.storeId)
+        storeReviewsLoadTask = fetchStoreReviewsUseCase.execute(requestValue: requestValue) { result in
+            switch result {
+            case .success(let reviews):
+                self.reviews = reviews
+                self.setUpRankedTags()
+                self.applyDataSource?()
+            case .failure(let error):
+                break // TODO: Show Alert
+            }
+        }
+        storeReviewsLoadTask?.resume()
+    }
+
     private func setUpCategories() {
         products.forEach {
             if !categories.contains($0.category) {
                 categories.append($0.category)
             }
         }
-    }
-
-    private func fetchProducts(storeId: Int, completion: @escaping (Result<[Product], Error>) -> Void) {
-        productListLoadTask = fetchProductsUseCase
-            .execute(requestValue: FetchProductsRequestValue(storeId: storeId)) { result in
-                switch result {
-                case .success(let products):
-                    completion(.success(products))
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-            }
-        productListLoadTask?.resume()
-    }
-
-    private func cancelFetchingProducts() {
-        productListLoadTask?.cancel()
     }
 
     private func setUpRankedTags() {
@@ -192,6 +199,18 @@ final class StoreDetailViewModel {
         }.map {
             return RankTag(tag: $0.key, voteCount: $0.value)
         }
+    }
+}
+
+// MARK: - Life Cycle
+extension StoreDetailViewModel {
+    func viewDidLoad() {
+
+    }
+
+    func viewWillAppear() {
+        fetchProducts()
+        fetchStoreReviews()
     }
 }
 

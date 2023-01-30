@@ -50,11 +50,13 @@ final class StoreDetailViewController: UIViewController {
         setUpCollectionView()
         layout()
         bind()
+        viewModel.viewDidLoad()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         setUpNavigationBar()
         tabBarController?.tabBar.isHidden = true
+        viewModel.viewWillAppear()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
