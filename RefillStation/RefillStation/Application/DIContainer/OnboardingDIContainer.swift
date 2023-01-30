@@ -51,8 +51,8 @@ final class OnboardingDIContainer: DIContainer {
 
     // MARK: - Terms Permission
     func makeTermsPermissionViewController() -> TermsPermissionViewController {
-        let vc = TermsPermissionViewController(viewModel: makeTermsPermissionViewModel())
-        return vc
+        let viewController = TermsPermissionViewController(viewModel: makeTermsPermissionViewModel())
+        return viewController
     }
 
     func makeTermsPermissionViewModel() -> TermsPermissionViewModel {
