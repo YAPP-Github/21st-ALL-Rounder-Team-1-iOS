@@ -14,17 +14,19 @@ enum OAuthType {
 }
 
 protocol OAuthLoginUseCaseInterface {
-    func execute(loginType: OAuthType, completion: @escaping (Result<String, Error>) -> Void) -> Cancellable?
+    func execute(loginType: OAuthType, completion: @escaping (Result<String?, Error>) -> Void) -> Cancellable?
 }
 
 final class OAuthLoginUseCase {
     private let accountRepository: AccountRepositoryInterface
 
-    init(accountRepository: AccountRepositoryInterface) {
+    init(accountRepository: AccountRepositoryInterface = MockAccountRepository()) {
         self.accountRepository = accountRepository
     }
 
-    func execute(loginType: OAuthType, completion: @escaping (Result<String, Error>) -> Void) -> Cancellable? {
-        return nil
+    func execute(loginType: OAuthType, completion: @escaping (Result<String?, Error>) -> Void) -> Cancellable? {
+        return accountRepository.OAuthLogin(loginType: loginType) { result in
+            completion(result)
+        }
     }
 }

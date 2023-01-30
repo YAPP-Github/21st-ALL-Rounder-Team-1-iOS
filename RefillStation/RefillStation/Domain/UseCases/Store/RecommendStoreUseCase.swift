@@ -33,6 +33,8 @@ final class RecommendStoreUseCase: RecommendStoreUseCaseInterface {
     }
 
     func execute(requestValue: RecommendStoreRequestValue, completion: @escaping (Result<RecommendStoreResponseValue, Error>) -> Void) -> Cancellable? {
-        return nil
+        return storeRepository.recommendStore(requestValue: requestValue) { result in
+            completion(result)
+        }
     }
 }

@@ -14,11 +14,13 @@ protocol WithdrawUseCaseInterface {
 final class WithdrawUseCase: WithdrawUseCaseInterface {
     private let accountRepository: AccountRepositoryInterface
 
-    init(accountRepository: AccountRepositoryInterface) {
+    init(accountRepository: AccountRepositoryInterface = MockAccountRepository()) {
         self.accountRepository = accountRepository
     }
 
     func execute(completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
-        return nil
+        return accountRepository.withdraw { result in
+            completion(result)
+        }
     }
 }

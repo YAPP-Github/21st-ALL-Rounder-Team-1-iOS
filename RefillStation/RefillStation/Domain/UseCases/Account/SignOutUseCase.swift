@@ -13,5 +13,6 @@ protocol SignOutUseCaseInterface {
 
 final class SignOutUseCase: SignOutUseCaseInterface {
     func execute(completion: @escaping (Result<Void, Error>) -> Void) {
+        completion(.success(()))
     }
 }

@@ -22,12 +22,14 @@ protocol SignUpUseCaseInterface {
 final class SignUpUseCase: SignUpUseCaseInterface {
     private let accountRepository: AccountRepositoryInterface
 
-    init(accountRepository: AccountRepositoryInterface) {
+    init(accountRepository: AccountRepositoryInterface = MockAccountRepository()) {
         self.accountRepository = accountRepository
     }
 
     func execute(requestValue: SignUpRequestValue,
                  completion: @escaping (Result<String, Error>) -> Void) -> Cancellable? {
-        return nil
+        return accountRepository.signUp(requestValue: requestValue) { result in
+            completion(result)
+        }
     }
 }

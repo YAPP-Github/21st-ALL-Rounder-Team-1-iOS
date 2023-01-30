@@ -38,8 +38,4 @@ final class HomeDIContainer: DIContainer {
     func makeFetchStoresUseCase() {
 
     }
-
-    func makeHomeRepository() -> HomeRepository {
-        return HomeRepository(networkService: networkService)
-    }
 }

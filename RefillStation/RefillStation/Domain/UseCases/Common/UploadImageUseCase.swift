@@ -25,6 +25,8 @@ final class UploadImageUseCase: UploadImageUseCaseInterface {
 
     func execute(requestValue: UploadImageRequestValue,
                  completion: @escaping (Result<[String], Error>) -> Void) -> Cancellable? {
-        return nil
+        return uploadImageRepository.uploadImage(images: requestValue.images) { result in
+            completion(result)
+        }
     }
 }

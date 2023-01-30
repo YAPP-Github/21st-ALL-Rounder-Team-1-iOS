@@ -14,11 +14,13 @@ protocol FetchUserReviewsUseCaseInterface {
 final class FetchUserReviewsUseCase: FetchUserReviewsUseCaseInterface {
     private let userInfoRepository: UserInfoRepositoryInterface
 
-    init(userInfoRepository: UserInfoRepositoryInterface) {
+    init(userInfoRepository: UserInfoRepositoryInterface = MockUserInfoRepository()) {
         self.userInfoRepository = userInfoRepository
     }
 
     func execute(completion: @escaping (Result<[Review], Error>) -> Void) -> Cancellable? {
-        return nil
+        return userInfoRepository.fetchUserReviews { result in
+            completion(result)
+        }
     }
 }
