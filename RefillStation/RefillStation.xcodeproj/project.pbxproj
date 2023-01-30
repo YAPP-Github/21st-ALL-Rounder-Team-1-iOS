@@ -100,6 +100,8 @@
 		FC9044882965E00D00B43BB9 /* UserLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9044872965E00D00B43BB9 /* UserLevelViewController.swift */; };
 		FC90448C2965E2E500B43BB9 /* PumpTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90448B2965E2E500B43BB9 /* PumpTagView.swift */; };
 		FC90448E29671FC900B43BB9 /* LevelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90448D29671FC900B43BB9 /* LevelCollectionViewCell.swift */; };
+		FC94151A29867EEA009AEE71 /* TermsPermissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC94151929867EEA009AEE71 /* TermsPermissionViewController.swift */; };
+		FC94151C298692C3009AEE71 /* TermsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC94151B298692C3009AEE71 /* TermsDetailViewController.swift */; };
 		FC94152029869375009AEE71 /* TermsPermissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC94151F29869375009AEE71 /* TermsPermissionViewModel.swift */; };
 		FC94152229869BE6009AEE71 /* TermsLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC94152129869BE6009AEE71 /* TermsLiterals.swift */; };
 		FCAB262B296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAB262A296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift */; };
@@ -250,6 +252,7 @@
 		FC9044872965E00D00B43BB9 /* UserLevelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLevelViewController.swift; sourceTree = "<group>"; };
 		FC90448B2965E2E500B43BB9 /* PumpTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpTagView.swift; sourceTree = "<group>"; };
 		FC90448D29671FC900B43BB9 /* LevelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelCollectionViewCell.swift; sourceTree = "<group>"; };
+		FC94151929867EEA009AEE71 /* TermsPermissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsPermissionViewController.swift; sourceTree = "<group>"; };
 		FC94151F29869375009AEE71 /* TermsPermissionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsPermissionViewModel.swift; sourceTree = "<group>"; };
 		FC94152129869BE6009AEE71 /* TermsLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsLiterals.swift; sourceTree = "<group>"; };
 		FCAB262A296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpLargeTitleNavigationBar.swift; sourceTree = "<group>"; };
@@ -537,6 +540,7 @@
 				329E80222977FA72004286B0 /* OnboardingCollectionViewCell.swift */,
 				329E80242977FA72004286B0 /* OnboardingViewController.swift */,
 				329E80232977FA72004286B0 /* OnboardingViewModel.swift */,
+				FC94151929867EEA009AEE71 /* TermsPermissionViewController.swift */,
 				FC94151F29869375009AEE71 /* TermsPermissionViewModel.swift */,
 			);
 			path = OnboardingScene;
@@ -1156,6 +1160,7 @@
 				FCE00A88294C95FA00B5C05F /* StoreReviewRepository.swift in Sources */,
 				325985E5294C51BA00D26A37 /* OnboardingDIContainer.swift in Sources */,
 				329EF9132971F9AD004934E7 /* ReviewInfoCell.swift in Sources */,
+				FC94151A29867EEA009AEE71 /* TermsPermissionViewController.swift in Sources */,
 				FC47394929376E2200DB9BDB /* Store.swift in Sources */,
 				FC60D83A2962C36F00C676A6 /* StoreInfoCell.swift in Sources */,
 				FC4739442937664F00DB9BDB /* HomeViewController.swift in Sources */,
