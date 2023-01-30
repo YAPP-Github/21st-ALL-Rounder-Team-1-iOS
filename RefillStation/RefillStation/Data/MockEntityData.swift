@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import Algorithms
 
 final class MockEntityData {
     static func products() -> [Product] {
+
         return [
             .init(name: "샴푸", brand: "A", measurement: "g", price: 10, imageURL: "", category: .init(title: "샴푸")),
             .init(name: "스킨", brand: "B", measurement: "g", price: 10, imageURL: "", category: .init(title: "스킨")),
@@ -18,19 +20,22 @@ final class MockEntityData {
     }
 
     static func stores() -> [Store] {
-        return [
-            .init(name: "알맹상점", address: "서울시 송파구", distance: 2.5, phoneNumber: "010-1234-5678",
-                  snsAddress: "www.pump.com", didUserRecommended: false, recommendedCount: 3,
-                  imageURL: [], businessHour: [
-                    .init(day: .mon, time: "10:00 - 18:00"),
-                    .init(day: .tue, time: "10:00 - 18:00"),
-                    .init(day: .wed, time: "10:00 - 18:00"),
-                    .init(day: .thu, time: "10:00 - 18:00"),
-                    .init(day: .fri, time: "10:00 - 18:00"),
-                    .init(day: .sat, time: "10:00 - 18:00"),
-                    .init(day: .sun, time: nil),
-                  ], notice: "휴무일 관련 기타 정보")
-        ]
+        let didUserRecommended = false
+        let isRecommendCountOverZero = false
+        let checkLists = [didUserRecommended, isRecommendCountOverZero]
+        var stores = [Store]()
+        for combo in (checkLists.startIndex..<checkLists.endIndex).map({ $0 }).combinations(ofCount: checkLists.startIndex..<checkLists.endIndex) {
+            var temporaryCheckLists = checkLists
+            combo.forEach { temporaryCheckLists[$0] = true }
+            stores.append(store(didUserRecommended: temporaryCheckLists[0],
+                                isRecommendCountOverZero: temporaryCheckLists[1],
+                                isSNSAddressExists: false))
+        }
+        stores.append(store(didUserRecommended: true,
+                            isRecommendCountOverZero: true,
+                            isSNSAddressExists: true))
+
+        return stores
     }
 
     static func reviews() -> [Review] {
@@ -50,34 +55,22 @@ final class MockEntityData {
             .init(userId: 5, userNickname: "Neph5", profileImagePath: "",
                   writtenDate: Date(), imageURL: [], description: "내용2",
                   tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
-//            .init(userId: 6, userNickname: "Neph6", profileImagePath: "",
-//                  writtenDate: Date(), imageURL: [], description: "내용3",
-//                  tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
-//            .init(userId: 7, userNickname: "Neph7", profileImagePath: "",
-//                  writtenDate: Date(), imageURL: [], description: "내용",
-//                  tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
-//            .init(userId: 8, userNickname: "Neph8", profileImagePath: "",
-//                  writtenDate: Date(), imageURL: [], description: "긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용",
-//                  tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
-//            .init(userId: 9, userNickname: "Neph9", profileImagePath: "",
-//                  writtenDate: Date(), imageURL: [""], description: "내용3",
-//                  tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
-//            .init(userId: 10, userNickname: "Neph10", profileImagePath: "",
-//                  writtenDate: Date(), imageURL: [], description: "내용",
-//                  tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
-//            .init(userId: 11, userNickname: "Neph11", profileImagePath: "",
-//                  writtenDate: Date(), imageURL: [], description: "내용2",
-//                  tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
-//            .init(userId: 12, userNickname: "Neph12", profileImagePath: "",
-//                  writtenDate: Date(), imageURL: [], description: "내용3",
-//                  tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
         ]
     }
-
-    static func operations() -> [OperationInfo] {
-        return [
-        ]
-    }
-
     private init() {}
+
+    static func store(didUserRecommended: Bool, isRecommendCountOverZero: Bool, isSNSAddressExists: Bool) -> Store {
+        return Store(name: "유저추천: \(didUserRecommended ? "O" : "X"), 추천수: \(isRecommendCountOverZero ? "10" : "0"), sns: \(isSNSAddressExists ? "있음" : "없음")", address: "서울시 송파구 오금로", distance: 2.5,
+                     phoneNumber: "010-1234-5678", snsAddress: isSNSAddressExists ? "https://www.naver.com" : "",
+                     didUserRecommended: didUserRecommended, recommendedCount: isRecommendCountOverZero ? 10 : 0,
+                     imageURL: [""], businessHour: [
+                        .init(day: .mon, time: "10:00 - 18:00"),
+                        .init(day: .tue, time: "10:00 - 18:00"),
+                        .init(day: .wed, time: "10:00 - 18:00"),
+                        .init(day: .thu, time: "10:00 - 18:00"),
+                        .init(day: .fri, time: "10:00 - 18:00"),
+                        .init(day: .sat, time: "10:00 - 18:00"),
+                        .init(day: .sun, time: nil)]
+                     , notice: "")
+    }
 }

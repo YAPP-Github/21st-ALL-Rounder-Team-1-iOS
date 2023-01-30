@@ -56,6 +56,7 @@
 		32A0F50729817E1B00A04ECC /* StoreRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F50629817E1B00A04ECC /* StoreRepositoryInterface.swift */; };
 		32C22965297D35BA0019EAF6 /* PumpPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C22964297D35BA0019EAF6 /* PumpPopUpViewController.swift */; };
 		32C22967297E785C0019EAF6 /* ReviewReportPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C22966297E785C0019EAF6 /* ReviewReportPopUpViewController.swift */; };
+		32C3B5702987C4C7004A8872 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 32C3B56F2987C4C7004A8872 /* Algorithms */; };
 		32CCC0D129791C9300C04231 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 32CCC0D029791C9300C04231 /* Toast */; };
 		32CCC0D32979302700C04231 /* TabBarDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CCC0D22979302700C04231 /* TabBarDIContainer.swift */; };
 		32CCC0D52979311D00C04231 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CCC0D42979311D00C04231 /* TabBarCoordinator.swift */; };
@@ -101,8 +102,8 @@
 		FC90448C2965E2E500B43BB9 /* PumpTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90448B2965E2E500B43BB9 /* PumpTagView.swift */; };
 		FC90448E29671FC900B43BB9 /* LevelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90448D29671FC900B43BB9 /* LevelCollectionViewCell.swift */; };
 		FCAB262B296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAB262A296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift */; };
-		FCBB8F7F297D2EED009287EF /* NicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBB8F7E297D2EED009287EF /* NicknameViewModel.swift */; };
 		FCB828F7297FC6B50067E159 /* EditProfileBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB828F6297FC6B50067E159 /* EditProfileBottomSheetViewController.swift */; };
+		FCBB8F7F297D2EED009287EF /* NicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBB8F7E297D2EED009287EF /* NicknameViewModel.swift */; };
 		FCE00A67294C5ADF00B5C05F /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A66294C5ADF00B5C05F /* CoreDataStorage.swift */; };
 		FCE00A6A294C5B3400B5C05F /* TagResponseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A69294C5B3400B5C05F /* TagResponseStorage.swift */; };
 		FCE00A6D294C5D5F00B5C05F /* CoreDataTagResponseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A6C294C5D5F00B5C05F /* CoreDataTagResponseStorage.swift */; };
@@ -289,6 +290,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32C3B5702987C4C7004A8872 /* Algorithms in Frameworks */,
 				32CCC0D129791C9300C04231 /* Toast in Frameworks */,
 				3244A238292DCB1F00716A2B /* SnapKit in Frameworks */,
 			);
@@ -947,6 +949,7 @@
 			packageProductDependencies = (
 				3244A237292DCB1F00716A2B /* SnapKit */,
 				32CCC0D029791C9300C04231 /* Toast */,
+				32C3B56F2987C4C7004A8872 /* Algorithms */,
 			);
 			productName = RefillStation;
 			productReference = 3244A1F8292DC13A00716A2B /* RefillStation.app */;
@@ -1023,6 +1026,7 @@
 			packageReferences = (
 				3244A236292DCB1F00716A2B /* XCRemoteSwiftPackageReference "SnapKit" */,
 				32CCC0CF29791C9300C04231 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				32C3B56E2987C4C7004A8872 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 			);
 			productRefGroup = 3244A1F9292DC13A00716A2B /* Products */;
 			projectDirPath = "";
@@ -1567,6 +1571,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		32C3B56E2987C4C7004A8872 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		32CCC0CF29791C9300C04231 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
@@ -1582,6 +1594,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3244A236292DCB1F00716A2B /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		32C3B56F2987C4C7004A8872 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 32C3B56E2987C4C7004A8872 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
 		};
 		32CCC0D029791C9300C04231 /* Toast */ = {
 			isa = XCSwiftPackageProductDependency;
