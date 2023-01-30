@@ -19,7 +19,7 @@ final class MockEntityData {
 
     static func stores() -> [Store] {
         return [
-            .init(name: "알맹상점", address: "서울시 송파구", distance: 2.5, phoneNumber: "010-1234-5678",
+            .init(storeId: 1, name: "알맹상점", address: "서울시 송파구", distance: 2.5, phoneNumber: "010-1234-5678",
                   snsAddress: "www.pump.com", didUserRecommended: false, recommendedCount: 3,
                   imageURL: [], businessHour: [
                     .init(day: .mon, time: "10:00 - 18:00"),
