@@ -31,7 +31,7 @@ final class TermsPermissionViewController: UIViewController {
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         button.addAction(UIAction(handler: { _ in
-            self.entireAgreementButtonDidTapped()
+            self.entireAgreeButtonDidTapped()
         }), for: .touchUpInside)
         return button
     }()
@@ -68,7 +68,7 @@ final class TermsPermissionViewController: UIViewController {
         view.backgroundColor = .white
         layout()
         setUpStackViewButtons()
-        setUpAgreementState()
+        setUpButtonState()
     }
 
     private func layout() {
@@ -132,7 +132,7 @@ final class TermsPermissionViewController: UIViewController {
         }
     }
 
-    private func entireAgreementButtonDidTapped() {
+    private func entireAgreeButtonDidTapped() {
         entireAgreeButton.isSelected.toggle()
         confirmButton.isEnabled = entireAgreeButton.isSelected
         guard let buttons = stackView.arrangedSubviews as? [UIButton] else { return }
@@ -141,7 +141,7 @@ final class TermsPermissionViewController: UIViewController {
         }
     }
 
-    private func setUpAgreementState() {
+    private func setUpButtonState() {
         guard let buttons = stackView.arrangedSubviews as? [UIButton] else { return }
         buttons.forEach { button in
             button.addAction(UIAction(handler: { [weak self] _ in
