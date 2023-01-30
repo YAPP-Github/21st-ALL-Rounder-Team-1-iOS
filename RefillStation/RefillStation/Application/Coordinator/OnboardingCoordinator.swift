@@ -35,6 +35,17 @@ final class OnboardingCoordinator: Coordinator {
 
     }
 
+    func showTermsPermission() {
+        let termsPermissionViewController = DIContainer.makeTermsPermissionViewController()
+        termsPermissionViewController.coordinator = self
+        navigationController.pushViewController(termsPermissionViewController, animated: true)
+    }
+
+    func showTermsPermissionDetail(termsType: TermsType) {
+        let termsDetailViewController = DIContainer.makeTermsDetailViewController(termsType: termsType)
+        navigationController.pushViewController(termsDetailViewController, animated: true)
+    }
+
     func showLocationAuthorization() {
 
     }
