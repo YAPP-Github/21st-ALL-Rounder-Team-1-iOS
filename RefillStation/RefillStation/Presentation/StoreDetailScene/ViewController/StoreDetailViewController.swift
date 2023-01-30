@@ -49,6 +49,7 @@ final class StoreDetailViewController: UIViewController {
         view.backgroundColor = .white
         setUpCollectionView()
         layout()
+        bind()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +61,12 @@ final class StoreDetailViewController: UIViewController {
         AppDelegate.setUpNavigationBar()
         navigationController?.navigationBar.tintColor = .black
         tabBarController?.tabBar.isHidden = false
+    }
+
+    private func bind() {
+        viewModel.applyDataSource = {
+            self.applyDataSource()
+        }
     }
 
     private func setUpNavigationBar() {
@@ -127,12 +134,7 @@ final class StoreDetailViewController: UIViewController {
                 present(noLinkPopUp, animated: true)
             }
         case .like:
-            viewModel.storeLikeButtonTapped { response in
-                if let cell = collectionView
-                    .cellForItem(at: IndexPath(row: 0, section: 0)) as? StoreDetailInfoViewCell {
-                    cell.setUpLikeCount(response: response)
-                }
-            }
+            viewModel.storeLikeButtonTapped()
         }
     }
 }

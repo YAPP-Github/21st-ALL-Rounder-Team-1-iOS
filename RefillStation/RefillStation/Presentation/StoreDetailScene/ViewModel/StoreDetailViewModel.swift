@@ -8,6 +8,10 @@
 import UIKit
 
 final class StoreDetailViewModel {
+
+    // MARK: - Binding
+    var applyDataSource: (() -> Void)?
+
     // MARK: - TabBarMode
     var mode: TabBarMode = .productLists {
         didSet { operationInfoSeeMoreIndexPaths.removeAll() }
@@ -84,10 +88,21 @@ final class StoreDetailViewModel {
     // MARK: - UseCase
     private let fetchProductsUseCase: FetchProductsUseCaseInterface
     private var productListLoadTask: Cancellable?
+    private let fetchStoreReviewsUseCase: FetchStoreReviewsUseCaseInterface
+    private var storeReviewsLoadTask: Cancellable?
+    private let recommendStoreUseCase: RecommendStoreUseCaseInterface
+    private var recommendStoreTask: Cancellable?
 
-    init(store: Store, fetchProductsUseCase: FetchProductsUseCaseInterface) {
+    init(
+        store: Store,
+        fetchProductsUseCase: FetchProductsUseCaseInterface = FetchProductsUseCase(),
+        fetchStoreReviewsUseCase: FetchStoreReviewsUseCaseInterface = FetchStoreReviewsUseCase(),
+        recommendStoreUseCase: RecommendStoreUseCaseInterface = RecommendStoreUseCase()
+    ) {
         self.store = store
         self.fetchProductsUseCase = fetchProductsUseCase
+        self.fetchStoreReviewsUseCase = fetchStoreReviewsUseCase
+        self.recommendStoreUseCase = recommendStoreUseCase
         setUpCategories()
         setUpRankedTags()
     }
@@ -105,8 +120,22 @@ final class StoreDetailViewModel {
         }
     }
 
-    func storeLikeButtonTapped(completion: (RecommendStoreResponseValue) -> Void) {
-        completion(.init(recommendCount: 4, didRecommended: true)) // TODO: get store like count
+    func storeLikeButtonTapped() {
+        let requestType: RecommendStoreRequestValue.`Type` = store.didUserRecommended ? .cancel : .recommend
+        recommendStoreTask = recommendStoreUseCase.execute(
+            requestValue: .init(storeId: store.storeId, type: requestType)
+        ) { result in
+            switch result {
+            case .success(let response):
+                self.store.recommendedCount = response.recommendCount
+                self.store.didUserRecommended = response.didRecommended
+                self.applyDataSource?()
+            case .failure(let error):
+                return // TODO: Show Alert
+            }
+        }
+
+        recommendStoreTask?.resume()
     }
 
     private func setUpCategories() {
@@ -117,7 +146,7 @@ final class StoreDetailViewModel {
         }
     }
 
-    private func fetchProductList(storeId: Int, completion: @escaping (Result<[Product], Error>) -> Void) {
+    private func fetchProducts(storeId: Int, completion: @escaping (Result<[Product], Error>) -> Void) {
         productListLoadTask = fetchProductsUseCase
             .execute(requestValue: FetchProductsRequestValue(storeId: storeId)) { result in
                 switch result {
@@ -127,9 +156,10 @@ final class StoreDetailViewModel {
                     completion(.failure(error))
                 }
             }
+        productListLoadTask?.resume()
     }
 
-    private func cancelFetchingProductList() {
+    private func cancelFetchingProducts() {
         productListLoadTask?.cancel()
     }
 
