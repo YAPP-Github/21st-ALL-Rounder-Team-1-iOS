@@ -55,8 +55,10 @@ internal enum Asset {
     internal static let primary9 = ColorAsset(name: "Primary9")
   }
   internal enum Images {
+    internal static let checkbox = ImageAsset(name: "Checkbox")
     internal static let iconApple = ImageAsset(name: "Icon_apple")
     internal static let iconKakao = ImageAsset(name: "Icon_kakao")
+    internal static let iconNaver = ImageAsset(name: "Icon_naver")
     internal static let avatar = ImageAsset(name: "avatar")
     internal static let cryFace = ImageAsset(name: "cry_face")
     internal static let iconAlbum = ImageAsset(name: "icon_Album")
@@ -75,7 +77,6 @@ internal enum Asset {
     internal static let iconEdit = ImageAsset(name: "icon_edit")
     internal static let iconLink = ImageAsset(name: "icon_link")
     internal static let iconLocation = ImageAsset(name: "icon_location")
-    internal static let iconNaver = ImageAsset(name: "icon_naver")
     internal static let iconOperationCall = ImageAsset(name: "icon_operation_call")
     internal static let iconOperationLink = ImageAsset(name: "icon_operation_link")
     internal static let iconPhoto = ImageAsset(name: "icon_photo")
@@ -101,6 +102,8 @@ internal enum Asset {
     internal static let imgServiceArea = ImageAsset(name: "img_service area")
     internal static let loginbackground = ImageAsset(name: "loginbackground")
     internal static let profileImageGroup = ImageAsset(name: "profileImageGroup")
+    internal static let selectedBox = ImageAsset(name: "selectedBox")
+    internal static let unselectedBox = ImageAsset(name: "unselectedBox")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
