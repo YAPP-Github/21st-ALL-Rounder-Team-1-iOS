@@ -82,6 +82,45 @@ final class MockAccountRepository: AccountRepositoryInterface {
     }
 }
 
+final class MockCustomerSatisfactionRepository: CustomerSatisfactionUseCaseInterface {
+    func execute(type: CustomerSatisfactionType, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
+        return MockTask {
+            completion(.success(()))
+        }
+    }
+}
+
+final class MockUserInfoRepository: UserInfoRepositoryInterface {
+    func fetchProfile(completion: @escaping (Result<User, Error>) -> Void) -> Cancellable? {
+        let dummyUser = User(id: 1, name: "Neph", imageURL: "",
+                             level: .init(level: .beginner, remainCountForNextLevel: 1))
+        return MockTask {
+            completion(.success(dummyUser))
+        }
+    }
+
+    func editProfile(requestValue: EditProfileRequestValue, completion: @escaping (Result<User, Error>) -> Void) -> Cancellable? {
+        let dummyUser = User(id: 1, name: "변경된Neph", imageURL: "",
+                             level: .init(level: .beginner, remainCountForNextLevel: 1))
+        return MockTask {
+            completion(.success(dummyUser))
+        }
+    }
+
+    func validNickname(requestValue: ValidNicknameRequestValue, completion: @escaping (Result<Bool, Error>) -> Void) -> Cancellable? {
+        return MockTask {
+            completion(.success(true))
+        }
+    }
+
+    func fetchUserReviews(completion: @escaping (Result<[Review], Error>) -> Void) -> Cancellable? {
+        let dummyReviews = MockEntityData.reviews()
+        return MockTask {
+            completion(.success(dummyReviews))
+        }
+    }
+}
+
 final class MockStoreRepository: StoreRepositoryInterface {
 
 }

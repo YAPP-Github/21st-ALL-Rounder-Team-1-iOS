@@ -16,11 +16,11 @@ protocol CustomerSatisfactionUseCaseInterface {
     func execute(type: CustomerSatisfactionType, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable?
 }
 
-final class CustomerSatisfactionUseCase {
-    private let accountRepository: AccountRepositoryInterface
+final class CustomerSatisfactionUseCase: CustomerSatisfactionUseCaseInterface {
+    private let customerSatisfactionRepository: CustomerSatisfactionRepositoryInterface
 
-    init(accountRepository: AccountRepositoryInterface) {
-        self.accountRepository = accountRepository
+    init(customerSatisfactionRepository: CustomerSatisfactionRepositoryInterface) {
+        self.customerSatisfactionRepository = customerSatisfactionRepository
     }
 
     func execute(type: CustomerSatisfactionType, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
