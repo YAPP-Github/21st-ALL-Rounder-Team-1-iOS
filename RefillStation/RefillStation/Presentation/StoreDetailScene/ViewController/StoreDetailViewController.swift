@@ -63,6 +63,7 @@ final class StoreDetailViewController: UIViewController {
         AppDelegate.setUpNavigationBar()
         navigationController?.navigationBar.tintColor = .black
         tabBarController?.tabBar.isHidden = false
+        viewModel.viewWillDisappear()
     }
 
     private func bind() {

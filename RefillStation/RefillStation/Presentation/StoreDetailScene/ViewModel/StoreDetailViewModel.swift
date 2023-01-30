@@ -115,6 +115,7 @@ final class StoreDetailViewModel {
     }
 
     func storeLikeButtonTapped() {
+        guard isAbleToRecommend() else { return }
         let requestType: RecommendStoreRequestValue.`Type` = store.didUserRecommended ? .cancel : .recommend
         recommendStoreTask = recommendStoreUseCase.execute(
             requestValue: .init(storeId: store.storeId, type: requestType)
@@ -130,6 +131,19 @@ final class StoreDetailViewModel {
         }
 
         recommendStoreTask?.resume()
+    }
+
+    private func isAbleToRecommend() -> Bool {
+        guard let lastRecommendedTime = UserDefaults.standard.object(forKey: "lastRecommended") as? Date else {
+            UserDefaults.standard.set(Date(), forKey: "lastRecommended")
+            return true
+        }
+
+        guard let dateToCompare = Calendar.current.date(byAdding: .second, value: 3, to: lastRecommendedTime) else {
+            return false
+        }
+        UserDefaults.standard.set(Date(), forKey: "lastRecommended")
+        return dateToCompare < Date()
     }
 
     private func fetchProducts() {
@@ -211,6 +225,10 @@ extension StoreDetailViewModel {
     func viewWillAppear() {
         fetchProducts()
         fetchStoreReviews()
+    }
+
+    func viewWillDisappear() {
+        [productListLoadTask, storeReviewsLoadTask, recommendStoreTask].forEach { $0?.cancel() }
     }
 }
 
