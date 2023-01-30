@@ -43,10 +43,64 @@ final class MockRegisterReviewRepository: RegisterReviewRepositoryInterface {
 
 final class MockUploadImageRepository: UploadImageRepositoryInterface {
     func uploadImage(images: [UIImage], completion: @escaping (Result<[String], Error>) -> Void) -> Cancellable? {
-        return nil
+
+        let dummyStrings = Array.init(repeating: "",
+                                      count: images.count)
+
+        return MockTask {
+            completion(.success(dummyStrings))
+        }
+    }
+}
+
+final class MockAccountRepository: AccountRepositoryInterface {
+    func OAuthLogin(loginType: OAuthType, completion: @escaping (Result<String?, Error>) -> Void) -> Cancellable? {
+        let jwtToken = "jwtToken"
+        return MockTask {
+            completion(.success(jwtToken))
+        }
+    }
+
+    func withdraw(completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
+        return MockTask {
+            completion(.success(()))
+        }
+    }
+
+    func createNickname(completion: @escaping (Result<String, Error>) -> Void) -> Cancellable? {
+        let randomNickname = "randomNickname"
+        return MockTask {
+            completion(.success(randomNickname))
+        }
+    }
+
+    func signUp(requestValue: SignUpRequestValue, completion: @escaping (Result<String, Error>) -> Void) -> Cancellable? {
+        let jwtToken = "jwtToken"
+        return MockTask {
+            completion(.success(jwtToken))
+        }
     }
 }
 
 final class MockStoreRepository: StoreRepositoryInterface {
 
+}
+
+/// init을 통해 내부 변수 task를 전달받습니다.
+/// resume()을 실행하면 2초 뒤 task를 실행합니다.
+/// cancel()를 실행하면 task에 nil을 할당합니다.
+final class MockTask: Cancellable {
+    var task: (() -> Void)?
+
+    init(task: @escaping (() -> Void)) {
+        self.task = task
+    }
+
+    func resume() {
+        task?()
+    }
+
+    func cancel() {
+        task = nil
+    }
 }
