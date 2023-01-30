@@ -8,9 +8,6 @@
 import Foundation
 
 protocol RegisterReviewRepositoryInterface {
-    func fetchTags(completion: @escaping(Result<[Tag], Error>) -> Void) -> Cancellable?
     func registerReview(query: RegiserReviewRequestValue,
-                        completion: @escaping (Result<Never, Error>) -> Void) -> Cancellable?
-    func uploadReviewImage(query: UploadImageRequestValue,
-                           completion: @escaping (Result<[String], Error>) -> Void) -> Cancellable?
+                        completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable?
 }

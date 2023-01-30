@@ -27,6 +27,8 @@ final class RegisterReviewUseCase: RegisterReviewUseCaseInterface {
     }
 
     func execute(requestValue: RegiserReviewRequestValue, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
-        return nil
+        return registerReviewRepository.registerReview(query: requestValue) { result in
+            completion(result)
+        }
     }
 }

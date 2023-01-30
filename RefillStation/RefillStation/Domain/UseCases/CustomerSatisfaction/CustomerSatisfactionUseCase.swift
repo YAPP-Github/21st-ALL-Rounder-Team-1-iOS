@@ -19,11 +19,13 @@ protocol CustomerSatisfactionUseCaseInterface {
 final class CustomerSatisfactionUseCase: CustomerSatisfactionUseCaseInterface {
     private let customerSatisfactionRepository: CustomerSatisfactionRepositoryInterface
 
-    init(customerSatisfactionRepository: CustomerSatisfactionRepositoryInterface) {
+    init(customerSatisfactionRepository: CustomerSatisfactionRepositoryInterface = MockCustomerSatisfactionRepository()) {
         self.customerSatisfactionRepository = customerSatisfactionRepository
     }
 
     func execute(type: CustomerSatisfactionType, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
-        return nil
+        return customerSatisfactionRepository.upload(type: type) { result in
+            completion(result)
+        }
     }
 }

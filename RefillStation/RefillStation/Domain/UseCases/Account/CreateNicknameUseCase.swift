@@ -14,11 +14,13 @@ protocol CreateNicknameUseCaseInterface {
 final class CreateNicknameUseCase: CreateNicknameUseCaseInterface {
     private let accountRepository: AccountRepositoryInterface
 
-    init(accountRepository: AccountRepositoryInterface) {
+    init(accountRepository: AccountRepositoryInterface = MockAccountRepository()) {
         self.accountRepository = accountRepository
     }
 
     func execute(completion: @escaping (Result<String, Error>) -> Void) -> Cancellable? {
-        return nil
+        return accountRepository.createNickname { result in
+            completion(result)
+        }
     }
 }

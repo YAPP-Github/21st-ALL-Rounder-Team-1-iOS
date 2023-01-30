@@ -7,86 +7,39 @@
 
 import UIKit
 
-final class MockHomeRepository: HomeRepositoryInterface {
-    func fetchStoreList(query: FetchStoresUseCaseRequestValue, completion: @escaping (Result<[Store], Error>) -> Void) -> Cancellable? {
-        return URLSession.shared.dataTask(with: URLRequest(url: URL(string: "")!))
-    }
-}
-
-final class MockProductsRepository: ProductsRepositoryInterface {
-    func fetchProducts(query: FetchProductsRequestValue, completion: @escaping (Result<[Product], Error>) -> Void) -> Cancellable? {
-        return nil
-    }
-}
-
-final class MockStoreReviewRepository: StoreReviewRepositoryInterface {
-
-}
-
-final class MockRequestRegionRepository: RequestRegionRepositoryInterface {
-
-}
-
-final class MockRegisterReviewRepository: RegisterReviewRepositoryInterface {
-    func fetchTags(completion: @escaping (Result<[Tag], Error>) -> Void) -> Cancellable? {
-        return URLSession.shared.dataTask(with: URLRequest(url: URL(string: "")!))
-    }
-
-    func registerReview(query: RegiserReviewRequestValue, completion: @escaping (Result<Never, Error>) -> Void) -> Cancellable? {
-        return URLSession.shared.dataTask(with: URLRequest(url: URL(string: "")!))
-    }
-
-    func uploadReviewImage(query: UploadImageRequestValue, completion: @escaping (Result<[String], Error>) -> Void) -> Cancellable? {
-        return URLSession.shared.dataTask(with: URLRequest(url: URL(string: "")!))
-    }
-}
-
 final class MockUploadImageRepository: UploadImageRepositoryInterface {
     func uploadImage(images: [UIImage], completion: @escaping (Result<[String], Error>) -> Void) -> Cancellable? {
 
-        let dummyStrings = Array.init(repeating: "",
-                                      count: images.count)
+        let dummyStrings = Array.init(repeating: "", count: images.count)
 
-        return MockTask {
-            completion(.success(dummyStrings))
-        }
+        return MockTask { completion(.success(dummyStrings)) }
     }
 }
 
 final class MockAccountRepository: AccountRepositoryInterface {
     func OAuthLogin(loginType: OAuthType, completion: @escaping (Result<String?, Error>) -> Void) -> Cancellable? {
-        let jwtToken = "jwtToken"
-        return MockTask {
-            completion(.success(jwtToken))
-        }
+        let jwtToken: String? = nil
+        return MockTask { completion(.success(jwtToken)) }
     }
 
     func withdraw(completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
-        return MockTask {
-            completion(.success(()))
-        }
+        return MockTask { completion(.success(())) }
     }
 
     func createNickname(completion: @escaping (Result<String, Error>) -> Void) -> Cancellable? {
         let randomNickname = "randomNickname"
-        return MockTask {
-            completion(.success(randomNickname))
-        }
+        return MockTask { completion(.success(randomNickname)) }
     }
 
     func signUp(requestValue: SignUpRequestValue, completion: @escaping (Result<String, Error>) -> Void) -> Cancellable? {
         let jwtToken = "jwtToken"
-        return MockTask {
-            completion(.success(jwtToken))
-        }
+        return MockTask { completion(.success(jwtToken)) }
     }
 }
 
-final class MockCustomerSatisfactionRepository: CustomerSatisfactionUseCaseInterface {
-    func execute(type: CustomerSatisfactionType, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
-        return MockTask {
-            completion(.success(()))
-        }
+final class MockCustomerSatisfactionRepository: CustomerSatisfactionRepositoryInterface {
+    func upload(type: CustomerSatisfactionType, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
+        return MockTask { completion(.success(())) }
     }
 }
 
@@ -94,60 +47,50 @@ final class MockUserInfoRepository: UserInfoRepositoryInterface {
     func fetchProfile(completion: @escaping (Result<User, Error>) -> Void) -> Cancellable? {
         let dummyUser = User(id: 1, name: "Neph", imageURL: "",
                              level: .init(level: .beginner, remainCountForNextLevel: 1))
-        return MockTask {
-            completion(.success(dummyUser))
-        }
+        return MockTask { completion(.success(dummyUser)) }
     }
 
     func editProfile(requestValue: EditProfileRequestValue, completion: @escaping (Result<User, Error>) -> Void) -> Cancellable? {
         let dummyUser = User(id: 1, name: "변경된Neph", imageURL: "",
                              level: .init(level: .beginner, remainCountForNextLevel: 1))
-        return MockTask {
-            completion(.success(dummyUser))
-        }
+        return MockTask { completion(.success(dummyUser)) }
     }
 
     func validNickname(requestValue: ValidNicknameRequestValue, completion: @escaping (Result<Bool, Error>) -> Void) -> Cancellable? {
-        return MockTask {
-            completion(.success(true))
-        }
+        return MockTask { completion(.success(true)) }
     }
 
     func fetchUserReviews(completion: @escaping (Result<[Review], Error>) -> Void) -> Cancellable? {
         let dummyReviews = MockEntityData.reviews()
-        return MockTask {
-            completion(.success(dummyReviews))
-        }
+        return MockTask { completion(.success(dummyReviews)) }
     }
 }
 
 final class MockStoreRepository: StoreRepositoryInterface {
     func fetchStores(requestValue: FetchStoresUseCaseRequestValue, completion: @escaping (Result<[Store], Error>) -> Void) -> Cancellable? {
         let dummyStores = MockEntityData.stores()
-        return MockTask {
-            completion(.success(dummyStores))
-        }
+        return MockTask { completion(.success(dummyStores)) }
     }
 
     func fetchProducts(requestValue: FetchProductsRequestValue, completion: @escaping (Result<[Product], Error>) -> Void) -> Cancellable? {
         let dummyProducts = MockEntityData.products()
-        return MockTask {
-            completion(.success(dummyProducts))
-        }
+        return MockTask { completion(.success(dummyProducts)) }
     }
 
     func fetchStoreReviews(requestValue: FetchStoreReviewsRequestValue, completion: @escaping (Result<[Review], Error>) -> Void) -> Cancellable? {
         let dummyReviews = MockEntityData.reviews()
-        return MockTask {
-            completion(.success(dummyReviews))
-        }
+        return MockTask { completion(.success(dummyReviews)) }
     }
 
     func recommendStore(requestValue: RecommendStoreRequestValue, completion: @escaping (Result<RecommendStoreResponseValue, Error>) -> Void) -> Cancellable? {
         let dummyResponse = RecommendStoreResponseValue(recommendCount: 10, didRecommended: true)
-        return MockTask {
-            completion(.success(dummyResponse))
-        }
+        return MockTask { completion(.success(dummyResponse)) }
+    }
+}
+
+final class MockRegisterReviewRepository: RegisterReviewRepositoryInterface {
+    func registerReview(query: RegiserReviewRequestValue, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
+        return MockTask { completion(.success(())) }
     }
 }
 

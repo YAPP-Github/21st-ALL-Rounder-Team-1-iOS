@@ -26,11 +26,13 @@ protocol EditProfileUseCaseInterface {
 final class EditProfileUseCase: EditProfileUseCaseInterface {
     private let userInfoRepository: UserInfoRepositoryInterface
 
-    init(userInfoRepository: UserInfoRepositoryInterface) {
+    init(userInfoRepository: UserInfoRepositoryInterface = MockUserInfoRepository()) {
         self.userInfoRepository = userInfoRepository
     }
 
     func execute(requestValue: EditProfileRequestValue, completion: @escaping (Result<User, Error>) -> Void) -> Cancellable? {
-        return nil
+        return userInfoRepository.editProfile(requestValue: requestValue) { result in
+            completion(result)
+        }
     }
 }

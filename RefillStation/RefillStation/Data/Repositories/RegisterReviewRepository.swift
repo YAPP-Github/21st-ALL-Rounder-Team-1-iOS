@@ -8,6 +8,7 @@
 import Foundation
 
 final class RegisterReviewRepository: RegisterReviewRepositoryInterface {
+
     private let networkService: NetworkService
     private let cache: TagResponseStorage
 
@@ -16,17 +17,7 @@ final class RegisterReviewRepository: RegisterReviewRepositoryInterface {
         self.cache = cache
     }
 
-    func fetchTags(completion: @escaping (Result<[Tag], Error>) -> Void) -> Cancellable? {
-        return nil
-    }
-
-    func registerReview(query: RegiserReviewRequestValue,
-                        completion: @escaping (Result<Never, Error>) -> Void) -> Cancellable? {
-        return nil
-    }
-
-    func uploadReviewImage(query: UploadImageRequestValue,
-                           completion: @escaping (Result<[String], Error>) -> Void) -> Cancellable? {
+    func registerReview(query: RegiserReviewRequestValue, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
         return nil
     }
 }

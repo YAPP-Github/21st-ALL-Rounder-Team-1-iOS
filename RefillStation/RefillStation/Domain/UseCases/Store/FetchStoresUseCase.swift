@@ -26,6 +26,8 @@ final class FetchStoresUseCase: FetchStoresUseCaseInterface {
 
     func execute(requestValue: FetchStoresUseCaseRequestValue,
                  completion: @escaping (Result<[Store], Error>) -> Void) -> Cancellable? {
-        return nil
+        return storeRepository.fetchStores(requestValue: requestValue) { result in
+            completion(result)
+        }
     }
 }
