@@ -9,6 +9,9 @@ import UIKit
 import Algorithms
 
 final class MockEntityData {
+
+    private init() {}
+
     static func products() -> [Product] {
 
         return [
@@ -52,8 +55,6 @@ final class MockEntityData {
         return reviews.compactMap { $0 }
     }
 
-    private init() {}
-
     static func store(checkLists: [Bool]) -> Store? {
         let didUserRecommended = checkLists[0]
         let isRecommendCountOverZero = checkLists[1]
@@ -94,7 +95,7 @@ final class MockEntityData {
         let description = hasLongDescription ? longDescription : (hasDescription ? "" : shortDescription)
         let descriptionType = hasLongDescription ? "김" : (hasDescription ? "없음" : "짧음")
 
-        return Review(userId: 1, userNickname: "이미지수: \(imagePaths.count) 태그수: \(tags.count) 내용: \(descriptionType)",
+        return Review(userId: 1, userNickname: "이미지수: \(imagePaths.count), 태그수: \(tags.count), 내용: \(descriptionType)",
                       profileImagePath: "", writtenDate: Date(),
                       imageURL: imagePaths, description: description, tags: tags)
     }
