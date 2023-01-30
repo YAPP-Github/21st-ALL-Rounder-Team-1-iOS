@@ -147,7 +147,7 @@ final class TermsPermissionViewController: UIViewController {
             button.addAction(UIAction(handler: { [weak self] _ in
                 guard let self = self else { return }
                 button.isSelected.toggle()
-                let state = self.viewModel.isEntireAgree(buttons: buttons)
+                let state = self.viewModel.didAgreeAllAgreements(buttons: buttons)
                 self.confirmButton.isEnabled = state
                 self.entireAgreeButton.isSelected = state
             }), for: .touchUpInside)

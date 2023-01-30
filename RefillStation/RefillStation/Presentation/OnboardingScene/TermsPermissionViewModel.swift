@@ -8,11 +8,9 @@
 import UIKit
 
 final class TermsPermissionViewModel {
-    func isEntireAgree(buttons: [UIButton]) -> Bool {
-        for button in buttons where !button.isSelected {
-            return false
-        }
-        return true
+    func didAgreeAllAgreements(buttons: [UIButton]) -> Bool {
+        return buttons.map { $0.isSelected }
+            .allSatisfy { $0 == true }
     }
 }
 
