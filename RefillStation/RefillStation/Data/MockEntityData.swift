@@ -6,9 +6,14 @@
 //
 
 import UIKit
+import Algorithms
 
 final class MockEntityData {
+
+    private init() {}
+
     static func products() -> [Product] {
+
         return [
             .init(name: "샴푸", brand: "A", measurement: "g", price: 10, imageURL: "", category: .init(title: "샴푸")),
             .init(name: "스킨", brand: "B", measurement: "g", price: 10, imageURL: "", category: .init(title: "스킨")),
@@ -18,66 +23,80 @@ final class MockEntityData {
     }
 
     static func stores() -> [Store] {
-        return [
-            .init(storeId: 1, name: "알맹상점", address: "서울시 송파구", distance: 2.5, phoneNumber: "010-1234-5678",
-                  snsAddress: "www.pump.com", didUserRecommended: false, recommendedCount: 3,
-                  imageURL: [], businessHour: [
-                    .init(day: .mon, time: "10:00 - 18:00"),
-                    .init(day: .tue, time: "10:00 - 18:00"),
-                    .init(day: .wed, time: "10:00 - 18:00"),
-                    .init(day: .thu, time: "10:00 - 18:00"),
-                    .init(day: .fri, time: "10:00 - 18:00"),
-                    .init(day: .sat, time: "10:00 - 18:00"),
-                    .init(day: .sun, time: nil),
-                  ], notice: "휴무일 관련 기타 정보")
-        ]
+        let didUserRecommended = false
+        let isRecommendCountOverZero = false
+        let isSNSAddressExists = false
+        let checkLists = [didUserRecommended, isRecommendCountOverZero]
+        var stores = [Store?]()
+        for combo in (checkLists.startIndex..<checkLists.endIndex).map({ $0 }).combinations(ofCount: checkLists.startIndex..<checkLists.endIndex) {
+            var temporaryCheckLists = checkLists
+            combo.forEach { temporaryCheckLists[$0] = true }
+            stores.append(store(checkLists: temporaryCheckLists + [false]))
+        }
+        stores.append(store(checkLists: [false, false, true]))
+
+        return stores.compactMap { $0 }
     }
 
     static func reviews() -> [Review] {
-        return [
-            .init(userId: 1, userNickname: "Neph1", profileImagePath: "",
-                  writtenDate: Date(), imageURL: ["", "", ""], description: "내용",
-                  tags: [.storeIsBig]),
-            .init(userId: 2, userNickname: "Neph2", profileImagePath: "",
-                  writtenDate: Date(), imageURL: [], description: "내용은 있어요",
-                  tags: []),
-            .init(userId: 3, userNickname: "Neph3", profileImagePath: "",
-                  writtenDate: Date(), imageURL: [], description: "내용3",
-                  tags: []),
-            .init(userId: 4, userNickname: "Neph4", profileImagePath: "",
-                  writtenDate: Date(), imageURL: [], description: "내용",
-                  tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
-            .init(userId: 5, userNickname: "Neph5", profileImagePath: "",
-                  writtenDate: Date(), imageURL: [], description: "내용2",
-                  tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
-//            .init(userId: 6, userNickname: "Neph6", profileImagePath: "",
-//                  writtenDate: Date(), imageURL: [], description: "내용3",
-//                  tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
-//            .init(userId: 7, userNickname: "Neph7", profileImagePath: "",
-//                  writtenDate: Date(), imageURL: [], description: "내용",
-//                  tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
-//            .init(userId: 8, userNickname: "Neph8", profileImagePath: "",
-//                  writtenDate: Date(), imageURL: [], description: "긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용긴긴내용",
-//                  tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
-//            .init(userId: 9, userNickname: "Neph9", profileImagePath: "",
-//                  writtenDate: Date(), imageURL: [""], description: "내용3",
-//                  tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
-//            .init(userId: 10, userNickname: "Neph10", profileImagePath: "",
-//                  writtenDate: Date(), imageURL: [], description: "내용",
-//                  tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
-//            .init(userId: 11, userNickname: "Neph11", profileImagePath: "",
-//                  writtenDate: Date(), imageURL: [], description: "내용2",
-//                  tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
-//            .init(userId: 12, userNickname: "Neph12", profileImagePath: "",
-//                  writtenDate: Date(), imageURL: [], description: "내용3",
-//                  tags: [.clerkIsKind, .canEarnPoint, .storeIsBig]),
-        ]
+        let hasImage = false
+        let isImageOverOne = false
+        let hasTag = false
+        let isTagOverTwo = false
+        let hasDescription = false
+        let hasLongDescription = false
+        let checkLists = [hasImage, isImageOverOne, hasTag, isTagOverTwo, hasDescription, hasLongDescription]
+        var reviews = [Review?]()
+        for combo in (checkLists.startIndex..<checkLists.endIndex).map({ $0 }).combinations(ofCount: checkLists.startIndex..<checkLists.endIndex) {
+            var temporaryCheckLists = checkLists
+            combo.forEach { temporaryCheckLists[$0] = true }
+            reviews.append(review(chekLists: temporaryCheckLists))
+        }
+        return reviews.compactMap { $0 }
     }
 
-    static func operations() -> [OperationInfo] {
-        return [
-        ]
+    static func store(checkLists: [Bool]) -> Store? {
+        let didUserRecommended = checkLists[0]
+        let isRecommendCountOverZero = checkLists[1]
+        let isSNSAddressExists = checkLists[2]
+
+        if didUserRecommended && isRecommendCountOverZero { return nil }
+        return Store(storeId: 1, name: "유저추천: \(didUserRecommended ? "O" : "X"), 추천수: \(isRecommendCountOverZero ? "10" : "0"), sns: \(isSNSAddressExists ? "있음" : "없음")", address: "서울시 송파구 오금로", distance: 2.5,
+                     phoneNumber: "010-1234-5678", snsAddress: isSNSAddressExists ? "https://www.naver.com" : "",
+                     didUserRecommended: didUserRecommended, recommendedCount: isRecommendCountOverZero ? 10 : 0,
+                     imageURL: [""], businessHour: [
+                        .init(day: .mon, time: "10:00 - 18:00"),
+                        .init(day: .tue, time: "10:00 - 18:00"),
+                        .init(day: .wed, time: "10:00 - 18:00"),
+                        .init(day: .thu, time: "10:00 - 18:00"),
+                        .init(day: .fri, time: "10:00 - 18:00"),
+                        .init(day: .sat, time: "10:00 - 18:00"),
+                        .init(day: .sun, time: nil)]
+                     , notice: "")
     }
 
-    private init() {}
+    static func review(chekLists: [Bool]) -> Review? {
+        let hasImage = chekLists[0]
+        let isImageOverOne = chekLists[1]
+        let hasTag = chekLists[2]
+        let isTagOverTwo = chekLists[3]
+        let hasDescription = chekLists[4]
+        let hasLongDescription = chekLists[5]
+        if (!hasImage && isImageOverOne) || (!hasTag && isTagOverTwo) || (!hasDescription && hasLongDescription) {
+            return nil
+        }
+
+        let imagePaths = Array(repeating: "", count: isImageOverOne ? 3 : (hasImage ? 0 : 1))
+        let tags = Tag.allCases.randomSample(count: isTagOverTwo ? 3 : (hasTag ? 0 : 1))
+        let shortDescription = "좋은 매장이었습니다."
+        let longDescription = (0...20).reduce(into: "") { partialResult, _ in
+            partialResult += "좋은 매장이었습니다."
+        }
+        let description = hasLongDescription ? longDescription : (hasDescription ? "" : shortDescription)
+        let descriptionType = hasLongDescription ? "김" : (hasDescription ? "없음" : "짧음")
+
+        return Review(userId: 1, userNickname: "이미지수: \(imagePaths.count), 태그수: \(tags.count), 내용: \(descriptionType)",
+                      profileImagePath: "", writtenDate: Date(),
+                      imageURL: imagePaths, description: description, tags: tags)
+    }
 }
