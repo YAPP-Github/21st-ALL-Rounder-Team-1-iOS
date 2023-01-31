@@ -8,6 +8,10 @@
 import UIKit
 
 final class StoreDetailViewModel {
+
+    // MARK: - Binding
+    var applyDataSource: (() -> Void)?
+
     // MARK: - TabBarMode
     var mode: TabBarMode = .productLists {
         didSet { operationInfoSeeMoreIndexPaths.removeAll() }
@@ -17,7 +21,7 @@ final class StoreDetailViewModel {
     var store: Store
 
     // MARK: - ProductList
-    var products: [Product] = MockEntityData.products()
+    var products = [Product]()
     private(set) var categories = [ProductCategory]()
     private(set) var currentCategoryFilter = ProductCategory.all
     var filteredProducts: [Product] {
@@ -32,12 +36,8 @@ final class StoreDetailViewModel {
     }
 
     // MARK: - Review
-    var reviews = MockEntityData.reviews() {
-        didSet {
-            setUpRankedTags()
-        }
-    }
-    var totalTagVoteCount = 5
+    var reviews = [Review]()
+    var totalTagVoteCount = 0
     var rankTags = [RankTag]()
 
     // MARK: - Operation Info
@@ -84,12 +84,21 @@ final class StoreDetailViewModel {
     // MARK: - UseCase
     private let fetchProductsUseCase: FetchProductsUseCaseInterface
     private var productListLoadTask: Cancellable?
+    private let fetchStoreReviewsUseCase: FetchStoreReviewsUseCaseInterface
+    private var storeReviewsLoadTask: Cancellable?
+    private let recommendStoreUseCase: RecommendStoreUseCaseInterface
+    private var recommendStoreTask: Cancellable?
 
-    init(store: Store, fetchProductsUseCase: FetchProductsUseCaseInterface) {
+    init(
+        store: Store,
+        fetchProductsUseCase: FetchProductsUseCaseInterface = FetchProductsUseCase(),
+        fetchStoreReviewsUseCase: FetchStoreReviewsUseCaseInterface = FetchStoreReviewsUseCase(),
+        recommendStoreUseCase: RecommendStoreUseCaseInterface = RecommendStoreUseCase()
+    ) {
         self.store = store
         self.fetchProductsUseCase = fetchProductsUseCase
-        setUpCategories()
-        setUpRankedTags()
+        self.fetchStoreReviewsUseCase = fetchStoreReviewsUseCase
+        self.recommendStoreUseCase = recommendStoreUseCase
     }
 
     func categoryButtonDidTapped(category: ProductCategory?) {
@@ -105,8 +114,66 @@ final class StoreDetailViewModel {
         }
     }
 
-    func storeLikeButtonTapped(completion: (RecommendStoreResponseValue) -> Void) {
-        completion(.init(recommendCount: 4, didRecommended: true)) // TODO: get store like count
+    func storeLikeButtonTapped() {
+        guard isAbleToRecommend() else { return }
+        let requestType: RecommendStoreRequestValue.`Type` = store.didUserRecommended ? .cancel : .recommend
+        recommendStoreTask = recommendStoreUseCase.execute(
+            requestValue: .init(storeId: store.storeId, type: requestType)
+        ) { result in
+            switch result {
+            case .success(let response):
+                self.store.recommendedCount = response.recommendCount
+                self.store.didUserRecommended = response.didRecommended
+                self.applyDataSource?()
+            case .failure(let error):
+                return // TODO: Show Alert
+            }
+        }
+
+        recommendStoreTask?.resume()
+    }
+
+    private func isAbleToRecommend() -> Bool {
+        guard let lastRecommendedTime = UserDefaults.standard.object(forKey: "lastRecommended") as? Date else {
+            UserDefaults.standard.set(Date(), forKey: "lastRecommended")
+            return true
+        }
+
+        guard let dateToCompare = Calendar.current.date(byAdding: .second, value: 3, to: lastRecommendedTime) else {
+            return false
+        }
+        UserDefaults.standard.set(Date(), forKey: "lastRecommended")
+        return dateToCompare < Date()
+    }
+
+    private func fetchProducts() {
+        productListLoadTask = fetchProductsUseCase
+            .execute(requestValue: FetchProductsRequestValue(storeId: store.storeId)) { result in
+                switch result {
+                case .success(let products):
+                    self.products = products
+                    self.setUpCategories()
+                    self.applyDataSource?()
+                case .failure(let error):
+                    break // TODO: Show Alert
+                }
+            }
+        productListLoadTask?.resume()
+    }
+
+    private func fetchStoreReviews() {
+        let requestValue = FetchStoreReviewsRequestValue(storeId: store.storeId)
+        storeReviewsLoadTask = fetchStoreReviewsUseCase.execute(requestValue: requestValue) { result in
+            switch result {
+            case .success(let reviews):
+                self.reviews = reviews
+                self.setUpRankedTags()
+                self.applyDataSource?()
+            case .failure(let error):
+                break // TODO: Show Alert
+            }
+        }
+        storeReviewsLoadTask?.resume()
     }
 
     private func setUpCategories() {
@@ -115,22 +182,6 @@ final class StoreDetailViewModel {
                 categories.append($0.category)
             }
         }
-    }
-
-    private func fetchProductList(storeId: Int, completion: @escaping (Result<[Product], Error>) -> Void) {
-        productListLoadTask = fetchProductsUseCase
-            .execute(requestValue: FetchProductsRequestValue(storeId: storeId)) { result in
-                switch result {
-                case .success(let products):
-                    completion(.success(products))
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-            }
-    }
-
-    private func cancelFetchingProductList() {
-        productListLoadTask?.cancel()
     }
 
     private func setUpRankedTags() {
@@ -162,6 +213,22 @@ final class StoreDetailViewModel {
         }.map {
             return RankTag(tag: $0.key, voteCount: $0.value)
         }
+    }
+}
+
+// MARK: - Life Cycle
+extension StoreDetailViewModel {
+    func viewDidLoad() {
+
+    }
+
+    func viewWillAppear() {
+        fetchProducts()
+        fetchStoreReviews()
+    }
+
+    func viewWillDisappear() {
+        [productListLoadTask, storeReviewsLoadTask, recommendStoreTask].forEach { $0?.cancel() }
     }
 }
 

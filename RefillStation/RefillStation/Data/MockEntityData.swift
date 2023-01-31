@@ -61,7 +61,7 @@ final class MockEntityData {
         let isSNSAddressExists = checkLists[2]
 
         if didUserRecommended && isRecommendCountOverZero { return nil }
-        return Store(name: "유저추천: \(didUserRecommended ? "O" : "X"), 추천수: \(isRecommendCountOverZero ? "10" : "0"), sns: \(isSNSAddressExists ? "있음" : "없음")", address: "서울시 송파구 오금로", distance: 2.5,
+        return Store(storeId: 1, name: "유저추천: \(didUserRecommended ? "O" : "X"), 추천수: \(isRecommendCountOverZero ? "10" : "0"), sns: \(isSNSAddressExists ? "있음" : "없음")", address: "서울시 송파구 오금로", distance: 2.5,
                      phoneNumber: "010-1234-5678", snsAddress: isSNSAddressExists ? "https://www.naver.com" : "",
                      didUserRecommended: didUserRecommended, recommendedCount: isRecommendCountOverZero ? 10 : 0,
                      imageURL: [""], businessHour: [

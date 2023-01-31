@@ -8,13 +8,14 @@
 import UIKit
 
 struct Store: Hashable {
+    let storeId: Int
     let name: String
     let address: String
     let distance: Double
     let phoneNumber: String
     let snsAddress: String
-    let didUserRecommended: Bool
-    let recommendedCount: Int
+    var didUserRecommended: Bool
+    var recommendedCount: Int
     let imageURL: [String]
     let businessHour: [BusinessHour]
     let notice: String
