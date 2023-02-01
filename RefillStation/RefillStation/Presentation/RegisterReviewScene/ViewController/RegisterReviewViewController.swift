@@ -20,7 +20,7 @@ final class RegisterReviewViewController: UIViewController {
     private let phPickerViewController: PHPickerViewController = {
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
-        configuration.selectionLimit = 10
+        configuration.selectionLimit = 3
         let phPickerVC = PHPickerViewController(configuration: configuration)
         return phPickerVC
     }()
