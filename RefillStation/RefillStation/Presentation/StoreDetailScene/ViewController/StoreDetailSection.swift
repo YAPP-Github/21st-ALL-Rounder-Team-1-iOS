@@ -159,4 +159,28 @@ extension StoreDetailViewController {
             return .storeDetailInfo
         }
     }
+
+    func cellRegistration(section: StoreDetailSection) -> UICollectionView.CellRegistration<UICollectionViewCell, StoreDetailItem> {
+        switch section {
+        case .storeDetailInfo:
+            return storeDetailInfoCellRegisration()
+        case .tabBar:
+            return tabBarCellRegistration()
+        case .productCategory:
+            return productCategoriesCellRegistration()
+        case .filteredProductsCount:
+            return filteredCellRegistration()
+        case .productList:
+            return productCellRegistration()
+        case .reviewOverview:
+            return reviewInfoCellRegistration()
+        case .review:
+            return detailReviewCellRegistration()
+        case .operationNotice:
+            return operationNoticeCellRegistration()
+        case .operationInfo:
+            return operationInfoCellRegistration()
+        }
+
+    }
 }

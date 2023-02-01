@@ -11,6 +11,9 @@ final class StoreDetailViewController: UIViewController {
 
     var coordinator: StoreDetailCoordinator?
     private var viewModel: StoreDetailViewModel!
+    private var cellRegistrations: [
+        StoreDetailSection: UICollectionView.CellRegistration<UICollectionViewCell, StoreDetailItem>
+    ]?
     private lazy var storeDetailDataSource = diffableDataSource()
 
     private lazy var collectionView: UICollectionView = {
@@ -98,6 +101,13 @@ final class StoreDetailViewController: UIViewController {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.contentInsetAdjustmentBehavior = .never
         applyDataSource()
+        cellRegistrations = StoreDetailSection.allCases.map {
+            return ($0, cellRegistration(section: $0))
+        }.reduce(into: [:]) { (partialSum, sectionAndRegistration) in
+            let section = sectionAndRegistration.0
+            let cellRegistration = sectionAndRegistration.1
+            partialSum.updateValue(cellRegistration, forKey: section)
+        }
     }
 
     private func layout() {
@@ -177,47 +187,16 @@ extension StoreDetailViewController {
     }
 
     private func diffableDataSource() -> UICollectionViewDiffableDataSource<StoreDetailSection, StoreDetailItem> {
-        let storeDetailInfoCellRegisration = storeDetailInfoCellRegisration()
-        let tabBarCellRegistration = tabBarCellRegistration()
-        let productCategoriesCellRegistration = productCategoriesCellRegistration()
-        let filteredCellRegistration = filteredCellRegistration()
-        let productCellRegistration = productCellRegistration()
-        let reviewInfoCellRegistration = reviewInfoCellRegistration()
-        let detailReviewCellRegistration = detailReviewCellRegistration()
-        let operationNoticeCellRegistration = operationNoticeCellRegistration()
-        let operationInfoCellRegistration = operationInfoCellRegistration()
         return UICollectionViewDiffableDataSource<StoreDetailSection, StoreDetailItem>(
             collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
                 let storeDetailSection = self.section(mode: self.viewModel.mode, sectionIndex: indexPath.section)
-                switch storeDetailSection {
-                case .storeDetailInfo:
-                    return collectionView.dequeueConfiguredReusableCell(using: storeDetailInfoCellRegisration,
-                                                                        for: indexPath, item: itemIdentifier)
-                case .tabBar:
-                    return collectionView.dequeueConfiguredReusableCell(using: tabBarCellRegistration,
-                                                                        for: indexPath, item: itemIdentifier)
-                case .productCategory:
-                    return collectionView.dequeueConfiguredReusableCell(using: productCategoriesCellRegistration,
-                                                                        for: indexPath, item: itemIdentifier)
-                case .filteredProductsCount:
-                    return collectionView.dequeueConfiguredReusableCell(using: filteredCellRegistration,
-                                                                        for: indexPath, item: itemIdentifier)
-                case .productList:
-                    return collectionView.dequeueConfiguredReusableCell(using: productCellRegistration,
-                                                                        for: indexPath, item: itemIdentifier)
-                case .reviewOverview:
-                    return collectionView.dequeueConfiguredReusableCell(using: reviewInfoCellRegistration,
-                                                                        for: indexPath, item: itemIdentifier)
-                case .review:
-                    return collectionView.dequeueConfiguredReusableCell(using: detailReviewCellRegistration,
-                                                                        for: indexPath, item: itemIdentifier)
-                case .operationNotice:
-                    return collectionView.dequeueConfiguredReusableCell(using: operationNoticeCellRegistration,
-                                                                        for: indexPath, item: itemIdentifier)
-                case .operationInfo:
-                    return collectionView.dequeueConfiguredReusableCell(using: operationInfoCellRegistration,
-                                                                        for: indexPath, item: itemIdentifier)
+                guard let cellRegistration = self.cellRegistrations?[storeDetailSection] else {
+                    return UICollectionViewCell()
                 }
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: cellRegistration,
+                    for: indexPath,
+                    item: itemIdentifier)
             }
     }
 
@@ -296,16 +275,18 @@ extension StoreDetailViewController {
 
 // MARK: - Cell Registration
 extension StoreDetailViewController {
-    private func storeDetailInfoCellRegisration() -> UICollectionView.CellRegistration<StoreDetailInfoViewCell, StoreDetailItem> {
-        return UICollectionView.CellRegistration<StoreDetailInfoViewCell, StoreDetailItem> { cell, indexPath, item in
-            guard case let .storeDetailInfo(store) = item else { return }
+    func storeDetailInfoCellRegisration() -> UICollectionView.CellRegistration<UICollectionViewCell, StoreDetailItem> {
+        return UICollectionView.CellRegistration<UICollectionViewCell, StoreDetailItem> { cell, indexPath, item in
+            guard case let .storeDetailInfo(store) = item,
+                  let cell = cell as? StoreDetailInfoViewCell else { return }
             cell.setUpContents(store: store)
             cell.storeButtonTapped = { self.storeDetailButtonTapped(buttonType: $0) }
         }
     }
 
-    private func tabBarCellRegistration() -> UICollectionView.CellRegistration<StoreDetailTabBarCell, StoreDetailItem> {
-        return UICollectionView.CellRegistration<StoreDetailTabBarCell, StoreDetailItem> { cell, indexPath, item in
+    func tabBarCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewCell, StoreDetailItem> {
+        return UICollectionView.CellRegistration<UICollectionViewCell, StoreDetailItem> { cell, indexPath, item in
+            guard let cell = cell as? StoreDetailTabBarCell else { return }
             cell.headerTapped = { [weak self] mode in
                 if self?.viewModel.mode != mode {
                     self?.viewModel.mode = mode
@@ -316,8 +297,9 @@ extension StoreDetailViewController {
         }
     }
 
-    private func productCategoriesCellRegistration() -> UICollectionView.CellRegistration<ProductCategoriesCell, StoreDetailItem> {
-        return UICollectionView.CellRegistration<ProductCategoriesCell, StoreDetailItem> { cell, indexPath, item in
+    func productCategoriesCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewCell, StoreDetailItem> {
+        return UICollectionView.CellRegistration<UICollectionViewCell, StoreDetailItem> { cell, indexPath, item in
+            guard let cell = cell as? ProductCategoriesCell else { return }
             cell.setUpContents(info: .init(categories: self.viewModel.categories,
                                            currentFilter: self.viewModel.currentCategoryFilter))
             cell.categoryButtonTapped = {
@@ -327,23 +309,26 @@ extension StoreDetailViewController {
         }
     }
 
-    private func filteredCellRegistration() -> UICollectionView.CellRegistration<FilteredProductCountCell, StoreDetailItem> {
-        return UICollectionView.CellRegistration<FilteredProductCountCell, StoreDetailItem> { cell, indexPath, item in
-            guard case let .filteredProduct(count) = item else { return }
+    func filteredCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewCell, StoreDetailItem> {
+        return UICollectionView.CellRegistration<UICollectionViewCell, StoreDetailItem> { cell, indexPath, item in
+            guard case let .filteredProduct(count) = item,
+                  let cell = cell as? FilteredProductCountCell else { return }
             cell.setUpContents(filteredCount: count)
         }
     }
 
-    private func productCellRegistration() -> UICollectionView.CellRegistration<ProductCell, StoreDetailItem> {
-        return UICollectionView.CellRegistration<ProductCell, StoreDetailItem> { cell, indexPath, item in
-            guard case let .productList(product) = item else { return }
+    func productCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewCell, StoreDetailItem> {
+        return UICollectionView.CellRegistration<UICollectionViewCell, StoreDetailItem> { cell, indexPath, item in
+            guard case let .productList(product) = item,
+                  let cell = cell as? ProductCell else { return }
             cell.setUpContents(product: product)
         }
     }
 
-    private func reviewInfoCellRegistration() -> UICollectionView.CellRegistration<ReviewInfoCell, StoreDetailItem> {
-        return UICollectionView.CellRegistration<ReviewInfoCell, StoreDetailItem> { cell, indexPath, item in
-            guard case let .reviewOverview(rankTags) = item else { return }
+    func reviewInfoCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewCell, StoreDetailItem> {
+        return UICollectionView.CellRegistration<UICollectionViewCell, StoreDetailItem> { cell, indexPath, item in
+            guard case let .reviewOverview(rankTags) = item,
+                  let cell = cell as? ReviewInfoCell else { return }
             cell.moveToRegisterReview = { [weak self] in
                 self?.coordinator?.showRegisterReview()
             }
@@ -352,9 +337,10 @@ extension StoreDetailViewController {
         }
     }
 
-    private func detailReviewCellRegistration() -> UICollectionView.CellRegistration<DetailReviewCell, StoreDetailItem> {
-        return UICollectionView.CellRegistration<DetailReviewCell, StoreDetailItem> { cell, indexPath, item in
-            guard case let .review(review) = item else { return }
+    func detailReviewCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewCell, StoreDetailItem> {
+        return UICollectionView.CellRegistration<UICollectionViewCell, StoreDetailItem> { cell, indexPath, item in
+            guard case let .review(review) = item,
+                  let cell = cell as? DetailReviewCell else { return }
             let shouldSeeMore = self.viewModel.reviewSeeMoreIndexPaths.contains(indexPath)
             cell.setUpContents(review: review, shouldSeeMore: shouldSeeMore)
             cell.photoImageTapped = { [weak self] in
@@ -380,13 +366,14 @@ extension StoreDetailViewController {
         }
     }
 
-    private func operationNoticeCellRegistration() -> UICollectionView.CellRegistration<OperationNoticeCell, StoreDetailItem> {
-        return UICollectionView.CellRegistration<OperationNoticeCell, StoreDetailItem> { cell, indexPath, item in
+    func operationNoticeCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewCell, StoreDetailItem> {
+        return UICollectionView.CellRegistration<UICollectionViewCell, StoreDetailItem> { cell, indexPath, item in
         }
     }
-    private func operationInfoCellRegistration() -> UICollectionView.CellRegistration<OperationInfoCell, StoreDetailItem> {
-        return UICollectionView.CellRegistration<OperationInfoCell, StoreDetailItem> { cell, indexPath, item in
-            guard case let .operationInfo(operationInfo) = item else { return }
+    func operationInfoCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewCell, StoreDetailItem> {
+        return UICollectionView.CellRegistration<UICollectionViewCell, StoreDetailItem> { cell, indexPath, item in
+            guard case let .operationInfo(operationInfo) = item,
+                  let cell = cell as? OperationInfoCell else { return }
             let shouldShowMore = self.viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath)
             cell.setUpContents(operation: operationInfo, shouldShowMore: shouldShowMore)
             cell.seeMoreTapped = {
