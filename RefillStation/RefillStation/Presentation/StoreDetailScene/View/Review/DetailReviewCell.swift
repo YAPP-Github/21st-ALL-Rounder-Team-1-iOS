@@ -177,23 +177,26 @@ final class DetailReviewCell: UICollectionViewCell {
 
     func setUpContents(review: Review, shouldSeeMore: Bool) {
         self.review = review
-        self.tags = review.tags.filter { $0 != .noKeywordToChoose }
-        tagCollectionView.reloadData()
-        tagCollectionView.layoutIfNeeded()
+        setUpTagCollectionViewContents()
         userNameLabel.text = review.userNickname
         writtenDateLabel.text = review.writtenDate.toString()
         descriptionLabel.text = review.description
         imageCountLabel.text = "1 / \(review.imageURL.count)"
         imageCountLabel.isHidden = review.imageURL.count <= 1
-        // TODO: Fetch Image(profile, review) with URL
         addArrangedSubviewsToOuterStackview()
+        descriptionLabel.numberOfLines = shouldSeeMore ? 0 : 3
+    }
+
+    private func setUpTagCollectionViewContents() {
+        guard let review = review else { return }
+        tags = review.tags.filter { $0 != .noKeywordToChoose }
+        tagCollectionView.reloadData()
+        tagCollectionView.layoutIfNeeded()
         DispatchQueue.main.async {
             self.tagCollectionView.snp.remakeConstraints {
                 $0.height.equalTo(self.tagCollectionView.contentSize.height)
             }
         }
-
-        descriptionLabel.numberOfLines = shouldSeeMore ? 0 : 3
     }
 
     private func layout() {
