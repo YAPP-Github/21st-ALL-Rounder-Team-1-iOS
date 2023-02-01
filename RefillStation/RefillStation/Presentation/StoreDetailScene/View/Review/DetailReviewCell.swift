@@ -293,12 +293,13 @@ fileprivate extension Date {
     func toString() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.timeZone = TimeZone(identifier: "ko_KR") ?? .current
         if let currentYear = Calendar.current.dateComponents([.year], from: Date()).year,
            let dateYear = Calendar.current.dateComponents([.year], from: Date()).year,
            currentYear == dateYear {
-            dateFormatter.dateFormat = "MM.dd.EE"
+            dateFormatter.dateFormat = "M.d.EE"
         } else {
-            dateFormatter.dateFormat = "yyyy.MM.dd"
+            dateFormatter.dateFormat = "yyyy.M.d"
         }
 
         return dateFormatter.string(from: self)
