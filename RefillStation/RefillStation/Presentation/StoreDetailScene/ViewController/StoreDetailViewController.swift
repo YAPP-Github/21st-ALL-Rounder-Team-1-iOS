@@ -227,9 +227,14 @@ extension StoreDetailViewController {
                 }
 
                 if let cell = cell as? DetailReviewCell, case let .review(review) = itemIdentifier {
-                    cell.setUpContents(review: review)
+                    let shouldSeeMore = self.viewModel.reviewSeeMoreIndexPaths.contains(indexPath)
+                    cell.setUpContents(review: review, shouldSeeMore: shouldSeeMore)
                     cell.photoImageTapped = { [weak self] in
                         self?.coordinator?.showDetailPhotoReview(photoURLs: review.imageURL)
+                    }
+                    cell.seeMoreTapped = {
+                        self.viewModel.reviewSeeMoreTapped(indexPath: indexPath)
+                        self.reloadCellAt(indexPath: indexPath)
                     }
                     cell.reportButtonTapped = { [weak self] in
                         let reportPopUp = ReviewReportPopUpViewController(
@@ -282,18 +287,6 @@ extension StoreDetailViewController {
 
 // MARK: - UICollectionViewDelegate
 extension StoreDetailViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if section(mode: viewModel.mode, sectionIndex: indexPath.section) != .operationInfo {
-            reloadCellAt(indexPath: indexPath)
-        }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if section(mode: viewModel.mode, sectionIndex: indexPath.section) != .operationInfo {
-            reloadCellAt(indexPath: indexPath)
-        }
-    }
-
     private func reloadCellAt(indexPath: IndexPath) {
         if let item = storeDetailDataSource.itemIdentifier(for: indexPath) {
             var currentSnapshot = storeDetailDataSource.snapshot()

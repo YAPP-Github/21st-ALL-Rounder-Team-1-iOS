@@ -23,14 +23,9 @@ final class DetailReviewCell: UICollectionViewCell {
     }
 
     // MARK: - Event Handling
-    override var isSelected: Bool {
-        didSet {
-            descriptionLabel.numberOfLines = isSelected ? 0 : 3
-            layoutIfNeeded()
-        }
-    }
     var photoImageTapped: (() -> Void)?
     var reportButtonTapped: (() -> Void)?
+    var seeMoreTapped: (() -> Void)?
 
     // MARK: - UI Components
     private let profileImageView: UIImageView = {
@@ -120,12 +115,16 @@ final class DetailReviewCell: UICollectionViewCell {
         return reviewImageOuterView
     }()
 
-    private let descriptionLabel: UILabel = {
+    private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 3
         label.textColor = Asset.Colors.gray5.color
         label.font = UIFont.font(style: .bodyMedium)
         label.lineBreakStrategy = .hangulWordPriority
+        label.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(descriptionLabelTapped(_:)))
+        label.addGestureRecognizer(tapGesture)
         return label
     }()
 
@@ -176,7 +175,7 @@ final class DetailReviewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
-    func setUpContents(review: Review) {
+    func setUpContents(review: Review, shouldSeeMore: Bool) {
         self.review = review
         self.tags = review.tags.filter { $0 != .noKeywordToChoose }
         tagCollectionView.reloadData()
@@ -193,6 +192,8 @@ final class DetailReviewCell: UICollectionViewCell {
                 $0.height.equalTo(self.tagCollectionView.contentSize.height)
             }
         }
+
+        descriptionLabel.numberOfLines = shouldSeeMore ? 0 : 3
     }
 
     private func layout() {
@@ -244,6 +245,11 @@ final class DetailReviewCell: UICollectionViewCell {
     @objc
     private func imageViewDidTapped(_ sender: UITapGestureRecognizer) {
         photoImageTapped?()
+    }
+
+    @objc
+    private func descriptionLabelTapped(_ sender: UITapGestureRecognizer) {
+        seeMoreTapped?()
     }
 }
 
