@@ -59,6 +59,7 @@ final class RegisterReviewViewController: UIViewController {
     }
 
     private func setUpCollectionView() {
+        outerCollectionView.backgroundColor = .white
         outerCollectionView.register(StoreInfoCell.self,
                                      forCellWithReuseIdentifier: StoreInfoCell.reuseIdentifier)
         outerCollectionView.register(VoteTitleCell.self,
