@@ -10,7 +10,7 @@ import SnapKit
 
 final class TagReviewCell: UICollectionViewCell {
 
-    static let reuseIdentifier = "tagCollectionViewCell"
+    static let reuseIdentifier = String(describing: TagReviewCell.self)
 
     override var isSelected: Bool {
         didSet {

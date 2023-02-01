@@ -11,7 +11,7 @@ import PhotosUI
 
 final class ReviewPhotosCell: UICollectionViewCell {
 
-    static let reuseIdentifier = "reviewPhotosCell"
+    static let reuseIdentifier = String(describing: ReviewPhotosCell.self)
     weak var delegate: ReviewPhotoDelegate?
     private let outerScrollView = UIScrollView()
 

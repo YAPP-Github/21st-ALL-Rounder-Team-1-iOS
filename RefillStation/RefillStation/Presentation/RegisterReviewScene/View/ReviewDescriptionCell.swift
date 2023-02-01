@@ -10,7 +10,7 @@ import SnapKit
 
 final class ReviewDescriptionCell: UICollectionViewCell {
 
-    static let reuseIdentifier = "reviewDescriptionCell"
+    static let reuseIdentifier = String(describing: ReviewDescriptionCell.self)
 
     private let placeholder = "다른 손님에게도 도움이 되도록 매장을 이용하며 느꼈던 점을 솔직하게 알려주세요!"
     private let reviewTextView: UITextView = {

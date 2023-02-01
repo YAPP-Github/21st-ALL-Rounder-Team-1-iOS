@@ -10,7 +10,7 @@ import SnapKit
 
 final class VoteTitleCell: UICollectionViewCell {
 
-    static let reuseIdentifier = "voteTitleCell"
+    static let reuseIdentifier = String(describing: VoteTitleCell.self)
 
     private let voteTitleLabel: UILabel = {
         let label = UILabel()
