@@ -89,9 +89,6 @@ final class StoreDetailViewController: UIViewController {
     }
 
     private func setUpCollectionView() {
-        StoreDetailSection.allCases.forEach {
-            collectionView.register($0.cell, forCellWithReuseIdentifier: $0.reuseIdentifier)
-        }
         collectionView.dataSource = storeDetailDataSource
         collectionView.delegate = self
         collectionView.allowsMultipleSelection = true
