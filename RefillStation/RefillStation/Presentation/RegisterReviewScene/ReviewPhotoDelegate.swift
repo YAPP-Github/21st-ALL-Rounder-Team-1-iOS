@@ -5,9 +5,9 @@
 //  Created by 천수현 on 2022/11/26.
 //
 
-import Foundation
+import UIKit
 
 protocol ReviewPhotoDelegate: AnyObject {
     func imageAddButtonTapped()
-    func dismiss()
+    func dismiss(reviewPhotos: [UIImage])
 }

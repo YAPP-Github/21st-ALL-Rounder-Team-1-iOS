@@ -27,6 +27,10 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
         return indexPathsForSelectedItems.count < 3 && !noKeywordTagDidSelected
     }
     var noKeywordTagDidSelected: Bool = false
+    var canRegister: Bool {
+        return reviewPhotos.count > 0 || !reviewContents.isEmpty ||
+        (!noKeywordTagDidSelected && indexPathsForSelectedItems.count > 0)
+    }
 
     init(storeName: String, storeLocationInfo: String) {
         self.storeName = storeName
@@ -38,7 +42,7 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
             noKeywordTagDidSelected = true
             indexPathsForSelectedItems = [indexPath]
         } else {
-        indexPathsForSelectedItems.append(indexPath)
+            indexPathsForSelectedItems.append(indexPath)
         }
     }
 

@@ -192,6 +192,10 @@ extension RegisterReviewViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: ReviewDescriptionCell.reuseIdentifier,
                 for: indexPath) as? ReviewDescriptionCell else { return UICollectionViewCell() }
+            cell.didChangeText = { text in
+                self.viewModel.reviewContents = text
+                self.registerButton.isEnabled = self.viewModel.canRegister
+            }
             return cell
         default:
             return UICollectionViewCell()
@@ -232,7 +236,9 @@ extension RegisterReviewViewController: ReviewPhotoDelegate {
         present(phPickerViewController, animated: true)
     }
 
-    func dismiss() {
+    func dismiss(reviewPhotos: [UIImage]) {
+        viewModel.reviewPhotos = reviewPhotos
+        registerButton.isEnabled = viewModel.canRegister
         dismiss(animated: true)
     }
 }

@@ -11,6 +11,7 @@ import SnapKit
 final class ReviewDescriptionCell: UICollectionViewCell {
 
     static let reuseIdentifier = String(describing: ReviewDescriptionCell.self)
+    var didChangeText: ((String) -> Void)?
 
     private let placeholder = "다른 손님에게도 도움이 되도록 매장을 이용하며 느꼈던 점을 솔직하게 알려주세요!"
     private let reviewTextView: UITextView = {
@@ -102,6 +103,7 @@ extension ReviewDescriptionCell: UITextViewDelegate {
 
     func textViewDidChange(_ textView: UITextView) {
         self.textCountLabel.text = "\(textView.text.count)"
+        didChangeText?(textView.text)
     }
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
