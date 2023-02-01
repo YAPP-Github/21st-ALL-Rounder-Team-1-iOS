@@ -21,10 +21,12 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
     let storeLocationInfo: String
     var reviewPhotos: [UIImage] = []
     var reviewContents: String = ""
+    var tags = Tag.allCases
     var indexPathsForSelectedItems = [IndexPath]()
     var shouldSelectCell: Bool {
-        return indexPathsForSelectedItems.count < 3
+        return indexPathsForSelectedItems.count < 3 && !noKeywordTagDidSelected
     }
+    var noKeywordTagDidSelected: Bool = false
 
     init(storeName: String, storeLocationInfo: String) {
         self.storeName = storeName
@@ -32,10 +34,16 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
     }
 
     func didSelectItemAt(indexPath: IndexPath) {
+        if tags[indexPath.row] == .noKeywordToChoose {
+            noKeywordTagDidSelected = true
+            indexPathsForSelectedItems = [indexPath]
+        } else {
         indexPathsForSelectedItems.append(indexPath)
+        }
     }
 
     func didDeselectItemAt(indexPath: IndexPath) {
+        if tags[indexPath.row] == .noKeywordToChoose { noKeywordTagDidSelected = false }
         if let indexPathToRemove = indexPathsForSelectedItems.firstIndex(of: indexPath) {
             indexPathsForSelectedItems.remove(at: indexPathToRemove)
         }

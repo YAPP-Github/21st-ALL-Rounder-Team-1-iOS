@@ -11,7 +11,6 @@ import SnapKit
 final class TagReviewCell: UICollectionViewCell {
 
     static let reuseIdentifier = String(describing: TagReviewCell.self)
-
     override var isSelected: Bool {
         didSet {
             isSelected ? setUpSelectedButton() : setUpUnselectedButton()
@@ -21,7 +20,6 @@ final class TagReviewCell: UICollectionViewCell {
     private let tagImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = Asset.Colors.gray2.color
         return imageView
     }()
 
@@ -47,6 +45,18 @@ final class TagReviewCell: UICollectionViewCell {
         tagTitleLabel.text = title
     }
 
+    func setUpUnselectedButton() {
+        contentView.layer.borderColor = Asset.Colors.gray2.color.cgColor
+        contentView.backgroundColor = .white
+        tagTitleLabel.textColor = Asset.Colors.gray5.color
+    }
+
+    func setUpDisabledButton() {
+        contentView.backgroundColor = Asset.Colors.gray1.color
+        contentView.layer.borderColor = Asset.Colors.gray2.color.cgColor
+        tagTitleLabel.textColor = Asset.Colors.gray3.color
+    }
+
     private func setUpContentView() {
         contentView.backgroundColor = .white
         contentView.layer.cornerRadius = 22
@@ -58,12 +68,6 @@ final class TagReviewCell: UICollectionViewCell {
         contentView.backgroundColor = Asset.Colors.primary1.color
         contentView.layer.borderColor = Asset.Colors.primary10.color.cgColor
         tagTitleLabel.textColor = Asset.Colors.primary10.color
-    }
-
-    private func setUpUnselectedButton() {
-        contentView.backgroundColor = .white
-        contentView.layer.borderColor = Asset.Colors.gray2.color.cgColor
-        tagTitleLabel.textColor = Asset.Colors.gray5.color
     }
 
     private func layout() {

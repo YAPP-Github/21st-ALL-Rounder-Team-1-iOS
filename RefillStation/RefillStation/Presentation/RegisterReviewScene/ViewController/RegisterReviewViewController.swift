@@ -96,6 +96,25 @@ final class RegisterReviewViewController: UIViewController {
                                                name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
+    private func noKeywordTagDidTapped(isSelected: Bool,
+                                        collectionView: UICollectionView,
+                                        indexPath: IndexPath) {
+        if viewModel.noKeywordTagDidSelected {
+            viewModel.tags.filter { $0 != .noKeywordToChoose }
+                .forEach { tag in
+                    let indexPathForDeselectItem = IndexPath(row: tag.id - 1, section: indexPath.section)
+                    guard let cell = collectionView.cellForItem(at: indexPathForDeselectItem)
+                            as? TagReviewCell else { return }
+                    if isSelected {
+                        collectionView.deselectItem(at: indexPathForDeselectItem, animated: false)
+                        cell.setUpDisabledButton()
+                    } else {
+                        cell.setUpUnselectedButton()
+                    }
+                }
+        }
+    }
+
     @objc
     private func keyboardWillShow(_ notification: Notification) {
         guard let userInfo = notification.userInfo,
@@ -154,8 +173,13 @@ extension RegisterReviewViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: TagReviewCell.reuseIdentifier,
                 for: indexPath) as? TagReviewCell else { return UICollectionViewCell() }
-            cell.setUpContents(image: UIImage(),
+            cell.setUpContents(image: viewModel.tags[indexPath.row].image,
                                title: viewModel.tags[indexPath.row].text)
+            if let items = collectionView.indexPathsForSelectedItems, items.contains(indexPath) {
+                cell.isSelected = true
+            } else {
+                viewModel.noKeywordTagDidSelected ? cell.setUpDisabledButton() : cell.setUpUnselectedButton()
+            }
             return cell
         case Section.photoReview.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
@@ -192,9 +216,13 @@ extension RegisterReviewViewController: UICollectionViewDelegate {
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.didSelectItemAt(indexPath: indexPath)
+        registerButton.isEnabled = viewModel.canRegister
+        noKeywordTagDidTapped(isSelected: true, collectionView: collectionView, indexPath: indexPath)
     }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        noKeywordTagDidTapped(isSelected: false, collectionView: collectionView, indexPath: indexPath)
         viewModel.didDeselectItemAt(indexPath: indexPath)
+        registerButton.isEnabled = viewModel.canRegister
     }
 }
 
