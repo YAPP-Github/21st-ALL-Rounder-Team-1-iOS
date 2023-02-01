@@ -296,7 +296,7 @@ extension StoreDetailViewController {
 
 // MARK: - Cell Registration
 extension StoreDetailViewController {
-    func storeDetailInfoCellRegisration() -> UICollectionView.CellRegistration<StoreDetailInfoViewCell, StoreDetailItem> {
+    private func storeDetailInfoCellRegisration() -> UICollectionView.CellRegistration<StoreDetailInfoViewCell, StoreDetailItem> {
         return UICollectionView.CellRegistration<StoreDetailInfoViewCell, StoreDetailItem> { cell, indexPath, item in
             guard case let .storeDetailInfo(store) = item else { return }
             cell.setUpContents(store: store)
@@ -304,7 +304,7 @@ extension StoreDetailViewController {
         }
     }
 
-    func tabBarCellRegistration() -> UICollectionView.CellRegistration<StoreDetailTabBarCell, StoreDetailItem> {
+    private func tabBarCellRegistration() -> UICollectionView.CellRegistration<StoreDetailTabBarCell, StoreDetailItem> {
         return UICollectionView.CellRegistration<StoreDetailTabBarCell, StoreDetailItem> { cell, indexPath, item in
             cell.headerTapped = { [weak self] mode in
                 if self?.viewModel.mode != mode {
@@ -316,7 +316,7 @@ extension StoreDetailViewController {
         }
     }
 
-    func productCategoriesCellRegistration() -> UICollectionView.CellRegistration<ProductCategoriesCell, StoreDetailItem> {
+    private func productCategoriesCellRegistration() -> UICollectionView.CellRegistration<ProductCategoriesCell, StoreDetailItem> {
         return UICollectionView.CellRegistration<ProductCategoriesCell, StoreDetailItem> { cell, indexPath, item in
             cell.setUpContents(info: .init(categories: self.viewModel.categories,
                                            currentFilter: self.viewModel.currentCategoryFilter))
@@ -327,21 +327,21 @@ extension StoreDetailViewController {
         }
     }
 
-    func filteredCellRegistration() -> UICollectionView.CellRegistration<FilteredProductCountCell, StoreDetailItem> {
+    private func filteredCellRegistration() -> UICollectionView.CellRegistration<FilteredProductCountCell, StoreDetailItem> {
         return UICollectionView.CellRegistration<FilteredProductCountCell, StoreDetailItem> { cell, indexPath, item in
             guard case let .filteredProduct(count) = item else { return }
             cell.setUpContents(filteredCount: count)
         }
     }
 
-    func productCellRegistration() -> UICollectionView.CellRegistration<ProductCell, StoreDetailItem> {
+    private func productCellRegistration() -> UICollectionView.CellRegistration<ProductCell, StoreDetailItem> {
         return UICollectionView.CellRegistration<ProductCell, StoreDetailItem> { cell, indexPath, item in
             guard case let .productList(product) = item else { return }
             cell.setUpContents(product: product)
         }
     }
 
-    func reviewInfoCellRegistration() -> UICollectionView.CellRegistration<ReviewInfoCell, StoreDetailItem> {
+    private func reviewInfoCellRegistration() -> UICollectionView.CellRegistration<ReviewInfoCell, StoreDetailItem> {
         return UICollectionView.CellRegistration<ReviewInfoCell, StoreDetailItem> { cell, indexPath, item in
             guard case let .reviewOverview(rankTags) = item else { return }
             cell.moveToRegisterReview = { [weak self] in
@@ -352,7 +352,7 @@ extension StoreDetailViewController {
         }
     }
 
-    func detailReviewCellRegistration() -> UICollectionView.CellRegistration<DetailReviewCell, StoreDetailItem> {
+    private func detailReviewCellRegistration() -> UICollectionView.CellRegistration<DetailReviewCell, StoreDetailItem> {
         return UICollectionView.CellRegistration<DetailReviewCell, StoreDetailItem> { cell, indexPath, item in
             guard case let .review(review) = item else { return }
             let shouldSeeMore = self.viewModel.reviewSeeMoreIndexPaths.contains(indexPath)
@@ -380,11 +380,11 @@ extension StoreDetailViewController {
         }
     }
 
-    func operationNoticeCellRegistration() -> UICollectionView.CellRegistration<OperationNoticeCell, StoreDetailItem> {
+    private func operationNoticeCellRegistration() -> UICollectionView.CellRegistration<OperationNoticeCell, StoreDetailItem> {
         return UICollectionView.CellRegistration<OperationNoticeCell, StoreDetailItem> { cell, indexPath, item in
         }
     }
-    func operationInfoCellRegistration() -> UICollectionView.CellRegistration<OperationInfoCell, StoreDetailItem> {
+    private func operationInfoCellRegistration() -> UICollectionView.CellRegistration<OperationInfoCell, StoreDetailItem> {
         return UICollectionView.CellRegistration<OperationInfoCell, StoreDetailItem> { cell, indexPath, item in
             guard case let .operationInfo(operationInfo) = item else { return }
             let shouldShowMore = self.viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath)
