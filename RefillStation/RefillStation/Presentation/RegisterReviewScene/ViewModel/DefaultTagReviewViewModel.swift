@@ -5,7 +5,7 @@
 //  Created by 천수현 on 2022/11/24.
 //
 
-import Foundation
+import UIKit
 
 protocol TagReviewViewModelInput {
 }
@@ -19,7 +19,8 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
 
     let storeName: String
     let storeLocationInfo: String
-    var tags = [Tag]()
+    var reviewPhotos: [UIImage] = []
+    var reviewContents: String = ""
     var indexPathsForSelectedItems = [IndexPath]()
     var shouldSelectCell: Bool {
         return indexPathsForSelectedItems.count < 3
