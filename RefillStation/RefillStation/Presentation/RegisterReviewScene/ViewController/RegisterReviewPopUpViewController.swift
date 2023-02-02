@@ -22,7 +22,6 @@ final class RegisterReviewPopUpViewController: UIViewController {
     private let levelImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .lightGray
         return imageView
     }()
 
@@ -64,8 +63,12 @@ final class RegisterReviewPopUpViewController: UIViewController {
         return button
     }()
 
-    init() {
+    init(userLevel: UserLevelInfo.Level) {
         super.init(nibName: nil, bundle: nil)
+        levelImageView.image = userLevel.image
+        titleLabel.text = userLevel.celebrateTitle
+        descriptionLabel.text = "‘\(userLevel.nextLevel.name)’까지\n리뷰 \(userLevel.nextLevelRemainCount)회가 남았어요"
+        setUpReviewCountTextColor(count: userLevel.nextLevelRemainCount)
         modalPresentationStyle = .overFullScreen
     }
 
@@ -77,7 +80,6 @@ final class RegisterReviewPopUpViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .black.withAlphaComponent(0.5)
         layout()
-        setUpReviewCountTextColor(count: 2)
     }
 
     private func layout() {
@@ -120,5 +122,16 @@ final class RegisterReviewPopUpViewController: UIViewController {
         attributeString.addAttribute(.foregroundColor, value: Asset.Colors.primary10.color,
                                      range: (text as NSString).range(of: "\(count)"))
         descriptionLabel.attributedText = attributeString
+    }
+}
+
+fileprivate extension UserLevelInfo.Level {
+    var celebrateTitle: String {
+        switch self {
+        case .beginner:
+            return "리필생활의 시작을 축하드려요!"
+        default:
+            return "\(name)가 되셨네요!"
+        }
     }
 }

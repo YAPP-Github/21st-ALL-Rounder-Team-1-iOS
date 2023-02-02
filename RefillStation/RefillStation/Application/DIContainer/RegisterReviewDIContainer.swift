@@ -45,7 +45,7 @@ final class RegisterReviewDIContainer: DIContainer {
         )
     }
 
-    func makeRegisterReviewPopUpViewController() -> RegisterReviewPopUpViewController {
-        return RegisterReviewPopUpViewController()
+    func makeRegisterReviewPopUpViewController(userLevel: UserLevelInfo.Level) -> RegisterReviewPopUpViewController {
+        return RegisterReviewPopUpViewController(userLevel: userLevel)
     }
 }
