@@ -67,7 +67,7 @@ final class RegisterReviewViewController: UIViewController {
 
     private func bind() {
         viewModel.reviewCountFetchCompleted = {
-            self.coordinator?.registerReviewSuccessed(userLevel: self.viewModel.levelUppedLevel)
+            self.coordinator?.registerReviewSucceded(userLevel: self.viewModel.levelUppedLevel)
         }
     }
 

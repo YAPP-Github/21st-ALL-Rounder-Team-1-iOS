@@ -53,9 +53,7 @@ struct UserLevelInfo: Hashable {
             switch self {
             case .regular:
                 return 1
-            case .beginner:
-                return 2
-            case .prospect:
+            case .beginner, .prospect:
                 return 2
             case .fancier:
                 return 0

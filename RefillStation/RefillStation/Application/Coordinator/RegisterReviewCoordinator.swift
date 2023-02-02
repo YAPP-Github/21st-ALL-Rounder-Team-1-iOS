@@ -22,7 +22,7 @@ final class RegisterReviewCoordinator: Coordinator {
         navigationController.pushViewController(registerReviewViewController, animated: true)
     }
 
-    func registerReviewSuccessed(userLevel: UserLevelInfo.Level?) {
+    func registerReviewSucceded(userLevel: UserLevelInfo.Level?) {
         if let userLevel = userLevel {
             let registerReviewPopUpViewController = DIContainer.makeRegisterReviewPopUpViewController(
                 userLevel: userLevel
