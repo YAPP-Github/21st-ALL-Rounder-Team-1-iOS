@@ -31,6 +31,7 @@ final class RegisterReviewViewController: UIViewController {
         button.isEnabled = false
         button.addAction(UIAction { _ in
             self.viewModel.registerButtonTapped()
+            button.isEnabled = false
         }, for: .touchUpInside)
         return button
     }()
