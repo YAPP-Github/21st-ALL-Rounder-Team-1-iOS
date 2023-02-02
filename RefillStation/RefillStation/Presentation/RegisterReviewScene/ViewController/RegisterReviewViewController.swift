@@ -65,8 +65,6 @@ final class RegisterReviewViewController: UIViewController {
     }
 
     private func bind() {
-        viewModel.registerReviewSuccessed = {
-            self.coordinator?.registerReviewSuccessed()
         }
     }
 

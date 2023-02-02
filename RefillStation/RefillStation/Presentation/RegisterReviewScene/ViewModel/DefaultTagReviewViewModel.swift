@@ -23,6 +23,10 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
     var reviewPhotos: [UIImage] = []
     var reviewContents: String = ""
     var tags = Tag.allCases
+    var totalReviewCount = 0
+    var levelUppedLevel: UserLevelInfo.Level? {
+        return UserLevelInfo.Level.allCases.first(where: { $0.levelUpTriggerCount == totalReviewCount })
+    }
     var indexPathsForSelectedItems = [IndexPath]()
     var shouldSelectCell: Bool {
         return indexPathsForSelectedItems.count < 3 && !noKeywordTagDidSelected
@@ -32,20 +36,24 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
         return indexPathsForSelectedItems.map { Int($0.row) }
     }
 
-    var registerReviewSuccessed: (() -> Void)?
+    var reviewCountFetchCompleted: (() -> Void)?
 
     private let registerReviewUseCase: RegisterReviewUseCaseInterface
     private var registerReviewTask: Cancellable?
+    private let fetchUserReviewsUseCase: FetchUserReviewsUseCaseInterface
+    private var userReviewsLoadTask: Cancellable?
 
     init(storeId: Int,
          storeName: String,
          storeLocationInfo: String,
-         registerReviewUseCase: RegisterReviewUseCaseInterface = RegisterReviewUseCase()
+         registerReviewUseCase: RegisterReviewUseCaseInterface = RegisterReviewUseCase(),
+         fetchUserReviewsUseCase: FetchUserReviewsUseCaseInterface = FetchUserReviewsUseCase()
     ) {
         self.storeId = storeId
         self.storeName = storeName
         self.storeLocationInfo = storeLocationInfo
         self.registerReviewUseCase = registerReviewUseCase
+        self.fetchUserReviewsUseCase = fetchUserReviewsUseCase
     }
 
     func didSelectItemAt(indexPath: IndexPath) {
@@ -80,11 +88,24 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
         ) { result in
             switch result {
             case .success:
-                self.registerReviewSuccessed?()
+                self.fetchUserReviewCount()
             case .failure:
                 break
             }
         }
         registerReviewTask?.resume()
+    }
+
+    private func fetchUserReviewCount() {
+        userReviewsLoadTask = fetchUserReviewsUseCase.execute { result in
+            switch result {
+            case .success(let reviews):
+                self.totalReviewCount = reviews.count
+                self.reviewCountFetchCompleted?()
+            case .failure:
+                break
+            }
+        }
+        userReviewsLoadTask?.resume()
     }
 }
