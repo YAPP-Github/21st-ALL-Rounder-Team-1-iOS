@@ -39,6 +39,7 @@ final class StoreDetailViewModel {
     var reviews = [Review]()
     var totalTagVoteCount = 0
     var rankTags = [RankTag]()
+    var reviewSeeMoreIndexPaths = Set<IndexPath>()
 
     // MARK: - Operation Info
     lazy var operationInfos: [OperationInfo] = {
@@ -104,6 +105,14 @@ final class StoreDetailViewModel {
     func categoryButtonDidTapped(category: ProductCategory?) {
         guard let category = category else { return }
         currentCategoryFilter = category
+    }
+
+    func reviewSeeMoreTapped(indexPath: IndexPath) {
+        if reviewSeeMoreIndexPaths.contains(indexPath) {
+            reviewSeeMoreIndexPaths.remove(indexPath)
+        } else {
+            reviewSeeMoreIndexPaths.insert(indexPath)
+        }
     }
 
     func operationInfoSeeMoreTapped(indexPath: IndexPath) {

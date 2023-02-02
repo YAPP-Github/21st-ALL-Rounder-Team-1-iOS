@@ -14,23 +14,12 @@ final class DetailReviewCell: UICollectionViewCell {
     // MARK: - Private Properties
     private var review: Review?
     private var tags: [Tag]?
-    private var tagCollectionViewHeight: CGFloat = 40 {
-        didSet {
-            tagCollectionView.snp.remakeConstraints {
-                $0.height.equalTo(tagCollectionViewHeight)
-            }
-        }
-    }
+    private var tagCollectionViewHeight: CGFloat = 40
 
     // MARK: - Event Handling
-    override var isSelected: Bool {
-        didSet {
-            descriptionLabel.numberOfLines = isSelected ? 0 : 3
-            layoutIfNeeded()
-        }
-    }
     var photoImageTapped: (() -> Void)?
     var reportButtonTapped: (() -> Void)?
+    var seeMoreTapped: (() -> Void)?
 
     // MARK: - UI Components
     private let profileImageView: UIImageView = {
@@ -57,9 +46,20 @@ final class DetailReviewCell: UICollectionViewCell {
         return label
     }()
 
+    private lazy var reportButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("신고", for: .normal)
+        button.titleLabel?.font = .font(style: .captionLarge)
+        button.setTitleColor(Asset.Colors.gray5.color, for: .normal)
+        button.addAction(UIAction { [weak self] _ in
+            self?.reportButtonTapped?()
+        }, for: .touchUpInside)
+        return button
+    }()
+
     private lazy var reviewInfoView: UIView = {
         let reviewInfoView = UIView()
-        [profileImageView, userNameLabel, writtenDateLabel].forEach { reviewInfoView.addSubview($0) }
+        [profileImageView, userNameLabel, writtenDateLabel, reportButton].forEach { reviewInfoView.addSubview($0) }
         profileImageView.snp.makeConstraints { profile in
             profile.leading.equalToSuperview()
             profile.top.bottom.equalToSuperview()
@@ -77,6 +77,11 @@ final class DetailReviewCell: UICollectionViewCell {
             dateLabel.top.equalTo(userNameLabel.snp.bottom).offset(5)
             dateLabel.bottom.equalToSuperview().inset(5)
         }
+
+        reportButton.snp.makeConstraints {
+            $0.trailing.top.equalToSuperview()
+        }
+        reportButton.setContentHuggingPriority(.required, for: .vertical)
         return reviewInfoView
     }()
 
@@ -120,12 +125,16 @@ final class DetailReviewCell: UICollectionViewCell {
         return reviewImageOuterView
     }()
 
-    private let descriptionLabel: UILabel = {
+    private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 3
         label.textColor = Asset.Colors.gray5.color
         label.font = UIFont.font(style: .bodyMedium)
         label.lineBreakStrategy = .hangulWordPriority
+        label.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(descriptionLabelTapped(_:)))
+        label.addGestureRecognizer(tapGesture)
         return label
     }()
 
@@ -156,17 +165,6 @@ final class DetailReviewCell: UICollectionViewCell {
         return stackView
     }()
 
-    private lazy var reportButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("신고", for: .normal)
-        button.titleLabel?.font = .font(style: .captionLarge)
-        button.setTitleColor(Asset.Colors.gray5.color, for: .normal)
-        button.addAction(UIAction { [weak self] _ in
-            self?.reportButtonTapped?()
-        }, for: .touchUpInside)
-        return button
-    }()
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
@@ -176,18 +174,23 @@ final class DetailReviewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
-    func setUpContents(review: Review) {
+    func setUpContents(review: Review, shouldSeeMore: Bool) {
         self.review = review
-        self.tags = review.tags.filter { $0 != .noKeywordToChoose }
-        tagCollectionView.reloadData()
-        tagCollectionView.layoutIfNeeded()
+        setUpTagCollectionViewContents()
         userNameLabel.text = review.userNickname
         writtenDateLabel.text = review.writtenDate.toString()
         descriptionLabel.text = review.description
         imageCountLabel.text = "1 / \(review.imageURL.count)"
         imageCountLabel.isHidden = review.imageURL.count <= 1
-        // TODO: Fetch Image(profile, review) with URL
         addArrangedSubviewsToOuterStackview()
+        descriptionLabel.numberOfLines = shouldSeeMore ? 0 : 3
+    }
+
+    private func setUpTagCollectionViewContents() {
+        guard let review = review else { return }
+        tags = review.tags.filter { $0 != .noKeywordToChoose }
+        tagCollectionView.reloadData()
+        tagCollectionView.layoutIfNeeded()
         DispatchQueue.main.async {
             self.tagCollectionView.snp.remakeConstraints {
                 $0.height.equalTo(self.tagCollectionView.contentSize.height)
@@ -245,6 +248,11 @@ final class DetailReviewCell: UICollectionViewCell {
     private func imageViewDidTapped(_ sender: UITapGestureRecognizer) {
         photoImageTapped?()
     }
+
+    @objc
+    private func descriptionLabelTapped(_ sender: UITapGestureRecognizer) {
+        seeMoreTapped?()
+    }
 }
 
 // MARK: - tagCollectionView Layout
@@ -287,12 +295,13 @@ fileprivate extension Date {
     func toString() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.timeZone = TimeZone(identifier: "ko_KR") ?? .current
         if let currentYear = Calendar.current.dateComponents([.year], from: Date()).year,
            let dateYear = Calendar.current.dateComponents([.year], from: Date()).year,
            currentYear == dateYear {
-            dateFormatter.dateFormat = "MM.dd.EE"
+            dateFormatter.dateFormat = "M.d.EE"
         } else {
-            dateFormatter.dateFormat = "yyyy.MM.dd"
+            dateFormatter.dateFormat = "yyyy.M.d"
         }
 
         return dateFormatter.string(from: self)
