@@ -103,8 +103,8 @@ final class MockTask: Cancellable {
     }
 
     func resume() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            self?.task?()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.task?()
         }
     }
 
