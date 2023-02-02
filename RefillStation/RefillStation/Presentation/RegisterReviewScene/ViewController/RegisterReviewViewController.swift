@@ -52,10 +52,12 @@ final class RegisterReviewViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        tabBarController?.tabBar.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
+        tabBarController?.tabBar.isHidden = false
     }
 
     private func setUpCollectionView() {
