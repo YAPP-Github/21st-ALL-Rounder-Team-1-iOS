@@ -28,10 +28,11 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
         return indexPathsForSelectedItems.count < 3 && !noKeywordTagDidSelected
     }
     var noKeywordTagDidSelected: Bool = false
-
     private var selectedTags: [Int] {
         return indexPathsForSelectedItems.map { Int($0.row) }
     }
+
+    var registerReviewSuccessed: (() -> Void)?
 
     private let registerReviewUseCase: RegisterReviewUseCaseInterface
     private var registerReviewTask: Cancellable?
@@ -66,5 +67,24 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
     func setUpRegisterButtonState() -> Bool {
         return reviewPhotos.count > 0 || !reviewContents.isEmpty ||
         (!noKeywordTagDidSelected && indexPathsForSelectedItems.count > 0)
+    }
+
+    func registerButtonTapped() {
+        let registerReviewTask = registerReviewUseCase.execute(
+            requestValue: .init(
+                storeId: storeId,
+                tagIds: selectedTags,
+                images: reviewPhotos,
+                description: reviewContents
+            )
+        ) { result in
+            switch result {
+            case .success:
+                self.registerReviewSuccessed?()
+            case .failure:
+                break
+            }
+        }
+        registerReviewTask?.resume()
     }
 }
