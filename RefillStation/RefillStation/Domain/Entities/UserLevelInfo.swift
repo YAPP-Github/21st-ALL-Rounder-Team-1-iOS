@@ -61,6 +61,18 @@ struct UserLevelInfo: Hashable {
                 return Asset.Colors.lv3.color
             }
         }
+        var image: UIImage {
+            switch self {
+            case .regular:
+                return Asset.Images.levelRegular.image
+            case .beginner:
+                return Asset.Images.levelBeginner.image
+            case .prospect:
+                return Asset.Images.levelProspect.image
+            case .fancier:
+                return Asset.Images.levelFancier.image
+            }
+        }
     }
     let level: Level
     let remainCountForNextLevel: Int
