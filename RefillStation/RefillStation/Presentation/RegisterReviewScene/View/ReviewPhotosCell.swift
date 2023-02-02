@@ -11,7 +11,7 @@ import PhotosUI
 
 final class ReviewPhotosCell: UICollectionViewCell {
 
-    static let reuseIdentifier = "reviewPhotosCell"
+    static let reuseIdentifier = String(describing: ReviewPhotosCell.self)
     weak var delegate: ReviewPhotoDelegate?
     private let outerScrollView = UIScrollView()
 
@@ -130,7 +130,7 @@ extension ReviewPhotosCell: PHPickerViewControllerDelegate {
         let lastIndex = items.count - 1
 
         if items.isEmpty {
-            self.delegate?.dismiss()
+            self.delegate?.dismiss(reviewPhotos: photoImages)
             return
         }
 
@@ -154,7 +154,7 @@ extension ReviewPhotosCell: PHPickerViewControllerDelegate {
 
         dispatchGroup.notify(queue: .main) { [weak self] in
             self?.addPhotos()
-            self?.delegate?.dismiss()
+            self?.delegate?.dismiss(reviewPhotos: self?.photoImages ?? [])
         }
     }
 

@@ -132,4 +132,31 @@ extension StoreDetailViewController {
             }
         }
     }
+
+    func section(mode: StoreDetailViewModel.TabBarMode, sectionIndex: Int) -> StoreDetailSection {
+        if sectionIndex == StoreDetailSection.storeDetailInfo.sectionIndex {
+            return StoreDetailSection.storeDetailInfo
+        } else if sectionIndex == StoreDetailSection.tabBar.sectionIndex {
+            return StoreDetailSection.tabBar
+        }
+
+        switch (mode, sectionIndex) {
+        case (.productLists, 2):
+            return StoreDetailSection.productCategory
+        case (.productLists, 3):
+            return StoreDetailSection.filteredProductsCount
+        case (.productLists, 4):
+            return StoreDetailSection.productList
+        case (.reviews, 2):
+            return StoreDetailSection.reviewOverview
+        case (.reviews, 3):
+            return StoreDetailSection.review
+        case (.operationInfo, 2):
+            return StoreDetailSection.operationNotice
+        case (.operationInfo, 3):
+            return StoreDetailSection.operationInfo
+        default:
+            return .storeDetailInfo
+        }
+    }
 }
