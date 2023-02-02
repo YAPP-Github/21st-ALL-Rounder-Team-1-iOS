@@ -50,6 +50,10 @@ final class RegisterReviewDIContainer: DIContainer {
     }
 
     func makeUserLevelViewController(userLevel: UserLevelInfo.Level) -> UserLevelViewController {
-        return UserLevelViewController(userLevel: userLevel)
+        return UserLevelViewController(viewModel: makeUserLevelViewModel())
+    }
+
+    func makeUserLevelViewModel() -> UserLevelViewModel {
+        return UserLevelViewModel()
     }
 }

@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 final class UserLevelViewController: UIViewController {
-    private let userLevel: UserLevelInfo.Level
+    private let viewModel: UserLevelViewModel
 
     private let levelCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -25,8 +25,8 @@ final class UserLevelViewController: UIViewController {
         return collectionView
     }()
 
-    init(userLevel: UserLevelInfo.Level) {
-        self.userLevel = userLevel
+    init(viewModel: UserLevelViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -40,7 +40,23 @@ final class UserLevelViewController: UIViewController {
         view.backgroundColor = .white
         levelCollectionView.dataSource = self
         levelCollectionView.delegate = self
+        bind()
         layout()
+        viewModel.viewDidLoad()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = true
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = false
+    }
+
+    private func bind() {
+        viewModel.reloadData = {
+            self.levelCollectionView.reloadData()
+        }
     }
 
     private func layout() {
@@ -77,7 +93,7 @@ extension UserLevelViewController: UICollectionViewDelegateFlowLayout {
             ofKind: kind,
             withReuseIdentifier: LevelHeaderView.reuseIdentifier,
             for: indexPath) as? LevelHeaderView else { return UICollectionReusableView() }
-        header.setUpContents(level: userLevel)
+        header.setUpContents(level: viewModel.userLevel, totalReviewCount: viewModel.totalReviewCount)
         return header
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

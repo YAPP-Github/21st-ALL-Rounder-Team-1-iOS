@@ -10,7 +10,7 @@ import Foundation
 final class UserLevelViewModel {
 
     var totalReviewCount = 0
-    var userLevel: UserLevelInfo.Level = .beginner
+    var userLevel: UserLevelInfo.Level = .regular
 
     var reloadData: (() -> Void)?
 
@@ -41,5 +41,11 @@ final class UserLevelViewModel {
         }) {
             userLevel = level
         }
+    }
+}
+
+extension UserLevelViewModel {
+    func viewDidLoad() {
+        fetchUserReviewCount()
     }
 }

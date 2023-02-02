@@ -64,10 +64,10 @@ final class LevelHeaderView: UICollectionReusableView {
         super.init(coder: coder)
     }
 
-    func setUpContents(level: UserLevelInfo.Level) {
+    func setUpContents(level: UserLevelInfo.Level, totalReviewCount: Int) {
         descriptionLabel.text = "'\(level.nextLevel.name)'까지 리뷰 \(level.nextLevelRemainCount)회가 남았어요"
         levelLabel.text = level.name
-        remainingReviewTagView.setUpTitle(title: "누적 리뷰 \(level.levelUpTriggerCount)회")
+        remainingReviewTagView.setUpTitle(title: "누적 리뷰 \(totalReviewCount)회")
         levelImage.image = level.image
     }
 
