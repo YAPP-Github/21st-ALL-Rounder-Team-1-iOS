@@ -48,18 +48,23 @@ final class RegisterReviewPopUpViewController: UIViewController {
         let button = CTAButton(style: .basic)
         button.setTitle("확인", for: .normal)
         button.addAction(UIAction { _ in
-            self.dismiss(animated: true) { [weak self] in
-                self?.coordinator?.popUpDismissed()
+            self.dismiss(animated: true) {
+                self.coordinator?.popUpDismissed()
             }
         }, for: .touchUpInside)
         return button
     }()
 
-    private let learnMoreButton: UIButton = {
+    private lazy var learnMoreButton: UIButton = {
         let button = UIButton()
         button.setTitle("자세히 알아보기", for: .normal)
         button.setTitleColor(Asset.Colors.gray5.color, for: .normal)
         button.titleLabel?.font = .font(style: .buttonMedium)
+        button.addAction(UIAction { _ in
+            self.dismiss(animated: true) {
+                self.coordinator?.learnMoreButtonTapped()
+            }
+        }, for: .touchUpInside)
         return button
     }()
 

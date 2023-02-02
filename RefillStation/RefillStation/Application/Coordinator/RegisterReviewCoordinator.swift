@@ -37,4 +37,10 @@ final class RegisterReviewCoordinator: Coordinator {
     func popUpDismissed() {
         navigationController.popViewController(animated: true)
     }
+
+    func learnMoreButtonTapped() {
+        navigationController.popViewController(animated: false)
+        let userLevelViewController = DIContainer.makeUserLevelViewController()
+        navigationController.pushViewController(userLevelViewController, animated: true)
+    }
 }
