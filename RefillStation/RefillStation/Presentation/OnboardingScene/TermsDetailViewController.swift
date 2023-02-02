@@ -16,6 +16,7 @@ final class TermsDetailViewController: UIViewController {
         textView.font = .font(style: .bodySmall)
         textView.textColor = Asset.Colors.gray5.color
         textView.showsVerticalScrollIndicator = false
+        textView.isEditable = false
         return textView
     }()
 
@@ -33,6 +34,15 @@ final class TermsDetailViewController: UIViewController {
         view.backgroundColor = .white
         setUpNavigationBar()
         layout()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = true
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.navigationBar.tintColor = .black
+        tabBarController?.tabBar.isHidden = false
     }
 
     private func layout() {
