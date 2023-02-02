@@ -365,12 +365,12 @@ extension StoreDetailViewController {
                 let reportPopUp = ReviewReportPopUpViewController(
                     viewModel: ReviewReportPopUpViewModel(reportedUserId: review.userId)
                 ) {
-                    let reportedPopUp = PumpPopUpViewController(title: nil,
+                    let reportCompletePopUp = PumpPopUpViewController(title: nil,
                                                                 description: "해당 댓글이 신고처리 되었습니다.")
-                    reportedPopUp.addAction(title: "확인", style: .basic) {
+                    reportCompletePopUp.addAction(title: "확인", style: .basic) {
                         self?.dismiss(animated: true)
                     }
-                    self?.present(reportedPopUp, animated: true)
+                    self?.present(reportCompletePopUp, animated: true)
                 }
                 self?.present(reportPopUp, animated: true)
             }
