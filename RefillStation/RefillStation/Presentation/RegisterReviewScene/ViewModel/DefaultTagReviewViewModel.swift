@@ -17,6 +17,7 @@ protocol TagReviewViewModel: TagReviewViewModelInput, TagReviewViewModelOutput {
 
 final class DefaultTagReviewViewModel: TagReviewViewModel {
 
+    let storeId: Int
     let storeName: String
     let storeLocationInfo: String
     var reviewPhotos: [UIImage] = []
@@ -28,9 +29,22 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
     }
     var noKeywordTagDidSelected: Bool = false
 
-    init(storeName: String, storeLocationInfo: String) {
+    private var selectedTags: [Int] {
+        return indexPathsForSelectedItems.map { Int($0.row) }
+    }
+
+    private let registerReviewUseCase: RegisterReviewUseCaseInterface
+    private var registerReviewTask: Cancellable?
+
+    init(storeId: Int,
+         storeName: String,
+         storeLocationInfo: String,
+         registerReviewUseCase: RegisterReviewUseCaseInterface = RegisterReviewUseCase()
+    ) {
+        self.storeId = storeId
         self.storeName = storeName
         self.storeLocationInfo = storeLocationInfo
+        self.registerReviewUseCase = registerReviewUseCase
     }
 
     func didSelectItemAt(indexPath: IndexPath) {
