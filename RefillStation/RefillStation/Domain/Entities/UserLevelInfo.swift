@@ -37,6 +37,30 @@ struct UserLevelInfo: Hashable {
                 return 5
             }
         }
+        var nextLevel: Level {
+            switch self {
+            case .regular:
+                return .beginner
+            case .beginner:
+                return .prospect
+            case .prospect:
+                return .fancier
+            case .fancier:
+                return .fancier
+            }
+        }
+        var nextLevelRemainCount: Int {
+            switch self {
+            case .regular:
+                return 1
+            case .beginner:
+                return 2
+            case .prospect:
+                return 2
+            case .fancier:
+                return 0
+            }
+        }
         var levelTagText: String {
             switch self {
             case .regular:
@@ -75,5 +99,4 @@ struct UserLevelInfo: Hashable {
         }
     }
     let level: Level
-    let remainCountForNextLevel: Int
 }

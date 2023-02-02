@@ -44,13 +44,13 @@ final class MockCustomerSatisfactionRepository: CustomerSatisfactionRepositoryIn
 final class MockUserInfoRepository: UserInfoRepositoryInterface {
     func fetchProfile(completion: @escaping (Result<User, Error>) -> Void) -> Cancellable? {
         let dummyUser = User(id: 1, name: "Neph", imageURL: "",
-                             level: .init(level: .beginner, remainCountForNextLevel: 1))
+                             level: .init(level: .beginner))
         return MockTask { completion(.success(dummyUser)) }
     }
 
     func editProfile(requestValue: EditProfileRequestValue, completion: @escaping (Result<User, Error>) -> Void) -> Cancellable? {
         let dummyUser = User(id: 1, name: "변경된Neph", imageURL: "",
-                             level: .init(level: .beginner, remainCountForNextLevel: 1))
+                             level: .init(level: .beginner))
         return MockTask { completion(.success(dummyUser)) }
     }
 
