@@ -31,7 +31,7 @@ final class OnboardingViewController: UIViewController {
         pageControl.currentPage = 0
         pageControl.numberOfPages = viewModel.onboardingCardImages.count
         pageControl.pageIndicatorTintColor = Asset.Colors.gray2.color
-        pageControl.currentPageIndicatorTintColor = Asset.Colors.primary3.color
+        pageControl.currentPageIndicatorTintColor = Asset.Colors.primary10.color
         pageControl.addAction(UIAction { _ in
             self.onboardingCollectionView.setContentOffset(CGPoint(
                 x: CGFloat(pageControl.currentPage) *  CGFloat(self.onboardingCollectionView.frame.width),
