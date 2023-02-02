@@ -11,6 +11,7 @@ import SnapKit
 final class RegisterReviewPopUpViewController: UIViewController {
 
     var coordinator: RegisterReviewCoordinator?
+    private let userLevel: UserLevelInfo.Level
 
     private let containerView: UIView = {
         let view = UIView()
@@ -62,13 +63,14 @@ final class RegisterReviewPopUpViewController: UIViewController {
         button.titleLabel?.font = .font(style: .buttonMedium)
         button.addAction(UIAction { _ in
             self.dismiss(animated: true) {
-                self.coordinator?.learnMoreButtonTapped()
+                self.coordinator?.learnMoreButtonTapped(userLevel: self.userLevel)
             }
         }, for: .touchUpInside)
         return button
     }()
 
     init(userLevel: UserLevelInfo.Level) {
+        self.userLevel = userLevel
         super.init(nibName: nil, bundle: nil)
         levelImageView.image = userLevel.image
         titleLabel.text = userLevel.celebrateTitle

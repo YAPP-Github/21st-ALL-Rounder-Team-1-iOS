@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 
 final class UserLevelViewController: UIViewController {
+    private let userLevel: UserLevelInfo.Level
+
     private let levelCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero,
@@ -22,6 +24,15 @@ final class UserLevelViewController: UIViewController {
         collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }()
+
+    init(userLevel: UserLevelInfo.Level) {
+        self.userLevel = userLevel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,9 +78,7 @@ extension UserLevelViewController: UICollectionViewDelegateFlowLayout {
             withReuseIdentifier: LevelHeaderView.reuseIdentifier,
             for: indexPath) as? LevelHeaderView else { return UICollectionReusableView() }
         header.setUpContents(nickname: "뿡빵뿡빵",
-                             level: .beginner,
-                             remainingCount: 5,
-                             totalCount: 10)
+                             level: .beginner)
         return header
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
