@@ -21,7 +21,6 @@ final class LevelCollectionViewCell: UICollectionViewCell {
     private let levelImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = Asset.Colors.lv1.color
         return imageView
     }()
     private let levelTitleLabel: UILabel = {
