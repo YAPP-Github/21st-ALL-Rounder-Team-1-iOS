@@ -97,22 +97,20 @@ final class RegisterReviewViewController: UIViewController {
     }
 
     private func noKeywordTagDidTapped(isSelected: Bool,
-                                        collectionView: UICollectionView,
-                                        indexPath: IndexPath) {
-        if viewModel.noKeywordTagDidSelected {
-            viewModel.tags.filter { $0 != .noKeywordToChoose }
-                .forEach { tag in
-                    let indexPathForDeselectItem = IndexPath(row: tag.id - 1, section: indexPath.section)
-                    guard let cell = collectionView.cellForItem(at: indexPathForDeselectItem)
-                            as? TagReviewCell else { return }
-                    if isSelected {
-                        collectionView.deselectItem(at: indexPathForDeselectItem, animated: false)
-                        cell.setUpDisabledButton()
-                    } else {
-                        cell.setUpUnselectedButton()
-                    }
+                                       collectionView: UICollectionView,
+                                       indexPath: IndexPath) {
+        viewModel.tags.filter { $0 != .noKeywordToChoose }
+            .forEach { tag in
+                let indexPathForDeselectItem = IndexPath(row: tag.id - 1, section: indexPath.section)
+                guard let cell = collectionView.cellForItem(at: indexPathForDeselectItem)
+                        as? TagReviewCell else { return }
+                if isSelected {
+                    collectionView.deselectItem(at: indexPathForDeselectItem, animated: false)
+                    cell.setUpDisabledButton()
+                } else {
+                    cell.setUpUnselectedButton()
                 }
-        }
+            }
     }
 
     @objc
@@ -156,7 +154,8 @@ extension RegisterReviewViewController: UICollectionViewDataSource {
         }
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
         case Section.storeInfo.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
@@ -194,7 +193,7 @@ extension RegisterReviewViewController: UICollectionViewDataSource {
                 for: indexPath) as? ReviewDescriptionCell else { return UICollectionViewCell() }
             cell.didChangeText = { text in
                 self.viewModel.reviewContents = text
-                self.registerButton.isEnabled = self.viewModel.canRegister
+                self.registerButton.isEnabled = self.viewModel.setUpRegisterButtonState()
             }
             return cell
         default:
@@ -220,13 +219,21 @@ extension RegisterReviewViewController: UICollectionViewDelegate {
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.didSelectItemAt(indexPath: indexPath)
-        registerButton.isEnabled = viewModel.canRegister
-        noKeywordTagDidTapped(isSelected: true, collectionView: collectionView, indexPath: indexPath)
+        registerButton.isEnabled = viewModel.setUpRegisterButtonState()
+        if viewModel.noKeywordTagDidSelected {
+            noKeywordTagDidTapped(isSelected: true,
+                                  collectionView: collectionView,
+                                  indexPath: indexPath)
+        }
     }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        noKeywordTagDidTapped(isSelected: false, collectionView: collectionView, indexPath: indexPath)
+        if viewModel.noKeywordTagDidSelected {
+            noKeywordTagDidTapped(isSelected: false,
+                                  collectionView: collectionView,
+                                  indexPath: indexPath)
+        }
         viewModel.didDeselectItemAt(indexPath: indexPath)
-        registerButton.isEnabled = viewModel.canRegister
+        registerButton.isEnabled = viewModel.setUpRegisterButtonState()
     }
 }
 
@@ -238,7 +245,7 @@ extension RegisterReviewViewController: ReviewPhotoDelegate {
 
     func dismiss(reviewPhotos: [UIImage]) {
         viewModel.reviewPhotos = reviewPhotos
-        registerButton.isEnabled = viewModel.canRegister
+        registerButton.isEnabled = viewModel.setUpRegisterButtonState()
         dismiss(animated: true)
     }
 }
