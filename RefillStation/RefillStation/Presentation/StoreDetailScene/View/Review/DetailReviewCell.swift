@@ -14,13 +14,7 @@ final class DetailReviewCell: UICollectionViewCell {
     // MARK: - Private Properties
     private var review: Review?
     private var tags: [Tag]?
-    private var tagCollectionViewHeight: CGFloat = 40 {
-        didSet {
-            tagCollectionView.snp.remakeConstraints {
-                $0.height.equalTo(tagCollectionViewHeight)
-            }
-        }
-    }
+    private var tagCollectionViewHeight: CGFloat = 40
 
     // MARK: - Event Handling
     var photoImageTapped: (() -> Void)?
@@ -52,9 +46,20 @@ final class DetailReviewCell: UICollectionViewCell {
         return label
     }()
 
+    private lazy var reportButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("신고", for: .normal)
+        button.titleLabel?.font = .font(style: .captionLarge)
+        button.setTitleColor(Asset.Colors.gray5.color, for: .normal)
+        button.addAction(UIAction { [weak self] _ in
+            self?.reportButtonTapped?()
+        }, for: .touchUpInside)
+        return button
+    }()
+
     private lazy var reviewInfoView: UIView = {
         let reviewInfoView = UIView()
-        [profileImageView, userNameLabel, writtenDateLabel].forEach { reviewInfoView.addSubview($0) }
+        [profileImageView, userNameLabel, writtenDateLabel, reportButton].forEach { reviewInfoView.addSubview($0) }
         profileImageView.snp.makeConstraints { profile in
             profile.leading.equalToSuperview()
             profile.top.bottom.equalToSuperview()
@@ -72,6 +77,11 @@ final class DetailReviewCell: UICollectionViewCell {
             dateLabel.top.equalTo(userNameLabel.snp.bottom).offset(5)
             dateLabel.bottom.equalToSuperview().inset(5)
         }
+
+        reportButton.snp.makeConstraints {
+            $0.trailing.top.equalToSuperview()
+        }
+        reportButton.setContentHuggingPriority(.required, for: .vertical)
         return reviewInfoView
     }()
 
@@ -153,17 +163,6 @@ final class DetailReviewCell: UICollectionViewCell {
         stackView.spacing = 14
         stackView.distribution = .fill
         return stackView
-    }()
-
-    private lazy var reportButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("신고", for: .normal)
-        button.titleLabel?.font = .font(style: .captionLarge)
-        button.setTitleColor(Asset.Colors.gray5.color, for: .normal)
-        button.addAction(UIAction { [weak self] _ in
-            self?.reportButtonTapped?()
-        }, for: .touchUpInside)
-        return button
     }()
 
     override init(frame: CGRect) {
