@@ -63,6 +63,7 @@
 		32CCC0D52979311D00C04231 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CCC0D42979311D00C04231 /* TabBarCoordinator.swift */; };
 		32CCC0D7297939C800C04231 /* StoreDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CCC0D6297939C800C04231 /* StoreDetailCoordinator.swift */; };
 		32CCC0D929793EDE00C04231 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CCC0D829793EDE00C04231 /* MainTabBarController.swift */; };
+		32D63DF8298BE993009067BA /* UserLevelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D63DF7298BE993009067BA /* UserLevelViewModel.swift */; };
 		32DB626429816605008C2522 /* FetchUserInfoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626329816605008C2522 /* FetchUserInfoUseCase.swift */; };
 		32DB626C29816849008C2522 /* SignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626B29816849008C2522 /* SignUpUseCase.swift */; };
 		32DB626E2981689C008C2522 /* WithdrawUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626D2981689C008C2522 /* WithdrawUseCase.swift */; };
@@ -205,6 +206,7 @@
 		32CCC0D42979311D00C04231 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		32CCC0D6297939C800C04231 /* StoreDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailCoordinator.swift; sourceTree = "<group>"; };
 		32CCC0D829793EDE00C04231 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		32D63DF7298BE993009067BA /* UserLevelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLevelViewModel.swift; sourceTree = "<group>"; };
 		32DB626329816605008C2522 /* FetchUserInfoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserInfoUseCase.swift; sourceTree = "<group>"; };
 		32DB626B29816849008C2522 /* SignUpUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUseCase.swift; sourceTree = "<group>"; };
 		32DB626D2981689C008C2522 /* WithdrawUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawUseCase.swift; sourceTree = "<group>"; };
@@ -761,6 +763,7 @@
 			children = (
 				FC9044852965DFB400B43BB9 /* View */,
 				FC9044862965DFDB00B43BB9 /* ViewController */,
+				32D63DF7298BE993009067BA /* UserLevelViewModel.swift */,
 			);
 			path = UserLevelScene;
 			sourceTree = "<group>";
@@ -1149,6 +1152,7 @@
 				FCF0181D296095AD0027078A /* CTAButton.swift in Sources */,
 				329557472951992C00F5AB53 /* StoreDetailViewController.swift in Sources */,
 				325985F9294C54CB00D26A37 /* StoreDetailDIContainer.swift in Sources */,
+				32D63DF8298BE993009067BA /* UserLevelViewModel.swift in Sources */,
 				329EF9172972DE30004934E7 /* StoreDetailSection.swift in Sources */,
 				FC60D83F2962C36F00C676A6 /* VoteTitleCell.swift in Sources */,
 				325985E7294C525800D26A37 /* Coordinator.swift in Sources */,
