@@ -20,7 +20,7 @@ final class RegisterReviewViewController: UIViewController {
     private let phPickerViewController: PHPickerViewController = {
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
-        configuration.selectionLimit = 10
+        configuration.selectionLimit = 3
         let phPickerVC = PHPickerViewController(configuration: configuration)
         return phPickerVC
     }()
@@ -28,6 +28,7 @@ final class RegisterReviewViewController: UIViewController {
     private let registerButton: CTAButton = {
         let button = CTAButton(style: .basic)
         button.setTitle("등록하기", for: .normal)
+        button.isEnabled = false
         return button
     }()
 
@@ -58,6 +59,7 @@ final class RegisterReviewViewController: UIViewController {
     }
 
     private func setUpCollectionView() {
+        outerCollectionView.backgroundColor = .white
         outerCollectionView.register(StoreInfoCell.self,
                                      forCellWithReuseIdentifier: StoreInfoCell.reuseIdentifier)
         outerCollectionView.register(VoteTitleCell.self,
@@ -92,6 +94,23 @@ final class RegisterReviewViewController: UIViewController {
                                                name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)),
                                                name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    private func noKeywordTagDidTapped(isSelected: Bool,
+                                       collectionView: UICollectionView,
+                                       indexPath: IndexPath) {
+        viewModel.tags.filter { $0 != .noKeywordToChoose }
+            .forEach { tag in
+                let indexPathForDeselectItem = IndexPath(row: tag.id - 1, section: indexPath.section)
+                guard let cell = collectionView.cellForItem(at: indexPathForDeselectItem)
+                        as? TagReviewCell else { return }
+                if isSelected {
+                    collectionView.deselectItem(at: indexPathForDeselectItem, animated: false)
+                    cell.setUpDisabledButton()
+                } else {
+                    cell.setUpUnselectedButton()
+                }
+            }
     }
 
     @objc
@@ -135,7 +154,8 @@ extension RegisterReviewViewController: UICollectionViewDataSource {
         }
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
         case Section.storeInfo.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
@@ -152,8 +172,13 @@ extension RegisterReviewViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: TagReviewCell.reuseIdentifier,
                 for: indexPath) as? TagReviewCell else { return UICollectionViewCell() }
-            cell.setUpContents(image: UIImage(),
+            cell.setUpContents(image: viewModel.tags[indexPath.row].image,
                                title: viewModel.tags[indexPath.row].text)
+            if let items = collectionView.indexPathsForSelectedItems, items.contains(indexPath) {
+                cell.isSelected = true
+            } else {
+                viewModel.noKeywordTagDidSelected ? cell.setUpDisabledButton() : cell.setUpUnselectedButton()
+            }
             return cell
         case Section.photoReview.rawValue:
             guard let cell = collectionView.dequeueReusableCell(
@@ -166,6 +191,10 @@ extension RegisterReviewViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: ReviewDescriptionCell.reuseIdentifier,
                 for: indexPath) as? ReviewDescriptionCell else { return UICollectionViewCell() }
+            cell.didChangeText = { text in
+                self.viewModel.reviewContents = text
+                self.registerButton.isEnabled = self.viewModel.setUpRegisterButtonState()
+            }
             return cell
         default:
             return UICollectionViewCell()
@@ -190,9 +219,21 @@ extension RegisterReviewViewController: UICollectionViewDelegate {
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.didSelectItemAt(indexPath: indexPath)
+        registerButton.isEnabled = viewModel.setUpRegisterButtonState()
+        if viewModel.noKeywordTagDidSelected {
+            noKeywordTagDidTapped(isSelected: true,
+                                  collectionView: collectionView,
+                                  indexPath: indexPath)
+        }
     }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if viewModel.noKeywordTagDidSelected {
+            noKeywordTagDidTapped(isSelected: false,
+                                  collectionView: collectionView,
+                                  indexPath: indexPath)
+        }
         viewModel.didDeselectItemAt(indexPath: indexPath)
+        registerButton.isEnabled = viewModel.setUpRegisterButtonState()
     }
 }
 
@@ -202,7 +243,9 @@ extension RegisterReviewViewController: ReviewPhotoDelegate {
         present(phPickerViewController, animated: true)
     }
 
-    func dismiss() {
+    func dismiss(reviewPhotos: [UIImage]) {
+        viewModel.reviewPhotos = reviewPhotos
+        registerButton.isEnabled = viewModel.setUpRegisterButtonState()
         dismiss(animated: true)
     }
 }
