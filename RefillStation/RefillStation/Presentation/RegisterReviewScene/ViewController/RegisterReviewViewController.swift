@@ -25,10 +25,13 @@ final class RegisterReviewViewController: UIViewController {
         return phPickerVC
     }()
 
-    private let registerButton: CTAButton = {
+    private lazy var registerButton: CTAButton = {
         let button = CTAButton(style: .basic)
         button.setTitle("등록하기", for: .normal)
         button.isEnabled = false
+        button.addAction(UIAction { _ in
+            self.viewModel.registerButtonTapped()
+        }, for: .touchUpInside)
         return button
     }()
 
@@ -45,6 +48,7 @@ final class RegisterReviewViewController: UIViewController {
         super.viewDidLoad()
         self.title = "리뷰 쓰기"
         view.backgroundColor = .white
+        bind()
         setUpCollectionView()
         layout()
         addKeyboardNotification()
@@ -58,6 +62,12 @@ final class RegisterReviewViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
         tabBarController?.tabBar.isHidden = false
+    }
+
+    private func bind() {
+        viewModel.registerReviewSuccessed = {
+            self.coordinator?.registerReviewSuccessed()
+        }
     }
 
     private func setUpCollectionView() {

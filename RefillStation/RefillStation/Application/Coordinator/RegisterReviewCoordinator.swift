@@ -21,4 +21,14 @@ final class RegisterReviewCoordinator: Coordinator {
         registerReviewViewController.coordinator = self
         navigationController.pushViewController(registerReviewViewController, animated: true)
     }
+
+    func registerReviewSuccessed() {
+        let registerReviewPopUpViewController = DIContainer.makeRegisterReviewPopUpViewController()
+        registerReviewPopUpViewController.coordinator = self
+        navigationController.present(registerReviewPopUpViewController, animated: true)
+    }
+
+    func popUpDismissed() {
+        navigationController.popViewController(animated: true)
+    }
 }

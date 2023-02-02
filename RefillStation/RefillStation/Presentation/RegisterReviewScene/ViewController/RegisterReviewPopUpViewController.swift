@@ -9,6 +9,9 @@ import UIKit
 import SnapKit
 
 final class RegisterReviewPopUpViewController: UIViewController {
+
+    var coordinator: RegisterReviewCoordinator?
+
     private let containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -42,9 +45,14 @@ final class RegisterReviewPopUpViewController: UIViewController {
         return label
     }()
 
-    private let confirmButton: CTAButton = {
+    private lazy var confirmButton: CTAButton = {
         let button = CTAButton(style: .basic)
         button.setTitle("확인", for: .normal)
+        button.addAction(UIAction { _ in
+            self.dismiss(animated: true) { [weak self] in
+                self?.coordinator?.popUpDismissed()
+            }
+        }, for: .touchUpInside)
         return button
     }()
 
@@ -55,6 +63,15 @@ final class RegisterReviewPopUpViewController: UIViewController {
         button.titleLabel?.font = .font(style: .buttonMedium)
         return button
     }()
+
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        modalPresentationStyle = .overFullScreen
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -45,11 +45,7 @@ final class RegisterReviewDIContainer: DIContainer {
         )
     }
 
-    func makeUseCase() {
-
-    }
-
-    func makeRegisterReviewRepository() {
-
+    func makeRegisterReviewPopUpViewController() -> RegisterReviewPopUpViewController {
+        return RegisterReviewPopUpViewController()
     }
 }
