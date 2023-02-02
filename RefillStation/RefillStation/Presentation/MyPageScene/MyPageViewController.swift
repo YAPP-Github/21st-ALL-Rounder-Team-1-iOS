@@ -24,16 +24,14 @@ final class MyPageViewController: UIViewController {
         return imageView
     }()
 
-    private lazy var nicknameLabel: UILabel = {
+    private let nicknameLabel: UILabel = {
         let label = UILabel()
-        label.text = viewModel.userNickname
         label.font = .font(style: .titleMedium)
         return label
     }()
 
-    private lazy var userLevelTagView: PumpTagView = {
+    private let userLevelTagView: PumpTagView = {
         let tagView = PumpTagView()
-        tagView.setUpTagLevel(level: viewModel.userRank)
         return tagView
     }()
 
@@ -82,15 +80,26 @@ final class MyPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        bind()
         layout()
+        addAction()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
+        viewModel.viewWillApeear()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = false
+    }
+
+    private func bind() {
+        viewModel.applyDataSource = {
+            self.nicknameLabel.text = self.viewModel.userNickname
+            self.userLevelTagView.setUpTagLevel(level: self.viewModel.userRank ?? .beginner)
+            self.profileImageView.image = nil
+        }
     }
 
     private func layout() {
@@ -164,5 +173,26 @@ final class MyPageViewController: UIViewController {
             $0.height.equalTo(height)
         }
         return line
+    }
+
+    private func addAction() {
+        changeProfileCell.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                                      action: #selector(presentToChangeProfile)))
+        personalInfoPolicyCell.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                                           action: #selector(presentToPrivacyPolicy)))
+        termsAndConditionsCell.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                                           action: #selector(presentToServiceTerms)))
+    }
+
+    @objc private func presentToChangeProfile() {
+        coordinator?.showEditProfile()
+    }
+
+    @objc private func presentToServiceTerms() {
+        coordinator?.showTermsDetails(termsType: .serviceTerms)
+    }
+
+    @objc private func presentToPrivacyPolicy() {
+        coordinator?.showTermsDetails(termsType: .privacyPolicy)
     }
 }

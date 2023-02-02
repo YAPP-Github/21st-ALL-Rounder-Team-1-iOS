@@ -8,6 +8,36 @@
 import Foundation
 
 final class MyPageViewModel {
-    var userNickname = "Neph"
-    var userRank: UserLevelInfo.Level = .prospect
+    private let fetchUserInfoUseCase: FetchUserInfoUseCaseInterface
+    private var userInfoLoadTask: Cancellable?
+
+    var applyDataSource: (() -> Void)?
+    var userNickname: String?
+    var userRank: UserLevelInfo.Level?
+    var profileImage: String?
+
+    init(fetchUserInfoUseCase: FetchUserInfoUseCaseInterface = FetchUserInfoUseCase()) {
+        self.fetchUserInfoUseCase = fetchUserInfoUseCase
+    }
+
+    private func fetchUserInfo() {
+        userInfoLoadTask = fetchUserInfoUseCase.execute(completion: { result in
+            switch result {
+            case .success(let userInfo):
+                self.userNickname = userInfo.name
+                self.userRank = userInfo.level.level
+                self.profileImage = userInfo.imageURL
+                self.applyDataSource?()
+            case .failure(let error):
+                break
+            }
+        })
+        userInfoLoadTask?.resume()
+    }
+}
+
+extension MyPageViewModel {
+    func viewWillApeear() {
+        fetchUserInfo()
+    }
 }
