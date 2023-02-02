@@ -10,6 +10,7 @@ import UIKit
 final class MyPageViewController: UIViewController {
 
     private let viewModel: MyPageViewModel
+    var coordinator: MyPageCoordinator?
 
     private let largeTitleBar: PumpLargeTitleNavigationBar = {
         let bar = PumpLargeTitleNavigationBar()

@@ -17,5 +17,26 @@ final class MyPageCoordinator: Coordinator {
     }
 
     func start() {
+        startMyPage()
+    }
+
+    func startMyPage() {
+        let myPageViewController = DIContainer.makeMyPageViewController()
+        myPageViewController.coordinator = self
+        navigationController.pushViewController(myPageViewController, animated: true)
+    }
+
+    func startLevelInfo() {
+
+    }
+
+    func showEditProfile() {
+        let editViewContoller = DIContainer.makeEditProfileViewController()
+        navigationController.pushViewController(editViewContoller, animated: true)
+    }
+
+    func showTermsDetails(termsType: TermsType) {
+        let termsDetailViewController = DIContainer.makeTermsDetailViewController(termsType: termsType)
+        navigationController.pushViewController(termsDetailViewController, animated: true)
     }
 }

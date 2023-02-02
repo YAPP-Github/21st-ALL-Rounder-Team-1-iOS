@@ -16,22 +16,41 @@ final class MyPageDIContainer: DIContainer {
     }
 
     // MARK: - Coordinator
-    func makeHomeCoordinator() -> MyPageCoordinator {
+    func makeMyPageCoordinator() -> MyPageCoordinator {
         return MyPageCoordinator(DIContainer: self,
                                  navigationController: navigationController)
     }
 
     // MARK: - My Page
-    func makeMyPageViewController() {
+    func makeMyPageViewController() -> MyPageViewController {
+        return MyPageViewController(viewModel: makeMyPageViewModel())
     }
 
-    func makeMyPageViewModel() {
+    func makeMyPageViewModel() -> MyPageViewModel {
+        return MyPageViewModel()
     }
 
-    func makeUseCase() {
-
+    func makeMyPageUseCase() -> FetchUserInfoUseCase {
+        return FetchUserInfoUseCase()
     }
 
     func makeMyPageRepository() {
+
+    }
+
+    func makeUserLevelViewController() {
+
+    }
+
+    func makeTermsDetailViewController(termsType: TermsType) -> TermsDetailViewController {
+        return TermsDetailViewController(termsType: termsType)
+    }
+
+    func makeEditProfileViewController() -> NicknameViewController {
+        return NicknameViewController(viewModel: makeEditProfileViewModel())
+    }
+
+    func makeEditProfileViewModel() -> NicknameViewModel {
+        return NicknameViewModel(viewType: .myPage)
     }
 }
