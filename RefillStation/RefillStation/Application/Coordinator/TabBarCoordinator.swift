@@ -34,6 +34,7 @@ final class TabBarCoordinator: Coordinator {
         tabBarController.addChild(homeNavigationController)
         tabBarController.addChild(myPageNavigationController)
         startHome()
+        startMyPage()
     }
 
     private func startHome() {
@@ -44,5 +45,11 @@ final class TabBarCoordinator: Coordinator {
         let myPageDIContainer = DIContainer.makeMyPageDIContainer()
         let myPageCoordinator = myPageDIContainer.makeMyPageCoordinator()
         myPageCoordinator.start()
+    }
+
+    private func startMyPage() {
+        let myPageDIContainer = DIContainer.makeMyPageDIContainer()
+        let homeCoordinator = myPageDIContainer.makeMyPageCoordinator()
+        homeCoordinator.start()
     }
 }
