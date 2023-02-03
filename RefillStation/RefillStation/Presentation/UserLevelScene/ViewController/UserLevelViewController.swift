@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 
 final class UserLevelViewController: UIViewController {
+    private let viewModel: UserLevelViewModel
+
     private let levelCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero,
@@ -23,13 +25,38 @@ final class UserLevelViewController: UIViewController {
         return collectionView
     }()
 
+    init(viewModel: UserLevelViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "회원 등급 안내"
         view.backgroundColor = .white
         levelCollectionView.dataSource = self
         levelCollectionView.delegate = self
+        bind()
         layout()
+        viewModel.viewDidLoad()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = true
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = false
+    }
+
+    private func bind() {
+        viewModel.reloadData = {
+            self.levelCollectionView.reloadData()
+        }
     }
 
     private func layout() {
@@ -66,10 +93,7 @@ extension UserLevelViewController: UICollectionViewDelegateFlowLayout {
             ofKind: kind,
             withReuseIdentifier: LevelHeaderView.reuseIdentifier,
             for: indexPath) as? LevelHeaderView else { return UICollectionReusableView() }
-        header.setUpContents(nickname: "뿡빵뿡빵",
-                             level: .beginner,
-                             remainingCount: 5,
-                             totalCount: 10)
+        header.setUpContents(level: viewModel.userLevel, totalReviewCount: viewModel.totalReviewCount)
         return header
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

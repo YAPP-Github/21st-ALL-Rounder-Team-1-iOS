@@ -41,6 +41,10 @@ final class TabBarCoordinator: Coordinator {
         let homeDIContainer = DIContainer.makeHomeDIContainer()
         let homeCoordinator = homeDIContainer.makeHomeCoordinator()
         homeCoordinator.start()
+
+        let myPageDIContainer = DIContainer.makeMyPageDIContainer()
+        let myPageCoordinator = myPageDIContainer.makeMyPageCoordinator()
+        myPageCoordinator.start()
     }
 
     private func startMyPage() {

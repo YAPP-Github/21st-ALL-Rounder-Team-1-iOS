@@ -5,12 +5,12 @@
 //  Created by kong on 2022/12/16.
 //
 
-import Foundation
+import UIKit
 
 struct RegiserReviewRequestValue {
     let storeId: Int
     let tagIds: [Int]
-    let imageURLs: [String]
+    let images: [UIImage] // image 업로드는 UploadImageUseCase를 사용하여 진행 후 String 배열로 변환
     let description: String
 }
 

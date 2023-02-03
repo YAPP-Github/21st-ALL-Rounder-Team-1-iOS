@@ -41,12 +41,8 @@ final class OnboardingDIContainer: DIContainer {
     }
 
     // MARK: - Login
-    func makeLoginViewController() {
-
-    }
-
-    func makeLoginViewModel() {
-
+    func makeLoginViewController() -> LoginViewController {
+        return LoginViewController()
     }
 
     // MARK: - Terms Permission
@@ -65,12 +61,12 @@ final class OnboardingDIContainer: DIContainer {
     }
 
     // MARK: - Nickname
-    func makeNicknameViewController() {
-
+    func makeNicknameViewController() -> NicknameViewController {
+        return NicknameViewController(viewModel: makeNicknameViewModel())
     }
 
-    func makeNicknameViewModel() {
-
+    func makeNicknameViewModel() -> NicknameViewModel {
+        return NicknameViewModel(viewType: .onboarding)
     }
 
     // MARK: - Location Permission

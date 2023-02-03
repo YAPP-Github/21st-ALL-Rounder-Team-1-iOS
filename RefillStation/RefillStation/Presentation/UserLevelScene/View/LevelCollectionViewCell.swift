@@ -21,7 +21,6 @@ final class LevelCollectionViewCell: UICollectionViewCell {
     private let levelImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = Asset.Colors.lv1.color
         return imageView
     }()
     private let levelTitleLabel: UILabel = {
@@ -47,6 +46,7 @@ final class LevelCollectionViewCell: UICollectionViewCell {
         levelTitleLabel.text = level.name
         levelTitleLabel.textColor = level.color
         levelTagView.setUpTitle(title: level.levelTagText)
+        levelImageView.image = level.image
     }
 
     private func layout() {
