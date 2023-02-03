@@ -187,6 +187,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 0 { return }
         coordiantor?.showStoreDetail(store: viewModel.stores[indexPath.row])
     }
 }
