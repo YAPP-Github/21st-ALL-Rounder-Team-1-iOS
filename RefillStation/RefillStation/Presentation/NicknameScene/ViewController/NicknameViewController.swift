@@ -125,20 +125,27 @@ final class NicknameViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        setUpNavigationBar()
         tabBarController?.tabBar.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        navigationController?.navigationBar.tintColor = .black
+        AppDelegate.setUpNavigationBar()
         tabBarController?.tabBar.isHidden = false
     }
 
     // MARK: - Methods
+
     private func addKeyboardNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),
                                                name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)),
                                                name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    private func setUpNavigationBar() {
+        self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.navigationBar.tintColor = Asset.Colors.gray7.color
     }
 
     private func setUpView() {
