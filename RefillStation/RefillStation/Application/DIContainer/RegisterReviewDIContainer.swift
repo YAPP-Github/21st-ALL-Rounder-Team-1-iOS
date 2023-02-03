@@ -10,15 +10,18 @@ import UIKit
 final class RegisterReviewDIContainer: DIContainer {
     private let navigationController: UINavigationController
     private let networkService = NetworkService.shared
+    private let storeId: Int
     private let storeName: String
     private let storeLocationInfo: String
 
     init(
         navigationController: UINavigationController,
+        storeId: Int,
         storeName: String,
         storeLocationInfo: String
     ) {
         self.navigationController = navigationController
+        self.storeId = storeId
         self.storeName = storeName
         self.storeLocationInfo = storeLocationInfo
     }
@@ -35,14 +38,22 @@ final class RegisterReviewDIContainer: DIContainer {
     }
 
     func makeRegisterReviewViewModel() -> DefaultTagReviewViewModel {
-        return DefaultTagReviewViewModel(storeName: storeName, storeLocationInfo: storeLocationInfo)
+        return DefaultTagReviewViewModel(
+            storeId: storeId,
+            storeName: storeName,
+            storeLocationInfo: storeLocationInfo
+        )
     }
 
-    func makeUseCase() {
-
+    func makeRegisterReviewPopUpViewController(userLevel: UserLevelInfo.Level) -> RegisterReviewPopUpViewController {
+        return RegisterReviewPopUpViewController(userLevel: userLevel)
     }
 
-    func makeRegisterReviewRepository() {
+    func makeUserLevelViewController(userLevel: UserLevelInfo.Level) -> UserLevelViewController {
+        return UserLevelViewController(viewModel: makeUserLevelViewModel())
+    }
 
+    func makeUserLevelViewModel() -> UserLevelViewModel {
+        return UserLevelViewModel()
     }
 }

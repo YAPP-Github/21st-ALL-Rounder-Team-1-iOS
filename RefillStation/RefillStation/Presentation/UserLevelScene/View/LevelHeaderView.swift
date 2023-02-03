@@ -28,13 +28,6 @@ final class LevelHeaderView: UICollectionReusableView {
         return imageView
     }()
 
-    private let nicknameLabel: UILabel = {
-        let label = UILabel()
-        label.font = .font(style: .titleLarge2)
-        label.textAlignment = .center
-        return label
-    }()
-
     private let levelLabel: UILabel = {
         let label = UILabel()
         label.font = .font(style: .titleLarge2)
@@ -71,20 +64,17 @@ final class LevelHeaderView: UICollectionReusableView {
         super.init(coder: coder)
     }
 
-    func setUpContents(nickname: String,
-                       level: UserLevelInfo.Level,
-                       remainingCount: Int,
-                       totalCount: Int) {
-        nicknameLabel.text = "\(nickname)님은"
-        descriptionLabel.text = "'\(level.name)'까지 리뷰 \(remainingCount)회가 남았어요"
+    func setUpContents(level: UserLevelInfo.Level, totalReviewCount: Int) {
+        descriptionLabel.text = "'\(level.nextLevel.name)'까지 리뷰 \(level.nextLevelRemainCount)회가 남았어요"
         levelLabel.text = level.name
-        remainingReviewTagView.setUpTitle(title: "누적 리뷰 \(totalCount)회")
+        remainingReviewTagView.setUpTitle(title: "누적 리뷰 \(totalReviewCount)회")
+        levelImage.image = level.image
     }
 
     private func layout() {
         [levelView, titleLabel].forEach { addSubview($0) }
         levelView.addSubview(backgroundView)
-        [levelImage, nicknameLabel, levelLabel,
+        [levelImage, levelLabel,
          descriptionLabel, remainingReviewTagView].forEach { backgroundView.addSubview($0) }
 
         levelView.snp.makeConstraints {
@@ -103,11 +93,6 @@ final class LevelHeaderView: UICollectionReusableView {
             $0.top.equalToSuperview().inset(32)
             $0.width.equalTo(120)
             $0.centerX.equalToSuperview()
-        }
-        nicknameLabel.snp.makeConstraints {
-            $0.top.equalTo(levelImage.snp.bottom).offset(12)
-            $0.bottom.equalTo(levelLabel.snp.top)
-            $0.leading.trailing.equalToSuperview().inset(43)
         }
         levelLabel.snp.makeConstraints {
             $0.bottom.equalTo(descriptionLabel.snp.top).offset(-8)

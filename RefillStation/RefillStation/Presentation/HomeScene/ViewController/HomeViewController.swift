@@ -68,12 +68,14 @@ final class HomeViewController: UIViewController {
         view.backgroundColor = .white
         storeCollectionView.dataSource = self
         storeCollectionView.delegate = self
+        bind()
         layout()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        viewModel.viewWillApeear()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -82,6 +84,12 @@ final class HomeViewController: UIViewController {
     }
 
     // MARK: - Default Setting Methods
+
+    private func bind() {
+        viewModel.setUpContents = {
+            self.storeCollectionView.reloadData()
+        }
+    }
 
     private func layout() {
         [storeCollectionView, topButton, homeTitleBar].forEach { view.addSubview($0) }

@@ -43,7 +43,7 @@ final class TabBarDIContainer: DIContainer {
         return HomeDIContainer(navigationController: homeNavigationController)
     }
 
-    func makeMyPageDIContainer() {
-
+    func makeMyPageDIContainer() -> MyPageDIContainer {
+        return MyPageDIContainer(navigationController: myPageNaviagtionConroller)
     }
 }

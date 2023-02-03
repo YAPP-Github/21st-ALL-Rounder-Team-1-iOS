@@ -21,6 +21,7 @@ final class StoreDetailDIContainer: DIContainer {
     func makeRegisterReviewDIContainer() -> RegisterReviewDIContainer {
         return RegisterReviewDIContainer(
             navigationController: navigationController,
+            storeId: store.storeId,
             storeName: store.name,
             storeLocationInfo: store.address
         )

@@ -9,6 +9,10 @@ import UIKit
 import SnapKit
 
 final class RegisterReviewPopUpViewController: UIViewController {
+
+    var coordinator: RegisterReviewCoordinator?
+    private let userLevel: UserLevelInfo.Level
+
     private let containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -19,7 +23,6 @@ final class RegisterReviewPopUpViewController: UIViewController {
     private let levelImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .lightGray
         return imageView
     }()
 
@@ -42,25 +45,48 @@ final class RegisterReviewPopUpViewController: UIViewController {
         return label
     }()
 
-    private let confirmButton: CTAButton = {
+    private lazy var confirmButton: CTAButton = {
         let button = CTAButton(style: .basic)
         button.setTitle("확인", for: .normal)
+        button.addAction(UIAction { _ in
+            self.dismiss(animated: true) {
+                self.coordinator?.popUpDismissed()
+            }
+        }, for: .touchUpInside)
         return button
     }()
 
-    private let learnMoreButton: UIButton = {
+    private lazy var learnMoreButton: UIButton = {
         let button = UIButton()
         button.setTitle("자세히 알아보기", for: .normal)
         button.setTitleColor(Asset.Colors.gray5.color, for: .normal)
         button.titleLabel?.font = .font(style: .buttonMedium)
+        button.addAction(UIAction { _ in
+            self.dismiss(animated: true) {
+                self.coordinator?.learnMoreButtonTapped(userLevel: self.userLevel)
+            }
+        }, for: .touchUpInside)
         return button
     }()
+
+    init(userLevel: UserLevelInfo.Level) {
+        self.userLevel = userLevel
+        super.init(nibName: nil, bundle: nil)
+        levelImageView.image = userLevel.image
+        titleLabel.text = userLevel.celebrateTitle
+        descriptionLabel.text = "‘\(userLevel.nextLevel.name)’까지\n리뷰 \(userLevel.nextLevelRemainCount)회가 남았어요"
+        setUpReviewCountTextColor(count: userLevel.nextLevelRemainCount)
+        modalPresentationStyle = .overFullScreen
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black.withAlphaComponent(0.5)
         layout()
-        setUpReviewCountTextColor(count: 2)
     }
 
     private func layout() {
@@ -103,5 +129,16 @@ final class RegisterReviewPopUpViewController: UIViewController {
         attributeString.addAttribute(.foregroundColor, value: Asset.Colors.primary10.color,
                                      range: (text as NSString).range(of: "\(count)"))
         descriptionLabel.attributedText = attributeString
+    }
+}
+
+fileprivate extension UserLevelInfo.Level {
+    var celebrateTitle: String {
+        switch self {
+        case .beginner:
+            return "리필생활의 시작을 축하드려요!"
+        default:
+            return "\(name)가 되셨네요!"
+        }
     }
 }
