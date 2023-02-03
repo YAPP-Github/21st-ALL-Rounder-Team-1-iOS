@@ -95,7 +95,7 @@ final class MyPageViewController: UIViewController {
     }
 
     private func bind() {
-        viewModel.applyDataSource = {
+        viewModel.setUpContents = {
             self.nicknameLabel.text = self.viewModel.userNickname
             self.userLevelTagView.setUpTagLevel(level: self.viewModel.userRank ?? .beginner)
             self.profileImageView.image = nil

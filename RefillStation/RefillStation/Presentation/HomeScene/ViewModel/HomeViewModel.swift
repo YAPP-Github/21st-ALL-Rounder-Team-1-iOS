@@ -12,7 +12,7 @@ final class HomeViewModel {
     private var storeListLoadTask: Cancellable?
     var stores = [Store]()
     var isServiceRegion: Bool = false
-    var applyDataSource: (() -> Void)?
+    var setUpContents: (() -> Void)?
 
     init(fetchStoresUseCase: FetchStoresUseCaseInterface = FetchStoresUseCase()) {
         self.fetchStoresUseCase = fetchStoresUseCase
@@ -25,7 +25,7 @@ final class HomeViewModel {
                 switch result {
                 case .success(let stores):
                     self.stores = stores
-                    self.applyDataSource?()
+                    self.setUpContents?()
                 case .failure(let error):
                     break
                 }

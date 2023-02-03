@@ -11,7 +11,7 @@ final class MyPageViewModel {
     private let fetchUserInfoUseCase: FetchUserInfoUseCaseInterface
     private var userInfoLoadTask: Cancellable?
 
-    var applyDataSource: (() -> Void)?
+    var setUpContents: (() -> Void)?
     var userNickname: String?
     var userRank: UserLevelInfo.Level?
     var profileImage: String?
@@ -27,7 +27,7 @@ final class MyPageViewModel {
                 self.userNickname = userInfo.name
                 self.userRank = userInfo.level.level
                 self.profileImage = userInfo.imageURL
-                self.applyDataSource?()
+                self.setUpContents?()
             case .failure(let error):
                 break
             }

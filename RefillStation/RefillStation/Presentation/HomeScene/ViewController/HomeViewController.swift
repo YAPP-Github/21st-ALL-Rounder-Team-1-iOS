@@ -86,7 +86,7 @@ final class HomeViewController: UIViewController {
     // MARK: - Default Setting Methods
 
     private func bind() {
-        viewModel.applyDataSource = {
+        viewModel.setUpContents = {
             self.storeCollectionView.reloadData()
         }
     }
