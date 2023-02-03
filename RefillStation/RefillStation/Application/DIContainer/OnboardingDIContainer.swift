@@ -70,7 +70,7 @@ final class OnboardingDIContainer: DIContainer {
     }
 
     // MARK: - Location Permission
-    func makeLocationPermissionViewController() {
-
+    func makeLocationPermissionViewController() -> LocationPermissionViewController {
+        return LocationPermissionViewController()
     }
 }
