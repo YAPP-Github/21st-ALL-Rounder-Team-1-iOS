@@ -88,6 +88,7 @@ internal enum Asset {
     internal static let iconThumbsup = ImageAsset(name: "icon_thumbsup")
     internal static let iconThumbsupFill = ImageAsset(name: "icon_thumbsup_fill")
     internal static let iconWrite = ImageAsset(name: "icon_write")
+    internal static let imageLocationInfo = ImageAsset(name: "image_location info")
     internal static let imgKeywordClean = ImageAsset(name: "img_keyword_clean")
     internal static let imgKeywordKind = ImageAsset(name: "img_keyword_kind")
     internal static let imgKeywordNoKeyword = ImageAsset(name: "img_keyword_no keyword")
