@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Algorithms
 
 final class StoreDetailViewModel {
 
@@ -194,34 +195,16 @@ final class StoreDetailViewModel {
     }
 
     private func setUpRankedTags() {
-        var rankTagDict = [Tag: Int]()
-        Tag.allCases.forEach {
-            rankTagDict.updateValue(0, forKey: $0)
-        }
-
-        totalTagVoteCount = reviews.reduce(into: 0) { partialResult, review in
-            partialResult += review.tags.contains(.noKeywordToChoose) ? 0 : 1
-        }
-
-        reviews.flatMap {
-            return $0.tags
-        }.forEach {
-            if let voteCount = rankTagDict[$0] {
-                rankTagDict.updateValue(voteCount + 1, forKey: $0)
+        let tags = reviews.lazy.flatMap { $0.tags }
+        totalTagVoteCount = tags.filter { $0 != .noKeywordToChoose }.count
+        rankTags = Tag.allCases
+            .filter { $0 != .noKeywordToChoose }
+            .map { tag in
+                RankTag(tag: tag, voteCount: tags.filter { $0 == tag }.count)
             }
-        }
-
-        rankTags = rankTagDict.filter {
-            $0.value != 0 && $0.key != .noKeywordToChoose
-        }.sorted {
-            if $0.value == $1.value {
-                return $0.key.text < $1.key.text
-            } else {
-                return $0.value > $1.value
+            .sorted {
+                $0.voteCount == $1.voteCount ? $0.tag.text < $1.tag.text : $0.voteCount > $1.voteCount
             }
-        }.map {
-            return RankTag(tag: $0.key, voteCount: $0.value)
-        }
     }
 }
 
@@ -292,6 +275,6 @@ extension StoreDetailViewModel {
 extension StoreDetailViewModel {
     struct RankTag: Hashable {
         let tag: Tag
-        var voteCount: Int
+        let voteCount: Int
     }
 }
