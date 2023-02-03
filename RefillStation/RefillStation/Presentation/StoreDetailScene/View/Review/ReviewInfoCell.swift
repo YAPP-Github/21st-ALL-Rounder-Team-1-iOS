@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Algorithms
 
 final class ReviewInfoCell: UICollectionViewCell {
 
@@ -198,8 +199,6 @@ final class ReviewInfoCell: UICollectionViewCell {
     }
 
     func setUpContents(totalTagReviewCount: Int, rankTags: [StoreDetailViewModel.RankTag]) {
-        var tags = rankTags
-        var lastElementVoteCount = -1
         var rank = 1
         otherClassStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
@@ -212,22 +211,21 @@ final class ReviewInfoCell: UICollectionViewCell {
             votedCountLabel.text = "\(totalTagReviewCount)명 "
         }
 
-        if tags.isEmpty {
+        if rankTags.isEmpty {
             [firstRankView, divisionLine, otherClassStackView].forEach { $0.isHidden = true }
             return
-        } else {
-            let first = tags.removeFirst()
+        } else if let first = rankTags.first {
             firstRankView.setUpContents(tag: first.tag)
-            lastElementVoteCount = first.voteCount
         }
 
-        for tag in tags {
-            if otherClassStackView.arrangedSubviews.count == 3 { break }
-            let other = OtherRankView()
-            if lastElementVoteCount > tag.voteCount { rank += 1 }
-            other.setUpContents(tag: tag.tag, rank: rank)
-            otherClassStackView.addArrangedSubview(other)
-        }
+        rankTags.prefix(4)
+            .adjacentPairs()
+            .forEach { prev, next in
+                if prev.voteCount > next.voteCount { rank += 1 }
+                let other = OtherRankView()
+                other.setUpContents(tag: next.tag, rank: rank)
+                otherClassStackView.addArrangedSubview(other)
+            }
     }
 
     private func makeBlurPlaceholder() {
