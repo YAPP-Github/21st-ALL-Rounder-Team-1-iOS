@@ -93,7 +93,9 @@ final class LocationPermissionViewController: UIViewController {
         switch locationManager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
             self.coordinator?.agreeAndStartButtonTapped()
-        case .notDetermined, .restricted, .denied:
+        case .notDetermined, .restricted:
+            self.locationManager.requestWhenInUseAuthorization()
+        case .denied:
             openSetting()
         default:
             break
@@ -113,8 +115,7 @@ extension LocationPermissionViewController: CLLocationManagerDelegate {
         switch status {
         case .authorizedAlways, .authorizedWhenInUse:
             self.coordinator?.agreeAndStartButtonTapped()
-        default:
-            print("GPS: Default")
+        default: break
         }
     }
 }
