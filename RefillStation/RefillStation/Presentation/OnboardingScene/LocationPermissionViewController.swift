@@ -46,7 +46,6 @@ final class LocationPermissionViewController: UIViewController {
         let button = CTAButton(style: .basic)
         button.setTitle("동의하고 시작하기", for: .normal)
         button.addAction(UIAction(handler: { _ in
-            self.locationManager.requestWhenInUseAuthorization()
             self.requestAuthorization()
         }), for: .touchUpInside)
         return button

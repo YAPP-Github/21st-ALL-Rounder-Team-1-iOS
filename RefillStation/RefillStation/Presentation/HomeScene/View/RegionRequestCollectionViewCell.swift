@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class RegionRequestCollectionViewCell: UICollectionViewCell {
+final class RegionRequestCollectionViewCell: UICollectionViewCell {
 
     static let reuseIdentifier = String(describing: RegionRequestCollectionViewCell.self)
     var moveToRegionRequest: (() -> Void)?

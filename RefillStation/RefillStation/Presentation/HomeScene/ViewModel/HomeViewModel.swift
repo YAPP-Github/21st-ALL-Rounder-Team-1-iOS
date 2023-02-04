@@ -10,7 +10,7 @@ import CoreLocation
 
 final class HomeViewModel {
     private let fetchStoresUseCase: FetchStoresUseCaseInterface
-    private var storeListLoadTask: Cancellable?
+    private var storesLoadTask: Cancellable?
 
     private let locationManager = CLLocationManager()
     private var latitude: Double = 0
@@ -29,7 +29,7 @@ final class HomeViewModel {
     }
 
     private func fetchStores() {
-        storeListLoadTask = fetchStoresUseCase
+        storesLoadTask = fetchStoresUseCase
             .execute(requestValue: FetchStoresUseCaseRequestValue(latitude: latitude,
                                                                   longitude: longitude)) { result in
                 switch result {
@@ -44,7 +44,7 @@ final class HomeViewModel {
                     break
                 }
             }
-        storeListLoadTask?.resume()
+        storesLoadTask?.resume()
     }
 }
 
