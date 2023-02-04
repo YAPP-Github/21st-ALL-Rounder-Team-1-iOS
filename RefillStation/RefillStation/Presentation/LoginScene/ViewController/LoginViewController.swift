@@ -10,6 +10,8 @@ import SnapKit
 
 final class LoginViewController: UIViewController {
 
+    var coordinator: OnboardingCoordinator?
+
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Asset.Images.loginbackground.image
@@ -65,6 +67,7 @@ final class LoginViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         layout()
+        addLoginButtonActions()
     }
 
     private func layout() {
@@ -79,6 +82,14 @@ final class LoginViewController: UIViewController {
         loginButtonStackView.snp.makeConstraints {
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(32)
             $0.height.equalTo(160)
+        }
+    }
+
+    private func addLoginButtonActions() {
+        [kakaoLoginButton, appleLoginButton, naverLoginButton].forEach {
+            $0.addAction(UIAction { _ in
+                self.coordinator?.showTermsPermission()
+            }, for: .touchUpInside)
         }
     }
 }

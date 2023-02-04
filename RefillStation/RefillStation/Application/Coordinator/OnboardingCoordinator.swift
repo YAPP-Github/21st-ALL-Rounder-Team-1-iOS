@@ -28,16 +28,21 @@ final class OnboardingCoordinator: Coordinator {
     }
 
     func showOnboarding() {
-        window?.rootViewController = DIContainer.makeOnboardingViewController()
+        let onboardingViewController = DIContainer.makeOnboardingViewController()
+        onboardingViewController.coordinator = self
+        window?.rootViewController = onboardingViewController
     }
 
     func showLogin() {
-
+        let loginViewController = DIContainer.makeLoginViewController()
+        loginViewController.coordinator = self
+        window?.rootViewController = loginViewController
     }
 
     func showTermsPermission() {
         let termsPermissionViewController = DIContainer.makeTermsPermissionViewController()
         termsPermissionViewController.coordinator = self
+        window?.rootViewController = navigationController
         navigationController.pushViewController(termsPermissionViewController, animated: true)
     }
 

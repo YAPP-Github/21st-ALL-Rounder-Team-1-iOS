@@ -46,11 +46,14 @@ final class TermsPermissionViewController: UIViewController {
         stackView.distribution = .fillEqually
         return stackView
     }()
-    private let confirmButton: CTAButton = {
+    private lazy var confirmButton: CTAButton = {
         let button = CTAButton(style: .basic)
         button.setTitle("동의합니다", for: .normal)
         button.titleLabel?.font = .font(style: .titleMedium)
         button.isEnabled = false
+        button.addAction(UIAction { _ in
+            self.coordinator?.showLocationAuthorization()
+        }, for: .touchUpInside)
         return button
     }()
 

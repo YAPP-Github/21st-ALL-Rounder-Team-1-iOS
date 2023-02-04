@@ -10,6 +10,7 @@ import SnapKit
 
 final class OnboardingViewController: UIViewController {
 
+    var coordinator: OnboardingCoordinator?
     private let viewModel: OnboardingViewModel
 
     private lazy var onboardingCollectionView: UICollectionView = {
@@ -44,6 +45,9 @@ final class OnboardingViewController: UIViewController {
     private lazy var startButton: CTAButton = {
         let button = CTAButton(style: .basic)
         button.setTitle("시작하기", for: .normal)
+        button.addAction(UIAction { _ in
+            self.coordinator?.showLogin()
+        }, for: .touchUpInside)
         return button
     }()
 
