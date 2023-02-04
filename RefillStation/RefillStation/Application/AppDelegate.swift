@@ -17,17 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         AppDelegate.setUpNavigationBar()
         window = UIWindow(frame: UIScreen.main.bounds)
-        let navigationController = UINavigationController()
-        let rootViewController = UIViewController()
-        window?.rootViewController = rootViewController
-        onboardingDIContainer = OnboardingDIContainer(navigationController: navigationController,
-                                                      window: window)
-        onboardingCoordinator = onboardingDIContainer?.makeOnboardingCoordinator()
-        if didLoginSuccessed() {
-            onboardingCoordinator?.agreeAndStartButtonTapped()
-        } else {
-            onboardingCoordinator?.start()
-        }
+        window?.rootViewController = AppleLoginViewController()
         window?.makeKeyAndVisible()
         return true
     }
