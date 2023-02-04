@@ -77,6 +77,7 @@
 		32E6AE38298E5629005AA542 /* StoreDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E6AE37298E5629005AA542 /* StoreDTO.swift */; };
 		32E6AE3C298E7C67005AA542 /* StoreRecommendDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E6AE3B298E7C67005AA542 /* StoreRecommendDTO.swift */; };
 		32E6AE44298E7EF4005AA542 /* ProductDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E6AE43298E7EF4005AA542 /* ProductDTO.swift */; };
+		32E6AE46298E80CD005AA542 /* ReviewDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E6AE45298E80CD005AA542 /* ReviewDTO.swift */; };
 		32E9A55D292E4F37000072EE /* RankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E9A55C292E4F37000072EE /* RankView.swift */; };
 		32ED1E5529853C910020CD1F /* OperationNoticeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32ED1E5429853C910020CD1F /* OperationNoticeCell.swift */; };
 		32ED747A2969441D007EA791 /* OperationInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32ED74792969441D007EA791 /* OperationInfoCell.swift */; };
@@ -225,6 +226,7 @@
 		32E6AE37298E5629005AA542 /* StoreDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDTO.swift; sourceTree = "<group>"; };
 		32E6AE3B298E7C67005AA542 /* StoreRecommendDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRecommendDTO.swift; sourceTree = "<group>"; };
 		32E6AE43298E7EF4005AA542 /* ProductDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDTO.swift; sourceTree = "<group>"; };
+		32E6AE45298E80CD005AA542 /* ReviewDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDTO.swift; sourceTree = "<group>"; };
 		32E9A55C292E4F37000072EE /* RankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankView.swift; sourceTree = "<group>"; };
 		32ED1E5429853C910020CD1F /* OperationNoticeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationNoticeCell.swift; sourceTree = "<group>"; };
 		32ED74792969441D007EA791 /* OperationInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationInfoCell.swift; sourceTree = "<group>"; };
@@ -645,6 +647,7 @@
 				32E6AE37298E5629005AA542 /* StoreDTO.swift */,
 				32E6AE43298E7EF4005AA542 /* ProductDTO.swift */,
 				32E6AE3B298E7C67005AA542 /* StoreRecommendDTO.swift */,
+				32E6AE45298E80CD005AA542 /* ReviewDTO.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -1219,6 +1222,7 @@
 				FC1FD6A12962C4AF00869F5F /* RegisterReviewPopUpViewController.swift in Sources */,
 				FCE00A7F294C91B600B5C05F /* UploadImageUseCase.swift in Sources */,
 				FC94151C298692C3009AEE71 /* TermsDetailViewController.swift in Sources */,
+				32E6AE46298E80CD005AA542 /* ReviewDTO.swift in Sources */,
 				FC90448C2965E2E500B43BB9 /* PumpTagView.swift in Sources */,
 				3244A1FC292DC13A00716A2B /* AppDelegate.swift in Sources */,
 				FCEE10312934D287002E629D /* Assets+Generated.swift in Sources */,
