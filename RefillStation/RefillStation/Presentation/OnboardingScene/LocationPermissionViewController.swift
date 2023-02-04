@@ -122,8 +122,7 @@ extension LocationPermissionViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .authorizedAlways, .authorizedWhenInUse:
-//            self.coordinator?.agreeAndStartButtonTapped()
-            break
+            self.coordinator?.agreeAndStartButtonTapped()
         default: break
         }
     }
