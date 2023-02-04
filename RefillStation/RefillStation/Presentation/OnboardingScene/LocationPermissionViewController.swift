@@ -58,6 +58,15 @@ final class LocationPermissionViewController: UIViewController {
         locationManager.delegate = self
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.topItem?.title = ""
+        navigationController?.navigationBar.tintColor = Asset.Colors.gray7.color
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        AppDelegate.setUpNavigationBar()
+    }
+
     private func layout() {
         [outerView, confirmBotton].forEach { view.addSubview($0) }
         outerView.snp.makeConstraints {
@@ -113,7 +122,8 @@ extension LocationPermissionViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .authorizedAlways, .authorizedWhenInUse:
-            self.coordinator?.agreeAndStartButtonTapped()
+//            self.coordinator?.agreeAndStartButtonTapped()
+            break
         default: break
         }
     }

@@ -41,6 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func didLoginSuccessed() -> Bool {
-        return true
+        return false
     }
 }
