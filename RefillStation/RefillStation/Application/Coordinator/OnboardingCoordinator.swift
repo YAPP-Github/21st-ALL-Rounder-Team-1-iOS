@@ -47,7 +47,9 @@ final class OnboardingCoordinator: Coordinator {
     }
 
     func showLocationAuthorization() {
-
+        let locationPermissionViewController = DIContainer.makeLocationPermissionViewController()
+        locationPermissionViewController.coordinator = self
+        navigationController.pushViewController(locationPermissionViewController, animated: true)
     }
 
     func agreeAndStartButtonTapped() {

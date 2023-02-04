@@ -6,12 +6,22 @@
 //
 
 import UIKit
+import CoreLocation
 
 final class HomeViewModel {
     private let fetchStoresUseCase: FetchStoresUseCaseInterface
-    private var storeListLoadTask: Cancellable?
+    private var storesLoadTask: Cancellable?
+
+    private let locationManager = CLLocationManager()
+    private var latitude: Double = 0
+    private var longitude: Double = 0
+
     var stores = [Store]()
-    var isServiceRegion: Bool = false
+    var currentAddress = ""
+    var currentAdministrativeArea = ""
+    var isServiceRegion: Bool {
+        return currentAdministrativeArea == "서울특별시"
+    }
     var setUpContents: (() -> Void)?
 
     init(fetchStoresUseCase: FetchStoresUseCaseInterface = FetchStoresUseCase()) {
@@ -19,23 +29,49 @@ final class HomeViewModel {
     }
 
     private func fetchStores() {
-        storeListLoadTask = fetchStoresUseCase
-            .execute(requestValue: FetchStoresUseCaseRequestValue(latitude: 100,
-                                                                  longitude: 100)) { result in
+        storesLoadTask = fetchStoresUseCase
+            .execute(requestValue: FetchStoresUseCaseRequestValue(latitude: latitude,
+                                                                  longitude: longitude)) { result in
                 switch result {
                 case .success(let stores):
                     self.stores = stores
-                    self.setUpContents?()
+                    self.convertAddress(latitude: self.latitude, longitude: self.longitude) {
+                        self.currentAddress = $0
+                        self.currentAdministrativeArea = $1
+                        self.setUpContents?()
+                    }
                 case .failure(let error):
                     break
                 }
             }
-        storeListLoadTask?.resume()
+        storesLoadTask?.resume()
     }
 }
 
 extension HomeViewModel {
     func viewWillApeear() {
+        setUpCurrentLocation()
         fetchStores()
+    }
+}
+
+extension HomeViewModel {
+    private func setUpCurrentLocation() {
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        guard let space = locationManager.location?.coordinate else { return }
+        latitude = space.latitude
+        longitude = space.longitude
+    }
+    private func convertAddress(latitude: Double,
+                                longitude: Double,
+                                completion: @escaping (String, String) -> Void) {
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        let locale = Locale(identifier: "Ko-kr")
+        CLGeocoder().reverseGeocodeLocation(location, preferredLocale: locale) { placemarks, _ in
+            guard let placemarks = placemarks, let address = placemarks.last else { return }
+            completion((address.administrativeArea ?? "") + " " + (address.name ?? ""),
+                       address.administrativeArea ?? "")
+        }
     }
 }

@@ -10,7 +10,7 @@ import SnapKit
 
 final class StoreCollectionViewCell: UICollectionViewCell {
 
-    static let reuseIdentifier = "StoreCollectionViewCell"
+    static let reuseIdentifier = String(describing: StoreCollectionViewCell.self)
 
     // MARK: - UI Components
     private var storeImageView: UIImageView = {

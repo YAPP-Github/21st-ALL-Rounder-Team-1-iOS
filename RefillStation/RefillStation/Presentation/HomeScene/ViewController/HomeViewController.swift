@@ -13,6 +13,7 @@ final class HomeViewController: UIViewController {
     // MARK: - Properties
     var coordiantor: HomeCoordinator?
     private let viewModel: HomeViewModel
+    private var updateCurrentAddressText: (() -> Void)?
 
     // MARK: - UI Components
     private let homeTitleBar: PumpLargeTitleNavigationBar = {
@@ -32,6 +33,8 @@ final class HomeViewController: UIViewController {
                                               collectionViewLayout: layout)
         collectionView.register(StoreCollectionViewCell.self,
                                 forCellWithReuseIdentifier: StoreCollectionViewCell.reuseIdentifier)
+        collectionView.register(RegionRequestCollectionViewCell.self,
+                                forCellWithReuseIdentifier: RegionRequestCollectionViewCell.reuseIdentifier)
         collectionView.register(RegionRequestHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: RegionRequestHeaderView.reuseIdentifier)
@@ -88,6 +91,7 @@ final class HomeViewController: UIViewController {
     private func bind() {
         viewModel.setUpContents = {
             self.storeCollectionView.reloadData()
+            self.updateCurrentAddressText?()
         }
     }
 
@@ -98,7 +102,7 @@ final class HomeViewController: UIViewController {
             $0.height.equalTo(58)
         }
         storeCollectionView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(homeTitleBar.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
         topButton.snp.makeConstraints {
@@ -114,34 +118,55 @@ final class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.stores.count
+        let requestRegionHeaderCount = viewModel.isServiceRegion ? 0 : 1
+        return section == 0 ? requestRegionHeaderCount : viewModel.stores.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: StoreCollectionViewCell.reuseIdentifier,
-            for: indexPath) as? StoreCollectionViewCell else {
-            return UICollectionViewCell()
-        }
+        if indexPath.section == 0 {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: RegionRequestCollectionViewCell.reuseIdentifier,
+                for: indexPath) as? RegionRequestCollectionViewCell else {
+                return UICollectionViewCell()
+            }
 
-        let data = viewModel.stores[indexPath.row]
-        cell.setUpContents(image: data.imageURL.first,
-                           name: data.name,
-                           address: data.address,
-                           distance: data.distance)
-        return cell
+            cell.moveToRegionRequest = { [weak self] in
+                self?.navigationController?.pushViewController(RequestRegionViewController(),
+                                                               animated: true)
+            }
+            return cell
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: StoreCollectionViewCell.reuseIdentifier,
+                for: indexPath) as? StoreCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+
+            let data = viewModel.stores[indexPath.row]
+            cell.setUpContents(image: data.imageURL.first,
+                               name: data.name,
+                               address: data.address,
+                               distance: data.distance)
+            return cell
+        }
     }
 }
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width - 32, height: 267)
+        if indexPath.section == 0 {
+            return CGSize(width: collectionView.frame.width, height: 333)
+        } else {
+            return CGSize(width: collectionView.frame.width - 32, height: 267)
+        }
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
-    }
+
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
@@ -149,22 +174,20 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
             ofKind: kind,
             withReuseIdentifier: RegionRequestHeaderView.reuseIdentifier,
             for: indexPath) as? RegionRequestHeaderView else { return UICollectionReusableView() }
-
-        header.moveToRegionRequest = { [weak self] in
-            self?.navigationController?.pushViewController(RequestRegionViewController(),
-                                                     animated: true)
+        updateCurrentAddressText = {
+            header.setUpView(address: self.viewModel.currentAddress)
         }
-
         return header
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        let headerHeight: CGFloat = viewModel.isServiceRegion ? 0 : 411
+        let headerHeight: CGFloat = section == 0 ? 40 : 0
         return CGSize(width: collectionView.frame.width, height: headerHeight)
     }
 }
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 0 { return }
         coordiantor?.showStoreDetail(store: viewModel.stores[indexPath.row])
     }
 }

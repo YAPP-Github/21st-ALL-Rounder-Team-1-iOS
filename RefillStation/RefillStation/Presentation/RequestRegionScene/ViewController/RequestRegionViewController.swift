@@ -12,10 +12,10 @@ final class RequestRegionViewController: UIViewController {
 
     // MARK: - Properties
     private let placeHolder = "서비스 신청을 원하는 지역을 자유롭게 적어주세요."
-    private let closeBarButtonItem = UIBarButtonItem(image: Asset.Images.iconClose.image,
+    private lazy var closeBarButtonItem = UIBarButtonItem(image: Asset.Images.iconClose.image,
                                                      style: .plain,
                                                      target: self,
-                                                     action: nil)
+                                                     action: #selector(cancelButtonDidTapped))
 
     // MARK: - UIComponents
     private let titleLabel: UILabel = {
@@ -83,8 +83,17 @@ final class RequestRegionViewController: UIViewController {
         view.backgroundColor = .white
         layout()
         setUpRegionTextView()
-        setUpNavigatonBar()
         addTapGesture()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        setUpNavigatonBar()
+        tabBarController?.tabBar.isHidden = true
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        AppDelegate.setUpNavigationBar()
+        tabBarController?.tabBar.isHidden = false
     }
 
     // MARK: - Default Setting Methods
@@ -133,8 +142,13 @@ final class RequestRegionViewController: UIViewController {
     }
     private func setUpNavigatonBar() {
         self.title = "지역 신청하기"
+        navigationItem.hidesBackButton = true
         navigationItem.rightBarButtonItem = closeBarButtonItem
         navigationItem.rightBarButtonItem?.tintColor = Asset.Colors.gray7.color
+    }
+
+    @objc private func cancelButtonDidTapped() {
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
