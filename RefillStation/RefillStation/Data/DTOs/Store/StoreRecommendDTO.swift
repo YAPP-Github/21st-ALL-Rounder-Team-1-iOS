@@ -24,4 +24,11 @@ extension StoreRecommendDTO {
             recommendedCount: count ?? 0
         )
     }
+
+    func toResponseValue() -> RecommendStoreResponseValue {
+        return RecommendStoreResponseValue(
+            recommendCount: count ?? 0,
+            didRecommended: recommendation ?? false
+        )
+    }
 }
