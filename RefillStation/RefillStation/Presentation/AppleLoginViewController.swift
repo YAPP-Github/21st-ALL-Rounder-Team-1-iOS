@@ -18,7 +18,7 @@ final class AppleLoginViewController: UIViewController {
     private func startSignInWithAppleFlow() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
-        request.requestedScopes = []
+        request.requestedScopes = [.email, .fullName]
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
         authorizationController.delegate = self
         authorizationController.presentationContextProvider = self
@@ -35,7 +35,6 @@ extension AppleLoginViewController: ASAuthorizationControllerDelegate {
             guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
                 return
             }
-
             print("\n\nidentityToken: \(idTokenString)")
         }
     }
