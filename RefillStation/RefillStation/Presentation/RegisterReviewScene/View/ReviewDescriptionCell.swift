@@ -23,6 +23,7 @@ final class ReviewDescriptionCell: UICollectionViewCell {
         textView.layer.cornerRadius = 6
         textView.layer.borderWidth = 1
         textView.layer.borderColor = Asset.Colors.gray2.color.cgColor
+        textView.tintColor = Asset.Colors.primary10.color
         return textView
     }()
 
