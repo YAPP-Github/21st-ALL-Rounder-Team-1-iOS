@@ -67,10 +67,17 @@ final class StoreRepository: StoreRepositoryInterface {
     func recommendStore(requestValue: RecommendStoreRequestValue, completion: @escaping (Result<RecommendStoreResponseValue, Error>) -> Void) -> Cancellable? {
         let path = "/api/recommendation"
         let method: HTTPMethod = requestValue.type == .recommend ? .post : .delete
-        guard let request = urlRequest(method: method, path: path) else {
+        guard var request = urlRequest(method: method, path: path) else {
             completion(.failure(RepositoryError.urlParseFailed))
             return nil
         }
+        guard let requestBody = try? JSONEncoder()
+            .encode(StoreRecommendRequestDTO(storeId: requestValue.storeId)) else {
+            completion(.failure(RepositoryError.requestParseFailed))
+            return nil
+        }
+        request.httpBody = requestBody
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         return networkService.dataTask(request: request) { (result: Result<StoreRecommendDTO, Error>) in
             switch result {
             case .success(let storeRecommendDTO):
