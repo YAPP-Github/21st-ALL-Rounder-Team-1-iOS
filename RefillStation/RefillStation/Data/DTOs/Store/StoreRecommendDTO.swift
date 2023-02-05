@@ -8,7 +8,7 @@
 import Foundation
 
 struct StoreRecommendDTO: Decodable {
-    let recommendation: Bool?
+    let isRecommendation: Bool?
     let count: Int?
 }
 
@@ -17,10 +17,14 @@ struct FetchStoreRecommendResult {
     var recommendedCount: Int
 }
 
+struct StoreRecommendRequestDTO: Encodable {
+    let storeId: Int
+}
+
 extension StoreRecommendDTO {
     func toFetchResult() -> FetchStoreRecommendResult {
         return FetchStoreRecommendResult(
-            didUserRecommended: recommendation ?? false,
+            didUserRecommended: isRecommendation ?? false,
             recommendedCount: count ?? 0
         )
     }
@@ -28,7 +32,7 @@ extension StoreRecommendDTO {
     func toResponseValue() -> RecommendStoreResponseValue {
         return RecommendStoreResponseValue(
             recommendCount: count ?? 0,
-            didRecommended: recommendation ?? false
+            didRecommended: isRecommendation ?? false
         )
     }
 }
