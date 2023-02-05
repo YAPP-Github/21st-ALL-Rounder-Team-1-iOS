@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		320A767D297FC0CD003041D7 /* ReviewReportPopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A767C297FC0CD003041D7 /* ReviewReportPopUpViewModel.swift */; };
 		320A767F297FD4F0003041D7 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A767E297FD4F0003041D7 /* KeychainManager.swift */; };
+		3210B527298F6DAC0034CBA7 /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B526298F6DAC0034CBA7 /* Exception.swift */; };
 		322E15E4297A0B3600FE2E2F /* MyPageDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322E15E3297A0B3600FE2E2F /* MyPageDIContainer.swift */; };
 		322E15E6297A0B6600FE2E2F /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322E15E5297A0B6600FE2E2F /* MyPageCoordinator.swift */; };
 		322E15E8297A0CD700FE2E2F /* RegisterReviewDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322E15E7297A0CD700FE2E2F /* RegisterReviewDIContainer.swift */; };
@@ -159,6 +160,7 @@
 /* Begin PBXFileReference section */
 		320A767C297FC0CD003041D7 /* ReviewReportPopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewReportPopUpViewModel.swift; sourceTree = "<group>"; };
 		320A767E297FD4F0003041D7 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		3210B526298F6DAC0034CBA7 /* Exception.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exception.swift; sourceTree = "<group>"; };
 		322E15E3297A0B3600FE2E2F /* MyPageDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageDIContainer.swift; sourceTree = "<group>"; };
 		322E15E5297A0B6600FE2E2F /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		322E15E7297A0CD700FE2E2F /* RegisterReviewDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReviewDIContainer.swift; sourceTree = "<group>"; };
@@ -929,6 +931,7 @@
 		FCE00A9E29517E5600B5C05F /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				3210B526298F6DAC0034CBA7 /* Exception.swift */,
 				FCE00A9F29517E6E00B5C05F /* NetworkService.swift */,
 			);
 			path = Network;
@@ -1220,6 +1223,7 @@
 				FCB828F7297FC6B50067E159 /* EditProfileBottomSheetViewController.swift in Sources */,
 				325985F7294C544400D26A37 /* HomeCoordinator.swift in Sources */,
 				FC1FD6A12962C4AF00869F5F /* RegisterReviewPopUpViewController.swift in Sources */,
+				3210B527298F6DAC0034CBA7 /* Exception.swift in Sources */,
 				FCE00A7F294C91B600B5C05F /* UploadImageUseCase.swift in Sources */,
 				FC94151C298692C3009AEE71 /* TermsDetailViewController.swift in Sources */,
 				32E6AE46298E80CD005AA542 /* ReviewDTO.swift in Sources */,
