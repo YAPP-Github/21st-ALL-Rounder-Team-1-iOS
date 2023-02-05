@@ -64,6 +64,10 @@ final class StoreRepository: StoreRepositoryInterface {
         }
     }
 
+    func fetchStoreRecommend(requestValue: FetchStoreRecommendRequestValue, completion: @escaping (Result<FetchStoreRecommendResponseValue, Error>) -> Void) -> Cancellable? {
+        return nil
+    }
+
     func recommendStore(requestValue: RecommendStoreRequestValue, completion: @escaping (Result<RecommendStoreResponseValue, Error>) -> Void) -> Cancellable? {
         let path = "/api/recommendation"
         let method: HTTPMethod = requestValue.type == .recommend ? .post : .delete
