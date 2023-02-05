@@ -28,7 +28,7 @@ protocol RecommendStoreUseCaseInterface {
 final class RecommendStoreUseCase: RecommendStoreUseCaseInterface {
     private let storeRepository: StoreRepositoryInterface
 
-    init(storeRepository: StoreRepositoryInterface = MockStoreRepository()) {
+    init(storeRepository: StoreRepositoryInterface = StoreRepository()) {
         self.storeRepository = storeRepository
     }
 

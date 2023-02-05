@@ -20,7 +20,7 @@ struct StoreDTO: Decodable {
     let instaAccount: String?
     let callNumber: String?
     let registrationNumber: String?
-    let isReady: String?
+    let isReady: Bool?
     let distance: String?
     let imgStores: [ImgStoreDTO]
 
