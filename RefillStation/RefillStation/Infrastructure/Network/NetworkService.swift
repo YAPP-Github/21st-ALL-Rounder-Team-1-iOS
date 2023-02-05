@@ -60,7 +60,8 @@ final class NetworkService: NetworkServiceInterface {
                 return
             }
 
-            guard let data = data, let dto = try? JSONDecoder().decode(DTO.self, from: data) else {
+            guard let data = data,
+                  let dto = try? JSONDecoder().decode(NetworkResult<DTO>.self, from: data).data else {
                 completion(.failure(NetworkError.jsonParseFailed))
                 return
             }

@@ -13,6 +13,7 @@
 		3210B529298F7FF10034CBA7 /* StoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B528298F7FF10034CBA7 /* StoreRepository.swift */; };
 		3210B52B298F834B0034CBA7 /* RepositoryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B52A298F834B0034CBA7 /* RepositoryError.swift */; };
 		3210B52D298F88410034CBA7 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B52C298F88410034CBA7 /* HTTPMethod.swift */; };
+		3210B52F298F94ED0034CBA7 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B52E298F94ED0034CBA7 /* NetworkResult.swift */; };
 		322E15E4297A0B3600FE2E2F /* MyPageDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322E15E3297A0B3600FE2E2F /* MyPageDIContainer.swift */; };
 		322E15E6297A0B6600FE2E2F /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322E15E5297A0B6600FE2E2F /* MyPageCoordinator.swift */; };
 		322E15E8297A0CD700FE2E2F /* RegisterReviewDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322E15E7297A0CD700FE2E2F /* RegisterReviewDIContainer.swift */; };
@@ -167,6 +168,7 @@
 		3210B528298F7FF10034CBA7 /* StoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRepository.swift; sourceTree = "<group>"; };
 		3210B52A298F834B0034CBA7 /* RepositoryError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryError.swift; sourceTree = "<group>"; };
 		3210B52C298F88410034CBA7 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		3210B52E298F94ED0034CBA7 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		322E15E3297A0B3600FE2E2F /* MyPageDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageDIContainer.swift; sourceTree = "<group>"; };
 		322E15E5297A0B6600FE2E2F /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		322E15E7297A0CD700FE2E2F /* RegisterReviewDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReviewDIContainer.swift; sourceTree = "<group>"; };
@@ -940,6 +942,7 @@
 			isa = PBXGroup;
 			children = (
 				3210B526298F6DAC0034CBA7 /* Exception.swift */,
+				3210B52E298F94ED0034CBA7 /* NetworkResult.swift */,
 				FCE00A9F29517E6E00B5C05F /* NetworkService.swift */,
 				3210B52C298F88410034CBA7 /* HTTPMethod.swift */,
 			);
@@ -1206,6 +1209,7 @@
 				329EF9172972DE30004934E7 /* StoreDetailSection.swift in Sources */,
 				FC60D83F2962C36F00C676A6 /* VoteTitleCell.swift in Sources */,
 				325985E7294C525800D26A37 /* Coordinator.swift in Sources */,
+				3210B52F298F94ED0034CBA7 /* NetworkResult.swift in Sources */,
 				FC60D83D2962C36F00C676A6 /* ReviewPhotosCell.swift in Sources */,
 				FCE00AA6295187B500B5C05F /* Cancellable.swift in Sources */,
 				32C22967297E785C0019EAF6 /* ReviewReportPopUpViewController.swift in Sources */,
