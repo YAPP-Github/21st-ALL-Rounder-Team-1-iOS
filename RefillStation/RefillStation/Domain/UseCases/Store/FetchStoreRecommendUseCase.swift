@@ -20,7 +20,7 @@ protocol FetchStoreRecommendUseCaseInterface {
     func execute(requestValue: FetchStoreRecommendRequestValue, completion: @escaping (Result<FetchStoreRecommendResponseValue, Error>) -> Void) -> Cancellable?
 }
 
-final class FetchStoreRecommendUseCaseRequestValue: FetchStoreRecommendUseCaseInterface {
+final class FetchStoreRecommendUseCase: FetchStoreRecommendUseCaseInterface {
     private let storeRepository: StoreRepositoryInterface
 
     init(storeRepository: StoreRepositoryInterface = StoreRepository()) {
@@ -28,6 +28,8 @@ final class FetchStoreRecommendUseCaseRequestValue: FetchStoreRecommendUseCaseIn
     }
 
     func execute(requestValue: FetchStoreRecommendRequestValue, completion: @escaping (Result<FetchStoreRecommendResponseValue, Error>) -> Void) -> Cancellable? {
-        return nil
+        return storeRepository.fetchStoreRecommend(requestValue: requestValue) { result in
+            completion(result)
+        }
     }
 }

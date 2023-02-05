@@ -15,6 +15,7 @@
 		3210B52D298F88410034CBA7 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B52C298F88410034CBA7 /* HTTPMethod.swift */; };
 		3210B52F298F94ED0034CBA7 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B52E298F94ED0034CBA7 /* NetworkResult.swift */; };
 		3210B531298FB5730034CBA7 /* FetchStoreRecommendUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B530298FB5730034CBA7 /* FetchStoreRecommendUseCase.swift */; };
+		3210B535298FBA6B0034CBA7 /* FetchStoreRecommendDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B534298FBA6B0034CBA7 /* FetchStoreRecommendDTO.swift */; };
 		322E15E4297A0B3600FE2E2F /* MyPageDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322E15E3297A0B3600FE2E2F /* MyPageDIContainer.swift */; };
 		322E15E6297A0B6600FE2E2F /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322E15E5297A0B6600FE2E2F /* MyPageCoordinator.swift */; };
 		322E15E8297A0CD700FE2E2F /* RegisterReviewDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322E15E7297A0CD700FE2E2F /* RegisterReviewDIContainer.swift */; };
@@ -171,6 +172,7 @@
 		3210B52C298F88410034CBA7 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		3210B52E298F94ED0034CBA7 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		3210B530298FB5730034CBA7 /* FetchStoreRecommendUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStoreRecommendUseCase.swift; sourceTree = "<group>"; };
+		3210B534298FBA6B0034CBA7 /* FetchStoreRecommendDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStoreRecommendDTO.swift; sourceTree = "<group>"; };
 		322E15E3297A0B3600FE2E2F /* MyPageDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageDIContainer.swift; sourceTree = "<group>"; };
 		322E15E5297A0B6600FE2E2F /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		322E15E7297A0CD700FE2E2F /* RegisterReviewDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReviewDIContainer.swift; sourceTree = "<group>"; };
@@ -660,6 +662,7 @@
 				32E6AE37298E5629005AA542 /* StoreDTO.swift */,
 				32E6AE43298E7EF4005AA542 /* ProductDTO.swift */,
 				32E6AE3B298E7C67005AA542 /* StoreRecommendDTO.swift */,
+				3210B534298FBA6B0034CBA7 /* FetchStoreRecommendDTO.swift */,
 				32E6AE45298E80CD005AA542 /* ReviewDTO.swift */,
 			);
 			path = Store;
@@ -1228,6 +1231,7 @@
 				325985E9294C527000D26A37 /* DIContainer.swift in Sources */,
 				324CCBE029321616001F6FDA /* DetailReviewCell.swift in Sources */,
 				32DFDAE12976BAE400B6EDA3 /* FilteredProductCountCell.swift in Sources */,
+				3210B535298FBA6B0034CBA7 /* FetchStoreRecommendDTO.swift in Sources */,
 				322E15EA297A0CE100FE2E2F /* RegisterReviewCoordinator.swift in Sources */,
 				FC60D8372962C36F00C676A6 /* DefaultTagReviewViewModel.swift in Sources */,
 				FCD9721A298C462900E27792 /* LocationPermissionViewController.swift in Sources */,

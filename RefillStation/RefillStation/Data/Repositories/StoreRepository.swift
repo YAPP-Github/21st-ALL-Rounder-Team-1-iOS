@@ -65,7 +65,26 @@ final class StoreRepository: StoreRepositoryInterface {
     }
 
     func fetchStoreRecommend(requestValue: FetchStoreRecommendRequestValue, completion: @escaping (Result<FetchStoreRecommendResponseValue, Error>) -> Void) -> Cancellable? {
-        return nil
+        let path = "/api/recommendation"
+        guard var request = urlRequest(method: .get, path: path) else {
+            completion(.failure(RepositoryError.urlParseFailed))
+            return nil
+        }
+        guard let requestBody = try? JSONEncoder()
+            .encode(FetchStoreRecommendRequestDTO(storeId: requestValue.storeId)) else {
+            completion(.failure(RepositoryError.requestParseFailed))
+            return nil
+        }
+        request.httpBody = requestBody
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        return networkService.dataTask(request: request) { (result: Result<FetchStoreRecommendDTO, Error>) in
+            switch result {
+            case .success(let fetchStoreRecommendDTO):
+                completion(.success(fetchStoreRecommendDTO.toResponseValue()))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 
     func recommendStore(requestValue: RecommendStoreRequestValue, completion: @escaping (Result<RecommendStoreResponseValue, Error>) -> Void) -> Cancellable? {
