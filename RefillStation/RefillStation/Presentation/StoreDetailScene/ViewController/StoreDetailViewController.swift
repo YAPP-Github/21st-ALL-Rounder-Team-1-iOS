@@ -68,7 +68,9 @@ final class StoreDetailViewController: UIViewController {
 
     private func bind() {
         viewModel.applyDataSource = {
-            self.applyDataSource()
+            DispatchQueue.main.async { [weak self] in
+                self?.applyDataSource()
+            }
         }
     }
 
