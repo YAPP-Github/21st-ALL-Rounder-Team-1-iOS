@@ -10,6 +10,8 @@
 		320A767D297FC0CD003041D7 /* ReviewReportPopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A767C297FC0CD003041D7 /* ReviewReportPopUpViewModel.swift */; };
 		320A767F297FD4F0003041D7 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A767E297FD4F0003041D7 /* KeychainManager.swift */; };
 		3210B527298F6DAC0034CBA7 /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B526298F6DAC0034CBA7 /* Exception.swift */; };
+		3210B52B298F834B0034CBA7 /* RepositoryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B52A298F834B0034CBA7 /* RepositoryError.swift */; };
+		3210B52D298F88410034CBA7 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B52C298F88410034CBA7 /* HTTPMethod.swift */; };
 		322E15E4297A0B3600FE2E2F /* MyPageDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322E15E3297A0B3600FE2E2F /* MyPageDIContainer.swift */; };
 		322E15E6297A0B6600FE2E2F /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322E15E5297A0B6600FE2E2F /* MyPageCoordinator.swift */; };
 		322E15E8297A0CD700FE2E2F /* RegisterReviewDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322E15E7297A0CD700FE2E2F /* RegisterReviewDIContainer.swift */; };
@@ -161,6 +163,8 @@
 		320A767C297FC0CD003041D7 /* ReviewReportPopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewReportPopUpViewModel.swift; sourceTree = "<group>"; };
 		320A767E297FD4F0003041D7 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		3210B526298F6DAC0034CBA7 /* Exception.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exception.swift; sourceTree = "<group>"; };
+		3210B52A298F834B0034CBA7 /* RepositoryError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryError.swift; sourceTree = "<group>"; };
+		3210B52C298F88410034CBA7 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		322E15E3297A0B3600FE2E2F /* MyPageDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageDIContainer.swift; sourceTree = "<group>"; };
 		322E15E5297A0B6600FE2E2F /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		322E15E7297A0CD700FE2E2F /* RegisterReviewDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReviewDIContainer.swift; sourceTree = "<group>"; };
@@ -894,6 +898,7 @@
 		FCE00A80294C95CD00B5C05F /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				3210B52A298F834B0034CBA7 /* RepositoryError.swift */,
 				324098752961367300911306 /* MockRepositories.swift */,
 			);
 			path = Repositories;
@@ -933,6 +938,7 @@
 			children = (
 				3210B526298F6DAC0034CBA7 /* Exception.swift */,
 				FCE00A9F29517E6E00B5C05F /* NetworkService.swift */,
+				3210B52C298F88410034CBA7 /* HTTPMethod.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1192,6 +1198,7 @@
 				329557472951992C00F5AB53 /* StoreDetailViewController.swift in Sources */,
 				FCD9721C298D7C9000E27792 /* RegionRequestCollectionViewCell.swift in Sources */,
 				325985F9294C54CB00D26A37 /* StoreDetailDIContainer.swift in Sources */,
+				3210B52B298F834B0034CBA7 /* RepositoryError.swift in Sources */,
 				32D63DF8298BE993009067BA /* UserLevelViewModel.swift in Sources */,
 				329EF9172972DE30004934E7 /* StoreDetailSection.swift in Sources */,
 				FC60D83F2962C36F00C676A6 /* VoteTitleCell.swift in Sources */,
@@ -1215,6 +1222,7 @@
 				FCD9721A298C462900E27792 /* LocationPermissionViewController.swift in Sources */,
 				FCE00A75294C917B00B5C05F /* FetchProductsUseCase.swift in Sources */,
 				32E6AE3C298E7C67005AA542 /* StoreRecommendDTO.swift in Sources */,
+				3210B52D298F88410034CBA7 /* HTTPMethod.swift in Sources */,
 				32ED747A2969441D007EA791 /* OperationInfoCell.swift in Sources */,
 				322E15EE297A6C5300FE2E2F /* MyPageViewModel.swift in Sources */,
 				FCE00A982950E04300B5C05F /* Tag.swift in Sources */,
