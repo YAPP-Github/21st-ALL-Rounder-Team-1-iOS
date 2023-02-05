@@ -11,29 +11,37 @@ public enum NetworkError: Error {
     case noAuthToken
     case invalidResponse(statusCode: Int)
     case sessionError
-    case noData
+    case jsonParseFailed
+    case exceptionPareFailed
+    case exception(errorMessage: String)
 }
 
 extension URLSessionDataTask: Cancellable { }
 
 protocol NetworkServiceInterface {
-    func dataTask(
+    var baseURL: String { get }
+
+    func dataTask<DTO: Decodable>(
         request: URLRequest,
-        completion: @escaping (Result<Data, Error>) -> Void
+        completion: @escaping (Result<DTO, Error>) -> Void
     ) -> Cancellable?
 }
 
 final class NetworkService: NetworkServiceInterface {
     static let shared = NetworkService()
 
+    let baseURL = "https://www.pump-api-dev.com"
+    private var token: String {
+        guard let token = KeychainManager.shared.getItem(key: "token") as? String else {
+            fatalError("There Is No JWT Token")
+        }
+        return token
+    }
+
     private init() { }
 
-    func dataTask(request: URLRequest, completion: @escaping (Result<Data, Error>) -> Void) -> Cancellable? {
+    func dataTask<DTO: Decodable>(request: URLRequest, completion: @escaping (Result<DTO, Error>) -> Void) -> Cancellable? {
         var request = request
-        guard let token = KeychainManager.shared.getItem(key: "token") as? String else {
-            completion(.failure(NetworkError.noAuthToken))
-            return nil
-        }
         request.addValue(token, forHTTPHeaderField: "Authorization")
 
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -42,31 +50,25 @@ final class NetworkService: NetworkServiceInterface {
                 return
             }
 
-            guard let response = response as? HTTPURLResponse else { return }
-            let statusCode = response.statusCode
-
-            guard self.isValidResponse(response) else {
-                completion(.failure(NetworkError.invalidResponse(statusCode: statusCode)))
+            guard let httpResponse = response as? HTTPURLResponse,
+                  200...299 ~= httpResponse.statusCode else {
+                guard let data = data, let exception = try? JSONDecoder().decode(Exception.self, from: data) else {
+                    completion(.failure(NetworkError.exceptionPareFailed))
+                    return
+                }
+                completion(.failure(NetworkError.exception(errorMessage: exception.message)))
                 return
             }
 
-            guard let data = data else {
-                completion(.failure(NetworkError.noData))
+            guard let data = data,
+                  let dto = try? JSONDecoder().decode(NetworkResult<DTO>.self, from: data).data else {
+                completion(.failure(NetworkError.jsonParseFailed))
                 return
             }
 
-            completion(.success(data))
+            completion(.success(dto))
         }
 
         return task
-    }
-
-    private func isValidResponse(_ response: URLResponse?) -> Bool {
-        guard let httpResponse = response as? HTTPURLResponse,
-              (200...299).contains(httpResponse.statusCode) else {
-            return false
-        }
-
-        return true
     }
 }

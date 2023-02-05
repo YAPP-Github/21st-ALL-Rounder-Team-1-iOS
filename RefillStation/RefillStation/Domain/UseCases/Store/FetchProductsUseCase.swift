@@ -18,7 +18,7 @@ protocol FetchProductsUseCaseInterface {
 final class FetchProductsUseCase: FetchProductsUseCaseInterface {
     private let storeRepository: StoreRepositoryInterface
 
-    init(storeRepository: StoreRepositoryInterface = MockStoreRepository()) {
+    init(storeRepository: StoreRepositoryInterface = StoreRepository()) {
         self.storeRepository = storeRepository
     }
 
