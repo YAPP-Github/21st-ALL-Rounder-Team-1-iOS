@@ -66,4 +66,24 @@ extension StoreDTO {
             notice: notice ?? ""
         )
     }
+
+    func toDomain() -> Store {
+        return Store(
+            storeId: id ?? 0,
+            name: name ?? "",
+            address: address ?? "",
+            distance: Double(distance ?? "") ?? 0,
+            phoneNumber: callNumber ?? "",
+            snsAddress: instaAccount ?? "",
+            didUserRecommended: false,
+            recommendedCount: 0,
+            imageURL: imgStores.compactMap { $0.path },
+            businessHour: businessHour?.map { dto in
+                BusinessHour(day: .allCases.first(where: {
+                    $0.name == dto.day
+                }) ?? .mon, time: dto.time)
+            } ?? [],
+            notice: notice ?? ""
+        )
+    }
 }
