@@ -19,15 +19,18 @@ public enum NetworkError: Error {
 extension URLSessionDataTask: Cancellable { }
 
 protocol NetworkServiceInterface {
-    func dataTask(
+    var baseURL: String { get }
+
+    func dataTask<DTO: Decodable>(
         request: URLRequest,
-        completion: @escaping (Result<Data, Error>) -> Void
+        completion: @escaping (Result<DTO, Error>) -> Void
     ) -> Cancellable?
 }
 
 final class NetworkService: NetworkServiceInterface {
     static let shared = NetworkService()
 
+    let baseURL = "https://www.pump-api-dev.com"
     private var token: String {
         guard let token = KeychainManager.shared.getItem(key: "token") as? String else {
             fatalError("There Is No JWT Token")
