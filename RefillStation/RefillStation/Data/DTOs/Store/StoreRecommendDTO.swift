@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct StoreRecommendDTO {
+struct StoreRecommendDTO: Decodable {
     let recommendation: Bool?
     let count: Int?
 }

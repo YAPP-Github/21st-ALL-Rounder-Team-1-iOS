@@ -10,6 +10,7 @@
 		320A767D297FC0CD003041D7 /* ReviewReportPopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A767C297FC0CD003041D7 /* ReviewReportPopUpViewModel.swift */; };
 		320A767F297FD4F0003041D7 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A767E297FD4F0003041D7 /* KeychainManager.swift */; };
 		3210B527298F6DAC0034CBA7 /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B526298F6DAC0034CBA7 /* Exception.swift */; };
+		3210B529298F7FF10034CBA7 /* StoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B528298F7FF10034CBA7 /* StoreRepository.swift */; };
 		3210B52B298F834B0034CBA7 /* RepositoryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B52A298F834B0034CBA7 /* RepositoryError.swift */; };
 		3210B52D298F88410034CBA7 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B52C298F88410034CBA7 /* HTTPMethod.swift */; };
 		322E15E4297A0B3600FE2E2F /* MyPageDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322E15E3297A0B3600FE2E2F /* MyPageDIContainer.swift */; };
@@ -163,6 +164,7 @@
 		320A767C297FC0CD003041D7 /* ReviewReportPopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewReportPopUpViewModel.swift; sourceTree = "<group>"; };
 		320A767E297FD4F0003041D7 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		3210B526298F6DAC0034CBA7 /* Exception.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exception.swift; sourceTree = "<group>"; };
+		3210B528298F7FF10034CBA7 /* StoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRepository.swift; sourceTree = "<group>"; };
 		3210B52A298F834B0034CBA7 /* RepositoryError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryError.swift; sourceTree = "<group>"; };
 		3210B52C298F88410034CBA7 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		322E15E3297A0B3600FE2E2F /* MyPageDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageDIContainer.swift; sourceTree = "<group>"; };
@@ -900,6 +902,7 @@
 			children = (
 				3210B52A298F834B0034CBA7 /* RepositoryError.swift */,
 				324098752961367300911306 /* MockRepositories.swift */,
+				3210B528298F7FF10034CBA7 /* StoreRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1262,6 +1265,7 @@
 				325985EB294C529C00D26A37 /* OnboardingCoordinator.swift in Sources */,
 				FC84FACC293B944900428AAA /* RequestRegionViewModel.swift in Sources */,
 				FC3630172969316900532598 /* LevelHeaderView.swift in Sources */,
+				3210B529298F7FF10034CBA7 /* StoreRepository.swift in Sources */,
 				FCE00A6A294C5B3400B5C05F /* TagResponseStorage.swift in Sources */,
 				32CCC0D7297939C800C04231 /* StoreDetailCoordinator.swift in Sources */,
 				329E80272977FA72004286B0 /* OnboardingViewController.swift in Sources */,
