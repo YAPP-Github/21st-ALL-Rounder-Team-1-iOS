@@ -8,7 +8,7 @@
 import Foundation
 
 struct Exception: Decodable {
-    let timeStamp: String
+    let timestamp: String
     let status: Int
     let error: String
     let message: String
