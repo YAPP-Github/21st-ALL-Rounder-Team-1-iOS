@@ -122,6 +122,8 @@
 		FCAB262B296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAB262A296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift */; };
 		FCB00872298E52320006FF53 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FCB00871298E52320006FF53 /* KakaoSDKAuth */; };
 		FCB00874298E52320006FF53 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = FCB00873298E52320006FF53 /* KakaoSDKUser */; };
+		FCB00877298E86AC0006FF53 /* LoginDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB00876298E86AC0006FF53 /* LoginDTO.swift */; };
+		FCB0088729914ECC0006FF53 /* SignUpDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0088629914ECC0006FF53 /* SignUpDTO.swift */; };
 		FCB00889299153FA0006FF53 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FCB00888299153FA0006FF53 /* Secrets.xcconfig */; };
 		FCB828F7297FC6B50067E159 /* EditProfileBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB828F6297FC6B50067E159 /* EditProfileBottomSheetViewController.swift */; };
 		FCBB8F7F297D2EED009287EF /* NicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBB8F7E297D2EED009287EF /* NicknameViewModel.swift */; };
@@ -282,6 +284,8 @@
 		FC94151F29869375009AEE71 /* TermsPermissionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsPermissionViewModel.swift; sourceTree = "<group>"; };
 		FC94152129869BE6009AEE71 /* TermsLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsLiterals.swift; sourceTree = "<group>"; };
 		FCAB262A296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpLargeTitleNavigationBar.swift; sourceTree = "<group>"; };
+		FCB00876298E86AC0006FF53 /* LoginDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDTO.swift; sourceTree = "<group>"; };
+		FCB0088629914ECC0006FF53 /* SignUpDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDTO.swift; sourceTree = "<group>"; };
 		FCB00888299153FA0006FF53 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		FCB828F6297FC6B50067E159 /* EditProfileBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileBottomSheetViewController.swift; sourceTree = "<group>"; };
 		FCBB8F7E297D2EED009287EF /* NicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewModel.swift; sourceTree = "<group>"; };
@@ -660,6 +664,7 @@
 		32E6AE41298E7ED2005AA542 /* DTOs */ = {
 			isa = PBXGroup;
 			children = (
+				FCB0087B298FD1040006FF53 /* Account */,
 				32E6AE42298E7EDB005AA542 /* Store */,
 			);
 			path = DTOs;
@@ -842,6 +847,15 @@
 				FC9044872965E00D00B43BB9 /* UserLevelViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		FCB0087B298FD1040006FF53 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				FCB00876298E86AC0006FF53 /* LoginDTO.swift */,
+				FCB0088629914ECC0006FF53 /* SignUpDTO.swift */,
+			);
+			path = Account;
 			sourceTree = "<group>";
 		};
 		FCBB8F7D297D2ED6009287EF /* ViewModel */ = {
@@ -1249,6 +1263,7 @@
 				322E15EA297A0CE100FE2E2F /* RegisterReviewCoordinator.swift in Sources */,
 				FC60D8372962C36F00C676A6 /* DefaultTagReviewViewModel.swift in Sources */,
 				FCD9721A298C462900E27792 /* LocationPermissionViewController.swift in Sources */,
+				FCB00877298E86AC0006FF53 /* LoginDTO.swift in Sources */,
 				FCE00A75294C917B00B5C05F /* FetchProductsUseCase.swift in Sources */,
 				32E6AE3C298E7C67005AA542 /* StoreRecommendDTO.swift in Sources */,
 				3210B52D298F88410034CBA7 /* HTTPMethod.swift in Sources */,
@@ -1267,6 +1282,7 @@
 				FC90448C2965E2E500B43BB9 /* PumpTagView.swift in Sources */,
 				3244A1FC292DC13A00716A2B /* AppDelegate.swift in Sources */,
 				FCEE10312934D287002E629D /* Assets+Generated.swift in Sources */,
+				FCB0088729914ECC0006FF53 /* SignUpDTO.swift in Sources */,
 				FC4739412936AB3300DB9BDB /* StoreCollectionViewCell.swift in Sources */,
 				3240987829613CC300911306 /* MockEntityData.swift in Sources */,
 				32A0F5012981764D00A04ECC /* OAuthLoginUseCase.swift in Sources */,
