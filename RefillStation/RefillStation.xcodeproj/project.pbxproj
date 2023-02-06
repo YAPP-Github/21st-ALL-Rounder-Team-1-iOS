@@ -125,6 +125,7 @@
 		FCB00877298E86AC0006FF53 /* LoginDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB00876298E86AC0006FF53 /* LoginDTO.swift */; };
 		FCB0087A298F8F510006FF53 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB00879298F8F510006FF53 /* LoginViewModel.swift */; };
 		FCB0087D298FD1960006FF53 /* AccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0087C298FD1960006FF53 /* AccountRepository.swift */; };
+		FCB008842990F61E0006FF53 /* LocationPermissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB008832990F61E0006FF53 /* LocationPermissionViewModel.swift */; };
 		FCB0088729914ECC0006FF53 /* SignUpDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0088629914ECC0006FF53 /* SignUpDTO.swift */; };
 		FCB00889299153FA0006FF53 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FCB00888299153FA0006FF53 /* Secrets.xcconfig */; };
 		FCB828F7297FC6B50067E159 /* EditProfileBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB828F6297FC6B50067E159 /* EditProfileBottomSheetViewController.swift */; };
@@ -289,6 +290,7 @@
 		FCB00876298E86AC0006FF53 /* LoginDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDTO.swift; sourceTree = "<group>"; };
 		FCB00879298F8F510006FF53 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		FCB0087C298FD1960006FF53 /* AccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRepository.swift; sourceTree = "<group>"; };
+		FCB008832990F61E0006FF53 /* LocationPermissionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermissionViewModel.swift; sourceTree = "<group>"; };
 		FCB0088629914ECC0006FF53 /* SignUpDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDTO.swift; sourceTree = "<group>"; };
 		FCB00888299153FA0006FF53 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		FCB828F6297FC6B50067E159 /* EditProfileBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileBottomSheetViewController.swift; sourceTree = "<group>"; };
@@ -577,6 +579,7 @@
 				FC94151B298692C3009AEE71 /* TermsDetailViewController.swift */,
 				FC94151F29869375009AEE71 /* TermsPermissionViewModel.swift */,
 				FCD97219298C462900E27792 /* LocationPermissionViewController.swift */,
+				FCB008832990F61E0006FF53 /* LocationPermissionViewModel.swift */,
 			);
 			path = OnboardingScene;
 			sourceTree = "<group>";
@@ -1295,6 +1298,7 @@
 				FCE00A7F294C91B600B5C05F /* UploadImageUseCase.swift in Sources */,
 				FC94151C298692C3009AEE71 /* TermsDetailViewController.swift in Sources */,
 				32E6AE46298E80CD005AA542 /* ReviewDTO.swift in Sources */,
+				FCB008842990F61E0006FF53 /* LocationPermissionViewModel.swift in Sources */,
 				FC90448C2965E2E500B43BB9 /* PumpTagView.swift in Sources */,
 				3244A1FC292DC13A00716A2B /* AppDelegate.swift in Sources */,
 				FCEE10312934D287002E629D /* Assets+Generated.swift in Sources */,

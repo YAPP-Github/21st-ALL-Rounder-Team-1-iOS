@@ -70,7 +70,20 @@ final class OnboardingDIContainer: DIContainer {
     }
 
     // MARK: - Location Permission
-    func makeLocationPermissionViewController() -> LocationPermissionViewController {
-        return LocationPermissionViewController()
+    func makeLocationPermissionViewController(requestValue: SignUpRequestValue) -> LocationPermissionViewController {
+        return LocationPermissionViewController(viewModel: makeLocationPermissionViewModel(requestValue: requestValue))
+    }
+
+    func makeLocationPermissionViewModel(requestValue: SignUpRequestValue) -> LocationPermissionViewModel {
+        return LocationPermissionViewModel(signUpUseCase: makeSignUpUseCase(),
+                                           requestValue: requestValue)
+    }
+
+    func makeSignUpUseCase() -> SignUpUseCase {
+        return SignUpUseCase(accountRepository: makeSignUpRepository())
+    }
+
+    func makeSignUpRepository() -> AccountRepository {
+        return AccountRepository()
     }
 }
