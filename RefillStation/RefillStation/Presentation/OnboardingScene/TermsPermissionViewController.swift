@@ -52,7 +52,7 @@ final class TermsPermissionViewController: UIViewController {
         button.titleLabel?.font = .font(style: .titleMedium)
         button.isEnabled = false
         button.addAction(UIAction { _ in
-            self.coordinator?.showLocationAuthorization()
+            self.coordinator?.showLocationAuthorization(requestValue: self.viewModel.requestValue)
         }, for: .touchUpInside)
         return button
     }()

@@ -39,8 +39,8 @@ final class OnboardingCoordinator: Coordinator {
         window?.rootViewController = loginViewController
     }
 
-    func showTermsPermission() {
-        let termsPermissionViewController = DIContainer.makeTermsPermissionViewController()
+    func showTermsPermission(requestValue: SignUpRequestValue) {
+        let termsPermissionViewController = DIContainer.makeTermsPermissionViewController(requestValue: requestValue)
         termsPermissionViewController.coordinator = self
         window?.rootViewController = navigationController
         navigationController.pushViewController(termsPermissionViewController, animated: true)

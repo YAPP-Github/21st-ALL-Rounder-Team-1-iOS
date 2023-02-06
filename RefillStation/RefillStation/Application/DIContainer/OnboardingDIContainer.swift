@@ -42,17 +42,29 @@ final class OnboardingDIContainer: DIContainer {
 
     // MARK: - Login
     func makeLoginViewController() -> LoginViewController {
-        return LoginViewController()
+        return LoginViewController(viewModel: makeLoginViewModel())
+    }
+
+    func makeLoginViewModel() -> LoginViewModel {
+        return LoginViewModel(OAuthLoginUseCase: makeLoginUseCase())
+    }
+
+    func makeLoginUseCase() -> OAuthLoginUseCase {
+        return OAuthLoginUseCase(accountRepository: makeLoginRepository())
+    }
+
+    func makeLoginRepository() -> AccountRepositoryInterface {
+        return AccountRepository()
     }
 
     // MARK: - Terms Permission
-    func makeTermsPermissionViewController() -> TermsPermissionViewController {
-        let viewController = TermsPermissionViewController(viewModel: makeTermsPermissionViewModel())
+    func makeTermsPermissionViewController(requestValue: SignUpRequestValue) -> TermsPermissionViewController {
+        let viewController = TermsPermissionViewController(viewModel: makeTermsPermissionViewModel(requestValue: requestValue))
         return viewController
     }
 
-    func makeTermsPermissionViewModel() -> TermsPermissionViewModel {
-        return TermsPermissionViewModel()
+    func makeTermsPermissionViewModel(requestValue: SignUpRequestValue) -> TermsPermissionViewModel {
+        return TermsPermissionViewModel(requestValue: requestValue)
     }
 
     // MARK: - Terms Detail
