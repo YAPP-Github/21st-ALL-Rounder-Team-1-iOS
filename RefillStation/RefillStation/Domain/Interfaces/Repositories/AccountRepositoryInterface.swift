@@ -8,11 +8,11 @@
 import Foundation
 
 protocol AccountRepositoryInterface {
-    func OAuthLogin(loginType: OAuthType, completion: @escaping (Result<String?, Error>) -> Void) -> Cancellable?
-
-    func signUp(requestValue: SignUpRequestValue, completion: @escaping (Result<String, Error>) -> Void) -> Cancellable?
-
+    func OAuthLogin(loginType: OAuthType,
+                    requestValue: OAuthLoginRequestValue,
+                    completion: @escaping (Result<OAuthLoginResponseValue, Error>) -> Void) -> Cancellable?
+    func signUp(requestValue: SignUpRequestValue,
+                completion: @escaping (Result<String, Error>) -> Void) -> Cancellable?
     func withdraw(completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable?
-
     func createNickname(completion: @escaping (Result<String, Error>) -> Void) -> Cancellable?
 }
