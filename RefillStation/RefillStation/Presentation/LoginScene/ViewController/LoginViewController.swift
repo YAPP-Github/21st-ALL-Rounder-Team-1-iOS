@@ -7,9 +7,11 @@
 
 import UIKit
 import SnapKit
+import KakaoSDKUser
+import KakaoSDKAuth
 
 final class LoginViewController: UIViewController {
-
+    private let viewModel: LoginViewModel
     var coordinator: OnboardingCoordinator?
 
     private let backgroundImageView: UIImageView = {
@@ -63,10 +65,20 @@ final class LoginViewController: UIViewController {
         return button
     }()
 
+    init(viewModel: LoginViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         layout()
+        bind()
         addLoginButtonActions()
     }
 
@@ -85,11 +97,46 @@ final class LoginViewController: UIViewController {
         }
     }
 
+    private func bind() {
+        viewModel.isSignUp = {
+            if let requestValue = self.viewModel.signUpRequestValue {
+                self.coordinator?.showTermsPermission(requestValue: requestValue)
+            }
+        }
+        viewModel.isSignIn = {
+            self.coordinator?.agreeAndStartButtonTapped()
+        }
+    }
+
     private func addLoginButtonActions() {
         [kakaoLoginButton, appleLoginButton, naverLoginButton].forEach {
             $0.addAction(UIAction { _ in
-                self.coordinator?.showTermsPermission()
+                self.onKakaoLoginByAppTouched()
             }, for: .touchUpInside)
         }
+    }
+}
+
+extension LoginViewController {
+    func onKakaoLoginByAppTouched() {
+        if UserApi.isKakaoTalkLoginAvailable() {
+            UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
+                if let error = error {
+                    print(error)
+                } else {
+                    guard let accessToken = oauthToken?.accessToken else { return }
+                    self.viewModel.loginButtonDidTapped(OAuthType: .kakao,
+                                                        requestValue: accessToken)
+                }
+            }
+        }
+    }
+
+    func onNaverLoginByAppTouched() {
+
+    }
+
+    func onAppleLoginByAppTouched() {
+
     }
 }
