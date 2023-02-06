@@ -124,6 +124,7 @@
 		FCB00874298E52320006FF53 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = FCB00873298E52320006FF53 /* KakaoSDKUser */; };
 		FCB00877298E86AC0006FF53 /* LoginDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB00876298E86AC0006FF53 /* LoginDTO.swift */; };
 		FCB0087A298F8F510006FF53 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB00879298F8F510006FF53 /* LoginViewModel.swift */; };
+		FCB0087D298FD1960006FF53 /* AccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0087C298FD1960006FF53 /* AccountRepository.swift */; };
 		FCB0088729914ECC0006FF53 /* SignUpDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0088629914ECC0006FF53 /* SignUpDTO.swift */; };
 		FCB00889299153FA0006FF53 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FCB00888299153FA0006FF53 /* Secrets.xcconfig */; };
 		FCB828F7297FC6B50067E159 /* EditProfileBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB828F6297FC6B50067E159 /* EditProfileBottomSheetViewController.swift */; };
@@ -287,6 +288,7 @@
 		FCAB262A296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpLargeTitleNavigationBar.swift; sourceTree = "<group>"; };
 		FCB00876298E86AC0006FF53 /* LoginDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDTO.swift; sourceTree = "<group>"; };
 		FCB00879298F8F510006FF53 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		FCB0087C298FD1960006FF53 /* AccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRepository.swift; sourceTree = "<group>"; };
 		FCB0088629914ECC0006FF53 /* SignUpDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDTO.swift; sourceTree = "<group>"; };
 		FCB00888299153FA0006FF53 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		FCB828F6297FC6B50067E159 /* EditProfileBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileBottomSheetViewController.swift; sourceTree = "<group>"; };
@@ -945,6 +947,7 @@
 				3210B52A298F834B0034CBA7 /* RepositoryError.swift */,
 				324098752961367300911306 /* MockRepositories.swift */,
 				3210B528298F7FF10034CBA7 /* StoreRepository.swift */,
+				FCB0087C298FD1960006FF53 /* AccountRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1258,6 +1261,7 @@
 				3210B52F298F94ED0034CBA7 /* NetworkResult.swift in Sources */,
 				FC60D83D2962C36F00C676A6 /* ReviewPhotosCell.swift in Sources */,
 				FCE00AA6295187B500B5C05F /* Cancellable.swift in Sources */,
+				FCB0087D298FD1960006FF53 /* AccountRepository.swift in Sources */,
 				32C22967297E785C0019EAF6 /* ReviewReportPopUpViewController.swift in Sources */,
 				32A0F4FD2981728D00A04ECC /* UploadImageRepositoryInterface.swift in Sources */,
 				FCE00A9C2950E1C700B5C05F /* Review.swift in Sources */,
