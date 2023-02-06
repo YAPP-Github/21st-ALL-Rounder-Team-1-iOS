@@ -122,6 +122,7 @@
 		FCAB262B296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAB262A296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift */; };
 		FCB00872298E52320006FF53 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FCB00871298E52320006FF53 /* KakaoSDKAuth */; };
 		FCB00874298E52320006FF53 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = FCB00873298E52320006FF53 /* KakaoSDKUser */; };
+		FCB00889299153FA0006FF53 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FCB00888299153FA0006FF53 /* Secrets.xcconfig */; };
 		FCB828F7297FC6B50067E159 /* EditProfileBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB828F6297FC6B50067E159 /* EditProfileBottomSheetViewController.swift */; };
 		FCBB8F7F297D2EED009287EF /* NicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBB8F7E297D2EED009287EF /* NicknameViewModel.swift */; };
 		FCD9721A298C462900E27792 /* LocationPermissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD97219298C462900E27792 /* LocationPermissionViewController.swift */; };
@@ -281,6 +282,7 @@
 		FC94151F29869375009AEE71 /* TermsPermissionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsPermissionViewModel.swift; sourceTree = "<group>"; };
 		FC94152129869BE6009AEE71 /* TermsLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsLiterals.swift; sourceTree = "<group>"; };
 		FCAB262A296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpLargeTitleNavigationBar.swift; sourceTree = "<group>"; };
+		FCB00888299153FA0006FF53 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		FCB828F6297FC6B50067E159 /* EditProfileBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileBottomSheetViewController.swift; sourceTree = "<group>"; };
 		FCBB8F7E297D2EED009287EF /* NicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewModel.swift; sourceTree = "<group>"; };
 		FCD97219298C462900E27792 /* LocationPermissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermissionViewController.swift; sourceTree = "<group>"; };
@@ -380,6 +382,7 @@
 		3244A1EF292DC13A00716A2B = {
 			isa = PBXGroup;
 			children = (
+				FCB00888299153FA0006FF53 /* Secrets.xcconfig */,
 				3244A232292DC48300716A2B /* .swiftlint.yml */,
 				FCEE10262934C8EE002E629D /* swiftgen.yml */,
 				3244A1FA292DC13A00716A2B /* RefillStation */,
@@ -1082,6 +1085,7 @@
 				3244A236292DCB1F00716A2B /* XCRemoteSwiftPackageReference "SnapKit" */,
 				32CCC0CF29791C9300C04231 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				32C3B56E2987C4C7004A8872 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+				FCB00870298E52320006FF53 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			productRefGroup = 3244A1F9292DC13A00716A2B /* Products */;
 			projectDirPath = "";
@@ -1101,6 +1105,7 @@
 			files = (
 				3244A233292DC48300716A2B /* .swiftlint.yml in Resources */,
 				FCEE10232934C385002E629D /* Colors.xcassets in Resources */,
+				FCB00889299153FA0006FF53 /* Secrets.xcconfig in Resources */,
 				3244A20B292DC13A00716A2B /* LaunchScreen.storyboard in Resources */,
 				3244A208292DC13A00716A2B /* Assets.xcassets in Resources */,
 				FCEE10252934C855002E629D /* images.xcassets in Resources */,
@@ -1459,6 +1464,7 @@
 		};
 		3244A226292DC13B00716A2B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCB00888299153FA0006FF53 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1490,6 +1496,7 @@
 		};
 		3244A227292DC13B00716A2B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCB00888299153FA0006FF53 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1521,6 +1528,7 @@
 		};
 		3244A229292DC13B00716A2B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCB00888299153FA0006FF53 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1541,6 +1549,7 @@
 		};
 		3244A22A292DC13B00716A2B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCB00888299153FA0006FF53 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
