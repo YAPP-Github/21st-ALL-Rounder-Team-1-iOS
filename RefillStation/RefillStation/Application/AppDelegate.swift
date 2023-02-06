@@ -7,6 +7,8 @@
 
 import UIKit
 import CoreData
+import KakaoSDKCommon
+import KakaoSDKAuth
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var onboardingCoordinator: OnboardingCoordinator?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        guard let kakaoNativeAppKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_NATIVE_APP_KEY")
+                as? String else { return false }
+        KakaoSDK.initSDK(appKey: kakaoNativeAppKey)
+
         AppDelegate.setUpNavigationBar()
         window = UIWindow(frame: UIScreen.main.bounds)
         let navigationController = UINavigationController()
@@ -41,6 +47,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func didLoginSuccessed() -> Bool {
-        return false
+        return KeychainManager.shared.getItem(key: "token") != nil
+    }
+
+    func application(_ app: UIApplication,
+                     open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+     if AuthApi.isKakaoTalkLoginUrl(url) {
+       return AuthController.handleOpenUrl(url: url)
+     }
+    return false
     }
 }
