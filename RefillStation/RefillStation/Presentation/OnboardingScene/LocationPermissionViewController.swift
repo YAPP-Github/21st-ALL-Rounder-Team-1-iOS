@@ -10,6 +10,7 @@ import SnapKit
 import CoreLocation
 
 final class LocationPermissionViewController: UIViewController {
+    private var viewModel: LocationPermissionViewModel
     var coordinator: OnboardingCoordinator?
     private let locationManager = CLLocationManager()
 
@@ -51,9 +52,19 @@ final class LocationPermissionViewController: UIViewController {
         return button
     }()
 
+    init(viewModel: LocationPermissionViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        bind()
         layout()
         locationManager.delegate = self
     }
@@ -65,6 +76,12 @@ final class LocationPermissionViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
+    }
+
+    private func bind() {
+        viewModel.isSignUpCompleted = {
+            self.coordinator?.agreeAndStartButtonTapped()
+        }
     }
 
     private func layout() {
@@ -100,7 +117,7 @@ final class LocationPermissionViewController: UIViewController {
     private func requestAuthorization() {
         switch locationManager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
-            self.coordinator?.agreeAndStartButtonTapped()
+            self.viewModel.agreeButtonDidTapped()
         case .notDetermined, .restricted:
             self.locationManager.requestWhenInUseAuthorization()
         case .denied:
@@ -122,7 +139,7 @@ extension LocationPermissionViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .authorizedAlways, .authorizedWhenInUse:
-            self.coordinator?.agreeAndStartButtonTapped()
+            self.viewModel.agreeButtonDidTapped()
         default: break
         }
     }
