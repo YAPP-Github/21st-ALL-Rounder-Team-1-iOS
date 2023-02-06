@@ -120,6 +120,8 @@
 		FC94152029869375009AEE71 /* TermsPermissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC94151F29869375009AEE71 /* TermsPermissionViewModel.swift */; };
 		FC94152229869BE6009AEE71 /* TermsLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC94152129869BE6009AEE71 /* TermsLiterals.swift */; };
 		FCAB262B296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAB262A296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift */; };
+		FCB00872298E52320006FF53 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FCB00871298E52320006FF53 /* KakaoSDKAuth */; };
+		FCB00874298E52320006FF53 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = FCB00873298E52320006FF53 /* KakaoSDKUser */; };
 		FCB828F7297FC6B50067E159 /* EditProfileBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB828F6297FC6B50067E159 /* EditProfileBottomSheetViewController.swift */; };
 		FCBB8F7F297D2EED009287EF /* NicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBB8F7E297D2EED009287EF /* NicknameViewModel.swift */; };
 		FCD9721A298C462900E27792 /* LocationPermissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD97219298C462900E27792 /* LocationPermissionViewController.swift */; };
@@ -315,6 +317,8 @@
 				32C3B5702987C4C7004A8872 /* Algorithms in Frameworks */,
 				32CCC0D129791C9300C04231 /* Toast in Frameworks */,
 				3244A238292DCB1F00716A2B /* SnapKit in Frameworks */,
+				FCB00874298E52320006FF53 /* KakaoSDKUser in Frameworks */,
+				FCB00872298E52320006FF53 /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -999,6 +1003,8 @@
 				3244A237292DCB1F00716A2B /* SnapKit */,
 				32CCC0D029791C9300C04231 /* Toast */,
 				32C3B56F2987C4C7004A8872 /* Algorithms */,
+				FCB00871298E52320006FF53 /* KakaoSDKAuth */,
+				FCB00873298E52320006FF53 /* KakaoSDKUser */,
 			);
 			productName = RefillStation;
 			productReference = 3244A1F8292DC13A00716A2B /* RefillStation.app */;
@@ -1655,6 +1661,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		FCB00870298E52320006FF53 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1672,6 +1686,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 32CCC0CF29791C9300C04231 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
+		};
+		FCB00871298E52320006FF53 /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FCB00870298E52320006FF53 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
+		FCB00873298E52320006FF53 /* KakaoSDKUser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FCB00870298E52320006FF53 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKUser;
 		};
 /* End XCSwiftPackageProductDependency section */
 
