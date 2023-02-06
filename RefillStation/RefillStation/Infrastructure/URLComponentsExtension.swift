@@ -8,13 +8,14 @@
 import Foundation
 
 extension URLComponents {
-    func toURLRequest<HTTPBody: Encodable>(method: HTTPMethod, body: HTTPBody? = nil) -> URLRequest? {
+    func toURLRequest(method: HTTPMethod, httpBody: Data? = nil, contentType: String = "application/json") -> URLRequest? {
         guard let url = url else { return nil }
 
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = method.name
-        if let body = body {
-            urlRequest.httpBody = try? JSONEncoder().encode(body)
+        if let httpBody = httpBody {
+            urlRequest.httpBody = httpBody
+            urlRequest.addValue(contentType, forHTTPHeaderField: "Content-Type")
         }
 
         return urlRequest
