@@ -12,23 +12,11 @@ struct StoreRecommendDTO: Decodable {
     let count: Int?
 }
 
-struct FetchStoreRecommendResult {
-    var didUserRecommended: Bool
-    var recommendedCount: Int
-}
-
 struct StoreRecommendRequestDTO: Encodable {
     let storeId: Int
 }
 
 extension StoreRecommendDTO {
-    func toFetchResult() -> FetchStoreRecommendResult {
-        return FetchStoreRecommendResult(
-            didUserRecommended: isRecommendation ?? false,
-            recommendedCount: count ?? 0
-        )
-    }
-
     func toResponseValue() -> RecommendStoreResponseValue {
         return RecommendStoreResponseValue(
             recommendCount: count ?? 0,

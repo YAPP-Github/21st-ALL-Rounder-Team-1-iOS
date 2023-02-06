@@ -80,6 +80,11 @@ final class MockStoreRepository: StoreRepositoryInterface {
         return MockTask { completion(.success(dummyReviews)) }
     }
 
+    func fetchStoreRecommend(requestValue: FetchStoreRecommendRequestValue, completion: @escaping (Result<FetchStoreRecommendResponseValue, Error>) -> Void) -> Cancellable? {
+        let dummyResult = FetchStoreRecommendResponseValue(recommendCount: 10, didRecommended: true)
+        return MockTask { completion(.success(dummyResult)) }
+    }
+
     func recommendStore(requestValue: RecommendStoreRequestValue, completion: @escaping (Result<RecommendStoreResponseValue, Error>) -> Void) -> Cancellable? {
         let dummyResponse = RecommendStoreResponseValue(recommendCount: 10, didRecommended: true)
         return MockTask { completion(.success(dummyResponse)) }
