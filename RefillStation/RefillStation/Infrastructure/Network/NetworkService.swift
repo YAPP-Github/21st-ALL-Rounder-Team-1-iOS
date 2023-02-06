@@ -31,18 +31,19 @@ final class NetworkService: NetworkServiceInterface {
     static let shared = NetworkService()
 
     let baseURL = "https://www.pump-api-dev.com"
-    private var token: String {
-        guard let token = KeychainManager.shared.getItem(key: "token") as? String else {
-            fatalError("There Is No JWT Token")
-        }
-        return token
+    private var token: String? {
+        return KeychainManager.shared.getItem(key: "token") as? String
     }
 
     private init() { }
 
     func dataTask<DTO: Decodable>(request: URLRequest, completion: @escaping (Result<DTO, Error>) -> Void) -> Cancellable? {
         var request = request
-        request.addValue(token, forHTTPHeaderField: "Authorization")
+        if let token {
+            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        } else {
+            print("There is no jwt token")
+        }
 
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if error != nil {
