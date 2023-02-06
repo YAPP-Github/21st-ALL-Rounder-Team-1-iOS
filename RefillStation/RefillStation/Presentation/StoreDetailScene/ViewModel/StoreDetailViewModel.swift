@@ -90,17 +90,21 @@ final class StoreDetailViewModel {
     private var storeReviewsLoadTask: Cancellable?
     private let recommendStoreUseCase: RecommendStoreUseCaseInterface
     private var recommendStoreTask: Cancellable?
+    private let fetchStoreRecommendUseCase: FetchStoreRecommendUseCaseInterface
+    private var storeRecommendLoadTask: Cancellable?
 
     init(
         store: Store,
         fetchProductsUseCase: FetchProductsUseCaseInterface = FetchProductsUseCase(),
         fetchStoreReviewsUseCase: FetchStoreReviewsUseCaseInterface = FetchStoreReviewsUseCase(),
-        recommendStoreUseCase: RecommendStoreUseCaseInterface = RecommendStoreUseCase()
+        recommendStoreUseCase: RecommendStoreUseCaseInterface = RecommendStoreUseCase(),
+        fetchStoreRecommendUseCase: FetchStoreRecommendUseCaseInterface = FetchStoreRecommendUseCase()
     ) {
         self.store = store
         self.fetchProductsUseCase = fetchProductsUseCase
         self.fetchStoreReviewsUseCase = fetchStoreReviewsUseCase
         self.recommendStoreUseCase = recommendStoreUseCase
+        self.fetchStoreRecommendUseCase = fetchStoreRecommendUseCase
     }
 
     func categoryButtonDidTapped(category: ProductCategory?) {
@@ -186,6 +190,22 @@ final class StoreDetailViewModel {
         storeReviewsLoadTask?.resume()
     }
 
+    private func fetchStoreRecommend() {
+        let requestValue = FetchStoreRecommendRequestValue(storeId: store.storeId)
+        storeRecommendLoadTask = fetchStoreRecommendUseCase.execute(requestValue: requestValue, completion: { result in
+            switch result {
+            case .success(let response):
+                self.store.didUserRecommended = response.didRecommended
+                self.store.recommendedCount = response.recommendCount
+                print(response.didRecommended, response.recommendCount)
+                self.applyDataSource?()
+            case .failure(let error):
+                print(error)
+            }
+        })
+        storeRecommendLoadTask?.resume()
+    }
+
     private func setUpCategories() {
         products.forEach {
             if !categories.contains($0.category) {
@@ -217,10 +237,11 @@ extension StoreDetailViewModel {
     func viewWillAppear() {
         fetchProducts()
         fetchStoreReviews()
+        fetchStoreRecommend()
     }
 
     func viewWillDisappear() {
-        [productListLoadTask, storeReviewsLoadTask, recommendStoreTask].forEach { $0?.cancel() }
+        [productListLoadTask, storeReviewsLoadTask, recommendStoreTask, storeRecommendLoadTask].forEach { $0?.cancel() }
     }
 }
 

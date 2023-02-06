@@ -16,8 +16,13 @@ final class StoreRepository: StoreRepositoryInterface {
     }
 
     func fetchStores(requestValue: FetchStoresUseCaseRequestValue, completion: @escaping (Result<[Store], Error>) -> Void) -> Cancellable? {
-        let path = "/api/user/\(requestValue.longitude)/\(requestValue.latitude)/stores"
-        guard let request = urlRequest(method: .get, path: path) else {
+        var urlComponents = URLComponents(string: networkService.baseURL)
+        urlComponents?.queryItems = [
+            .init(name: "longitude", value: String(requestValue.longitude)),
+            .init(name: "latitude", value: String(requestValue.latitude))
+        ]
+        urlComponents?.path = "/api/user/stores"
+        guard let request = urlComponents?.toURLRequest(method: .get) else {
             completion(.failure(RepositoryError.urlParseFailed))
             return nil
         }
@@ -33,8 +38,9 @@ final class StoreRepository: StoreRepositoryInterface {
     }
 
     func fetchProducts(requestValue: FetchProductsRequestValue, completion: @escaping (Result<[Product], Error>) -> Void) -> Cancellable? {
-        let path = "/api/\(requestValue.storeId)/items"
-        guard let request = urlRequest(method: .get, path: path) else {
+        var urlComponents = URLComponents(string: networkService.baseURL)
+        urlComponents?.path = "/api/\(requestValue.storeId)/items"
+        guard let request = urlComponents?.toURLRequest(method: .get) else {
             completion(.failure(RepositoryError.urlParseFailed))
             return nil
         }
@@ -49,8 +55,9 @@ final class StoreRepository: StoreRepositoryInterface {
     }
 
     func fetchStoreReviews(requestValue: FetchStoreReviewsRequestValue, completion: @escaping (Result<[Review], Error>) -> Void) -> Cancellable? {
-        let path = "/api/\(requestValue.storeId)/reviews"
-        guard let request = urlRequest(method: .get, path: path) else {
+        var urlComponents = URLComponents(string: networkService.baseURL)
+        urlComponents?.path = "/api/\(requestValue.storeId)/reviews"
+        guard let request = urlComponents?.toURLRequest(method: .get) else {
             completion(.failure(RepositoryError.urlParseFailed))
             return nil
         }
@@ -64,20 +71,38 @@ final class StoreRepository: StoreRepositoryInterface {
         }
     }
 
-    func recommendStore(requestValue: RecommendStoreRequestValue, completion: @escaping (Result<RecommendStoreResponseValue, Error>) -> Void) -> Cancellable? {
-        let path = "/api/recommendation"
-        let method: HTTPMethod = requestValue.type == .recommend ? .post : .delete
-        guard var request = urlRequest(method: method, path: path) else {
+    func fetchStoreRecommend(requestValue: FetchStoreRecommendRequestValue, completion: @escaping (Result<FetchStoreRecommendResponseValue, Error>) -> Void) -> Cancellable? {
+        var urlComponents = URLComponents(string: networkService.baseURL)
+        urlComponents?.path = "/api/\(requestValue.storeId)/recommendation"
+        guard let request = urlComponents?.toURLRequest(method: .get) else {
             completion(.failure(RepositoryError.urlParseFailed))
             return nil
         }
+        return networkService.dataTask(request: request) { (result: Result<FetchStoreRecommendDTO, Error>) in
+            switch result {
+            case .success(let fetchStoreRecommendDTO):
+                completion(.success(fetchStoreRecommendDTO.toResponseValue()))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    func recommendStore(requestValue: RecommendStoreRequestValue, completion: @escaping (Result<RecommendStoreResponseValue, Error>) -> Void) -> Cancellable? {
+        var urlComponents = URLComponents(string: networkService.baseURL)
+        urlComponents?.path = "/api/recommendation"
         guard let requestBody = try? JSONEncoder()
             .encode(StoreRecommendRequestDTO(storeId: requestValue.storeId)) else {
             completion(.failure(RepositoryError.requestParseFailed))
             return nil
         }
-        request.httpBody = requestBody
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        guard let request = urlComponents?.toURLRequest(
+            method: requestValue.type == .recommend ? .post : .delete,
+            httpBody: requestBody
+        ) else {
+            completion(.failure(RepositoryError.urlParseFailed))
+            return nil
+        }
         return networkService.dataTask(request: request) { (result: Result<StoreRecommendDTO, Error>) in
             switch result {
             case .success(let storeRecommendDTO):
@@ -86,19 +111,5 @@ final class StoreRepository: StoreRepositoryInterface {
                 completion(.failure(error))
             }
         }
-    }
-
-    private func urlRequest(method: HTTPMethod, path: String) -> URLRequest? {
-        var urlComponents = URLComponents(string: networkService.baseURL)
-        urlComponents?.path = path
-
-        guard let url = urlComponents?.url else {
-            return nil
-        }
-
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = method.name
-
-        return urlRequest
     }
 }

@@ -36,37 +36,7 @@ struct StoreDTO: Decodable {
     }
 }
 
-struct StoreFetchResult {
-    let storeId: Int
-    let name: String
-    let address: String
-    let distance: Double
-    let phoneNumber: String
-    let snsAddress: String
-    let imageURL: [String]
-    let businessHour: [BusinessHour]
-    let notice: String
-}
-
 extension StoreDTO {
-    func toFetchResult() -> StoreFetchResult {
-        return StoreFetchResult(
-            storeId: id ?? 0,
-            name: name ?? "",
-            address: address ?? "",
-            distance: Double(distance ?? "") ?? 0,
-            phoneNumber: callNumber ?? "",
-            snsAddress: instaAccount ?? "",
-            imageURL: imgStores.compactMap { $0.path },
-            businessHour: businessHour?.map { dto in
-                BusinessHour(day: .allCases.first(where: {
-                    $0.name == dto.day
-                }) ?? .mon, time: dto.time)
-            } ?? [],
-            notice: notice ?? ""
-        )
-    }
-
     func toDomain() -> Store {
         return Store(
             storeId: id ?? 0,
