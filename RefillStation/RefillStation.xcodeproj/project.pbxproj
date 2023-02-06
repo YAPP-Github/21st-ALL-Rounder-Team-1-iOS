@@ -123,6 +123,7 @@
 		FCB00872298E52320006FF53 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FCB00871298E52320006FF53 /* KakaoSDKAuth */; };
 		FCB00874298E52320006FF53 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = FCB00873298E52320006FF53 /* KakaoSDKUser */; };
 		FCB00877298E86AC0006FF53 /* LoginDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB00876298E86AC0006FF53 /* LoginDTO.swift */; };
+		FCB0087A298F8F510006FF53 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB00879298F8F510006FF53 /* LoginViewModel.swift */; };
 		FCB0088729914ECC0006FF53 /* SignUpDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0088629914ECC0006FF53 /* SignUpDTO.swift */; };
 		FCB00889299153FA0006FF53 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FCB00888299153FA0006FF53 /* Secrets.xcconfig */; };
 		FCB828F7297FC6B50067E159 /* EditProfileBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB828F6297FC6B50067E159 /* EditProfileBottomSheetViewController.swift */; };
@@ -285,6 +286,7 @@
 		FC94152129869BE6009AEE71 /* TermsLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsLiterals.swift; sourceTree = "<group>"; };
 		FCAB262A296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpLargeTitleNavigationBar.swift; sourceTree = "<group>"; };
 		FCB00876298E86AC0006FF53 /* LoginDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDTO.swift; sourceTree = "<group>"; };
+		FCB00879298F8F510006FF53 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		FCB0088629914ECC0006FF53 /* SignUpDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDTO.swift; sourceTree = "<group>"; };
 		FCB00888299153FA0006FF53 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		FCB828F6297FC6B50067E159 /* EditProfileBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileBottomSheetViewController.swift; sourceTree = "<group>"; };
@@ -648,6 +650,7 @@
 		32DDE66029866CCE008AFDB2 /* LoginScene */ = {
 			isa = PBXGroup;
 			children = (
+				FCB00878298F8F470006FF53 /* ViewModel */,
 				32DDE66129866CD7008AFDB2 /* ViewController */,
 			);
 			path = LoginScene;
@@ -847,6 +850,14 @@
 				FC9044872965E00D00B43BB9 /* UserLevelViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		FCB00878298F8F470006FF53 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FCB00879298F8F510006FF53 /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		FCB0087B298FD1040006FF53 /* Account */ = {
@@ -1197,6 +1208,7 @@
 				32A0F5032981797800A04ECC /* CustomerSatisfactionUseCase.swift in Sources */,
 				FCF0181A295F08E50027078A /* UserLevelInfo.swift in Sources */,
 				32CCC0D52979311D00C04231 /* TabBarCoordinator.swift in Sources */,
+				FCB0087A298F8F510006FF53 /* LoginViewModel.swift in Sources */,
 				32ED747C29696C52007EA791 /* StoreDetailInfoViewCell.swift in Sources */,
 				32ED1E5529853C910020CD1F /* OperationNoticeCell.swift in Sources */,
 				329E80252977FA72004286B0 /* OnboardingCollectionViewCell.swift in Sources */,
