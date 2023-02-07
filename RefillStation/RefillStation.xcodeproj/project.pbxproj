@@ -400,7 +400,6 @@
 		3244A1EF292DC13A00716A2B = {
 			isa = PBXGroup;
 			children = (
-				FCB00888299153FA0006FF53 /* Secrets.xcconfig */,
 				3244A232292DC48300716A2B /* .swiftlint.yml */,
 				FCEE10262934C8EE002E629D /* swiftgen.yml */,
 				3244A1FA292DC13A00716A2B /* RefillStation */,
@@ -475,6 +474,7 @@
 				FCEE102E2934CCB8002E629D /* Fonts.swift */,
 				3244A209292DC13A00716A2B /* LaunchScreen.storyboard */,
 				3244A20C292DC13A00716A2B /* Info.plist */,
+				FCB00888299153FA0006FF53 /* Secrets.xcconfig */,
 				3282FED22992391C00DBFE24 /* AWSAccessKey.plist */,
 			);
 			path = Resources;
