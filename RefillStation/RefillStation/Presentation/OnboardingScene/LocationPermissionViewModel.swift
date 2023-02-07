@@ -24,9 +24,7 @@ final class LocationPermissionViewModel {
             switch result {
             case .success(let token):
                 _ = KeychainManager.shared.updateItem(key: "token", value: token)
-                DispatchQueue.main.async {
-                    self.isSignUpCompleted?()
-                }
+                self.isSignUpCompleted?()
             case .failure(let failure):
                 return
             }

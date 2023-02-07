@@ -80,7 +80,9 @@ final class LocationPermissionViewController: UIViewController {
 
     private func bind() {
         viewModel.isSignUpCompleted = {
-            self.coordinator?.agreeAndStartButtonTapped()
+            DispatchQueue.main.async {
+                self.coordinator?.agreeAndStartButtonTapped()
+            }
         }
     }
 

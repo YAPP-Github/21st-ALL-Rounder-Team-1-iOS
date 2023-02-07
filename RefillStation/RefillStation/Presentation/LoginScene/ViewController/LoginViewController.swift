@@ -100,12 +100,16 @@ final class LoginViewController: UIViewController {
     private func bind() {
         viewModel.isSignUp = {
             if let requestValue = self.viewModel.signUpRequestValue {
+                DispatchQueue.main.async {
                 self.coordinator?.showTermsPermission(requestValue: requestValue)
             }
         }
+        }
         viewModel.isSignIn = {
+            DispatchQueue.main.async {
             self.coordinator?.agreeAndStartButtonTapped()
         }
+    }
     }
 
     private func addLoginButtonActions() {

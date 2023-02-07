@@ -36,9 +36,7 @@ final class LoginViewModel {
                     oauthType: data.oauthType,
                     oauthIdentity: data.oauthIdentity
                 )
-                DispatchQueue.main.async {
-                    data.jwt == nil ? self.isSignUp?() : self.isSignIn?()
-                }
+                data.jwt == nil ? self.isSignUp?() : self.isSignIn?()
             case .failure(let failure):
                 return
             }
