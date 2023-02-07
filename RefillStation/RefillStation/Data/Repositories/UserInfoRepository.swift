@@ -38,10 +38,38 @@ final class UserInfoRepository: UserInfoRepositoryInterface {
     }
 
     func validNickname(requestValue: ValidNicknameRequestValue, completion: @escaping (Result<Bool, Error>) -> Void) -> Cancellable? {
-        return nil
+        var urlComponents = URLComponents(string: networkService.baseURL)
+        urlComponents?.path = "/api/user/\(requestValue.nickname)"
+        guard let request = urlComponents?.toURLRequest(method: .get) else {
+            completion(.failure(RepositoryError.urlParseFailed))
+            return nil
+        }
+
+        return networkService.dataTask(request: request) { (result: Result<Bool, Error>) in
+            switch result {
+            case .success(let isDulplicated):
+                completion(.success(isDulplicated))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 
     func fetchUserReviews(completion: @escaping (Result<[Review], Error>) -> Void) -> Cancellable? {
-        return nil
+        var urlComponents = URLComponents(string: networkService.baseURL)
+        urlComponents?.path = "/api/user/reviews"
+        guard let request = urlComponents?.toURLRequest(method: .get) else {
+            completion(.failure(RepositoryError.urlParseFailed))
+            return nil
+        }
+
+        return networkService.dataTask(request: request) { (result: Result<[ReviewDTO], Error>) in
+            switch result {
+            case .success(let reviews):
+                completion(.success(reviews.map { $0.toDomain() }))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }
