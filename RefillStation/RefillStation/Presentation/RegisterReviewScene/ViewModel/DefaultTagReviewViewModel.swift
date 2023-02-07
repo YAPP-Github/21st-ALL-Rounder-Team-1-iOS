@@ -100,7 +100,7 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
         userReviewsLoadTask = fetchUserReviewsUseCase.execute { result in
             switch result {
             case .success(let reviews):
-                self.totalReviewCount = reviews.prefix(Int.random(in: 1...5)).count // TODO: 테스트 코드 삭제
+                self.totalReviewCount = reviews.count
                 self.reviewCountFetchCompleted?()
             case .failure:
                 break
