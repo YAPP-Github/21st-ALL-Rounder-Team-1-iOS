@@ -31,26 +31,24 @@ public class AWSS3Service {
         }
     }
 
-    private var path: String {
-        guard let path = Bundle.main.path(forResource: "AWSAccessKey", ofType: "plist") else { return "" }
-        return path
+    private var awsAccessKey: NSDictionary {
+        guard let path = Bundle.main.path(forResource: "AWSAccessKey", ofType: "plist"),
+              let dictionary = NSDictionary(contentsOfFile: path) else { return [:] }
+        return dictionary
     }
 
     private var accessKey: String {
-        guard let dictionary = NSDictionary(contentsOfFile: path),
-              let key = dictionary["AWS_ACCESS_KEY"] as? String else { return "" }
+        guard let key = awsAccessKey["AWS_ACCESS_KEY"] as? String else { return "" }
         return key
     }
 
     private var secretKey: String {
-        guard let dictionary = NSDictionary(contentsOfFile: path),
-              let key = dictionary["AWS_SECRET_KEY"] as? String else { return "" }
+        guard let key = awsAccessKey["AWS_SECRET_KEY"] as? String else { return "" }
         return key
     }
 
     private var region: String {
-        guard let dictionary = NSDictionary(contentsOfFile: path),
-              let key = dictionary["AWS_REGION"] as? String else { return "" }
+        guard let key = awsAccessKey["AWS_REGION"] as? String else { return "" }
         return key
     }
 
@@ -61,12 +59,12 @@ public class AWSS3Service {
         let configuration = AWSServiceConfiguration(region: .APNortheast2, credentialsProvider: credentialsProvider)
         AWSServiceManager.default().defaultServiceConfiguration = configuration
 
-        let tuConf = AWSS3TransferUtilityConfiguration()
-        tuConf.isAccelerateModeEnabled = false
+        let utilityConfiguration = AWSS3TransferUtilityConfiguration()
+        utilityConfiguration.isAccelerateModeEnabled = false
 
         AWSS3TransferUtility.register(
             with: configuration!,
-            transferUtilityConfiguration: tuConf,
+            transferUtilityConfiguration: utilityConfiguration,
             forKey: "utility-key"
         )
     }
@@ -78,15 +76,18 @@ public class AWSS3Service {
         let id = UUID().uuidString
         let fileKey = "\(type.name)/\(id).jpeg"
 
-        transferUtility.uploadData(
+        let task = transferUtility.uploadData(
             imageData,
             bucket: Bucket.bucketName,
             key: fileKey,
             contentType: "image/jpeg",
-            expression: nil) { task, error in
-                print(error)
-                guard error == nil else { return }
-                completion(.success(Bucket.baseURL + "/" + fileKey))
+            expression: nil
+        ) { task, error in
+            if let error = error {
+                completion(.failure(error))
+                return
             }
+            completion(.success(Bucket.baseURL + "/" + fileKey))
+        }
     }
 }
