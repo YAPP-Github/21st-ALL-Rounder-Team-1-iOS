@@ -17,6 +17,7 @@
 		3210B531298FB5730034CBA7 /* FetchStoreRecommendUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B530298FB5730034CBA7 /* FetchStoreRecommendUseCase.swift */; };
 		3210B535298FBA6B0034CBA7 /* FetchStoreRecommendDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B534298FBA6B0034CBA7 /* FetchStoreRecommendDTO.swift */; };
 		322982EE29907CC20081B288 /* URLComponentsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322982ED29907CC20081B288 /* URLComponentsExtension.swift */; };
+		322982F02990F5000081B288 /* AWSS3Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322982EF2990F5000081B288 /* AWSS3Service.swift */; };
 		322E15E4297A0B3600FE2E2F /* MyPageDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322E15E3297A0B3600FE2E2F /* MyPageDIContainer.swift */; };
 		322E15E6297A0B6600FE2E2F /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322E15E5297A0B6600FE2E2F /* MyPageCoordinator.swift */; };
 		322E15E8297A0CD700FE2E2F /* RegisterReviewDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322E15E7297A0CD700FE2E2F /* RegisterReviewDIContainer.swift */; };
@@ -47,6 +48,7 @@
 		325985F7294C544400D26A37 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325985F6294C544400D26A37 /* HomeCoordinator.swift */; };
 		325985F9294C54CB00D26A37 /* StoreDetailDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325985F8294C54CB00D26A37 /* StoreDetailDIContainer.swift */; };
 		327524DD2987829F00E033A9 /* CustomerSatisfactionRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327524DC2987829F00E033A9 /* CustomerSatisfactionRepositoryInterface.swift */; };
+		3282FED32992391C00DBFE24 /* AWSAccessKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3282FED22992391C00DBFE24 /* AWSAccessKey.plist */; };
 		329557462951992900F5AB53 /* StoreDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F2D9B22951864700131EB1 /* StoreDetailViewModel.swift */; };
 		329557472951992C00F5AB53 /* StoreDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F2D9B02951862E00131EB1 /* StoreDetailViewController.swift */; };
 		329E80252977FA72004286B0 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329E80222977FA72004286B0 /* OnboardingCollectionViewCell.swift */; };
@@ -63,6 +65,8 @@
 		32A0F5032981797800A04ECC /* CustomerSatisfactionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F5022981797800A04ECC /* CustomerSatisfactionUseCase.swift */; };
 		32A0F50529817B1600A04ECC /* UserInfoRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F50429817B1600A04ECC /* UserInfoRepositoryInterface.swift */; };
 		32A0F50729817E1B00A04ECC /* StoreRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F50629817E1B00A04ECC /* StoreRepositoryInterface.swift */; };
+		32C17B12299203DB002D607E /* AWSCore in Frameworks */ = {isa = PBXBuildFile; productRef = 32C17B11299203DB002D607E /* AWSCore */; };
+		32C17B14299203DB002D607E /* AWSS3 in Frameworks */ = {isa = PBXBuildFile; productRef = 32C17B13299203DB002D607E /* AWSS3 */; };
 		32C22965297D35BA0019EAF6 /* PumpPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C22964297D35BA0019EAF6 /* PumpPopUpViewController.swift */; };
 		32C22967297E785C0019EAF6 /* ReviewReportPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C22966297E785C0019EAF6 /* ReviewReportPopUpViewController.swift */; };
 		32C3B5702987C4C7004A8872 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 32C3B56F2987C4C7004A8872 /* Algorithms */; };
@@ -183,6 +187,7 @@
 		3210B530298FB5730034CBA7 /* FetchStoreRecommendUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStoreRecommendUseCase.swift; sourceTree = "<group>"; };
 		3210B534298FBA6B0034CBA7 /* FetchStoreRecommendDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStoreRecommendDTO.swift; sourceTree = "<group>"; };
 		322982ED29907CC20081B288 /* URLComponentsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLComponentsExtension.swift; sourceTree = "<group>"; };
+		322982EF2990F5000081B288 /* AWSS3Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSS3Service.swift; sourceTree = "<group>"; };
 		322E15E3297A0B3600FE2E2F /* MyPageDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageDIContainer.swift; sourceTree = "<group>"; };
 		322E15E5297A0B6600FE2E2F /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		322E15E7297A0CD700FE2E2F /* RegisterReviewDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReviewDIContainer.swift; sourceTree = "<group>"; };
@@ -216,6 +221,7 @@
 		325985F6294C544400D26A37 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		325985F8294C54CB00D26A37 /* StoreDetailDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailDIContainer.swift; sourceTree = "<group>"; };
 		327524DC2987829F00E033A9 /* CustomerSatisfactionRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSatisfactionRepositoryInterface.swift; sourceTree = "<group>"; };
+		3282FED22992391C00DBFE24 /* AWSAccessKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AWSAccessKey.plist; sourceTree = "<group>"; };
 		329E80222977FA72004286B0 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		329E80232977FA72004286B0 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		329E80242977FA72004286B0 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
@@ -326,11 +332,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32C17B14299203DB002D607E /* AWSS3 in Frameworks */,
 				32C3B5702987C4C7004A8872 /* Algorithms in Frameworks */,
 				32CCC0D129791C9300C04231 /* Toast in Frameworks */,
 				3244A238292DCB1F00716A2B /* SnapKit in Frameworks */,
 				FCB00874298E52320006FF53 /* KakaoSDKUser in Frameworks */,
 				FCB00872298E52320006FF53 /* KakaoSDKAuth in Frameworks */,
+				32C17B12299203DB002D607E /* AWSCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,13 +400,13 @@
 		3244A1EF292DC13A00716A2B = {
 			isa = PBXGroup;
 			children = (
-				FCB00888299153FA0006FF53 /* Secrets.xcconfig */,
 				3244A232292DC48300716A2B /* .swiftlint.yml */,
 				FCEE10262934C8EE002E629D /* swiftgen.yml */,
 				3244A1FA292DC13A00716A2B /* RefillStation */,
 				3244A214292DC13B00716A2B /* RefillStationTests */,
 				3244A21E292DC13B00716A2B /* RefillStationUITests */,
 				3244A1F9292DC13A00716A2B /* Products */,
+				32C503B02991493E0044554E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -466,6 +474,8 @@
 				FCEE102E2934CCB8002E629D /* Fonts.swift */,
 				3244A209292DC13A00716A2B /* LaunchScreen.storyboard */,
 				3244A20C292DC13A00716A2B /* Info.plist */,
+				FCB00888299153FA0006FF53 /* Secrets.xcconfig */,
+				3282FED22992391C00DBFE24 /* AWSAccessKey.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -650,6 +660,13 @@
 				FCE00A7C294C91AD00B5C05F /* RegisterReviewUseCase.swift */,
 			);
 			path = RegisterReview;
+			sourceTree = "<group>";
+		};
+		32C503B02991493E0044554E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		32DDE66029866CCE008AFDB2 /* LoginScene */ = {
@@ -981,6 +998,7 @@
 			children = (
 				FCE00A9E29517E5600B5C05F /* Network */,
 				322982ED29907CC20081B288 /* URLComponentsExtension.swift */,
+				322982EF2990F5000081B288 /* AWSS3Service.swift */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -1039,6 +1057,8 @@
 				32C3B56F2987C4C7004A8872 /* Algorithms */,
 				FCB00871298E52320006FF53 /* KakaoSDKAuth */,
 				FCB00873298E52320006FF53 /* KakaoSDKUser */,
+				32C17B11299203DB002D607E /* AWSCore */,
+				32C17B13299203DB002D607E /* AWSS3 */,
 			);
 			productName = RefillStation;
 			productReference = 3244A1F8292DC13A00716A2B /* RefillStation.app */;
@@ -1117,6 +1137,7 @@
 				32CCC0CF29791C9300C04231 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				32C3B56E2987C4C7004A8872 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				FCB00870298E52320006FF53 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				32C17B10299203DB002D607E /* XCRemoteSwiftPackageReference "aws-sdk-ios-spm" */,
 			);
 			productRefGroup = 3244A1F9292DC13A00716A2B /* Products */;
 			projectDirPath = "";
@@ -1137,6 +1158,7 @@
 				3244A233292DC48300716A2B /* .swiftlint.yml in Resources */,
 				FCEE10232934C385002E629D /* Colors.xcassets in Resources */,
 				FCB00889299153FA0006FF53 /* Secrets.xcconfig in Resources */,
+				3282FED32992391C00DBFE24 /* AWSAccessKey.plist in Resources */,
 				3244A20B292DC13A00716A2B /* LaunchScreen.storyboard in Resources */,
 				3244A208292DC13A00716A2B /* Assets.xcassets in Resources */,
 				FCEE10252934C855002E629D /* images.xcassets in Resources */,
@@ -1253,6 +1275,7 @@
 				FCE00A7D294C91AD00B5C05F /* RegisterReviewUseCase.swift in Sources */,
 				32E6AE44298E7EF4005AA542 /* ProductDTO.swift in Sources */,
 				FCF0181D296095AD0027078A /* CTAButton.swift in Sources */,
+				322982F02990F5000081B288 /* AWSS3Service.swift in Sources */,
 				329557472951992C00F5AB53 /* StoreDetailViewController.swift in Sources */,
 				FCD9721C298D7C9000E27792 /* RegionRequestCollectionViewCell.swift in Sources */,
 				325985F9294C54CB00D26A37 /* StoreDetailDIContainer.swift in Sources */,
@@ -1690,6 +1713,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		32C17B10299203DB002D607E /* XCRemoteSwiftPackageReference "aws-sdk-ios-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/aws-amplify/aws-sdk-ios-spm";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		32C3B56E2987C4C7004A8872 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-algorithms.git";
@@ -1721,6 +1752,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3244A236292DCB1F00716A2B /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		32C17B11299203DB002D607E /* AWSCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 32C17B10299203DB002D607E /* XCRemoteSwiftPackageReference "aws-sdk-ios-spm" */;
+			productName = AWSCore;
+		};
+		32C17B13299203DB002D607E /* AWSS3 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 32C17B10299203DB002D607E /* XCRemoteSwiftPackageReference "aws-sdk-ios-spm" */;
+			productName = AWSS3;
 		};
 		32C3B56F2987C4C7004A8872 /* Algorithms */ = {
 			isa = XCSwiftPackageProductDependency;
