@@ -96,5 +96,7 @@ fastlane/test_output
 
 iOSInjectionProject/
 RefillStation/RefillStation.xcodeproj/xcuserdata/neph.xcuserdatad
+
+RefillStation/Secrets.xcconfig
 RefillStation/RefillStation/AWSS3Configuration.xcconfig
 RefillStation/RefillStation/Resources/AWSAccessKey.plist
