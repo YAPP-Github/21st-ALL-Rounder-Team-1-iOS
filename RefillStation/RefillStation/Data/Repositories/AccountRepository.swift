@@ -19,8 +19,9 @@ final class AccountRepository: AccountRepositoryInterface {
                     completion: @escaping (Result<OAuthLoginResponseValue, Error>) -> Void) -> Cancellable? {
         var urlComponents = URLComponents(string: networkService.baseURL)
         urlComponents?.path = "/api/login/oauth/\(loginType.path)"
+        let requestParamName = loginType == .apple ? "identityToken" : "accessToken"
         urlComponents?.queryItems = [
-            URLQueryItem(name: "accessToken", value: String(requestValue.accessToken))
+            URLQueryItem(name: requestParamName, value: String(requestValue.accessToken))
         ]
         guard let request = urlComponents?.toURLRequest(method: .get) else {
             completion(.failure(RepositoryError.urlParseFailed))
