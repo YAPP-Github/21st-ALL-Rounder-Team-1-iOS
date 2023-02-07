@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import KakaoSDKUser
+import KakaoSDKAuth
 
 final class LoginViewModel {
     private let OAuthLoginUseCase: OAuthLoginUseCaseInterface
@@ -17,10 +19,6 @@ final class LoginViewModel {
 
     init(OAuthLoginUseCase: OAuthLoginUseCaseInterface) {
         self.OAuthLoginUseCase = OAuthLoginUseCase
-    }
-
-    private func requestAppleLogin(requestValue: String) {
-
     }
 
     private func requestKakaoLogin(requestValue: String) {
@@ -47,9 +45,15 @@ final class LoginViewModel {
     private func requestNaverLogin(requestValue: String) {
 
     }
+
+    private func requestAppleLogin(requestValue: String) {
+
+    }
 }
 
 extension LoginViewModel {
+
+    // MARK: - ViewController의 LoginButton이 눌릴 때 호출되는 메소드
     func loginButtonDidTapped(OAuthType: OAuthType, requestValue: String) {
         switch OAuthType {
         case .apple:
@@ -59,5 +63,27 @@ extension LoginViewModel {
         case .naver:
             requestAppleLogin(requestValue: requestValue)
         }
+    }
+
+    func onKakaoLoginByAppTouched() {
+        if UserApi.isKakaoTalkLoginAvailable() {
+            UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
+                if let error = error {
+                    print(error)
+                } else {
+                    guard let accessToken = oauthToken?.accessToken else { return }
+                    self.loginButtonDidTapped(OAuthType: .kakao,
+                                              requestValue: accessToken)
+                }
+            }
+        }
+    }
+
+    func onNaverLoginByAppTouched() {
+
+    }
+
+    func onAppleLoginByAppTouched() {
+
     }
 }

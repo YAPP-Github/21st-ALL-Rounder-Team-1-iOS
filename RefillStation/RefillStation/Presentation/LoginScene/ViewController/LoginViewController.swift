@@ -101,46 +101,28 @@ final class LoginViewController: UIViewController {
         viewModel.isSignUp = {
             if let requestValue = self.viewModel.signUpRequestValue {
                 DispatchQueue.main.async {
-                self.coordinator?.showTermsPermission(requestValue: requestValue)
-            }
-        }
-        }
-        viewModel.isSignIn = {
-            DispatchQueue.main.async {
-            self.coordinator?.agreeAndStartButtonTapped()
-        }
-    }
-    }
-
-    private func addLoginButtonActions() {
-        [kakaoLoginButton, appleLoginButton, naverLoginButton].forEach {
-            $0.addAction(UIAction { _ in
-                self.onKakaoLoginByAppTouched()
-            }, for: .touchUpInside)
-        }
-    }
-}
-
-extension LoginViewController {
-    func onKakaoLoginByAppTouched() {
-        if UserApi.isKakaoTalkLoginAvailable() {
-            UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
-                if let error = error {
-                    print(error)
-                } else {
-                    guard let accessToken = oauthToken?.accessToken else { return }
-                    self.viewModel.loginButtonDidTapped(OAuthType: .kakao,
-                                                        requestValue: accessToken)
+                    self.coordinator?.showTermsPermission(requestValue: requestValue)
                 }
             }
         }
+        viewModel.isSignIn = {
+            DispatchQueue.main.async {
+                self.coordinator?.agreeAndStartButtonTapped()
+            }
+        }
     }
 
-    func onNaverLoginByAppTouched() {
+    private func addLoginButtonActions() {
+        kakaoLoginButton.addAction(UIAction { _ in
+            self.viewModel.onKakaoLoginByAppTouched()
+        }, for: .touchUpInside)
 
-    }
-
-    func onAppleLoginByAppTouched() {
-
+        naverLoginButton.addAction(UIAction { _ in
+            self.viewModel.onNaverLoginByAppTouched()
+        }, for: .touchUpInside)
+        
+        appleLoginButton.addAction(UIAction { _ in
+            self.viewModel.onAppleLoginByAppTouched()
+        }, for: .touchUpInside)
     }
 }
