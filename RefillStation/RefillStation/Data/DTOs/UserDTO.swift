@@ -22,7 +22,7 @@ extension UserDTO {
             id: id ?? 0,
             name: nickname ?? "",
             imageURL: imgPath ?? "",
-            level: UserLevelInfo(level: UserLevelInfo.Level(rawValue: rating ?? 0))
+            level: UserLevelInfo(level: UserLevelInfo.Level(rawValue: rating ?? 0) ?? .beginner)
         )
     }
 }
