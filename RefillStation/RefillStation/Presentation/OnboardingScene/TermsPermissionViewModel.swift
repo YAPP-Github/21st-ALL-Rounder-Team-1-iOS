@@ -8,6 +8,13 @@
 import UIKit
 
 final class TermsPermissionViewModel {
+
+    let requestValue: SignUpRequestValue
+
+    init(requestValue: SignUpRequestValue) {
+        self.requestValue = requestValue
+    }
+
     func didAgreeAllAgreements(buttons: [UIButton]) -> Bool {
         return buttons.map { $0.isSelected }
             .allSatisfy { $0 == true }

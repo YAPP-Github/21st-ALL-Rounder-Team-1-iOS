@@ -15,9 +15,18 @@ final class MockUploadImageRepository: UploadImageRepositoryInterface {
 }
 
 final class MockAccountRepository: AccountRepositoryInterface {
-    func OAuthLogin(loginType: OAuthType, completion: @escaping (Result<String?, Error>) -> Void) -> Cancellable? {
-        let jwtToken: String? = nil
-        return MockTask { completion(.success(jwtToken)) }
+    func OAuthLogin(loginType: OAuthType,
+                    requestValue: OAuthLoginRequestValue,
+                    completion: @escaping (Result<OAuthLoginResponseValue, Error>) -> Void) -> Cancellable? {
+        return MockTask {
+            completion(.success(OAuthLoginResponseValue(name: "냥세구",
+                                                        email: "email@email.com",
+                                                        imgPath: "",
+                                                        oauthIdentity: "",
+                                                        oauthType: "kakao",
+                                                        jwt: "jwt",
+                                                        refreshToken: "refreshToken")))
+        }
     }
 
     func withdraw(completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {

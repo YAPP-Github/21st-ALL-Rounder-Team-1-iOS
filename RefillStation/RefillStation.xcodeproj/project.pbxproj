@@ -120,6 +120,14 @@
 		FC94152029869375009AEE71 /* TermsPermissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC94151F29869375009AEE71 /* TermsPermissionViewModel.swift */; };
 		FC94152229869BE6009AEE71 /* TermsLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC94152129869BE6009AEE71 /* TermsLiterals.swift */; };
 		FCAB262B296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAB262A296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift */; };
+		FCB00872298E52320006FF53 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FCB00871298E52320006FF53 /* KakaoSDKAuth */; };
+		FCB00874298E52320006FF53 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = FCB00873298E52320006FF53 /* KakaoSDKUser */; };
+		FCB00877298E86AC0006FF53 /* LoginDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB00876298E86AC0006FF53 /* LoginDTO.swift */; };
+		FCB0087A298F8F510006FF53 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB00879298F8F510006FF53 /* LoginViewModel.swift */; };
+		FCB0087D298FD1960006FF53 /* AccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0087C298FD1960006FF53 /* AccountRepository.swift */; };
+		FCB008842990F61E0006FF53 /* LocationPermissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB008832990F61E0006FF53 /* LocationPermissionViewModel.swift */; };
+		FCB0088729914ECC0006FF53 /* SignUpDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0088629914ECC0006FF53 /* SignUpDTO.swift */; };
+		FCB00889299153FA0006FF53 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FCB00888299153FA0006FF53 /* Secrets.xcconfig */; };
 		FCB828F7297FC6B50067E159 /* EditProfileBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB828F6297FC6B50067E159 /* EditProfileBottomSheetViewController.swift */; };
 		FCBB8F7F297D2EED009287EF /* NicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBB8F7E297D2EED009287EF /* NicknameViewModel.swift */; };
 		FCD9721A298C462900E27792 /* LocationPermissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD97219298C462900E27792 /* LocationPermissionViewController.swift */; };
@@ -279,6 +287,12 @@
 		FC94151F29869375009AEE71 /* TermsPermissionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsPermissionViewModel.swift; sourceTree = "<group>"; };
 		FC94152129869BE6009AEE71 /* TermsLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsLiterals.swift; sourceTree = "<group>"; };
 		FCAB262A296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpLargeTitleNavigationBar.swift; sourceTree = "<group>"; };
+		FCB00876298E86AC0006FF53 /* LoginDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDTO.swift; sourceTree = "<group>"; };
+		FCB00879298F8F510006FF53 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		FCB0087C298FD1960006FF53 /* AccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRepository.swift; sourceTree = "<group>"; };
+		FCB008832990F61E0006FF53 /* LocationPermissionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermissionViewModel.swift; sourceTree = "<group>"; };
+		FCB0088629914ECC0006FF53 /* SignUpDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDTO.swift; sourceTree = "<group>"; };
+		FCB00888299153FA0006FF53 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		FCB828F6297FC6B50067E159 /* EditProfileBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileBottomSheetViewController.swift; sourceTree = "<group>"; };
 		FCBB8F7E297D2EED009287EF /* NicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewModel.swift; sourceTree = "<group>"; };
 		FCD97219298C462900E27792 /* LocationPermissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermissionViewController.swift; sourceTree = "<group>"; };
@@ -315,6 +329,8 @@
 				32C3B5702987C4C7004A8872 /* Algorithms in Frameworks */,
 				32CCC0D129791C9300C04231 /* Toast in Frameworks */,
 				3244A238292DCB1F00716A2B /* SnapKit in Frameworks */,
+				FCB00874298E52320006FF53 /* KakaoSDKUser in Frameworks */,
+				FCB00872298E52320006FF53 /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,6 +392,7 @@
 		3244A1EF292DC13A00716A2B = {
 			isa = PBXGroup;
 			children = (
+				FCB00888299153FA0006FF53 /* Secrets.xcconfig */,
 				3244A232292DC48300716A2B /* .swiftlint.yml */,
 				FCEE10262934C8EE002E629D /* swiftgen.yml */,
 				3244A1FA292DC13A00716A2B /* RefillStation */,
@@ -562,6 +579,7 @@
 				FC94151B298692C3009AEE71 /* TermsDetailViewController.swift */,
 				FC94151F29869375009AEE71 /* TermsPermissionViewModel.swift */,
 				FCD97219298C462900E27792 /* LocationPermissionViewController.swift */,
+				FCB008832990F61E0006FF53 /* LocationPermissionViewModel.swift */,
 			);
 			path = OnboardingScene;
 			sourceTree = "<group>";
@@ -637,6 +655,7 @@
 		32DDE66029866CCE008AFDB2 /* LoginScene */ = {
 			isa = PBXGroup;
 			children = (
+				FCB00878298F8F470006FF53 /* ViewModel */,
 				32DDE66129866CD7008AFDB2 /* ViewController */,
 			);
 			path = LoginScene;
@@ -653,6 +672,7 @@
 		32E6AE41298E7ED2005AA542 /* DTOs */ = {
 			isa = PBXGroup;
 			children = (
+				FCB0087B298FD1040006FF53 /* Account */,
 				32E6AE42298E7EDB005AA542 /* Store */,
 			);
 			path = DTOs;
@@ -837,6 +857,23 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		FCB00878298F8F470006FF53 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FCB00879298F8F510006FF53 /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FCB0087B298FD1040006FF53 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				FCB00876298E86AC0006FF53 /* LoginDTO.swift */,
+				FCB0088629914ECC0006FF53 /* SignUpDTO.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
 		FCBB8F7D297D2ED6009287EF /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -913,6 +950,7 @@
 				3210B52A298F834B0034CBA7 /* RepositoryError.swift */,
 				324098752961367300911306 /* MockRepositories.swift */,
 				3210B528298F7FF10034CBA7 /* StoreRepository.swift */,
+				FCB0087C298FD1960006FF53 /* AccountRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -999,6 +1037,8 @@
 				3244A237292DCB1F00716A2B /* SnapKit */,
 				32CCC0D029791C9300C04231 /* Toast */,
 				32C3B56F2987C4C7004A8872 /* Algorithms */,
+				FCB00871298E52320006FF53 /* KakaoSDKAuth */,
+				FCB00873298E52320006FF53 /* KakaoSDKUser */,
 			);
 			productName = RefillStation;
 			productReference = 3244A1F8292DC13A00716A2B /* RefillStation.app */;
@@ -1076,6 +1116,7 @@
 				3244A236292DCB1F00716A2B /* XCRemoteSwiftPackageReference "SnapKit" */,
 				32CCC0CF29791C9300C04231 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				32C3B56E2987C4C7004A8872 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+				FCB00870298E52320006FF53 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			productRefGroup = 3244A1F9292DC13A00716A2B /* Products */;
 			projectDirPath = "";
@@ -1095,6 +1136,7 @@
 			files = (
 				3244A233292DC48300716A2B /* .swiftlint.yml in Resources */,
 				FCEE10232934C385002E629D /* Colors.xcassets in Resources */,
+				FCB00889299153FA0006FF53 /* Secrets.xcconfig in Resources */,
 				3244A20B292DC13A00716A2B /* LaunchScreen.storyboard in Resources */,
 				3244A208292DC13A00716A2B /* Assets.xcassets in Resources */,
 				FCEE10252934C855002E629D /* images.xcassets in Resources */,
@@ -1172,6 +1214,7 @@
 				32A0F5032981797800A04ECC /* CustomerSatisfactionUseCase.swift in Sources */,
 				FCF0181A295F08E50027078A /* UserLevelInfo.swift in Sources */,
 				32CCC0D52979311D00C04231 /* TabBarCoordinator.swift in Sources */,
+				FCB0087A298F8F510006FF53 /* LoginViewModel.swift in Sources */,
 				32ED747C29696C52007EA791 /* StoreDetailInfoViewCell.swift in Sources */,
 				32ED1E5529853C910020CD1F /* OperationNoticeCell.swift in Sources */,
 				329E80252977FA72004286B0 /* OnboardingCollectionViewCell.swift in Sources */,
@@ -1221,6 +1264,7 @@
 				3210B52F298F94ED0034CBA7 /* NetworkResult.swift in Sources */,
 				FC60D83D2962C36F00C676A6 /* ReviewPhotosCell.swift in Sources */,
 				FCE00AA6295187B500B5C05F /* Cancellable.swift in Sources */,
+				FCB0087D298FD1960006FF53 /* AccountRepository.swift in Sources */,
 				32C22967297E785C0019EAF6 /* ReviewReportPopUpViewController.swift in Sources */,
 				32A0F4FD2981728D00A04ECC /* UploadImageRepositoryInterface.swift in Sources */,
 				FCE00A9C2950E1C700B5C05F /* Review.swift in Sources */,
@@ -1238,6 +1282,7 @@
 				322E15EA297A0CE100FE2E2F /* RegisterReviewCoordinator.swift in Sources */,
 				FC60D8372962C36F00C676A6 /* DefaultTagReviewViewModel.swift in Sources */,
 				FCD9721A298C462900E27792 /* LocationPermissionViewController.swift in Sources */,
+				FCB00877298E86AC0006FF53 /* LoginDTO.swift in Sources */,
 				FCE00A75294C917B00B5C05F /* FetchProductsUseCase.swift in Sources */,
 				32E6AE3C298E7C67005AA542 /* StoreRecommendDTO.swift in Sources */,
 				3210B52D298F88410034CBA7 /* HTTPMethod.swift in Sources */,
@@ -1253,9 +1298,11 @@
 				FCE00A7F294C91B600B5C05F /* UploadImageUseCase.swift in Sources */,
 				FC94151C298692C3009AEE71 /* TermsDetailViewController.swift in Sources */,
 				32E6AE46298E80CD005AA542 /* ReviewDTO.swift in Sources */,
+				FCB008842990F61E0006FF53 /* LocationPermissionViewModel.swift in Sources */,
 				FC90448C2965E2E500B43BB9 /* PumpTagView.swift in Sources */,
 				3244A1FC292DC13A00716A2B /* AppDelegate.swift in Sources */,
 				FCEE10312934D287002E629D /* Assets+Generated.swift in Sources */,
+				FCB0088729914ECC0006FF53 /* SignUpDTO.swift in Sources */,
 				FC4739412936AB3300DB9BDB /* StoreCollectionViewCell.swift in Sources */,
 				3240987829613CC300911306 /* MockEntityData.swift in Sources */,
 				32A0F5012981764D00A04ECC /* OAuthLoginUseCase.swift in Sources */,
@@ -1453,6 +1500,7 @@
 		};
 		3244A226292DC13B00716A2B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCB00888299153FA0006FF53 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1484,6 +1532,7 @@
 		};
 		3244A227292DC13B00716A2B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCB00888299153FA0006FF53 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1515,6 +1564,7 @@
 		};
 		3244A229292DC13B00716A2B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCB00888299153FA0006FF53 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1535,6 +1585,7 @@
 		};
 		3244A22A292DC13B00716A2B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCB00888299153FA0006FF53 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1655,6 +1706,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		FCB00870298E52320006FF53 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1672,6 +1731,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 32CCC0CF29791C9300C04231 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
+		};
+		FCB00871298E52320006FF53 /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FCB00870298E52320006FF53 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
+		FCB00873298E52320006FF53 /* KakaoSDKUser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FCB00870298E52320006FF53 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKUser;
 		};
 /* End XCSwiftPackageProductDependency section */
 

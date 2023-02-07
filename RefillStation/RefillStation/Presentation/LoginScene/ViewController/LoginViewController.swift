@@ -7,9 +7,11 @@
 
 import UIKit
 import SnapKit
+import KakaoSDKUser
+import KakaoSDKAuth
 
 final class LoginViewController: UIViewController {
-
+    private let viewModel: LoginViewModel
     var coordinator: OnboardingCoordinator?
 
     private let backgroundImageView: UIImageView = {
@@ -63,10 +65,20 @@ final class LoginViewController: UIViewController {
         return button
     }()
 
+    init(viewModel: LoginViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         layout()
+        bind()
         addLoginButtonActions()
     }
 
@@ -85,11 +97,32 @@ final class LoginViewController: UIViewController {
         }
     }
 
-    private func addLoginButtonActions() {
-        [kakaoLoginButton, appleLoginButton, naverLoginButton].forEach {
-            $0.addAction(UIAction { _ in
-                self.coordinator?.showTermsPermission()
-            }, for: .touchUpInside)
+    private func bind() {
+        viewModel.isSignUp = {
+            if let requestValue = self.viewModel.signUpRequestValue {
+                DispatchQueue.main.async {
+                    self.coordinator?.showTermsPermission(requestValue: requestValue)
+                }
+            }
         }
+        viewModel.isSignIn = {
+            DispatchQueue.main.async {
+                self.coordinator?.agreeAndStartButtonTapped()
+            }
+        }
+    }
+
+    private func addLoginButtonActions() {
+        kakaoLoginButton.addAction(UIAction { _ in
+            self.viewModel.onKakaoLoginByAppTouched()
+        }, for: .touchUpInside)
+
+        naverLoginButton.addAction(UIAction { _ in
+            self.viewModel.onNaverLoginByAppTouched()
+        }, for: .touchUpInside)
+        
+        appleLoginButton.addAction(UIAction { _ in
+            self.viewModel.onAppleLoginByAppTouched()
+        }, for: .touchUpInside)
     }
 }

@@ -11,7 +11,12 @@ struct SignUpRequestValue {
     let name: String
     let email: String
     let imagePath: String
-    let OAuthIdentity: String
+    let oauthType: String
+    let oauthIdentity: String
+}
+
+struct SignUpResponseValue {
+    let jwt: String
 }
 
 protocol SignUpUseCaseInterface {

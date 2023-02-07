@@ -96,3 +96,5 @@ fastlane/test_output
 
 iOSInjectionProject/
 RefillStation/RefillStation.xcodeproj/xcuserdata/neph.xcuserdatad
+
+RefillStation/Secrets.xcconfig
