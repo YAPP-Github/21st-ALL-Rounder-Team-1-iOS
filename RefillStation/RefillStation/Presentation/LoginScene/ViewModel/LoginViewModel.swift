@@ -21,9 +21,10 @@ final class LoginViewModel {
         self.OAuthLoginUseCase = OAuthLoginUseCase
     }
 
-    private func requestKakaoLogin(requestValue: String) {
+    private func requestLogin(oauthType: OAuthType, requestValue: String) {
         loginTask = OAuthLoginUseCase.execute(
-            loginType: .kakao, requestValue: OAuthLoginRequestValue(accessToken: requestValue)
+            loginType: oauthType,
+            requestValue: OAuthLoginRequestValue(accessToken: requestValue)
         ) { result in
             switch result {
             case .success(let data):
@@ -41,28 +42,13 @@ final class LoginViewModel {
         }
         loginTask?.resume()
     }
-
-    private func requestNaverLogin(requestValue: String) {
-
-    }
-
-    private func requestAppleLogin(requestValue: String) {
-
-    }
 }
 
 extension LoginViewModel {
 
     // MARK: - ViewController의 LoginButton이 눌릴 때 호출되는 메소드
-    func loginButtonDidTapped(OAuthType: OAuthType, requestValue: String) {
-        switch OAuthType {
-        case .apple:
-            requestAppleLogin(requestValue: requestValue)
-        case .kakao:
-            requestKakaoLogin(requestValue: requestValue)
-        case .naver:
-            requestAppleLogin(requestValue: requestValue)
-        }
+    private func loginButtonDidTapped(oauthType: OAuthType, requestValue: String) {
+        requestLogin(oauthType: oauthType, requestValue: requestValue)
     }
 
     func onKakaoLoginByAppTouched() {
@@ -72,7 +58,7 @@ extension LoginViewModel {
                     print(error)
                 } else {
                     guard let accessToken = oauthToken?.accessToken else { return }
-                    self.loginButtonDidTapped(OAuthType: .kakao,
+                    self.loginButtonDidTapped(oauthType: .kakao,
                                               requestValue: accessToken)
                 }
             }
@@ -83,7 +69,8 @@ extension LoginViewModel {
 
     }
 
-    func onAppleLoginByAppTouched() {
-
+    func onAppleLoginByAppTouched(requestValue: String) {
+        self.loginButtonDidTapped(oauthType: .apple,
+                                  requestValue: requestValue)
     }
 }

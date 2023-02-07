@@ -7,12 +7,18 @@
 
 import UIKit
 import SnapKit
-import KakaoSDKUser
-import KakaoSDKAuth
+import AuthenticationServices
 
 final class LoginViewController: UIViewController {
     private let viewModel: LoginViewModel
     var coordinator: OnboardingCoordinator?
+
+    private let authorizationController: ASAuthorizationController = {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = []
+        return ASAuthorizationController(authorizationRequests: [request])
+    }()
 
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
@@ -80,6 +86,7 @@ final class LoginViewController: UIViewController {
         layout()
         bind()
         addLoginButtonActions()
+        setUpAppleAuthorization()
     }
 
     private func layout() {
@@ -112,6 +119,11 @@ final class LoginViewController: UIViewController {
         }
     }
 
+    private func setUpAppleAuthorization() {
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+    }
+
     private func addLoginButtonActions() {
         kakaoLoginButton.addAction(UIAction { _ in
             self.viewModel.onKakaoLoginByAppTouched()
@@ -120,9 +132,29 @@ final class LoginViewController: UIViewController {
         naverLoginButton.addAction(UIAction { _ in
             self.viewModel.onNaverLoginByAppTouched()
         }, for: .touchUpInside)
-        
+
         appleLoginButton.addAction(UIAction { _ in
-            self.viewModel.onAppleLoginByAppTouched()
+            self.authorizationController.performRequests()
         }, for: .touchUpInside)
+    }
+}
+
+extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+}
+
+extension LoginViewController: ASAuthorizationControllerDelegate {
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            guard let identityToken = appleIDCredential.identityToken,
+                  let token = String(data: identityToken, encoding: .utf8) else { return }
+            viewModel.onAppleLoginByAppTouched(requestValue: token)
+        }
+    }
+
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        // TODO: 연동 실패시 처리
     }
 }
