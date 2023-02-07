@@ -22,7 +22,7 @@ final class RegisterReviewUseCase: RegisterReviewUseCaseInterface {
 
     private let registerReviewRepository: RegisterReviewRepositoryInterface
 
-    init(registerReviewRepository: RegisterReviewRepositoryInterface = MockRegisterReviewRepository()) {
+    init(registerReviewRepository: RegisterReviewRepositoryInterface = RegisterReviewRepository()) {
         self.registerReviewRepository = registerReviewRepository
     }
 

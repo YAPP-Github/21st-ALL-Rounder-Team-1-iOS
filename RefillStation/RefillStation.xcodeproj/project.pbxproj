@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		320A767D297FC0CD003041D7 /* ReviewReportPopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A767C297FC0CD003041D7 /* ReviewReportPopUpViewModel.swift */; };
 		320A767F297FD4F0003041D7 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A767E297FD4F0003041D7 /* KeychainManager.swift */; };
+		320B83422992780700B58973 /* RegisterReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320B83412992780700B58973 /* RegisterReviewRepository.swift */; };
 		320B834429927BF300B58973 /* ReviewUploadDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320B834329927BF300B58973 /* ReviewUploadDTO.swift */; };
 		3210B527298F6DAC0034CBA7 /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B526298F6DAC0034CBA7 /* Exception.swift */; };
 		3210B529298F7FF10034CBA7 /* StoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B528298F7FF10034CBA7 /* StoreRepository.swift */; };
@@ -180,6 +181,7 @@
 /* Begin PBXFileReference section */
 		320A767C297FC0CD003041D7 /* ReviewReportPopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewReportPopUpViewModel.swift; sourceTree = "<group>"; };
 		320A767E297FD4F0003041D7 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		320B83412992780700B58973 /* RegisterReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReviewRepository.swift; sourceTree = "<group>"; };
 		320B834329927BF300B58973 /* ReviewUploadDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewUploadDTO.swift; sourceTree = "<group>"; };
 		3210B526298F6DAC0034CBA7 /* Exception.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exception.swift; sourceTree = "<group>"; };
 		3210B528298F7FF10034CBA7 /* StoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRepository.swift; sourceTree = "<group>"; };
@@ -971,6 +973,7 @@
 				324098752961367300911306 /* MockRepositories.swift */,
 				3210B528298F7FF10034CBA7 /* StoreRepository.swift */,
 				FCB0087C298FD1960006FF53 /* AccountRepository.swift */,
+				320B83412992780700B58973 /* RegisterReviewRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1273,6 +1276,7 @@
 				325985E5294C51BA00D26A37 /* OnboardingDIContainer.swift in Sources */,
 				329EF9132971F9AD004934E7 /* ReviewInfoCell.swift in Sources */,
 				FC94151A29867EEA009AEE71 /* TermsPermissionViewController.swift in Sources */,
+				320B83422992780700B58973 /* RegisterReviewRepository.swift in Sources */,
 				FC47394929376E2200DB9BDB /* Store.swift in Sources */,
 				FC60D83A2962C36F00C676A6 /* StoreInfoCell.swift in Sources */,
 				FC4739442937664F00DB9BDB /* HomeViewController.swift in Sources */,
