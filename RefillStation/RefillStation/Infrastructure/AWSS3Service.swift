@@ -54,7 +54,7 @@ public class AWSS3Service {
 
     static let shared = AWSS3Service()
 
-    init() {
+    private init() {
         let credentialsProvider = AWSStaticCredentialsProvider(accessKey: accessKey, secretKey: secretKey)
         let configuration = AWSServiceConfiguration(region: .APNortheast2, credentialsProvider: credentialsProvider)
         AWSServiceManager.default().defaultServiceConfiguration = configuration
