@@ -136,23 +136,25 @@ final class StoreDetailTabBarCell: UICollectionViewCell {
 
         productListButton.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(16)
-            $0.bottom.equalToSuperview()
-            $0.top.equalToSuperview().inset(16)
+            $0.top.equalToSuperview().inset(15)
         }
 
         reviewButton.snp.makeConstraints {
             $0.leading.equalTo(productListSelectLine.snp.trailing).offset(Constraint.tabSpacing)
-            $0.bottom.equalToSuperview()
-            $0.top.equalToSuperview().inset(16)
+            $0.top.equalToSuperview().inset(15)
         }
 
         operationInfoButton.snp.makeConstraints {
             $0.leading.equalTo(reviewButton.snp.trailing).offset(Constraint.tabSpacing)
-            $0.bottom.equalToSuperview()
-            $0.top.equalToSuperview().inset(16)
+            $0.top.equalToSuperview().inset(15)
+        }
+
+        [productListButton, reviewButton, operationInfoButton].forEach {
+            $0.setContentHuggingPriority(.required, for: .vertical)
         }
 
         divisionLine.snp.makeConstraints {
+            $0.top.equalTo(reviewButton.snp.bottom).offset(7)
             $0.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(Constraint.divisionLineHeight)
         }

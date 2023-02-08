@@ -151,7 +151,7 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
         storeStackOuterView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(44)
-            $0.top.equalTo(storeAddressLabel.snp.bottom).offset(12)
+            $0.top.equalTo(storeAddressLabel.snp.bottom).offset(20)
         }
         storeInfoStackView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
