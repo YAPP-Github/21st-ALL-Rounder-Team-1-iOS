@@ -119,7 +119,7 @@ final class ReviewInfoCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-        stackView.spacing = 10
+        stackView.spacing = 16
         return stackView
     }()
 
@@ -135,7 +135,7 @@ final class ReviewInfoCell: UICollectionViewCell {
         }
 
         divisionLine.snp.makeConstraints {
-            $0.top.equalTo(firstRankView.snp.bottom).offset(10)
+            $0.top.equalTo(firstRankView.snp.bottom).offset(22)
             $0.leading.trailing.equalToSuperview().inset(24)
             $0.height.equalTo(1)
         }

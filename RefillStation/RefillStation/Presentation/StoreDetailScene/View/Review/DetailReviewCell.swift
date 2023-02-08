@@ -54,6 +54,8 @@ final class DetailReviewCell: UICollectionViewCell {
         button.addAction(UIAction { [weak self] _ in
             self?.reportButtonTapped?()
         }, for: .touchUpInside)
+        button.contentEdgeInsets = .init(top: .leastNormalMagnitude, left: .leastNormalMagnitude,
+                                         bottom: .leastNormalMagnitude, right: .leastNormalMagnitude)
         return button
     }()
 
@@ -261,11 +263,11 @@ final class DetailReviewCell: UICollectionViewCell {
 extension DetailReviewCell {
     private func tagCollectionLayout() -> UICollectionViewLayout {
         let item = NSCollectionLayoutItem(
-            layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(100), heightDimension: .estimated(25))
+            layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(100), heightDimension: .estimated(22))
         )
         item.edgeSpacing = .init(leading: .fixed(0), top: .fixed(5), trailing: .fixed(5), bottom: .fixed(5))
         let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(25)),
+            layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(22)),
             subitems: [item]
         )
 

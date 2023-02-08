@@ -19,8 +19,8 @@ final class DetailReviewTagCollectionViewCell: UICollectionViewCell {
 
     private let tagTitleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Asset.Colors.gray5.color
-        label.font = UIFont.font(style: .bodyMedium)
+        label.textColor = Asset.Colors.gray4.color
+        label.font = UIFont.font(style: .captionLarge)
         return label
     }()
 
@@ -49,8 +49,8 @@ final class DetailReviewTagCollectionViewCell: UICollectionViewCell {
 
         tagTitleLabel.snp.makeConstraints {
             $0.leading.equalTo(tagImageView.snp.trailing).offset(5)
-            $0.trailing.equalToSuperview().inset(5)
-            $0.top.bottom.equalToSuperview().inset(8)
+            $0.trailing.equalToSuperview().inset(8)
+            $0.top.bottom.equalToSuperview().inset(4)
         }
         tagTitleLabel.setContentHuggingPriority(.required, for: .vertical)
     }
