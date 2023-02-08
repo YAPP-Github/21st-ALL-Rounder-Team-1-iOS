@@ -58,6 +58,8 @@ final class NetworkService: NetworkServiceInterface {
                     return
                 }
                 completion(.failure(NetworkError.exception(errorMessage: exception.message)))
+                print("request: \(String(describing: request.url))")
+                print("status: \(exception.status) \n message: \(exception.message)")
                 return
             }
 

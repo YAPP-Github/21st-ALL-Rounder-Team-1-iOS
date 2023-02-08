@@ -10,4 +10,5 @@ import Foundation
 enum RepositoryError: Error {
     case urlParseFailed
     case requestParseFailed
+    case imageUploadFailed
 }
