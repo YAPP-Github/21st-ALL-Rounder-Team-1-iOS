@@ -204,12 +204,14 @@ final class DetailReviewCell: UICollectionViewCell {
         }
 
         outerStackView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview().inset(20)
+            $0.top.equalToSuperview().inset(20)
+            $0.leading.trailing.equalToSuperview().inset(16)
         }
 
         divisionLine.snp.makeConstraints {
-            $0.top.equalTo(outerStackView.snp.bottom).offset(20)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(outerStackView.snp.bottom).offset(26)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview()
             $0.height.equalTo(1)
         }
     }
