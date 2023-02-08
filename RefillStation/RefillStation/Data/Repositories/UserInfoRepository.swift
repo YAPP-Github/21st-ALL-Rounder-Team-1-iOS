@@ -69,7 +69,7 @@ final class UserInfoRepository: UserInfoRepositoryInterface {
                         email: "",
                         phoneNumber: "",
                         rating: requestValue.rating,
-                        imagePath: imagePath)) else {
+                        imgPath: imagePath)) else {
                     completion(.failure(RepositoryError.requestParseFailed))
                     return
                 }
