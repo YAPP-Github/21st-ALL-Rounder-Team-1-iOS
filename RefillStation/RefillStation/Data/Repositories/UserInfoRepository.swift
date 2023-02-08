@@ -42,7 +42,7 @@ final class UserInfoRepository: UserInfoRepositoryInterface {
         return ImageUploadTask { [weak self] in
             guard let self = self else { return }
             let dispatchGroup = DispatchGroup()
-            var imagePath = requestValue.oldImagePath
+            var imagePath: String?
             var urlComponents = URLComponents(string: self.networkService.baseURL)
             urlComponents?.path = "/api/user"
 
@@ -56,6 +56,7 @@ final class UserInfoRepository: UserInfoRepositoryInterface {
                     case .success(let imageURL):
                         imagePath = imageURL
                     case .failure:
+                        imagePath = requestValue.oldImagePath
                         completion(.failure(RepositoryError.imageUploadFailed))
                     }
                     dispatchGroup.leave()
