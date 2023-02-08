@@ -8,6 +8,9 @@
 import UIKit
 
 final class NicknameViewModel {
+    private let editProfileUseCase: EditProfileUseCaseInterface
+    private let validNicknameUseCase: ValidNicknameUseCaseInterface
+    private var user: User
     let viewType: ViewType
     var profileImage: String?
     var randomNickname = "냥냥이에오123"
@@ -15,7 +18,14 @@ final class NicknameViewModel {
     var isVaild = true
 
     init(viewType: ViewType) {
+    init(viewType: ViewType,
+         user: User,
+         editProfileUseCase: EditProfileUseCaseInterface,
+         validNicknameUseCase: ValidNicknameUseCaseInterface) {
         self.viewType = viewType
+        self.user = user
+        self.editProfileUseCase = editProfileUseCase
+        self.validNicknameUseCase = validNicknameUseCase
     }
 
     func setNicknameState(count: Int) -> NicknameState {

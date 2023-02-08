@@ -26,8 +26,14 @@ final class MyPageCoordinator: Coordinator {
         navigationController.pushViewController(myPageViewController, animated: true)
     }
 
-    func startLevelInfo() {
+    func showLevelInfo() {
+        let levelInfoViewController = DIContainer.makeUserLevelViewController()
+        navigationController.pushViewController(levelInfoViewController, animated: true)
+    }
 
+    func showEditProfile(user: User) {
+        let editViewContoller = DIContainer.makeEditProfileViewController(user: user)
+        navigationController.pushViewController(editViewContoller, animated: true)
     }
 
     func showManagementAccount() {
@@ -39,5 +45,11 @@ final class MyPageCoordinator: Coordinator {
     func showTermsDetails(termsType: TermsType) {
         let termsDetailViewController = DIContainer.makeTermsDetailViewController(termsType: termsType)
         navigationController.pushViewController(termsDetailViewController, animated: true)
+    }
+
+    func showLogin() {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let onboardingCoordinator = appDelegate?.onboardingCoordinator
+        onboardingCoordinator?.showLogin()
     }
 }

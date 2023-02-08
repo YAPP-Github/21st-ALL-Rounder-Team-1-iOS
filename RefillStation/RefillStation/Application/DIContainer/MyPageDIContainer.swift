@@ -27,27 +27,76 @@ final class MyPageDIContainer: DIContainer {
     }
 
     func makeMyPageViewModel() -> MyPageViewModel {
-        return MyPageViewModel()
+        return MyPageViewModel(fetchUserInfoUseCase: makeMyPageUseCase())
     }
 
-    func makeMyPageUseCase() -> FetchUserInfoUseCase {
-        return FetchUserInfoUseCase()
+    func makeMyPageUseCase() -> FetchUserInfoUseCaseInterface {
+        return FetchUserInfoUseCase(userInfoRepository: makeMyPageRepository())
     }
 
-    func makeMyPageRepository() {
-
+    func makeMyPageRepository() -> UserInfoRepositoryInterface {
+        return UserInfoRepository()
     }
 
-    func makeUserLevelViewController() {
-
+    // MARK: - Login
+    func makeLoginViewController() -> LoginViewController {
+        return LoginViewController(viewModel: makeLoginViewModel())
     }
 
+    func makeLoginViewModel() -> LoginViewModel {
+        return LoginViewModel(OAuthLoginUseCase: makeLoginUseCase())
+    }
+
+    func makeLoginUseCase() -> OAuthLoginUseCase {
+        return OAuthLoginUseCase(accountRepository: makeLoginRepository())
+    }
+
+    func makeLoginRepository() -> AccountRepositoryInterface {
+        return AccountRepository()
+    }
+
+    // MARK: - Level
+    func makeUserLevelViewController() -> UserLevelViewController {
+        return UserLevelViewController(viewModel: makeUserLevelViewModel())
+    }
+
+    func makeUserLevelViewModel() -> UserLevelViewModel {
+        return UserLevelViewModel(fetchUserReviewsUseCase: makeFetchUserReviewUseCase())
+    }
+
+    func makeFetchUserReviewUseCase() -> FetchUserReviewsUseCaseInterface {
+        return FetchUserReviewsUseCase(userInfoRepository: makeUserInfoRepository())
+    }
+
+    func makeUserInfoRepository() -> UserInfoRepositoryInterface {
+        return UserInfoRepository()
+    }
+
+    // MARK: - Terms Detail
     func makeTermsDetailViewController(termsType: TermsType) -> TermsDetailViewController {
         return TermsDetailViewController(termsType: termsType)
     }
 
-    func makeEditProfileViewController() -> NicknameViewController {
-        return NicknameViewController(viewModel: makeEditProfileViewModel())
+    // MARK: - Edit Profile
+    func makeEditProfileViewController(user: User) -> NicknameViewController {
+        return NicknameViewController(viewModel: makeEditProfileViewModel(user: user))
+    }
+
+    func makeEditProfileViewModel(user: User) -> NicknameViewModel {
+        return NicknameViewModel(viewType: .myPage,
+                                 user: user,
+                                 editProfileUseCase: makeEditProfileUseCase(),
+                                 validNicknameUseCase: makeValidNicknameUseCase())
+    }
+
+    func makeEditProfileUseCase() -> EditProfileUseCaseInterface {
+        return EditProfileUseCase(userInfoRepository: makeUserInfoRepository())
+    }
+
+    func makeValidNicknameUseCase() -> ValidNicknameUseCaseInterface {
+        return ValidNicknameUseCase(userInfoRepository: makeUserInfoRepository())
+    }
+
     // MARK: - Account Management
 
     func makeAccountManagementViewController() -> AccountManagementViewController {
