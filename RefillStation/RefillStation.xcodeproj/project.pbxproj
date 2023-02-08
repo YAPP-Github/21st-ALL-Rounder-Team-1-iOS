@@ -67,11 +67,15 @@
 		32A0F5032981797800A04ECC /* CustomerSatisfactionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F5022981797800A04ECC /* CustomerSatisfactionUseCase.swift */; };
 		32A0F50529817B1600A04ECC /* UserInfoRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F50429817B1600A04ECC /* UserInfoRepositoryInterface.swift */; };
 		32A0F50729817E1B00A04ECC /* StoreRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F50629817E1B00A04ECC /* StoreRepositoryInterface.swift */; };
+		32B7922B29932CA3001145B0 /* EditUserRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7922A29932CA3001145B0 /* EditUserRequestDTO.swift */; };
+		32B7922D2993340C001145B0 /* ImageUploadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7922C2993340C001145B0 /* ImageUploadTask.swift */; };
 		32C17B12299203DB002D607E /* AWSCore in Frameworks */ = {isa = PBXBuildFile; productRef = 32C17B11299203DB002D607E /* AWSCore */; };
 		32C17B14299203DB002D607E /* AWSS3 in Frameworks */ = {isa = PBXBuildFile; productRef = 32C17B13299203DB002D607E /* AWSS3 */; };
 		32C22965297D35BA0019EAF6 /* PumpPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C22964297D35BA0019EAF6 /* PumpPopUpViewController.swift */; };
 		32C22967297E785C0019EAF6 /* ReviewReportPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C22966297E785C0019EAF6 /* ReviewReportPopUpViewController.swift */; };
 		32C3B5702987C4C7004A8872 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 32C3B56F2987C4C7004A8872 /* Algorithms */; };
+		32C865F32992505100911A49 /* UserInfoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C865F22992505100911A49 /* UserInfoRepository.swift */; };
+		32C865F529925C1800911A49 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C865F429925C1800911A49 /* UserDTO.swift */; };
 		32CCC0D129791C9300C04231 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 32CCC0D029791C9300C04231 /* Toast */; };
 		32CCC0D32979302700C04231 /* TabBarDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CCC0D22979302700C04231 /* TabBarDIContainer.swift */; };
 		32CCC0D52979311D00C04231 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CCC0D42979311D00C04231 /* TabBarCoordinator.swift */; };
@@ -240,8 +244,12 @@
 		32A0F5022981797800A04ECC /* CustomerSatisfactionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSatisfactionUseCase.swift; sourceTree = "<group>"; };
 		32A0F50429817B1600A04ECC /* UserInfoRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoRepositoryInterface.swift; sourceTree = "<group>"; };
 		32A0F50629817E1B00A04ECC /* StoreRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRepositoryInterface.swift; sourceTree = "<group>"; };
+		32B7922A29932CA3001145B0 /* EditUserRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserRequestDTO.swift; sourceTree = "<group>"; };
+		32B7922C2993340C001145B0 /* ImageUploadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadTask.swift; sourceTree = "<group>"; };
 		32C22964297D35BA0019EAF6 /* PumpPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpPopUpViewController.swift; sourceTree = "<group>"; };
 		32C22966297E785C0019EAF6 /* ReviewReportPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewReportPopUpViewController.swift; sourceTree = "<group>"; };
+		32C865F22992505100911A49 /* UserInfoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoRepository.swift; sourceTree = "<group>"; };
+		32C865F429925C1800911A49 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		32CCC0D22979302700C04231 /* TabBarDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarDIContainer.swift; sourceTree = "<group>"; };
 		32CCC0D42979311D00C04231 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		32CCC0D6297939C800C04231 /* StoreDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailCoordinator.swift; sourceTree = "<group>"; };
@@ -668,6 +676,23 @@
 			path = RegisterReview;
 			sourceTree = "<group>";
 		};
+		32B7922E29933690001145B0 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				32C865F429925C1800911A49 /* UserDTO.swift */,
+				32B7922A29932CA3001145B0 /* EditUserRequestDTO.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		32B7922F29933699001145B0 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				320B834329927BF300B58973 /* ReviewUploadDTO.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
 		32C503B02991493E0044554E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -697,7 +722,8 @@
 			children = (
 				FCB0087B298FD1040006FF53 /* Account */,
 				32E6AE42298E7EDB005AA542 /* Store */,
-				320B834329927BF300B58973 /* ReviewUploadDTO.swift */,
+				32B7922E29933690001145B0 /* User */,
+				32B7922F29933699001145B0 /* Review */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -974,6 +1000,7 @@
 				3210B52A298F834B0034CBA7 /* RepositoryError.swift */,
 				324098752961367300911306 /* MockRepositories.swift */,
 				3210B528298F7FF10034CBA7 /* StoreRepository.swift */,
+				32C865F22992505100911A49 /* UserInfoRepository.swift */,
 				FCB0087C298FD1960006FF53 /* AccountRepository.swift */,
 				320B83412992780700B58973 /* RegisterReviewRepository.swift */,
 			);
@@ -1026,6 +1053,7 @@
 			isa = PBXGroup;
 			children = (
 				FCE00AA5295187B500B5C05F /* Cancellable.swift */,
+				32B7922C2993340C001145B0 /* ImageUploadTask.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1305,8 +1333,10 @@
 				FC3EBDF32932872100A9C1F9 /* Product.swift in Sources */,
 				FC90448E29671FC900B43BB9 /* LevelCollectionViewCell.swift in Sources */,
 				FCE00A7B294C91A200B5C05F /* RecommendStoreUseCase.swift in Sources */,
+				32B7922B29932CA3001145B0 /* EditUserRequestDTO.swift in Sources */,
 				3210B531298FB5730034CBA7 /* FetchStoreRecommendUseCase.swift in Sources */,
 				32A0F4FF2981754B00A04ECC /* AccountRepositoryInterface.swift in Sources */,
+				32C865F32992505100911A49 /* UserInfoRepository.swift in Sources */,
 				32C22965297D35BA0019EAF6 /* PumpPopUpViewController.swift in Sources */,
 				325985E9294C527000D26A37 /* DIContainer.swift in Sources */,
 				324CCBE029321616001F6FDA /* DetailReviewCell.swift in Sources */,
@@ -1359,8 +1389,10 @@
 				FCBB8F7F297D2EED009287EF /* NicknameViewModel.swift in Sources */,
 				32DB6270298168C4008C2522 /* ValidNicknameUseCase.swift in Sources */,
 				325985EB294C529C00D26A37 /* OnboardingCoordinator.swift in Sources */,
+				32C865F529925C1800911A49 /* UserDTO.swift in Sources */,
 				FC84FACC293B944900428AAA /* RequestRegionViewModel.swift in Sources */,
 				FC3630172969316900532598 /* LevelHeaderView.swift in Sources */,
+				32B7922D2993340C001145B0 /* ImageUploadTask.swift in Sources */,
 				3210B529298F7FF10034CBA7 /* StoreRepository.swift in Sources */,
 				FCE00A6A294C5B3400B5C05F /* TagResponseStorage.swift in Sources */,
 				32CCC0D7297939C800C04231 /* StoreDetailCoordinator.swift in Sources */,

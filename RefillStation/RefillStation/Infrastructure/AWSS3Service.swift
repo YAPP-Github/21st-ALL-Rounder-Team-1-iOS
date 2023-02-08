@@ -17,6 +17,7 @@ public class AWSS3Service {
     enum Bucket {
         case review
         case store
+        case user
 
         static let bucketName = "pump-img-bucket"
         static let baseURL = "https://pump-img-bucket.s3.ap-northeast-2.amazonaws.com"
@@ -27,6 +28,8 @@ public class AWSS3Service {
                 return "review"
             case .store:
                 return "store"
+            case .user:
+                return  "user"
             }
         }
     }
