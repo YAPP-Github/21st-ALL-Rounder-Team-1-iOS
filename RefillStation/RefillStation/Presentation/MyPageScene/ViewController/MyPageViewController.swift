@@ -106,8 +106,16 @@ final class MyPageViewController: UIViewController {
             DispatchQueue.main.async {
                 self.nicknameLabel.text = self.viewModel.userNickname
                 self.userLevelTagView.setUpTagLevel(level: self.viewModel.userRank ?? .beginner)
-                self.profileImageView.kf.setImage(with: URL(string: self.viewModel.profileImage ?? ""))
+                self.setUpProfileView()
             }
+        }
+    }
+
+    private func setUpProfileView() {
+        if viewModel.profileImage == nil {
+            profileImageView.image = Asset.Images.avatar.image
+        } else {
+            profileImageView.kf.setImage(with: URL(string: viewModel.profileImage ?? ""))
         }
     }
 
