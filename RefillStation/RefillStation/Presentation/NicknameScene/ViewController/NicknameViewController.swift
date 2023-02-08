@@ -10,6 +10,7 @@ import SnapKit
 
 final class NicknameViewController: UIViewController {
     private let viewModel: NicknameViewModel
+    private var profileImage: UIImage?
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -98,8 +99,13 @@ final class NicknameViewController: UIViewController {
         button.addTarget(self, action: #selector(didTapDoubleCheckButton), for: .touchUpInside)
         return button
     }()
-    private let confirmButton: CTAButton = {
+    private lazy var confirmButton: CTAButton = {
         let button = CTAButton(style: .basic)
+        button.addAction(UIAction(handler: { _ in
+            self.viewModel.editProfile(nickname: self.nicknameTextField.text,
+                                       profileImage: self.profileImage)
+            button.isEnabled = false
+        }), for: .touchUpInside)
         return button
     }()
 
@@ -118,6 +124,7 @@ final class NicknameViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         nicknameTextField.delegate = self
+        bind()
         addTapGesture()
         addKeyboardNotification()
         layout()
@@ -136,6 +143,20 @@ final class NicknameViewController: UIViewController {
 
     // MARK: - Methods
 
+    private func bind() {
+        viewModel.didEdited = {
+            DispatchQueue.main.async {
+                self.confirmButton.isEnabled = false
+            }
+        }
+
+        viewModel.isValidNickname = { isValid in
+            DispatchQueue.main.async {
+                self.doubleCheckNickname(isDuplicated: isValid)
+            }
+        }
+    }
+
     private func addKeyboardNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),
                                                name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -151,7 +172,7 @@ final class NicknameViewController: UIViewController {
     private func setUpView() {
         switch viewModel.viewType {
         case .onboarding:
-            nicknameTextField.text = viewModel.randomNickname
+//            nicknameTextField.text = viewModel.randomNickname
             confirmButton.setTitle("다음", for: .normal)
             confirmButton.isEnabled = true
         case .myPage:
@@ -238,22 +259,18 @@ final class NicknameViewController: UIViewController {
         doubleCheckButton.backgroundColor = isEnabled ? Asset.Colors.gray5.color : Asset.Colors.gray2.color
     }
 
-    private func setUpConfirmButtonState() {
-        confirmButton.isEnabled = viewModel.isVaild
-    }
-
-    private func doubleCheckNickname(isValid: Bool) {
-        if isValid {
-            descriptionLabel.text = "사용 가능한 닉네임입니다"
-            nicknameTextField.layer.borderColor = Asset.Colors.correct.color.cgColor
-            descriptionLabel.textColor = Asset.Colors.correct.color
-        } else {
+    private func doubleCheckNickname(isDuplicated: Bool) {
+        if isDuplicated {
             descriptionLabel.text = "다른 사용자가 이미 사용중 입니다"
             nicknameTextField.layer.borderColor = Asset.Colors.error.color.cgColor
             descriptionLabel.textColor = Asset.Colors.error.color
+        } else {
+            descriptionLabel.text = "사용 가능한 닉네임입니다"
+            nicknameTextField.layer.borderColor = Asset.Colors.correct.color.cgColor
+            descriptionLabel.textColor = Asset.Colors.correct.color
         }
         setDoubleCheckButtonState(isEnabled: false)
-        confirmButton.isEnabled = isValid
+        confirmButton.isEnabled = !isDuplicated
     }
 
     private func addTapGesture() {
@@ -287,7 +304,8 @@ extension NicknameViewController {
     }
 
     @objc private func didTapDoubleCheckButton() {
-        doubleCheckNickname(isValid: viewModel.isVaild)
+        guard let nickname = nicknameTextField.text else { return }
+        viewModel.validNickname(requestValue: nickname)
     }
 
     @objc private func didTapProfileImageEditButton() {
@@ -295,13 +313,16 @@ extension NicknameViewController {
         viewContolller.modalPresentationStyle = .overFullScreen
         viewContolller.modalTransitionStyle = .crossDissolve
         viewContolller.deleteProfileImage = { [weak self] in
-            self?.viewModel.profileImage = nil
+            self?.profileImage = nil
+            self?.profileImageView.image = Asset.Images.avatar.image
             self?.setUpProfileImage()
-            self?.setUpConfirmButtonState()
+            self?.confirmButton.isEnabled = !(self?.viewModel.isDuplicated ?? true)
         }
         viewContolller.didFinishPhotoPicker = { [weak self] image in
+            self?.profileImage = image
             self?.profileImageView.image = image
-            self?.setUpConfirmButtonState()
+            self?.confirmButton.isEnabled = true
+            self?.confirmButton.isEnabled = !(self?.viewModel.isDuplicated ?? true)
         }
         self.present(viewContolller, animated: true)
     }

@@ -12,12 +12,23 @@ final class NicknameViewModel {
     private let validNicknameUseCase: ValidNicknameUseCaseInterface
     private var user: User
     let viewType: ViewType
-    var profileImage: String?
-    var randomNickname = "냥냥이에오123"
-    var userNickname = "kong"
-    var isVaild = true
 
-    init(viewType: ViewType) {
+    private var editProfileTask: Cancellable?
+    private var validNicknameTask: Cancellable?
+
+    var didEdited: (() -> Void)?
+    var isValidNickname: ((Bool) -> Void)?
+
+    var profileImage: String? {
+        return user.imageURL
+    }
+
+    var userNickname: String {
+        return user.name
+    }
+
+    var isDuplicated = false
+
     init(viewType: ViewType,
          user: User,
          editProfileUseCase: EditProfileUseCaseInterface,
@@ -45,6 +56,39 @@ final class NicknameViewModel {
         let isBackSpace = strcmp(utf8Char, "\\b")
         if string.hasVaildCharacters() || isBackSpace == -92 { return true }
         return false
+    }
+
+    func editProfile(nickname: String?, profileImage: UIImage?) {
+        editProfileTask = editProfileUseCase.execute(
+            requestValue: EditProfileRequestValue(nickname: nickname ?? "",
+                                                  rating: user.level.level.rawValue,
+                                                  newImage: profileImage,
+                                                  oldImagePath: user.imageURL)
+        ) { result in
+            switch result {
+            case .success(let user):
+                self.user = user
+                self.didEdited?()
+            case .failure(_):
+                return
+            }
+        }
+        editProfileTask?.resume()
+    }
+
+    func validNickname(requestValue: String) {
+        validNicknameTask = validNicknameUseCase.execute(
+            requestValue: ValidNicknameRequestValue(nickname: requestValue)
+        ) { result in
+            switch result {
+            case .success(let isDuplicated):
+                self.isDuplicated = isDuplicated
+                self.isValidNickname?(isDuplicated)
+            case .failure(_):
+                return
+            }
+        }
+        validNicknameTask?.resume()
     }
 }
 
