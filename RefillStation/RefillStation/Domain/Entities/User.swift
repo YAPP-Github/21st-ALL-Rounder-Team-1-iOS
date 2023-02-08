@@ -10,6 +10,6 @@ import Foundation
 struct User: Hashable {
     let id: Int
     let name: String
-    let imageURL: String
+    let imageURL: String?
     let level: UserLevelInfo
 }

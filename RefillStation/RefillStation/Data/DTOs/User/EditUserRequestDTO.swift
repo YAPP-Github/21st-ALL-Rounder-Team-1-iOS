@@ -12,5 +12,5 @@ struct EditUserRequestDTO: Codable {
     let email: String
     let phoneNumber: String
     let rating: Int
-    let imgPath: String
+    let imgPath: String?
 }

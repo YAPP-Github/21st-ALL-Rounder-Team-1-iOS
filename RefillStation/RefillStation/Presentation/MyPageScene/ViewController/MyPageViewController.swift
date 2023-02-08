@@ -204,7 +204,7 @@ final class MyPageViewController: UIViewController {
     @objc private func presentToChangeProfile() {
         coordinator?.showEditProfile(user: User(id: viewModel.userId ?? 0,
                                                 name: viewModel.userNickname ?? "",
-                                                imageURL: viewModel.profileImage ?? "",
+                                                imageURL: viewModel.profileImage,
                                                 level: viewModel.userLevel ?? .init(level: .beginner)))
     }
 
