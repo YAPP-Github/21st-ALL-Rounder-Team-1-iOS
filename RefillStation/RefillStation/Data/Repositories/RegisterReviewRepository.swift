@@ -21,7 +21,8 @@ final class RegisterReviewRepository: RegisterReviewRepositoryInterface {
     }
 
     func registerReview(query: RegiserReviewRequestValue, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
-        return ReviewUploadTask {
+        return ImageUploadTask { [weak self] in
+            guard let self = self else { return }
             let dispatchGroup = DispatchGroup()
             let images = query.images
             var imageURLs = [String]()
@@ -71,23 +72,6 @@ final class RegisterReviewRepository: RegisterReviewRepositoryInterface {
                     }
                 }?.resume()
             }
-
-        }
-    }
-
-    final class ReviewUploadTask: Cancellable {
-        var task: (() -> Void)?
-
-        init(task: @escaping (() -> Void)) {
-            self.task = task
-        }
-
-        func resume() {
-            self.task?()
-        }
-
-        func cancel() {
-            task = nil
         }
     }
 }
