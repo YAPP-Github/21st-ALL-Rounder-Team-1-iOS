@@ -40,7 +40,7 @@ final class NetworkService: NetworkServiceInterface {
     func dataTask<DTO: Decodable>(request: URLRequest, completion: @escaping (Result<DTO, Error>) -> Void) -> Cancellable? {
         var request = request
         if let token {
-            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            request.addValue("\(token)", forHTTPHeaderField: "Authorization")
         } else {
             print("There is no jwt token")
         }
