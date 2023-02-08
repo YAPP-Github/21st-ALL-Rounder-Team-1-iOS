@@ -12,13 +12,6 @@ final class ReviewInfoCell: UICollectionViewCell {
 
     static let reuseIdentifier = String(describing: ReviewInfoCell.self)
 
-    private let outerStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 16
-        return stackView
-    }()
-
     private let didVisitedLabel: UILabel = {
         let label = UILabel()
         label.text = "매장에 방문한 적이 있다면?"
@@ -155,6 +148,12 @@ final class ReviewInfoCell: UICollectionViewCell {
         return view
     }()
 
+    private let dividerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Asset.Colors.gray1.color
+        return view
+    }()
+
     private let reviewTextLabel: UILabel = {
         let label = UILabel()
         label.text = "리뷰"
@@ -171,13 +170,21 @@ final class ReviewInfoCell: UICollectionViewCell {
 
     private lazy var reviewCountView: UIView = {
         let view = UIView()
-        [reviewTextLabel, reviewCountLabel].forEach { view.addSubview($0) }
+        [dividerView, reviewTextLabel, reviewCountLabel].forEach { view.addSubview($0) }
+        dividerView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(8)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(8)
+        }
         reviewTextLabel.snp.makeConstraints {
-            $0.leading.top.bottom.equalToSuperview()
+            $0.top.equalTo(dividerView.snp.bottom).offset(16)
+            $0.leading.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview()
         }
         reviewCountLabel.snp.makeConstraints {
             $0.leading.equalTo(reviewTextLabel.snp.trailing).offset(6)
-            $0.top.bottom.equalToSuperview()
+            $0.top.equalTo(reviewTextLabel)
+            $0.bottom.equalToSuperview()
         }
         return view
     }()
@@ -266,12 +273,28 @@ final class ReviewInfoCell: UICollectionViewCell {
     }
 
     private func layout() {
-        contentView.addSubview(outerStackView)
-        outerStackView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(16)
-        }
         [registerReviewView, tagVoteCountView, tagReviewRankView, reviewCountView].forEach {
-            outerStackView.addArrangedSubview($0)
+            contentView.addSubview($0)
+        }
+
+        registerReviewView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview().inset(16)
+        }
+
+        tagVoteCountView.snp.makeConstraints {
+            $0.top.equalTo(registerReviewView.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview().inset(16)
+        }
+
+        tagReviewRankView.snp.makeConstraints {
+            $0.top.equalTo(tagVoteCountView.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview().inset(16)
+        }
+
+        reviewCountView.snp.makeConstraints {
+            $0.top.equalTo(tagReviewRankView.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(16)
         }
     }
 
