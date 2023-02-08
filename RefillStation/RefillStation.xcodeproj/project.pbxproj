@@ -676,6 +676,23 @@
 			path = RegisterReview;
 			sourceTree = "<group>";
 		};
+		32B7922E29933690001145B0 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				32C865F429925C1800911A49 /* UserDTO.swift */,
+				32B7922A29932CA3001145B0 /* EditUserRequestDTO.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		32B7922F29933699001145B0 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				320B834329927BF300B58973 /* ReviewUploadDTO.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
 		32C503B02991493E0044554E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -705,9 +722,8 @@
 			children = (
 				FCB0087B298FD1040006FF53 /* Account */,
 				32E6AE42298E7EDB005AA542 /* Store */,
-				320B834329927BF300B58973 /* ReviewUploadDTO.swift */,
-				32C865F429925C1800911A49 /* UserDTO.swift */,
-				32B7922A29932CA3001145B0 /* EditUserRequestDTO.swift */,
+				32B7922E29933690001145B0 /* User */,
+				32B7922F29933699001145B0 /* Review */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
