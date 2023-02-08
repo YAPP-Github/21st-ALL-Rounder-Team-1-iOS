@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class MyPageViewController: UIViewController {
 
@@ -21,6 +22,9 @@ final class MyPageViewController: UIViewController {
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Asset.Images.avatar.image
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 32
+        imageView.clipsToBounds = true
         return imageView
     }()
 
@@ -102,7 +106,7 @@ final class MyPageViewController: UIViewController {
             DispatchQueue.main.async {
                 self.nicknameLabel.text = self.viewModel.userNickname
                 self.userLevelTagView.setUpTagLevel(level: self.viewModel.userRank ?? .beginner)
-                self.profileImageView.image = nil
+                self.profileImageView.kf.setImage(with: URL(string: self.viewModel.profileImage ?? ""))
             }
         }
     }

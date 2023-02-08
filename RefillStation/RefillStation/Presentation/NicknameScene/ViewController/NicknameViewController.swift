@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class NicknameViewController: UIViewController {
     private let viewModel: NicknameViewModel
@@ -172,7 +173,6 @@ final class NicknameViewController: UIViewController {
     private func setUpView() {
         switch viewModel.viewType {
         case .onboarding:
-//            nicknameTextField.text = viewModel.randomNickname
             confirmButton.setTitle("다음", for: .normal)
             confirmButton.isEnabled = true
         case .myPage:
@@ -180,15 +180,11 @@ final class NicknameViewController: UIViewController {
             nicknameTextField.text = viewModel.userNickname
             confirmButton.setTitle("완료", for: .normal)
             confirmButton.isEnabled = false
-            setUpProfileImage()
-        }
-    }
-
-    private func setUpProfileImage() {
-        if viewModel.profileImage != nil {
-            // 이미지 세팅
-        } else {
-            profileImageView.image = Asset.Images.avatar.image
+            if viewModel.profileImage == nil {
+                profileImageView.image = Asset.Images.avatar.image
+            } else {
+                profileImageView.kf.setImage(with: URL(string: viewModel.profileImage ?? ""))
+            }
         }
     }
 
@@ -315,7 +311,6 @@ extension NicknameViewController {
         viewContolller.deleteProfileImage = { [weak self] in
             self?.profileImage = nil
             self?.profileImageView.image = Asset.Images.avatar.image
-            self?.setUpProfileImage()
             self?.confirmButton.isEnabled = !(self?.viewModel.isDuplicated ?? true)
         }
         viewContolller.didFinishPhotoPicker = { [weak self] image in
