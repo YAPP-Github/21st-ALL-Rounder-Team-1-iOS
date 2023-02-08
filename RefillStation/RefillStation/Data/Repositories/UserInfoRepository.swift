@@ -10,9 +10,14 @@ import Foundation
 final class UserInfoRepository: UserInfoRepositoryInterface {
 
     private let networkService: NetworkServiceInterface
+    private let awsService: AWSS3Service
 
-    init(networkService: NetworkServiceInterface = NetworkService.shared) {
+    init(
+        networkService: NetworkServiceInterface = NetworkService.shared,
+        awsService: AWSS3Service = AWSS3Service.shared
+    ) {
         self.networkService = networkService
+        self.awsService = awsService
     }
 
     func fetchProfile(completion: @escaping (Result<User, Error>) -> Void) -> Cancellable? {
@@ -34,7 +39,52 @@ final class UserInfoRepository: UserInfoRepositoryInterface {
     }
 
     func editProfile(requestValue: EditProfileRequestValue, completion: @escaping (Result<User, Error>) -> Void) -> Cancellable? {
-        return nil
+        return ImageUploadTask { [weak self] in
+            guard let self = self else { return }
+            let dispatchGroup = DispatchGroup()
+            var imagePath = requestValue.oldImagePath
+            var urlComponents = URLComponents(string: self.networkService.baseURL)
+            urlComponents?.path = "/api/user"
+
+            dispatchGroup.enter()
+
+            if requestValue.newImage == nil {
+                dispatchGroup.leave()
+            } else {
+                self.awsService.upload(type: .review, image: requestValue.newImage) { result in
+                    switch result {
+                    case .success(let imageURL):
+                        imagePath = imageURL
+                    case .failure:
+                        completion(.failure(RepositoryError.imageUploadFailed))
+                    }
+                    dispatchGroup.leave()
+                }
+            }
+
+            dispatchGroup.notify(queue: .global()) {
+                guard let requestBody = try? JSONEncoder()
+                    .encode(EditUserRequestDTO(
+                        nickname: requestValue.nickname,
+                        rating: requestValue.rating,
+                        imagePath: imagePath)) else {
+                    completion(.failure(RepositoryError.requestParseFailed))
+                    return
+                }
+                guard let request = urlComponents?.toURLRequest(method: .patch, httpBody: requestBody) else {
+                    completion(.failure(RepositoryError.urlParseFailed))
+                    return
+                }
+                self.networkService.dataTask(request: request) { (result: Result<UserDTO, Error>) in
+                    switch result {
+                    case .success(let userDTO):
+                        completion(.success(userDTO.toDomain()))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                }?.resume()
+            }
+        }
     }
 
     func validNickname(requestValue: ValidNicknameRequestValue, completion: @escaping (Result<Bool, Error>) -> Void) -> Cancellable? {

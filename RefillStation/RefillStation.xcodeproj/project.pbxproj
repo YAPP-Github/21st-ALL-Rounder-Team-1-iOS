@@ -67,6 +67,8 @@
 		32A0F5032981797800A04ECC /* CustomerSatisfactionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F5022981797800A04ECC /* CustomerSatisfactionUseCase.swift */; };
 		32A0F50529817B1600A04ECC /* UserInfoRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F50429817B1600A04ECC /* UserInfoRepositoryInterface.swift */; };
 		32A0F50729817E1B00A04ECC /* StoreRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F50629817E1B00A04ECC /* StoreRepositoryInterface.swift */; };
+		32B7922B29932CA3001145B0 /* EditUserRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7922A29932CA3001145B0 /* EditUserRequestDTO.swift */; };
+		32B7922D2993340C001145B0 /* ImageUploadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7922C2993340C001145B0 /* ImageUploadTask.swift */; };
 		32C17B12299203DB002D607E /* AWSCore in Frameworks */ = {isa = PBXBuildFile; productRef = 32C17B11299203DB002D607E /* AWSCore */; };
 		32C17B14299203DB002D607E /* AWSS3 in Frameworks */ = {isa = PBXBuildFile; productRef = 32C17B13299203DB002D607E /* AWSS3 */; };
 		32C22965297D35BA0019EAF6 /* PumpPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C22964297D35BA0019EAF6 /* PumpPopUpViewController.swift */; };
@@ -242,6 +244,8 @@
 		32A0F5022981797800A04ECC /* CustomerSatisfactionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSatisfactionUseCase.swift; sourceTree = "<group>"; };
 		32A0F50429817B1600A04ECC /* UserInfoRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoRepositoryInterface.swift; sourceTree = "<group>"; };
 		32A0F50629817E1B00A04ECC /* StoreRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRepositoryInterface.swift; sourceTree = "<group>"; };
+		32B7922A29932CA3001145B0 /* EditUserRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserRequestDTO.swift; sourceTree = "<group>"; };
+		32B7922C2993340C001145B0 /* ImageUploadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadTask.swift; sourceTree = "<group>"; };
 		32C22964297D35BA0019EAF6 /* PumpPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpPopUpViewController.swift; sourceTree = "<group>"; };
 		32C22966297E785C0019EAF6 /* ReviewReportPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewReportPopUpViewController.swift; sourceTree = "<group>"; };
 		32C865F22992505100911A49 /* UserInfoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoRepository.swift; sourceTree = "<group>"; };
@@ -703,6 +707,7 @@
 				32E6AE42298E7EDB005AA542 /* Store */,
 				320B834329927BF300B58973 /* ReviewUploadDTO.swift */,
 				32C865F429925C1800911A49 /* UserDTO.swift */,
+				32B7922A29932CA3001145B0 /* EditUserRequestDTO.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -1032,6 +1037,7 @@
 			isa = PBXGroup;
 			children = (
 				FCE00AA5295187B500B5C05F /* Cancellable.swift */,
+				32B7922C2993340C001145B0 /* ImageUploadTask.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1311,6 +1317,7 @@
 				FC3EBDF32932872100A9C1F9 /* Product.swift in Sources */,
 				FC90448E29671FC900B43BB9 /* LevelCollectionViewCell.swift in Sources */,
 				FCE00A7B294C91A200B5C05F /* RecommendStoreUseCase.swift in Sources */,
+				32B7922B29932CA3001145B0 /* EditUserRequestDTO.swift in Sources */,
 				3210B531298FB5730034CBA7 /* FetchStoreRecommendUseCase.swift in Sources */,
 				32A0F4FF2981754B00A04ECC /* AccountRepositoryInterface.swift in Sources */,
 				32C865F32992505100911A49 /* UserInfoRepository.swift in Sources */,
@@ -1369,6 +1376,7 @@
 				32C865F529925C1800911A49 /* UserDTO.swift in Sources */,
 				FC84FACC293B944900428AAA /* RequestRegionViewModel.swift in Sources */,
 				FC3630172969316900532598 /* LevelHeaderView.swift in Sources */,
+				32B7922D2993340C001145B0 /* ImageUploadTask.swift in Sources */,
 				3210B529298F7FF10034CBA7 /* StoreRepository.swift in Sources */,
 				FCE00A6A294C5B3400B5C05F /* TagResponseStorage.swift in Sources */,
 				32CCC0D7297939C800C04231 /* StoreDetailCoordinator.swift in Sources */,
