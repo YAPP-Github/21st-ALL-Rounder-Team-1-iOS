@@ -194,8 +194,9 @@ final class DetailReviewCell: UICollectionViewCell {
         tagCollectionView.reloadData()
         tagCollectionView.layoutIfNeeded()
         DispatchQueue.main.async {
+            let height = self.tagCollectionView.contentSize.height == 0 ? 30 : self.tagCollectionView.contentSize.height
             self.tagCollectionView.snp.remakeConstraints {
-                $0.height.equalTo(self.tagCollectionView.contentSize.height)
+                $0.height.equalTo(height)
             }
         }
     }

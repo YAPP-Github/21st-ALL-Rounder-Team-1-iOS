@@ -76,7 +76,7 @@ final class StoreDetailViewController: UIViewController {
 
     private func setUpNavigationBar() {
         let standardAppearance = UINavigationBarAppearance()
-        standardAppearance.configureWithTransparentBackground()
+        standardAppearance.configureWithDefaultBackground()
         standardAppearance.backgroundColor = .white
         standardAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         let scrollEdgeAppearance = UINavigationBarAppearance()
