@@ -131,6 +131,7 @@
 		FC94151C298692C3009AEE71 /* TermsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC94151B298692C3009AEE71 /* TermsDetailViewController.swift */; };
 		FC94152029869375009AEE71 /* TermsPermissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC94151F29869375009AEE71 /* TermsPermissionViewModel.swift */; };
 		FC94152229869BE6009AEE71 /* TermsLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC94152129869BE6009AEE71 /* TermsLiterals.swift */; };
+		FC9E24D82993FE7B00C48ACE /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FC9E24D72993FE7B00C48ACE /* Kingfisher */; };
 		FCAB262B296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAB262A296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift */; };
 		FCB00872298E52320006FF53 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FCB00871298E52320006FF53 /* KakaoSDKAuth */; };
 		FCB00874298E52320006FF53 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = FCB00873298E52320006FF53 /* KakaoSDKUser */; };
@@ -353,6 +354,7 @@
 				32C3B5702987C4C7004A8872 /* Algorithms in Frameworks */,
 				32CCC0D129791C9300C04231 /* Toast in Frameworks */,
 				3244A238292DCB1F00716A2B /* SnapKit in Frameworks */,
+				FC9E24D82993FE7B00C48ACE /* Kingfisher in Frameworks */,
 				FCB00874298E52320006FF53 /* KakaoSDKUser in Frameworks */,
 				FCB00872298E52320006FF53 /* KakaoSDKAuth in Frameworks */,
 				32C17B12299203DB002D607E /* AWSCore in Frameworks */,
@@ -1125,6 +1127,7 @@
 				FCB00873298E52320006FF53 /* KakaoSDKUser */,
 				32C17B11299203DB002D607E /* AWSCore */,
 				32C17B13299203DB002D607E /* AWSS3 */,
+				FC9E24D72993FE7B00C48ACE /* Kingfisher */,
 			);
 			productName = RefillStation;
 			productReference = 3244A1F8292DC13A00716A2B /* RefillStation.app */;
@@ -1204,6 +1207,7 @@
 				32C3B56E2987C4C7004A8872 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				FCB00870298E52320006FF53 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				32C17B10299203DB002D607E /* XCRemoteSwiftPackageReference "aws-sdk-ios-spm" */,
+				FC9E24D62993FE7B00C48ACE /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 3244A1F9292DC13A00716A2B /* Products */;
 			projectDirPath = "";
@@ -1604,7 +1608,7 @@
 				CODE_SIGN_ENTITLEMENTS = RefillStation/RefillStation.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 267JUTDVY2;
+				DEVELOPMENT_TEAM = T47D3HUWDJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RefillStation/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "정확한 리필 스테이션 정보 제공을 위해 위치가 필요합니다.";
@@ -1620,7 +1624,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Hola.RefillStation.Pump;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Kong.Pump;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1637,7 +1641,7 @@
 				CODE_SIGN_ENTITLEMENTS = RefillStation/RefillStation.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 267JUTDVY2;
+				DEVELOPMENT_TEAM = T47D3HUWDJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RefillStation/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "정확한 리필 스테이션 정보 제공을 위해 위치가 필요합니다.";
@@ -1653,7 +1657,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Hola.RefillStation.Pump;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Kong.Pump;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1813,6 +1817,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		FC9E24D62993FE7B00C48ACE /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		FCB00870298E52320006FF53 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
@@ -1848,6 +1860,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 32CCC0CF29791C9300C04231 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
+		};
+		FC9E24D72993FE7B00C48ACE /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FC9E24D62993FE7B00C48ACE /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		FCB00871298E52320006FF53 /* KakaoSDKAuth */ = {
 			isa = XCSwiftPackageProductDependency;
