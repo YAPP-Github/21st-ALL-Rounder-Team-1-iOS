@@ -30,9 +30,10 @@ final class MyPageCoordinator: Coordinator {
 
     }
 
-    func showEditProfile() {
-        let editViewContoller = DIContainer.makeEditProfileViewController()
-        navigationController.pushViewController(editViewContoller, animated: true)
+    func showManagementAccount() {
+        let accountManagementViewController = DIContainer.makeAccountManagementViewController()
+        accountManagementViewController.coordinator = self
+        navigationController.pushViewController(accountManagementViewController, animated: true)
     }
 
     func showTermsDetails(termsType: TermsType) {

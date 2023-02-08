@@ -101,6 +101,8 @@
 		32ED747A2969441D007EA791 /* OperationInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32ED74792969441D007EA791 /* OperationInfoCell.swift */; };
 		32ED747C29696C52007EA791 /* StoreDetailInfoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32ED747B29696C52007EA791 /* StoreDetailInfoViewCell.swift */; };
 		32F2D9D529518F5900131EB1 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F2D9D429518F5900131EB1 /* ProductCell.swift */; };
+		FC083C482992B4A4002DD943 /* AccountManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC083C472992B4A4002DD943 /* AccountManagementViewController.swift */; };
+		FC083C4C2992B670002DD943 /* AccountManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC083C4B2992B670002DD943 /* AccountManagementViewModel.swift */; };
 		FC1FD6A12962C4AF00869F5F /* RegisterReviewPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1FD6A02962C4AF00869F5F /* RegisterReviewPopUpViewController.swift */; };
 		FC3630172969316900532598 /* LevelHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3630162969316900532598 /* LevelHeaderView.swift */; };
 		FC3E8CF82976ED6F00FE65F6 /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3E8CF72976ED6F00FE65F6 /* NicknameViewController.swift */; };
@@ -276,6 +278,8 @@
 		32F2D9B02951862E00131EB1 /* StoreDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailViewController.swift; sourceTree = "<group>"; };
 		32F2D9B22951864700131EB1 /* StoreDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailViewModel.swift; sourceTree = "<group>"; };
 		32F2D9D429518F5900131EB1 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
+		FC083C472992B4A4002DD943 /* AccountManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManagementViewController.swift; sourceTree = "<group>"; };
+		FC083C4B2992B670002DD943 /* AccountManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManagementViewModel.swift; sourceTree = "<group>"; };
 		FC1FD6A02962C4AF00869F5F /* RegisterReviewPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReviewPopUpViewController.swift; sourceTree = "<group>"; };
 		FC3630162969316900532598 /* LevelHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelHeaderView.swift; sourceTree = "<group>"; };
 		FC3E8CF72976ED6F00FE65F6 /* NicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
@@ -383,8 +387,8 @@
 		322E15EF297A6C5A00FE2E2F /* MyPageScene */ = {
 			isa = PBXGroup;
 			children = (
-				322E15EB297A6C4900FE2E2F /* MyPageViewController.swift */,
-				322E15ED297A6C5300FE2E2F /* MyPageViewModel.swift */,
+				FC083C4A2992B654002DD943 /* ViewModel */,
+				FC083C492992B646002DD943 /* ViewController */,
 			);
 			path = MyPageScene;
 			sourceTree = "<group>";
@@ -750,6 +754,24 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
+		FC083C492992B646002DD943 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				322E15EB297A6C4900FE2E2F /* MyPageViewController.swift */,
+				FC083C472992B4A4002DD943 /* AccountManagementViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		FC083C4A2992B654002DD943 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				322E15ED297A6C5300FE2E2F /* MyPageViewModel.swift */,
+				FC083C4B2992B670002DD943 /* AccountManagementViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		FC3E8CF62976EAE100FE65F6 /* NicknameScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -884,8 +906,8 @@
 			isa = PBXGroup;
 			children = (
 				FC9044852965DFB400B43BB9 /* View */,
+				FC9E24D52993D72100C48ACE /* ViewModel */,
 				FC9044862965DFDB00B43BB9 /* ViewController */,
-				32D63DF7298BE993009067BA /* UserLevelViewModel.swift */,
 			);
 			path = UserLevelScene;
 			sourceTree = "<group>";
@@ -905,6 +927,14 @@
 				FC9044872965E00D00B43BB9 /* UserLevelViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		FC9E24D52993D72100C48ACE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				32D63DF7298BE993009067BA /* UserLevelViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		FCB00878298F8F470006FF53 /* ViewModel */ = {
@@ -1286,6 +1316,7 @@
 				FC94152029869375009AEE71 /* TermsPermissionViewModel.swift in Sources */,
 				FC9044882965E00D00B43BB9 /* UserLevelViewController.swift in Sources */,
 				320B834429927BF300B58973 /* ReviewUploadDTO.swift in Sources */,
+				FC083C4C2992B670002DD943 /* AccountManagementViewModel.swift in Sources */,
 				325985E3294C51A700D26A37 /* HomeDIContainer.swift in Sources */,
 				329EF91529729679004934E7 /* StoreDetailTabBarCell.swift in Sources */,
 				32DB626429816605008C2522 /* FetchUserInfoUseCase.swift in Sources */,
@@ -1396,6 +1427,7 @@
 				3210B529298F7FF10034CBA7 /* StoreRepository.swift in Sources */,
 				FCE00A6A294C5B3400B5C05F /* TagResponseStorage.swift in Sources */,
 				32CCC0D7297939C800C04231 /* StoreDetailCoordinator.swift in Sources */,
+				FC083C482992B4A4002DD943 /* AccountManagementViewController.swift in Sources */,
 				329E80272977FA72004286B0 /* OnboardingViewController.swift in Sources */,
 				FC60D83C2962C36F00C676A6 /* ReviewDescriptionCell.swift in Sources */,
 				32409866295F51DB00911306 /* DetailReviewTagCollectionViewCell.swift in Sources */,

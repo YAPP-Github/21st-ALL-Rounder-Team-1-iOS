@@ -48,9 +48,26 @@ final class MyPageDIContainer: DIContainer {
 
     func makeEditProfileViewController() -> NicknameViewController {
         return NicknameViewController(viewModel: makeEditProfileViewModel())
+    // MARK: - Account Management
+
+    func makeAccountManagementViewController() -> AccountManagementViewController {
+        return AccountManagementViewController(viewModel: makeAccountManagementViewModel())
     }
 
-    func makeEditProfileViewModel() -> NicknameViewModel {
-        return NicknameViewModel(viewType: .myPage)
+    func makeAccountManagementViewModel() -> AccountManagementViewModel {
+        return AccountManagementViewModel(signOutUseCase: makeSignOutUseCase(),
+                                          withdrawUseCase: makeWithdrawUseCase())
+    }
+
+    func makeSignOutUseCase() -> SignOutUseCase {
+        return SignOutUseCase()
+    }
+
+    func makeWithdrawUseCase() -> WithdrawUseCase {
+        return WithdrawUseCase(accountRepository: makeAccountRepository())
+    }
+
+    func makeAccountRepository() -> AccountRepository {
+        return AccountRepository()
     }
 }
