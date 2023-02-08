@@ -69,6 +69,8 @@
 		32A0F50729817E1B00A04ECC /* StoreRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F50629817E1B00A04ECC /* StoreRepositoryInterface.swift */; };
 		32B7922B29932CA3001145B0 /* EditUserRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7922A29932CA3001145B0 /* EditUserRequestDTO.swift */; };
 		32B7922D2993340C001145B0 /* ImageUploadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7922C2993340C001145B0 /* ImageUploadTask.swift */; };
+		32B792312993A51C001145B0 /* CustomerSatisfactionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B792302993A51C001145B0 /* CustomerSatisfactionRepository.swift */; };
+		32B792332993A54D001145B0 /* CustomerSatisfactionDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B792322993A54D001145B0 /* CustomerSatisfactionDTO.swift */; };
 		32C17B12299203DB002D607E /* AWSCore in Frameworks */ = {isa = PBXBuildFile; productRef = 32C17B11299203DB002D607E /* AWSCore */; };
 		32C17B14299203DB002D607E /* AWSS3 in Frameworks */ = {isa = PBXBuildFile; productRef = 32C17B13299203DB002D607E /* AWSS3 */; };
 		32C22965297D35BA0019EAF6 /* PumpPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C22964297D35BA0019EAF6 /* PumpPopUpViewController.swift */; };
@@ -246,6 +248,8 @@
 		32A0F50629817E1B00A04ECC /* StoreRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRepositoryInterface.swift; sourceTree = "<group>"; };
 		32B7922A29932CA3001145B0 /* EditUserRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserRequestDTO.swift; sourceTree = "<group>"; };
 		32B7922C2993340C001145B0 /* ImageUploadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadTask.swift; sourceTree = "<group>"; };
+		32B792302993A51C001145B0 /* CustomerSatisfactionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSatisfactionRepository.swift; sourceTree = "<group>"; };
+		32B792322993A54D001145B0 /* CustomerSatisfactionDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSatisfactionDTO.swift; sourceTree = "<group>"; };
 		32C22964297D35BA0019EAF6 /* PumpPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpPopUpViewController.swift; sourceTree = "<group>"; };
 		32C22966297E785C0019EAF6 /* ReviewReportPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewReportPopUpViewController.swift; sourceTree = "<group>"; };
 		32C865F22992505100911A49 /* UserInfoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoRepository.swift; sourceTree = "<group>"; };
@@ -724,6 +728,7 @@
 				32E6AE42298E7EDB005AA542 /* Store */,
 				32B7922E29933690001145B0 /* User */,
 				32B7922F29933699001145B0 /* Review */,
+				32B792322993A54D001145B0 /* CustomerSatisfactionDTO.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -1003,6 +1008,7 @@
 				32C865F22992505100911A49 /* UserInfoRepository.swift */,
 				FCB0087C298FD1960006FF53 /* AccountRepository.swift */,
 				320B83412992780700B58973 /* RegisterReviewRepository.swift */,
+				32B792302993A51C001145B0 /* CustomerSatisfactionRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1361,6 +1367,7 @@
 				FCE00A7F294C91B600B5C05F /* UploadImageUseCase.swift in Sources */,
 				FC94151C298692C3009AEE71 /* TermsDetailViewController.swift in Sources */,
 				32E6AE46298E80CD005AA542 /* ReviewDTO.swift in Sources */,
+				32B792332993A54D001145B0 /* CustomerSatisfactionDTO.swift in Sources */,
 				FCB008842990F61E0006FF53 /* LocationPermissionViewModel.swift in Sources */,
 				FC90448C2965E2E500B43BB9 /* PumpTagView.swift in Sources */,
 				3244A1FC292DC13A00716A2B /* AppDelegate.swift in Sources */,
@@ -1396,6 +1403,7 @@
 				3210B529298F7FF10034CBA7 /* StoreRepository.swift in Sources */,
 				FCE00A6A294C5B3400B5C05F /* TagResponseStorage.swift in Sources */,
 				32CCC0D7297939C800C04231 /* StoreDetailCoordinator.swift in Sources */,
+				32B792312993A51C001145B0 /* CustomerSatisfactionRepository.swift in Sources */,
 				329E80272977FA72004286B0 /* OnboardingViewController.swift in Sources */,
 				FC60D83C2962C36F00C676A6 /* ReviewDescriptionCell.swift in Sources */,
 				32409866295F51DB00911306 /* DetailReviewTagCollectionViewCell.swift in Sources */,
