@@ -87,7 +87,8 @@ final class MockEntityData {
         }
 
         let imagePaths = Array(repeating: "", count: isImageOverOne ? 3 : (hasImage ? 0 : 1))
-        let tags = Tag.allCases.filter({ $0 != .noKeywordToChoose }).randomSample(count: 3)
+        let tags = Tag.allCases.filter({ $0 != .noKeywordToChoose })
+            .randomSample(count: isTagOverTwo ? 3 : (hasTag ? 0 : 1))
         let shortDescription = "좋은 매장이었습니다."
         let longDescription = (0...20).reduce(into: "") { partialResult, _ in
             partialResult += "좋은 매장이었습니다."
