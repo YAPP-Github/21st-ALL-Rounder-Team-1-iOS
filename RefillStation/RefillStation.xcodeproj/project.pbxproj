@@ -131,6 +131,7 @@
 		FC94151C298692C3009AEE71 /* TermsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC94151B298692C3009AEE71 /* TermsDetailViewController.swift */; };
 		FC94152029869375009AEE71 /* TermsPermissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC94151F29869375009AEE71 /* TermsPermissionViewModel.swift */; };
 		FC94152229869BE6009AEE71 /* TermsLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC94152129869BE6009AEE71 /* TermsLiterals.swift */; };
+		FC9E24DB2994C30800C48ACE /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FC9E24DA2994C30800C48ACE /* Kingfisher */; };
 		FCAB262B296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAB262A296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift */; };
 		FCB00872298E52320006FF53 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FCB00871298E52320006FF53 /* KakaoSDKAuth */; };
 		FCB00874298E52320006FF53 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = FCB00873298E52320006FF53 /* KakaoSDKUser */; };
@@ -353,6 +354,7 @@
 				32C3B5702987C4C7004A8872 /* Algorithms in Frameworks */,
 				32CCC0D129791C9300C04231 /* Toast in Frameworks */,
 				3244A238292DCB1F00716A2B /* SnapKit in Frameworks */,
+				FC9E24DB2994C30800C48ACE /* Kingfisher in Frameworks */,
 				FCB00874298E52320006FF53 /* KakaoSDKUser in Frameworks */,
 				FCB00872298E52320006FF53 /* KakaoSDKAuth in Frameworks */,
 				32C17B12299203DB002D607E /* AWSCore in Frameworks */,
@@ -1125,6 +1127,7 @@
 				FCB00873298E52320006FF53 /* KakaoSDKUser */,
 				32C17B11299203DB002D607E /* AWSCore */,
 				32C17B13299203DB002D607E /* AWSS3 */,
+				FC9E24DA2994C30800C48ACE /* Kingfisher */,
 			);
 			productName = RefillStation;
 			productReference = 3244A1F8292DC13A00716A2B /* RefillStation.app */;
@@ -1204,6 +1207,7 @@
 				32C3B56E2987C4C7004A8872 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				FCB00870298E52320006FF53 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				32C17B10299203DB002D607E /* XCRemoteSwiftPackageReference "aws-sdk-ios-spm" */,
+				FC9E24D92994C30800C48ACE /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 3244A1F9292DC13A00716A2B /* Products */;
 			projectDirPath = "";
@@ -1813,6 +1817,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		FC9E24D92994C30800C48ACE /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		FCB00870298E52320006FF53 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
@@ -1848,6 +1860,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 32CCC0CF29791C9300C04231 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
+		};
+		FC9E24DA2994C30800C48ACE /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FC9E24D92994C30800C48ACE /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		FCB00871298E52320006FF53 /* KakaoSDKAuth */ = {
 			isa = XCSwiftPackageProductDependency;
