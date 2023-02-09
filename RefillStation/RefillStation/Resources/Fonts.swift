@@ -27,6 +27,7 @@ enum TextStyles {
     /// Caption
     case captionLarge
     case captionMedium
+    case captionSmall
 
     /// Button
     case buttonLarge
@@ -71,6 +72,8 @@ extension UIFont {
             return UIFont.systemFont(ofSize: 12, weight: .medium)
         case .captionMedium:
             return UIFont.systemFont(ofSize: 11, weight: .medium)
+        case .captionSmall:
+            return UIFont.systemFont(ofSize: 10, weight: .medium)
 
             /// Button
         case .buttonLarge:
@@ -121,6 +124,8 @@ extension TextStyles {
             return 14
         case .captionMedium:
             return 13
+        case .captionSmall:
+            return 12
 
             /// Button
         case .buttonLarge:
@@ -168,6 +173,8 @@ extension TextStyles {
         case .captionLarge:
             return -0.4
         case .captionMedium:
+            return -0.4
+        case .captionSmall:
             return -0.4
 
             /// Button
