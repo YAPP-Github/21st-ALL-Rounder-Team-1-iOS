@@ -18,6 +18,7 @@ final class NicknameViewModel {
 
     var didEdited: (() -> Void)?
     var isValidNickname: ((Bool) -> Void)?
+    var didImageChanged: Bool = false
 
     var profileImage: String? {
         return user.imageURL
@@ -58,12 +59,14 @@ final class NicknameViewModel {
         return false
     }
 
-    func editProfile(nickname: String?, profileImage: UIImage?) {
+    func editProfile(nickname: String?,
+                     profileImage: UIImage?) {
         editProfileTask = editProfileUseCase.execute(
             requestValue: EditProfileRequestValue(nickname: nickname ?? "",
                                                   rating: user.level.level.rawValue,
                                                   newImage: profileImage,
-                                                  oldImagePath: user.imageURL)
+                                                  oldImagePath: user.imageURL,
+                                                  didImageChanged: didImageChanged)
         ) { result in
             switch result {
             case .success(let user):

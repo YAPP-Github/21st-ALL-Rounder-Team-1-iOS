@@ -48,7 +48,10 @@ final class UserInfoRepository: UserInfoRepositoryInterface {
 
             dispatchGroup.enter()
 
-            if requestValue.newImage == nil {
+            if !requestValue.didImageChanged {
+                imagePath = requestValue.oldImagePath
+                dispatchGroup.leave()
+            } else if requestValue.newImage == nil {
                 dispatchGroup.leave()
             } else {
                 self.awsService.upload(type: .user, image: requestValue.newImage) { result in
@@ -56,7 +59,6 @@ final class UserInfoRepository: UserInfoRepositoryInterface {
                     case .success(let imageURL):
                         imagePath = imageURL
                     case .failure:
-                        imagePath = requestValue.oldImagePath
                         completion(.failure(RepositoryError.imageUploadFailed))
                     }
                     dispatchGroup.leave()

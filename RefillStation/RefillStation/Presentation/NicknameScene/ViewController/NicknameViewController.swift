@@ -310,11 +310,13 @@ extension NicknameViewController {
         viewContolller.modalTransitionStyle = .crossDissolve
         viewContolller.deleteProfileImage = { [weak self] in
             self?.profileImage = nil
+            self?.viewModel.didImageChanged = true
             self?.profileImageView.image = Asset.Images.avatar.image
             self?.confirmButton.isEnabled = !(self?.viewModel.isDuplicated ?? true)
         }
         viewContolller.didFinishPhotoPicker = { [weak self] image in
             self?.profileImage = image
+            self?.viewModel.didImageChanged = true
             self?.profileImageView.image = image
             self?.confirmButton.isEnabled = true
             self?.confirmButton.isEnabled = !(self?.viewModel.isDuplicated ?? true)
