@@ -16,7 +16,7 @@ final class NicknameViewModel {
     private var editProfileTask: Cancellable?
     private var validNicknameTask: Cancellable?
 
-    var didEdited: (() -> Void)?
+    var didEditComplete: (() -> Void)?
     var isValidNickname: ((Bool) -> Void)?
     var didImageChanged: Bool = false
 
@@ -59,7 +59,7 @@ final class NicknameViewModel {
         return false
     }
 
-    func editProfile(nickname: String?,
+    func confirmButtonDidTapped(nickname: String?,
                      profileImage: UIImage?) {
         editProfileTask = editProfileUseCase.execute(
             requestValue: EditProfileRequestValue(nickname: nickname ?? "",
@@ -71,7 +71,7 @@ final class NicknameViewModel {
             switch result {
             case .success(let user):
                 self.user = user
-                self.didEdited?()
+                self.didEditComplete?()
             case .failure(_):
                 return
             }

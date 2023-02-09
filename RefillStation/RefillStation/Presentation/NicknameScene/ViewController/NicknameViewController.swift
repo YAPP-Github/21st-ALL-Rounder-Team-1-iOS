@@ -88,7 +88,7 @@ final class NicknameViewController: UIViewController {
         label.font = .font(style: .captionLarge)
         return label
     }()
-    private lazy var doubleCheckButton: UIButton = {
+    private lazy var checkDuplicateNicknameButton: UIButton = {
         let button = UIButton()
         button.isEnabled = false
         button.setTitle("중복확인", for: .normal)
@@ -97,14 +97,14 @@ final class NicknameViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(Asset.Colors.gray4.color, for: .disabled)
         button.backgroundColor = Asset.Colors.gray2.color
-        button.addTarget(self, action: #selector(didTapDoubleCheckButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(checkDuplicateNicknameButtonDidTapped), for: .touchUpInside)
         return button
     }()
     private lazy var confirmButton: CTAButton = {
         let button = CTAButton(style: .basic)
         button.addAction(UIAction(handler: { _ in
-            self.viewModel.editProfile(nickname: self.nicknameTextField.text,
-                                       profileImage: self.profileImage)
+            self.viewModel.confirmButtonDidTapped(nickname: self.nicknameTextField.text,
+                                                  profileImage: self.profileImage)
             button.isEnabled = false
         }), for: .touchUpInside)
         return button
@@ -145,15 +145,15 @@ final class NicknameViewController: UIViewController {
     // MARK: - Methods
 
     private func bind() {
-        viewModel.didEdited = {
+        viewModel.didEditComplete = {
             DispatchQueue.main.async {
                 self.confirmButton.isEnabled = false
             }
         }
 
-        viewModel.isValidNickname = { isValid in
+        viewModel.isValidNickname = { isDuplicate in
             DispatchQueue.main.async {
-                self.doubleCheckNickname(isDuplicated: isValid)
+                self.checkDuplicateNickname(isDuplicate: isDuplicate)
             }
         }
     }
@@ -212,13 +212,13 @@ final class NicknameViewController: UIViewController {
             $0.bottom.equalToSuperview()
         }
 
-        [nicknameTextField, doubleCheckButton, descriptionLabel].forEach { nicknameView.addSubview($0) }
+        [nicknameTextField, checkDuplicateNicknameButton, descriptionLabel].forEach { nicknameView.addSubview($0) }
         nicknameTextField.snp.makeConstraints {
             $0.top.equalToSuperview().offset(14)
             $0.height.equalTo(44)
             $0.leading.equalToSuperview()
         }
-        doubleCheckButton.snp.makeConstraints {
+        checkDuplicateNicknameButton.snp.makeConstraints {
             $0.top.bottom.equalTo(nicknameTextField)
             $0.trailing.equalToSuperview()
             $0.leading.equalTo(nicknameTextField.snp.trailing).offset(8)
@@ -244,19 +244,19 @@ final class NicknameViewController: UIViewController {
         descriptionLabel.textColor = state.textColor
         switch state {
         case .empty, .overTenCharacters, .underTwoCharacters:
-            setDoubleCheckButtonState(isEnabled: false)
+            setCheckDuplicateNicnameButtonState(isEnabled: false)
         case .correct:
-            setDoubleCheckButtonState(isEnabled: viewModel.userNickname != nicknameTextField.text)
+            setCheckDuplicateNicnameButtonState(isEnabled: viewModel.userNickname != nicknameTextField.text)
         }
     }
 
-    private func setDoubleCheckButtonState(isEnabled: Bool) {
-        doubleCheckButton.isEnabled = isEnabled
-        doubleCheckButton.backgroundColor = isEnabled ? Asset.Colors.gray5.color : Asset.Colors.gray2.color
+    private func setCheckDuplicateNicnameButtonState(isEnabled: Bool) {
+        checkDuplicateNicknameButton.isEnabled = isEnabled
+        checkDuplicateNicknameButton.backgroundColor = isEnabled ? Asset.Colors.gray5.color : Asset.Colors.gray2.color
     }
 
-    private func doubleCheckNickname(isDuplicated: Bool) {
-        if isDuplicated {
+    private func checkDuplicateNickname(isDuplicate: Bool) {
+        if isDuplicate {
             descriptionLabel.text = "다른 사용자가 이미 사용중 입니다"
             nicknameTextField.layer.borderColor = Asset.Colors.error.color.cgColor
             descriptionLabel.textColor = Asset.Colors.error.color
@@ -265,8 +265,8 @@ final class NicknameViewController: UIViewController {
             nicknameTextField.layer.borderColor = Asset.Colors.correct.color.cgColor
             descriptionLabel.textColor = Asset.Colors.correct.color
         }
-        setDoubleCheckButtonState(isEnabled: false)
-        confirmButton.isEnabled = !isDuplicated
+        setCheckDuplicateNicnameButtonState(isEnabled: false)
+        confirmButton.isEnabled = !isDuplicate
     }
 
     private func addTapGesture() {
@@ -299,7 +299,7 @@ extension NicknameViewController {
         setNicknameButton(state: nicknameState)
     }
 
-    @objc private func didTapDoubleCheckButton() {
+    @objc private func checkDuplicateNicknameButtonDidTapped() {
         guard let nickname = nicknameTextField.text else { return }
         viewModel.validNickname(requestValue: nickname)
     }
