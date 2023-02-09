@@ -38,12 +38,10 @@ final class TermsDetailViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         setUpNavigationBar()
-        tabBarController?.tabBar.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
-        tabBarController?.tabBar.isHidden = false
     }
 
     private func layout() {
@@ -54,8 +52,8 @@ final class TermsDetailViewController: UIViewController {
     }
 
     private func setUpNavigationBar() {
-        self.title = termsType.title
         self.navigationController?.navigationBar.topItem?.title = ""
         self.navigationController?.navigationBar.tintColor = Asset.Colors.gray7.color
+        self.title = termsType.title
     }
 }

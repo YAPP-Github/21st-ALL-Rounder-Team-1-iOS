@@ -170,6 +170,7 @@ final class NicknameViewController: UIViewController {
     private func setUpNavigationBar() {
         self.navigationController?.navigationBar.topItem?.title = ""
         self.navigationController?.navigationBar.tintColor = Asset.Colors.gray7.color
+        self.title = "프로필 수정"
     }
 
     private func setUpView() {
@@ -178,7 +179,6 @@ final class NicknameViewController: UIViewController {
             confirmButton.setTitle("다음", for: .normal)
             confirmButton.isEnabled = true
         case .myPage:
-            title = "프로필 수정"
             nicknameTextField.text = viewModel.userNickname
             confirmButton.setTitle("완료", for: .normal)
             confirmButton.isEnabled = false

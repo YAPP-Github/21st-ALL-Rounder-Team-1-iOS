@@ -36,21 +36,21 @@ final class UserLevelViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "회원 등급 안내"
         view.backgroundColor = .white
         levelCollectionView.dataSource = self
         levelCollectionView.delegate = self
         bind()
         layout()
         viewModel.viewDidLoad()
+        setUpNavigationBar()
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        tabBarController?.tabBar.isHidden = true
+        setUpNavigationBar()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        tabBarController?.tabBar.isHidden = false
+        AppDelegate.setUpNavigationBar()
     }
 
     private func bind() {
@@ -66,6 +66,12 @@ final class UserLevelViewController: UIViewController {
         levelCollectionView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
+    }
+
+    private func setUpNavigationBar() {
+        self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.navigationBar.tintColor = Asset.Colors.gray7.color
+        self.title = "회원 등급 안내"
     }
 }
 
