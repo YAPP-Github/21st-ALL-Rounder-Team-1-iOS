@@ -21,7 +21,7 @@ extension UserDTO {
         return User(
             id: id ?? 0,
             name: nickname ?? "",
-            imageURL: imgPath ?? "",
+            imageURL: imgPath,
             level: UserLevelInfo(level: UserLevelInfo.Level(rawValue: rating ?? 0) ?? .beginner)
         )
     }

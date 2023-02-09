@@ -55,7 +55,9 @@ final class UserLevelViewController: UIViewController {
 
     private func bind() {
         viewModel.reloadData = {
-            self.levelCollectionView.reloadData()
+            DispatchQueue.main.async {
+                self.levelCollectionView.reloadData()
+            }
         }
     }
 

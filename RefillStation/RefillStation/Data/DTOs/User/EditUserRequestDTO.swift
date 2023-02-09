@@ -10,5 +10,5 @@ import Foundation
 struct EditUserRequestDTO: Codable {
     let nickname: String
     let rating: Int
-    let imagePath: String
+    let imgPath: String?
 }

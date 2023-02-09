@@ -22,23 +22,28 @@ final class TermsPermissionViewModel {
 }
 
 enum TermsType: CaseIterable {
-    case privacyPolicy
     case serviceTerms
+    case location
+    case privacyPolicy
 
     var title: String {
         switch self {
+        case .serviceTerms:
+            return "서비스 이용약관"
+        case .location:
+            return "위치기반 서비스 이용약관"
         case .privacyPolicy:
             return "개인정보 처리방침"
-        case .serviceTerms:
-            return "이용약관"
         }
     }
     var content: String {
         switch self {
-        case .privacyPolicy:
-            return TermsLiterals.privacyPolicy
         case .serviceTerms:
             return TermsLiterals.serviceTerms
+        case .location:
+            return TermsLiterals.location
+        case .privacyPolicy:
+            return TermsLiterals.privacyPolicy
         }
     }
 }

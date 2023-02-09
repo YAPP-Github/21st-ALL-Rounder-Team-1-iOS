@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class MyPageViewController: UIViewController {
 
@@ -21,6 +22,9 @@ final class MyPageViewController: UIViewController {
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Asset.Images.avatar.image
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 32
+        imageView.clipsToBounds = true
         return imageView
     }()
 
@@ -30,8 +34,10 @@ final class MyPageViewController: UIViewController {
         return label
     }()
 
-    private let userLevelTagView: PumpTagView = {
+    private lazy var userLevelTagView: PumpTagView = {
         let tagView = PumpTagView()
+        tagView.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                            action: #selector(presentToLevelInfo)))
         return tagView
     }()
 
@@ -55,9 +61,10 @@ final class MyPageViewController: UIViewController {
     }()
 
     private lazy var changeProfileCell = listCell(title: "프로필 수정")
-    private lazy var magnageAccountCell = listCell(title: "계정 관리")
-    private lazy var termsAndConditionsCell = listCell(title: "이용약관")
-    private lazy var personalInfoPolicyCell = listCell(title: "개인정보 처리방침")
+    private lazy var manageAccountCell = listCell(title: "계정 관리")
+    private lazy var termsAndConditionsCell = listCell(title: TermsType.serviceTerms.title)
+    private lazy var locationTermsCell = listCell(title: TermsType.location.title)
+    private lazy var personalInfoPolicyCell = listCell(title: TermsType.privacyPolicy.title)
     private lazy var versionCell = listCell(title: "버전", version: "V 1.0.9")
 
     private let listStackView: UIStackView = {
@@ -96,9 +103,19 @@ final class MyPageViewController: UIViewController {
 
     private func bind() {
         viewModel.setUpContents = {
-            self.nicknameLabel.text = self.viewModel.userNickname
-            self.userLevelTagView.setUpTagLevel(level: self.viewModel.userRank ?? .beginner)
-            self.profileImageView.image = nil
+            DispatchQueue.main.async {
+                self.nicknameLabel.text = self.viewModel.userNickname
+                self.userLevelTagView.setUpTagLevel(level: self.viewModel.userRank ?? .beginner)
+                self.setUpProfileView()
+            }
+        }
+    }
+
+    private func setUpProfileView() {
+        if viewModel.profileImage == nil {
+            profileImageView.image = Asset.Images.avatar.image
+        } else {
+            profileImageView.kf.setImage(with: URL(string: viewModel.profileImage ?? ""))
         }
     }
 
@@ -119,11 +136,11 @@ final class MyPageViewController: UIViewController {
         }
 
         listStackView.addArrangedSubview(divisionLine(height: 8))
-        [changeProfileCell, magnageAccountCell].forEach {
+        [changeProfileCell, manageAccountCell].forEach {
             listStackView.addArrangedSubview($0)
         }
         listStackView.addArrangedSubview(divisionLine(height: 8))
-        [termsAndConditionsCell, personalInfoPolicyCell, versionCell].forEach {
+        [termsAndConditionsCell, locationTermsCell, personalInfoPolicyCell, versionCell].forEach {
             listStackView.addArrangedSubview($0)
         }
         listStackView.addArrangedSubview(divisionLine(height: 0))
@@ -178,18 +195,37 @@ final class MyPageViewController: UIViewController {
     private func addAction() {
         changeProfileCell.addGestureRecognizer(UITapGestureRecognizer(target: self,
                                                                       action: #selector(presentToChangeProfile)))
+        manageAccountCell.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                                      action: #selector(presentToManagementAccount)))
         personalInfoPolicyCell.addGestureRecognizer(UITapGestureRecognizer(target: self,
                                                                            action: #selector(presentToPrivacyPolicy)))
+        locationTermsCell.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                                      action: #selector(presentToLocationTerms)))
         termsAndConditionsCell.addGestureRecognizer(UITapGestureRecognizer(target: self,
                                                                            action: #selector(presentToServiceTerms)))
     }
 
+    @objc private func presentToLevelInfo() {
+        coordinator?.showLevelInfo()
+    }
+
     @objc private func presentToChangeProfile() {
-        coordinator?.showEditProfile()
+        coordinator?.showEditProfile(user: User(id: viewModel.userId ?? 0,
+                                                name: viewModel.userNickname ?? "",
+                                                imageURL: viewModel.profileImage,
+                                                level: viewModel.userLevel ?? .init(level: .beginner)))
+    }
+
+    @objc private func presentToManagementAccount() {
+        coordinator?.showManagementAccount()
     }
 
     @objc private func presentToServiceTerms() {
         coordinator?.showTermsDetails(termsType: .serviceTerms)
+    }
+
+    @objc private func presentToLocationTerms() {
+        coordinator?.showTermsDetails(termsType: .location)
     }
 
     @objc private func presentToPrivacyPolicy() {
