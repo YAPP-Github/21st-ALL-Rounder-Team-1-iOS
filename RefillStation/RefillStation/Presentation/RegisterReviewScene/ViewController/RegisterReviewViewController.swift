@@ -231,6 +231,7 @@ extension RegisterReviewViewController: UICollectionViewDelegate {
         return viewModel.shouldSelectCell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard indexPath.section == 2 else { return }
         viewModel.didSelectItemAt(indexPath: indexPath)
         registerButton.isEnabled = viewModel.setUpRegisterButtonState()
         if viewModel.noKeywordTagDidSelected {
@@ -240,6 +241,7 @@ extension RegisterReviewViewController: UICollectionViewDelegate {
         }
     }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        guard indexPath.section == 2 else { return }
         if viewModel.noKeywordTagDidSelected {
             noKeywordTagDidTapped(isSelected: false,
                                   collectionView: collectionView,
