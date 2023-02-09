@@ -17,9 +17,9 @@ final class ReviewDescriptionCell: UICollectionViewCell {
     private let reviewTextView: UITextView = {
         let textView = UITextView()
         textView.isEditable = true
-        textView.textColor = .lightGray
+        textView.textColor = Asset.Colors.gray4.color
         textView.textContainerInset = .init(top: 16, left: 16, bottom: 16, right: 16)
-        textView.font = UIFont.font(style: .bodyMedium)
+        textView.font = UIFont.font(style: .bodyMediumOverTwoLine)
         textView.layer.cornerRadius = 6
         textView.layer.borderWidth = 1
         textView.layer.borderColor = Asset.Colors.gray2.color.cgColor
@@ -59,6 +59,7 @@ final class ReviewDescriptionCell: UICollectionViewCell {
     private func setUpReviewTextView() {
         reviewTextView.delegate = self
         reviewTextView.text = placeholder
+        reviewTextView.setText(text: placeholder, font: .bodyMediumOverTwoLine, textColor: Asset.Colors.gray4.color)
     }
 
     private func layout() {
@@ -102,6 +103,7 @@ extension ReviewDescriptionCell: UITextViewDelegate {
 
     func textViewDidChange(_ textView: UITextView) {
         self.textCountLabel.setText(text: "\(textView.text.count)", font: .captionLarge)
+        textView.setText(text: textView.text, font: .bodyMediumOverTwoLine, textColor: Asset.Colors.gray7.color)
         didChangeText?(textView.text)
     }
 
