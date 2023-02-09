@@ -36,7 +36,7 @@ final class RegisterReviewPopUpViewController: UIViewController {
 
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.setText(text: "‘리필 유망주’까지\n리뷰 2회가 남았어요", font: .bodyMedium)
+        label.setText(text: "‘리필 유망주’까지\n리뷰 2회가 남았어요", font: .bodyMediumOverTwoLine)
         label.textColor = Asset.Colors.gray6.color
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -73,7 +73,7 @@ final class RegisterReviewPopUpViewController: UIViewController {
         levelImageView.image = userLevel.image
         titleLabel.setText(text: userLevel.celebrateTitle, font: .titleMedium)
         descriptionLabel.setText(text: "‘\(userLevel.nextLevel.name)’까지\n리뷰 \(userLevel.nextLevelRemainCount)회가 남았어요",
-                                 font: .bodyMedium)
+                                 font: .bodyMediumOverTwoLine)
         setUpReviewCountTextColor(count: userLevel.nextLevelRemainCount)
         modalPresentationStyle = .overFullScreen
     }
