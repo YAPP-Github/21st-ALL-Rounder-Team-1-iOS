@@ -15,7 +15,7 @@ final class RegisterReviewViewController: UIViewController {
     private let viewModel: DefaultTagReviewViewModel
     private lazy var outerCollectionView = UICollectionView(frame: .zero,
                                                             collectionViewLayout: compositionalLayout())
-    private let collectionViewBottomInset: CGFloat = 80
+    private let collectionViewBottomInset: CGFloat = 60
 
     private let phPickerViewController: PHPickerViewController = {
         var configuration = PHPickerConfiguration()
@@ -34,6 +34,26 @@ final class RegisterReviewViewController: UIViewController {
             button.isEnabled = false
         }, for: .touchUpInside)
         return button
+    }()
+
+    private lazy var registerButonView: UIView = {
+        let outerView = UIView()
+        outerView.backgroundColor = .white
+        let divider = UIView()
+        divider.backgroundColor = Asset.Colors.gray1.color
+        [registerButton, divider].forEach { outerView.addSubview($0) }
+        divider.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(1)
+        }
+        registerButton.snp.makeConstraints {
+            $0.top.equalTo(divider.snp.bottom).offset(6)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(4)
+            $0.height.equalTo(50)
+        }
+
+        return outerView
     }()
 
     init(viewModel: DefaultTagReviewViewModel) {
@@ -102,14 +122,12 @@ final class RegisterReviewViewController: UIViewController {
     }
 
     private func layout() {
-        [outerCollectionView, registerButton].forEach { view.addSubview($0) }
+        [outerCollectionView, registerButonView].forEach { view.addSubview($0) }
         outerCollectionView.snp.makeConstraints { collection in
             collection.edges.equalTo(view.safeAreaLayoutGuide)
         }
-        registerButton.snp.makeConstraints { button in
-            button.bottom.equalTo(view.safeAreaLayoutGuide)
-            button.leading.trailing.equalToSuperview().inset(16)
-            button.height.equalTo(50)
+        registerButonView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 
@@ -230,7 +248,7 @@ extension RegisterReviewViewController: UICollectionViewDataSource {
 extension RegisterReviewViewController {
     private func compositionalLayout() -> UICollectionViewCompositionalLayout {
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
-        configuration.interSectionSpacing = 20
+        configuration.interSectionSpacing = 0
         return UICollectionViewCompositionalLayout(sectionProvider: { section, environment in
             return Section(rawValue: section)?.layoutSection
         }, configuration: configuration)
@@ -242,7 +260,7 @@ extension RegisterReviewViewController: UICollectionViewDelegate {
         return viewModel.shouldSelectCell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard indexPath.section == 2 else { return }
+        guard indexPath.section == Section.tagReview.rawValue else { return }
         viewModel.didSelectItemAt(indexPath: indexPath)
         registerButton.isEnabled = viewModel.setUpRegisterButtonState()
         if viewModel.noKeywordTagDidSelected {
@@ -252,7 +270,7 @@ extension RegisterReviewViewController: UICollectionViewDelegate {
         }
     }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        guard indexPath.section == 2 else { return }
+        guard indexPath.section == Section.tagReview.rawValue else { return }
         if viewModel.noKeywordTagDidSelected {
             noKeywordTagDidTapped(isSelected: false,
                                   collectionView: collectionView,

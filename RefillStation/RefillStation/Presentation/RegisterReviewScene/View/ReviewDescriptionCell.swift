@@ -63,10 +63,11 @@ final class ReviewDescriptionCell: UICollectionViewCell {
     }
 
     private func layout() {
-        [reviewTextView, dividerView, textCountLabel, maxTextLabel].forEach { contentView.addSubview($0) }
+        [reviewTextView, textCountLabel, maxTextLabel].forEach { contentView.addSubview($0) }
         reviewTextView.snp.makeConstraints { textView in
-            textView.top.equalToSuperview()
+            textView.top.equalToSuperview().inset(7)
             textView.leading.trailing.equalToSuperview().inset(16)
+            textView.bottom.equalToSuperview().inset(20)
         }
 
         maxTextLabel.snp.makeConstraints { label in
@@ -76,12 +77,6 @@ final class ReviewDescriptionCell: UICollectionViewCell {
         textCountLabel.snp.makeConstraints { label in
             label.trailing.equalTo(maxTextLabel.snp.leading)
             label.centerY.equalTo(maxTextLabel)
-        }
-
-        dividerView.snp.makeConstraints { view in
-            view.height.equalTo(1)
-            view.top.equalTo(reviewTextView.snp.bottom).offset(20)
-            view.leading.trailing.bottom.equalToSuperview()
         }
     }
 }

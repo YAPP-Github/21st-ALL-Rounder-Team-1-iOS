@@ -41,14 +41,19 @@ final class VoteTitleCell: UICollectionViewCell {
         }
 
         voteTitleLabel.snp.makeConstraints { titleLabel in
-            titleLabel.leading.top.bottom.equalToSuperview()
+            titleLabel.top.equalToSuperview().inset(20)
+            titleLabel.bottom.equalToSuperview().inset(16)
+            titleLabel.leading.equalToSuperview()
         }
 
         voteTitleLabel.setContentHuggingPriority(.required, for: .horizontal)
+        voteTitleLabel.setContentHuggingPriority(.required, for: .vertical)
+        voteTitleLabel.sizeToFit()
 
         maximumVoteLabel.snp.makeConstraints { voteLabel in
             voteLabel.leading.equalTo(voteTitleLabel.snp.trailing).offset(5)
-            voteLabel.trailing.top.bottom.equalToSuperview()
+            voteLabel.trailing.equalToSuperview()
+            voteLabel.top.bottom.equalTo(voteTitleLabel)
         }
     }
 }
