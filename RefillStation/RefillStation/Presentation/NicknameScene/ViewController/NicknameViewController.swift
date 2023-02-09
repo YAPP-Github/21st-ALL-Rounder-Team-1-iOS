@@ -40,8 +40,10 @@ final class NicknameViewController: UIViewController {
 
     // MARK: - My page Components
 
-    private let profileView: UIView = {
+    private lazy var profileView: UIView = {
         let view = UIView()
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                         action: #selector(didTapProfileImageEditButton)))
         return view
     }()
     private let profileImageView: UIImageView = {
