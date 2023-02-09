@@ -194,7 +194,7 @@ final class DetailReviewCell: UICollectionViewCell {
         tags = review.tags.filter { $0 != .noKeywordToChoose }
         tagCollectionView.reloadData()
         tagCollectionView.layoutIfNeeded()
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .leastNormalMagnitude) {
             let height = self.tagCollectionView.contentSize.height == 0 ? 30 : self.tagCollectionView.contentSize.height
             self.tagCollectionView.snp.remakeConstraints {
                 $0.height.equalTo(height)
