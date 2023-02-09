@@ -29,16 +29,14 @@ final class ReviewDescriptionCell: UICollectionViewCell {
 
     private let textCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "0"
-        label.font = .systemFont(ofSize: 12)
+        label.setText(text: "0", font: .captionLarge)
         label.textColor = Asset.Colors.gray7.color
         return label
     }()
 
     private let maxTextLabel: UILabel = {
         let label = UILabel()
-        label.text = "/500"
-        label.font = .systemFont(ofSize: 12)
+        label.setText(text: "/500", font: .captionLarge)
         label.textColor = Asset.Colors.gray4.color
         return label
     }()
@@ -103,7 +101,7 @@ extension ReviewDescriptionCell: UITextViewDelegate {
     }
 
     func textViewDidChange(_ textView: UITextView) {
-        self.textCountLabel.text = "\(textView.text.count)"
+        self.textCountLabel.setText(text: "\(textView.text.count)", font: .captionLarge)
         didChangeText?(textView.text)
     }
 

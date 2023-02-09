@@ -42,8 +42,8 @@ final class StoreInfoCell: UICollectionViewCell {
     }
 
     func setUpContents(storeName: String, storeLocationInfo: String) {
-        storeNamelabel.text = storeName
-        storeLocationLabel.text = storeLocationInfo
+        storeNamelabel.setText(text: storeName, font: .titleSmall)
+        storeLocationLabel.setText(text: storeLocationInfo, font: .bodySmall)
     }
 
     private func layout() {

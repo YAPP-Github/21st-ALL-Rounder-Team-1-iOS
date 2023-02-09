@@ -50,8 +50,7 @@ final class LevelHeaderView: UICollectionReusableView {
 
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "회원 등급 자세히 보기"
-        label.font = .font(style: .titleSmall)
+        label.setText(text: "회원 등급 자세히 보기", font: .titleSmall)
         return label
     }()
 
@@ -65,8 +64,9 @@ final class LevelHeaderView: UICollectionReusableView {
     }
 
     func setUpContents(level: UserLevelInfo.Level, totalReviewCount: Int) {
-        descriptionLabel.text = "'\(level.nextLevel.name)'까지 리뷰 \(level.nextLevelRemainCount)회가 남았어요"
-        levelLabel.text = level.name
+        descriptionLabel.setText(text: "'\(level.nextLevel.name)'까지 리뷰 \(level.nextLevelRemainCount)회가 남았어요",
+                                 font: .bodyMedium)
+        levelLabel.setText(text: level.name, font: .titleLarge2)
         remainingReviewTagView.setUpTitle(title: "누적 리뷰 \(totalReviewCount)회")
         levelImage.image = level.image
     }

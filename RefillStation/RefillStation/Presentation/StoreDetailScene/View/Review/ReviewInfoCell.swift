@@ -14,9 +14,8 @@ final class ReviewInfoCell: UICollectionViewCell {
 
     private let didVisitedLabel: UILabel = {
         let label = UILabel()
-        label.text = "매장에 방문한 적이 있다면?"
         label.textColor = Asset.Colors.gray5.color
-        label.font = UIFont.font(style: .bodySmall)
+        label.setText(text: "매장에 방문한 적이 있다면?", font: .bodySmall)
         return label
     }()
 
@@ -51,8 +50,7 @@ final class ReviewInfoCell: UICollectionViewCell {
 
     private let storeStrengthLabel: UILabel = {
         let label = UILabel()
-        label.text = "이 매장의 좋은점"
-        label.font = UIFont.font(style: .titleMedium)
+        label.setText(text: "이 매장의 좋은점", font: .titleMedium)
         return label
     }()
 
@@ -72,8 +70,7 @@ final class ReviewInfoCell: UICollectionViewCell {
 
     private let participateLabel: UILabel = {
         let label = UILabel()
-        label.text = "참여"
-        label.font = UIFont.font(style: .bodyMedium)
+        label.setText(text: "참여", font: .bodyMedium)
         label.textColor = Asset.Colors.gray5.color
         return label
     }()
@@ -156,8 +153,7 @@ final class ReviewInfoCell: UICollectionViewCell {
 
     private let reviewTextLabel: UILabel = {
         let label = UILabel()
-        label.text = "리뷰"
-        label.font = UIFont.font(style: .titleMedium)
+        label.setText(text: "리뷰", font: .titleMedium)
         return label
     }()
 
@@ -202,7 +198,7 @@ final class ReviewInfoCell: UICollectionViewCell {
     }
 
     func setUpContents(totalDetailReviewCount: Int) {
-        reviewCountLabel.text = "\(totalDetailReviewCount)"
+        reviewCountLabel.setText(text: "\(totalDetailReviewCount)", font: .titleMedium)
     }
 
     func setUpContents(totalTagReviewCount: Int, rankTags: [StoreDetailViewModel.RankTag]) {
@@ -211,11 +207,11 @@ final class ReviewInfoCell: UICollectionViewCell {
 
         if totalTagReviewCount < 10 {
             profileGroupImageView.isHidden = true
-            votedCountLabel.text = "현재까지 \(totalTagReviewCount)명 "
+            votedCountLabel.setText(text: "현재까지 \(totalTagReviewCount)명 ", font: .buttonLarge)
             makeBlurPlaceholder()
             return
         } else {
-            votedCountLabel.text = "\(totalTagReviewCount)명 "
+            votedCountLabel.setText(text: "\(totalTagReviewCount)명 ", font: .buttonLarge)
         }
 
         if rankTags.isEmpty {
@@ -244,8 +240,7 @@ final class ReviewInfoCell: UICollectionViewCell {
         let label = UILabel()
         label.numberOfLines = 2
         label.textAlignment = .center
-        label.text = "10명 이상 참여하시면 \n 공개됩니다!"
-        label.font = UIFont.font(style: .bodyMedium)
+        label.setText(text: "10명 이상 참여하시면 \n 공개됩니다!", font: .bodyMedium)
 
         let labelView = UIView()
         labelView.addSubview(label)

@@ -13,8 +13,7 @@ final class TermsPermissionViewController: UIViewController {
     var coordinator: OnboardingCoordinator?
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "이용 약관 동의"
-        label.font = .font(style: .titleLarge2)
+        label.setText(text: "이용 약관 동의", font: .titleLarge2)
         label.textColor = Asset.Colors.gray7.color
         return label
     }()

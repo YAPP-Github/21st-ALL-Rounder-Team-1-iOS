@@ -23,8 +23,7 @@ final class ReviewPhotosCell: UICollectionViewCell {
 
     private let pleaseReviewLabel: UILabel = {
         let label = UILabel()
-        label.text = "리뷰를 남겨주세요!"
-        label.font = UIFont.font(style: .titleMedium)
+        label.setText(text: "리뷰를 남겨주세요!", font: .titleMedium)
         label.textColor = Asset.Colors.gray7.color
         return label
     }()

@@ -90,8 +90,8 @@ class PumpPopUpViewController: UIViewController {
     init(title: String?, description: String?) {
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .overFullScreen
-        titleLabel.text = title
-        descriptionLabel.text = description
+        titleLabel.setText(text: title, font: .titleMedium)
+        descriptionLabel.setText(text: description, font: .bodyMedium)
         layout()
         addTapGesture()
     }

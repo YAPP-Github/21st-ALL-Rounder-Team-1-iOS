@@ -32,7 +32,7 @@ final class PumpLargeTitleNavigationBar: UIView {
     }
 
     func setNavigationTitle(_ title: String) {
-        titleLabel.text = title
+        titleLabel.setText(text: title, font: .titleLarge2)
     }
 
     private func layout() {

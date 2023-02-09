@@ -20,14 +20,12 @@ final class RequestRegionViewController: UIViewController {
     // MARK: - UIComponents
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "어느 지역을 신청할까요?"
-        label.font = .font(style: .titleLarge2)
+        label.setText(text: "어느 지역을 신청할까요?", font: .titleLarge2)
         return label
     }()
     private let exampleLabel: UILabel = {
         let label = UILabel()
-        label.text = "ex) ‘서울 강서구 염창동’"
-        label.font = .font(style: .bodySmall)
+        label.setText(text: "ex) ‘서울 강서구 염창동’", font: .bodySmall)
         label.textColor = Asset.Colors.gray4.color
         return label
     }()
@@ -39,8 +37,7 @@ final class RequestRegionViewController: UIViewController {
     }()
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "신청하신 지역에 서비스가 오픈되면\n알림을 드려요!"
-        label.font = .font(style: .bodyMedium)
+        label.setText(text: "신청하신 지역에 서비스가 오픈되면\n알림을 드려요!", font: .bodyMedium)
         label.textColor = Asset.Colors.gray5.color
         label.numberOfLines = 0
         return label
@@ -64,15 +61,13 @@ final class RequestRegionViewController: UIViewController {
     }()
     private let textCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "0"
-        label.font = .font(style: .captionLarge)
+        label.setText(text: "0", font: .captionLarge)
         label.textColor = Asset.Colors.gray7.color
         return label
     }()
     private let maxTextLabel: UILabel = {
         let label = UILabel()
-        label.text = "/500"
-        label.font = .font(style: .captionLarge)
+        label.setText(text: "/500", font: .captionLarge)
         label.textColor = Asset.Colors.gray4.color
         return label
     }()
@@ -167,7 +162,7 @@ extension RequestRegionViewController: UITextViewDelegate {
         }
     }
     func textViewDidChange(_ textView: UITextView) {
-        self.textCountLabel.text = "\(textView.text.count)"
+        textCountLabel.setText(text: "\(textView.text.count)", font: .captionLarge)
     }
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         guard let textViewText = textView.text,

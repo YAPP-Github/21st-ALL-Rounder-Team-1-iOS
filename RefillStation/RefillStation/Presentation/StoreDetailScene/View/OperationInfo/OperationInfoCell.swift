@@ -54,7 +54,7 @@ final class OperationInfoCell: UICollectionViewCell {
 
     func setUpContents(operation: OperationInfo, shouldShowMore: Bool = false) {
         imageView.image = operation.image
-        contentLabel.text = operation.content
+        contentLabel.setText(text: operation.content, font: .bodySmall)
 
         guard let isNewLineIncluded = contentLabel.text?.contains("\n") else { return }
 

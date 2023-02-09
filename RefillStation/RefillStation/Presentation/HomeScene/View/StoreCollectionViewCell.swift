@@ -98,9 +98,9 @@ final class StoreCollectionViewCell: UICollectionViewCell {
                        address: String,
                        distance: Double) {
         // set storeImage
-        nameLabel.text = name
-        addressLabel.text = address
-        distanceLabel.text = "\(distance)km"
+        nameLabel.setText(text: name, font: .titleMedium)
+        addressLabel.setText(text: address, font: .bodySmall)
+        distanceLabel.setText(text: "\(distance)km", font: .buttonLarge)
     }
 }
 

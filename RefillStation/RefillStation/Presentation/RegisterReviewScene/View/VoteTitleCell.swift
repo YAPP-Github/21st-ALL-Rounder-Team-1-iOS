@@ -14,16 +14,14 @@ final class VoteTitleCell: UICollectionViewCell {
 
     private let voteTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "이 매장의 좋은 점은 무엇인가요?"
-        label.font = UIFont.font(style: .titleMedium)
+        label.setText(text: "이 매장의 좋은 점은 무엇인가요?", font: .titleMedium)
         label.textColor = Asset.Colors.gray7.color
         return label
     }()
 
     private let maximumVoteLabel: UILabel = {
         let label = UILabel()
-        label.text = "(1~3개)"
-        label.font = UIFont.font(style: .titleMedium)
+        label.setText(text: "(1~3개)", font: .titleMedium)
         label.textColor = Asset.Colors.gray3.color
         return label
     }()

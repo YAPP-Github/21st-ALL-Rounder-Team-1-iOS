@@ -8,6 +8,11 @@
 import UIKit
 
 extension UILabel {
+    func setText(text: String?, font: TextStyles) {
+        self.text = text
+        self.font = .font(style: font)
+        setLineLetterSpacing(font: font)
+    }
     func setLineLetterSpacing(font: TextStyles, lineBreakMode: NSLineBreakMode = .byTruncatingTail) {
         if let text = text {
             let style = NSMutableParagraphStyle()

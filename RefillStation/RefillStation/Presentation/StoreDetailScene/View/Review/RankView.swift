@@ -20,13 +20,12 @@ final class FirstRankView: UIView {
 
     private let rankLabel: UILabel = {
         let label = UILabel()
-        label.text = "1순위"
+        label.setText(text: "1순위", font: .captionMedium)
         label.backgroundColor = Asset.Colors.primary8.color
         label.layer.cornerRadius = 4
         label.textColor = .white
         label.clipsToBounds = true
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 10, weight: .medium)
         return label
     }()
 
@@ -55,7 +54,7 @@ final class FirstRankView: UIView {
 
     func setUpContents(tag: Tag) {
         tagImageView.image = tag.image
-        titleLabel.text = tag.text
+        titleLabel.setText(text: tag.text, font: .buttonLarge)
     }
 
     private func layout() {
@@ -108,8 +107,8 @@ final class OtherRankView: UIView {
     }
 
     func setUpContents(tag: Tag, rank: Int) {
-        rankLabel.text = "\(rank)순위"
-        titleLabel.text = tag.text
+        rankLabel.setText(text: "\(rank)순위", font: .captionMedium)
+        titleLabel.setText(text: tag.text, font: .buttonMedium)
         tagImageView.image = tag.image.withAlignmentRectInsets(
             .init(top: -4, left: -4, bottom: -4, right: -4))
     }

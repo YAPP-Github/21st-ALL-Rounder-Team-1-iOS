@@ -19,8 +19,7 @@ final class RegionRequestCollectionViewCell: UICollectionViewCell {
     }()
     private let guidanceLabel: UILabel = {
         let label = UILabel()
-        label.text = "현재 위치하고 계신 곳은\n아직 서비스 지역이 아니에요😭"
-        label.font = .font(style: .titleMedium)
+        label.setText(text: "현재 위치하고 계신 곳은\n아직 서비스 지역이 아니에요😭", font: .titleMedium)
         label.textAlignment = .center
         label.numberOfLines = 0
         return label
@@ -50,8 +49,7 @@ final class RegionRequestCollectionViewCell: UICollectionViewCell {
 
     private let headerTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "서비스 지역 매장 둘러보기"
-        label.font = .font(style: .titleMedium)
+        label.setText(text: "서비스 지역 매장 둘러보기", font: .titleMedium)
         return label
     }()
 

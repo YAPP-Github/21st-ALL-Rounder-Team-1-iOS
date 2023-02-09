@@ -13,8 +13,7 @@ final class OperationNoticeCell: UICollectionViewCell {
 
     private let noticeLabel: UILabel = {
         let label = UILabel()
-        label.text = "매장 상황에 따라 운영시간이 달라질 수 있어요."
-        label.font = .font(style: .bodySmall)
+        label.setText(text: "매장 상황에 따라 운영시간이 달라질 수 있어요.", font: .bodySmall)
         label.textColor = Asset.Colors.gray5.color
         return label
     }()

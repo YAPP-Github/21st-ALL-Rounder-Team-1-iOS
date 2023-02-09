@@ -179,14 +179,13 @@ final class DetailReviewCell: UICollectionViewCell {
     func setUpContents(review: Review, shouldSeeMore: Bool) {
         self.review = review
         setUpTagCollectionViewContents()
-        userNameLabel.text = review.userNickname
-        writtenDateLabel.text = review.writtenDate.toString()
-        descriptionLabel.text = review.description
-        imageCountLabel.text = "1 / \(review.imageURL.count)"
+        userNameLabel.setText(text: review.userNickname, font: .buttonLarge)
+        writtenDateLabel.setText(text: review.writtenDate.toString(), font: .captionLarge)
+        descriptionLabel.setText(text: review.description, font: .bodyMediumOverTwoLine)
+        imageCountLabel.setText(text: "1 / \(review.imageURL.count)", font: .buttonSmall)
         imageCountLabel.isHidden = review.imageURL.count <= 1
         addArrangedSubviewsToOuterStackview()
         descriptionLabel.numberOfLines = shouldSeeMore ? 0 : 3
-        descriptionLabel.setLineLetterSpacing(font: .bodyMediumOverTwoLine)
     }
 
     private func setUpTagCollectionViewContents() {
