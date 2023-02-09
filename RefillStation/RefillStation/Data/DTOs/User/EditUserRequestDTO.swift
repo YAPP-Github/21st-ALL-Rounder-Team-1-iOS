@@ -9,8 +9,6 @@ import Foundation
 
 struct EditUserRequestDTO: Codable {
     let nickname: String
-    let email: String
-    let phoneNumber: String
     let rating: Int
     let imgPath: String?
 }

@@ -69,8 +69,6 @@ final class UserInfoRepository: UserInfoRepositoryInterface {
                 guard let requestBody = try? JSONEncoder()
                     .encode(EditUserRequestDTO(
                         nickname: requestValue.nickname,
-                        email: "",
-                        phoneNumber: "",
                         rating: requestValue.rating,
                         imgPath: imagePath)) else {
                     completion(.failure(RepositoryError.requestParseFailed))
