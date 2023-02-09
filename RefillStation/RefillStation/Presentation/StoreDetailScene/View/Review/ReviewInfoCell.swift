@@ -34,7 +34,7 @@ final class ReviewInfoCell: UICollectionViewCell {
 
     private lazy var registerReviewView: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.primary1.color
+        view.backgroundColor = Asset.Colors.gray1.color
         view.layer.cornerRadius = 4
         [didVisitedLabel, moveToRegisterReviewButton].forEach { view.addSubview($0) }
         didVisitedLabel.snp.makeConstraints {
