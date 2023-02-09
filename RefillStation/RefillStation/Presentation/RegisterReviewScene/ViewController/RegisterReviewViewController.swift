@@ -56,6 +56,17 @@ final class RegisterReviewViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        let standardAppearance = UINavigationBarAppearance()
+        standardAppearance.configureWithDefaultBackground()
+        standardAppearance.backgroundColor = .white
+        standardAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        let scrollEdgeAppearance = UINavigationBarAppearance()
+        scrollEdgeAppearance.configureWithTransparentBackground()
+        scrollEdgeAppearance.backgroundColor = .clear
+        scrollEdgeAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        navigationController?.navigationBar.standardAppearance = standardAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = scrollEdgeAppearance
+        navigationController?.navigationBar.tintColor = .black
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         tabBarController?.tabBar.isHidden = true
     }
