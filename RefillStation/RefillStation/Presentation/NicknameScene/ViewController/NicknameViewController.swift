@@ -243,7 +243,7 @@ final class NicknameViewController: UIViewController {
         nicknameTextField.layer.borderColor = state.borderColor
         descriptionLabel.textColor = state.textColor
         switch state {
-        case .empty, .overTenCharacters, .underTwoCharacters:
+        case .empty, .overTwentyCharacters, .underTwoCharacters:
             setCheckDuplicateNicnameButtonState(isEnabled: false)
         case .correct:
             setCheckDuplicateNicnameButtonState(isEnabled: viewModel.userNickname != nicknameTextField.text)
