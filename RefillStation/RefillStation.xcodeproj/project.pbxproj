@@ -53,6 +53,7 @@
 		3282FED32992391C00DBFE24 /* AWSAccessKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3282FED22992391C00DBFE24 /* AWSAccessKey.plist */; };
 		329557462951992900F5AB53 /* StoreDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F2D9B22951864700131EB1 /* StoreDetailViewModel.swift */; };
 		329557472951992C00F5AB53 /* StoreDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F2D9B02951862E00131EB1 /* StoreDetailViewController.swift */; };
+		3299C8922994B3F90086837F /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3299C8912994B3F90086837F /* UILabelExtension.swift */; };
 		329E80252977FA72004286B0 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329E80222977FA72004286B0 /* OnboardingCollectionViewCell.swift */; };
 		329E80262977FA72004286B0 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329E80232977FA72004286B0 /* OnboardingViewModel.swift */; };
 		329E80272977FA72004286B0 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329E80242977FA72004286B0 /* OnboardingViewController.swift */; };
@@ -230,6 +231,7 @@
 		325985F8294C54CB00D26A37 /* StoreDetailDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailDIContainer.swift; sourceTree = "<group>"; };
 		327524DC2987829F00E033A9 /* CustomerSatisfactionRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSatisfactionRepositoryInterface.swift; sourceTree = "<group>"; };
 		3282FED22992391C00DBFE24 /* AWSAccessKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AWSAccessKey.plist; sourceTree = "<group>"; };
+		3299C8912994B3F90086837F /* UILabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
 		329E80222977FA72004286B0 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		329E80232977FA72004286B0 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		329E80242977FA72004286B0 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
@@ -591,6 +593,14 @@
 				32409865295F51DB00911306 /* DetailReviewTagCollectionViewCell.swift */,
 			);
 			path = Review;
+			sourceTree = "<group>";
+		};
+		3299C8932994B4020086837F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3299C8912994B3F90086837F /* UILabelExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		329E80282977FA75004286B0 /* OnboardingScene */ = {
@@ -1061,6 +1071,7 @@
 		FCF0181B2960958C0027078A /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				3299C8932994B4020086837F /* Extensions */,
 				FCF0181C296095AD0027078A /* CTAButton.swift */,
 				FCAB262A296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift */,
 				FC90448B2965E2E500B43BB9 /* PumpTagView.swift */,
@@ -1295,6 +1306,7 @@
 				32DDE65F29866CCB008AFDB2 /* LoginViewController.swift in Sources */,
 				32F2D9D529518F5900131EB1 /* ProductCell.swift in Sources */,
 				FC60D8412962C36F00C676A6 /* RegisterReviewViewController.swift in Sources */,
+				3299C8922994B3F90086837F /* UILabelExtension.swift in Sources */,
 				FCAB262B296FEC9D000461F0 /* PumpLargeTitleNavigationBar.swift in Sources */,
 				FC84FAC5293AB04800428AAA /* RegionRequestHeaderView.swift in Sources */,
 				FCE00A71294C916600B5C05F /* FetchStoresUseCase.swift in Sources */,

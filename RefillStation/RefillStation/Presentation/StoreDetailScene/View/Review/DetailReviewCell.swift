@@ -54,6 +54,8 @@ final class DetailReviewCell: UICollectionViewCell {
         button.addAction(UIAction { [weak self] _ in
             self?.reportButtonTapped?()
         }, for: .touchUpInside)
+        button.contentEdgeInsets = .init(top: .leastNormalMagnitude, left: .leastNormalMagnitude,
+                                         bottom: .leastNormalMagnitude, right: .leastNormalMagnitude)
         return button
     }()
 
@@ -129,8 +131,8 @@ final class DetailReviewCell: UICollectionViewCell {
         let label = UILabel()
         label.numberOfLines = 3
         label.textColor = Asset.Colors.gray5.color
-        label.font = UIFont.font(style: .bodyMedium)
-        label.lineBreakStrategy = .hangulWordPriority
+        label.font = UIFont.font(style: .bodyMediumOverTwoLine)
+        label.lineBreakMode = .byTruncatingTail
         label.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self,
                                                 action: #selector(descriptionLabelTapped(_:)))
@@ -184,6 +186,7 @@ final class DetailReviewCell: UICollectionViewCell {
         imageCountLabel.isHidden = review.imageURL.count <= 1
         addArrangedSubviewsToOuterStackview()
         descriptionLabel.numberOfLines = shouldSeeMore ? 0 : 3
+        descriptionLabel.setLineLetterSpacing(font: .bodyMediumOverTwoLine)
     }
 
     private func setUpTagCollectionViewContents() {
@@ -191,9 +194,10 @@ final class DetailReviewCell: UICollectionViewCell {
         tags = review.tags.filter { $0 != .noKeywordToChoose }
         tagCollectionView.reloadData()
         tagCollectionView.layoutIfNeeded()
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .leastNormalMagnitude) {
+            let height = self.tagCollectionView.contentSize.height == 0 ? 30 : self.tagCollectionView.contentSize.height
             self.tagCollectionView.snp.remakeConstraints {
-                $0.height.equalTo(self.tagCollectionView.contentSize.height)
+                $0.height.equalTo(height)
             }
         }
     }
@@ -204,12 +208,14 @@ final class DetailReviewCell: UICollectionViewCell {
         }
 
         outerStackView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview().inset(20)
+            $0.top.equalToSuperview().inset(20)
+            $0.leading.trailing.equalToSuperview().inset(16)
         }
 
         divisionLine.snp.makeConstraints {
-            $0.top.equalTo(outerStackView.snp.bottom).offset(20)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(outerStackView.snp.bottom).offset(26)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview()
             $0.height.equalTo(1)
         }
     }
@@ -251,7 +257,9 @@ final class DetailReviewCell: UICollectionViewCell {
 
     @objc
     private func descriptionLabelTapped(_ sender: UITapGestureRecognizer) {
-        seeMoreTapped?()
+        if descriptionLabel.isTruncated {
+            seeMoreTapped?()
+        }
     }
 }
 
@@ -259,11 +267,11 @@ final class DetailReviewCell: UICollectionViewCell {
 extension DetailReviewCell {
     private func tagCollectionLayout() -> UICollectionViewLayout {
         let item = NSCollectionLayoutItem(
-            layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(100), heightDimension: .estimated(25))
+            layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(100), heightDimension: .estimated(22))
         )
         item.edgeSpacing = .init(leading: .fixed(0), top: .fixed(5), trailing: .fixed(5), bottom: .fixed(5))
         let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(25)),
+            layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(22)),
             subitems: [item]
         )
 
@@ -305,5 +313,19 @@ fileprivate extension Date {
         }
 
         return dateFormatter.string(from: self)
+    }
+}
+
+fileprivate extension UILabel {
+    var isTruncated: Bool {
+        guard let labelText = text, let font = font else { return false }
+
+        let labelTextSize = (labelText as NSString).boundingRect(
+            with: CGSize(width: frame.size.width, height: .greatestFiniteMagnitude),
+            options: .usesLineFragmentOrigin,
+            attributes: [.font: font],
+            context: nil).size
+
+        return labelTextSize.height > bounds.size.height
     }
 }

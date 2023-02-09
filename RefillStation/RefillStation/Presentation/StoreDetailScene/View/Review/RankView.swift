@@ -33,6 +33,7 @@ final class FirstRankView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .font(style: .buttonLarge)
+        label.textColor = Asset.Colors.gray6.color
         return label
     }()
 
@@ -93,6 +94,7 @@ final class OtherRankView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .font(style: .buttonMedium)
+        label.textColor = Asset.Colors.gray6.color
         return label
     }()
 
@@ -108,7 +110,8 @@ final class OtherRankView: UIView {
     func setUpContents(tag: Tag, rank: Int) {
         rankLabel.text = "\(rank)순위"
         titleLabel.text = tag.text
-        tagImageView.image = tag.image
+        tagImageView.image = tag.image.withAlignmentRectInsets(
+            .init(top: -4, left: -4, bottom: -4, right: -4))
     }
 
     private func layout() {
@@ -124,7 +127,7 @@ final class OtherRankView: UIView {
             $0.width.height.equalTo(24)
         }
         titleLabel.snp.makeConstraints {
-            $0.leading.equalTo(tagImageView.snp.trailing).offset(10)
+            $0.leading.equalTo(tagImageView.snp.trailing).offset(2)
             $0.top.bottom.trailing.equalToSuperview()
         }
     }

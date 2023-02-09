@@ -14,7 +14,7 @@ final class StoreDetailTabBarCell: UICollectionViewCell {
         let button = UIButton()
         button.setTitle("판매상품", for: .normal)
         button.setTitleColor(Asset.Colors.gray7.color, for: .normal)
-        button.titleLabel?.font = .font(style: .titleMedium2)
+        button.titleLabel?.font = .font(style: .bodyLarge)
         return button
     }()
 
@@ -22,7 +22,7 @@ final class StoreDetailTabBarCell: UICollectionViewCell {
         let button = UIButton()
         button.setTitle("리뷰", for: .normal)
         button.setTitleColor(Asset.Colors.gray7.color, for: .normal)
-        button.titleLabel?.font = .font(style: .titleMedium2)
+        button.titleLabel?.font = .font(style: .bodyLarge)
         return button
     }()
 
@@ -30,7 +30,7 @@ final class StoreDetailTabBarCell: UICollectionViewCell {
         let button = UIButton()
         button.setTitle("운영정보", for: .normal)
         button.setTitleColor(Asset.Colors.gray7.color, for: .normal)
-        button.titleLabel?.font = .font(style: .titleMedium2)
+        button.titleLabel?.font = .font(style: .bodyLarge)
         return button
     }()
 
@@ -83,7 +83,7 @@ final class StoreDetailTabBarCell: UICollectionViewCell {
             $0.isHidden = true
         }
         [productListButton, reviewButton, operationInfoButton].forEach {
-            $0.titleLabel?.font = .font(style: .titleMedium2)
+            $0.titleLabel?.font = .font(style: .bodyLarge)
             $0.setTitleColor(Asset.Colors.gray4.color, for: .normal)
         }
     }
@@ -136,23 +136,25 @@ final class StoreDetailTabBarCell: UICollectionViewCell {
 
         productListButton.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(16)
-            $0.bottom.equalToSuperview()
-            $0.top.equalToSuperview().inset(16)
+            $0.top.equalToSuperview().inset(15)
         }
 
         reviewButton.snp.makeConstraints {
             $0.leading.equalTo(productListSelectLine.snp.trailing).offset(Constraint.tabSpacing)
-            $0.bottom.equalToSuperview()
-            $0.top.equalToSuperview().inset(16)
+            $0.top.equalToSuperview().inset(15)
         }
 
         operationInfoButton.snp.makeConstraints {
             $0.leading.equalTo(reviewButton.snp.trailing).offset(Constraint.tabSpacing)
-            $0.bottom.equalToSuperview()
-            $0.top.equalToSuperview().inset(16)
+            $0.top.equalToSuperview().inset(15)
+        }
+
+        [productListButton, reviewButton, operationInfoButton].forEach {
+            $0.setContentHuggingPriority(.required, for: .vertical)
         }
 
         divisionLine.snp.makeConstraints {
+            $0.top.equalTo(reviewButton.snp.bottom).offset(7)
             $0.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(Constraint.divisionLineHeight)
         }
