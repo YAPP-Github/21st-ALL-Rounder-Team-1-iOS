@@ -131,8 +131,8 @@ final class DetailReviewCell: UICollectionViewCell {
         let label = UILabel()
         label.numberOfLines = 3
         label.textColor = Asset.Colors.gray5.color
-        label.font = UIFont.font(style: .bodyMedium)
-        label.lineBreakStrategy = .hangulWordPriority
+        label.font = UIFont.font(style: .bodyMediumOverTwoLine)
+        label.lineBreakMode = .byTruncatingTail
         label.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self,
                                                 action: #selector(descriptionLabelTapped(_:)))
@@ -186,6 +186,7 @@ final class DetailReviewCell: UICollectionViewCell {
         imageCountLabel.isHidden = review.imageURL.count <= 1
         addArrangedSubviewsToOuterStackview()
         descriptionLabel.numberOfLines = shouldSeeMore ? 0 : 3
+        descriptionLabel.setLineLetterSpacing(font: .bodyMediumOverTwoLine)
     }
 
     private func setUpTagCollectionViewContents() {
