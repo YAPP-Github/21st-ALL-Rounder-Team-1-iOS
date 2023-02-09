@@ -113,11 +113,7 @@ final class StoreDetailViewModel {
     }
 
     func reviewSeeMoreTapped(indexPath: IndexPath) {
-        if reviewSeeMoreIndexPaths.contains(indexPath) {
-            reviewSeeMoreIndexPaths.remove(indexPath)
-        } else {
-            reviewSeeMoreIndexPaths.insert(indexPath)
-        }
+        reviewSeeMoreIndexPaths.insert(indexPath)
     }
 
     func operationInfoSeeMoreTapped(indexPath: IndexPath) {
