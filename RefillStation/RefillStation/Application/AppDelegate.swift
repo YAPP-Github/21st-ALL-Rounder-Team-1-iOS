@@ -42,6 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
         appearance.backgroundColor = .clear
+        appearance.shadowColor = Asset.Colors.gray2.color
+        appearance.setBackIndicatorImage(Asset.Images.iconArrowLeft.image,
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
