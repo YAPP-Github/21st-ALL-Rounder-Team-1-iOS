@@ -109,7 +109,7 @@ final class MyPageDIContainer: DIContainer {
     }
 
     func makeSignOutUseCase() -> SignOutUseCase {
-        return SignOutUseCase()
+        return SignOutUseCase(accountRepository: makeAccountRepository())
     }
 
     func makeWithdrawUseCase() -> WithdrawUseCase {

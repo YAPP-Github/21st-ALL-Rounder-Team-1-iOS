@@ -70,6 +70,16 @@ final class AccountRepository: AccountRepositoryInterface {
         }
     }
 
+    func signOut(completion: @escaping (Result<Void, Error>) -> Void) {
+        let result = KeychainManager.shared.deleteUserToken()
+        switch result {
+        case .success:
+            completion(.success(()))
+        case .failure(let error):
+            completion(.failure(error))
+        }
+    }
+
     func withdraw(completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
         var urlComponents = URLComponents(string: networkService.baseURL)
         urlComponents?.path = "/api/user"
@@ -81,7 +91,7 @@ final class AccountRepository: AccountRepositoryInterface {
         return networkService.dataTask(request: request) { (result: Result<WithdrawDTO, Error>) in
             switch result {
             case .success:
-                _ = KeychainManager.shared.deleteItem(key: "token")
+                _ = KeychainManager.shared.deleteUserToken()
                 completion(.success(()))
             case .failure(let error):
                 completion(.failure(error))

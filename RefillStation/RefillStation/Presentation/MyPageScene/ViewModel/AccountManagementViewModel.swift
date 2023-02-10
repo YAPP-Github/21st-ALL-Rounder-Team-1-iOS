@@ -25,7 +25,6 @@ final class AccountManagementViewModel {
         signOutUseCase.execute(completion: { result in
             switch result {
             case .success:
-                _ = KeychainManager.shared.deleteItem(key: "token")
                 self.presentToLogin?()
             case .failure(let failure):
                 return
@@ -37,7 +36,6 @@ final class AccountManagementViewModel {
         withdrawTask = withdrawUseCase.execute(completion: { result in
             switch result {
             case .success:
-                _ = KeychainManager.shared.deleteItem(key: "token")
                 self.presentToLogin?()
             case .failure(let failure):
                 return
