@@ -84,6 +84,8 @@
 		32CCC0D7297939C800C04231 /* StoreDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CCC0D6297939C800C04231 /* StoreDetailCoordinator.swift */; };
 		32CCC0D929793EDE00C04231 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CCC0D829793EDE00C04231 /* MainTabBarController.swift */; };
 		32D63DF8298BE993009067BA /* UserLevelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D63DF7298BE993009067BA /* UserLevelViewModel.swift */; };
+		32DB354A29966F3000F699F4 /* WithdrawDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB354929966F3000F699F4 /* WithdrawDTO.swift */; };
+		32DB354C2996739B00F699F4 /* RandomNicknameDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB354B2996739B00F699F4 /* RandomNicknameDTO.swift */; };
 		32DB626429816605008C2522 /* FetchUserInfoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626329816605008C2522 /* FetchUserInfoUseCase.swift */; };
 		32DB626C29816849008C2522 /* SignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626B29816849008C2522 /* SignUpUseCase.swift */; };
 		32DB626E2981689C008C2522 /* WithdrawUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626D2981689C008C2522 /* WithdrawUseCase.swift */; };
@@ -259,6 +261,8 @@
 		32CCC0D6297939C800C04231 /* StoreDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailCoordinator.swift; sourceTree = "<group>"; };
 		32CCC0D829793EDE00C04231 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		32D63DF7298BE993009067BA /* UserLevelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLevelViewModel.swift; sourceTree = "<group>"; };
+		32DB354929966F3000F699F4 /* WithdrawDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawDTO.swift; sourceTree = "<group>"; };
+		32DB354B2996739B00F699F4 /* RandomNicknameDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNicknameDTO.swift; sourceTree = "<group>"; };
 		32DB626329816605008C2522 /* FetchUserInfoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserInfoUseCase.swift; sourceTree = "<group>"; };
 		32DB626B29816849008C2522 /* SignUpUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUseCase.swift; sourceTree = "<group>"; };
 		32DB626D2981689C008C2522 /* WithdrawUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawUseCase.swift; sourceTree = "<group>"; };
@@ -704,6 +708,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		32DB354D2996744100F699F4 /* CustomerSatisfaction */ = {
+			isa = PBXGroup;
+			children = (
+				32B792322993A54D001145B0 /* CustomerSatisfactionDTO.swift */,
+			);
+			path = CustomerSatisfaction;
+			sourceTree = "<group>";
+		};
 		32DDE66029866CCE008AFDB2 /* LoginScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -728,7 +740,7 @@
 				32E6AE42298E7EDB005AA542 /* Store */,
 				32B7922E29933690001145B0 /* User */,
 				32B7922F29933699001145B0 /* Review */,
-				32B792322993A54D001145B0 /* CustomerSatisfactionDTO.swift */,
+				32DB354D2996744100F699F4 /* CustomerSatisfaction */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -925,6 +937,8 @@
 			children = (
 				FCB00876298E86AC0006FF53 /* LoginDTO.swift */,
 				FCB0088629914ECC0006FF53 /* SignUpDTO.swift */,
+				32DB354929966F3000F699F4 /* WithdrawDTO.swift */,
+				32DB354B2996739B00F699F4 /* RandomNicknameDTO.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1298,6 +1312,7 @@
 				3240987429602B2C00911306 /* ProductCategoryCollectionViewCell.swift in Sources */,
 				FCE00A79294C919A00B5C05F /* FetchStoreReviewsUseCase.swift in Sources */,
 				FCE00AA029517E6E00B5C05F /* NetworkService.swift in Sources */,
+				32DB354A29966F3000F699F4 /* WithdrawDTO.swift in Sources */,
 				32DDE65F29866CCB008AFDB2 /* LoginViewController.swift in Sources */,
 				32F2D9D529518F5900131EB1 /* ProductCell.swift in Sources */,
 				FC60D8412962C36F00C676A6 /* RegisterReviewViewController.swift in Sources */,
@@ -1392,6 +1407,7 @@
 				322E15E8297A0CD700FE2E2F /* RegisterReviewDIContainer.swift in Sources */,
 				32DFDAE32976C93500B6EDA3 /* DetailPhotoReviewViewController.swift in Sources */,
 				32DB627229816943008C2522 /* EditProfileUseCase.swift in Sources */,
+				32DB354C2996739B00F699F4 /* RandomNicknameDTO.swift in Sources */,
 				FC47394729376BA500DB9BDB /* HomeViewModel.swift in Sources */,
 				FCBB8F7F297D2EED009287EF /* NicknameViewModel.swift in Sources */,
 				32DB6270298168C4008C2522 /* ValidNicknameUseCase.swift in Sources */,
