@@ -52,16 +52,16 @@ final class NetworkService: NetworkServiceInterface {
                 completion(.failure(NetworkError.sessionError))
                 return
             }
-
+            print("🌐 request: \(String(describing: request.url))")
             guard let httpResponse = response as? HTTPURLResponse,
                   200...299 ~= httpResponse.statusCode else {
                 guard let data = data, let exception = try? JSONDecoder().decode(Exception.self, from: data) else {
                     completion(.failure(NetworkError.exceptionPareFailed))
+                    print("🚨 data: " + (String(data: data!, encoding: .utf8) ?? ""))
                     return
                 }
                 completion(.failure(NetworkError.exception(errorMessage: exception.message)))
-                print("request: \(String(describing: request.url))")
-                print("status: \(exception.status) \n message: \(exception.message)")
+                print("🚨 status: \(exception.status) \n message: \(exception.message)")
                 return
             }
 
@@ -70,7 +70,7 @@ final class NetworkService: NetworkServiceInterface {
                 completion(.failure(NetworkError.jsonParseFailed))
                 return
             }
-
+            print("✅ status: \(httpResponse.statusCode)")
             completion(.success(dto))
         }
 
