@@ -52,7 +52,7 @@ final class NetworkService: NetworkServiceInterface {
                 completion(.failure(NetworkError.sessionError))
                 return
             }
-            print("🌐 request: \(String(describing: request.url))")
+            print("🌐 request: " + String(request.url?.absoluteString ?? ""))
             guard let httpResponse = response as? HTTPURLResponse,
                   200...299 ~= httpResponse.statusCode else {
                 guard let data = data, let exception = try? JSONDecoder().decode(Exception.self, from: data) else {
