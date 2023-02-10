@@ -88,6 +88,8 @@
 		32DB354C2996739B00F699F4 /* RandomNicknameDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB354B2996739B00F699F4 /* RandomNicknameDTO.swift */; };
 		32DB35512996977F00F699F4 /* AsyncStoreRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB35502996977F00F699F4 /* AsyncStoreRepositoryInterface.swift */; };
 		32DB35532996982300F699F4 /* AsyncStoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB35522996982300F699F4 /* AsyncStoreRepository.swift */; };
+		32DB35572996A5C000F699F4 /* AsyncAccountRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB35562996A5C000F699F4 /* AsyncAccountRepositoryInterface.swift */; };
+		32DB35592996A62900F699F4 /* AsyncAccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB35582996A62900F699F4 /* AsyncAccountRepository.swift */; };
 		32DB626429816605008C2522 /* FetchUserInfoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626329816605008C2522 /* FetchUserInfoUseCase.swift */; };
 		32DB626C29816849008C2522 /* SignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626B29816849008C2522 /* SignUpUseCase.swift */; };
 		32DB626E2981689C008C2522 /* WithdrawUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626D2981689C008C2522 /* WithdrawUseCase.swift */; };
@@ -269,6 +271,8 @@
 		32DB354B2996739B00F699F4 /* RandomNicknameDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNicknameDTO.swift; sourceTree = "<group>"; };
 		32DB35502996977F00F699F4 /* AsyncStoreRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncStoreRepositoryInterface.swift; sourceTree = "<group>"; };
 		32DB35522996982300F699F4 /* AsyncStoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncStoreRepository.swift; sourceTree = "<group>"; };
+		32DB35562996A5C000F699F4 /* AsyncAccountRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncAccountRepositoryInterface.swift; sourceTree = "<group>"; };
+		32DB35582996A62900F699F4 /* AsyncAccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncAccountRepository.swift; sourceTree = "<group>"; };
 		32DB626329816605008C2522 /* FetchUserInfoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserInfoUseCase.swift; sourceTree = "<group>"; };
 		32DB626B29816849008C2522 /* SignUpUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUseCase.swift; sourceTree = "<group>"; };
 		32DB626D2981689C008C2522 /* WithdrawUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawUseCase.swift; sourceTree = "<group>"; };
@@ -1057,6 +1061,7 @@
 				320B83412992780700B58973 /* RegisterReviewRepository.swift */,
 				32B792302993A51C001145B0 /* CustomerSatisfactionRepository.swift */,
 				32DB35522996982300F699F4 /* AsyncStoreRepository.swift */,
+				32DB35582996A62900F699F4 /* AsyncAccountRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1073,6 +1078,7 @@
 			isa = PBXGroup;
 			children = (
 				32A0F4FE2981754B00A04ECC /* AccountRepositoryInterface.swift */,
+				32DB35562996A5C000F699F4 /* AsyncAccountRepositoryInterface.swift */,
 				327524DC2987829F00E033A9 /* CustomerSatisfactionRepositoryInterface.swift */,
 				32A0F50429817B1600A04ECC /* UserInfoRepositoryInterface.swift */,
 				32A0F50629817E1B00A04ECC /* StoreRepositoryInterface.swift */,
@@ -1349,6 +1355,7 @@
 				32DB626429816605008C2522 /* FetchUserInfoUseCase.swift in Sources */,
 				3240987429602B2C00911306 /* ProductCategoryCollectionViewCell.swift in Sources */,
 				FCE00A79294C919A00B5C05F /* FetchStoreReviewsUseCase.swift in Sources */,
+				32DB35572996A5C000F699F4 /* AsyncAccountRepositoryInterface.swift in Sources */,
 				FCE00AA029517E6E00B5C05F /* NetworkService.swift in Sources */,
 				32DB354A29966F3000F699F4 /* WithdrawDTO.swift in Sources */,
 				32DDE65F29866CCB008AFDB2 /* LoginViewController.swift in Sources */,
@@ -1405,6 +1412,7 @@
 				322E15EA297A0CE100FE2E2F /* RegisterReviewCoordinator.swift in Sources */,
 				FC60D8372962C36F00C676A6 /* DefaultTagReviewViewModel.swift in Sources */,
 				FCD9721A298C462900E27792 /* LocationPermissionViewController.swift in Sources */,
+				32DB35592996A62900F699F4 /* AsyncAccountRepository.swift in Sources */,
 				FCB00877298E86AC0006FF53 /* LoginDTO.swift in Sources */,
 				FCE00A75294C917B00B5C05F /* FetchProductsUseCase.swift in Sources */,
 				32E6AE3C298E7C67005AA542 /* StoreRecommendDTO.swift in Sources */,
