@@ -40,10 +40,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     static func setUpNavigationBar() {
         let appearance = UINavigationBarAppearance()
+        let backButtonImage: UIImage? = {
+            return Asset.Images.iconArrowLeft.image.withAlignmentRectInsets(
+                UIEdgeInsets(top: 0.0, left: -8.0, bottom: 0, right: 0.0)
+            )
+        }()
         appearance.configureWithTransparentBackground()
         appearance.backgroundColor = .clear
         appearance.shadowColor = Asset.Colors.gray2.color
-        appearance.setBackIndicatorImage(Asset.Images.iconArrowLeft.image,
+        appearance.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
