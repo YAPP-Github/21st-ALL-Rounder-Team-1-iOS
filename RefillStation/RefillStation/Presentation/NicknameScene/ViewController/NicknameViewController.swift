@@ -40,8 +40,10 @@ final class NicknameViewController: UIViewController {
 
     // MARK: - My page Components
 
-    private let profileView: UIView = {
+    private lazy var profileView: UIView = {
         let view = UIView()
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                         action: #selector(didTapProfileImageEditButton)))
         return view
     }()
     private let profileImageView: UIImageView = {
@@ -114,6 +116,7 @@ final class NicknameViewController: UIViewController {
     init(viewModel: NicknameViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.hidesBottomBarWhenPushed = true
     }
 
     required init?(coder: NSCoder) {
@@ -134,12 +137,10 @@ final class NicknameViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         setUpNavigationBar()
-        tabBarController?.tabBar.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
-        tabBarController?.tabBar.isHidden = false
     }
 
     // MARK: - Methods
@@ -168,6 +169,7 @@ final class NicknameViewController: UIViewController {
     private func setUpNavigationBar() {
         self.navigationController?.navigationBar.topItem?.title = ""
         self.navigationController?.navigationBar.tintColor = Asset.Colors.gray7.color
+        self.title = "프로필 수정"
     }
 
     private func setUpView() {
@@ -176,7 +178,6 @@ final class NicknameViewController: UIViewController {
             confirmButton.setTitle("다음", for: .normal)
             confirmButton.isEnabled = true
         case .myPage:
-            title = "프로필 수정"
             nicknameTextField.text = viewModel.userNickname
             confirmButton.setTitle("완료", for: .normal)
             confirmButton.isEnabled = false
@@ -243,7 +244,7 @@ final class NicknameViewController: UIViewController {
         nicknameTextField.layer.borderColor = state.borderColor
         descriptionLabel.textColor = state.textColor
         switch state {
-        case .empty, .overTenCharacters, .underTwoCharacters:
+        case .empty, .overTwentyCharacters, .underTwoCharacters:
             setCheckDuplicateNicnameButtonState(isEnabled: false)
         case .correct:
             setCheckDuplicateNicnameButtonState(isEnabled: viewModel.userNickname != nicknameTextField.text)

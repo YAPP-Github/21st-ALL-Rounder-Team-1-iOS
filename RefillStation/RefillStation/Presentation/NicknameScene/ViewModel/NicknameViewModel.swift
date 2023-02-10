@@ -45,8 +45,8 @@ final class NicknameViewModel {
             return .empty
         } else if count < 2 {
             return .underTwoCharacters
-        } else if count > 10 {
-            return .overTenCharacters
+        } else if count > 20 {
+            return .overTwentyCharacters
         } else {
             return .correct
         }
@@ -60,7 +60,7 @@ final class NicknameViewModel {
     }
 
     func confirmButtonDidTapped(nickname: String?,
-                     profileImage: UIImage?) {
+                                profileImage: UIImage?) {
         editProfileTask = editProfileUseCase.execute(
             requestValue: EditProfileRequestValue(nickname: nickname ?? "",
                                                   rating: user.level.level.rawValue,
@@ -122,7 +122,7 @@ extension NicknameViewModel {
     enum NicknameState {
         case empty
         case underTwoCharacters
-        case overTenCharacters
+        case overTwentyCharacters
         case correct
 
         var description: String {
@@ -131,8 +131,8 @@ extension NicknameViewModel {
                 return "닉네임을 입력해주세요"
             case .underTwoCharacters:
                 return "닉네임은 2자 이상 입력해주세요"
-            case .overTenCharacters:
-                return "닉네임은 10자 이하로 입력해주세요"
+            case .overTwentyCharacters:
+                return "닉네임은 20자 이하로 입력해주세요"
             case .correct:
                 return ""
             }
@@ -141,7 +141,7 @@ extension NicknameViewModel {
             switch self {
             case .empty:
                 return Asset.Colors.gray4.color.cgColor
-            case .underTwoCharacters, .overTenCharacters:
+            case .underTwoCharacters, .overTwentyCharacters:
                 return Asset.Colors.error.color.cgColor
             case .correct:
                 return Asset.Colors.gray4.color.cgColor
@@ -151,7 +151,7 @@ extension NicknameViewModel {
             switch self {
             case .empty:
                 return Asset.Colors.gray3.color
-            case .underTwoCharacters, .overTenCharacters:
+            case .underTwoCharacters, .overTwentyCharacters:
                 return Asset.Colors.error.color
             case .correct:
                 return .clear

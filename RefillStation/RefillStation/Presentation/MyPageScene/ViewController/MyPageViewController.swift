@@ -65,7 +65,7 @@ final class MyPageViewController: UIViewController {
     private lazy var termsAndConditionsCell = listCell(title: TermsType.serviceTerms.title)
     private lazy var locationTermsCell = listCell(title: TermsType.location.title)
     private lazy var personalInfoPolicyCell = listCell(title: TermsType.privacyPolicy.title)
-    private lazy var versionCell = listCell(title: "버전", version: "V 1.0.9")
+    private lazy var versionCell = listCell(title: "버전", version: viewModel.appVersion())
 
     private let listStackView: UIStackView = {
         let stackView = UIStackView()

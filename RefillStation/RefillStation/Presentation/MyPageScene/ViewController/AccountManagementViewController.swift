@@ -42,6 +42,7 @@ final class AccountManagementViewController: UIViewController {
     init(viewModel: AccountManagementViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.hidesBottomBarWhenPushed = true
     }
 
     required init?(coder: NSCoder) {
@@ -50,21 +51,24 @@ final class AccountManagementViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "계정 관리"
+        view.backgroundColor = .white
         bind()
         layout()
         setUpButton()
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        tabBarController?.tabBar.isHidden = true
-        navigationController?.navigationBar.topItem?.title = ""
-        navigationController?.navigationBar.tintColor = Asset.Colors.gray7.color
+        setUpNavigationBar()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
-        tabBarController?.tabBar.isHidden = false
+    }
+
+    private func setUpNavigationBar() {
+        navigationController?.navigationBar.topItem?.title = ""
+        navigationController?.navigationBar.tintColor = Asset.Colors.gray7.color
+        title = "계정 관리"
     }
 
     private func bind() {
