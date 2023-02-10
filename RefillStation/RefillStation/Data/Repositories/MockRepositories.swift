@@ -7,13 +7,6 @@
 
 import UIKit
 
-final class MockUploadImageRepository: UploadImageRepositoryInterface {
-    func uploadImage(images: [UIImage], completion: @escaping (Result<[String], Error>) -> Void) -> Cancellable? {
-        let dummyStrings = Array.init(repeating: "", count: images.count)
-        return MockTask { completion(.success(dummyStrings)) }
-    }
-}
-
 final class MockAccountRepository: AccountRepositoryInterface {
     func OAuthLogin(loginType: OAuthType,
                     requestValue: OAuthLoginRequestValue,
