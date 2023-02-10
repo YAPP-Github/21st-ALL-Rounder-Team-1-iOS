@@ -196,7 +196,7 @@ final class NicknameViewController: UIViewController {
         }
         confirmButton.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-6)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(18)
             $0.height.equalTo(50)
         }
 
