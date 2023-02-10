@@ -116,6 +116,7 @@ extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
 
 extension OnboardingViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if onboardingCollectionView.frame.width == 0 { return }
         let width = scrollView.bounds.size.width
         let x = scrollView.contentOffset.x + (width/2)
         let newPage = Int(x/width)
