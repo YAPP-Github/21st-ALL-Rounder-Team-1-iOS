@@ -51,6 +51,8 @@
 		325985F9294C54CB00D26A37 /* StoreDetailDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325985F8294C54CB00D26A37 /* StoreDetailDIContainer.swift */; };
 		3269F6D82996AC3100AAD8A9 /* AsyncCustomerSatisfactionRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3269F6D72996AC3100AAD8A9 /* AsyncCustomerSatisfactionRepositoryInterface.swift */; };
 		3269F6DA2996AC6600AAD8A9 /* AsyncCustomerSatisfactionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3269F6D92996AC6600AAD8A9 /* AsyncCustomerSatisfactionRepository.swift */; };
+		3269F6DC2996AD8D00AAD8A9 /* AsyncRegisterReviewRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3269F6DB2996AD8D00AAD8A9 /* AsyncRegisterReviewRepositoryInterface.swift */; };
+		3269F6DE2996ADA700AAD8A9 /* AsyncRegisterReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3269F6DD2996ADA700AAD8A9 /* AsyncRegisterReviewRepository.swift */; };
 		327524DD2987829F00E033A9 /* CustomerSatisfactionRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327524DC2987829F00E033A9 /* CustomerSatisfactionRepositoryInterface.swift */; };
 		3282FED32992391C00DBFE24 /* AWSAccessKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3282FED22992391C00DBFE24 /* AWSAccessKey.plist */; };
 		329557462951992900F5AB53 /* StoreDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F2D9B22951864700131EB1 /* StoreDetailViewModel.swift */; };
@@ -244,6 +246,8 @@
 		325985F8294C54CB00D26A37 /* StoreDetailDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailDIContainer.swift; sourceTree = "<group>"; };
 		3269F6D72996AC3100AAD8A9 /* AsyncCustomerSatisfactionRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncCustomerSatisfactionRepositoryInterface.swift; sourceTree = "<group>"; };
 		3269F6D92996AC6600AAD8A9 /* AsyncCustomerSatisfactionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncCustomerSatisfactionRepository.swift; sourceTree = "<group>"; };
+		3269F6DB2996AD8D00AAD8A9 /* AsyncRegisterReviewRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncRegisterReviewRepositoryInterface.swift; sourceTree = "<group>"; };
+		3269F6DD2996ADA700AAD8A9 /* AsyncRegisterReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncRegisterReviewRepository.swift; sourceTree = "<group>"; };
 		327524DC2987829F00E033A9 /* CustomerSatisfactionRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSatisfactionRepositoryInterface.swift; sourceTree = "<group>"; };
 		3282FED22992391C00DBFE24 /* AWSAccessKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AWSAccessKey.plist; sourceTree = "<group>"; };
 		3299C8912994B3F90086837F /* UILabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
@@ -1072,6 +1076,7 @@
 				32DB35582996A62900F699F4 /* AsyncAccountRepository.swift */,
 				32DB355C2996A84900F699F4 /* AsyncUserInfoRepository.swift */,
 				3269F6D92996AC6600AAD8A9 /* AsyncCustomerSatisfactionRepository.swift */,
+				3269F6DD2996ADA700AAD8A9 /* AsyncRegisterReviewRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1096,6 +1101,7 @@
 				32A0F50629817E1B00A04ECC /* StoreRepositoryInterface.swift */,
 				32DB35502996977F00F699F4 /* AsyncStoreRepositoryInterface.swift */,
 				FCE00A95294C966C00B5C05F /* RegisterReviewRepositoryInterface.swift */,
+				3269F6DB2996AD8D00AAD8A9 /* AsyncRegisterReviewRepositoryInterface.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1461,8 +1467,10 @@
 				32A0F50529817B1600A04ECC /* UserInfoRepositoryInterface.swift in Sources */,
 				3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */,
 				3240987029602A7400911306 /* ProductCategory.swift in Sources */,
+				3269F6DE2996ADA700AAD8A9 /* AsyncRegisterReviewRepository.swift in Sources */,
 				FCE00A96294C966C00B5C05F /* RegisterReviewRepositoryInterface.swift in Sources */,
 				32DB626E2981689C008C2522 /* WithdrawUseCase.swift in Sources */,
+				3269F6DC2996AD8D00AAD8A9 /* AsyncRegisterReviewRepositoryInterface.swift in Sources */,
 				FC84FAC9293B640300428AAA /* RequestRegionViewController.swift in Sources */,
 				322982EE29907CC20081B288 /* URLComponentsExtension.swift in Sources */,
 				32A0F4F12981707100A04ECC /* SignOutUseCase.swift in Sources */,
