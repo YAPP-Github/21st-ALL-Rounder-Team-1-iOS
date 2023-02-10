@@ -12,7 +12,15 @@ protocol SignOutUseCaseInterface {
 }
 
 final class SignOutUseCase: SignOutUseCaseInterface {
+    private let accountRepository: AccountRepositoryInterface
+
+    init(accountRepository: AccountRepositoryInterface = MockAccountRepository()) {
+        self.accountRepository = accountRepository
+    }
+
     func execute(completion: @escaping (Result<Void, Error>) -> Void) {
-        completion(.success(()))
+        accountRepository.signOut { result in
+            completion(result)
+        }
     }
 }

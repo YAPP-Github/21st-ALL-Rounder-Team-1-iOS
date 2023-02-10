@@ -70,6 +70,8 @@
 		32A0F50729817E1B00A04ECC /* StoreRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F50629817E1B00A04ECC /* StoreRepositoryInterface.swift */; };
 		32B7922B29932CA3001145B0 /* EditUserRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7922A29932CA3001145B0 /* EditUserRequestDTO.swift */; };
 		32B7922D2993340C001145B0 /* ImageUploadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7922C2993340C001145B0 /* ImageUploadTask.swift */; };
+		32B792312993A51C001145B0 /* CustomerSatisfactionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B792302993A51C001145B0 /* CustomerSatisfactionRepository.swift */; };
+		32B792332993A54D001145B0 /* CustomerSatisfactionDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B792322993A54D001145B0 /* CustomerSatisfactionDTO.swift */; };
 		32C17B12299203DB002D607E /* AWSCore in Frameworks */ = {isa = PBXBuildFile; productRef = 32C17B11299203DB002D607E /* AWSCore */; };
 		32C17B14299203DB002D607E /* AWSS3 in Frameworks */ = {isa = PBXBuildFile; productRef = 32C17B13299203DB002D607E /* AWSS3 */; };
 		32C22965297D35BA0019EAF6 /* PumpPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C22964297D35BA0019EAF6 /* PumpPopUpViewController.swift */; };
@@ -83,6 +85,8 @@
 		32CCC0D7297939C800C04231 /* StoreDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CCC0D6297939C800C04231 /* StoreDetailCoordinator.swift */; };
 		32CCC0D929793EDE00C04231 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CCC0D829793EDE00C04231 /* MainTabBarController.swift */; };
 		32D63DF8298BE993009067BA /* UserLevelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D63DF7298BE993009067BA /* UserLevelViewModel.swift */; };
+		32DB354A29966F3000F699F4 /* WithdrawDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB354929966F3000F699F4 /* WithdrawDTO.swift */; };
+		32DB354C2996739B00F699F4 /* RandomNicknameDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB354B2996739B00F699F4 /* RandomNicknameDTO.swift */; };
 		32DB626429816605008C2522 /* FetchUserInfoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626329816605008C2522 /* FetchUserInfoUseCase.swift */; };
 		32DB626C29816849008C2522 /* SignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626B29816849008C2522 /* SignUpUseCase.swift */; };
 		32DB626E2981689C008C2522 /* WithdrawUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626D2981689C008C2522 /* WithdrawUseCase.swift */; };
@@ -251,6 +255,8 @@
 		32A0F50629817E1B00A04ECC /* StoreRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRepositoryInterface.swift; sourceTree = "<group>"; };
 		32B7922A29932CA3001145B0 /* EditUserRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserRequestDTO.swift; sourceTree = "<group>"; };
 		32B7922C2993340C001145B0 /* ImageUploadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadTask.swift; sourceTree = "<group>"; };
+		32B792302993A51C001145B0 /* CustomerSatisfactionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSatisfactionRepository.swift; sourceTree = "<group>"; };
+		32B792322993A54D001145B0 /* CustomerSatisfactionDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSatisfactionDTO.swift; sourceTree = "<group>"; };
 		32C22964297D35BA0019EAF6 /* PumpPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpPopUpViewController.swift; sourceTree = "<group>"; };
 		32C22966297E785C0019EAF6 /* ReviewReportPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewReportPopUpViewController.swift; sourceTree = "<group>"; };
 		32C865F22992505100911A49 /* UserInfoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoRepository.swift; sourceTree = "<group>"; };
@@ -260,6 +266,8 @@
 		32CCC0D6297939C800C04231 /* StoreDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailCoordinator.swift; sourceTree = "<group>"; };
 		32CCC0D829793EDE00C04231 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		32D63DF7298BE993009067BA /* UserLevelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLevelViewModel.swift; sourceTree = "<group>"; };
+		32DB354929966F3000F699F4 /* WithdrawDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawDTO.swift; sourceTree = "<group>"; };
+		32DB354B2996739B00F699F4 /* RandomNicknameDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNicknameDTO.swift; sourceTree = "<group>"; };
 		32DB626329816605008C2522 /* FetchUserInfoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserInfoUseCase.swift; sourceTree = "<group>"; };
 		32DB626B29816849008C2522 /* SignUpUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUseCase.swift; sourceTree = "<group>"; };
 		32DB626D2981689C008C2522 /* WithdrawUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawUseCase.swift; sourceTree = "<group>"; };
@@ -716,6 +724,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		32DB354D2996744100F699F4 /* CustomerSatisfaction */ = {
+			isa = PBXGroup;
+			children = (
+				32B792322993A54D001145B0 /* CustomerSatisfactionDTO.swift */,
+			);
+			path = CustomerSatisfaction;
+			sourceTree = "<group>";
+		};
 		32DDE66029866CCE008AFDB2 /* LoginScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -740,6 +756,7 @@
 				32E6AE42298E7EDB005AA542 /* Store */,
 				32B7922E29933690001145B0 /* User */,
 				32B7922F29933699001145B0 /* Review */,
+				32DB354D2996744100F699F4 /* CustomerSatisfaction */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -962,6 +979,8 @@
 			children = (
 				FCB00876298E86AC0006FF53 /* LoginDTO.swift */,
 				FCB0088629914ECC0006FF53 /* SignUpDTO.swift */,
+				32DB354929966F3000F699F4 /* WithdrawDTO.swift */,
+				32DB354B2996739B00F699F4 /* RandomNicknameDTO.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1045,6 +1064,7 @@
 				32C865F22992505100911A49 /* UserInfoRepository.swift */,
 				FCB0087C298FD1960006FF53 /* AccountRepository.swift */,
 				320B83412992780700B58973 /* RegisterReviewRepository.swift */,
+				32B792302993A51C001145B0 /* CustomerSatisfactionRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1338,6 +1358,7 @@
 				3240987429602B2C00911306 /* ProductCategoryCollectionViewCell.swift in Sources */,
 				FCE00A79294C919A00B5C05F /* FetchStoreReviewsUseCase.swift in Sources */,
 				FCE00AA029517E6E00B5C05F /* NetworkService.swift in Sources */,
+				32DB354A29966F3000F699F4 /* WithdrawDTO.swift in Sources */,
 				32DDE65F29866CCB008AFDB2 /* LoginViewController.swift in Sources */,
 				32F2D9D529518F5900131EB1 /* ProductCell.swift in Sources */,
 				FC60D8412962C36F00C676A6 /* RegisterReviewViewController.swift in Sources */,
@@ -1408,6 +1429,7 @@
 				FCE00A7F294C91B600B5C05F /* UploadImageUseCase.swift in Sources */,
 				FC94151C298692C3009AEE71 /* TermsDetailViewController.swift in Sources */,
 				32E6AE46298E80CD005AA542 /* ReviewDTO.swift in Sources */,
+				32B792332993A54D001145B0 /* CustomerSatisfactionDTO.swift in Sources */,
 				FCB008842990F61E0006FF53 /* LocationPermissionViewModel.swift in Sources */,
 				FC90448C2965E2E500B43BB9 /* PumpTagView.swift in Sources */,
 				3244A1FC292DC13A00716A2B /* AppDelegate.swift in Sources */,
@@ -1432,6 +1454,7 @@
 				322E15E8297A0CD700FE2E2F /* RegisterReviewDIContainer.swift in Sources */,
 				32DFDAE32976C93500B6EDA3 /* DetailPhotoReviewViewController.swift in Sources */,
 				32DB627229816943008C2522 /* EditProfileUseCase.swift in Sources */,
+				32DB354C2996739B00F699F4 /* RandomNicknameDTO.swift in Sources */,
 				FC47394729376BA500DB9BDB /* HomeViewModel.swift in Sources */,
 				FCBB8F7F297D2EED009287EF /* NicknameViewModel.swift in Sources */,
 				32DB6270298168C4008C2522 /* ValidNicknameUseCase.swift in Sources */,
@@ -1443,6 +1466,7 @@
 				3210B529298F7FF10034CBA7 /* StoreRepository.swift in Sources */,
 				FCE00A6A294C5B3400B5C05F /* TagResponseStorage.swift in Sources */,
 				32CCC0D7297939C800C04231 /* StoreDetailCoordinator.swift in Sources */,
+				32B792312993A51C001145B0 /* CustomerSatisfactionRepository.swift in Sources */,
 				FC083C482992B4A4002DD943 /* AccountManagementViewController.swift in Sources */,
 				329E80272977FA72004286B0 /* OnboardingViewController.swift in Sources */,
 				FC60D83C2962C36F00C676A6 /* ReviewDescriptionCell.swift in Sources */,

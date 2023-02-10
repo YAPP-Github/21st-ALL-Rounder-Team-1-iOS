@@ -13,6 +13,7 @@ protocol AccountRepositoryInterface {
                     completion: @escaping (Result<OAuthLoginResponseValue, Error>) -> Void) -> Cancellable?
     func signUp(requestValue: SignUpRequestValue,
                 completion: @escaping (Result<String, Error>) -> Void) -> Cancellable?
+    func signOut(completion: @escaping (Result<Void, Error>) -> Void)
     func withdraw(completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable?
     func createNickname(completion: @escaping (Result<String, Error>) -> Void) -> Cancellable?
 }

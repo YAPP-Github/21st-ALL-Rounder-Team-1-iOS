@@ -9,6 +9,10 @@ import Foundation
 
 final class KeychainManager {
 
+    enum KeychainError: Error {
+      case noData
+    }
+
     static let shared = KeychainManager()
 
     private init() {}
@@ -57,7 +61,7 @@ final class KeychainManager {
         return nil
     }
 
-    func updateItem( key: Any, value: Any) -> Bool {
+    func updateItem(key: Any, value: Any) -> Bool {
         let prevQuery: [CFString: Any] = [kSecClass: kSecClassGenericPassword,
                                               kSecAttrAccount: key]
         let updateQuery: [CFString: Any] = [
@@ -83,5 +87,13 @@ final class KeychainManager {
 
         print("deleteItem Error : \(status.description)")
         return false
+    }
+
+    func deleteUserToken() -> Result<Void, Error> {
+        let deleteQuery: [CFString: Any] = [kSecClass: kSecClassGenericPassword,
+                                            kSecAttrAccount: "token"]
+        let status = SecItemDelete(deleteQuery as CFDictionary)
+        if status == errSecSuccess { return .success(()) }
+        return .failure(KeychainError.noData)
     }
 }

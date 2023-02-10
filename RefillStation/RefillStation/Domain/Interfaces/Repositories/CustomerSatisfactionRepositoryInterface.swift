@@ -8,5 +8,5 @@
 import Foundation
 
 protocol CustomerSatisfactionRepositoryInterface {
-    func upload(type: CustomerSatisfactionType, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable?
+    func upload(requestValue: CustomerSatisfactionRequestValue, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable?
 }

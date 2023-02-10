@@ -7,13 +7,19 @@
 
 import Foundation
 
-enum CustomerSatisfactionType {
-    case requestRegion
-    case reportUser
+enum CustomerSatisfactionType: Int {
+    case requestRegion = 1
+    case reportUser = 2
+}
+
+struct CustomerSatisfactionRequestValue {
+    let userId: Int
+    let content: String
+    let type: CustomerSatisfactionType
 }
 
 protocol CustomerSatisfactionUseCaseInterface {
-    func execute(type: CustomerSatisfactionType, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable?
+    func execute(requestValue: CustomerSatisfactionRequestValue, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable?
 }
 
 final class CustomerSatisfactionUseCase: CustomerSatisfactionUseCaseInterface {
@@ -23,8 +29,8 @@ final class CustomerSatisfactionUseCase: CustomerSatisfactionUseCaseInterface {
         self.customerSatisfactionRepository = customerSatisfactionRepository
     }
 
-    func execute(type: CustomerSatisfactionType, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
-        return customerSatisfactionRepository.upload(type: type) { result in
+    func execute(requestValue: CustomerSatisfactionRequestValue, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
+        return customerSatisfactionRepository.upload(requestValue: requestValue) { result in
             completion(result)
         }
     }
