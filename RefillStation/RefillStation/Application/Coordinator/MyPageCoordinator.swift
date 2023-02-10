@@ -28,26 +28,22 @@ final class MyPageCoordinator: Coordinator {
 
     func showLevelInfo() {
         let levelInfoViewController = DIContainer.makeUserLevelViewController()
-        levelInfoViewController.hidesBottomBarWhenPushed = true
         navigationController.pushViewController(levelInfoViewController, animated: true)
     }
 
     func showEditProfile(user: User) {
         let editViewContoller = DIContainer.makeEditProfileViewController(user: user)
-        editViewContoller.hidesBottomBarWhenPushed = true
         navigationController.pushViewController(editViewContoller, animated: true)
     }
 
     func showManagementAccount() {
         let accountManagementViewController = DIContainer.makeAccountManagementViewController()
-        accountManagementViewController.hidesBottomBarWhenPushed = true
         accountManagementViewController.coordinator = self
         navigationController.pushViewController(accountManagementViewController, animated: true)
     }
 
     func showTermsDetails(termsType: TermsType) {
         let termsDetailViewController = DIContainer.makeTermsDetailViewController(termsType: termsType)
-        termsDetailViewController.hidesBottomBarWhenPushed = true
         navigationController.pushViewController(termsDetailViewController, animated: true)
     }
 

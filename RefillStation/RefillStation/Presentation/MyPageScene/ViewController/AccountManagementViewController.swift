@@ -42,6 +42,7 @@ final class AccountManagementViewController: UIViewController {
     init(viewModel: AccountManagementViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.hidesBottomBarWhenPushed = true
     }
 
     required init?(coder: NSCoder) {

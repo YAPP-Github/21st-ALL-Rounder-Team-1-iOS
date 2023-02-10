@@ -116,6 +116,7 @@ final class NicknameViewController: UIViewController {
     init(viewModel: NicknameViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.hidesBottomBarWhenPushed = true
     }
 
     required init?(coder: NSCoder) {
