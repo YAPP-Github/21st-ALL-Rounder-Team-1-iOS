@@ -12,16 +12,20 @@ final class TabBarDIContainer: DIContainer {
     private let tabBarController = MainTabBarController()
     private let homeNavigationController: UINavigationController = {
         let navigationController = UINavigationController()
+        let image = Asset.Images.iconSearch.image.withRenderingMode(.alwaysTemplate)
+        let selectedImage = image.withTintColor(Asset.Colors.gray4.color)
         navigationController.tabBarItem = .init(title: "탐색",
-                                                image: UIImage(systemName: "magnifyingglass"),
-                                                selectedImage: UIImage(systemName: "magnifyingglass"))
+                                                image: image,
+                                                selectedImage: selectedImage)
         return navigationController
     }()
     private let myPageNaviagtionConroller: UINavigationController = {
         let navigationController = UINavigationController()
+        let image = Asset.Images.iconMy.image.withRenderingMode(.alwaysTemplate)
+        let selectedImage = image.withTintColor(Asset.Colors.gray4.color)
         navigationController.tabBarItem = .init(title: "마이",
-                                                image: UIImage(systemName: "person"),
-                                                selectedImage: UIImage(systemName: "person"))
+                                                image: image,
+                                                selectedImage: selectedImage)
         return navigationController
     }()
 
