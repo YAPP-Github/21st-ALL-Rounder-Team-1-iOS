@@ -9,7 +9,7 @@ import UIKit
 
 struct UserLevelInfo: Hashable {
     enum Level: Int, CaseIterable {
-        case regular
+        case regular = 1
         case beginner
         case prospect
         case fancier

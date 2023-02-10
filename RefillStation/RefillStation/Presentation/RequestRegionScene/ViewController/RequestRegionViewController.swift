@@ -133,7 +133,7 @@ final class RequestRegionViewController: UIViewController {
         requestButton.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(50)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(18)
         }
     }
     private func setUpRegionTextView() {

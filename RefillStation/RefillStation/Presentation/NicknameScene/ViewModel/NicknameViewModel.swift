@@ -8,14 +8,36 @@
 import UIKit
 
 final class NicknameViewModel {
+    private let editProfileUseCase: EditProfileUseCaseInterface
+    private let validNicknameUseCase: ValidNicknameUseCaseInterface
+    private var user: User
     let viewType: ViewType
-    var profileImage: String?
-    var randomNickname = "냥냥이에오123"
-    var userNickname = "kong"
-    var isVaild = true
 
-    init(viewType: ViewType) {
+    private var editProfileTask: Cancellable?
+    private var validNicknameTask: Cancellable?
+
+    var didEditComplete: (() -> Void)?
+    var isValidNickname: ((Bool) -> Void)?
+    var didImageChanged: Bool = false
+
+    var profileImage: String? {
+        return user.imageURL
+    }
+
+    var userNickname: String {
+        return user.name
+    }
+
+    var isDuplicated = false
+
+    init(viewType: ViewType,
+         user: User,
+         editProfileUseCase: EditProfileUseCaseInterface,
+         validNicknameUseCase: ValidNicknameUseCaseInterface) {
         self.viewType = viewType
+        self.user = user
+        self.editProfileUseCase = editProfileUseCase
+        self.validNicknameUseCase = validNicknameUseCase
     }
 
     func setNicknameState(count: Int) -> NicknameState {
@@ -23,8 +45,8 @@ final class NicknameViewModel {
             return .empty
         } else if count < 2 {
             return .underTwoCharacters
-        } else if count > 10 {
-            return .overTenCharacters
+        } else if count > 20 {
+            return .overTwentyCharacters
         } else {
             return .correct
         }
@@ -35,6 +57,41 @@ final class NicknameViewModel {
         let isBackSpace = strcmp(utf8Char, "\\b")
         if string.hasVaildCharacters() || isBackSpace == -92 { return true }
         return false
+    }
+
+    func confirmButtonDidTapped(nickname: String?,
+                                profileImage: UIImage?) {
+        editProfileTask = editProfileUseCase.execute(
+            requestValue: EditProfileRequestValue(nickname: nickname ?? "",
+                                                  rating: user.level.level.rawValue,
+                                                  newImage: profileImage,
+                                                  oldImagePath: user.imageURL,
+                                                  didImageChanged: didImageChanged)
+        ) { result in
+            switch result {
+            case .success(let user):
+                self.user = user
+                self.didEditComplete?()
+            case .failure(_):
+                return
+            }
+        }
+        editProfileTask?.resume()
+    }
+
+    func validNickname(requestValue: String) {
+        validNicknameTask = validNicknameUseCase.execute(
+            requestValue: ValidNicknameRequestValue(nickname: requestValue)
+        ) { result in
+            switch result {
+            case .success(let isDuplicated):
+                self.isDuplicated = isDuplicated
+                self.isValidNickname?(isDuplicated)
+            case .failure(_):
+                return
+            }
+        }
+        validNicknameTask?.resume()
     }
 }
 
@@ -65,7 +122,7 @@ extension NicknameViewModel {
     enum NicknameState {
         case empty
         case underTwoCharacters
-        case overTenCharacters
+        case overTwentyCharacters
         case correct
 
         var description: String {
@@ -74,8 +131,8 @@ extension NicknameViewModel {
                 return "닉네임을 입력해주세요"
             case .underTwoCharacters:
                 return "닉네임은 2자 이상 입력해주세요"
-            case .overTenCharacters:
-                return "닉네임은 10자 이하로 입력해주세요"
+            case .overTwentyCharacters:
+                return "닉네임은 20자 이하로 입력해주세요"
             case .correct:
                 return ""
             }
@@ -84,7 +141,7 @@ extension NicknameViewModel {
             switch self {
             case .empty:
                 return Asset.Colors.gray4.color.cgColor
-            case .underTwoCharacters, .overTenCharacters:
+            case .underTwoCharacters, .overTwentyCharacters:
                 return Asset.Colors.error.color.cgColor
             case .correct:
                 return Asset.Colors.gray4.color.cgColor
@@ -94,7 +151,7 @@ extension NicknameViewModel {
             switch self {
             case .empty:
                 return Asset.Colors.gray3.color
-            case .underTwoCharacters, .overTenCharacters:
+            case .underTwoCharacters, .overTwentyCharacters:
                 return Asset.Colors.error.color
             case .correct:
                 return .clear

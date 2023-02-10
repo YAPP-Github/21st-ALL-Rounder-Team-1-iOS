@@ -76,7 +76,7 @@ final class StoreDetailViewController: UIViewController {
 
     private func setUpNavigationBar() {
         let standardAppearance = UINavigationBarAppearance()
-        standardAppearance.configureWithTransparentBackground()
+        standardAppearance.configureWithDefaultBackground()
         standardAppearance.backgroundColor = .white
         standardAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         let scrollEdgeAppearance = UINavigationBarAppearance()
@@ -247,6 +247,7 @@ extension StoreDetailViewController: UICollectionViewDelegate {
             var currentSnapshot = storeDetailDataSource.snapshot()
             currentSnapshot.reloadItems([item])
             storeDetailDataSource.apply(currentSnapshot)
+            collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
         }
     }
 

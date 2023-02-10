@@ -17,12 +17,14 @@ final class TermsDetailViewController: UIViewController {
         textView.textColor = Asset.Colors.gray5.color
         textView.showsVerticalScrollIndicator = false
         textView.isEditable = false
+        textView.contentInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         return textView
     }()
 
     init(termsType: TermsType) {
         self.termsType = termsType
         super.init(nibName: nil, bundle: nil)
+        self.hidesBottomBarWhenPushed = true
     }
 
     required init?(coder: NSCoder) {
@@ -37,26 +39,22 @@ final class TermsDetailViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         setUpNavigationBar()
-        tabBarController?.tabBar.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
-        tabBarController?.tabBar.isHidden = false
     }
 
     private func layout() {
         view.addSubview(termsTextView)
         termsTextView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(24)
-            $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalToSuperview()
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
 
     private func setUpNavigationBar() {
-        self.title = termsType.title
         self.navigationController?.navigationBar.topItem?.title = ""
         self.navigationController?.navigationBar.tintColor = Asset.Colors.gray7.color
+        self.title = termsType.title
     }
 }

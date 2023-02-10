@@ -113,11 +113,7 @@ final class StoreDetailViewModel {
     }
 
     func reviewSeeMoreTapped(indexPath: IndexPath) {
-        if reviewSeeMoreIndexPaths.contains(indexPath) {
-            reviewSeeMoreIndexPaths.remove(indexPath)
-        } else {
-            reviewSeeMoreIndexPaths.insert(indexPath)
-        }
+        reviewSeeMoreIndexPaths.insert(indexPath)
     }
 
     func operationInfoSeeMoreTapped(indexPath: IndexPath) {
@@ -216,7 +212,9 @@ final class StoreDetailViewModel {
 
     private func setUpRankedTags() {
         let tags = reviews.lazy.flatMap { $0.tags }
-        totalTagVoteCount = tags.filter { $0 != .noKeywordToChoose }.count
+        totalTagVoteCount = reviews.filter {
+            $0.tags != [.noKeywordToChoose] && !$0.tags.isEmpty
+        }.count
         rankTags = Tag.allCases
             .filter { $0 != .noKeywordToChoose }
             .map { tag in

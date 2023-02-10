@@ -99,7 +99,7 @@ final class TermsPermissionViewController: UIViewController {
         confirmButton.snp.makeConstraints {
             $0.height.equalTo(50)
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(6)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(18)
         }
     }
 
