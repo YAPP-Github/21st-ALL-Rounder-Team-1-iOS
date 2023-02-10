@@ -90,6 +90,8 @@
 		32DB35532996982300F699F4 /* AsyncStoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB35522996982300F699F4 /* AsyncStoreRepository.swift */; };
 		32DB35572996A5C000F699F4 /* AsyncAccountRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB35562996A5C000F699F4 /* AsyncAccountRepositoryInterface.swift */; };
 		32DB35592996A62900F699F4 /* AsyncAccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB35582996A62900F699F4 /* AsyncAccountRepository.swift */; };
+		32DB355B2996A80600F699F4 /* AsyncUserInfoRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB355A2996A80600F699F4 /* AsyncUserInfoRepositoryInterface.swift */; };
+		32DB355E2996AB9A00F699F4 /* AsyncUserInfoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB355C2996A84900F699F4 /* AsyncUserInfoRepository.swift */; };
 		32DB626429816605008C2522 /* FetchUserInfoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626329816605008C2522 /* FetchUserInfoUseCase.swift */; };
 		32DB626C29816849008C2522 /* SignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626B29816849008C2522 /* SignUpUseCase.swift */; };
 		32DB626E2981689C008C2522 /* WithdrawUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626D2981689C008C2522 /* WithdrawUseCase.swift */; };
@@ -273,6 +275,8 @@
 		32DB35522996982300F699F4 /* AsyncStoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncStoreRepository.swift; sourceTree = "<group>"; };
 		32DB35562996A5C000F699F4 /* AsyncAccountRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncAccountRepositoryInterface.swift; sourceTree = "<group>"; };
 		32DB35582996A62900F699F4 /* AsyncAccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncAccountRepository.swift; sourceTree = "<group>"; };
+		32DB355A2996A80600F699F4 /* AsyncUserInfoRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncUserInfoRepositoryInterface.swift; sourceTree = "<group>"; };
+		32DB355C2996A84900F699F4 /* AsyncUserInfoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncUserInfoRepository.swift; sourceTree = "<group>"; };
 		32DB626329816605008C2522 /* FetchUserInfoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserInfoUseCase.swift; sourceTree = "<group>"; };
 		32DB626B29816849008C2522 /* SignUpUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUseCase.swift; sourceTree = "<group>"; };
 		32DB626D2981689C008C2522 /* WithdrawUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawUseCase.swift; sourceTree = "<group>"; };
@@ -1062,6 +1066,7 @@
 				32B792302993A51C001145B0 /* CustomerSatisfactionRepository.swift */,
 				32DB35522996982300F699F4 /* AsyncStoreRepository.swift */,
 				32DB35582996A62900F699F4 /* AsyncAccountRepository.swift */,
+				32DB355C2996A84900F699F4 /* AsyncUserInfoRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1081,6 +1086,7 @@
 				32DB35562996A5C000F699F4 /* AsyncAccountRepositoryInterface.swift */,
 				327524DC2987829F00E033A9 /* CustomerSatisfactionRepositoryInterface.swift */,
 				32A0F50429817B1600A04ECC /* UserInfoRepositoryInterface.swift */,
+				32DB355A2996A80600F699F4 /* AsyncUserInfoRepositoryInterface.swift */,
 				32A0F50629817E1B00A04ECC /* StoreRepositoryInterface.swift */,
 				32DB35502996977F00F699F4 /* AsyncStoreRepositoryInterface.swift */,
 				FCE00A95294C966C00B5C05F /* RegisterReviewRepositoryInterface.swift */,
@@ -1371,6 +1377,7 @@
 				FC60D8392962C36F00C676A6 /* ReviewPhotoDelegate.swift in Sources */,
 				327524DD2987829F00E033A9 /* CustomerSatisfactionRepositoryInterface.swift in Sources */,
 				325985E5294C51BA00D26A37 /* OnboardingDIContainer.swift in Sources */,
+				32DB355E2996AB9A00F699F4 /* AsyncUserInfoRepository.swift in Sources */,
 				329EF9132971F9AD004934E7 /* ReviewInfoCell.swift in Sources */,
 				FC94151A29867EEA009AEE71 /* TermsPermissionViewController.swift in Sources */,
 				320B83422992780700B58973 /* RegisterReviewRepository.swift in Sources */,
@@ -1452,6 +1459,7 @@
 				322982EE29907CC20081B288 /* URLComponentsExtension.swift in Sources */,
 				32A0F4F12981707100A04ECC /* SignOutUseCase.swift in Sources */,
 				322E15E8297A0CD700FE2E2F /* RegisterReviewDIContainer.swift in Sources */,
+				32DB355B2996A80600F699F4 /* AsyncUserInfoRepositoryInterface.swift in Sources */,
 				32DFDAE32976C93500B6EDA3 /* DetailPhotoReviewViewController.swift in Sources */,
 				32DB627229816943008C2522 /* EditProfileUseCase.swift in Sources */,
 				32DB354C2996739B00F699F4 /* RandomNicknameDTO.swift in Sources */,
