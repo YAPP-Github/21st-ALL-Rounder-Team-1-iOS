@@ -239,8 +239,8 @@ final class ReviewInfoCell: UICollectionViewCell {
 
         let label = UILabel()
         label.numberOfLines = 2
+        label.setText(text: "10명 이상 참여하면 \n 공개됩니다!", font: .bodyMediumOverTwoLine)
         label.textAlignment = .center
-        label.setText(text: "10명 이상 참여하시면 \n 공개됩니다!", font: .bodyMedium)
 
         let labelView = UIView()
         labelView.addSubview(label)
