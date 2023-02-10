@@ -43,7 +43,6 @@ final class UserLevelViewController: UIViewController {
         bind()
         layout()
         viewModel.viewDidLoad()
-        setUpNavigationBar()
     }
 
     override func viewWillAppear(_ animated: Bool) {
