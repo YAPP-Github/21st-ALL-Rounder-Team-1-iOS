@@ -45,7 +45,7 @@ final class MockAccountRepository: AccountRepositoryInterface {
 }
 
 final class MockCustomerSatisfactionRepository: CustomerSatisfactionRepositoryInterface {
-    func upload(type: CustomerSatisfactionType, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
+    func upload(requestValue: CustomerSatisfactionRequestValue, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
         return MockTask { completion(.success(())) }
     }
 }

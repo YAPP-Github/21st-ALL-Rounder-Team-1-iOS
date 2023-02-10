@@ -12,3 +12,7 @@ struct CustomerSatisfactionDTO: Encodable {
     let type: Int
     let content: String
 }
+
+struct CustomerSatisfactionResponseDTO: Decodable {
+    let customerSatisfactionId: Int
+}
