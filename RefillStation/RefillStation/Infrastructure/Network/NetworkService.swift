@@ -25,6 +25,8 @@ protocol NetworkServiceInterface {
         request: URLRequest,
         completion: @escaping (Result<DTO, Error>) -> Void
     ) -> Cancellable?
+
+    func dataTask<DTO: Decodable>(request: URLRequest) async throws -> DTO
 }
 
 final class NetworkService: NetworkServiceInterface {
@@ -73,5 +75,31 @@ final class NetworkService: NetworkServiceInterface {
         }
 
         return task
+    }
+
+    func dataTask<DTO: Decodable>(request: URLRequest) async throws -> DTO {
+        var request = request
+        if let token {
+            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        } else {
+            print("There is no jwt token")
+        }
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+        print("request: \(String(describing: request.url))")
+        guard let httpResponse = response as? HTTPURLResponse,
+              200...299 ~= httpResponse.statusCode else {
+            guard let exception = try? JSONDecoder().decode(Exception.self, from: data) else {
+                throw NetworkError.exceptionPareFailed
+            }
+            print("status: \(exception.status) \n message: \(exception.message)")
+            throw NetworkError.exception(errorMessage: exception.message)
+        }
+
+        guard let dto = try? JSONDecoder().decode(NetworkResult<DTO>.self, from: data).data else {
+            throw NetworkError.jsonParseFailed
+        }
+        print("status: \(httpResponse.statusCode)")
+        return dto
     }
 }
