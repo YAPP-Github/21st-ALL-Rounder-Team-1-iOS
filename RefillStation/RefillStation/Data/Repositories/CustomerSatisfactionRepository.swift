@@ -39,7 +39,7 @@ final class CustomerSatisfactionRepository: CustomerSatisfactionRepositoryInterf
                         return
                     }
 
-                    guard let request = urlComponents?.toURLRequest(method: .get, httpBody: requestBody) else {
+                    guard let request = urlComponents?.toURLRequest(method: .post, httpBody: requestBody) else {
                         completion(.failure(RepositoryError.urlParseFailed))
                         return
                     }
@@ -69,7 +69,7 @@ final class CustomerSatisfactionRepository: CustomerSatisfactionRepositoryInterf
                 return nil
             }
 
-            guard let request = urlComponents?.toURLRequest(method: .get, httpBody: requestBody) else {
+            guard let request = urlComponents?.toURLRequest(method: .post, httpBody: requestBody) else {
                 completion(.failure(RepositoryError.urlParseFailed))
                 return nil
             }
