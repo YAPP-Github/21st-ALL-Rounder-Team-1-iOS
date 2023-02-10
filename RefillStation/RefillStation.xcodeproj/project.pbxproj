@@ -87,6 +87,8 @@
 		32D63DF8298BE993009067BA /* UserLevelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D63DF7298BE993009067BA /* UserLevelViewModel.swift */; };
 		32DB354A29966F3000F699F4 /* WithdrawDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB354929966F3000F699F4 /* WithdrawDTO.swift */; };
 		32DB354C2996739B00F699F4 /* RandomNicknameDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB354B2996739B00F699F4 /* RandomNicknameDTO.swift */; };
+		32DB35512996977F00F699F4 /* AsyncStoreRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB35502996977F00F699F4 /* AsyncStoreRepositoryInterface.swift */; };
+		32DB35532996982300F699F4 /* AsyncStoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB35522996982300F699F4 /* AsyncStoreRepository.swift */; };
 		32DB626429816605008C2522 /* FetchUserInfoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626329816605008C2522 /* FetchUserInfoUseCase.swift */; };
 		32DB626C29816849008C2522 /* SignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626B29816849008C2522 /* SignUpUseCase.swift */; };
 		32DB626E2981689C008C2522 /* WithdrawUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626D2981689C008C2522 /* WithdrawUseCase.swift */; };
@@ -268,6 +270,8 @@
 		32D63DF7298BE993009067BA /* UserLevelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLevelViewModel.swift; sourceTree = "<group>"; };
 		32DB354929966F3000F699F4 /* WithdrawDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawDTO.swift; sourceTree = "<group>"; };
 		32DB354B2996739B00F699F4 /* RandomNicknameDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNicknameDTO.swift; sourceTree = "<group>"; };
+		32DB35502996977F00F699F4 /* AsyncStoreRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncStoreRepositoryInterface.swift; sourceTree = "<group>"; };
+		32DB35522996982300F699F4 /* AsyncStoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncStoreRepository.swift; sourceTree = "<group>"; };
 		32DB626329816605008C2522 /* FetchUserInfoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserInfoUseCase.swift; sourceTree = "<group>"; };
 		32DB626B29816849008C2522 /* SignUpUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUseCase.swift; sourceTree = "<group>"; };
 		32DB626D2981689C008C2522 /* WithdrawUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawUseCase.swift; sourceTree = "<group>"; };
@@ -1065,6 +1069,7 @@
 				FCB0087C298FD1960006FF53 /* AccountRepository.swift */,
 				320B83412992780700B58973 /* RegisterReviewRepository.swift */,
 				32B792302993A51C001145B0 /* CustomerSatisfactionRepository.swift */,
+				32DB35522996982300F699F4 /* AsyncStoreRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1085,6 +1090,7 @@
 				327524DC2987829F00E033A9 /* CustomerSatisfactionRepositoryInterface.swift */,
 				32A0F50429817B1600A04ECC /* UserInfoRepositoryInterface.swift */,
 				32A0F50629817E1B00A04ECC /* StoreRepositoryInterface.swift */,
+				32DB35502996977F00F699F4 /* AsyncStoreRepositoryInterface.swift */,
 				FCE00A95294C966C00B5C05F /* RegisterReviewRepositoryInterface.swift */,
 			);
 			path = Repositories;
@@ -1392,6 +1398,7 @@
 				325985E7294C525800D26A37 /* Coordinator.swift in Sources */,
 				3210B52F298F94ED0034CBA7 /* NetworkResult.swift in Sources */,
 				FC60D83D2962C36F00C676A6 /* ReviewPhotosCell.swift in Sources */,
+				32DB35532996982300F699F4 /* AsyncStoreRepository.swift in Sources */,
 				FCE00AA6295187B500B5C05F /* Cancellable.swift in Sources */,
 				FCB0087D298FD1960006FF53 /* AccountRepository.swift in Sources */,
 				32C22967297E785C0019EAF6 /* ReviewReportPopUpViewController.swift in Sources */,
@@ -1443,6 +1450,7 @@
 				FC7D3529292F22B300335AAB /* StoreDetailInfoStackView.swift in Sources */,
 				FC60D8382962C36F00C676A6 /* Section.swift in Sources */,
 				322E15E4297A0B3600FE2E2F /* MyPageDIContainer.swift in Sources */,
+				32DB35512996977F00F699F4 /* AsyncStoreRepositoryInterface.swift in Sources */,
 				32A0F50529817B1600A04ECC /* UserInfoRepositoryInterface.swift in Sources */,
 				3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */,
 				3240987029602A7400911306 /* ProductCategory.swift in Sources */,
