@@ -38,6 +38,13 @@ final class MyPageViewModel {
         })
         userInfoLoadTask?.resume()
     }
+
+    func appVersion() -> String {
+        guard let dictionary = Bundle.main.infoDictionary,
+              let version = dictionary["CFBundleShortVersionString"] as? String
+        else { return "" }
+        return "V \(version)"
+    }
 }
 
 extension MyPageViewModel {
