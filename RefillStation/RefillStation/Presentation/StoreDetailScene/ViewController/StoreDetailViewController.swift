@@ -38,6 +38,7 @@ final class StoreDetailViewController: UIViewController {
     init(viewModel: StoreDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.hidesBottomBarWhenPushed = true
     }
 
     required init?(coder: NSCoder) {
@@ -55,14 +56,12 @@ final class StoreDetailViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         setUpNavigationBar()
-        tabBarController?.tabBar.isHidden = true
         viewModel.viewWillAppear()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
         navigationController?.navigationBar.tintColor = .black
-        tabBarController?.tabBar.isHidden = false
         viewModel.viewWillDisappear()
     }
 
