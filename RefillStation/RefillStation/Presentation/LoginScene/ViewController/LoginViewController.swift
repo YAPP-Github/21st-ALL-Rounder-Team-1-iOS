@@ -171,20 +171,7 @@ extension LoginViewController: ASAuthorizationControllerPresentationContextProvi
 extension LoginViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            guard let identityToken = appleIDCredential.identityToken,
-                  let token = String(data: identityToken, encoding: .utf8) else { return }
-
-            let email = appleIDCredential.email
-            var name: String?
-
-            if let familyName = appleIDCredential.fullName?.familyName,
-               let givenName = appleIDCredential.fullName?.givenName {
-                name = familyName + givenName
-            }
-
-            viewModel.onAppleLoginByAppTouched(token: token,
-                                               name: name,
-                                               email: email)
+            viewModel.onAppleLoginByAppTouched(appleIDCredential: appleIDCredential)
         }
     }
 

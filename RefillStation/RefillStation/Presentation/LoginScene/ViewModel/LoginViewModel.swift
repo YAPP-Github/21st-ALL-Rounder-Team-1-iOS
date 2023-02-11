@@ -8,6 +8,7 @@
 import Foundation
 import KakaoSDKUser
 import KakaoSDKAuth
+import AuthenticationServices
 
 final class LoginViewModel {
     private let OAuthLoginUseCase: OAuthLoginUseCaseInterface
@@ -49,9 +50,6 @@ final class LoginViewModel {
 extension LoginViewModel {
 
     // MARK: - ViewController의 LoginButton이 눌릴 때 호출되는 메소드
-    private func loginButtonDidTapped(oauthType: OAuthType, requestValue: String) {
-        requestLogin(oauthType: oauthType, requestValue: requestValue)
-    }
 
     func onKakaoLoginByAppTouched() {
         if UserApi.isKakaoTalkLoginAvailable() {
@@ -60,23 +58,24 @@ extension LoginViewModel {
                     print(error)
                 } else {
                     guard let accessToken = oauthToken?.accessToken else { return }
-                    self.loginButtonDidTapped(oauthType: .kakao,
-                                              requestValue: accessToken)
+                    self.requestLogin(oauthType: .kakao, requestValue: accessToken)
                 }
             }
         }
     }
 
-    func onNaverLoginByAppTouched() {
-
+    func onAppleLoginByAppTouched(appleIDCredential: ASAuthorizationAppleIDCredential) {
+        guard let identityToken = appleIDCredential.identityToken,
+              let token = String(data: identityToken, encoding: .utf8) else { return }
+        appleUserEmail = appleIDCredential.email
+        if let familyName = appleIDCredential.fullName?.familyName,
+           let givenName = appleIDCredential.fullName?.givenName {
+            appleUserName = familyName + givenName
+        }
+        self.requestLogin(oauthType: .apple, requestValue: token)
     }
 
-    func onAppleLoginByAppTouched(token: String,
-                                  name: String?,
-                                  email: String?) {
-        self.loginButtonDidTapped(oauthType: .apple,
-                                  requestValue: token)
-        self.appleUserName = name
-        self.appleUserEmail = email
+    func onNaverLoginByAppTouched() {
+
     }
 }
