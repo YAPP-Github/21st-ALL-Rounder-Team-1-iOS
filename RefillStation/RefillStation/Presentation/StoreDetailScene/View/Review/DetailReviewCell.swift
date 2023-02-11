@@ -189,6 +189,7 @@ final class DetailReviewCell: UICollectionViewCell {
         descriptionLabel.setText(text: review.description, font: .bodyMediumOverTwoLine)
         imageCountLabel.setText(text: "1 / \(review.imageURL.count)", font: .buttonSmall)
         imageCountLabel.isHidden = review.imageURL.count <= 1
+        imageCountLabel.textAlignment = .center
         reviewImageLoadTask = reviewImageView.kf.setImage(with: URL(string: review.imageURL.first ?? ""))
         addArrangedSubviewsToOuterStackview()
         descriptionLabel.numberOfLines = shouldSeeMore ? 0 : 3

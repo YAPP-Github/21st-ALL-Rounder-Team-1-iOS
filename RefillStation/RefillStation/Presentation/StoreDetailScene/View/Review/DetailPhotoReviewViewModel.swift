@@ -13,13 +13,9 @@ final class DetailPhotoReviewViewModel {
             if page != oldValue { setUpPageLabel?() }
         }
     }
-    var photos = [
-        UIImage(systemName: "person"),
-        UIImage(systemName: "star"),
-        UIImage(systemName: "star.fill")
-    ]
+
     var setUpPageLabel: (() -> Void)?
-    private let photoURLs: [String?]
+    let photoURLs: [String?]
 
     init(photoURLs: [String?]) {
         self.photoURLs = photoURLs
