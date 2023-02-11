@@ -98,7 +98,7 @@ final class MockStoreRepository: StoreRepositoryInterface {
 }
 
 final class MockRegisterReviewRepository: RegisterReviewRepositoryInterface {
-    func registerReview(query: RegiserReviewRequestValue, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
+    func registerReview(query: RegisterReviewRequestValue, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
         return MockTask { completion(.success(())) }
     }
 }

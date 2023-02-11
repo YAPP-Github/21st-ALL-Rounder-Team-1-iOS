@@ -8,6 +8,6 @@
 import Foundation
 
 protocol RegisterReviewRepositoryInterface {
-    func registerReview(query: RegiserReviewRequestValue,
+    func registerReview(query: RegisterReviewRequestValue,
                         completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable?
 }

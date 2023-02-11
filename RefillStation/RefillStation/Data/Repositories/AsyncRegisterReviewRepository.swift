@@ -20,7 +20,7 @@ final class AsyncRegisterReviewRepository: AsyncRegisterReviewRepositoryInterfac
         self.awsService = awsService
     }
 
-    func registerReview(query: RegiserReviewRequestValue) async throws {
+    func registerReview(query: RegisterReviewRequestValue) async throws {
         try await withThrowingTaskGroup(of: String.self, body: { taskGroup in
             var imagePaths = [String]()
             for image in query.images {

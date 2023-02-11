@@ -78,22 +78,19 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
     }
 
     func registerButtonTapped() {
-        let registerReviewTask = registerReviewUseCase.execute(
-            requestValue: .init(
-                storeId: storeId,
-                tagIds: selectedTags,
-                images: reviewPhotos,
-                description: reviewContents
-            )
-        ) { result in
-            switch result {
-            case .success:
-                self.fetchUserReviewCount()
-            case .failure:
-                break
+        Task {
+            do {
+                let requestValue = RegisterReviewRequestValue(
+                    storeId: storeId,
+                    tagIds: selectedTags,
+                    images: reviewPhotos,
+                    description: reviewContents
+                )
+                try await registerReviewUseCase.execute(requestValue: requestValue)
+            } catch {
+                print(error)
             }
         }
-        registerReviewTask?.resume()
     }
 
     private func fetchUserReviewCount() {

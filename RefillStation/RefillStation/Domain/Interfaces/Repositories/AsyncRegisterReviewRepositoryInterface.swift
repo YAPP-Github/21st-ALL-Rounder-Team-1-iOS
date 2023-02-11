@@ -8,5 +8,5 @@
 import Foundation
 
 protocol AsyncRegisterReviewRepositoryInterface {
-    func registerReview(query: RegiserReviewRequestValue) async throws
+    func registerReview(query: RegisterReviewRequestValue) async throws
 }
