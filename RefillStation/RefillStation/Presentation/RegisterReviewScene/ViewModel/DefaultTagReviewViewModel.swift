@@ -85,15 +85,6 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
                     description: reviewContents
                 )
                 try await registerReviewUseCase.execute(requestValue: requestValue)
-            } catch {
-                print(error)
-            }
-        }
-    }
-
-    private func fetchUserReviewCount() {
-        Task {
-            do {
                 let reviews = try await fetchUserReviewsUseCase.execute()
                 totalReviewCount = reviews.count
                 reviewCountFetchCompleted?()

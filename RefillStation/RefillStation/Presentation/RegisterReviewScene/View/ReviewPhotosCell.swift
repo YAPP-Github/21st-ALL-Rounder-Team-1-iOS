@@ -103,7 +103,7 @@ final class ReviewPhotosCell: UICollectionViewCell {
         outerScrollView.addSubview(orthogonalStackView)
 
         outerScrollView.snp.makeConstraints { scrollView in
-            scrollView.top.equalTo(pleaseReviewLabel.snp.bottom).offset(10)
+            scrollView.top.equalTo(pleaseReviewLabel.snp.bottom).offset(16)
             scrollView.trailing.bottom.equalTo(contentView)
             scrollView.leading.equalTo(addPhotoButton.snp.trailing).offset(10)
         }

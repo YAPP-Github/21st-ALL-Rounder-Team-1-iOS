@@ -100,7 +100,9 @@ final class RegisterReviewViewController: UIViewController {
 
     private func bind() {
         viewModel.reviewCountFetchCompleted = {
-            self.coordinator?.registerReviewSucceded(userLevel: self.viewModel.levelUppedLevel)
+            DispatchQueue.main.async {
+                self.coordinator?.registerReviewSucceded(userLevel: self.viewModel.levelUppedLevel)
+            }
         }
     }
 
