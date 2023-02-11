@@ -7,6 +7,7 @@
 
 import Foundation
 
+@available(*, deprecated, message: "Please use AsyncRepository")
 final class RegisterReviewRepository: RegisterReviewRepositoryInterface {
 
     private let networkService: NetworkServiceInterface
@@ -20,7 +21,7 @@ final class RegisterReviewRepository: RegisterReviewRepositoryInterface {
         self.awsService = awsService
     }
 
-    func registerReview(query: RegiserReviewRequestValue, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
+    func registerReview(query: RegisterReviewRequestValue, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
         return ImageUploadTask { [weak self] in
             guard let self = self else { return }
             let dispatchGroup = DispatchGroup()

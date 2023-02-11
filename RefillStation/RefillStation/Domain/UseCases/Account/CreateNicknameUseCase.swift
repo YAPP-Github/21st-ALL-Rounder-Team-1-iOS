@@ -8,19 +8,17 @@
 import Foundation
 
 protocol CreateNicknameUseCaseInterface {
-    func execute(completion: @escaping (Result<String, Error>) -> Void) -> Cancellable?
+    func execute() async throws -> String
 }
 
 final class CreateNicknameUseCase: CreateNicknameUseCaseInterface {
-    private let accountRepository: AccountRepositoryInterface
+    private let accountRepository: AsyncAccountRepositoryInterface
 
-    init(accountRepository: AccountRepositoryInterface = MockAccountRepository()) {
+    init(accountRepository: AsyncAccountRepositoryInterface = AsyncAccountRepository()) {
         self.accountRepository = accountRepository
     }
 
-    func execute(completion: @escaping (Result<String, Error>) -> Void) -> Cancellable? {
-        return accountRepository.createNickname { result in
-            completion(result)
-        }
+    func execute() async throws -> String {
+        return try await accountRepository.createNickname()
     }
 }

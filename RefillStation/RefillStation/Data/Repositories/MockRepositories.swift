@@ -7,13 +7,6 @@
 
 import UIKit
 
-final class MockUploadImageRepository: UploadImageRepositoryInterface {
-    func uploadImage(images: [UIImage], completion: @escaping (Result<[String], Error>) -> Void) -> Cancellable? {
-        let dummyStrings = Array.init(repeating: "", count: images.count)
-        return MockTask { completion(.success(dummyStrings)) }
-    }
-}
-
 final class MockAccountRepository: AccountRepositoryInterface {
     func OAuthLogin(loginType: OAuthType,
                     requestValue: OAuthLoginRequestValue,
@@ -105,7 +98,7 @@ final class MockStoreRepository: StoreRepositoryInterface {
 }
 
 final class MockRegisterReviewRepository: RegisterReviewRepositoryInterface {
-    func registerReview(query: RegiserReviewRequestValue, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
+    func registerReview(query: RegisterReviewRequestValue, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
         return MockTask { completion(.success(())) }
     }
 }

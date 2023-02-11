@@ -93,4 +93,27 @@ public class AWSS3Service {
             completion(.success(Bucket.baseURL + "/" + fileKey))
         }
     }
+
+    func upload(type: Bucket, image: UIImage?) async throws -> String {
+        guard let transferUtility = AWSS3TransferUtility.s3TransferUtility(forKey: "utility-key"),
+              let imageData = image?.jpegData(compressionQuality: 1) else { throw AWSS3Error.imageDataConvertFailed }
+
+        let id = UUID().uuidString
+        let fileKey = "\(type.name)/\(id).jpeg"
+
+        return try await withCheckedThrowingContinuation({ continuation in
+            transferUtility.uploadData(
+                imageData,
+                bucket: Bucket.bucketName,
+                key: fileKey,
+                contentType: "image/jpeg",
+                expression: nil
+            ) { task, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                }
+                continuation.resume(returning: Bucket.baseURL + "/" + fileKey)
+            }
+        })
+    }
 }

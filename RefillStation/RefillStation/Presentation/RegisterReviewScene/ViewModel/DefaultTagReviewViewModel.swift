@@ -39,9 +39,7 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
     var reviewCountFetchCompleted: (() -> Void)?
 
     private let registerReviewUseCase: RegisterReviewUseCaseInterface
-    private var registerReviewTask: Cancellable?
     private let fetchUserReviewsUseCase: FetchUserReviewsUseCaseInterface
-    private var userReviewsLoadTask: Cancellable?
 
     init(storeId: Int,
          storeName: String,
@@ -78,34 +76,30 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
     }
 
     func registerButtonTapped() {
-        let registerReviewTask = registerReviewUseCase.execute(
-            requestValue: .init(
-                storeId: storeId,
-                tagIds: selectedTags,
-                images: reviewPhotos,
-                description: reviewContents
-            )
-        ) { result in
-            switch result {
-            case .success:
-                self.fetchUserReviewCount()
-            case .failure:
-                break
+        Task {
+            do {
+                let requestValue = RegisterReviewRequestValue(
+                    storeId: storeId,
+                    tagIds: selectedTags,
+                    images: reviewPhotos,
+                    description: reviewContents
+                )
+                try await registerReviewUseCase.execute(requestValue: requestValue)
+            } catch {
+                print(error)
             }
         }
-        registerReviewTask?.resume()
     }
 
     private func fetchUserReviewCount() {
-        userReviewsLoadTask = fetchUserReviewsUseCase.execute { result in
-            switch result {
-            case .success(let reviews):
-                self.totalReviewCount = reviews.count
-                self.reviewCountFetchCompleted?()
-            case .failure:
-                break
+        Task {
+            do {
+                let reviews = try await fetchUserReviewsUseCase.execute()
+                totalReviewCount = reviews.count
+                reviewCountFetchCompleted?()
+            } catch {
+                print(error)
             }
         }
-        userReviewsLoadTask?.resume()
     }
 }

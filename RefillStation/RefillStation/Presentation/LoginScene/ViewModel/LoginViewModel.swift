@@ -11,7 +11,6 @@ import KakaoSDKAuth
 
 final class LoginViewModel {
     private let OAuthLoginUseCase: OAuthLoginUseCaseInterface
-    private var loginTask: Cancellable?
 
     var signUpRequestValue: SignUpRequestValue?
     var isSignUp: (() -> Void)?
@@ -22,25 +21,24 @@ final class LoginViewModel {
     }
 
     private func requestLogin(oauthType: OAuthType, requestValue: String) {
-        loginTask = OAuthLoginUseCase.execute(
-            loginType: oauthType,
-            requestValue: OAuthLoginRequestValue(accessToken: requestValue)
-        ) { result in
-            switch result {
-            case .success(let data):
-                self.signUpRequestValue = SignUpRequestValue(
-                    name: data.name,
-                    email: data.email,
-                    imagePath: data.imgPath,
-                    oauthType: data.oauthType,
-                    oauthIdentity: data.oauthIdentity
+        Task {
+            do {
+                let result = try await OAuthLoginUseCase.execute(
+                    loginType: oauthType,
+                    requestValue: OAuthLoginRequestValue(accessToken: requestValue)
                 )
-                data.jwt == nil ? self.isSignUp?() : self.isSignIn?()
-            case .failure(let failure):
-                return
+                self.signUpRequestValue = SignUpRequestValue(
+                    name: result.name,
+                    email: result.email,
+                    imagePath: result.imgPath,
+                    oauthType: result.oauthType,
+                    oauthIdentity: result.oauthIdentity
+                )
+                result.jwt == nil ? self.isSignUp?() : self.isSignIn?()
+            } catch {
+                print(error)
             }
         }
-        loginTask?.resume()
     }
 }
 

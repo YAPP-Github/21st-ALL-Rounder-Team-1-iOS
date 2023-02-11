@@ -16,19 +16,17 @@ struct EditProfileRequestValue {
 }
 
 protocol EditProfileUseCaseInterface {
-    func execute(requestValue: EditProfileRequestValue, completion: @escaping (Result<User, Error>) -> Void) -> Cancellable?
+    func execute(requestValue: EditProfileRequestValue) async throws -> User
 }
 
 final class EditProfileUseCase: EditProfileUseCaseInterface {
-    private let userInfoRepository: UserInfoRepositoryInterface
+    private let userInfoRepository: AsyncUserInfoRepositoryInterface
 
-    init(userInfoRepository: UserInfoRepositoryInterface = MockUserInfoRepository()) {
+    init(userInfoRepository: AsyncUserInfoRepositoryInterface = AsyncUserInfoRepository()) {
         self.userInfoRepository = userInfoRepository
     }
 
-    func execute(requestValue: EditProfileRequestValue, completion: @escaping (Result<User, Error>) -> Void) -> Cancellable? {
-        return userInfoRepository.editProfile(requestValue: requestValue) { result in
-            completion(result)
-        }
+    func execute(requestValue: EditProfileRequestValue) async throws -> User {
+        return try await userInfoRepository.editProfile(requestValue: requestValue)
     }
 }

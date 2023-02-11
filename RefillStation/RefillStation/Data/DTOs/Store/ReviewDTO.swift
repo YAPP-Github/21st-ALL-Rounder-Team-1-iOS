@@ -62,7 +62,7 @@ extension ReviewDTO {
             } ?? [],
             description: reviewText ?? "",
             tags: reviewTagLogs?.map {
-                Tag(rawValue: $0.id ?? 0) ?? .noKeywordToChoose
+                return Tag(rawValue: $0.reviewTagId ?? 0) ?? .noKeywordToChoose
             } ?? []
         )
     }

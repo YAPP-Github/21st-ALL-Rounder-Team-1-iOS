@@ -10,7 +10,6 @@ import Foundation
 final class LocationPermissionViewModel {
     private let signUpUseCase: SignUpUseCaseInterface
     private let requestValue: SignUpRequestValue
-    private var signUpTask: Cancellable?
     var isSignUpCompleted: (() -> Void)?
 
     init(signUpUseCase: SignUpUseCaseInterface,
@@ -20,15 +19,13 @@ final class LocationPermissionViewModel {
     }
 
     func agreeButtonDidTapped() {
-        signUpTask = signUpUseCase.execute(requestValue: requestValue) { result in
-            switch result {
-            case .success(let token):
-                _ = KeychainManager.shared.updateItem(key: "token", value: token)
+        Task {
+            do {
+                _ = try await signUpUseCase.execute(requestValue: requestValue)
                 self.isSignUpCompleted?()
-            case .failure(let failure):
-                return
+            } catch {
+                print(error)
             }
         }
-        signUpTask?.resume()
     }
 }

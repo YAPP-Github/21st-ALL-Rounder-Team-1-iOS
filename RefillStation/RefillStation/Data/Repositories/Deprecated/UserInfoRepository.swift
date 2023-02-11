@@ -7,6 +7,7 @@
 
 import Foundation
 
+@available(*, deprecated, message: "Please use AsyncRepository")
 final class UserInfoRepository: UserInfoRepositoryInterface {
 
     private let networkService: NetworkServiceInterface

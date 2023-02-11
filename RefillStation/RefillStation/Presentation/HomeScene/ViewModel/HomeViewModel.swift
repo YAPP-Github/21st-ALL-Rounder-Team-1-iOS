@@ -29,22 +29,21 @@ final class HomeViewModel {
     }
 
     private func fetchStores() {
-        storesLoadTask = fetchStoresUseCase
-            .execute(requestValue: FetchStoresUseCaseRequestValue(latitude: latitude,
-                                                                  longitude: longitude)) { result in
-                switch result {
-                case .success(let stores):
-                    self.stores = stores
-                    self.convertAddress(latitude: self.latitude, longitude: self.longitude) {
-                        self.currentAddress = $0
-                        self.currentAdministrativeArea = $1
-                        self.setUpContents?()
-                    }
-                case .failure(let error):
-                    break
+        storesLoadTask = Task {
+            do {
+                let stores = try await fetchStoresUseCase.execute(
+                    requestValue: .init(latitude: latitude, longitude: longitude)
+                )
+                self.stores = stores
+                self.convertAddress(latitude: self.latitude, longitude: self.longitude) {
+                    self.currentAddress = $0
+                    self.currentAdministrativeArea = $1
+                    self.setUpContents?()
                 }
+            } catch {
+                print(error)
             }
-        storesLoadTask?.resume()
+        }
     }
 }
 
@@ -52,6 +51,10 @@ extension HomeViewModel {
     func viewWillApeear() {
         setUpCurrentLocation()
         fetchStores()
+    }
+
+    func viewWillDisappear() {
+        storesLoadTask?.cancel()
     }
 }
 

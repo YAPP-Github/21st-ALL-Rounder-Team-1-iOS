@@ -12,11 +12,14 @@ public enum NetworkError: Error {
     case invalidResponse(statusCode: Int)
     case sessionError
     case jsonParseFailed
-    case exceptionPareFailed
+    case exceptionParseFailed
     case exception(errorMessage: String)
 }
 
 extension URLSessionDataTask: Cancellable { }
+extension Task: Cancellable {
+    func resume() {}
+}
 
 protocol NetworkServiceInterface {
     var baseURL: String { get }
@@ -56,7 +59,7 @@ final class NetworkService: NetworkServiceInterface {
             guard let httpResponse = response as? HTTPURLResponse,
                   200...299 ~= httpResponse.statusCode else {
                 guard let data = data, let exception = try? JSONDecoder().decode(Exception.self, from: data) else {
-                    completion(.failure(NetworkError.exceptionPareFailed))
+                    completion(.failure(NetworkError.exceptionParseFailed))
                     print("🚨 data: " + (String(data: data!, encoding: .utf8) ?? ""))
                     return
                 }
@@ -86,20 +89,21 @@ final class NetworkService: NetworkServiceInterface {
         }
 
         let (data, response) = try await URLSession.shared.data(for: request)
-        print("request: \(String(describing: request.url))")
+        print("🌐 request: " + String(request.url?.absoluteString ?? ""))
         guard let httpResponse = response as? HTTPURLResponse,
               200...299 ~= httpResponse.statusCode else {
             guard let exception = try? JSONDecoder().decode(Exception.self, from: data) else {
-                throw NetworkError.exceptionPareFailed
+                print("🚨 data: " + (String(data: data, encoding: .utf8) ?? ""))
+                throw NetworkError.exceptionParseFailed
             }
-            print("status: \(exception.status) \n message: \(exception.message)")
+            print("🚨 status: \(exception.status) \n message: \(exception.message)")
             throw NetworkError.exception(errorMessage: exception.message)
         }
 
         guard let dto = try? JSONDecoder().decode(NetworkResult<DTO>.self, from: data).data else {
             throw NetworkError.jsonParseFailed
         }
-        print("status: \(httpResponse.statusCode)")
+        print("✅ status: \(httpResponse.statusCode)")
         return dto
     }
 }

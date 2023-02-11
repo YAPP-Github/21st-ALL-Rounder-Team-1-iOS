@@ -22,17 +22,16 @@ final class UserLevelViewModel {
     }
 
     private func fetchUserReviewCount() {
-        userReviewsLoadTask = fetchUserReviewsUseCase.execute { result in
-            switch result {
-            case .success(let reviews):
-                self.totalReviewCount = reviews.count
-                self.setUpUserLevel()
-                self.reloadData?()
-            case .failure:
-                break
+        userReviewsLoadTask = Task {
+            do {
+                let reviews = try await fetchUserReviewsUseCase.execute()
+                totalReviewCount = reviews.count
+                setUpUserLevel()
+                reloadData?()
+            } catch {
+                print(error)
             }
         }
-        userReviewsLoadTask?.resume()
     }
 
     private func setUpUserLevel() {
@@ -47,5 +46,9 @@ final class UserLevelViewModel {
 extension UserLevelViewModel {
     func viewDidLoad() {
         fetchUserReviewCount()
+    }
+
+    func viewWillDisappear() {
+        userReviewsLoadTask?.cancel()
     }
 }

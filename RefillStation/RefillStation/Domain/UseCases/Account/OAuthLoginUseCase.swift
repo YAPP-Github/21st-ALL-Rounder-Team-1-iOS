@@ -39,22 +39,17 @@ struct OAuthLoginResponseValue {
 
 protocol OAuthLoginUseCaseInterface {
     func execute(loginType: OAuthType,
-                 requestValue: OAuthLoginRequestValue,
-                 completion: @escaping (Result<OAuthLoginResponseValue, Error>) -> Void) -> Cancellable?
+                 requestValue: OAuthLoginRequestValue) async throws -> OAuthLoginResponseValue
 }
 
 final class OAuthLoginUseCase: OAuthLoginUseCaseInterface {
-    private let accountRepository: AccountRepositoryInterface
+    private let accountRepository: AsyncAccountRepositoryInterface
 
-    init(accountRepository: AccountRepositoryInterface = MockAccountRepository()) {
+    init(accountRepository: AsyncAccountRepositoryInterface = AsyncAccountRepository()) {
         self.accountRepository = accountRepository
     }
     func execute(loginType: OAuthType,
-                 requestValue: OAuthLoginRequestValue,
-                 completion: @escaping (Result<OAuthLoginResponseValue, Error>) -> Void) -> Cancellable? {
-        return accountRepository.OAuthLogin(loginType: loginType,
-                                            requestValue: requestValue) { result in
-            completion(result)
-        }
+                 requestValue: OAuthLoginRequestValue) async throws -> OAuthLoginResponseValue {
+        return try await accountRepository.OAuthLogin(loginType: loginType, requestValue: requestValue)
     }
 }
