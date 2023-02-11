@@ -8,19 +8,17 @@
 import Foundation
 
 protocol FetchUserReviewsUseCaseInterface {
-    func execute(completion: @escaping (Result<[Review], Error>) -> Void) -> Cancellable?
+    func execute() async throws -> [Review]
 }
 
 final class FetchUserReviewsUseCase: FetchUserReviewsUseCaseInterface {
-    private let userInfoRepository: UserInfoRepositoryInterface
+    private let userInfoRepository: AsyncUserInfoRepositoryInterface
 
-    init(userInfoRepository: UserInfoRepositoryInterface = MockUserInfoRepository()) {
+    init(userInfoRepository: AsyncUserInfoRepositoryInterface = AsyncUserInfoRepository()) {
         self.userInfoRepository = userInfoRepository
     }
 
-    func execute(completion: @escaping (Result<[Review], Error>) -> Void) -> Cancellable? {
-        return userInfoRepository.fetchUserReviews { result in
-            completion(result)
-        }
+    func execute() async throws -> [Review] {
+        return try await userInfoRepository.fetchUserReviews()
     }
 }

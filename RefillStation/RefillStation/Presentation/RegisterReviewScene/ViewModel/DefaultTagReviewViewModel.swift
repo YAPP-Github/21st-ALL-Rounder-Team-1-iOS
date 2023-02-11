@@ -97,15 +97,14 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
     }
 
     private func fetchUserReviewCount() {
-        userReviewsLoadTask = fetchUserReviewsUseCase.execute { result in
-            switch result {
-            case .success(let reviews):
-                self.totalReviewCount = reviews.count
-                self.reviewCountFetchCompleted?()
-            case .failure:
-                break
+        Task {
+            do {
+                let reviews = try await fetchUserReviewsUseCase.execute()
+                totalReviewCount = reviews.count
+                reviewCountFetchCompleted?()
+            } catch {
+                print(error)
             }
         }
-        userReviewsLoadTask?.resume()
     }
 }

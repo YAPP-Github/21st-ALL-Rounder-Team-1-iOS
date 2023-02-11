@@ -34,8 +34,8 @@ final class MyPageDIContainer: DIContainer {
         return FetchUserInfoUseCase(userInfoRepository: makeMyPageRepository())
     }
 
-    func makeMyPageRepository() -> UserInfoRepositoryInterface {
-        return UserInfoRepository()
+    func makeMyPageRepository() -> AsyncUserInfoRepositoryInterface {
+        return AsyncUserInfoRepository()
     }
 
     // MARK: - Login
@@ -68,8 +68,8 @@ final class MyPageDIContainer: DIContainer {
         return FetchUserReviewsUseCase(userInfoRepository: makeUserInfoRepository())
     }
 
-    func makeUserInfoRepository() -> UserInfoRepositoryInterface {
-        return UserInfoRepository()
+    func makeUserInfoRepository() -> AsyncUserInfoRepositoryInterface {
+        return AsyncUserInfoRepository()
     }
 
     // MARK: - Terms Detail

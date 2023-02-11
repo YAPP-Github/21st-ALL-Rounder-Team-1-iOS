@@ -302,7 +302,7 @@ extension NicknameViewController {
 
     @objc private func checkDuplicateNicknameButtonDidTapped() {
         guard let nickname = nicknameTextField.text else { return }
-        viewModel.validNickname(requestValue: nickname)
+        viewModel.validNickname(nickname: nickname)
     }
 
     @objc private func didTapProfileImageEditButton() {
