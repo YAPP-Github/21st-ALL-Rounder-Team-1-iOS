@@ -205,10 +205,14 @@ final class ReviewInfoCell: UICollectionViewCell {
         var rank = 1
         otherClassStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
-        if totalTagReviewCount < 10 {
+        if totalTagReviewCount == 0 {
+            votedCountLabel.isHidden = true
+            makeBlurPlaceholder(isTotalReviewZero: true)
+            return
+        } else if totalTagReviewCount < 10 {
             profileGroupImageView.isHidden = true
             votedCountLabel.setText(text: "현재까지 \(totalTagReviewCount)명 ", font: .buttonLarge)
-            makeBlurPlaceholder()
+            makeBlurPlaceholder(isTotalReviewZero: false)
             return
         } else {
             votedCountLabel.setText(text: "\(totalTagReviewCount)명 ", font: .buttonLarge)
@@ -231,7 +235,7 @@ final class ReviewInfoCell: UICollectionViewCell {
             }
     }
 
-    private func makeBlurPlaceholder() {
+    private func makeBlurPlaceholder(isTotalReviewZero: Bool) {
         let blurEffect = UIBlurEffect(style: .extraLight)
         let visualEffectView = UIVisualEffectView(effect: blurEffect)
         visualEffectView.layer.cornerRadius = 16
@@ -239,7 +243,8 @@ final class ReviewInfoCell: UICollectionViewCell {
 
         let label = UILabel()
         label.numberOfLines = 2
-        label.setText(text: "10명 이상 참여하면 \n 공개됩니다!", font: .bodyMediumOverTwoLine)
+        let labelText = isTotalReviewZero ? "리뷰 쓰기에 참여해서\n이 매장의 좋은점을 알려주세요!" : "10명 이상 참여하면\n공개됩니다!"
+        label.setText(text: labelText, font: .bodyMediumOverTwoLine)
         label.textAlignment = .center
 
         let labelView = UIView()
