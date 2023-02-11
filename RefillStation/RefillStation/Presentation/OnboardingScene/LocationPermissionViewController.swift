@@ -93,7 +93,7 @@ final class LocationPermissionViewController: UIViewController {
         }
         confirmBotton.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(6)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(18)
             $0.height.equalTo(50)
         }
 

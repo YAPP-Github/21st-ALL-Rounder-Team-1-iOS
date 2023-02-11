@@ -72,15 +72,6 @@ final class OnboardingDIContainer: DIContainer {
         return TermsDetailViewController(termsType: termsType)
     }
 
-    // MARK: - Nickname
-    func makeNicknameViewController() -> NicknameViewController {
-        return NicknameViewController(viewModel: makeNicknameViewModel())
-    }
-
-    func makeNicknameViewModel() -> NicknameViewModel {
-        return NicknameViewModel(viewType: .onboarding)
-    }
-
     // MARK: - Location Permission
     func makeLocationPermissionViewController(requestValue: SignUpRequestValue) -> LocationPermissionViewController {
         return LocationPermissionViewController(viewModel: makeLocationPermissionViewModel(requestValue: requestValue))

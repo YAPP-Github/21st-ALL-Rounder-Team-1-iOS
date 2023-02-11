@@ -12,7 +12,9 @@ final class MyPageViewModel {
     private var userInfoLoadTask: Cancellable?
 
     var setUpContents: (() -> Void)?
+    var userId: Int?
     var userNickname: String?
+    var userLevel: UserLevelInfo?
     var userRank: UserLevelInfo.Level?
     var profileImage: String?
 
@@ -24,7 +26,9 @@ final class MyPageViewModel {
         userInfoLoadTask = fetchUserInfoUseCase.execute(completion: { result in
             switch result {
             case .success(let userInfo):
+                self.userId = userInfo.id
                 self.userNickname = userInfo.name
+                self.userLevel = userInfo.level
                 self.userRank = userInfo.level.level
                 self.profileImage = userInfo.imageURL
                 self.setUpContents?()
@@ -33,6 +37,13 @@ final class MyPageViewModel {
             }
         })
         userInfoLoadTask?.resume()
+    }
+
+    func appVersion() -> String {
+        guard let dictionary = Bundle.main.infoDictionary,
+              let version = dictionary["CFBundleShortVersionString"] as? String
+        else { return "" }
+        return "V \(version)"
     }
 }
 

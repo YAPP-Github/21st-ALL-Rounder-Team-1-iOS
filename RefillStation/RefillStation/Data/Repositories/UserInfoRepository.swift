@@ -42,13 +42,16 @@ final class UserInfoRepository: UserInfoRepositoryInterface {
         return ImageUploadTask { [weak self] in
             guard let self = self else { return }
             let dispatchGroup = DispatchGroup()
-            var imagePath = requestValue.oldImagePath
+            var imagePath: String?
             var urlComponents = URLComponents(string: self.networkService.baseURL)
             urlComponents?.path = "/api/user"
 
             dispatchGroup.enter()
 
-            if requestValue.newImage == nil {
+            if !requestValue.didImageChanged {
+                imagePath = requestValue.oldImagePath
+                dispatchGroup.leave()
+            } else if requestValue.newImage == nil {
                 dispatchGroup.leave()
             } else {
                 self.awsService.upload(type: .user, image: requestValue.newImage) { result in
@@ -67,7 +70,7 @@ final class UserInfoRepository: UserInfoRepositoryInterface {
                     .encode(EditUserRequestDTO(
                         nickname: requestValue.nickname,
                         rating: requestValue.rating,
-                        imagePath: imagePath)) else {
+                        imgPath: imagePath)) else {
                     completion(.failure(RepositoryError.requestParseFailed))
                     return
                 }

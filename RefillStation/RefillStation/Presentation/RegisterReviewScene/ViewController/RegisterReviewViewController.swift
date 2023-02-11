@@ -129,8 +129,10 @@ final class RegisterReviewViewController: UIViewController {
         outerCollectionView.snp.makeConstraints { collection in
             collection.edges.equalTo(view.safeAreaLayoutGuide)
         }
-        registerButtonView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        registerButton.snp.makeConstraints { button in
+            button.bottom.equalTo(view.safeAreaLayoutGuide).inset(18)
+            button.leading.trailing.equalToSuperview().inset(16)
+            button.height.equalTo(50)
         }
     }
 

@@ -7,9 +7,11 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class NicknameViewController: UIViewController {
     private let viewModel: NicknameViewModel
+    private var profileImage: UIImage?
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -36,8 +38,10 @@ final class NicknameViewController: UIViewController {
 
     // MARK: - My page Components
 
-    private let profileView: UIView = {
+    private lazy var profileView: UIView = {
         let view = UIView()
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                         action: #selector(didTapProfileImageEditButton)))
         return view
     }()
     private let profileImageView: UIImageView = {
@@ -84,7 +88,7 @@ final class NicknameViewController: UIViewController {
         label.font = .font(style: .captionLarge)
         return label
     }()
-    private lazy var doubleCheckButton: UIButton = {
+    private lazy var checkDuplicateNicknameButton: UIButton = {
         let button = UIButton()
         button.isEnabled = false
         button.setTitle("중복확인", for: .normal)
@@ -93,11 +97,16 @@ final class NicknameViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(Asset.Colors.gray4.color, for: .disabled)
         button.backgroundColor = Asset.Colors.gray2.color
-        button.addTarget(self, action: #selector(didTapDoubleCheckButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(checkDuplicateNicknameButtonDidTapped), for: .touchUpInside)
         return button
     }()
-    private let confirmButton: CTAButton = {
+    private lazy var confirmButton: CTAButton = {
         let button = CTAButton(style: .basic)
+        button.addAction(UIAction(handler: { _ in
+            self.viewModel.confirmButtonDidTapped(nickname: self.nicknameTextField.text,
+                                                  profileImage: self.profileImage)
+            button.isEnabled = false
+        }), for: .touchUpInside)
         return button
     }()
 
@@ -105,6 +114,7 @@ final class NicknameViewController: UIViewController {
     init(viewModel: NicknameViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.hidesBottomBarWhenPushed = true
     }
 
     required init?(coder: NSCoder) {
@@ -116,6 +126,7 @@ final class NicknameViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         nicknameTextField.delegate = self
+        bind()
         addTapGesture()
         addKeyboardNotification()
         layout()
@@ -124,15 +135,27 @@ final class NicknameViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         setUpNavigationBar()
-        tabBarController?.tabBar.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
-        tabBarController?.tabBar.isHidden = false
     }
 
     // MARK: - Methods
+
+    private func bind() {
+        viewModel.didEditComplete = {
+            DispatchQueue.main.async {
+                self.confirmButton.isEnabled = false
+            }
+        }
+
+        viewModel.isValidNickname = { isDuplicate in
+            DispatchQueue.main.async {
+                self.checkDuplicateNickname(isDuplicate: isDuplicate)
+            }
+        }
+    }
 
     private func addKeyboardNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),
@@ -144,28 +167,23 @@ final class NicknameViewController: UIViewController {
     private func setUpNavigationBar() {
         self.navigationController?.navigationBar.topItem?.title = ""
         self.navigationController?.navigationBar.tintColor = Asset.Colors.gray7.color
+        self.title = "프로필 수정"
     }
 
     private func setUpView() {
         switch viewModel.viewType {
         case .onboarding:
-            nicknameTextField.text = viewModel.randomNickname
             confirmButton.setTitle("다음", for: .normal)
             confirmButton.isEnabled = true
         case .myPage:
-            title = "프로필 수정"
             nicknameTextField.text = viewModel.userNickname
             confirmButton.setTitle("완료", for: .normal)
             confirmButton.isEnabled = false
-            setUpProfileImage()
-        }
-    }
-
-    private func setUpProfileImage() {
-        if viewModel.profileImage != nil {
-            // 이미지 세팅
-        } else {
-            profileImageView.image = Asset.Images.avatar.image
+            if viewModel.profileImage == nil {
+                profileImageView.image = Asset.Images.avatar.image
+            } else {
+                profileImageView.kf.setImage(with: URL(string: viewModel.profileImage ?? ""))
+            }
         }
     }
 
@@ -177,7 +195,7 @@ final class NicknameViewController: UIViewController {
         }
         confirmButton.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-6)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(18)
             $0.height.equalTo(50)
         }
 
@@ -193,13 +211,13 @@ final class NicknameViewController: UIViewController {
             $0.bottom.equalToSuperview()
         }
 
-        [nicknameTextField, doubleCheckButton, descriptionLabel].forEach { nicknameView.addSubview($0) }
+        [nicknameTextField, checkDuplicateNicknameButton, descriptionLabel].forEach { nicknameView.addSubview($0) }
         nicknameTextField.snp.makeConstraints {
             $0.top.equalToSuperview().offset(14)
             $0.height.equalTo(44)
             $0.leading.equalToSuperview()
         }
-        doubleCheckButton.snp.makeConstraints {
+        checkDuplicateNicknameButton.snp.makeConstraints {
             $0.top.bottom.equalTo(nicknameTextField)
             $0.trailing.equalToSuperview()
             $0.leading.equalTo(nicknameTextField.snp.trailing).offset(8)
@@ -224,34 +242,30 @@ final class NicknameViewController: UIViewController {
         nicknameTextField.layer.borderColor = state.borderColor
         descriptionLabel.textColor = state.textColor
         switch state {
-        case .empty, .overTenCharacters, .underTwoCharacters:
-            setDoubleCheckButtonState(isEnabled: false)
+        case .empty, .overTwentyCharacters, .underTwoCharacters:
+            setCheckDuplicateNicnameButtonState(isEnabled: false)
         case .correct:
-            setDoubleCheckButtonState(isEnabled: viewModel.userNickname != nicknameTextField.text)
+            setCheckDuplicateNicnameButtonState(isEnabled: viewModel.userNickname != nicknameTextField.text)
         }
     }
 
-    private func setDoubleCheckButtonState(isEnabled: Bool) {
-        doubleCheckButton.isEnabled = isEnabled
-        doubleCheckButton.backgroundColor = isEnabled ? Asset.Colors.gray5.color : Asset.Colors.gray2.color
+    private func setCheckDuplicateNicnameButtonState(isEnabled: Bool) {
+        checkDuplicateNicknameButton.isEnabled = isEnabled
+        checkDuplicateNicknameButton.backgroundColor = isEnabled ? Asset.Colors.gray5.color : Asset.Colors.gray2.color
     }
 
-    private func setUpConfirmButtonState() {
-        confirmButton.isEnabled = viewModel.isVaild
-    }
-
-    private func doubleCheckNickname(isValid: Bool) {
-        if isValid {
-            descriptionLabel.setText(text: "사용 가능한 닉네임입니다", font: .captionLarge)
-            nicknameTextField.layer.borderColor = Asset.Colors.correct.color.cgColor
-            descriptionLabel.textColor = Asset.Colors.correct.color
-        } else {
-            descriptionLabel.setText(text: "다른 사용자가 이미 사용중 입니다", font: .captionLarge)
+    private func checkDuplicateNickname(isDuplicate: Bool) {
+        if isDuplicate {
+            descriptionLabel.text = "다른 사용자가 이미 사용중 입니다"
             nicknameTextField.layer.borderColor = Asset.Colors.error.color.cgColor
             descriptionLabel.textColor = Asset.Colors.error.color
+        } else {
+            descriptionLabel.text = "사용 가능한 닉네임입니다"
+            nicknameTextField.layer.borderColor = Asset.Colors.correct.color.cgColor
+            descriptionLabel.textColor = Asset.Colors.correct.color
         }
-        setDoubleCheckButtonState(isEnabled: false)
-        confirmButton.isEnabled = isValid
+        setCheckDuplicateNicnameButtonState(isEnabled: false)
+        confirmButton.isEnabled = !isDuplicate
     }
 
     private func addTapGesture() {
@@ -284,8 +298,9 @@ extension NicknameViewController {
         setNicknameButton(state: nicknameState)
     }
 
-    @objc private func didTapDoubleCheckButton() {
-        doubleCheckNickname(isValid: viewModel.isVaild)
+    @objc private func checkDuplicateNicknameButtonDidTapped() {
+        guard let nickname = nicknameTextField.text else { return }
+        viewModel.validNickname(requestValue: nickname)
     }
 
     @objc private func didTapProfileImageEditButton() {
@@ -293,13 +308,17 @@ extension NicknameViewController {
         viewContolller.modalPresentationStyle = .overFullScreen
         viewContolller.modalTransitionStyle = .crossDissolve
         viewContolller.deleteProfileImage = { [weak self] in
-            self?.viewModel.profileImage = nil
-            self?.setUpProfileImage()
-            self?.setUpConfirmButtonState()
+            self?.profileImage = nil
+            self?.viewModel.didImageChanged = true
+            self?.profileImageView.image = Asset.Images.avatar.image
+            self?.confirmButton.isEnabled = !(self?.viewModel.isDuplicated ?? true)
         }
         viewContolller.didFinishPhotoPicker = { [weak self] image in
+            self?.profileImage = image
+            self?.viewModel.didImageChanged = true
             self?.profileImageView.image = image
-            self?.setUpConfirmButtonState()
+            self?.confirmButton.isEnabled = true
+            self?.confirmButton.isEnabled = !(self?.viewModel.isDuplicated ?? true)
         }
         self.present(viewContolller, animated: true)
     }

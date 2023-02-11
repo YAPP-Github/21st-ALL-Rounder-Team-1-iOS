@@ -70,11 +70,50 @@ final class AccountRepository: AccountRepositoryInterface {
         }
     }
 
+    func signOut(completion: @escaping (Result<Void, Error>) -> Void) {
+        let result = KeychainManager.shared.deleteUserToken()
+        switch result {
+        case .success:
+            completion(.success(()))
+        case .failure(let error):
+            completion(.failure(error))
+        }
+    }
+
     func withdraw(completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
-        return nil
+        var urlComponents = URLComponents(string: networkService.baseURL)
+        urlComponents?.path = "/api/user"
+        guard let request = urlComponents?.toURLRequest(method: .delete) else {
+            completion(.failure(RepositoryError.urlParseFailed))
+            return nil
+        }
+
+        return networkService.dataTask(request: request) { (result: Result<WithdrawDTO, Error>) in
+            switch result {
+            case .success:
+                _ = KeychainManager.shared.deleteUserToken()
+                completion(.success(()))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 
     func createNickname(completion: @escaping (Result<String, Error>) -> Void) -> Cancellable? {
-        return nil
+        var urlComponents = URLComponents(string: networkService.baseURL)
+        urlComponents?.path = "/api/user/random-nickname"
+        guard let request = urlComponents?.toURLRequest(method: .get) else {
+            completion(.failure(RepositoryError.urlParseFailed))
+            return nil
+        }
+
+        return networkService.dataTask(request: request) { (result: Result<RandomNicknameDTO, Error>) in
+            switch result {
+            case .success(let nicknameDTO):
+                completion(.success(nicknameDTO.nickname))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }

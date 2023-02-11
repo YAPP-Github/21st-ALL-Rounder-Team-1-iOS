@@ -11,7 +11,8 @@ struct EditProfileRequestValue {
     let nickname: String
     let rating: Int
     let newImage: UIImage?
-    let oldImagePath: String
+    let oldImagePath: String?
+    let didImageChanged: Bool
 }
 
 protocol EditProfileUseCaseInterface {

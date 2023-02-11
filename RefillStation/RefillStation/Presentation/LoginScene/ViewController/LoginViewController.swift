@@ -20,6 +20,21 @@ final class LoginViewController: UIViewController {
         return ASAuthorizationController(authorizationRequests: [request])
     }()
 
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "지구를 위한 리필 습관"
+        label.font = .font(style: .bodyLarge)
+        label.textColor = Asset.Colors.primary10.color
+        return label
+    }()
+
+    private let iconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Asset.Images.iconPump.image.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = Asset.Colors.primary10.color
+        return imageView
+    }()
+
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Asset.Images.loginbackground.image
@@ -91,12 +106,20 @@ final class LoginViewController: UIViewController {
 
     private func layout() {
         view.addSubview(backgroundImageView)
-        [backgroundImageView, loginButtonStackView].forEach { view.addSubview($0) }
+        [backgroundImageView, titleLabel, iconImageView, loginButtonStackView].forEach { view.addSubview($0) }
         [kakaoLoginButton, naverLoginButton, appleLoginButton].forEach { loginButtonStackView.addArrangedSubview($0)
         }
         backgroundImageView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.leading.trailing.bottom.equalToSuperview()
+        }
+        titleLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(72)
+        }
+        iconImageView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
         }
         loginButtonStackView.snp.makeConstraints {
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(32)

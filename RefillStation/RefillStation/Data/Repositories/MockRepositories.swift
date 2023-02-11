@@ -42,10 +42,14 @@ final class MockAccountRepository: AccountRepositoryInterface {
         let jwtToken = "jwtToken"
         return MockTask { completion(.success(jwtToken)) }
     }
+
+    func signOut(completion: @escaping (Result<Void, Error>) -> Void) {
+        completion(.success(()))
+    }
 }
 
 final class MockCustomerSatisfactionRepository: CustomerSatisfactionRepositoryInterface {
-    func upload(type: CustomerSatisfactionType, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
+    func upload(requestValue: CustomerSatisfactionRequestValue, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
         return MockTask { completion(.success(())) }
     }
 }

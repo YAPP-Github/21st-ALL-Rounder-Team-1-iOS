@@ -17,7 +17,7 @@ final class PumpLargeTitleNavigationBar: UIView {
     }()
     private let dividerView: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.gray1.color
+        view.backgroundColor = Asset.Colors.gray2.color
         return view
     }()
 

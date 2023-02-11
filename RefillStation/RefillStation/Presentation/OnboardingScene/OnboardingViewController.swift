@@ -84,7 +84,7 @@ final class OnboardingViewController: UIViewController {
 
         startButton.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(18)
             $0.height.equalTo(50)
         }
     }
@@ -117,7 +117,11 @@ extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
 extension OnboardingViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if onboardingCollectionView.frame.width == 0 { return }
-        let page = Int(floor(onboardingCollectionView.contentOffset.x / onboardingCollectionView.frame.width))
-        pageControl.currentPage = page
+        let width = scrollView.bounds.size.width
+        let x = scrollView.contentOffset.x + (width/2)
+        let newPage = Int(x/width)
+        if pageControl.currentPage != newPage {
+            pageControl.currentPage = newPage
+        }
     }
 }
