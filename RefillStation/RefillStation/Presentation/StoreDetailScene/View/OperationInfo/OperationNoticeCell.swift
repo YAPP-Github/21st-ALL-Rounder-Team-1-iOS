@@ -20,7 +20,7 @@ final class OperationNoticeCell: UICollectionViewCell {
 
     private lazy var noticeView: UIView = {
         let noticeView = UIView()
-        noticeView.backgroundColor = Asset.Colors.primary1.color
+        noticeView.backgroundColor = Asset.Colors.gray1.color
         noticeView.layer.cornerRadius = 4
         noticeView.addSubview(noticeLabel)
         noticeLabel.snp.makeConstraints {
