@@ -17,9 +17,9 @@ final class ReviewDescriptionCell: UICollectionViewCell {
     private let reviewTextView: UITextView = {
         let textView = UITextView()
         textView.isEditable = true
-        textView.textColor = .lightGray
+        textView.textColor = Asset.Colors.gray4.color
         textView.textContainerInset = .init(top: 16, left: 16, bottom: 16, right: 16)
-        textView.font = UIFont.font(style: .bodyMedium)
+        textView.font = UIFont.font(style: .bodyMediumOverTwoLine)
         textView.layer.cornerRadius = 6
         textView.layer.borderWidth = 1
         textView.layer.borderColor = Asset.Colors.gray2.color.cgColor
@@ -29,16 +29,14 @@ final class ReviewDescriptionCell: UICollectionViewCell {
 
     private let textCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "0"
-        label.font = .systemFont(ofSize: 12)
+        label.setText(text: "0", font: .captionLarge)
         label.textColor = Asset.Colors.gray7.color
         return label
     }()
 
     private let maxTextLabel: UILabel = {
         let label = UILabel()
-        label.text = "/500"
-        label.font = .systemFont(ofSize: 12)
+        label.setText(text: "/500", font: .captionLarge)
         label.textColor = Asset.Colors.gray4.color
         return label
     }()
@@ -61,13 +59,15 @@ final class ReviewDescriptionCell: UICollectionViewCell {
     private func setUpReviewTextView() {
         reviewTextView.delegate = self
         reviewTextView.text = placeholder
+        reviewTextView.setText(text: placeholder, font: .bodyMediumOverTwoLine, textColor: Asset.Colors.gray4.color)
     }
 
     private func layout() {
-        [reviewTextView, dividerView, textCountLabel, maxTextLabel].forEach { contentView.addSubview($0) }
+        [reviewTextView, textCountLabel, maxTextLabel].forEach { contentView.addSubview($0) }
         reviewTextView.snp.makeConstraints { textView in
-            textView.top.equalToSuperview()
+            textView.top.equalToSuperview().inset(7)
             textView.leading.trailing.equalToSuperview().inset(16)
+            textView.bottom.equalToSuperview().inset(20)
         }
 
         maxTextLabel.snp.makeConstraints { label in
@@ -77,12 +77,6 @@ final class ReviewDescriptionCell: UICollectionViewCell {
         textCountLabel.snp.makeConstraints { label in
             label.trailing.equalTo(maxTextLabel.snp.leading)
             label.centerY.equalTo(maxTextLabel)
-        }
-
-        dividerView.snp.makeConstraints { view in
-            view.height.equalTo(1)
-            view.top.equalTo(reviewTextView.snp.bottom).offset(20)
-            view.leading.trailing.bottom.equalToSuperview()
         }
     }
 }
@@ -103,7 +97,8 @@ extension ReviewDescriptionCell: UITextViewDelegate {
     }
 
     func textViewDidChange(_ textView: UITextView) {
-        self.textCountLabel.text = "\(textView.text.count)"
+        self.textCountLabel.setText(text: "\(textView.text.count)", font: .captionLarge)
+        textView.setText(text: textView.text, font: .bodyMediumOverTwoLine, textColor: Asset.Colors.gray7.color)
         didChangeText?(textView.text)
     }
 

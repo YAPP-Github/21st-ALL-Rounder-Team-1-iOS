@@ -36,7 +36,7 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
     }
 
     func setUpContents(title: String, image: UIImage?) {
-        titleLabel.text = title
+        titleLabel.setText(text: title, font: .titleLarge1)
         imageView.image = image
     }
 

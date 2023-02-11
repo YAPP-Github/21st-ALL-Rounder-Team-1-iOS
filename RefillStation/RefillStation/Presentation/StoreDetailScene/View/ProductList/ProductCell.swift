@@ -38,8 +38,8 @@ final class ProductCell: UICollectionViewCell {
     }
 
     func setUpContents(product: Product) {
-        brandLabel.text = product.brand
-        productNameLabel.text = product.name
+        brandLabel.setText(text: product.brand, font: .captionLarge)
+        productNameLabel.setText(text: product.brand, font: .titleSmall)
     }
 
     private func layout() {

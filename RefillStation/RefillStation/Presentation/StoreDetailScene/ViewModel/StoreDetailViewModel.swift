@@ -149,7 +149,11 @@ final class StoreDetailViewModel {
             return true
         }
 
-        guard let dateToCompare = Calendar.current.date(byAdding: .second, value: 3, to: lastRecommendedTime) else {
+        guard let dateToCompare = Calendar.current.date(
+            byAdding: .nanosecond,
+            value: 500_000_000,
+            to: lastRecommendedTime
+        ) else {
             return false
         }
         UserDefaults.standard.set(Date(), forKey: "lastRecommended")

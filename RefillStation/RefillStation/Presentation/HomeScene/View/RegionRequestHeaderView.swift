@@ -39,7 +39,7 @@ final class RegionRequestHeaderView: UICollectionReusableView {
 
     // MARK: - Default Setting Methods
     func setUpView(address: String) {
-        currentLocationLabel.text = address
+        currentLocationLabel.setText(text: address, font: .captionLarge)
     }
     private func layout() {
         [locationIcon, currentLocationLabel].forEach { addSubview($0) }

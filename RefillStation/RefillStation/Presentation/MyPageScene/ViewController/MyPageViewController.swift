@@ -150,13 +150,11 @@ final class MyPageViewController: UIViewController {
         let outerView = UIView()
         outerView.backgroundColor = .white
         let titleLabel = UILabel()
-        titleLabel.text = title
-        titleLabel.font = .font(style: .buttonLarge)
+        titleLabel.setText(text: title, font: .buttonLarge)
         titleLabel.textColor = Asset.Colors.gray6.color
 
         let versionLabel = UILabel()
-        versionLabel.text = version
-        versionLabel.font = .font(style: .captionLarge)
+        versionLabel.setText(text: version, font: .captionLarge)
         versionLabel.textColor = Asset.Colors.gray4.color
 
         let disclosureImageView = UIImageView(image: UIImage(systemName: "chevron.forward"))

@@ -53,6 +53,7 @@
 		3282FED32992391C00DBFE24 /* AWSAccessKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3282FED22992391C00DBFE24 /* AWSAccessKey.plist */; };
 		329557462951992900F5AB53 /* StoreDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F2D9B22951864700131EB1 /* StoreDetailViewModel.swift */; };
 		329557472951992C00F5AB53 /* StoreDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F2D9B02951862E00131EB1 /* StoreDetailViewController.swift */; };
+		329827842995422200304B68 /* UITextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329827832995422200304B68 /* UITextViewExtension.swift */; };
 		3299C8922994B3F90086837F /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3299C8912994B3F90086837F /* UILabelExtension.swift */; };
 		329E80252977FA72004286B0 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329E80222977FA72004286B0 /* OnboardingCollectionViewCell.swift */; };
 		329E80262977FA72004286B0 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329E80232977FA72004286B0 /* OnboardingViewModel.swift */; };
@@ -238,6 +239,7 @@
 		325985F8294C54CB00D26A37 /* StoreDetailDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailDIContainer.swift; sourceTree = "<group>"; };
 		327524DC2987829F00E033A9 /* CustomerSatisfactionRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSatisfactionRepositoryInterface.swift; sourceTree = "<group>"; };
 		3282FED22992391C00DBFE24 /* AWSAccessKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AWSAccessKey.plist; sourceTree = "<group>"; };
+		329827832995422200304B68 /* UITextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewExtension.swift; sourceTree = "<group>"; };
 		3299C8912994B3F90086837F /* UILabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
 		329E80222977FA72004286B0 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		329E80232977FA72004286B0 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
@@ -613,6 +615,7 @@
 			isa = PBXGroup;
 			children = (
 				3299C8912994B3F90086837F /* UILabelExtension.swift */,
+				329827832995422200304B68 /* UITextViewExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1469,6 +1472,7 @@
 				32B792312993A51C001145B0 /* CustomerSatisfactionRepository.swift in Sources */,
 				FC083C482992B4A4002DD943 /* AccountManagementViewController.swift in Sources */,
 				329E80272977FA72004286B0 /* OnboardingViewController.swift in Sources */,
+				329827842995422200304B68 /* UITextViewExtension.swift in Sources */,
 				FC60D83C2962C36F00C676A6 /* ReviewDescriptionCell.swift in Sources */,
 				32409866295F51DB00911306 /* DetailReviewTagCollectionViewCell.swift in Sources */,
 				329557462951992900F5AB53 /* StoreDetailViewModel.swift in Sources */,

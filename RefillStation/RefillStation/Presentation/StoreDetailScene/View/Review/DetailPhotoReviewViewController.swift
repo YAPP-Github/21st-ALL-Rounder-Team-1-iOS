@@ -71,17 +71,15 @@ final class DetailPhotoReviewViewController: UIViewController {
 
     private lazy var pageCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "1 / "
+        label.setText(text: "1 / ", font: .buttonSmall)
         label.textColor = .white
-        label.font = .systemFont(ofSize: 15, weight: .medium)
         return label
     }()
 
     private lazy var maxPageCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "\(viewModel.photos.count)"
+        label.setText(text: "\(viewModel.photos.count)", font: .buttonSmall)
         label.textColor = Asset.Colors.gray4.color
-        label.font = .systemFont(ofSize: 15, weight: .medium)
         return label
     }()
 
@@ -115,7 +113,7 @@ final class DetailPhotoReviewViewController: UIViewController {
 
     private func bind() {
         viewModel.setUpPageLabel = {
-            self.pageCountLabel.text = "\(self.viewModel.page + 1) / "
+            self.pageCountLabel.setText(text: "\(self.viewModel.page + 1) / ", font: .buttonSmall)
         }
     }
 
