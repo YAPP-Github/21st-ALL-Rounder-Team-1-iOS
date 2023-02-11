@@ -9,6 +9,7 @@ import UIKit
 
 final class DetailPhotoReviewViewController: UIViewController {
 
+    var coodinator: StoreDetailCoordinator?
     private let viewModel: DetailPhotoReviewViewModel
 
     private lazy var orthogonalScrollView: UIScrollView = {
@@ -64,7 +65,7 @@ final class DetailPhotoReviewViewController: UIViewController {
         button.contentHorizontalAlignment = .fill
         button.contentVerticalAlignment = .fill
         button.addAction(UIAction { _ in
-            self.navigationController?.popViewController(animated: true)
+            self.coodinator?.popPhotoDetail()
         }, for: .touchUpInside)
         return button
     }()
