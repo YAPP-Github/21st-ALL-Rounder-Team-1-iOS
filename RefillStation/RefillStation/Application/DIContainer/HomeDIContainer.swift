@@ -38,4 +38,13 @@ final class HomeDIContainer: DIContainer {
     func makeFetchStoresUseCase() {
 
     }
+
+    // MARK: - Request Region
+    func makeRequestRegionViewController() -> RequestRegionViewController {
+        return RequestRegionViewController(viewModel: makeRequestRegionViewModel())
+    }
+
+    func makeRequestRegionViewModel() -> RequestRegionViewModel {
+        return RequestRegionViewModel()
+    }
 }
