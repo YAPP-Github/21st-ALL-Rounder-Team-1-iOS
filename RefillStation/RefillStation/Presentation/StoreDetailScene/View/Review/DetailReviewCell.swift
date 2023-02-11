@@ -15,6 +15,7 @@ final class DetailReviewCell: UICollectionViewCell {
     private var review: Review?
     private var tags: [Tag]?
     private var tagCollectionViewHeight: CGFloat = 40
+    private var reviewImageLoadTask: Cancellable?
 
     // MARK: - Event Handling
     var photoImageTapped: (() -> Void)?
@@ -176,6 +177,10 @@ final class DetailReviewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
+    override func prepareForReuse() {
+        reviewImageLoadTask?.cancel()
+    }
+
     func setUpContents(review: Review, shouldSeeMore: Bool) {
         self.review = review
         setUpTagCollectionViewContents()
@@ -184,6 +189,7 @@ final class DetailReviewCell: UICollectionViewCell {
         descriptionLabel.setText(text: review.description, font: .bodyMediumOverTwoLine)
         imageCountLabel.setText(text: "1 / \(review.imageURL.count)", font: .buttonSmall)
         imageCountLabel.isHidden = review.imageURL.count <= 1
+        reviewImageLoadTask = reviewImageView.kf.setImage(with: URL(string: review.imageURL.first ?? ""))
         addArrangedSubviewsToOuterStackview()
         descriptionLabel.numberOfLines = shouldSeeMore ? 0 : 3
     }
