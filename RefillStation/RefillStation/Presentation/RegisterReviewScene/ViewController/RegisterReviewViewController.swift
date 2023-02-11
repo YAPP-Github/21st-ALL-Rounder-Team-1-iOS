@@ -59,6 +59,7 @@ final class RegisterReviewViewController: UIViewController {
     init(viewModel: DefaultTagReviewViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.hidesBottomBarWhenPushed = true
     }
 
     required init?(coder: NSCoder) {
@@ -76,6 +77,14 @@ final class RegisterReviewViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        setUpNavigationBar()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        AppDelegate.setUpNavigationBar()
+    }
+
+    private func setUpNavigationBar() {
         let standardAppearance = UINavigationBarAppearance()
         standardAppearance.configureWithDefaultBackground()
         standardAppearance.backgroundColor = .white
@@ -88,12 +97,6 @@ final class RegisterReviewViewController: UIViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = scrollEdgeAppearance
         navigationController?.navigationBar.tintColor = .black
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        tabBarController?.tabBar.isHidden = true
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        AppDelegate.setUpNavigationBar()
-        tabBarController?.tabBar.isHidden = false
     }
 
     private func bind() {
