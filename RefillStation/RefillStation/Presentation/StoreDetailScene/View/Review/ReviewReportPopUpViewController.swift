@@ -63,14 +63,16 @@ extension ReviewReportPopUpViewController: UITextViewDelegate {
             textView.text = nil
             textView.textColor = Asset.Colors.gray7.color
         }
-        actionButtons[1].isEnabled = true
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = placeholder
             textView.textColor = Asset.Colors.gray4.color
-            actionButtons[1].isEnabled = false
         }
+    }
+
+    func textViewDidChange(_ textView: UITextView) {
+        actionButtons[1].isEnabled = !textView.text.isEmpty
     }
 }
