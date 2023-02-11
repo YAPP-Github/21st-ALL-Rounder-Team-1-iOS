@@ -103,7 +103,7 @@ extension StoreDetailViewController {
         var cellHeight: CGFloat {
             switch self {
             case .storeDetailInfo:
-                return 300
+                return 500
             case .tabBar:
                 return 300
             case .productCategory:
