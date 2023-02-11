@@ -36,7 +36,7 @@ final class RegisterReviewViewController: UIViewController {
         return button
     }()
 
-    private lazy var registerButonView: UIView = {
+    private lazy var registerButtonView: UIView = {
         let outerView = UIView()
         outerView.backgroundColor = .white
         let divider = UIView()
@@ -122,11 +122,11 @@ final class RegisterReviewViewController: UIViewController {
     }
 
     private func layout() {
-        [outerCollectionView, registerButonView].forEach { view.addSubview($0) }
+        [outerCollectionView, registerButtonView].forEach { view.addSubview($0) }
         outerCollectionView.snp.makeConstraints { collection in
             collection.edges.equalTo(view.safeAreaLayoutGuide)
         }
-        registerButonView.snp.makeConstraints {
+        registerButtonView.snp.makeConstraints {
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
