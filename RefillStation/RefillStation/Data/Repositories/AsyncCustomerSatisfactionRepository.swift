@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class AysncCustomerSatisfactionRepository: AsyncCustomerSatisfactionRepositoryInterface {
+final class AsyncCustomerSatisfactionRepository: AsyncCustomerSatisfactionRepositoryInterface {
     private let networkService: NetworkServiceInterface
     private let userInfoRepository: AsyncUserInfoRepositoryInterface
 
