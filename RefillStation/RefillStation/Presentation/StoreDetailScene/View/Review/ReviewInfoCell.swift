@@ -206,7 +206,7 @@ final class ReviewInfoCell: UICollectionViewCell {
         otherClassStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
         if totalTagReviewCount == 0 {
-            votedCountLabel.isHidden = true
+            [profileGroupImageView, participateLabel, votedCountLabel].forEach { $0.isHidden = true }
             makeBlurPlaceholder(isTotalReviewZero: true)
             return
         } else if totalTagReviewCount < 10 {
