@@ -16,7 +16,7 @@ final class LoginViewController: UIViewController {
     private let authorizationController: ASAuthorizationController = {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
-        request.requestedScopes = []
+        request.requestedScopes = [.fullName, .email]
         return ASAuthorizationController(authorizationRequests: [request])
     }()
 
@@ -173,7 +173,18 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             guard let identityToken = appleIDCredential.identityToken,
                   let token = String(data: identityToken, encoding: .utf8) else { return }
-            viewModel.onAppleLoginByAppTouched(requestValue: token)
+
+            let email = appleIDCredential.email
+            var name: String?
+
+            if let familyName = appleIDCredential.fullName?.familyName,
+               let givenName = appleIDCredential.fullName?.givenName {
+                name = familyName + givenName
+            }
+
+            viewModel.onAppleLoginByAppTouched(token: token,
+                                               name: name,
+                                               email: email)
         }
     }
 
