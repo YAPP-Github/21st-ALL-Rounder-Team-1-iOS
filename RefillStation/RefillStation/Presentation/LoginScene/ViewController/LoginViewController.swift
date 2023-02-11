@@ -16,7 +16,7 @@ final class LoginViewController: UIViewController {
     private let authorizationController: ASAuthorizationController = {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
-        request.requestedScopes = []
+        request.requestedScopes = [.fullName, .email]
         return ASAuthorizationController(authorizationRequests: [request])
     }()
 
@@ -171,9 +171,7 @@ extension LoginViewController: ASAuthorizationControllerPresentationContextProvi
 extension LoginViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            guard let identityToken = appleIDCredential.identityToken,
-                  let token = String(data: identityToken, encoding: .utf8) else { return }
-            viewModel.onAppleLoginByAppTouched(requestValue: token)
+            viewModel.onAppleLoginByAppTouched(appleIDCredential: appleIDCredential)
         }
     }
 

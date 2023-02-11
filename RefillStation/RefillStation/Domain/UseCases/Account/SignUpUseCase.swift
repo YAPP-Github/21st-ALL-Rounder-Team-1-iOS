@@ -8,8 +8,8 @@
 import Foundation
 
 struct SignUpRequestValue {
-    let name: String
-    let email: String
+    let name: String?
+    let email: String?
     let imagePath: String
     let oauthType: String
     let oauthIdentity: String

@@ -22,6 +22,7 @@ final class AccountManagementViewModel {
         Task {
             do {
                 try await signOutUseCase.execute()
+                presentToLogin?()
             } catch {
                 print(error)
             }
@@ -32,6 +33,7 @@ final class AccountManagementViewModel {
         Task {
             do {
                 try await withdrawUseCase.execute()
+                presentToLogin?()
             } catch {
                 print(error)
             }

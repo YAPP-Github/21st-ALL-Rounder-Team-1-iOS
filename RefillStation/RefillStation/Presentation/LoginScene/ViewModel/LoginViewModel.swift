@@ -8,11 +8,14 @@
 import Foundation
 import KakaoSDKUser
 import KakaoSDKAuth
+import AuthenticationServices
 
 final class LoginViewModel {
     private let OAuthLoginUseCase: OAuthLoginUseCaseInterface
 
     var signUpRequestValue: SignUpRequestValue?
+    private var appleUserName: String?
+    private var appleUserEmail: String?
     var isSignUp: (() -> Void)?
     var isSignIn: (() -> Void)?
 
@@ -27,9 +30,11 @@ final class LoginViewModel {
                     loginType: oauthType,
                     requestValue: OAuthLoginRequestValue(accessToken: requestValue)
                 )
+                let name = oauthType == .apple ? appleUserName : result.name
+                let email = oauthType == .apple ? appleUserEmail : result.email
                 self.signUpRequestValue = SignUpRequestValue(
-                    name: result.name,
-                    email: result.email,
+                    name: name,
+                    email: email,
                     imagePath: result.imgPath,
                     oauthType: result.oauthType,
                     oauthIdentity: result.oauthIdentity
@@ -45,9 +50,6 @@ final class LoginViewModel {
 extension LoginViewModel {
 
     // MARK: - ViewController의 LoginButton이 눌릴 때 호출되는 메소드
-    private func loginButtonDidTapped(oauthType: OAuthType, requestValue: String) {
-        requestLogin(oauthType: oauthType, requestValue: requestValue)
-    }
 
     func onKakaoLoginByAppTouched() {
         if UserApi.isKakaoTalkLoginAvailable() {
@@ -56,19 +58,24 @@ extension LoginViewModel {
                     print(error)
                 } else {
                     guard let accessToken = oauthToken?.accessToken else { return }
-                    self.loginButtonDidTapped(oauthType: .kakao,
-                                              requestValue: accessToken)
+                    self.requestLogin(oauthType: .kakao, requestValue: accessToken)
                 }
             }
         }
     }
 
-    func onNaverLoginByAppTouched() {
-
+    func onAppleLoginByAppTouched(appleIDCredential: ASAuthorizationAppleIDCredential) {
+        guard let identityToken = appleIDCredential.identityToken,
+              let token = String(data: identityToken, encoding: .utf8) else { return }
+        appleUserEmail = appleIDCredential.email
+        if let familyName = appleIDCredential.fullName?.familyName,
+           let givenName = appleIDCredential.fullName?.givenName {
+            appleUserName = familyName + givenName
+        }
+        self.requestLogin(oauthType: .apple, requestValue: token)
     }
 
-    func onAppleLoginByAppTouched(requestValue: String) {
-        self.loginButtonDidTapped(oauthType: .apple,
-                                  requestValue: requestValue)
+    func onNaverLoginByAppTouched() {
+
     }
 }
