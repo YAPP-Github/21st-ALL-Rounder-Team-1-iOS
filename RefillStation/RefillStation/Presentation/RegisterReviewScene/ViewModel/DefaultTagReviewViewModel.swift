@@ -39,9 +39,7 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
     var reviewCountFetchCompleted: (() -> Void)?
 
     private let registerReviewUseCase: RegisterReviewUseCaseInterface
-    private var registerReviewTask: Cancellable?
     private let fetchUserReviewsUseCase: FetchUserReviewsUseCaseInterface
-    private var userReviewsLoadTask: Cancellable?
 
     init(storeId: Int,
          storeName: String,

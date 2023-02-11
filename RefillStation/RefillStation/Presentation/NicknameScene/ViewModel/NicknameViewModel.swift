@@ -61,7 +61,7 @@ final class NicknameViewModel {
 
     func confirmButtonDidTapped(nickname: String?,
                                 profileImage: UIImage?) {
-        Task {
+       editProfileTask = Task {
             let requestValue = EditProfileRequestValue(
                 nickname: nickname ?? "",
                 rating: user.level.level.rawValue,
@@ -76,7 +76,7 @@ final class NicknameViewModel {
     }
 
     func validNickname(nickname: String) {
-        Task {
+        validNicknameTask = Task {
             do {
                 let requestValue = ValidNicknameRequestValue(nickname: nickname)
                 let isDuplicated = try await validNicknameUseCase.execute(requestValue: requestValue)
@@ -86,6 +86,12 @@ final class NicknameViewModel {
                 print(error)
             }
         }
+    }
+}
+
+extension NicknameViewModel {
+    func viewWillDisappear() {
+        [editProfileTask, validNicknameTask].forEach { $0?.cancel() }
     }
 }
 

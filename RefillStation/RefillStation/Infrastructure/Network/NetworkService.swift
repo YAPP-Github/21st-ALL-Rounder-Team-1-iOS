@@ -17,6 +17,9 @@ public enum NetworkError: Error {
 }
 
 extension URLSessionDataTask: Cancellable { }
+extension Task: Cancellable {
+    func resume() {}
+}
 
 protocol NetworkServiceInterface {
     var baseURL: String { get }

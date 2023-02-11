@@ -23,7 +23,7 @@ final class MyPageViewModel {
     }
 
     private func fetchUserInfo() {
-        Task {
+        userInfoLoadTask = Task {
             do {
                 let userInfo = try await fetchUserInfoUseCase.execute()
                 userId = userInfo.id
@@ -49,5 +49,9 @@ final class MyPageViewModel {
 extension MyPageViewModel {
     func viewWillApeear() {
         fetchUserInfo()
+    }
+
+    func viewWillDisappear() {
+        userInfoLoadTask?.cancel()
     }
 }

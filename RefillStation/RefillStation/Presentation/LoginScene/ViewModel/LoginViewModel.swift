@@ -11,7 +11,6 @@ import KakaoSDKAuth
 
 final class LoginViewModel {
     private let OAuthLoginUseCase: OAuthLoginUseCaseInterface
-    private var loginTask: Cancellable?
 
     var signUpRequestValue: SignUpRequestValue?
     var isSignUp: (() -> Void)?

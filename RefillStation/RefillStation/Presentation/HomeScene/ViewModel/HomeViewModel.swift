@@ -29,7 +29,7 @@ final class HomeViewModel {
     }
 
     private func fetchStores() {
-        Task {
+        storesLoadTask = Task {
             do {
                 let stores = try await fetchStoresUseCase.execute(
                     requestValue: .init(latitude: latitude, longitude: longitude)
@@ -51,6 +51,10 @@ extension HomeViewModel {
     func viewWillApeear() {
         setUpCurrentLocation()
         fetchStores()
+    }
+
+    func viewWillDisappear() {
+        storesLoadTask?.cancel()
     }
 }
 

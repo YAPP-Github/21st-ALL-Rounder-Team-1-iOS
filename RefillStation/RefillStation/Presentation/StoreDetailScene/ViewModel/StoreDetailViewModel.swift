@@ -127,7 +127,7 @@ final class StoreDetailViewModel {
     func storeLikeButtonTapped() {
         guard isAbleToRecommend() else { return }
         let requestType: RecommendStoreRequestValue.`Type` = store.didUserRecommended ? .cancel : .recommend
-        Task {
+        recommendStoreTask = Task {
             do {
                 let response = try await recommendStoreUseCase.execute(
                     requestValue: .init(storeId: store.storeId, type: requestType)
@@ -155,7 +155,7 @@ final class StoreDetailViewModel {
     }
 
     private func fetchProducts() {
-        Task {
+        productListLoadTask = Task {
             do {
                 let products = try await fetchProductsUseCase.execute(requestValue: .init(storeId: store.storeId))
                 self.products = products
@@ -169,7 +169,7 @@ final class StoreDetailViewModel {
 
     private func fetchStoreReviews() {
         let requestValue = FetchStoreReviewsRequestValue(storeId: store.storeId)
-        Task {
+        storeReviewsLoadTask =  Task {
             do {
                 let reviews = try await fetchStoreReviewsUseCase.execute(requestValue: requestValue)
                 self.reviews = reviews
@@ -183,7 +183,7 @@ final class StoreDetailViewModel {
 
     private func fetchStoreRecommend() {
         let requestValue = FetchStoreRecommendRequestValue(storeId: store.storeId)
-        Task {
+        storeRecommendLoadTask = Task {
             do {
                 let response = try await fetchStoreRecommendUseCase.execute(requestValue: requestValue)
                 store.didUserRecommended = response.didRecommended

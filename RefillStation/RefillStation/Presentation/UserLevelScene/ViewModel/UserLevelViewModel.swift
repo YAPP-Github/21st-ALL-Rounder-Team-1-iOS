@@ -22,7 +22,7 @@ final class UserLevelViewModel {
     }
 
     private func fetchUserReviewCount() {
-        Task {
+        userReviewsLoadTask = Task {
             do {
                 let reviews = try await fetchUserReviewsUseCase.execute()
                 totalReviewCount = reviews.count
@@ -46,5 +46,9 @@ final class UserLevelViewModel {
 extension UserLevelViewModel {
     func viewDidLoad() {
         fetchUserReviewCount()
+    }
+
+    func viewWillDisappear() {
+        userReviewsLoadTask?.cancel()
     }
 }

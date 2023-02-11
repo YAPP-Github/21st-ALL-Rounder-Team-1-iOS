@@ -10,7 +10,6 @@ import Foundation
 final class LocationPermissionViewModel {
     private let signUpUseCase: SignUpUseCaseInterface
     private let requestValue: SignUpRequestValue
-    private var signUpTask: Cancellable?
     var isSignUpCompleted: (() -> Void)?
 
     init(signUpUseCase: SignUpUseCaseInterface,

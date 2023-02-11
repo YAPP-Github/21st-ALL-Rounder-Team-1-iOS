@@ -11,9 +11,6 @@ final class AccountManagementViewModel {
     private let signOutUseCase: SignOutUseCase
     private let withdrawUseCase: WithdrawUseCase
 
-    var signOutTask: Cancellable?
-    var withdrawTask: Cancellable?
-
     var presentToLogin: (() -> Void)?
 
     init(signOutUseCase: SignOutUseCase, withdrawUseCase: WithdrawUseCase) {

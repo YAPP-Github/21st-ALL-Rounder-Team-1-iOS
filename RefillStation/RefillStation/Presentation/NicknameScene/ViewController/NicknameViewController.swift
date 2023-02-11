@@ -141,6 +141,7 @@ final class NicknameViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
+        viewModel.viewWillDisappear()
     }
 
     // MARK: - Methods

@@ -51,6 +51,7 @@ final class UserLevelViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
+        viewModel.viewWillDisappear()
     }
 
     private func bind() {

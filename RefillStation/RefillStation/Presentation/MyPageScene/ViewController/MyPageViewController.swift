@@ -99,6 +99,7 @@ final class MyPageViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = false
+        viewModel.viewWillDisappear()
     }
 
     private func bind() {

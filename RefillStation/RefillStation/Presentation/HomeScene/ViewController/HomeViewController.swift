@@ -84,6 +84,7 @@ final class HomeViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = false
         AppDelegate.setUpNavigationBar()
+        viewModel.viewWillDisappear()
     }
 
     // MARK: - Default Setting Methods
