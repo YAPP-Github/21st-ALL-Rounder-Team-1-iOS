@@ -33,7 +33,7 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
     }
     var noKeywordTagDidSelected: Bool = false
     private var selectedTags: [Int] {
-        return indexPathsForSelectedItems.map { Int($0.row) }
+        return indexPathsForSelectedItems.map { Int($0.row + 1) }
     }
 
     var reviewCountFetchCompleted: (() -> Void)?
