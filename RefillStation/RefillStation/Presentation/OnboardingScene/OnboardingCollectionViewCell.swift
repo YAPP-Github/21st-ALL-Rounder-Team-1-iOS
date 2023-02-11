@@ -37,6 +37,7 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
 
     func setUpContents(title: String, image: UIImage?) {
         titleLabel.setText(text: title, font: .titleLarge1)
+        titleLabel.textAlignment = .center
         imageView.image = image
     }
 
