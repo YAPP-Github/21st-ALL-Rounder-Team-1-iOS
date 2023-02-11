@@ -590,6 +590,18 @@
 			path = TabBar;
 			sourceTree = "<group>";
 		};
+		3269F6DF2997527200AAD8A9 /* Deprecated */ = {
+			isa = PBXGroup;
+			children = (
+				3210B528298F7FF10034CBA7 /* StoreRepository.swift */,
+				32C865F22992505100911A49 /* UserInfoRepository.swift */,
+				FCB0087C298FD1960006FF53 /* AccountRepository.swift */,
+				320B83412992780700B58973 /* RegisterReviewRepository.swift */,
+				32B792302993A51C001145B0 /* CustomerSatisfactionRepository.swift */,
+			);
+			path = Deprecated;
+			sourceTree = "<group>";
+		};
 		3295574B29519D7800F5AB53 /* StoreDetailInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -1065,13 +1077,9 @@
 		FCE00A80294C95CD00B5C05F /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				3269F6DF2997527200AAD8A9 /* Deprecated */,
 				3210B52A298F834B0034CBA7 /* RepositoryError.swift */,
 				324098752961367300911306 /* MockRepositories.swift */,
-				3210B528298F7FF10034CBA7 /* StoreRepository.swift */,
-				32C865F22992505100911A49 /* UserInfoRepository.swift */,
-				FCB0087C298FD1960006FF53 /* AccountRepository.swift */,
-				320B83412992780700B58973 /* RegisterReviewRepository.swift */,
-				32B792302993A51C001145B0 /* CustomerSatisfactionRepository.swift */,
 				32DB35522996982300F699F4 /* AsyncStoreRepository.swift */,
 				32DB35582996A62900F699F4 /* AsyncAccountRepository.swift */,
 				32DB355C2996A84900F699F4 /* AsyncUserInfoRepository.swift */,
