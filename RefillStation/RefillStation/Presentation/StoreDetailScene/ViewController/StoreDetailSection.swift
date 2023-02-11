@@ -115,7 +115,7 @@ extension StoreDetailViewController {
             case .reviewOverview:
                 return 800
             case .review:
-                return 1000
+                return 100
             case .operationNotice:
                 return 300
             case .operationInfo:
