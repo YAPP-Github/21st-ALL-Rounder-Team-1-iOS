@@ -71,7 +71,8 @@ extension ReviewDTO {
 fileprivate extension String {
     func toDate() -> Date? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = ""
-        return dateFormatter.date(from: self)
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss" // "2023-02-07T14:22:26"
+        let dateString = dateFormatter.date(from: self)
+        return dateString
     }
 }
