@@ -179,7 +179,6 @@ final class DetailReviewCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         reviewImageLoadTask?.cancel()
-        invalidateIntrinsicContentSize()
     }
 
     func setUpContents(review: Review, shouldSeeMore: Bool) {
@@ -224,7 +223,7 @@ final class DetailReviewCell: UICollectionViewCell {
         }
 
         reviewInfoView.snp.makeConstraints {
-            $0.height.equalTo(38)
+            $0.height.equalTo(38).priority(.required)
         }
 
         outerStackView.setCustomSpacing(12, after: reviewInfoView)
@@ -254,12 +253,12 @@ final class DetailReviewCell: UICollectionViewCell {
         }
 
         if let tags = tags, !tags.isEmpty {
-            tagCollectionView.snp.makeConstraints {
+            tagCollectionView.snp.remakeConstraints {
                 $0.height.equalTo(30)
             }
             outerStackView.setCustomSpacing(16, after: descriptionLabel)
         } else {
-            tagCollectionView.snp.makeConstraints {
+            tagCollectionView.snp.remakeConstraints {
                 $0.height.equalTo(0)
             }
             outerStackView.setCustomSpacing(0, after: descriptionLabel)

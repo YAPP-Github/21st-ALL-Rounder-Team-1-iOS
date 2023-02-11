@@ -14,7 +14,7 @@ final class StoreDetailViewController: UIViewController {
     private lazy var storeDetailDataSource = diffableDataSource()
 
     private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout())
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         return collectionView
     }()
 
@@ -188,7 +188,7 @@ extension StoreDetailViewController {
         let operationInfoCellRegistration = operationInfoCellRegistration()
         return UICollectionViewDiffableDataSource<StoreDetailSection, StoreDetailItem>(
             collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
-                let storeDetailSection = self.section(mode: self.viewModel.mode, sectionIndex: indexPath.section)
+                let storeDetailSection = self.storeSection(mode: self.viewModel.mode, sectionIndex: indexPath.section)
                 switch storeDetailSection {
                 case .storeDetailInfo:
                     return collectionView.dequeueConfiguredReusableCell(using: storeDetailInfoCellRegisration,
@@ -272,26 +272,41 @@ extension StoreDetailViewController {
 }
 
 // MARK: - UICollectionViewLayout
-extension StoreDetailViewController {
-    private func compositionalLayout() -> UICollectionViewLayout {
-        let configuration = UICollectionViewCompositionalLayoutConfiguration()
-        configuration.interSectionSpacing = 0
-        configuration.scrollDirection = .vertical
+extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let section = storeSection(mode: viewModel.mode, sectionIndex: indexPath.section)
+        let width = collectionView.frame.width
+        let height = section.cellHeight
 
-        let compositionalLayout = UICollectionViewCompositionalLayout(sectionProvider: { section, environment in
-            let storeDetailSection = self.section(mode: self.viewModel.mode, sectionIndex: section)
-            let itemHeight = storeDetailSection.cellHeight
-            let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                                heightDimension: .estimated(itemHeight)))
-            let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                                           heightDimension: .estimated(itemHeight)),
-                                                         subitems: [item])
-            let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = storeDetailSection.contentInset
-            return section
-        }, configuration: configuration)
+        if section == .review {
+            let dummyCellForCalculateheight = DetailReviewCell(
+                frame: CGRect(origin: .zero, size: CGSize(width: width, height: height))
+            )
+            dummyCellForCalculateheight.setUpContents(
+                review: viewModel.reviews[indexPath.row],
+                shouldSeeMore: viewModel.reviewSeeMoreIndexPaths.contains(indexPath)
+            )
+            let heightThatFits = dummyCellForCalculateheight
+                .systemLayoutSizeFitting(CGSize(width: width, height: height)).height
+            return CGSize(width: width, height: heightThatFits)
+        } else if section == .operationInfo {
+            let dummyCellForCalculateheight = OperationInfoCell(
+                frame: CGRect(origin: .zero, size: CGSize(width: width, height: height))
+            )
+            dummyCellForCalculateheight.setUpContents(
+                operation: viewModel.operationInfos[indexPath.row],
+                shouldShowMore: viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath)
+            )
+            let heightThatFits = dummyCellForCalculateheight
+                .systemLayoutSizeFitting(CGSize(width: width, height: height)).height
+            return CGSize(width: width, height: heightThatFits)
+        } else if section == .reviewOverview {
+            if viewModel.totalTagVoteCount < 10 {
+                return CGSize(width: width, height: 414)
+            }
+        }
 
-        return compositionalLayout
+        return CGSize(width: width, height: height)
     }
 }
 
