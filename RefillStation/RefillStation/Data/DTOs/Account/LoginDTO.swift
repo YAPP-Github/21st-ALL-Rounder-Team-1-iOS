@@ -13,8 +13,8 @@ struct LoginDTO: Decodable {
 
 extension LoginDTO {
     func toDomain() -> OAuthLoginResponseValue {
-        return OAuthLoginResponseValue(name: name ?? "",
-                                       email: email ?? "",
+        return OAuthLoginResponseValue(name: name,
+                                       email: email,
                                        imgPath: imgPath ?? "",
                                        oauthIdentity: oauthIdentity ?? "",
                                        oauthType: oauthType ?? "",
