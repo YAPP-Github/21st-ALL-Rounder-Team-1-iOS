@@ -197,22 +197,24 @@ final class ReviewInfoCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
-    func setUpContents(totalDetailReviewCount: Int) {
-        reviewCountLabel.setText(text: "\(totalDetailReviewCount)", font: .titleMedium)
-    }
-
-    func setUpContents(totalTagReviewCount: Int, rankTags: [StoreDetailViewModel.RankTag]) {
+    func setUpContents(totalDetailReviewCount: Int, totalTagReviewCount: Int, rankTags: [StoreDetailViewModel.RankTag]) {
         var rank = 1
         otherClassStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
-        if totalTagReviewCount == 0 {
+        reviewCountLabel.setText(text: "\(totalDetailReviewCount)", font: .titleMedium)
+
+        if totalDetailReviewCount == 0 {
             [profileGroupImageView, participateLabel, votedCountLabel].forEach { $0.isHidden = true }
-            makeBlurPlaceholder(isTotalReviewZero: true)
+            makeBlurPlaceholder(reviewInfoCase: .noReviews)
+            return
+        } else if totalTagReviewCount == 0 {
+            [profileGroupImageView, participateLabel, votedCountLabel].forEach { $0.isHidden = true }
+            makeBlurPlaceholder(reviewInfoCase: .noTagReviews)
             return
         } else if totalTagReviewCount < 10 {
             profileGroupImageView.isHidden = true
             votedCountLabel.setText(text: "현재까지 \(totalTagReviewCount)명 ", font: .buttonLarge)
-            makeBlurPlaceholder(isTotalReviewZero: false)
+            makeBlurPlaceholder(reviewInfoCase: .underTenReviews)
             return
         } else {
             votedCountLabel.setText(text: "\(totalTagReviewCount)명 ", font: .buttonLarge)
@@ -235,7 +237,7 @@ final class ReviewInfoCell: UICollectionViewCell {
             }
     }
 
-    private func makeBlurPlaceholder(isTotalReviewZero: Bool) {
+    private func makeBlurPlaceholder(reviewInfoCase: ReviewInfoCase) {
         let blurEffect = UIBlurEffect(style: .extraLight)
         let visualEffectView = UIVisualEffectView(effect: blurEffect)
         visualEffectView.layer.cornerRadius = 16
@@ -243,7 +245,7 @@ final class ReviewInfoCell: UICollectionViewCell {
 
         let label = UILabel()
         label.numberOfLines = 2
-        let labelText = isTotalReviewZero ? "리뷰 쓰기에 참여해서\n이 매장의 좋은점을 알려주세요!" : "10명 이상 참여하면\n공개됩니다!"
+        let labelText = reviewInfoCase.text
         label.setText(text: labelText, font: .bodyMediumOverTwoLine)
         label.textAlignment = .center
 
@@ -302,5 +304,24 @@ final class ReviewInfoCell: UICollectionViewCell {
         moveToRegisterReviewButton.addAction(UIAction { _ in
             self.moveToRegisterReview?()
         }, for: .touchUpInside)
+    }
+}
+
+extension ReviewInfoCell {
+    enum ReviewInfoCase {
+        case noReviews
+        case noTagReviews
+        case underTenReviews
+
+        var text: String {
+            switch self {
+            case .noReviews:
+                return "리뷰 쓰기에 참여해서\n이 매장의 좋은점을 알려주세요!"
+            case .noTagReviews:
+                return "아직 참여자가 충분하지 않아\n이 매장의 좋은점을 볼 수 없어요"
+            case .underTenReviews:
+                return "10명 이상 참여하면\n공개됩니다!"
+            }
+        }
     }
 }
