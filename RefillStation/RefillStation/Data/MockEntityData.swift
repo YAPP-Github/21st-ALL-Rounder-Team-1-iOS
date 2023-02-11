@@ -82,7 +82,7 @@ final class MockEntityData {
         let isTagOverTwo = chekLists[3]
         let hasDescription = chekLists[4]
         let hasLongDescription = chekLists[5]
-        if (!hasImage && isImageOverOne) || (!hasTag && isTagOverTwo) || (!hasDescription && hasLongDescription) {
+        if (!hasImage && !hasTag && !hasDescription) || (!hasImage && isImageOverOne) || (!hasTag && isTagOverTwo) || (!hasDescription && hasLongDescription) {
             return nil
         }
 
