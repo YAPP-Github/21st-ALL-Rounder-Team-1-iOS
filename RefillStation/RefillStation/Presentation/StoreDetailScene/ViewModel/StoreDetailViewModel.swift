@@ -127,20 +127,18 @@ final class StoreDetailViewModel {
     func storeLikeButtonTapped() {
         guard isAbleToRecommend() else { return }
         let requestType: RecommendStoreRequestValue.`Type` = store.didUserRecommended ? .cancel : .recommend
-        recommendStoreTask = recommendStoreUseCase.execute(
-            requestValue: .init(storeId: store.storeId, type: requestType)
-        ) { result in
-            switch result {
-            case .success(let response):
-                self.store.recommendedCount = response.recommendCount
-                self.store.didUserRecommended = response.didRecommended
-                self.applyDataSource?()
-            case .failure(let error):
-                return // TODO: Show Alert
+        Task {
+            do {
+                let response = try await recommendStoreUseCase.execute(
+                    requestValue: .init(storeId: store.storeId, type: requestType)
+                )
+                store.recommendedCount = response.recommendCount
+                store.didUserRecommended = response.didRecommended
+                applyDataSource?()
+            } catch {
+                print(error)
             }
         }
-
-        recommendStoreTask?.resume()
     }
 
     private func isAbleToRecommend() -> Bool {
@@ -157,49 +155,44 @@ final class StoreDetailViewModel {
     }
 
     private func fetchProducts() {
-        productListLoadTask = fetchProductsUseCase
-            .execute(requestValue: FetchProductsRequestValue(storeId: store.storeId)) { result in
-                switch result {
-                case .success(let products):
-                    self.products = products
-                    self.setUpCategories()
-                    self.applyDataSource?()
-                case .failure(let error):
-                    break // TODO: Show Alert
-                }
+        Task {
+            do {
+                let products = try await fetchProductsUseCase.execute(requestValue: .init(storeId: store.storeId))
+                self.products = products
+                setUpCategories()
+                applyDataSource?()
+            } catch {
+                print(error)
             }
-        productListLoadTask?.resume()
+        }
     }
 
     private func fetchStoreReviews() {
         let requestValue = FetchStoreReviewsRequestValue(storeId: store.storeId)
-        storeReviewsLoadTask = fetchStoreReviewsUseCase.execute(requestValue: requestValue) { result in
-            switch result {
-            case .success(let reviews):
+        Task {
+            do {
+                let reviews = try await fetchStoreReviewsUseCase.execute(requestValue: requestValue)
                 self.reviews = reviews
-                self.setUpRankedTags()
-                self.applyDataSource?()
-            case .failure(let error):
-                break // TODO: Show Alert
+                setUpRankedTags()
+                applyDataSource?()
+            } catch {
+                print(error)
             }
         }
-        storeReviewsLoadTask?.resume()
     }
 
     private func fetchStoreRecommend() {
         let requestValue = FetchStoreRecommendRequestValue(storeId: store.storeId)
-        storeRecommendLoadTask = fetchStoreRecommendUseCase.execute(requestValue: requestValue, completion: { result in
-            switch result {
-            case .success(let response):
-                self.store.didUserRecommended = response.didRecommended
-                self.store.recommendedCount = response.recommendCount
-                print(response.didRecommended, response.recommendCount)
-                self.applyDataSource?()
-            case .failure(let error):
+        Task {
+            do {
+                let response = try await fetchStoreRecommendUseCase.execute(requestValue: requestValue)
+                store.didUserRecommended = response.didRecommended
+                store.recommendedCount = response.recommendCount
+                applyDataSource?()
+            } catch {
                 print(error)
             }
-        })
-        storeRecommendLoadTask?.resume()
+        }
     }
 
     private func setUpCategories() {
