@@ -8,19 +8,17 @@
 import Foundation
 
 protocol WithdrawUseCaseInterface {
-    func execute(completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable?
+    func execute() async throws
 }
 
 final class WithdrawUseCase: WithdrawUseCaseInterface {
-    private let accountRepository: AccountRepositoryInterface
+    private let accountRepository: AsyncAccountRepositoryInterface
 
-    init(accountRepository: AccountRepositoryInterface = MockAccountRepository()) {
+    init(accountRepository: AsyncAccountRepositoryInterface = AsyncAccountRepository()) {
         self.accountRepository = accountRepository
     }
 
-    func execute(completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
-        return accountRepository.withdraw { result in
-            completion(result)
-        }
+    func execute() async throws {
+        try await accountRepository.withdraw()
     }
 }

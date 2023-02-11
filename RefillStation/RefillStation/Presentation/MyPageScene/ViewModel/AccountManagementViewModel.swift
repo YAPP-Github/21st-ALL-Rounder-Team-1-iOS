@@ -22,25 +22,22 @@ final class AccountManagementViewModel {
     }
 
     func signOutButtonDidTapped() {
-        signOutUseCase.execute(completion: { result in
-            switch result {
-            case .success:
-                self.presentToLogin?()
-            case .failure(let failure):
-                return
+        Task {
+            do {
+                try await signOutUseCase.execute()
+            } catch {
+                print(error)
             }
-        })
+        }
     }
 
     func withdrawButtonDidTapped() {
-        withdrawTask = withdrawUseCase.execute(completion: { result in
-            switch result {
-            case .success:
-                self.presentToLogin?()
-            case .failure(let failure):
-                return
+        Task {
+            do {
+                try await withdrawUseCase.execute()
+            } catch {
+                print(error)
             }
-        })
-        withdrawTask?.resume()
+        }
     }
 }

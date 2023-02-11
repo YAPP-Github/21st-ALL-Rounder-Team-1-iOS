@@ -53,8 +53,8 @@ final class OnboardingDIContainer: DIContainer {
         return OAuthLoginUseCase(accountRepository: makeLoginRepository())
     }
 
-    func makeLoginRepository() -> AccountRepositoryInterface {
-        return AccountRepository()
+    func makeLoginRepository() -> AsyncAccountRepositoryInterface {
+        return AsyncAccountRepository()
     }
 
     // MARK: - Terms Permission
@@ -86,7 +86,7 @@ final class OnboardingDIContainer: DIContainer {
         return SignUpUseCase(accountRepository: makeSignUpRepository())
     }
 
-    func makeSignUpRepository() -> AccountRepository {
-        return AccountRepository()
+    func makeSignUpRepository() -> AsyncAccountRepositoryInterface {
+        return AsyncAccountRepository()
     }
 }

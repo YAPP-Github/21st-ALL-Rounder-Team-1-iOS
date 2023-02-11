@@ -51,8 +51,8 @@ final class MyPageDIContainer: DIContainer {
         return OAuthLoginUseCase(accountRepository: makeLoginRepository())
     }
 
-    func makeLoginRepository() -> AccountRepositoryInterface {
-        return AccountRepository()
+    func makeLoginRepository() -> AsyncAccountRepositoryInterface {
+        return AsyncAccountRepository()
     }
 
     // MARK: - Level
@@ -116,7 +116,7 @@ final class MyPageDIContainer: DIContainer {
         return WithdrawUseCase(accountRepository: makeAccountRepository())
     }
 
-    func makeAccountRepository() -> AccountRepository {
-        return AccountRepository()
+    func makeAccountRepository() -> AsyncAccountRepositoryInterface {
+        return AsyncAccountRepository()
     }
 }
