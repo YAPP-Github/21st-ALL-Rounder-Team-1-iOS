@@ -120,7 +120,8 @@ final class StoreDetailViewController: UIViewController {
         switch buttonType {
         case .phone:
             let phoneNumber = viewModel.store.phoneNumber
-            if let url = URL(string: "tel://\(phoneNumber)"),
+            if !phoneNumber.isEmpty,
+                let url = URL(string: "tel://\(phoneNumber.replacingOccurrences(of: "-", with: ""))"),
                UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
