@@ -22,6 +22,7 @@ enum TextStyles {
     case bodyMedium
     case bodyMediumOverTwoLine
     case bodySmall
+    case bodySmallOverTwoLine
     case bodySmallTime
 
     /// Caption
@@ -63,6 +64,8 @@ extension UIFont {
         case .bodyMediumOverTwoLine:
             return UIFont.systemFont(ofSize: 15, weight: .regular)
         case .bodySmall:
+            return UIFont.systemFont(ofSize: 14, weight: .regular)
+        case .bodySmallOverTwoLine:
             return UIFont.systemFont(ofSize: 14, weight: .regular)
         case .bodySmallTime:
             return UIFont.systemFont(ofSize: 14, weight: .regular)
@@ -116,6 +119,8 @@ extension TextStyles {
             return 22
         case .bodySmall:
             return 16
+        case .bodySmallOverTwoLine:
+            return 20
         case .bodySmallTime:
             return 16
 
@@ -165,6 +170,8 @@ extension TextStyles {
         case .bodyMediumOverTwoLine:
             return -0.4
         case .bodySmall:
+            return -0.4
+        case .bodySmallOverTwoLine:
             return -0.4
         case .bodySmallTime:
             return -0.8

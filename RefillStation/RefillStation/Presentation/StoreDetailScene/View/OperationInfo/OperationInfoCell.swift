@@ -21,7 +21,7 @@ final class OperationInfoCell: UICollectionViewCell {
     let contentLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.font = UIFont.font(style: .bodySmall) // TODO: body small 2줄이상 폰트 추가 및 교체
+        label.font = UIFont.font(style: .bodySmallOverTwoLine)
         label.textColor = Asset.Colors.gray6.color
         label.lineBreakMode = .byTruncatingTail
         return label
@@ -61,7 +61,7 @@ final class OperationInfoCell: UICollectionViewCell {
 
     func setUpContents(operation: OperationInfo, shouldShowMore: Bool = false) {
         imageView.image = operation.image
-        contentLabel.setText(text: operation.content, font: .bodySmall)
+        contentLabel.setText(text: operation.content, font: .bodySmallOverTwoLine)
 
         guard contentLabel.isTruncated, !operation.content.isEmpty,
         let isNewLineIncluded = contentLabel.text?.contains("\n") else { return }
