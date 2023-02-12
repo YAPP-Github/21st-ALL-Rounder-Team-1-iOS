@@ -92,6 +92,7 @@ class PumpPopUpViewController: UIViewController {
         modalPresentationStyle = .overFullScreen
         titleLabel.setText(text: title, font: .titleMedium)
         descriptionLabel.setText(text: description, font: .bodyMedium)
+        [titleLabel, descriptionLabel].forEach { $0.textAlignment = .center }
         layout()
         addTapGesture()
     }
