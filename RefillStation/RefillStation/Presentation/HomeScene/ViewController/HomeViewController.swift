@@ -18,8 +18,10 @@ final class HomeViewController: UIViewController {
     private let locationManager = CLLocationManager()
 
     private lazy var locationPopUpViewController: PumpPopUpViewController = {
-        let popUpViewController = PumpPopUpViewController(title: nil,
-                                                          description: "‘현재 위치'를 자동으로 확인하기 위해\n위치 서비스 및 정확한 위치를 켜주세요!")
+        let popUpViewController = PumpPopUpViewController(
+            title: nil,
+            description: "‘현재 위치'를 자동으로 확인하기 위해\n위치 서비스 및 정확한 위치를 켜주세요!"
+        )
         popUpViewController.addAction(title: "위치 서비스 켜기", style: .basic) {
             guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
             if UIApplication.shared.canOpenURL(url) {
@@ -87,12 +89,13 @@ final class HomeViewController: UIViewController {
         storeCollectionView.delegate = self
         bind()
         layout()
+        addwillEnterForegroundObserver()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        viewModel.viewWillApeear(status: locationManager.authorizationStatus)
+        viewModel.viewWillAppear()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -107,10 +110,6 @@ final class HomeViewController: UIViewController {
         viewModel.setUpContents = {
             self.storeCollectionView.reloadData()
             self.updateCurrentAddressText?()
-        }
-
-        viewModel.locationDenied = {
-            self.present(self.locationPopUpViewController, animated: true)
         }
     }
 
@@ -128,6 +127,30 @@ final class HomeViewController: UIViewController {
             $0.width.height.equalTo(46)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(11)
             $0.trailing.equalTo(view.safeAreaLayoutGuide).inset(23)
+        }
+    }
+
+    private func addwillEnterForegroundObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(willEnterForeground),
+                                               name: UIApplication.willEnterForegroundNotification,
+                                               object: nil)
+    }
+
+    @objc private func willEnterForeground() {
+        switch locationManager.authorizationStatus {
+        case .notDetermined, .restricted, .denied:
+            if self.presentedViewController == nil {
+                self.present(locationPopUpViewController, animated: true)
+            }
+        case .authorizedAlways, .authorizedWhenInUse:
+            if self.presentedViewController == locationPopUpViewController {
+                locationPopUpViewController.dismiss(animated: true) {
+                    self.viewModel.willEnterForeground()
+                }
+            }
+        default:
+            break
         }
     }
 
@@ -207,18 +230,5 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 0 { return }
         coordiantor?.showStoreDetail(store: viewModel.stores[indexPath.row])
-    }
-}
-
-extension HomeViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch manager.authorizationStatus {
-        case .notDetermined, .restricted, .denied:
-            self.present(locationPopUpViewController, animated: true)
-        case .authorizedAlways, .authorizedWhenInUse:
-            locationPopUpViewController.dismiss(animated: true)
-        default:
-            break
-        }
     }
 }
