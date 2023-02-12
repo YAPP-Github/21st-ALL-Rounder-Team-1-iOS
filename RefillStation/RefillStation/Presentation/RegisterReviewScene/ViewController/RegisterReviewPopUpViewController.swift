@@ -124,8 +124,10 @@ final class RegisterReviewPopUpViewController: UIViewController {
     private func setUpPopUpText() {
         switch userLevel {
         case .regular, .beginner, .prospect:
-            descriptionLabel.setText(text: "‘\(userLevel.nextLevel.name)’까지\n리뷰 \(userLevel.nextLevelRemainCount)회가 남았어요",
-                                     font: .bodyMediumOverTwoLine)
+            descriptionLabel.setText(
+                text: "‘\(userLevel.nextLevel.name)’까지\n리뷰 \(userLevel.nextLevelRemainCount)회가 남았어요",
+                font: .bodyMediumOverTwoLine
+            )
         case .fancier:
             descriptionLabel.setText(text: "앞으로도 꾸준한 리필 생활 부탁드려요!",
                                      font: .bodyMediumOverTwoLine)
