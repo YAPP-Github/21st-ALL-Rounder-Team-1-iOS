@@ -133,7 +133,7 @@ final class StoreDetailViewController: UIViewController, ServerAlertable {
                 noLinkPopUp.addAction(title: "확인", style: .basic) {
                     noLinkPopUp.dismiss(animated: true)
                 }
-                present(noLinkPopUp, animated: true)
+                present(noLinkPopUp, animated: false)
             }
         case .link:
             if let url = URL(string: viewModel.store.snsAddress),
@@ -147,7 +147,7 @@ final class StoreDetailViewController: UIViewController, ServerAlertable {
                 noLinkPopUp.addAction(title: "확인", style: .basic) {
                     noLinkPopUp.dismiss(animated: true)
                 }
-                present(noLinkPopUp, animated: true)
+                present(noLinkPopUp, animated: false)
             }
         case .like:
             viewModel.storeLikeButtonTapped()
@@ -405,9 +405,9 @@ extension StoreDetailViewController {
                     reportCompletePopUp.addAction(title: "확인", style: .basic) {
                         self?.dismiss(animated: true)
                     }
-                    self?.present(reportCompletePopUp, animated: true)
+                    self?.present(reportCompletePopUp, animated: false)
                 }
-                self?.present(reportPopUp, animated: true)
+                self?.present(reportPopUp, animated: false)
             }
         }
     }
@@ -416,7 +416,7 @@ extension StoreDetailViewController {
         return UICollectionView.CellRegistration<OperationNoticeCell, StoreDetailItem> { cell, indexPath, item in
         }
     }
-    
+
     private func operationInfoCellRegistration() -> UICollectionView.CellRegistration<OperationInfoCell, StoreDetailItem> {
         return UICollectionView.CellRegistration<OperationInfoCell, StoreDetailItem> { cell, indexPath, item in
             guard case let .operationInfo(operationInfo) = item else { return }

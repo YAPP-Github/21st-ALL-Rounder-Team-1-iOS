@@ -123,7 +123,7 @@ final class AccountManagementViewController: UIViewController, ServerAlertable {
         popUp.addAction(title: "로그아웃", style: .basic) {
             self.viewModel.signOutButtonDidTapped()
         }
-        self.present(popUp, animated: true)
+        self.present(popUp, animated: false)
     }
 
     private func addWithdrawAction() {
@@ -135,6 +135,6 @@ final class AccountManagementViewController: UIViewController, ServerAlertable {
         popUp.addAction(title: "탈퇴하기", style: .basic) {
             self.viewModel.withdrawButtonDidTapped()
         }
-        self.present(popUp, animated: true)
+        self.present(popUp, animated: false)
     }
 }

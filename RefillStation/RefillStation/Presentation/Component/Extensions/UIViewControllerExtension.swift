@@ -16,7 +16,7 @@ extension ServerAlertable where Self: UIViewController {
             popUp.addAction(title: "확인", style: .basic) {
                 popUp.dismiss(animated: true)
             }
-            self.present(popUp, animated: true)
+            self.present(popUp, animated: false)
         }
     }
 }
