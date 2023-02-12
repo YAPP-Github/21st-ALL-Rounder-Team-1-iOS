@@ -8,7 +8,6 @@
 import UIKit
 import SnapKit
 import SkeletonView
-import CoreLocation
 
 final class HomeViewController: UIViewController, ServerAlertable {
 
@@ -16,7 +15,6 @@ final class HomeViewController: UIViewController, ServerAlertable {
     var coordiantor: HomeCoordinator?
     private let viewModel: HomeViewModel
     private var updateCurrentAddressText: (() -> Void)?
-    private let locationManager = CLLocationManager()
 
     private lazy var locationPopUpViewController: PumpPopUpViewController = {
         let popUpViewController = PumpPopUpViewController(
@@ -114,7 +112,16 @@ final class HomeViewController: UIViewController, ServerAlertable {
             self.updateCurrentAddressText?()
             self.storeCollectionView.hideSkeleton()
         }
-
+        viewModel.presentToLocationPopUp = {
+            if self.presentedViewController == nil {
+                self.present(self.locationPopUpViewController, animated: true)
+            }
+        }
+        viewModel.dismissLocationPopUp = {
+            if self.presentedViewController == self.locationPopUpViewController {
+                self.dismiss(animated: true)
+            }
+        }
         viewModel.showErrorAlert = showServerErrorAlert
     }
 
@@ -143,20 +150,7 @@ final class HomeViewController: UIViewController, ServerAlertable {
     }
 
     @objc private func willEnterForeground() {
-        switch locationManager.authorizationStatus {
-        case .notDetermined, .restricted, .denied:
-            if self.presentedViewController == nil {
-                self.present(locationPopUpViewController, animated: true)
-            }
-        case .authorizedAlways, .authorizedWhenInUse:
-            if self.presentedViewController == locationPopUpViewController {
-                locationPopUpViewController.dismiss(animated: true) {
-                    self.viewModel.willEnterForeground()
-                }
-            }
-        default:
-            break
-        }
+        viewModel.willEnterForeground()
     }
 
     @objc private func topButtonDidTap() {
