@@ -33,7 +33,7 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
     }
     var noKeywordTagDidSelected: Bool = false
     private var selectedTags: [Int] {
-        return indexPathsForSelectedItems.map { Int($0.row) }
+        return indexPathsForSelectedItems.map { Int($0.row + 1) }
     }
 
     var reviewCountFetchCompleted: (() -> Void)?
@@ -85,15 +85,6 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
                     description: reviewContents
                 )
                 try await registerReviewUseCase.execute(requestValue: requestValue)
-            } catch {
-                print(error)
-            }
-        }
-    }
-
-    private func fetchUserReviewCount() {
-        Task {
-            do {
                 let reviews = try await fetchUserReviewsUseCase.execute()
                 totalReviewCount = reviews.count
                 reviewCountFetchCompleted?()

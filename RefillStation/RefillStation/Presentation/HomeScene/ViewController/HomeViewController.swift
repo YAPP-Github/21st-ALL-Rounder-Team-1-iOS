@@ -137,8 +137,7 @@ extension HomeViewController: UICollectionViewDataSource {
             }
 
             cell.moveToRegionRequest = { [weak self] in
-                self?.navigationController?.pushViewController(RequestRegionViewController(),
-                                                               animated: true)
+                self?.coordiantor?.showRequestRegion()
             }
             return cell
         } else {

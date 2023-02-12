@@ -48,7 +48,7 @@ extension RegisterReviewViewController {
                 section.interGroupSpacing = 8
             case .photoReview:
                 let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                       heightDimension: .absolute(165))
+                                                       heightDimension: .absolute(179))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [defaultItem])
                 section = NSCollectionLayoutSection(group: group)
             case .reviewDescription:

@@ -68,8 +68,8 @@ final class ProductCategoriesCell: UICollectionViewCell {
         }
 
         categoryCollectionView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(16)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.bottom.equalToSuperview().inset(16)
+            $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(35)
         }
     }

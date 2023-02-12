@@ -11,6 +11,8 @@ import SnapKit
 final class RequestRegionViewController: UIViewController {
 
     // MARK: - Properties
+    var coordinator: HomeCoordinator?
+    private let viewModel: RequestRegionViewModel
     private let placeHolder = "서비스 신청을 원하는 지역을 자유롭게 적어주세요."
     private lazy var closeBarButtonItem = UIBarButtonItem(image: Asset.Images.iconClose.image,
                                                      style: .plain,
@@ -42,9 +44,14 @@ final class RequestRegionViewController: UIViewController {
         label.numberOfLines = 0
         return label
     }()
-    private let requestButton: CTAButton = {
+    private lazy var requestButton: CTAButton = {
         let button = CTAButton(style: .basic)
         button.setTitle("신청하기", for: .normal)
+        button.addAction(UIAction { [weak self] _ in
+            guard let self = self else { return }
+            button.isEnabled = false
+            self.viewModel.requestButtonTapped(text: self.regionTextView.text)
+        }, for: .touchUpInside)
         return button
     }()
     private let regionTextView: UITextView = {
@@ -72,10 +79,21 @@ final class RequestRegionViewController: UIViewController {
         return label
     }()
 
+    init(viewModel: RequestRegionViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        self.hidesBottomBarWhenPushed = true
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        bind()
         layout()
         setUpRegionTextView()
         addTapGesture()
@@ -83,15 +101,20 @@ final class RequestRegionViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         setUpNavigatonBar()
-        tabBarController?.tabBar.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
-        tabBarController?.tabBar.isHidden = false
+        viewModel.viewWillDisappear()
     }
 
     // MARK: - Default Setting Methods
+    private func bind() {
+        viewModel.requestCompleted = { [weak self] in
+            self?.coordinator?.popRequestRegion()
+        }
+    }
+
     private func layout() {
         [titleLabel, exampleLabel, descriptionIcon, descriptionLabel,
          regionTextView, textCountLabel, maxTextLabel, requestButton].forEach { view.addSubview($0) }
@@ -143,7 +166,7 @@ final class RequestRegionViewController: UIViewController {
     }
 
     @objc private func cancelButtonDidTapped() {
-        self.navigationController?.popViewController(animated: true)
+        coordinator?.popRequestRegion()
     }
 }
 

@@ -49,7 +49,6 @@ final class RegisterReviewViewController: UIViewController {
         registerButton.snp.makeConstraints {
             $0.top.equalTo(divider.snp.bottom).offset(6)
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalToSuperview().inset(4)
             $0.height.equalTo(50)
         }
 
@@ -78,10 +77,12 @@ final class RegisterReviewViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         setUpNavigationBar()
+        tabBarController?.tabBar.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
+        tabBarController?.tabBar.isHidden = false
     }
 
     private func setUpNavigationBar() {
@@ -101,7 +102,9 @@ final class RegisterReviewViewController: UIViewController {
 
     private func bind() {
         viewModel.reviewCountFetchCompleted = {
-            self.coordinator?.registerReviewSucceded(userLevel: self.viewModel.levelUppedLevel)
+            DispatchQueue.main.async {
+                self.coordinator?.registerReviewSucceded(userLevel: self.viewModel.levelUppedLevel)
+            }
         }
     }
 
@@ -129,10 +132,13 @@ final class RegisterReviewViewController: UIViewController {
         outerCollectionView.snp.makeConstraints { collection in
             collection.edges.equalTo(view.safeAreaLayoutGuide)
         }
-        registerButton.snp.makeConstraints { button in
-            button.bottom.equalTo(view.safeAreaLayoutGuide).inset(18)
-            button.leading.trailing.equalToSuperview().inset(16)
-            button.height.equalTo(50)
+        registerButtonView.snp.makeConstraints { button in
+            button.bottom.equalTo(view.safeAreaLayoutGuide)
+            button.leading.trailing.equalToSuperview()
+        }
+
+        registerButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(18)
         }
     }
 

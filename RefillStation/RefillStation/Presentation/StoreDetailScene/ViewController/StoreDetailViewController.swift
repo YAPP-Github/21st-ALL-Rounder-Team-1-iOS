@@ -14,7 +14,9 @@ final class StoreDetailViewController: UIViewController {
     private lazy var storeDetailDataSource = diffableDataSource()
 
     private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout())
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collectionView
     }()
 
@@ -56,12 +58,14 @@ final class StoreDetailViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         setUpNavigationBar()
+        tabBarController?.tabBar.isHidden = true
         viewModel.viewWillAppear()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
         navigationController?.navigationBar.tintColor = .black
+        tabBarController?.tabBar.isHidden = false
         viewModel.viewWillDisappear()
     }
 
@@ -186,7 +190,7 @@ extension StoreDetailViewController {
         let operationInfoCellRegistration = operationInfoCellRegistration()
         return UICollectionViewDiffableDataSource<StoreDetailSection, StoreDetailItem>(
             collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
-                let storeDetailSection = self.section(mode: self.viewModel.mode, sectionIndex: indexPath.section)
+                let storeDetailSection = self.storeSection(mode: self.viewModel.mode, sectionIndex: indexPath.section)
                 switch storeDetailSection {
                 case .storeDetailInfo:
                     return collectionView.dequeueConfiguredReusableCell(using: storeDetailInfoCellRegisration,
@@ -251,7 +255,10 @@ extension StoreDetailViewController: UICollectionViewDelegate {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y > 0 {
+        if scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.frame.size.height {
+            navigationController?.navigationBar.tintColor = .black
+            moveToTopButton.isHidden = true
+        } else if scrollView.contentOffset.y > 0 {
             navigationController?.navigationBar.tintColor = .black
             moveToTopButton.isHidden = false
         } else {
@@ -270,26 +277,48 @@ extension StoreDetailViewController {
 }
 
 // MARK: - UICollectionViewLayout
-extension StoreDetailViewController {
-    private func compositionalLayout() -> UICollectionViewLayout {
-        let configuration = UICollectionViewCompositionalLayoutConfiguration()
-        configuration.interSectionSpacing = 0
-        configuration.scrollDirection = .vertical
+extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let section = storeSection(mode: viewModel.mode, sectionIndex: indexPath.section)
+        let width = collectionView.frame.width
+        let height = section.cellHeight
 
-        let compositionalLayout = UICollectionViewCompositionalLayout(sectionProvider: { section, environment in
-            let storeDetailSection = self.section(mode: self.viewModel.mode, sectionIndex: section)
-            let itemHeight = storeDetailSection.cellHeight
-            let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                                heightDimension: .estimated(itemHeight)))
-            let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                                           heightDimension: .estimated(itemHeight)),
-                                                         subitems: [item])
-            let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = storeDetailSection.contentInset
-            return section
-        }, configuration: configuration)
+        if section == .review {
+            let dummyCellForCalculateheight = DetailReviewCell(
+                frame: CGRect(origin: .zero, size: CGSize(width: width, height: height))
+            )
+            dummyCellForCalculateheight.setUpContents(
+                review: viewModel.reviews[indexPath.row],
+                shouldSeeMore: viewModel.reviewSeeMoreIndexPaths.contains(indexPath)
+            )
+            let heightThatFits = dummyCellForCalculateheight
+                .systemLayoutSizeFitting(CGSize(width: width, height: height)).height
+            return CGSize(width: width, height: heightThatFits)
+        } else if section == .operationInfo {
+            let dummyCellForCalculateheight = OperationInfoCell(
+                frame: CGRect(origin: .zero, size: CGSize(width: width, height: height))
+            )
+            dummyCellForCalculateheight.setUpContents(
+                operation: viewModel.operationInfos[indexPath.row],
+                shouldShowMore: viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath)
+            )
+            var heightThatFits = dummyCellForCalculateheight
+                .systemLayoutSizeFitting(CGSize(width: width, height: height)).height
+            if viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath),
+               let attrText = dummyCellForCalculateheight.contentLabel.attributedText {
+                let height = attrText.height(
+                    withConstrainedWidth: dummyCellForCalculateheight.contentView.frame.width - 52
+                )
+                heightThatFits += height
+            }
+            return CGSize(width: width, height: heightThatFits)
+        } else if section == .reviewOverview {
+            if viewModel.totalTagVoteCount < 10 {
+                return CGSize(width: width, height: 414)
+            }
+        }
 
-        return compositionalLayout
+        return CGSize(width: width, height: height)
     }
 }
 
@@ -369,7 +398,7 @@ extension StoreDetailViewController {
                     viewModel: ReviewReportPopUpViewModel(reportedUserId: review.userId)
                 ) {
                     let reportCompletePopUp = PumpPopUpViewController(title: nil,
-                                                                description: "해당 댓글이 신고처리 되었습니다.")
+                                                                      description: "해당 댓글이 신고처리 되었습니다.")
                     reportCompletePopUp.addAction(title: "확인", style: .basic) {
                         self?.dismiss(animated: true)
                     }

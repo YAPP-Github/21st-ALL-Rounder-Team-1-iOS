@@ -31,4 +31,14 @@ final class HomeCoordinator: Coordinator {
         let storeDetailCoordinator = storeDetailDIContainer.makeStoreDetailCoordinator()
         storeDetailCoordinator.start()
     }
+
+    func showRequestRegion() {
+        let requestRegionViewController = DIContainer.makeRequestRegionViewController()
+        requestRegionViewController.coordinator = self
+        navigationController.pushViewController(requestRegionViewController, animated: true)
+    }
+
+    func popRequestRegion() {
+        navigationController.popViewController(animated: true)
+    }
 }

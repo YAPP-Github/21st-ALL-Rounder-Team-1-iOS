@@ -111,6 +111,7 @@ internal enum Asset {
     internal static let loginbackground = ImageAsset(name: "loginbackground")
     internal static let profileImageGroup = ImageAsset(name: "profileImageGroup")
     internal static let selectedBox = ImageAsset(name: "selectedBox")
+    internal static let storeDefualtImage = ImageAsset(name: "store defualt image")
     internal static let unselectedBox = ImageAsset(name: "unselectedBox")
   }
 }

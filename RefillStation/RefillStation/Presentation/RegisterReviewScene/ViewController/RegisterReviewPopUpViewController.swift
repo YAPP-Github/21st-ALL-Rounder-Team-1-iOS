@@ -73,7 +73,8 @@ final class RegisterReviewPopUpViewController: UIViewController {
         levelImageView.image = userLevel.image
         titleLabel.setText(text: userLevel.celebrateTitle, font: .titleMedium)
         descriptionLabel.setText(text: "‘\(userLevel.nextLevel.name)’까지\n리뷰 \(userLevel.nextLevelRemainCount)회가 남았어요",
-                                 font: .bodyMediumOverTwoLine)
+                                 font: .bodyMediumOverTwoLine) // FIXME: 리필애호가가 된 경우 따로 띄워줄 화면 필요
+        [titleLabel, descriptionLabel].forEach { $0.textAlignment = .center }
         setUpReviewCountTextColor(count: userLevel.nextLevelRemainCount)
         modalPresentationStyle = .overFullScreen
     }

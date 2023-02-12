@@ -9,6 +9,7 @@ import UIKit
 
 final class DetailPhotoReviewViewController: UIViewController {
 
+    var coodinator: StoreDetailCoordinator?
     private let viewModel: DetailPhotoReviewViewModel
 
     private lazy var orthogonalScrollView: UIScrollView = {
@@ -48,7 +49,7 @@ final class DetailPhotoReviewViewController: UIViewController {
         button.tintColor = .white
         button.imageView?.contentMode = .scaleAspectFit
         button.addAction(UIAction { _ in
-            if self.viewModel.page < self.viewModel.photos.count - 1 {
+            if self.viewModel.page < self.viewModel.photoURLs.count - 1 {
                 self.viewModel.page += 1
                 self.scrollToCurrentPage()
             }
@@ -64,7 +65,7 @@ final class DetailPhotoReviewViewController: UIViewController {
         button.contentHorizontalAlignment = .fill
         button.contentVerticalAlignment = .fill
         button.addAction(UIAction { _ in
-            self.navigationController?.popViewController(animated: true)
+            self.coodinator?.popPhotoDetail()
         }, for: .touchUpInside)
         return button
     }()
@@ -78,7 +79,7 @@ final class DetailPhotoReviewViewController: UIViewController {
 
     private lazy var maxPageCountLabel: UILabel = {
         let label = UILabel()
-        label.setText(text: "\(viewModel.photos.count)", font: .buttonSmall)
+        label.setText(text: "\(viewModel.photoURLs.count)", font: .buttonSmall)
         label.textColor = Asset.Colors.gray4.color
         return label
     }()
@@ -159,9 +160,10 @@ final class DetailPhotoReviewViewController: UIViewController {
     }
 
     private func addPhotosToStackView() {
-        viewModel.photos.forEach {
-            let imageView = UIImageView(image: $0)
+        viewModel.photoURLs.forEach { imagePath in
+            let imageView = UIImageView()
             imageView.contentMode = .scaleAspectFit
+            imageView.kf.setImage(with: URL(string: imagePath ?? ""))
             photoStackView.addArrangedSubview(imageView)
             imageView.snp.makeConstraints {
                 $0.width.equalTo(view)
@@ -186,11 +188,11 @@ extension DetailPhotoReviewViewController: UIScrollViewDelegate {
         if flooredPage != page { return }
 
         if viewModel.page != Int(page)
-            && (0...viewModel.photos.count - 1) ~= Int(page) { viewModel.page = Int(page) }
+            && (0...viewModel.photoURLs.count - 1) ~= Int(page) { viewModel.page = Int(page) }
         if viewModel.page == 0 {
             moveLeftButton.isHidden = true
             moveRightButton.isHidden = false
-        } else if viewModel.page == viewModel.photos.count - 1 {
+        } else if viewModel.page == viewModel.photoURLs.count - 1 {
             moveLeftButton.isHidden = false
             moveRightButton.isHidden = true
         } else {

@@ -15,6 +15,7 @@ final class DetailReviewCell: UICollectionViewCell {
     private var review: Review?
     private var tags: [Tag]?
     private var tagCollectionViewHeight: CGFloat = 40
+    private var reviewImageLoadTask: Cancellable?
 
     // MARK: - Event Handling
     var photoImageTapped: (() -> Void)?
@@ -127,7 +128,7 @@ final class DetailReviewCell: UICollectionViewCell {
         return reviewImageOuterView
     }()
 
-    private lazy var descriptionLabel: UILabel = {
+    lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 3
         label.textColor = Asset.Colors.gray5.color
@@ -162,7 +163,7 @@ final class DetailReviewCell: UICollectionViewCell {
     private let outerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 14
+        stackView.spacing = 0
         stackView.distribution = .fill
         return stackView
     }()
@@ -176,6 +177,10 @@ final class DetailReviewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
+    override func prepareForReuse() {
+        reviewImageLoadTask?.cancel()
+    }
+
     func setUpContents(review: Review, shouldSeeMore: Bool) {
         self.review = review
         setUpTagCollectionViewContents()
@@ -184,8 +189,21 @@ final class DetailReviewCell: UICollectionViewCell {
         descriptionLabel.setText(text: review.description, font: .bodyMediumOverTwoLine)
         imageCountLabel.setText(text: "1 / \(review.imageURL.count)", font: .buttonSmall)
         imageCountLabel.isHidden = review.imageURL.count <= 1
+        imageCountLabel.textAlignment = .center
+        reviewImageLoadTask = reviewImageView.kf.setImage(with: URL(string: review.imageURL.first ?? ""))
         addArrangedSubviewsToOuterStackview()
-        descriptionLabel.numberOfLines = shouldSeeMore ? 0 : 3
+        if shouldSeeMore {
+            descriptionLabel.numberOfLines = 0
+            if let attrText = descriptionLabel.attributedText {
+                let height = attrText.height(withConstrainedWidth: contentView.frame.width - 32)
+                descriptionLabel.snp.remakeConstraints {
+                    $0.height.greaterThanOrEqualTo(height)
+                }
+            }
+        } else {
+            descriptionLabel.numberOfLines = 3
+            descriptionLabel.lineBreakMode = .byTruncatingTail
+        }
     }
 
     private func setUpTagCollectionViewContents() {
@@ -193,12 +211,6 @@ final class DetailReviewCell: UICollectionViewCell {
         tags = review.tags.filter { $0 != .noKeywordToChoose }
         tagCollectionView.reloadData()
         tagCollectionView.layoutIfNeeded()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .leastNormalMagnitude) {
-            let height = self.tagCollectionView.contentSize.height == 0 ? 30 : self.tagCollectionView.contentSize.height
-            self.tagCollectionView.snp.remakeConstraints {
-                $0.height.equalTo(height)
-            }
-        }
     }
 
     private func layout() {
@@ -217,35 +229,50 @@ final class DetailReviewCell: UICollectionViewCell {
             $0.bottom.equalToSuperview()
             $0.height.equalTo(1)
         }
+        [reviewInfoView, reviewImageOuterView, descriptionLabel, tagCollectionView].forEach {
+            outerStackView.addArrangedSubview($0)
+        }
+
+        reviewInfoView.snp.makeConstraints {
+            $0.height.equalTo(38).priority(.required)
+        }
+
+        outerStackView.setCustomSpacing(12, after: reviewInfoView)
+        outerStackView.setCustomSpacing(18, after: reviewImageOuterView)
+        outerStackView.setCustomSpacing(16, after: descriptionLabel)
     }
 
     private func addArrangedSubviewsToOuterStackview() {
         guard let review = review else { return }
-        outerStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-
-        reviewInfoView.snp.makeConstraints {
-            $0.height.equalTo(38)
-        }
-        outerStackView.addArrangedSubview(reviewInfoView)
 
         if !review.imageURL.isEmpty {
-            reviewImageOuterView.snp.makeConstraints {
+            reviewImageOuterView.snp.remakeConstraints {
                 $0.height.equalTo(168)
             }
-            outerStackView.addArrangedSubview(reviewImageOuterView)
+            outerStackView.setCustomSpacing(12, after: reviewInfoView)
+        } else {
+            reviewImageOuterView.snp.remakeConstraints {
+                $0.height.equalTo(0)
+            }
+            outerStackView.setCustomSpacing(0, after: reviewInfoView)
         }
 
         if !review.description.isEmpty {
-            outerStackView.addArrangedSubview(descriptionLabel)
-            descriptionLabel.setContentHuggingPriority(.required, for: .vertical)
+            outerStackView.setCustomSpacing(18, after: reviewImageOuterView)
+        } else {
+            outerStackView.setCustomSpacing(0, after: reviewImageOuterView)
         }
 
-        if !review.tags.isEmpty {
-            tagCollectionView.setContentHuggingPriority(.required, for: .vertical)
+        if let tags = tags, !tags.isEmpty {
             tagCollectionView.snp.remakeConstraints {
-                $0.height.lessThanOrEqualTo(80).priority(.high)
+                $0.height.equalTo(22)
             }
-            outerStackView.addArrangedSubview(tagCollectionView)
+            outerStackView.setCustomSpacing(16, after: descriptionLabel)
+        } else {
+            tagCollectionView.snp.remakeConstraints {
+                $0.height.equalTo(0)
+            }
+            outerStackView.setCustomSpacing(0, after: descriptionLabel)
         }
     }
 
@@ -266,15 +293,17 @@ final class DetailReviewCell: UICollectionViewCell {
 extension DetailReviewCell {
     private func tagCollectionLayout() -> UICollectionViewLayout {
         let item = NSCollectionLayoutItem(
-            layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(100), heightDimension: .estimated(22))
+            layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(100), heightDimension: .fractionalHeight(1))
         )
-        item.edgeSpacing = .init(leading: .fixed(0), top: .fixed(5), trailing: .fixed(5), bottom: .fixed(5))
         let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(22)),
+            layoutSize: .init(widthDimension: .estimated(100), heightDimension: .estimated(22)),
             subitems: [item]
         )
 
-        return UICollectionViewCompositionalLayout(section: .init(group: group))
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 4
+        section.orthogonalScrollingBehavior = .continuous
+        return UICollectionViewCompositionalLayout(section: section)
     }
 }
 

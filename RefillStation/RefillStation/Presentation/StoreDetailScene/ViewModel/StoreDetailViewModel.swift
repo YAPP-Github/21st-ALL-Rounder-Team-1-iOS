@@ -67,7 +67,7 @@ final class StoreDetailViewModel {
             .reduce(into: "") { partialResult, businessHour in
                 partialResult += "\(businessHour.day.name) \(businessHour.time ?? "정기 휴무일") \n"
             }
-        + "\n"
+        + (!(store.businessHour.isEmpty || store.notice.isEmpty) ? "\n" : "")
         + store.notice
 
         return [
@@ -176,9 +176,11 @@ final class StoreDetailViewModel {
         storeReviewsLoadTask =  Task {
             do {
                 let reviews = try await fetchStoreReviewsUseCase.execute(requestValue: requestValue)
-                self.reviews = reviews
-                setUpRankedTags()
-                applyDataSource?()
+                if self.reviews != reviews {
+                    self.reviews = reviews
+                    setUpRankedTags()
+                    applyDataSource?()
+                }
             } catch {
                 print(error)
             }
@@ -226,13 +228,12 @@ final class StoreDetailViewModel {
 // MARK: - Life Cycle
 extension StoreDetailViewModel {
     func viewDidLoad() {
-
+        fetchProducts()
+        fetchStoreRecommend()
     }
 
     func viewWillAppear() {
-        fetchProducts()
         fetchStoreReviews()
-        fetchStoreRecommend()
     }
 
     func viewWillDisappear() {

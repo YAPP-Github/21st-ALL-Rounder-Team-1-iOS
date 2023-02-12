@@ -34,8 +34,7 @@ final class FilteredProductCountCell: UICollectionViewCell {
     private func layout() {
         contentView.addSubview(productsCountLabel)
         productsCountLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(16)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.leading.trailing.bottom.equalToSuperview().inset(16)
         }
     }
 }

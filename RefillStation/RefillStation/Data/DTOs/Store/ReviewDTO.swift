@@ -15,7 +15,7 @@ struct ReviewDTO: Decodable {
     let createdAt: String?
     let modifiedAt: String?
     let user: UserDTO?
-    let imgPath: [ImageReviewDTO]?
+    let imgReviews: [ImageReviewDTO]?
     let reviewTagLogs: [ReviewTagLogsDTO]?
     struct UserDTO: Decodable {
         let createdAt: String?
@@ -57,8 +57,8 @@ extension ReviewDTO {
             userNickname: user?.nickname ?? "",
             profileImagePath: user?.imgPath ?? "",
             writtenDate: (createdAt ?? "").toDate() ?? Date(),
-            imageURL: imgPath?.map { a in
-                return ""
+            imageURL: imgReviews?.compactMap {
+                $0.path
             } ?? [],
             description: reviewText ?? "",
             tags: reviewTagLogs?.map {
@@ -71,7 +71,8 @@ extension ReviewDTO {
 fileprivate extension String {
     func toDate() -> Date? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = ""
-        return dateFormatter.date(from: self)
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss" // "2023-02-07T14:22:26"
+        let dateString = dateFormatter.date(from: self)
+        return dateString
     }
 }

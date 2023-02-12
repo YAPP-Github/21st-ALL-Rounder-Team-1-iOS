@@ -103,23 +103,23 @@ extension StoreDetailViewController {
         var cellHeight: CGFloat {
             switch self {
             case .storeDetailInfo:
-                return 500
+                return 398
             case .tabBar:
-                return 300
+                return 56
             case .productCategory:
-                return 51
+                return 67
             case .filteredProductsCount:
-                return 50
+                return 33 // 33
             case .productList:
                 return 113
             case .reviewOverview:
-                return 800
+                return 518 // 518, 414
             case .review:
-                return 100
+                return 300 // self sizing
             case .operationNotice:
-                return 300
+                return 72 // 72
             case .operationInfo:
-                return 300
+                return 63 // 63 self sizing
             }
         }
 
@@ -133,7 +133,7 @@ extension StoreDetailViewController {
         }
     }
 
-    func section(mode: StoreDetailViewModel.TabBarMode, sectionIndex: Int) -> StoreDetailSection {
+    func storeSection(mode: StoreDetailViewModel.TabBarMode, sectionIndex: Int) -> StoreDetailSection {
         if sectionIndex == StoreDetailSection.storeDetailInfo.sectionIndex {
             return StoreDetailSection.storeDetailInfo
         } else if sectionIndex == StoreDetailSection.tabBar.sectionIndex {

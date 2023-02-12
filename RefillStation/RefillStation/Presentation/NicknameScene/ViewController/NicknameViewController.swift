@@ -10,6 +10,8 @@ import SnapKit
 import Kingfisher
 
 final class NicknameViewController: UIViewController {
+
+    var coordinator: MyPageCoordinator?
     private let viewModel: NicknameViewModel
     private var profileImage: UIImage?
     private let stackView: UIStackView = {
@@ -146,8 +148,8 @@ final class NicknameViewController: UIViewController {
 
     private func bind() {
         viewModel.didEditComplete = {
-            DispatchQueue.main.async {
-                self.confirmButton.isEnabled = false
+            DispatchQueue.main.async { [weak self] in
+                self?.coordinator?.popEditProfile()
             }
         }
 
