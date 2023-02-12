@@ -26,6 +26,7 @@ final class UserLevelViewModel {
             do {
                 let reviews = try await fetchUserReviewsUseCase.execute()
                 totalReviewCount = reviews.count
+                userLevel = UserLevelInfo.Level.level(reviewCount: totalReviewCount)
                 setUpUserLevel()
                 reloadData?()
             } catch {

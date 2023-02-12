@@ -67,6 +67,7 @@ final class LevelHeaderView: UICollectionReusableView {
         descriptionLabel.setText(text: "'\(level.nextLevel.name)'까지 리뷰 \(level.nextLevelRemainCount)회가 남았어요",
                                  font: .bodyMedium)
         levelLabel.setText(text: level.name, font: .titleLarge2)
+        [descriptionLabel, levelLabel].forEach { $0.textAlignment = .center }
         remainingReviewTagView.setUpTitle(title: "누적 리뷰 \(totalReviewCount)회")
         levelImage.image = level.image
     }
