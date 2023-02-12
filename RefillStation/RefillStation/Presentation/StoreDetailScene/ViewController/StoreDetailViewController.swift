@@ -125,6 +125,15 @@ final class StoreDetailViewController: UIViewController, ServerAlertable {
                 let url = URL(string: "tel://\(phoneNumber.replacingOccurrences(of: "-", with: ""))"),
                UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                let noLinkPopUp = PumpPopUpViewController(title: nil, description: "전화번호가 등록되지 않은 곳이에요")
+                noLinkPopUp.addImageView { imageView in
+                    imageView.image = Asset.Images.cryFace.image
+                }
+                noLinkPopUp.addAction(title: "확인", style: .basic) {
+                    noLinkPopUp.dismiss(animated: true)
+                }
+                present(noLinkPopUp, animated: true)
             }
         case .link:
             if let url = URL(string: viewModel.store.snsAddress),
