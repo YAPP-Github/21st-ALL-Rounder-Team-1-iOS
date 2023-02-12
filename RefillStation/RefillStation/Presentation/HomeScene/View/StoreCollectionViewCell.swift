@@ -118,8 +118,7 @@ extension StoreCollectionViewCell {
 
 extension StoreCollectionViewCell {
     func setUpSkeletonView() {
-        self.isSkeletonable = true
-        [contentView, storeInfoView, storeImageView,
+        [self, contentView, storeInfoView, storeImageView,
          nameLabel, addressLabel, distanceLabel].forEach {
             $0.isSkeletonable = true
             $0.skeletonCornerRadius = 4
