@@ -69,14 +69,12 @@ final class LevelHeaderView: UICollectionReusableView {
         remainingReviewTagView.setUpTitle(title: "누적 리뷰 \(totalReviewCount)회")
         switch level {
         case .regular, .beginner, .prospect:
-            let upperLevel = UserLevelInfo.Level(rawValue: level.rawValue + 1) ?? .regular
-            let remainingReviewCount = upperLevel.levelUpTriggerCount - totalReviewCount
+            let remainingReviewCount = level.nextLevel.levelUpTriggerCount - totalReviewCount
             descriptionLabel.setText(
                 text: "'\(level.nextLevel.name)'까지 리뷰 \(remainingReviewCount)회가 남았어요",
                 font: .bodyMedium
             )
         case .fancier:
-            levelImage.image = level.image
             descriptionLabel.setText(text: "환경을 생각하는 가치 소비자!",
                                      font: .bodyMedium)
         }
