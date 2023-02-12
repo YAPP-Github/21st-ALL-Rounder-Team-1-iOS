@@ -174,7 +174,6 @@ class PumpPopUpViewController: UIViewController {
             var newSize = $0.sizeThatFits($0.frame.size)
             newSize = $0.sizeThatFits(CGSize(width: $0.frame.width,
                                              height: CGFloat.greatestFiniteMagnitude))
-            newSize = $0.sizeThatFits(view.frame.size)
             $0.snp.makeConstraints { label in
                 label.height.equalTo(newSize.height)
             }
