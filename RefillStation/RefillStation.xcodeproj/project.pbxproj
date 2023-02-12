@@ -1683,10 +1683,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RefillStation/RefillStation.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 267JUTDVY2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RefillStation/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Pump;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "정확한 리필 스테이션 정보 제공을 위해 위치가 필요합니다.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "정확한 리필 스테이션 정보 제공을 위해 위치가 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1702,6 +1703,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Hola.RefillStation.Pump;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1716,10 +1720,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RefillStation/RefillStation.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 267JUTDVY2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RefillStation/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Pump;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "정확한 리필 스테이션 정보 제공을 위해 위치가 필요합니다.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "정확한 리필 스테이션 정보 제공을 위해 위치가 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1735,6 +1740,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Hola.RefillStation.Pump;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
