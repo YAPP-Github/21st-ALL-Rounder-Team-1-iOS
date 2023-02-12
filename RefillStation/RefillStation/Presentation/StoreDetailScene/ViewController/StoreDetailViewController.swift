@@ -279,14 +279,6 @@ extension StoreDetailViewController: UICollectionViewDelegate {
     }
 }
 
-// MARK: - Constraints Enum
-extension StoreDetailViewController {
-    enum Constraints {
-        static let outerCollectionViewInset: CGFloat = 16
-        static let tabBarHeight: CGFloat = 50
-    }
-}
-
 // MARK: - UICollectionViewLayout
 extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -424,6 +416,7 @@ extension StoreDetailViewController {
         return UICollectionView.CellRegistration<OperationNoticeCell, StoreDetailItem> { cell, indexPath, item in
         }
     }
+    
     private func operationInfoCellRegistration() -> UICollectionView.CellRegistration<OperationInfoCell, StoreDetailItem> {
         return UICollectionView.CellRegistration<OperationInfoCell, StoreDetailItem> { cell, indexPath, item in
             guard case let .operationInfo(operationInfo) = item else { return }
