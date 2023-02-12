@@ -96,7 +96,7 @@ final class HomeViewController: UIViewController, ServerAlertable {
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        viewModel.viewWillApeear()
+        viewModel.viewWillAppear()
         setUpSkeletonView()
     }
 
