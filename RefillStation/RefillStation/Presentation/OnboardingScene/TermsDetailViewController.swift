@@ -35,6 +35,7 @@ final class TermsDetailViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         layout()
+        moveToTop()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -50,6 +51,13 @@ final class TermsDetailViewController: UIViewController {
         termsTextView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
+    }
+
+    private func moveToTop() {
+        let contentHeight = termsTextView.contentSize.height
+        let offSet = termsTextView.contentOffset.x
+        let contentOffset = contentHeight - offSet
+        termsTextView.contentOffset = CGPoint(x: 0, y: -contentOffset)
     }
 
     private func setUpNavigationBar() {
