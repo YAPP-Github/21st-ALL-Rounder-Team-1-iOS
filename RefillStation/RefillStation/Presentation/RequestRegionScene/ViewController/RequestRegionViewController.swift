@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class RequestRegionViewController: UIViewController {
+final class RequestRegionViewController: UIViewController, ServerAlertable {
 
     // MARK: - Properties
     var coordinator: HomeCoordinator?
@@ -113,6 +113,7 @@ final class RequestRegionViewController: UIViewController {
         viewModel.requestCompleted = { [weak self] in
             self?.coordinator?.popRequestRegion()
         }
+        viewModel.showErrorAlert = showServerErrorAlert
     }
 
     private func layout() {

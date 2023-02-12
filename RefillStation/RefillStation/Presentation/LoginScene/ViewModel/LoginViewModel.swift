@@ -18,6 +18,7 @@ final class LoginViewModel {
     private var appleUserEmail: String?
     var isSignUp: (() -> Void)?
     var isSignIn: (() -> Void)?
+    var showErrorAlert: ((String?, String?) -> Void)?
 
     init(OAuthLoginUseCase: OAuthLoginUseCaseInterface) {
         self.OAuthLoginUseCase = OAuthLoginUseCase
@@ -40,6 +41,8 @@ final class LoginViewModel {
                     oauthIdentity: result.oauthIdentity
                 )
                 result.jwt == nil ? self.isSignUp?() : self.isSignIn?()
+            } catch NetworkError.exception(errorMessage: let message) {
+                showErrorAlert?(message, nil)
             } catch {
                 print(error)
             }

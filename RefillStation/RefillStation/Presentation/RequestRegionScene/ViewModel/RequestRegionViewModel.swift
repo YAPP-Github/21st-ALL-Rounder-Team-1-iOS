@@ -12,6 +12,7 @@ final class RequestRegionViewModel {
     private let customerSatisfactionUseCase: CustomerSatisfactionUseCaseInterface
     private var requestRegionTask: Cancellable?
     var requestCompleted: (() -> Void)?
+    var showErrorAlert: ((String?, String?) -> Void)?
 
     init(customerSatisfactionUseCase: CustomerSatisfactionUseCaseInterface = CustomerSatisfactionUseCase()) {
         self.customerSatisfactionUseCase = customerSatisfactionUseCase
@@ -24,6 +25,8 @@ final class RequestRegionViewModel {
                     requestValue: .init(userId: 0, content: text, type: .requestRegion)
                 )
                 requestCompleted?()
+            } catch NetworkError.exception(errorMessage: let message) {
+                showErrorAlert?(message, nil)
             } catch {
                 print(error)
             }

@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-final class MyPageViewController: UIViewController {
+final class MyPageViewController: UIViewController, ServerAlertable {
 
     private let viewModel: MyPageViewModel
     var coordinator: MyPageCoordinator?
@@ -110,6 +110,7 @@ final class MyPageViewController: UIViewController {
                 self.setUpProfileView()
             }
         }
+        viewModel.showErrorAlert = showServerErrorAlert
     }
 
     private func setUpProfileView() {

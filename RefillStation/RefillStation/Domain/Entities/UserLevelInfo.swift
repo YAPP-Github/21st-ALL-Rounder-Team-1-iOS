@@ -13,6 +13,20 @@ struct UserLevelInfo: Hashable {
         case beginner
         case prospect
         case fancier
+        static func level(reviewCount: Int) -> Level {
+            switch reviewCount {
+            case 0:
+                return .regular
+            case 1...2:
+                return .beginner
+            case 3...4:
+                return .prospect
+            case 5...:
+                return .fancier
+            default:
+                return .regular
+            }
+        }
         var name: String {
             switch self {
             case .regular:

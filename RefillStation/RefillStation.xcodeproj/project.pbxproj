@@ -18,6 +18,7 @@
 		3210B52F298F94ED0034CBA7 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B52E298F94ED0034CBA7 /* NetworkResult.swift */; };
 		3210B531298FB5730034CBA7 /* FetchStoreRecommendUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B530298FB5730034CBA7 /* FetchStoreRecommendUseCase.swift */; };
 		3210B535298FBA6B0034CBA7 /* FetchStoreRecommendDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B534298FBA6B0034CBA7 /* FetchStoreRecommendDTO.swift */; };
+		321A64222998EACB0089635C /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321A64212998EACB0089635C /* UIViewControllerExtension.swift */; };
 		322982EE29907CC20081B288 /* URLComponentsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322982ED29907CC20081B288 /* URLComponentsExtension.swift */; };
 		322982F02990F5000081B288 /* AWSS3Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322982EF2990F5000081B288 /* AWSS3Service.swift */; };
 		322E15E4297A0B3600FE2E2F /* MyPageDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322E15E3297A0B3600FE2E2F /* MyPageDIContainer.swift */; };
@@ -212,6 +213,7 @@
 		3210B52E298F94ED0034CBA7 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		3210B530298FB5730034CBA7 /* FetchStoreRecommendUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStoreRecommendUseCase.swift; sourceTree = "<group>"; };
 		3210B534298FBA6B0034CBA7 /* FetchStoreRecommendDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStoreRecommendDTO.swift; sourceTree = "<group>"; };
+		321A64212998EACB0089635C /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		322982ED29907CC20081B288 /* URLComponentsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLComponentsExtension.swift; sourceTree = "<group>"; };
 		322982EF2990F5000081B288 /* AWSS3Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSS3Service.swift; sourceTree = "<group>"; };
 		322E15E3297A0B3600FE2E2F /* MyPageDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageDIContainer.swift; sourceTree = "<group>"; };
@@ -647,6 +649,7 @@
 				3299C8912994B3F90086837F /* UILabelExtension.swift */,
 				329827832995422200304B68 /* UITextViewExtension.swift */,
 				3269F6E22998A37800AAD8A9 /* NSAttributedStringExtension.swift */,
+				321A64212998EACB0089635C /* UIViewControllerExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1501,6 +1504,7 @@
 				FC84FACC293B944900428AAA /* RequestRegionViewModel.swift in Sources */,
 				FC3630172969316900532598 /* LevelHeaderView.swift in Sources */,
 				32B7922D2993340C001145B0 /* ImageUploadTask.swift in Sources */,
+				321A64222998EACB0089635C /* UIViewControllerExtension.swift in Sources */,
 				3210B529298F7FF10034CBA7 /* StoreRepository.swift in Sources */,
 				FCE00A6A294C5B3400B5C05F /* TagResponseStorage.swift in Sources */,
 				32CCC0D7297939C800C04231 /* StoreDetailCoordinator.swift in Sources */,

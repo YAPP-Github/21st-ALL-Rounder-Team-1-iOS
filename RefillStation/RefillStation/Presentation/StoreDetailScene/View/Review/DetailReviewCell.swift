@@ -15,6 +15,7 @@ final class DetailReviewCell: UICollectionViewCell {
     private var review: Review?
     private var tags: [Tag]?
     private var tagCollectionViewHeight: CGFloat = 40
+    private var profileImageLoadTask: Cancellable?
     private var reviewImageLoadTask: Cancellable?
 
     // MARK: - Event Handling
@@ -178,7 +179,7 @@ final class DetailReviewCell: UICollectionViewCell {
     }
 
     override func prepareForReuse() {
-        reviewImageLoadTask?.cancel()
+        [profileImageLoadTask, reviewImageLoadTask].forEach { $0?.cancel() }
     }
 
     func setUpContents(review: Review, shouldSeeMore: Bool) {
@@ -190,6 +191,11 @@ final class DetailReviewCell: UICollectionViewCell {
         imageCountLabel.setText(text: "1 / \(review.imageURL.count)", font: .buttonSmall)
         imageCountLabel.isHidden = review.imageURL.count <= 1
         imageCountLabel.textAlignment = .center
+        if review.profileImagePath.isEmpty {
+            profileImageView.image = Asset.Images.avatar.image
+        } else {
+            profileImageLoadTask = profileImageView.kf.setImage(with: URL(string: review.profileImagePath))
+        }
         reviewImageLoadTask = reviewImageView.kf.setImage(with: URL(string: review.imageURL.first ?? ""))
         addArrangedSubviewsToOuterStackview()
         if shouldSeeMore {
@@ -257,6 +263,12 @@ final class DetailReviewCell: UICollectionViewCell {
             outerStackView.setCustomSpacing(0, after: reviewInfoView)
         }
 
+        var newSize = descriptionLabel.sizeThatFits(descriptionLabel.frame.size)
+        newSize = descriptionLabel.sizeThatFits(CGSize(width: contentView.frame.width - 32,
+                                         height: CGFloat.greatestFiniteMagnitude))
+        descriptionLabel.snp.remakeConstraints {
+            $0.height.equalTo(newSize.height).priority(.required)
+        }
         if !review.description.isEmpty {
             outerStackView.setCustomSpacing(18, after: reviewImageOuterView)
         } else {

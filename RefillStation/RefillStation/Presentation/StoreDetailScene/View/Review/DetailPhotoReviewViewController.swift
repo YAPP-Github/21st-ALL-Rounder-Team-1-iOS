@@ -157,6 +157,10 @@ final class DetailPhotoReviewViewController: UIViewController {
             $0.centerY.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(view.safeAreaLayoutGuide).multipliedBy(0.66)
         }
+
+        if viewModel.photoURLs.count == 1 {
+            moveRightButton.isHidden = true
+        }
     }
 
     private func addPhotosToStackView() {

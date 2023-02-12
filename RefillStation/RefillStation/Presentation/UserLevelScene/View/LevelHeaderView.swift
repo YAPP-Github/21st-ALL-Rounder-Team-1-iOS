@@ -78,6 +78,7 @@ final class LevelHeaderView: UICollectionReusableView {
             descriptionLabel.setText(text: "환경을 생각하는 가치 소비자!",
                                      font: .bodyMedium)
         }
+        [descriptionLabel, levelLabel].forEach { $0.textAlignment = .center }
     }
 
     private func layout() {

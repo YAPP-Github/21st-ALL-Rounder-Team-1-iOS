@@ -11,7 +11,7 @@ final class OnboardingViewModel {
 
     let onboardingCardTitles = [
         "내 주변의\n리필스테이션",
-        "한눈에 확인하는\n리필 품목과 가격 정보",
+        "한눈에 확인하는\n리필 상품",
         "키워드 리뷰로\n리필스테이션 방문 기록"
     ]
 
