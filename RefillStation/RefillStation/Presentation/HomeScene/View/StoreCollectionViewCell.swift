@@ -102,7 +102,7 @@ final class StoreCollectionViewCell: UICollectionViewCell {
         // set storeImage
         nameLabel.setText(text: name, font: .titleMedium)
         addressLabel.setText(text: address, font: .bodySmall)
-        distanceLabel.setText(text: "\(distance)km", font: .buttonLarge)
+        distanceLabel.setText(text: String(format: "%.1fkm", distance), font: .buttonLarge)
         if let imagePath = image {
             storeImageView.kf.setImage(with: URL(string: imagePath))
         } else {
