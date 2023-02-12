@@ -13,7 +13,7 @@ extension UILabel {
         self.font = .font(style: font)
         setLineLetterSpacing(font: font)
     }
-    func setLineLetterSpacing(font: TextStyles, lineBreakMode: NSLineBreakMode = .byTruncatingTail) {
+    func setLineLetterSpacing(font: TextStyles) {
         if let text = text {
             let style = NSMutableParagraphStyle()
             style.maximumLineHeight = font.lineHeight
@@ -28,7 +28,6 @@ extension UILabel {
             let attrString = NSAttributedString(string: text,
                                                 attributes: attributes)
             self.attributedText = attrString
-            self.lineBreakMode = lineBreakMode
         }
     }
 }

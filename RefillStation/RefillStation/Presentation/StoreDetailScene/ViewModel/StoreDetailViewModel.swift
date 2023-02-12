@@ -67,7 +67,7 @@ final class StoreDetailViewModel {
             .reduce(into: "") { partialResult, businessHour in
                 partialResult += "\(businessHour.day.name) \(businessHour.time ?? "정기 휴무일") \n"
             }
-        + "\n"
+        + (!(store.businessHour.isEmpty || store.notice.isEmpty) ? "\n" : "")
         + store.notice
 
         return [

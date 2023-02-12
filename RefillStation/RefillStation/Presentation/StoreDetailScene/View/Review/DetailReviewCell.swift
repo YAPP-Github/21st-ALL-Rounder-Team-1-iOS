@@ -128,7 +128,7 @@ final class DetailReviewCell: UICollectionViewCell {
         return reviewImageOuterView
     }()
 
-    private lazy var descriptionLabel: UILabel = {
+    lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 3
         label.textColor = Asset.Colors.gray5.color
@@ -192,7 +192,18 @@ final class DetailReviewCell: UICollectionViewCell {
         imageCountLabel.textAlignment = .center
         reviewImageLoadTask = reviewImageView.kf.setImage(with: URL(string: review.imageURL.first ?? ""))
         addArrangedSubviewsToOuterStackview()
-        descriptionLabel.numberOfLines = shouldSeeMore ? 0 : 3
+        if shouldSeeMore {
+            descriptionLabel.numberOfLines = 0
+            if let attrText = descriptionLabel.attributedText {
+                let height = attrText.height(withConstrainedWidth: contentView.frame.width - 32)
+                descriptionLabel.snp.remakeConstraints {
+                    $0.height.greaterThanOrEqualTo(height)
+                }
+            }
+        } else {
+            descriptionLabel.numberOfLines = 3
+            descriptionLabel.lineBreakMode = .byTruncatingTail
+        }
     }
 
     private func setUpTagCollectionViewContents() {
@@ -254,7 +265,7 @@ final class DetailReviewCell: UICollectionViewCell {
 
         if let tags = tags, !tags.isEmpty {
             tagCollectionView.snp.remakeConstraints {
-                $0.height.equalTo(30)
+                $0.height.equalTo(22)
             }
             outerStackView.setCustomSpacing(16, after: descriptionLabel)
         } else {

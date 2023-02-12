@@ -14,7 +14,9 @@ final class StoreDetailViewController: UIViewController {
     private lazy var storeDetailDataSource = diffableDataSource()
 
     private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collectionView
     }()
 
@@ -297,8 +299,15 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
                 operation: viewModel.operationInfos[indexPath.row],
                 shouldShowMore: viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath)
             )
-            let heightThatFits = dummyCellForCalculateheight
+            var heightThatFits = dummyCellForCalculateheight
                 .systemLayoutSizeFitting(CGSize(width: width, height: height)).height
+            if viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath),
+               let attrText = dummyCellForCalculateheight.contentLabel.attributedText {
+                let height = attrText.height(
+                    withConstrainedWidth: dummyCellForCalculateheight.contentView.frame.width - 52
+                )
+                heightThatFits += height
+            }
             return CGSize(width: width, height: heightThatFits)
         } else if section == .reviewOverview {
             if viewModel.totalTagVoteCount < 10 {
@@ -386,7 +395,7 @@ extension StoreDetailViewController {
                     viewModel: ReviewReportPopUpViewModel(reportedUserId: review.userId)
                 ) {
                     let reportCompletePopUp = PumpPopUpViewController(title: nil,
-                                                                description: "해당 댓글이 신고처리 되었습니다.")
+                                                                      description: "해당 댓글이 신고처리 되었습니다.")
                     reportCompletePopUp.addAction(title: "확인", style: .basic) {
                         self?.dismiss(animated: true)
                     }

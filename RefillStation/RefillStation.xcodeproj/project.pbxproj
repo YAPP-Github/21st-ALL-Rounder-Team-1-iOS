@@ -53,6 +53,7 @@
 		3269F6DA2996AC6600AAD8A9 /* AsyncCustomerSatisfactionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3269F6D92996AC6600AAD8A9 /* AsyncCustomerSatisfactionRepository.swift */; };
 		3269F6DC2996AD8D00AAD8A9 /* AsyncRegisterReviewRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3269F6DB2996AD8D00AAD8A9 /* AsyncRegisterReviewRepositoryInterface.swift */; };
 		3269F6DE2996ADA700AAD8A9 /* AsyncRegisterReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3269F6DD2996ADA700AAD8A9 /* AsyncRegisterReviewRepository.swift */; };
+		3269F6E32998A37800AAD8A9 /* NSAttributedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3269F6E22998A37800AAD8A9 /* NSAttributedStringExtension.swift */; };
 		327524DD2987829F00E033A9 /* CustomerSatisfactionRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327524DC2987829F00E033A9 /* CustomerSatisfactionRepositoryInterface.swift */; };
 		3282FED32992391C00DBFE24 /* AWSAccessKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3282FED22992391C00DBFE24 /* AWSAccessKey.plist */; };
 		329557462951992900F5AB53 /* StoreDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F2D9B22951864700131EB1 /* StoreDetailViewModel.swift */; };
@@ -249,6 +250,7 @@
 		3269F6D92996AC6600AAD8A9 /* AsyncCustomerSatisfactionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncCustomerSatisfactionRepository.swift; sourceTree = "<group>"; };
 		3269F6DB2996AD8D00AAD8A9 /* AsyncRegisterReviewRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncRegisterReviewRepositoryInterface.swift; sourceTree = "<group>"; };
 		3269F6DD2996ADA700AAD8A9 /* AsyncRegisterReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncRegisterReviewRepository.swift; sourceTree = "<group>"; };
+		3269F6E22998A37800AAD8A9 /* NSAttributedStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedStringExtension.swift; sourceTree = "<group>"; };
 		327524DC2987829F00E033A9 /* CustomerSatisfactionRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSatisfactionRepositoryInterface.swift; sourceTree = "<group>"; };
 		3282FED22992391C00DBFE24 /* AWSAccessKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AWSAccessKey.plist; sourceTree = "<group>"; };
 		329827832995422200304B68 /* UITextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewExtension.swift; sourceTree = "<group>"; };
@@ -644,6 +646,7 @@
 			children = (
 				3299C8912994B3F90086837F /* UILabelExtension.swift */,
 				329827832995422200304B68 /* UITextViewExtension.swift */,
+				3269F6E22998A37800AAD8A9 /* NSAttributedStringExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1502,6 +1505,7 @@
 				FCE00A6A294C5B3400B5C05F /* TagResponseStorage.swift in Sources */,
 				32CCC0D7297939C800C04231 /* StoreDetailCoordinator.swift in Sources */,
 				32B792312993A51C001145B0 /* CustomerSatisfactionRepository.swift in Sources */,
+				3269F6E32998A37800AAD8A9 /* NSAttributedStringExtension.swift in Sources */,
 				FC083C482992B4A4002DD943 /* AccountManagementViewController.swift in Sources */,
 				329E80272977FA72004286B0 /* OnboardingViewController.swift in Sources */,
 				329827842995422200304B68 /* UITextViewExtension.swift in Sources */,
