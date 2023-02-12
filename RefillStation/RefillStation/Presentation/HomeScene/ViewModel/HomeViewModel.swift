@@ -23,6 +23,7 @@ final class HomeViewModel {
         return currentAdministrativeArea == "서울특별시"
     }
     var setUpContents: (() -> Void)?
+    var locationDenied: (() -> Void)?
 
     init(fetchStoresUseCase: FetchStoresUseCaseInterface = FetchStoresUseCase()) {
         self.fetchStoresUseCase = fetchStoresUseCase
@@ -48,9 +49,14 @@ final class HomeViewModel {
 }
 
 extension HomeViewModel {
-    func viewWillApeear() {
-        setUpCurrentLocation()
-        fetchStores()
+    func viewWillApeear(status: CLAuthorizationStatus) {
+        switch status {
+        case .notDetermined, .restricted, .denied:
+            locationDenied?()
+        case .authorizedAlways, .authorizedWhenInUse, .authorized:
+            setUpCurrentLocation()
+            fetchStores()
+        }
     }
 
     func viewWillDisappear() {
@@ -60,6 +66,7 @@ extension HomeViewModel {
 
 extension HomeViewModel {
     private func setUpCurrentLocation() {
+        locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
         guard let space = locationManager.location?.coordinate else { return }

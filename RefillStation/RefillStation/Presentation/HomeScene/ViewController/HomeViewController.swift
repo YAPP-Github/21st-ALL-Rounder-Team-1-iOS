@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import CoreLocation
 
 final class HomeViewController: UIViewController {
 
@@ -14,6 +15,19 @@ final class HomeViewController: UIViewController {
     var coordiantor: HomeCoordinator?
     private let viewModel: HomeViewModel
     private var updateCurrentAddressText: (() -> Void)?
+    private let locationManager = CLLocationManager()
+
+    private lazy var locationPopUpViewController: PumpPopUpViewController = {
+        let popUpViewController = PumpPopUpViewController(title: "",
+                                                          description: "‘현재 위치'를 자동으로 확인하기 위해\n위치 서비스 및 정확한 위치를 켜주세요!")
+        popUpViewController.addAction(title: "위치 서비스 켜기", style: .basic) {
+            guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
+        }
+        return popUpViewController
+    }()
 
     // MARK: - UI Components
     private let homeTitleBar: PumpLargeTitleNavigationBar = {
@@ -78,7 +92,7 @@ final class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        viewModel.viewWillApeear()
+        viewModel.viewWillApeear(status: locationManager.authorizationStatus)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -93,6 +107,10 @@ final class HomeViewController: UIViewController {
         viewModel.setUpContents = {
             self.storeCollectionView.reloadData()
             self.updateCurrentAddressText?()
+        }
+
+        viewModel.locationDenied = {
+            self.present(self.locationPopUpViewController, animated: true)
         }
     }
 
@@ -189,5 +207,18 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 0 { return }
         coordiantor?.showStoreDetail(store: viewModel.stores[indexPath.row])
+    }
+}
+
+extension HomeViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch manager.authorizationStatus {
+        case .notDetermined, .restricted, .denied:
+            self.present(locationPopUpViewController, animated: true)
+        case .authorizedAlways, .authorizedWhenInUse:
+            locationPopUpViewController.dismiss(animated: true)
+        default:
+            break
+        }
     }
 }

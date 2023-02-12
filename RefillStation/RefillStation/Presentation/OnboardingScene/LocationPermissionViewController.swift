@@ -119,7 +119,7 @@ final class LocationPermissionViewController: UIViewController {
         case .authorizedAlways, .authorizedWhenInUse:
             self.viewModel.agreeButtonDidTapped()
         case .notDetermined, .restricted:
-            self.locationManager.requestWhenInUseAuthorization()
+            self.locationManager.requestAlwaysAuthorization()
         case .denied:
             openSetting()
         default:
