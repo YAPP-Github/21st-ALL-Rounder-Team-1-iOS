@@ -15,7 +15,7 @@ extension LoginDTO {
     func toDomain() -> OAuthLoginResponseValue {
         return OAuthLoginResponseValue(name: name,
                                        email: email,
-                                       imgPath: imgPath ?? "",
+                                       imgPath: imgPath,
                                        oauthIdentity: oauthIdentity ?? "",
                                        oauthType: oauthType ?? "",
                                        jwt: jwt,

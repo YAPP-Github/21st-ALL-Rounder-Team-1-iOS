@@ -58,14 +58,12 @@ final class StoreDetailViewController: UIViewController, ServerAlertable {
 
     override func viewWillAppear(_ animated: Bool) {
         setUpNavigationBar()
-        tabBarController?.tabBar.isHidden = true
         viewModel.viewWillAppear()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
         navigationController?.navigationBar.tintColor = .black
-        tabBarController?.tabBar.isHidden = false
         viewModel.viewWillDisappear()
     }
 
@@ -399,8 +397,10 @@ extension StoreDetailViewController {
                 let reportPopUp = ReviewReportPopUpViewController(
                     viewModel: ReviewReportPopUpViewModel(reportedUserId: review.userId)
                 ) {
-                    let reportCompletePopUp = PumpPopUpViewController(title: nil,
-                                                                      description: "해당 댓글이 신고처리 되었습니다.")
+                    let reportCompletePopUp = PumpPopUpViewController(
+                        title: "해당 댓글이 신고처리 되었습니다.",
+                        description: "검토 후 빠른 시일 내에 반영하겠습니다."
+                    )
                     reportCompletePopUp.addAction(title: "확인", style: .basic) {
                         self?.dismiss(animated: true)
                     }

@@ -14,15 +14,20 @@ final class ReviewDescriptionCell: UICollectionViewCell {
     var didChangeText: ((String) -> Void)?
 
     private let placeholder = "다른 손님에게도 도움이 되도록 매장을 이용하며 느꼈던 점을 솔직하게 알려주세요!"
+
+    private let outerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 6
+        view.layer.borderWidth = 1
+        view.layer.borderColor = Asset.Colors.gray2.color.cgColor
+        return view
+    }()
     private let reviewTextView: UITextView = {
         let textView = UITextView()
         textView.isEditable = true
         textView.textColor = Asset.Colors.gray4.color
-        textView.textContainerInset = .init(top: 16, left: 16, bottom: 16, right: 16)
         textView.font = UIFont.font(style: .bodyMediumOverTwoLine)
-        textView.layer.cornerRadius = 6
-        textView.layer.borderWidth = 1
-        textView.layer.borderColor = Asset.Colors.gray2.color.cgColor
         textView.tintColor = Asset.Colors.primary10.color
         return textView
     }()
@@ -63,15 +68,20 @@ final class ReviewDescriptionCell: UICollectionViewCell {
     }
 
     private func layout() {
-        [reviewTextView, textCountLabel, maxTextLabel].forEach { contentView.addSubview($0) }
-        reviewTextView.snp.makeConstraints { textView in
+        [outerView, reviewTextView, textCountLabel, maxTextLabel].forEach { contentView.addSubview($0) }
+        outerView.snp.makeConstraints { textView in
             textView.top.equalToSuperview().inset(7)
             textView.leading.trailing.equalToSuperview().inset(16)
             textView.bottom.equalToSuperview().inset(20)
         }
 
+        reviewTextView.snp.makeConstraints { textView in
+            textView.top.leading.trailing.equalTo(outerView).inset(16)
+            textView.bottom.equalTo(maxTextLabel.snp.top).offset(-12)
+        }
+
         maxTextLabel.snp.makeConstraints { label in
-            label.trailing.bottom.equalTo(reviewTextView).inset(16)
+            label.trailing.bottom.equalTo(outerView).inset(16)
         }
 
         textCountLabel.snp.makeConstraints { label in

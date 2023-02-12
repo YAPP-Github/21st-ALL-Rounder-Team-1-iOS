@@ -10,7 +10,7 @@ import Foundation
 struct SignUpReqeustDTO: Encodable {
     let name: String?
     let email: String?
-    let imagePath: String
+    let imagePath: String?
     let type: String = "USER"
     let oauthType: String
     let oauthIdentity: String

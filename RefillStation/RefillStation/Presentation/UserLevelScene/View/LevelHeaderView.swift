@@ -64,12 +64,21 @@ final class LevelHeaderView: UICollectionReusableView {
     }
 
     func setUpContents(level: UserLevelInfo.Level, totalReviewCount: Int) {
-        descriptionLabel.setText(text: "'\(level.nextLevel.name)'까지 리뷰 \(level.nextLevelRemainCount)회가 남았어요",
-                                 font: .bodyMedium)
         levelLabel.setText(text: level.name, font: .titleLarge2)
-        [descriptionLabel, levelLabel].forEach { $0.textAlignment = .center }
-        remainingReviewTagView.setUpTitle(title: "누적 리뷰 \(totalReviewCount)회")
         levelImage.image = level.image
+        remainingReviewTagView.setUpTitle(title: "누적 리뷰 \(totalReviewCount)회")
+        switch level {
+        case .regular, .beginner, .prospect:
+            let remainingReviewCount = level.nextLevel.levelUpTriggerCount - totalReviewCount
+            descriptionLabel.setText(
+                text: "'\(level.nextLevel.name)'까지 리뷰 \(remainingReviewCount)회가 남았어요",
+                font: .bodyMedium
+            )
+        case .fancier:
+            descriptionLabel.setText(text: "환경을 생각하는 가치 소비자!",
+                                     font: .bodyMedium)
+        }
+        [descriptionLabel, levelLabel].forEach { $0.textAlignment = .center }
     }
 
     private func layout() {

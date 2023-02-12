@@ -35,7 +35,7 @@ final class AsyncUserInfoRepository: AsyncUserInfoRepositoryInterface {
         var urlComponents = URLComponents(string: self.networkService.baseURL)
         urlComponents?.path = "/api/user"
         let imagePath = requestValue.didImageChanged ? try await awsService.upload(
-            type: .user, image: requestValue.newImage) : requestValue.oldImagePath ?? ""
+            type: .user, image: requestValue.newImage) : requestValue.oldImagePath
         guard let requestBody = try? JSONEncoder()
             .encode(EditUserRequestDTO(
                 nickname: requestValue.nickname,

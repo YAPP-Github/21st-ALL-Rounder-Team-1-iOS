@@ -72,9 +72,7 @@ final class RegisterReviewPopUpViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         levelImageView.image = userLevel.image
         titleLabel.setText(text: userLevel.celebrateTitle, font: .titleMedium)
-        descriptionLabel.setText(text: "‘\(userLevel.nextLevel.name)’까지\n리뷰 \(userLevel.nextLevelRemainCount)회가 남았어요",
-                                 font: .bodyMediumOverTwoLine) // FIXME: 리필애호가가 된 경우 따로 띄워줄 화면 필요
-        [titleLabel, descriptionLabel].forEach { $0.textAlignment = .center }
+        setUpPopUpText()
         setUpReviewCountTextColor(count: userLevel.nextLevelRemainCount)
         modalPresentationStyle = .overFullScreen
     }
@@ -121,6 +119,20 @@ final class RegisterReviewPopUpViewController: UIViewController {
             $0.height.equalTo(40)
             $0.bottom.equalToSuperview().inset(12)
         }
+    }
+
+    private func setUpPopUpText() {
+        switch userLevel {
+        case .regular, .beginner, .prospect:
+            descriptionLabel.setText(
+                text: "‘\(userLevel.nextLevel.name)’까지\n리뷰 \(userLevel.nextLevelRemainCount)회가 남았어요",
+                font: .bodyMediumOverTwoLine
+            )
+        case .fancier:
+            descriptionLabel.setText(text: "앞으로도 꾸준한 리필 생활 부탁드려요!",
+                                     font: .bodyMediumOverTwoLine)
+        }
+        [titleLabel, descriptionLabel].forEach { $0.textAlignment = .center }
     }
 
     private func setUpReviewCountTextColor(count: Int) {

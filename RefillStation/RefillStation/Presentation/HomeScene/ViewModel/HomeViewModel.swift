@@ -51,8 +51,12 @@ final class HomeViewModel {
 }
 
 extension HomeViewModel {
-    func viewWillApeear() {
+    func viewWillAppear() {
         setUpCurrentLocation()
+        fetchStores()
+    }
+
+    func willEnterForeground() {
         fetchStores()
     }
 
@@ -63,6 +67,7 @@ extension HomeViewModel {
 
 extension HomeViewModel {
     private func setUpCurrentLocation() {
+        locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
         guard let space = locationManager.location?.coordinate else { return }
