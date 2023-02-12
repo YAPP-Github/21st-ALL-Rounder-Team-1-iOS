@@ -89,7 +89,7 @@ final class HomeViewController: UIViewController {
         storeCollectionView.delegate = self
         bind()
         layout()
-        addwillEnterForegroundObserver()
+        addWillEnterForegroundObserver()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -130,7 +130,7 @@ final class HomeViewController: UIViewController {
         }
     }
 
-    private func addwillEnterForegroundObserver() {
+    private func addWillEnterForegroundObserver() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(willEnterForeground),
                                                name: UIApplication.willEnterForegroundNotification,
