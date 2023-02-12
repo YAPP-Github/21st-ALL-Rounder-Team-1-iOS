@@ -111,7 +111,7 @@ extension StoreDetailViewController {
             case .filteredProductsCount:
                 return 33 // 33
             case .productList:
-                return 113
+                return 68
             case .reviewOverview:
                 return 518 // 518, 414
             case .review:
