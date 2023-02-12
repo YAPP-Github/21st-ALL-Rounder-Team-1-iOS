@@ -65,6 +65,7 @@ final class LevelHeaderView: UICollectionReusableView {
 
     func setUpContents(level: UserLevelInfo.Level, totalReviewCount: Int) {
         levelLabel.setText(text: level.name, font: .titleLarge2)
+        levelLabel.textColor = level.color
         levelImage.image = level.image
         remainingReviewTagView.setUpTitle(title: "누적 리뷰 \(totalReviewCount)회")
         switch level {
