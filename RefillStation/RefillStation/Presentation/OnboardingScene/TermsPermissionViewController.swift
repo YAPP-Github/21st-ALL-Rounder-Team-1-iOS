@@ -94,7 +94,7 @@ final class TermsPermissionViewController: UIViewController {
         stackView.snp.makeConstraints {
             $0.top.equalTo(divisionLine.snp.bottom).offset(14)
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.height.equalTo(96)
+            $0.height.equalTo(144)
         }
         confirmButton.snp.makeConstraints {
             $0.height.equalTo(50)
@@ -117,6 +117,8 @@ final class TermsPermissionViewController: UIViewController {
             button.setTitle(agreementType.title + " (필수)", for: .normal)
             button.titleLabel?.font = .font(style: .bodyMedium)
             button.setTitleColor(Asset.Colors.gray5.color, for: .normal)
+            button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
+            button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
             setUpButtonTitleTextColor(button: button)
 
             let arrowButton = UIButton()
