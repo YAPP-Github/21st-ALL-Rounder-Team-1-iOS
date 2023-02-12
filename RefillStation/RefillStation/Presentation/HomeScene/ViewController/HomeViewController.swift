@@ -18,7 +18,7 @@ final class HomeViewController: UIViewController {
     private let locationManager = CLLocationManager()
 
     private lazy var locationPopUpViewController: PumpPopUpViewController = {
-        let popUpViewController = PumpPopUpViewController(title: "",
+        let popUpViewController = PumpPopUpViewController(title: nil,
                                                           description: "‘현재 위치'를 자동으로 확인하기 위해\n위치 서비스 및 정확한 위치를 켜주세요!")
         popUpViewController.addAction(title: "위치 서비스 켜기", style: .basic) {
             guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
