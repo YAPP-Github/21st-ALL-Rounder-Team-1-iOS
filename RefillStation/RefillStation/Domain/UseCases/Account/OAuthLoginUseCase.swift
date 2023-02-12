@@ -30,7 +30,7 @@ struct OAuthLoginRequestValue {
 struct OAuthLoginResponseValue {
     let name: String?
     let email: String?
-    let imgPath: String
+    let imgPath: String?
     let oauthIdentity: String
     let oauthType: String
     let jwt: String?
