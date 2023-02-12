@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import SkeletonView
 import CoreLocation
 
 final class HomeViewController: UIViewController, ServerAlertable {
@@ -96,6 +97,7 @@ final class HomeViewController: UIViewController, ServerAlertable {
         navigationController?.isNavigationBarHidden = true
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         viewModel.viewWillAppear()
+        setUpSkeletonView()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -110,6 +112,7 @@ final class HomeViewController: UIViewController, ServerAlertable {
         viewModel.setUpContents = {
             self.storeCollectionView.reloadData()
             self.updateCurrentAddressText?()
+            self.storeCollectionView.hideSkeleton()
         }
 
         viewModel.showErrorAlert = showServerErrorAlert
@@ -201,7 +204,6 @@ extension HomeViewController: UICollectionViewDataSource {
 }
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
-
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.section == 0 {
             return CGSize(width: collectionView.frame.width, height: 333)
@@ -232,5 +234,30 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 0 { return }
         coordiantor?.showStoreDetail(store: viewModel.stores[indexPath.row])
+    }
+}
+
+extension HomeViewController: SkeletonCollectionViewDataSource {
+    func numSections(in collectionSkeletonView: UICollectionView) -> Int {
+        return 2
+    }
+
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        if indexPath.section == 0 {
+            return RegionRequestCollectionViewCell.reuseIdentifier
+        } else {
+            return StoreCollectionViewCell.reuseIdentifier
+        }
+    }
+
+    func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return section == 0 ? 0 : UICollectionView.automaticNumberOfSkeletonItems
+    }
+}
+
+extension HomeViewController {
+    func setUpSkeletonView() {
+        storeCollectionView.isSkeletonable = true
+        storeCollectionView.showSkeleton()
     }
 }
