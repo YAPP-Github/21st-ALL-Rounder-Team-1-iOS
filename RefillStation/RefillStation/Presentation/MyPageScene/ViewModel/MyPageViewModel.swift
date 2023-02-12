@@ -12,6 +12,7 @@ final class MyPageViewModel {
     private var userInfoLoadTask: Cancellable?
 
     var setUpContents: (() -> Void)?
+    var showErrorAlert: ((String?, String?) -> Void)?
     var userId: Int?
     var userNickname: String?
     var userLevel: UserLevelInfo?
@@ -32,6 +33,8 @@ final class MyPageViewModel {
                 userRank = userInfo.level.level
                 profileImage = userInfo.imageURL
                 setUpContents?()
+            } catch NetworkError.exception(errorMessage: let message) {
+                showErrorAlert?(message, nil)
             } catch {
                 print(error)
             }

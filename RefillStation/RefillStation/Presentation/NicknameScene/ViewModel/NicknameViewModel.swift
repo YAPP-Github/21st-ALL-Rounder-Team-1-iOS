@@ -18,6 +18,7 @@ final class NicknameViewModel {
 
     var didEditComplete: (() -> Void)?
     var isValidNickname: ((Bool) -> Void)?
+    var showErrorAlert: ((String?, String?) -> Void)?
     var didImageChanged: Bool = false
 
     var profileImage: String? {
@@ -82,6 +83,8 @@ final class NicknameViewModel {
                 let isDuplicated = try await validNicknameUseCase.execute(requestValue: requestValue)
                 self.isDuplicated = isDuplicated
                 isValidNickname?(isDuplicated)
+            } catch NetworkError.exception(errorMessage: let message) {
+                showErrorAlert?(message, nil)
             } catch {
                 print(error)
             }

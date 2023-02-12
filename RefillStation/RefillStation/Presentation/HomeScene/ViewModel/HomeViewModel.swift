@@ -23,6 +23,7 @@ final class HomeViewModel {
         return currentAdministrativeArea == "서울특별시"
     }
     var setUpContents: (() -> Void)?
+    var showErrorAlert: ((String?, String?) -> Void)?
 
     init(fetchStoresUseCase: FetchStoresUseCaseInterface = FetchStoresUseCase()) {
         self.fetchStoresUseCase = fetchStoresUseCase
@@ -40,6 +41,8 @@ final class HomeViewModel {
                     self.currentAdministrativeArea = $1
                     self.setUpContents?()
                 }
+            } catch NetworkError.exception(errorMessage: let message) {
+                showErrorAlert?(message, nil)
             } catch {
                 print(error)
             }

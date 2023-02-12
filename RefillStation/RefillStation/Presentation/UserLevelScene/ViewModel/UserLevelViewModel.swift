@@ -13,6 +13,7 @@ final class UserLevelViewModel {
     var userLevel: UserLevelInfo.Level = .regular
 
     var reloadData: (() -> Void)?
+    var showErrorAlert: ((String?, String?) -> Void)?
 
     private let fetchUserReviewsUseCase: FetchUserReviewsUseCaseInterface
     private var userReviewsLoadTask: Cancellable?
@@ -29,6 +30,8 @@ final class UserLevelViewModel {
                 userLevel = UserLevelInfo.Level.level(reviewCount: totalReviewCount)
                 setUpUserLevel()
                 reloadData?()
+            } catch NetworkError.exception(errorMessage: let message) {
+                showErrorAlert?(message, nil)
             } catch {
                 print(error)
             }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class StoreDetailViewController: UIViewController {
+final class StoreDetailViewController: UIViewController, ServerAlertable {
 
     var coordinator: StoreDetailCoordinator?
     private var viewModel: StoreDetailViewModel!
@@ -75,6 +75,7 @@ final class StoreDetailViewController: UIViewController {
                 self?.applyDataSource()
             }
         }
+        viewModel.showErrorAlert = showServerErrorAlert
     }
 
     private func setUpNavigationBar() {

@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import AuthenticationServices
 
-final class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController, ServerAlertable {
     private let viewModel: LoginViewModel
     var coordinator: OnboardingCoordinator?
 
@@ -140,6 +140,7 @@ final class LoginViewController: UIViewController {
                 self.coordinator?.agreeAndStartButtonTapped()
             }
         }
+        viewModel.showErrorAlert = showServerErrorAlert
     }
 
     private func setUpAppleAuthorization() {

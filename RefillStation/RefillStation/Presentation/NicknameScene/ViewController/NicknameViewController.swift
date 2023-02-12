@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-final class NicknameViewController: UIViewController {
+final class NicknameViewController: UIViewController, ServerAlertable {
 
     var coordinator: MyPageCoordinator?
     private let viewModel: NicknameViewModel
@@ -152,12 +152,12 @@ final class NicknameViewController: UIViewController {
                 self?.coordinator?.popEditProfile()
             }
         }
-
         viewModel.isValidNickname = { isDuplicate in
             DispatchQueue.main.async {
                 self.checkDuplicateNickname(isDuplicate: isDuplicate)
             }
         }
+        viewModel.showErrorAlert = showServerErrorAlert
     }
 
     private func addKeyboardNotification() {
