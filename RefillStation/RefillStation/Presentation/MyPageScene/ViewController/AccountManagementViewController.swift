@@ -101,7 +101,8 @@ final class AccountManagementViewController: UIViewController {
             button.titleLabel?.font = .font(style: .buttonLarge)
             button.contentHorizontalAlignment = .left
             button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
-            let arrowImageView = UIImageView(image: Asset.Images.iconArrowRightSmall.image.withRenderingMode(.alwaysTemplate)
+            let arrowImageView = UIImageView(
+                image: Asset.Images.iconArrowRightSmall.image.withRenderingMode(.alwaysTemplate)
             )
             arrowImageView.tintColor = Asset.Colors.gray3.color
 
