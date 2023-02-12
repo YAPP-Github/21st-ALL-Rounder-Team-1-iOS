@@ -261,7 +261,6 @@ extension StoreDetailViewController: UICollectionViewDelegate {
             var currentSnapshot = storeDetailDataSource.snapshot()
             currentSnapshot.reloadItems([item])
             storeDetailDataSource.apply(currentSnapshot)
-            collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
         }
     }
 

@@ -263,6 +263,12 @@ final class DetailReviewCell: UICollectionViewCell {
             outerStackView.setCustomSpacing(0, after: reviewInfoView)
         }
 
+        var newSize = descriptionLabel.sizeThatFits(descriptionLabel.frame.size)
+        newSize = descriptionLabel.sizeThatFits(CGSize(width: contentView.frame.width - 32,
+                                         height: CGFloat.greatestFiniteMagnitude))
+        descriptionLabel.snp.remakeConstraints {
+            $0.height.equalTo(newSize.height).priority(.required)
+        }
         if !review.description.isEmpty {
             outerStackView.setCustomSpacing(18, after: reviewImageOuterView)
         } else {
