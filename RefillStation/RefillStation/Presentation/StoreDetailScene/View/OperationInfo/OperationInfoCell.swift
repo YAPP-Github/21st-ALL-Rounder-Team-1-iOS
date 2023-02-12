@@ -11,6 +11,9 @@ final class OperationInfoCell: UICollectionViewCell {
 
     static let reuseIdentifier = String(describing: OperationInfoCell.self)
 
+    private let contentLabelDefaultHeight: CGFloat = 20
+    private let contentLabelInsetSum: CGFloat = 52
+
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -59,25 +62,27 @@ final class OperationInfoCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
+    override func prepareForReuse() {
+        seeMoreButton.isHidden = true
+    }
+
     func setUpContents(operation: OperationInfo, shouldShowMore: Bool = false) {
         imageView.image = operation.image
         contentLabel.setText(text: operation.content, font: .bodySmallOverTwoLine)
 
-        guard contentLabel.isTruncated, !operation.content.isEmpty,
-        let isNewLineIncluded = contentLabel.text?.contains("\n") else { return }
+        guard contentLabel.isTruncated, !operation.content.isEmpty else { return }
 
-        if isNewLineIncluded || contentLabel.isTruncated {
-            seeMoreButton.isHidden = false
-        }
+        guard let contentHeight = contentLabel.attributedText?.height(
+            withConstrainedWidth: contentView.frame.width - contentLabelInsetSum
+        ) else { return }
+
+        seeMoreButton.isHidden = contentHeight <= contentLabelDefaultHeight
 
         if shouldShowMore {
             contentLabel.numberOfLines = 0
             seeMoreButton.setImage(Asset.Images.iconArrowTopSmall.image, for: .normal)
-            if let attrText = contentLabel.attributedText {
-                let height = attrText.height(withConstrainedWidth: contentView.frame.width - 52)
-                contentLabel.snp.remakeConstraints {
-                    $0.height.greaterThanOrEqualTo(height)
-                }
+            contentLabel.snp.remakeConstraints {
+                $0.height.equalTo(contentHeight)
             }
         } else {
             contentLabel.numberOfLines = 1
@@ -106,7 +111,7 @@ final class OperationInfoCell: UICollectionViewCell {
             $0.top.equalToSuperview().inset(15)
             $0.leading.equalTo(imageView.snp.trailing).offset(16)
             $0.trailing.equalTo(seeMoreButton.snp.leading).offset(-8)
-            $0.height.greaterThanOrEqualTo(20)
+            $0.height.equalTo(contentLabelDefaultHeight)
         }
 
         divisionLine.snp.makeConstraints {
@@ -161,4 +166,3 @@ fileprivate extension UILabel {
         return labelTextSize.height > bounds.size.height
     }
 }
-
