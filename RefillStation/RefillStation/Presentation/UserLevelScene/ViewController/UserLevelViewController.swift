@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class UserLevelViewController: UIViewController {
+final class UserLevelViewController: UIViewController, ServerAlertable {
     private let viewModel: UserLevelViewModel
 
     private let levelCollectionView: UICollectionView = {
@@ -60,6 +60,7 @@ final class UserLevelViewController: UIViewController {
                 self.levelCollectionView.reloadData()
             }
         }
+        viewModel.showErrorAlert = showServerErrorAlert
     }
 
     private func layout() {

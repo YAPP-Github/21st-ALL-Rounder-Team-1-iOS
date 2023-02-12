@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class AccountManagementViewController: UIViewController {
+final class AccountManagementViewController: UIViewController, ServerAlertable {
     var coordinator: MyPageCoordinator?
     private let viewModel: AccountManagementViewModel
 
@@ -77,6 +77,7 @@ final class AccountManagementViewController: UIViewController {
                 self.coordinator?.showLogin()
             }
         }
+        viewModel.showErrorAlert = showServerErrorAlert
     }
 
     private func layout() {
@@ -122,7 +123,7 @@ final class AccountManagementViewController: UIViewController {
         popUp.addAction(title: "로그아웃", style: .basic) {
             self.viewModel.signOutButtonDidTapped()
         }
-        self.present(popUp, animated: true)
+        self.present(popUp, animated: false)
     }
 
     private func addWithdrawAction() {
@@ -134,6 +135,6 @@ final class AccountManagementViewController: UIViewController {
         popUp.addAction(title: "탈퇴하기", style: .basic) {
             self.viewModel.withdrawButtonDidTapped()
         }
-        self.present(popUp, animated: true)
+        self.present(popUp, animated: false)
     }
 }

@@ -12,6 +12,7 @@ final class StoreDetailViewModel {
 
     // MARK: - Binding
     var applyDataSource: (() -> Void)?
+    var showErrorAlert: ((String?, String?) -> Void)?
 
     // MARK: - TabBarMode
     var mode: TabBarMode = .productLists {
@@ -135,6 +136,8 @@ final class StoreDetailViewModel {
                 store.recommendedCount = response.recommendCount
                 store.didUserRecommended = response.didRecommended
                 applyDataSource?()
+            } catch NetworkError.exception(errorMessage: let message) {
+                showErrorAlert?(message, nil)
             } catch {
                 print(error)
             }
@@ -165,6 +168,8 @@ final class StoreDetailViewModel {
                 self.products = products
                 setUpCategories()
                 applyDataSource?()
+            } catch NetworkError.exception(errorMessage: let message) {
+                showErrorAlert?(message, nil)
             } catch {
                 print(error)
             }
@@ -181,6 +186,8 @@ final class StoreDetailViewModel {
                     setUpRankedTags()
                     applyDataSource?()
                 }
+            } catch NetworkError.exception(errorMessage: let message) {
+                showErrorAlert?(message, nil)
             } catch {
                 print(error)
             }
@@ -195,6 +202,8 @@ final class StoreDetailViewModel {
                 store.didUserRecommended = response.didRecommended
                 store.recommendedCount = response.recommendCount
                 applyDataSource?()
+            } catch NetworkError.exception(errorMessage: let message) {
+                showErrorAlert?(message, nil)
             } catch {
                 print(error)
             }

@@ -37,6 +37,7 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
     }
 
     var reviewCountFetchCompleted: (() -> Void)?
+    var showErrorAlert: ((String?, String?) -> Void)?
 
     private let registerReviewUseCase: RegisterReviewUseCaseInterface
     private let fetchUserReviewsUseCase: FetchUserReviewsUseCaseInterface
@@ -88,6 +89,8 @@ final class DefaultTagReviewViewModel: TagReviewViewModel {
                 let reviews = try await fetchUserReviewsUseCase.execute()
                 totalReviewCount = reviews.count
                 reviewCountFetchCompleted?()
+            } catch NetworkError.exception(errorMessage: let message) {
+                showErrorAlert?(message, nil)
             } catch {
                 print(error)
             }

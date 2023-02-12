@@ -84,7 +84,7 @@ final class NetworkService: NetworkServiceInterface {
         }
 
         let (data, response) = try await URLSession.shared.data(for: request)
-        print("🌐 request: " + String(request.url?.absoluteString ?? ""))
+        print("🌐 " + (request.httpMethod ?? "") + " : " + String(request.url?.absoluteString ?? ""))
         guard let httpResponse = response as? HTTPURLResponse,
               200...299 ~= httpResponse.statusCode else {
             guard let exception = try? JSONDecoder().decode(Exception.self, from: data) else {

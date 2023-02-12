@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController, ServerAlertable {
 
     // MARK: - Properties
     var coordiantor: HomeCoordinator?
@@ -94,6 +94,8 @@ final class HomeViewController: UIViewController {
             self.storeCollectionView.reloadData()
             self.updateCurrentAddressText?()
         }
+
+        viewModel.showErrorAlert = showServerErrorAlert
     }
 
     private func layout() {

@@ -12,6 +12,7 @@ final class AccountManagementViewModel {
     private let withdrawUseCase: WithdrawUseCase
 
     var presentToLogin: (() -> Void)?
+    var showErrorAlert: ((String?, String?) -> Void)?
 
     init(signOutUseCase: SignOutUseCase, withdrawUseCase: WithdrawUseCase) {
         self.signOutUseCase = signOutUseCase
@@ -23,6 +24,8 @@ final class AccountManagementViewModel {
             do {
                 try await signOutUseCase.execute()
                 presentToLogin?()
+            } catch NetworkError.exception(errorMessage: let message) {
+                showErrorAlert?(message, nil)
             } catch {
                 print(error)
             }
@@ -34,6 +37,8 @@ final class AccountManagementViewModel {
             do {
                 try await withdrawUseCase.execute()
                 presentToLogin?()
+            } catch NetworkError.exception(errorMessage: let message) {
+                showErrorAlert?(message, nil)
             } catch {
                 print(error)
             }

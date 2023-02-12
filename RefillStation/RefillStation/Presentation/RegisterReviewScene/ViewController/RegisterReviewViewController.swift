@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import PhotosUI
 
-final class RegisterReviewViewController: UIViewController {
+final class RegisterReviewViewController: UIViewController, ServerAlertable {
 
     var coordinator: RegisterReviewCoordinator?
     private let viewModel: DefaultTagReviewViewModel
@@ -106,6 +106,7 @@ final class RegisterReviewViewController: UIViewController {
                 self.coordinator?.registerReviewSucceded(userLevel: self.viewModel.levelUppedLevel)
             }
         }
+        viewModel.showErrorAlert = showServerErrorAlert
     }
 
     private func setUpCollectionView() {

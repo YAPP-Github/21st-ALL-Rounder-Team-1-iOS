@@ -43,6 +43,7 @@ final class TermsPermissionViewController: UIViewController {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
+        stackView.spacing = 24
         return stackView
     }()
     private lazy var confirmButton: CTAButton = {
@@ -91,7 +92,7 @@ final class TermsPermissionViewController: UIViewController {
             $0.height.equalTo(1)
         }
         stackView.snp.makeConstraints {
-            $0.top.equalTo(divisionLine.snp.bottom).offset(6)
+            $0.top.equalTo(divisionLine.snp.bottom).offset(14)
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(96)
         }
@@ -110,6 +111,7 @@ final class TermsPermissionViewController: UIViewController {
                             for: .normal)
             button.setImage(Asset.Images.checkbox.image.withTintColor(Asset.Colors.primary10.color),
                             for: .selected)
+            button.imageView?.contentMode = .scaleAspectFit
             button.tintColor = Asset.Colors.gray3.color
             button.contentHorizontalAlignment = .left
             button.setTitle(agreementType.title + " (필수)", for: .normal)
@@ -120,6 +122,7 @@ final class TermsPermissionViewController: UIViewController {
             let arrowButton = UIButton()
             arrowButton.setImage(Asset.Images.iconArrowRightSmall.image.withRenderingMode(.alwaysTemplate),
                                  for: .normal)
+            arrowButton.imageView?.contentMode = .scaleAspectFit
             arrowButton.tintColor = Asset.Colors.gray3.color
             arrowButton.addAction(UIAction(handler: { _ in
                 self.coordinator?.showTermsPermissionDetail(termsType: agreementType)

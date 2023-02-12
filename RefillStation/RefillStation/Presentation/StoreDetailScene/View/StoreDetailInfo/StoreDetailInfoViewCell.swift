@@ -91,6 +91,11 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
         storeAddressLabel.setText(text: store.address, font: .bodyMedium)
         setUpLikeCount(response: .init(recommendCount: store.recommendedCount,
                                        didRecommended: store.didUserRecommended))
+        if let storeImageURL = URL(string: store.imageURL.first ?? "") {
+            storeImageView.kf.setImage(with: storeImageURL)
+        } else {
+            storeImageView.image = Asset.Images.storeDefualtImage.image
+        }
     }
 
     func setUpLikeCount(response: RecommendStoreResponseValue) {

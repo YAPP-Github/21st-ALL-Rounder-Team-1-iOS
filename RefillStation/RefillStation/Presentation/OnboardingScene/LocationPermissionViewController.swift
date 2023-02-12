@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import CoreLocation
 
-final class LocationPermissionViewController: UIViewController {
+final class LocationPermissionViewController: UIViewController, ServerAlertable {
     private var viewModel: LocationPermissionViewModel
     var coordinator: OnboardingCoordinator?
     private let locationManager = CLLocationManager()
@@ -82,6 +82,8 @@ final class LocationPermissionViewController: UIViewController {
                 self.coordinator?.agreeAndStartButtonTapped()
             }
         }
+
+        viewModel.showErrorAlert = showServerErrorAlert
     }
 
     private func layout() {

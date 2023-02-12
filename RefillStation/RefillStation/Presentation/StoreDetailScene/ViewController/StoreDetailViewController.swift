@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class StoreDetailViewController: UIViewController {
+final class StoreDetailViewController: UIViewController, ServerAlertable {
 
     var coordinator: StoreDetailCoordinator?
     private var viewModel: StoreDetailViewModel!
@@ -75,6 +75,7 @@ final class StoreDetailViewController: UIViewController {
                 self?.applyDataSource()
             }
         }
+        viewModel.showErrorAlert = showServerErrorAlert
     }
 
     private func setUpNavigationBar() {
@@ -120,9 +121,19 @@ final class StoreDetailViewController: UIViewController {
         switch buttonType {
         case .phone:
             let phoneNumber = viewModel.store.phoneNumber
-            if let url = URL(string: "tel://\(phoneNumber)"),
+            if !phoneNumber.isEmpty,
+                let url = URL(string: "tel://\(phoneNumber.replacingOccurrences(of: "-", with: ""))"),
                UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                let noLinkPopUp = PumpPopUpViewController(title: nil, description: "전화번호가 등록되지 않은 곳이에요")
+                noLinkPopUp.addImageView { imageView in
+                    imageView.image = Asset.Images.cryFace.image
+                }
+                noLinkPopUp.addAction(title: "확인", style: .basic) {
+                    noLinkPopUp.dismiss(animated: true)
+                }
+                present(noLinkPopUp, animated: false)
             }
         case .link:
             if let url = URL(string: viewModel.store.snsAddress),
@@ -136,7 +147,7 @@ final class StoreDetailViewController: UIViewController {
                 noLinkPopUp.addAction(title: "확인", style: .basic) {
                     noLinkPopUp.dismiss(animated: true)
                 }
-                present(noLinkPopUp, animated: true)
+                present(noLinkPopUp, animated: false)
             }
         case .like:
             viewModel.storeLikeButtonTapped()
@@ -268,14 +279,6 @@ extension StoreDetailViewController: UICollectionViewDelegate {
     }
 }
 
-// MARK: - Constraints Enum
-extension StoreDetailViewController {
-    enum Constraints {
-        static let outerCollectionViewInset: CGFloat = 16
-        static let tabBarHeight: CGFloat = 50
-    }
-}
-
 // MARK: - UICollectionViewLayout
 extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -402,9 +405,9 @@ extension StoreDetailViewController {
                     reportCompletePopUp.addAction(title: "확인", style: .basic) {
                         self?.dismiss(animated: true)
                     }
-                    self?.present(reportCompletePopUp, animated: true)
+                    self?.present(reportCompletePopUp, animated: false)
                 }
-                self?.present(reportPopUp, animated: true)
+                self?.present(reportPopUp, animated: false)
             }
         }
     }
@@ -413,6 +416,7 @@ extension StoreDetailViewController {
         return UICollectionView.CellRegistration<OperationNoticeCell, StoreDetailItem> { cell, indexPath, item in
         }
     }
+
     private func operationInfoCellRegistration() -> UICollectionView.CellRegistration<OperationInfoCell, StoreDetailItem> {
         return UICollectionView.CellRegistration<OperationInfoCell, StoreDetailItem> { cell, indexPath, item in
             guard case let .operationInfo(operationInfo) = item else { return }
