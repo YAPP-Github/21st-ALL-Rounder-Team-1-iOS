@@ -8,19 +8,17 @@
 import Foundation
 
 protocol SignOutUseCaseInterface {
-    func execute(completion: @escaping (Result<Void, Error>) -> Void)
+    func execute() async throws
 }
 
 final class SignOutUseCase: SignOutUseCaseInterface {
-    private let accountRepository: AccountRepositoryInterface
+    private let accountRepository: AsyncAccountRepositoryInterface
 
-    init(accountRepository: AccountRepositoryInterface = MockAccountRepository()) {
+    init(accountRepository: AsyncAccountRepositoryInterface = AsyncAccountRepository()) {
         self.accountRepository = accountRepository
     }
 
-    func execute(completion: @escaping (Result<Void, Error>) -> Void) {
-        accountRepository.signOut { result in
-            completion(result)
-        }
+    func execute() async throws {
+        try await accountRepository.signOut()
     }
 }

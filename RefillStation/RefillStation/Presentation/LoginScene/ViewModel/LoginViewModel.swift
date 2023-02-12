@@ -8,48 +8,51 @@
 import Foundation
 import KakaoSDKUser
 import KakaoSDKAuth
+import AuthenticationServices
 
 final class LoginViewModel {
     private let OAuthLoginUseCase: OAuthLoginUseCaseInterface
-    private var loginTask: Cancellable?
 
     var signUpRequestValue: SignUpRequestValue?
+    private var appleUserName: String?
+    private var appleUserEmail: String?
     var isSignUp: (() -> Void)?
     var isSignIn: (() -> Void)?
+    var showErrorAlert: ((String?, String?) -> Void)?
 
     init(OAuthLoginUseCase: OAuthLoginUseCaseInterface) {
         self.OAuthLoginUseCase = OAuthLoginUseCase
     }
 
     private func requestLogin(oauthType: OAuthType, requestValue: String) {
-        loginTask = OAuthLoginUseCase.execute(
-            loginType: oauthType,
-            requestValue: OAuthLoginRequestValue(accessToken: requestValue)
-        ) { result in
-            switch result {
-            case .success(let data):
-                self.signUpRequestValue = SignUpRequestValue(
-                    name: data.name,
-                    email: data.email,
-                    imagePath: data.imgPath,
-                    oauthType: data.oauthType,
-                    oauthIdentity: data.oauthIdentity
+        Task {
+            do {
+                let result = try await OAuthLoginUseCase.execute(
+                    loginType: oauthType,
+                    requestValue: OAuthLoginRequestValue(accessToken: requestValue)
                 )
-                data.jwt == nil ? self.isSignUp?() : self.isSignIn?()
-            case .failure(let failure):
-                return
+                let name = oauthType == .apple ? appleUserName : result.name
+                let email = oauthType == .apple ? appleUserEmail : result.email
+                self.signUpRequestValue = SignUpRequestValue(
+                    name: name,
+                    email: email,
+                    imagePath: result.imgPath,
+                    oauthType: result.oauthType,
+                    oauthIdentity: result.oauthIdentity
+                )
+                result.jwt == nil ? self.isSignUp?() : self.isSignIn?()
+            } catch NetworkError.exception(errorMessage: let message) {
+                showErrorAlert?(message, nil)
+            } catch {
+                print(error)
             }
         }
-        loginTask?.resume()
     }
 }
 
 extension LoginViewModel {
 
     // MARK: - ViewController의 LoginButton이 눌릴 때 호출되는 메소드
-    private func loginButtonDidTapped(oauthType: OAuthType, requestValue: String) {
-        requestLogin(oauthType: oauthType, requestValue: requestValue)
-    }
 
     func onKakaoLoginByAppTouched() {
         if UserApi.isKakaoTalkLoginAvailable() {
@@ -58,19 +61,24 @@ extension LoginViewModel {
                     print(error)
                 } else {
                     guard let accessToken = oauthToken?.accessToken else { return }
-                    self.loginButtonDidTapped(oauthType: .kakao,
-                                              requestValue: accessToken)
+                    self.requestLogin(oauthType: .kakao, requestValue: accessToken)
                 }
             }
         }
     }
 
-    func onNaverLoginByAppTouched() {
-
+    func onAppleLoginByAppTouched(appleIDCredential: ASAuthorizationAppleIDCredential) {
+        guard let identityToken = appleIDCredential.identityToken,
+              let token = String(data: identityToken, encoding: .utf8) else { return }
+        appleUserEmail = appleIDCredential.email
+        if let familyName = appleIDCredential.fullName?.familyName,
+           let givenName = appleIDCredential.fullName?.givenName {
+            appleUserName = familyName + givenName
+        }
+        self.requestLogin(oauthType: .apple, requestValue: token)
     }
 
-    func onAppleLoginByAppTouched(requestValue: String) {
-        self.loginButtonDidTapped(oauthType: .apple,
-                                  requestValue: requestValue)
+    func onNaverLoginByAppTouched() {
+
     }
 }

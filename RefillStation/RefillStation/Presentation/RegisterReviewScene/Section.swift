@@ -9,7 +9,7 @@ import UIKit
 
 extension RegisterReviewViewController {
     enum Section: Int, CaseIterable {
-        case storeInfo
+        case storeInfo = 0
         case voteTitle
         case tagReview
         case photoReview
@@ -30,8 +30,9 @@ extension RegisterReviewViewController {
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [defaultItem])
                 section = NSCollectionLayoutSection(group: group)
             case .voteTitle:
+                defaultItem.contentInsets = .init(top: 0, leading: 16, bottom: 0, trailing: 16)
                 let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                       heightDimension: .absolute(40))
+                                                       heightDimension: .estimated(55))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [defaultItem])
                 section = NSCollectionLayoutSection(group: group)
             case .tagReview:
@@ -47,7 +48,7 @@ extension RegisterReviewViewController {
                 section.interGroupSpacing = 8
             case .photoReview:
                 let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                       heightDimension: .absolute(150))
+                                                       heightDimension: .absolute(179))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [defaultItem])
                 section = NSCollectionLayoutSection(group: group)
             case .reviewDescription:

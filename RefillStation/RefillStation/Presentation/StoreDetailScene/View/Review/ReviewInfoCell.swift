@@ -14,9 +14,8 @@ final class ReviewInfoCell: UICollectionViewCell {
 
     private let didVisitedLabel: UILabel = {
         let label = UILabel()
-        label.text = "매장에 방문한 적이 있다면?"
         label.textColor = Asset.Colors.gray5.color
-        label.font = UIFont.font(style: .bodySmall)
+        label.setText(text: "매장에 방문한 적이 있다면?", font: .bodySmall)
         return label
     }()
 
@@ -35,7 +34,7 @@ final class ReviewInfoCell: UICollectionViewCell {
 
     private lazy var registerReviewView: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.primary1.color
+        view.backgroundColor = Asset.Colors.gray1.color
         view.layer.cornerRadius = 4
         [didVisitedLabel, moveToRegisterReviewButton].forEach { view.addSubview($0) }
         didVisitedLabel.snp.makeConstraints {
@@ -51,8 +50,7 @@ final class ReviewInfoCell: UICollectionViewCell {
 
     private let storeStrengthLabel: UILabel = {
         let label = UILabel()
-        label.text = "이 매장의 좋은점"
-        label.font = UIFont.font(style: .titleMedium)
+        label.setText(text: "이 매장의 좋은점", font: .titleMedium)
         return label
     }()
 
@@ -72,8 +70,7 @@ final class ReviewInfoCell: UICollectionViewCell {
 
     private let participateLabel: UILabel = {
         let label = UILabel()
-        label.text = "참여"
-        label.font = UIFont.font(style: .bodyMedium)
+        label.setText(text: "참여", font: .bodyMedium)
         label.textColor = Asset.Colors.gray5.color
         return label
     }()
@@ -123,6 +120,34 @@ final class ReviewInfoCell: UICollectionViewCell {
         return stackView
     }()
 
+    private let visualEffectView: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .extraLight)
+        let visualEffectView = UIVisualEffectView(effect: blurEffect)
+        visualEffectView.layer.cornerRadius = 16
+        visualEffectView.clipsToBounds = true
+        return visualEffectView
+    }()
+
+    private let greaterThanTenLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 2
+        label.font = .font(style: .bodyMediumOverTwoLine)
+        label.textAlignment = .center
+        return label
+    }()
+
+    private let blurLabelView: UIView = {
+        let labelView = UIView()
+        labelView.layer.cornerRadius = 6
+        labelView.backgroundColor = .white
+        labelView.layer.shadowRadius = 6
+        labelView.layer.shadowColor = UIColor.black.cgColor
+        labelView.layer.shadowOffset = CGSize(width: 0, height: 3)
+        labelView.layer.shadowOpacity = 0.5
+        labelView.layer.masksToBounds = false
+        return labelView
+    }()
+
     private lazy var tagReviewRankView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 16
@@ -156,8 +181,7 @@ final class ReviewInfoCell: UICollectionViewCell {
 
     private let reviewTextLabel: UILabel = {
         let label = UILabel()
-        label.text = "리뷰"
-        label.font = UIFont.font(style: .titleMedium)
+        label.setText(text: "리뷰", font: .titleMedium)
         return label
     }()
 
@@ -201,21 +225,34 @@ final class ReviewInfoCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
-    func setUpContents(totalDetailReviewCount: Int) {
-        reviewCountLabel.text = "\(totalDetailReviewCount)"
-    }
-
-    func setUpContents(totalTagReviewCount: Int, rankTags: [StoreDetailViewModel.RankTag]) {
+    func setUpContents(totalDetailReviewCount: Int, totalTagReviewCount: Int, rankTags: [StoreDetailViewModel.RankTag]) {
         var rank = 1
         otherClassStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
-        if totalTagReviewCount < 10 {
+        reviewCountLabel.setText(text: "\(totalDetailReviewCount)", font: .titleMedium)
+
+        if totalDetailReviewCount == 0 {
+            [profileGroupImageView, participateLabel, votedCountLabel].forEach { $0.isHidden = true }
+            makeBlurPlaceholder(reviewInfoCase: .noReviews)
+            return
+        } else if totalTagReviewCount == 0 {
+            [profileGroupImageView, participateLabel, votedCountLabel].forEach { $0.isHidden = true }
+            makeBlurPlaceholder(reviewInfoCase: .noTagReviews)
+            return
+        } else if totalTagReviewCount < 10 {
             profileGroupImageView.isHidden = true
-            votedCountLabel.text = "현재까지 \(totalTagReviewCount)명 "
-            makeBlurPlaceholder()
+            [participateLabel, votedCountLabel].forEach { $0.isHidden = false }
+            votedCountLabel.setText(text: "현재까지 \(totalTagReviewCount)명 ", font: .buttonLarge)
+            makeBlurPlaceholder(reviewInfoCase: .underTenReviews)
             return
         } else {
-            votedCountLabel.text = "\(totalTagReviewCount)명 "
+            [profileGroupImageView, participateLabel, votedCountLabel].forEach { $0.isHidden = false }
+            votedCountLabel.setText(text: "\(totalTagReviewCount)명 ", font: .buttonLarge)
+            [visualEffectView, blurLabelView].forEach {
+                if tagReviewRankView.subviews.contains($0) {
+                    $0.removeFromSuperview()
+                }
+            }
         }
 
         if rankTags.isEmpty {
@@ -235,39 +272,24 @@ final class ReviewInfoCell: UICollectionViewCell {
             }
     }
 
-    private func makeBlurPlaceholder() {
-        let blurEffect = UIBlurEffect(style: .extraLight)
-        let visualEffectView = UIVisualEffectView(effect: blurEffect)
-        visualEffectView.layer.cornerRadius = 16
-        visualEffectView.clipsToBounds = true
+    private func makeBlurPlaceholder(reviewInfoCase: ReviewInfoCase) {
+        let labelText = reviewInfoCase.text
+        greaterThanTenLabel.setText(text: labelText, font: .bodyMediumOverTwoLine)
+        greaterThanTenLabel.textAlignment = .center
 
-        let label = UILabel()
-        label.numberOfLines = 2
-        label.textAlignment = .center
-        label.text = "10명 이상 참여하시면 \n 공개됩니다!"
-        label.font = UIFont.font(style: .bodyMedium)
+        blurLabelView.addSubview(greaterThanTenLabel)
 
-        let labelView = UIView()
-        labelView.addSubview(label)
-        labelView.layer.cornerRadius = 6
-        labelView.backgroundColor = .white
-        labelView.layer.shadowRadius = 6
-        labelView.layer.shadowColor = UIColor.black.cgColor
-        labelView.layer.shadowOffset = CGSize(width: 0, height: 3)
-        labelView.layer.shadowOpacity = 0.5
-        labelView.layer.masksToBounds = false
-
-        [visualEffectView, labelView].forEach { tagReviewRankView.addSubview($0) }
+        [visualEffectView, blurLabelView].forEach { tagReviewRankView.addSubview($0) }
         visualEffectView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
 
-        labelView.snp.makeConstraints {
+        blurLabelView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(40)
             $0.leading.trailing.equalToSuperview().inset(53)
         }
 
-        label.snp.makeConstraints {
+        greaterThanTenLabel.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }
@@ -302,5 +324,24 @@ final class ReviewInfoCell: UICollectionViewCell {
         moveToRegisterReviewButton.addAction(UIAction { _ in
             self.moveToRegisterReview?()
         }, for: .touchUpInside)
+    }
+}
+
+extension ReviewInfoCell {
+    enum ReviewInfoCase {
+        case noReviews
+        case noTagReviews
+        case underTenReviews
+
+        var text: String {
+            switch self {
+            case .noReviews:
+                return "리뷰 쓰기에 참여해서\n이 매장의 좋은점을 알려주세요!"
+            case .noTagReviews:
+                return "아직 참여자가 충분하지 않아\n이 매장의 좋은점을 볼 수 없어요"
+            case .underTenReviews:
+                return "10명 이상 참여하면\n공개됩니다!"
+            }
+        }
     }
 }

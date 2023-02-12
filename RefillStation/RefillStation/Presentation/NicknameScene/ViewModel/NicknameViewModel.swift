@@ -18,6 +18,7 @@ final class NicknameViewModel {
 
     var didEditComplete: (() -> Void)?
     var isValidNickname: ((Bool) -> Void)?
+    var showErrorAlert: ((String?, String?) -> Void)?
     var didImageChanged: Bool = false
 
     var profileImage: String? {
@@ -61,37 +62,39 @@ final class NicknameViewModel {
 
     func confirmButtonDidTapped(nickname: String?,
                                 profileImage: UIImage?) {
-        editProfileTask = editProfileUseCase.execute(
-            requestValue: EditProfileRequestValue(nickname: nickname ?? "",
-                                                  rating: user.level.level.rawValue,
-                                                  newImage: profileImage,
-                                                  oldImagePath: user.imageURL,
-                                                  didImageChanged: didImageChanged)
-        ) { result in
-            switch result {
-            case .success(let user):
-                self.user = user
-                self.didEditComplete?()
-            case .failure(_):
-                return
-            }
+       editProfileTask = Task {
+            let requestValue = EditProfileRequestValue(
+                nickname: nickname ?? "",
+                rating: user.level.level.rawValue,
+                newImage: profileImage,
+                oldImagePath: user.imageURL,
+                didImageChanged: didImageChanged
+            )
+            let user = try await editProfileUseCase.execute(requestValue: requestValue)
+            self.user = user
+            didEditComplete?()
         }
-        editProfileTask?.resume()
     }
 
-    func validNickname(requestValue: String) {
-        validNicknameTask = validNicknameUseCase.execute(
-            requestValue: ValidNicknameRequestValue(nickname: requestValue)
-        ) { result in
-            switch result {
-            case .success(let isDuplicated):
+    func validNickname(nickname: String) {
+        validNicknameTask = Task {
+            do {
+                let requestValue = ValidNicknameRequestValue(nickname: nickname)
+                let isDuplicated = try await validNicknameUseCase.execute(requestValue: requestValue)
                 self.isDuplicated = isDuplicated
-                self.isValidNickname?(isDuplicated)
-            case .failure(_):
-                return
+                isValidNickname?(isDuplicated)
+            } catch NetworkError.exception(errorMessage: let message) {
+                showErrorAlert?(message, nil)
+            } catch {
+                print(error)
             }
         }
-        validNicknameTask?.resume()
+    }
+}
+
+extension NicknameViewModel {
+    func viewWillDisappear() {
+        [editProfileTask, validNicknameTask].forEach { $0?.cancel() }
     }
 }
 

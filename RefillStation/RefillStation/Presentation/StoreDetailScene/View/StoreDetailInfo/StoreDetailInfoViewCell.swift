@@ -39,8 +39,7 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
     }()
     private let checkRefillGuideLabel: UILabel = {
         let label = UILabel()
-        label.text = "리필가이드 확인하기"
-        label.font = UIFont.font(style: .bodyMedium)
+        label.setText(text: "리필가이드 확인하기", font: .bodyMedium)
         label.textColor = Asset.Colors.gray5.color
         return label
     }()
@@ -88,10 +87,15 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
     }
 
     func setUpContents(store: Store) {
-        storeNameLabel.text = store.name
-        storeAddressLabel.text = store.address
+        storeNameLabel.setText(text: store.name, font: .titleLarge1)
+        storeAddressLabel.setText(text: store.address, font: .bodyMedium)
         setUpLikeCount(response: .init(recommendCount: store.recommendedCount,
                                        didRecommended: store.didUserRecommended))
+        if let storeImageURL = URL(string: store.imageURL.first ?? "") {
+            storeImageView.kf.setImage(with: storeImageURL)
+        } else {
+            storeImageView.image = Asset.Images.storeDefualtImage.image
+        }
     }
 
     func setUpLikeCount(response: RecommendStoreResponseValue) {

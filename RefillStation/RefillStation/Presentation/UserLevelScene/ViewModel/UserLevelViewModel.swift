@@ -13,6 +13,7 @@ final class UserLevelViewModel {
     var userLevel: UserLevelInfo.Level = .regular
 
     var reloadData: (() -> Void)?
+    var showErrorAlert: ((String?, String?) -> Void)?
 
     private let fetchUserReviewsUseCase: FetchUserReviewsUseCaseInterface
     private var userReviewsLoadTask: Cancellable?
@@ -22,17 +23,19 @@ final class UserLevelViewModel {
     }
 
     private func fetchUserReviewCount() {
-        userReviewsLoadTask = fetchUserReviewsUseCase.execute { result in
-            switch result {
-            case .success(let reviews):
-                self.totalReviewCount = reviews.count
-                self.setUpUserLevel()
-                self.reloadData?()
-            case .failure:
-                break
+        userReviewsLoadTask = Task {
+            do {
+                let reviews = try await fetchUserReviewsUseCase.execute()
+                totalReviewCount = reviews.count
+                userLevel = UserLevelInfo.Level.level(reviewCount: totalReviewCount)
+                setUpUserLevel()
+                reloadData?()
+            } catch NetworkError.exception(errorMessage: let message) {
+                showErrorAlert?(message, nil)
+            } catch {
+                print(error)
             }
         }
-        userReviewsLoadTask?.resume()
     }
 
     private func setUpUserLevel() {
@@ -47,5 +50,9 @@ final class UserLevelViewModel {
 extension UserLevelViewModel {
     func viewDidLoad() {
         fetchUserReviewCount()
+    }
+
+    func viewWillDisappear() {
+        userReviewsLoadTask?.cancel()
     }
 }

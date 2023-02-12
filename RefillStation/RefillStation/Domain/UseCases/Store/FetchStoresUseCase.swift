@@ -13,21 +13,17 @@ struct FetchStoresUseCaseRequestValue {
 }
 
 protocol FetchStoresUseCaseInterface {
-    func execute(requestValue: FetchStoresUseCaseRequestValue,
-                 completion: @escaping (Result<[Store], Error>) -> Void) -> Cancellable?
+    func execute(requestValue: FetchStoresUseCaseRequestValue) async throws -> [Store]
 }
 
 final class FetchStoresUseCase: FetchStoresUseCaseInterface {
-    private let storeRepository: StoreRepositoryInterface
+    private let storeRepository: AsyncStoreRepositoryInterface
 
-    init(storeRepository: StoreRepositoryInterface = StoreRepository()) {
+    init(storeRepository: AsyncStoreRepositoryInterface = AsyncStoreRepository()) {
         self.storeRepository = storeRepository
     }
 
-    func execute(requestValue: FetchStoresUseCaseRequestValue,
-                 completion: @escaping (Result<[Store], Error>) -> Void) -> Cancellable? {
-        return storeRepository.fetchStores(requestValue: requestValue) { result in
-            completion(result)
-        }
+    func execute(requestValue: FetchStoresUseCaseRequestValue) async throws -> [Store] {
+        return try await storeRepository.fetchStores(requestValue: requestValue)
     }
 }

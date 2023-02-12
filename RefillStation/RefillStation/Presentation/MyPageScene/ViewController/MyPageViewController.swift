@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-final class MyPageViewController: UIViewController {
+final class MyPageViewController: UIViewController, ServerAlertable {
 
     private let viewModel: MyPageViewModel
     var coordinator: MyPageCoordinator?
@@ -99,6 +99,7 @@ final class MyPageViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = false
+        viewModel.viewWillDisappear()
     }
 
     private func bind() {
@@ -109,6 +110,7 @@ final class MyPageViewController: UIViewController {
                 self.setUpProfileView()
             }
         }
+        viewModel.showErrorAlert = showServerErrorAlert
     }
 
     private func setUpProfileView() {
@@ -150,13 +152,11 @@ final class MyPageViewController: UIViewController {
         let outerView = UIView()
         outerView.backgroundColor = .white
         let titleLabel = UILabel()
-        titleLabel.text = title
-        titleLabel.font = .font(style: .buttonLarge)
+        titleLabel.setText(text: title, font: .buttonLarge)
         titleLabel.textColor = Asset.Colors.gray6.color
 
         let versionLabel = UILabel()
-        versionLabel.text = version
-        versionLabel.font = .font(style: .captionLarge)
+        versionLabel.setText(text: version, font: .captionLarge)
         versionLabel.textColor = Asset.Colors.gray4.color
 
         let disclosureImageView = UIImageView(image: UIImage(systemName: "chevron.forward"))

@@ -7,28 +7,26 @@
 
 import UIKit
 
-struct RegiserReviewRequestValue {
+struct RegisterReviewRequestValue {
     let storeId: Int
     let tagIds: [Int]
-    let images: [UIImage] // image 업로드는 UploadImageUseCase를 사용하여 진행 후 String 배열로 변환
+    let images: [UIImage?] // image 업로드는 UploadImageUseCase를 사용하여 진행 후 String 배열로 변환
     let description: String
 }
 
 protocol RegisterReviewUseCaseInterface {
-    func execute(requestValue: RegiserReviewRequestValue, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable?
+    func execute(requestValue: RegisterReviewRequestValue) async throws
 }
 
 final class RegisterReviewUseCase: RegisterReviewUseCaseInterface {
 
-    private let registerReviewRepository: RegisterReviewRepositoryInterface
+    private let registerReviewRepository: AsyncRegisterReviewRepositoryInterface
 
-    init(registerReviewRepository: RegisterReviewRepositoryInterface = RegisterReviewRepository()) {
+    init(registerReviewRepository: AsyncRegisterReviewRepositoryInterface = AsyncRegisterReviewRepository()) {
         self.registerReviewRepository = registerReviewRepository
     }
 
-    func execute(requestValue: RegiserReviewRequestValue, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
-        return registerReviewRepository.registerReview(query: requestValue) { result in
-            completion(result)
-        }
+    func execute(requestValue: RegisterReviewRequestValue) async throws {
+        return try await registerReviewRepository.registerReview(query: requestValue)
     }
 }

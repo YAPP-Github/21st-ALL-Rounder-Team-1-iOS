@@ -12,6 +12,7 @@ final class MyPageViewModel {
     private var userInfoLoadTask: Cancellable?
 
     var setUpContents: (() -> Void)?
+    var showErrorAlert: ((String?, String?) -> Void)?
     var userId: Int?
     var userNickname: String?
     var userLevel: UserLevelInfo?
@@ -23,20 +24,21 @@ final class MyPageViewModel {
     }
 
     private func fetchUserInfo() {
-        userInfoLoadTask = fetchUserInfoUseCase.execute(completion: { result in
-            switch result {
-            case .success(let userInfo):
-                self.userId = userInfo.id
-                self.userNickname = userInfo.name
-                self.userLevel = userInfo.level
-                self.userRank = userInfo.level.level
-                self.profileImage = userInfo.imageURL
-                self.setUpContents?()
-            case .failure(let error):
-                break
+        userInfoLoadTask = Task {
+            do {
+                let userInfo = try await fetchUserInfoUseCase.execute()
+                userId = userInfo.id
+                userNickname = userInfo.name
+                userLevel = userInfo.level
+                userRank = userInfo.level.level
+                profileImage = userInfo.imageURL
+                setUpContents?()
+            } catch NetworkError.exception(errorMessage: let message) {
+                showErrorAlert?(message, nil)
+            } catch {
+                print(error)
             }
-        })
-        userInfoLoadTask?.resume()
+        }
     }
 
     func appVersion() -> String {
@@ -50,5 +52,9 @@ final class MyPageViewModel {
 extension MyPageViewModel {
     func viewWillApeear() {
         fetchUserInfo()
+    }
+
+    func viewWillDisappear() {
+        userInfoLoadTask?.cancel()
     }
 }

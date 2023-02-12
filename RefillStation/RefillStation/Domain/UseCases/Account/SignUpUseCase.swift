@@ -8,9 +8,9 @@
 import Foundation
 
 struct SignUpRequestValue {
-    let name: String
-    let email: String
-    let imagePath: String
+    let name: String?
+    let email: String?
+    let imagePath: String?
     let oauthType: String
     let oauthIdentity: String
 }
@@ -20,21 +20,17 @@ struct SignUpResponseValue {
 }
 
 protocol SignUpUseCaseInterface {
-    func execute(requestValue: SignUpRequestValue,
-                 completion: @escaping (Result<String, Error>) -> Void) -> Cancellable?
+    func execute(requestValue: SignUpRequestValue) async throws -> String
 }
 
 final class SignUpUseCase: SignUpUseCaseInterface {
-    private let accountRepository: AccountRepositoryInterface
+    private let accountRepository: AsyncAccountRepositoryInterface
 
-    init(accountRepository: AccountRepositoryInterface = MockAccountRepository()) {
+    init(accountRepository: AsyncAccountRepositoryInterface = AsyncAccountRepository()) {
         self.accountRepository = accountRepository
     }
 
-    func execute(requestValue: SignUpRequestValue,
-                 completion: @escaping (Result<String, Error>) -> Void) -> Cancellable? {
-        return accountRepository.signUp(requestValue: requestValue) { result in
-            completion(result)
-        }
+    func execute(requestValue: SignUpRequestValue) async throws -> String {
+        return try await accountRepository.signUp(requestValue: requestValue)
     }
 }

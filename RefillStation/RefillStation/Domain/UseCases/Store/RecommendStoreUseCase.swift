@@ -22,19 +22,17 @@ struct RecommendStoreResponseValue {
 }
 
 protocol RecommendStoreUseCaseInterface {
-    func execute(requestValue: RecommendStoreRequestValue, completion: @escaping (Result<RecommendStoreResponseValue, Error>) -> Void) -> Cancellable?
+    func execute(requestValue: RecommendStoreRequestValue) async throws -> RecommendStoreResponseValue
 }
 
 final class RecommendStoreUseCase: RecommendStoreUseCaseInterface {
-    private let storeRepository: StoreRepositoryInterface
+    private let storeRepository: AsyncStoreRepositoryInterface
 
-    init(storeRepository: StoreRepositoryInterface = StoreRepository()) {
+    init(storeRepository: AsyncStoreRepositoryInterface = AsyncStoreRepository()) {
         self.storeRepository = storeRepository
     }
 
-    func execute(requestValue: RecommendStoreRequestValue, completion: @escaping (Result<RecommendStoreResponseValue, Error>) -> Void) -> Cancellable? {
-        return storeRepository.recommendStore(requestValue: requestValue) { result in
-            completion(result)
-        }
+    func execute(requestValue: RecommendStoreRequestValue) async throws -> RecommendStoreResponseValue {
+        return try await storeRepository.recommendStore(requestValue: requestValue)
     }
 }

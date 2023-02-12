@@ -38,8 +38,8 @@ final class ProductCell: UICollectionViewCell {
     }
 
     func setUpContents(product: Product) {
-        brandLabel.text = product.brand
-        productNameLabel.text = product.name
+        brandLabel.setText(text: product.brand, font: .captionLarge)
+        productNameLabel.setText(text: product.brand, font: .titleSmall)
     }
 
     private func layout() {
@@ -48,7 +48,7 @@ final class ProductCell: UICollectionViewCell {
         }
         brandLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
-            $0.leading.equalToSuperview()
+            $0.leading.equalToSuperview().inset(16)
         }
         productNameLabel.snp.makeConstraints {
             $0.top.equalTo(brandLabel.snp.bottom).offset(5)

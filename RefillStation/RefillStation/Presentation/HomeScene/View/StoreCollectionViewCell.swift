@@ -69,6 +69,7 @@ final class StoreCollectionViewCell: UICollectionViewCell {
         storeImageView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(storeInfoView.snp.top)
+            $0.height.equalTo(161)
         }
         storeInfoView.snp.makeConstraints {
             $0.leading.trailing.equalTo(storeImageView)
@@ -103,9 +104,14 @@ final class StoreCollectionViewCell: UICollectionViewCell {
                        name: String,
                        address: String,
                        distance: Double) {
-        nameLabel.text = name
-        addressLabel.text = address
-        distanceLabel.text = "\(distance)km"
+        nameLabel.setText(text: name, font: .titleMedium)
+        addressLabel.setText(text: address, font: .bodySmall)
+        distanceLabel.setText(text: String(format: "%.1fkm", distance), font: .buttonLarge)
+        if let imagePath = image {
+            storeImageView.kf.setImage(with: URL(string: imagePath))
+        } else {
+            storeImageView.image = Asset.Images.storeDefualtImage.image
+        }
     }
 }
 

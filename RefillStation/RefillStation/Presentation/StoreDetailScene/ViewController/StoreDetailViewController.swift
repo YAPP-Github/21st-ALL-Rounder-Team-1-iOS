@@ -7,14 +7,16 @@
 
 import UIKit
 
-final class StoreDetailViewController: UIViewController {
+final class StoreDetailViewController: UIViewController, ServerAlertable {
 
     var coordinator: StoreDetailCoordinator?
     private var viewModel: StoreDetailViewModel!
     private lazy var storeDetailDataSource = diffableDataSource()
 
     private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout())
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collectionView
     }()
 
@@ -38,6 +40,7 @@ final class StoreDetailViewController: UIViewController {
     init(viewModel: StoreDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.hidesBottomBarWhenPushed = true
     }
 
     required init?(coder: NSCoder) {
@@ -55,14 +58,12 @@ final class StoreDetailViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         setUpNavigationBar()
-        tabBarController?.tabBar.isHidden = true
         viewModel.viewWillAppear()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
         navigationController?.navigationBar.tintColor = .black
-        tabBarController?.tabBar.isHidden = false
         viewModel.viewWillDisappear()
     }
 
@@ -72,6 +73,7 @@ final class StoreDetailViewController: UIViewController {
                 self?.applyDataSource()
             }
         }
+        viewModel.showErrorAlert = showServerErrorAlert
     }
 
     private func setUpNavigationBar() {
@@ -117,9 +119,19 @@ final class StoreDetailViewController: UIViewController {
         switch buttonType {
         case .phone:
             let phoneNumber = viewModel.store.phoneNumber
-            if let url = URL(string: "tel://\(phoneNumber)"),
+            if !phoneNumber.isEmpty,
+                let url = URL(string: "tel://\(phoneNumber.replacingOccurrences(of: "-", with: ""))"),
                UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                let noLinkPopUp = PumpPopUpViewController(title: nil, description: "전화번호가 등록되지 않은 곳이에요")
+                noLinkPopUp.addImageView { imageView in
+                    imageView.image = Asset.Images.cryFace.image
+                }
+                noLinkPopUp.addAction(title: "확인", style: .basic) {
+                    noLinkPopUp.dismiss(animated: true)
+                }
+                present(noLinkPopUp, animated: false)
             }
         case .link:
             if let url = URL(string: viewModel.store.snsAddress),
@@ -133,7 +145,7 @@ final class StoreDetailViewController: UIViewController {
                 noLinkPopUp.addAction(title: "확인", style: .basic) {
                     noLinkPopUp.dismiss(animated: true)
                 }
-                present(noLinkPopUp, animated: true)
+                present(noLinkPopUp, animated: false)
             }
         case .like:
             viewModel.storeLikeButtonTapped()
@@ -187,7 +199,7 @@ extension StoreDetailViewController {
         let operationInfoCellRegistration = operationInfoCellRegistration()
         return UICollectionViewDiffableDataSource<StoreDetailSection, StoreDetailItem>(
             collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
-                let storeDetailSection = self.section(mode: self.viewModel.mode, sectionIndex: indexPath.section)
+                let storeDetailSection = self.storeSection(mode: self.viewModel.mode, sectionIndex: indexPath.section)
                 switch storeDetailSection {
                 case .storeDetailInfo:
                     return collectionView.dequeueConfiguredReusableCell(using: storeDetailInfoCellRegisration,
@@ -247,12 +259,14 @@ extension StoreDetailViewController: UICollectionViewDelegate {
             var currentSnapshot = storeDetailDataSource.snapshot()
             currentSnapshot.reloadItems([item])
             storeDetailDataSource.apply(currentSnapshot)
-            collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
         }
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y > 0 {
+        if scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.frame.size.height {
+            navigationController?.navigationBar.tintColor = .black
+            moveToTopButton.isHidden = true
+        } else if scrollView.contentOffset.y > 0 {
             navigationController?.navigationBar.tintColor = .black
             moveToTopButton.isHidden = false
         } else {
@@ -262,35 +276,49 @@ extension StoreDetailViewController: UICollectionViewDelegate {
     }
 }
 
-// MARK: - Constraints Enum
-extension StoreDetailViewController {
-    enum Constraints {
-        static let outerCollectionViewInset: CGFloat = 16
-        static let tabBarHeight: CGFloat = 50
-    }
-}
-
 // MARK: - UICollectionViewLayout
-extension StoreDetailViewController {
-    private func compositionalLayout() -> UICollectionViewLayout {
-        let configuration = UICollectionViewCompositionalLayoutConfiguration()
-        configuration.interSectionSpacing = 0
-        configuration.scrollDirection = .vertical
+extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let section = storeSection(mode: viewModel.mode, sectionIndex: indexPath.section)
+        let width = collectionView.frame.width
+        let height = section.cellHeight
 
-        let compositionalLayout = UICollectionViewCompositionalLayout(sectionProvider: { section, environment in
-            let storeDetailSection = self.section(mode: self.viewModel.mode, sectionIndex: section)
-            let itemHeight = storeDetailSection.cellHeight
-            let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                                heightDimension: .estimated(itemHeight)))
-            let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                                           heightDimension: .estimated(itemHeight)),
-                                                         subitems: [item])
-            let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = storeDetailSection.contentInset
-            return section
-        }, configuration: configuration)
+        if section == .review {
+            let dummyCellForCalculateheight = DetailReviewCell(
+                frame: CGRect(origin: .zero, size: CGSize(width: width, height: height))
+            )
+            dummyCellForCalculateheight.setUpContents(
+                review: viewModel.reviews[indexPath.row],
+                shouldSeeMore: viewModel.reviewSeeMoreIndexPaths.contains(indexPath)
+            )
+            let heightThatFits = dummyCellForCalculateheight
+                .systemLayoutSizeFitting(CGSize(width: width, height: height)).height
+            return CGSize(width: width, height: heightThatFits)
+        } else if section == .operationInfo {
+            let dummyCellForCalculateheight = OperationInfoCell(
+                frame: CGRect(origin: .zero, size: CGSize(width: width, height: height))
+            )
+            dummyCellForCalculateheight.setUpContents(
+                operation: viewModel.operationInfos[indexPath.row],
+                shouldShowMore: viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath)
+            )
+            var heightThatFits = dummyCellForCalculateheight
+                .systemLayoutSizeFitting(CGSize(width: width, height: height)).height
+            if viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath),
+               let attrText = dummyCellForCalculateheight.contentLabel.attributedText {
+                let height = attrText.height(
+                    withConstrainedWidth: dummyCellForCalculateheight.contentView.frame.width - 52
+                )
+                heightThatFits += height
+            }
+            return CGSize(width: width, height: heightThatFits)
+        } else if section == .reviewOverview {
+            if viewModel.totalTagVoteCount < 10 {
+                return CGSize(width: width, height: 414)
+            }
+        }
 
-        return compositionalLayout
+        return CGSize(width: width, height: height)
     }
 }
 
@@ -347,8 +375,9 @@ extension StoreDetailViewController {
             cell.moveToRegisterReview = { [weak self] in
                 self?.coordinator?.showRegisterReview()
             }
-            cell.setUpContents(totalTagReviewCount: self.viewModel.totalTagVoteCount, rankTags: rankTags)
-            cell.setUpContents(totalDetailReviewCount: self.viewModel.reviews.count)
+            cell.setUpContents(totalDetailReviewCount: self.viewModel.reviews.count,
+                               totalTagReviewCount: self.viewModel.totalTagVoteCount,
+                               rankTags: rankTags)
         }
     }
 
@@ -368,14 +397,16 @@ extension StoreDetailViewController {
                 let reportPopUp = ReviewReportPopUpViewController(
                     viewModel: ReviewReportPopUpViewModel(reportedUserId: review.userId)
                 ) {
-                    let reportCompletePopUp = PumpPopUpViewController(title: nil,
-                                                                description: "해당 댓글이 신고처리 되었습니다.")
+                    let reportCompletePopUp = PumpPopUpViewController(
+                        title: "해당 댓글이 신고처리 되었습니다.",
+                        description: "검토 후 빠른 시일 내에 반영하겠습니다."
+                    )
                     reportCompletePopUp.addAction(title: "확인", style: .basic) {
                         self?.dismiss(animated: true)
                     }
-                    self?.present(reportCompletePopUp, animated: true)
+                    self?.present(reportCompletePopUp, animated: false)
                 }
-                self?.present(reportPopUp, animated: true)
+                self?.present(reportPopUp, animated: false)
             }
         }
     }
@@ -384,6 +415,7 @@ extension StoreDetailViewController {
         return UICollectionView.CellRegistration<OperationNoticeCell, StoreDetailItem> { cell, indexPath, item in
         }
     }
+
     private func operationInfoCellRegistration() -> UICollectionView.CellRegistration<OperationInfoCell, StoreDetailItem> {
         return UICollectionView.CellRegistration<OperationInfoCell, StoreDetailItem> { cell, indexPath, item in
             guard case let .operationInfo(operationInfo) = item else { return }

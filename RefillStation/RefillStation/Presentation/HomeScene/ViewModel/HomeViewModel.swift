@@ -23,40 +23,51 @@ final class HomeViewModel {
         return currentAdministrativeArea == "서울특별시"
     }
     var setUpContents: (() -> Void)?
+    var showErrorAlert: ((String?, String?) -> Void)?
 
     init(fetchStoresUseCase: FetchStoresUseCaseInterface = FetchStoresUseCase()) {
         self.fetchStoresUseCase = fetchStoresUseCase
     }
 
     private func fetchStores() {
-        storesLoadTask = fetchStoresUseCase
-            .execute(requestValue: FetchStoresUseCaseRequestValue(latitude: latitude,
-                                                                  longitude: longitude)) { result in
-                switch result {
-                case .success(let stores):
-                    self.stores = stores
-                    self.convertAddress(latitude: self.latitude, longitude: self.longitude) {
-                        self.currentAddress = $0
-                        self.currentAdministrativeArea = $1
-                        self.setUpContents?()
-                    }
-                case .failure(let error):
-                    break
+        storesLoadTask = Task {
+            do {
+                let stores = try await fetchStoresUseCase.execute(
+                    requestValue: .init(latitude: latitude, longitude: longitude)
+                )
+                self.stores = stores
+                self.convertAddress(latitude: self.latitude, longitude: self.longitude) {
+                    self.currentAddress = $0
+                    self.currentAdministrativeArea = $1
+                    self.setUpContents?()
                 }
+            } catch NetworkError.exception(errorMessage: let message) {
+                showErrorAlert?(message, nil)
+            } catch {
+                print(error)
             }
-        storesLoadTask?.resume()
+        }
     }
 }
 
 extension HomeViewModel {
-    func viewWillApeear() {
+    func viewWillAppear() {
         setUpCurrentLocation()
         fetchStores()
+    }
+
+    func willEnterForeground() {
+        fetchStores()
+    }
+
+    func viewWillDisappear() {
+        storesLoadTask?.cancel()
     }
 }
 
 extension HomeViewModel {
     private func setUpCurrentLocation() {
+        locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
         guard let space = locationManager.location?.coordinate else { return }

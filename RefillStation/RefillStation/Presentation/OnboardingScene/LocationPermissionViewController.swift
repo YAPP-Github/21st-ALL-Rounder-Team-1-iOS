@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import CoreLocation
 
-final class LocationPermissionViewController: UIViewController {
+final class LocationPermissionViewController: UIViewController, ServerAlertable {
     private var viewModel: LocationPermissionViewModel
     var coordinator: OnboardingCoordinator?
     private let locationManager = CLLocationManager()
@@ -20,16 +20,14 @@ final class LocationPermissionViewController: UIViewController {
     }()
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "위치정보 수집에 동의하시면"
-        label.font = .font(style: .bodyMedium)
+        label.setText(text: "위치정보 수집에 동의하시면", font: .bodyMedium)
         label.textColor = Asset.Colors.gray5.color
         return label
     }()
 
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "내 주변에 있는 리필스테이션을\n빠르게 확인할 수 있어요!"
-        label.font = .font(style: .titleLarge2)
+        label.setText(text: "내 주변에 있는 리필스테이션을\n빠르게 확인할 수 있어요!", font: .titleLarge2)
         label.textColor = Asset.Colors.gray7.color
         label.numberOfLines = 0
         label.textAlignment = .center
@@ -84,6 +82,8 @@ final class LocationPermissionViewController: UIViewController {
                 self.coordinator?.agreeAndStartButtonTapped()
             }
         }
+
+        viewModel.showErrorAlert = showServerErrorAlert
     }
 
     private func layout() {

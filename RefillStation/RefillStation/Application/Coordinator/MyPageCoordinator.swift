@@ -33,6 +33,7 @@ final class MyPageCoordinator: Coordinator {
 
     func showEditProfile(user: User) {
         let editViewContoller = DIContainer.makeEditProfileViewController(user: user)
+        editViewContoller.coordinator = self
         navigationController.pushViewController(editViewContoller, animated: true)
     }
 
@@ -51,5 +52,9 @@ final class MyPageCoordinator: Coordinator {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let onboardingCoordinator = appDelegate?.onboardingCoordinator
         onboardingCoordinator?.showLogin()
+    }
+
+    func popEditProfile() {
+        navigationController.popViewController(animated: true)
     }
 }

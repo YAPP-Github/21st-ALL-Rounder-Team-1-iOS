@@ -17,19 +17,17 @@ struct FetchStoreRecommendResponseValue {
 }
 
 protocol FetchStoreRecommendUseCaseInterface {
-    func execute(requestValue: FetchStoreRecommendRequestValue, completion: @escaping (Result<FetchStoreRecommendResponseValue, Error>) -> Void) -> Cancellable?
+    func execute(requestValue: FetchStoreRecommendRequestValue) async throws -> FetchStoreRecommendResponseValue
 }
 
 final class FetchStoreRecommendUseCase: FetchStoreRecommendUseCaseInterface {
-    private let storeRepository: StoreRepositoryInterface
+    private let storeRepository: AsyncStoreRepositoryInterface
 
-    init(storeRepository: StoreRepositoryInterface = StoreRepository()) {
+    init(storeRepository: AsyncStoreRepositoryInterface = AsyncStoreRepository()) {
         self.storeRepository = storeRepository
     }
 
-    func execute(requestValue: FetchStoreRecommendRequestValue, completion: @escaping (Result<FetchStoreRecommendResponseValue, Error>) -> Void) -> Cancellable? {
-        return storeRepository.fetchStoreRecommend(requestValue: requestValue) { result in
-            completion(result)
-        }
+    func execute(requestValue: FetchStoreRecommendRequestValue) async throws -> FetchStoreRecommendResponseValue {
+        return try await storeRepository.fetchStoreRecommend(requestValue: requestValue)
     }
 }

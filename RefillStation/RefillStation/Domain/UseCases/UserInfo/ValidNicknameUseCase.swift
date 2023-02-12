@@ -12,19 +12,17 @@ struct ValidNicknameRequestValue {
 }
 
 protocol ValidNicknameUseCaseInterface {
-    func execute(requestValue: ValidNicknameRequestValue, completion: @escaping (Result<Bool, Error>) -> Void) -> Cancellable?
+    func execute(requestValue: ValidNicknameRequestValue) async throws -> Bool
 }
 
 final class ValidNicknameUseCase: ValidNicknameUseCaseInterface {
-    private let userInfoRepository: UserInfoRepositoryInterface
+    private let userInfoRepository: AsyncUserInfoRepositoryInterface
 
-    init(userInfoRepository: UserInfoRepositoryInterface = MockUserInfoRepository()) {
+    init(userInfoRepository: AsyncUserInfoRepositoryInterface = AsyncUserInfoRepository()) {
         self.userInfoRepository = userInfoRepository
     }
 
-    func execute(requestValue: ValidNicknameRequestValue, completion: @escaping (Result<Bool, Error>) -> Void) -> Cancellable? {
-        return userInfoRepository.validNickname(requestValue: requestValue) { result in
-            completion(result)
-        }
+    func execute(requestValue: ValidNicknameRequestValue) async throws -> Bool {
+        return try await userInfoRepository.validNickname(requestValue: requestValue)
     }
 }

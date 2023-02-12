@@ -8,9 +8,11 @@
 import UIKit
 import SnapKit
 
-final class RequestRegionViewController: UIViewController {
+final class RequestRegionViewController: UIViewController, ServerAlertable {
 
     // MARK: - Properties
+    var coordinator: HomeCoordinator?
+    private let viewModel: RequestRegionViewModel
     private let placeHolder = "서비스 신청을 원하는 지역을 자유롭게 적어주세요."
     private lazy var closeBarButtonItem = UIBarButtonItem(image: Asset.Images.iconClose.image,
                                                      style: .plain,
@@ -20,14 +22,12 @@ final class RequestRegionViewController: UIViewController {
     // MARK: - UIComponents
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "어느 지역을 신청할까요?"
-        label.font = .font(style: .titleLarge2)
+        label.setText(text: "어느 지역을 신청할까요?", font: .titleLarge2)
         return label
     }()
     private let exampleLabel: UILabel = {
         let label = UILabel()
-        label.text = "ex) ‘서울 강서구 염창동’"
-        label.font = .font(style: .bodySmall)
+        label.setText(text: "ex) ‘서울 강서구 염창동’", font: .bodySmall)
         label.textColor = Asset.Colors.gray4.color
         return label
     }()
@@ -39,15 +39,19 @@ final class RequestRegionViewController: UIViewController {
     }()
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "신청하신 지역에 서비스가 오픈되면\n알림을 드려요!"
-        label.font = .font(style: .bodyMedium)
+        label.setText(text: "신청하신 지역에 서비스가 오픈되면\n알림을 드려요!", font: .bodyMedium)
         label.textColor = Asset.Colors.gray5.color
         label.numberOfLines = 0
         return label
     }()
-    private let requestButton: CTAButton = {
+    private lazy var requestButton: CTAButton = {
         let button = CTAButton(style: .basic)
         button.setTitle("신청하기", for: .normal)
+        button.addAction(UIAction { [weak self] _ in
+            guard let self = self else { return }
+            button.isEnabled = false
+            self.viewModel.requestButtonTapped(text: self.regionTextView.text)
+        }, for: .touchUpInside)
         return button
     }()
     private let regionTextView: UITextView = {
@@ -64,23 +68,32 @@ final class RequestRegionViewController: UIViewController {
     }()
     private let textCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "0"
-        label.font = .font(style: .captionLarge)
+        label.setText(text: "0", font: .captionLarge)
         label.textColor = Asset.Colors.gray7.color
         return label
     }()
     private let maxTextLabel: UILabel = {
         let label = UILabel()
-        label.text = "/500"
-        label.font = .font(style: .captionLarge)
+        label.setText(text: "/500", font: .captionLarge)
         label.textColor = Asset.Colors.gray4.color
         return label
     }()
+
+    init(viewModel: RequestRegionViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        self.hidesBottomBarWhenPushed = true
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        bind()
         layout()
         setUpRegionTextView()
         addTapGesture()
@@ -88,15 +101,21 @@ final class RequestRegionViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         setUpNavigatonBar()
-        tabBarController?.tabBar.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
-        tabBarController?.tabBar.isHidden = false
+        viewModel.viewWillDisappear()
     }
 
     // MARK: - Default Setting Methods
+    private func bind() {
+        viewModel.requestCompleted = { [weak self] in
+            self?.coordinator?.popRequestRegion()
+        }
+        viewModel.showErrorAlert = showServerErrorAlert
+    }
+
     private func layout() {
         [titleLabel, exampleLabel, descriptionIcon, descriptionLabel,
          regionTextView, textCountLabel, maxTextLabel, requestButton].forEach { view.addSubview($0) }
@@ -148,7 +167,7 @@ final class RequestRegionViewController: UIViewController {
     }
 
     @objc private func cancelButtonDidTapped() {
-        self.navigationController?.popViewController(animated: true)
+        coordinator?.popRequestRegion()
     }
 }
 
@@ -167,7 +186,7 @@ extension RequestRegionViewController: UITextViewDelegate {
         }
     }
     func textViewDidChange(_ textView: UITextView) {
-        self.textCountLabel.text = "\(textView.text.count)"
+        textCountLabel.setText(text: "\(textView.text.count)", font: .captionLarge)
     }
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         guard let textViewText = textView.text,

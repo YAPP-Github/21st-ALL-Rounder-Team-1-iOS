@@ -9,7 +9,9 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-final class NicknameViewController: UIViewController {
+final class NicknameViewController: UIViewController, ServerAlertable {
+
+    var coordinator: MyPageCoordinator?
     private let viewModel: NicknameViewModel
     private var profileImage: UIImage?
     private let stackView: UIStackView = {
@@ -24,16 +26,14 @@ final class NicknameViewController: UIViewController {
 
     private let guideLabel: UILabel = {
         let label = UILabel()
-        label.text = "이 닉네임 어떠신가요?\n원하는 닉네임으로 바꿔도 괜찮아요!"
+        label.setText(text: "이 닉네임 어떠신가요?\n원하는 닉네임으로 바꿔도 괜찮아요!", font: .titleLarge2)
         label.numberOfLines = 0
-        label.font = .font(style: .titleLarge2)
         label.textColor = Asset.Colors.gray7.color
         return label
     }()
     private let subGuideLabel: UILabel = {
         let label = UILabel()
-        label.text = "닉네임은 추후 마이페이지에서 수정할 수 있어요"
-        label.font = .font(style: .bodySmall)
+        label.setText(text: "닉네임은 추후 마이페이지에서 수정할 수 있어요", font: .bodySmall)
         label.textColor = Asset.Colors.gray5.color
         return label
     }()
@@ -141,22 +141,23 @@ final class NicknameViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
+        viewModel.viewWillDisappear()
     }
 
     // MARK: - Methods
 
     private func bind() {
         viewModel.didEditComplete = {
-            DispatchQueue.main.async {
-                self.confirmButton.isEnabled = false
+            DispatchQueue.main.async { [weak self] in
+                self?.coordinator?.popEditProfile()
             }
         }
-
         viewModel.isValidNickname = { isDuplicate in
             DispatchQueue.main.async {
                 self.checkDuplicateNickname(isDuplicate: isDuplicate)
             }
         }
+        viewModel.showErrorAlert = showServerErrorAlert
     }
 
     private func addKeyboardNotification() {
@@ -240,7 +241,7 @@ final class NicknameViewController: UIViewController {
     }
 
     private func setNicknameButton(state: NicknameViewModel.NicknameState) {
-        descriptionLabel.text = state.description
+        descriptionLabel.setText(text: state.description, font: .captionLarge)
         nicknameTextField.layer.borderColor = state.borderColor
         descriptionLabel.textColor = state.textColor
         switch state {
@@ -302,7 +303,7 @@ extension NicknameViewController {
 
     @objc private func checkDuplicateNicknameButtonDidTapped() {
         guard let nickname = nicknameTextField.text else { return }
-        viewModel.validNickname(requestValue: nickname)
+        viewModel.validNickname(nickname: nickname)
     }
 
     @objc private func didTapProfileImageEditButton() {

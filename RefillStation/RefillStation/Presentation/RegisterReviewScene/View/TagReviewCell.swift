@@ -42,7 +42,7 @@ final class TagReviewCell: UICollectionViewCell {
 
     func setUpContents(image: UIImage, title: String) {
         tagImageView.image = image
-        tagTitleLabel.text = title
+        tagTitleLabel.setText(text: title, font: .buttonLarge)
     }
 
     func setUpUnselectedButton() {

@@ -38,7 +38,7 @@ final class ProductCategoryCollectionViewCell: UICollectionViewCell {
 
     func setUpContents(category: ProductCategory) {
         self.category = category
-        categoryLabel.text = category.title
+        categoryLabel.setText(text: category.title, font: .buttonMedium)
     }
 
     private func layout() {

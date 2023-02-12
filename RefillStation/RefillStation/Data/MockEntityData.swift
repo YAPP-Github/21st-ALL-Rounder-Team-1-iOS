@@ -82,19 +82,19 @@ final class MockEntityData {
         let isTagOverTwo = chekLists[3]
         let hasDescription = chekLists[4]
         let hasLongDescription = chekLists[5]
-        if (!hasImage && isImageOverOne) || (!hasTag && isTagOverTwo) || (!hasDescription && hasLongDescription) {
+        if (!hasImage && !hasTag && !hasDescription) || (!hasImage && isImageOverOne) || (!hasTag && isTagOverTwo) || (!hasDescription && hasLongDescription) {
             return nil
         }
 
-        let imagePaths = Array(repeating: "", count: isImageOverOne ? 3 : (hasImage ? 0 : 1))
+        let imagePaths = Array(repeating: "", count: isImageOverOne ? 3 : (hasImage ? 1 : 0))
         let tags = Tag.allCases.filter({ $0 != .noKeywordToChoose })
-            .randomSample(count: isTagOverTwo ? 3 : (hasTag ? 0 : 1))
+            .randomSample(count: isTagOverTwo ? 3 : (hasTag ? 1 : 0))
         let shortDescription = "좋은 매장이었습니다."
         let longDescription = (0...20).reduce(into: "") { partialResult, _ in
             partialResult += "좋은 매장이었습니다."
         }
-        let description = hasLongDescription ? longDescription : (hasDescription ? "" : shortDescription)
-        let descriptionType = hasLongDescription ? "김" : (hasDescription ? "없음" : "짧음")
+        let description = hasLongDescription ? longDescription : (hasDescription ? shortDescription : "")
+        let descriptionType = hasLongDescription ? "김" : (hasDescription ? "짧음" : "없음" )
 
         return Review(userId: 1, userNickname: "이미지수: \(imagePaths.count), 태그수: \(tags.count), 내용: \(descriptionType)",
                       profileImagePath: "", writtenDate: Date(),

@@ -8,13 +8,29 @@
 import UIKit
 import SnapKit
 import SkeletonView
+import CoreLocation
 
-final class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController, ServerAlertable {
 
     // MARK: - Properties
     var coordiantor: HomeCoordinator?
     private let viewModel: HomeViewModel
     private var updateCurrentAddressText: (() -> Void)?
+    private let locationManager = CLLocationManager()
+
+    private lazy var locationPopUpViewController: PumpPopUpViewController = {
+        let popUpViewController = PumpPopUpViewController(
+            title: nil,
+            description: "‘현재 위치'를 자동으로 확인하기 위해\n위치 서비스 및 정확한 위치를 켜주세요!"
+        )
+        popUpViewController.addAction(title: "위치 서비스 켜기", style: .basic) {
+            guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
+        }
+        return popUpViewController
+    }()
 
     // MARK: - UI Components
     private let homeTitleBar: PumpLargeTitleNavigationBar = {
@@ -74,6 +90,7 @@ final class HomeViewController: UIViewController {
         storeCollectionView.delegate = self
         bind()
         layout()
+        addWillEnterForegroundObserver()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -86,6 +103,7 @@ final class HomeViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = false
         AppDelegate.setUpNavigationBar()
+        viewModel.viewWillDisappear()
     }
 
     // MARK: - Default Setting Methods
@@ -96,6 +114,8 @@ final class HomeViewController: UIViewController {
             self.updateCurrentAddressText?()
             self.storeCollectionView.hideSkeleton()
         }
+
+        viewModel.showErrorAlert = showServerErrorAlert
     }
 
     private func layout() {
@@ -112,6 +132,30 @@ final class HomeViewController: UIViewController {
             $0.width.height.equalTo(46)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(11)
             $0.trailing.equalTo(view.safeAreaLayoutGuide).inset(23)
+        }
+    }
+
+    private func addWillEnterForegroundObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(willEnterForeground),
+                                               name: UIApplication.willEnterForegroundNotification,
+                                               object: nil)
+    }
+
+    @objc private func willEnterForeground() {
+        switch locationManager.authorizationStatus {
+        case .notDetermined, .restricted, .denied:
+            if self.presentedViewController == nil {
+                self.present(locationPopUpViewController, animated: true)
+            }
+        case .authorizedAlways, .authorizedWhenInUse:
+            if self.presentedViewController == locationPopUpViewController {
+                locationPopUpViewController.dismiss(animated: true) {
+                    self.viewModel.willEnterForeground()
+                }
+            }
+        default:
+            break
         }
     }
 
@@ -139,8 +183,7 @@ extension HomeViewController: UICollectionViewDataSource {
             }
 
             cell.moveToRegionRequest = { [weak self] in
-                self?.navigationController?.pushViewController(RequestRegionViewController(),
-                                                               animated: true)
+                self?.coordiantor?.showRequestRegion()
             }
             return cell
         } else {

@@ -9,14 +9,14 @@ import UIKit
 import SnapKit
 import AuthenticationServices
 
-final class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController, ServerAlertable {
     private let viewModel: LoginViewModel
     var coordinator: OnboardingCoordinator?
 
     private let authorizationController: ASAuthorizationController = {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
-        request.requestedScopes = []
+        request.requestedScopes = [.fullName, .email]
         return ASAuthorizationController(authorizationRequests: [request])
     }()
 
@@ -140,6 +140,7 @@ final class LoginViewController: UIViewController {
                 self.coordinator?.agreeAndStartButtonTapped()
             }
         }
+        viewModel.showErrorAlert = showServerErrorAlert
     }
 
     private func setUpAppleAuthorization() {
@@ -171,9 +172,7 @@ extension LoginViewController: ASAuthorizationControllerPresentationContextProvi
 extension LoginViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            guard let identityToken = appleIDCredential.identityToken,
-                  let token = String(data: identityToken, encoding: .utf8) else { return }
-            viewModel.onAppleLoginByAppTouched(requestValue: token)
+            viewModel.onAppleLoginByAppTouched(appleIDCredential: appleIDCredential)
         }
     }
 

@@ -19,19 +19,17 @@ struct CustomerSatisfactionRequestValue {
 }
 
 protocol CustomerSatisfactionUseCaseInterface {
-    func execute(requestValue: CustomerSatisfactionRequestValue, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable?
+    func execute(requestValue: CustomerSatisfactionRequestValue) async throws
 }
 
 final class CustomerSatisfactionUseCase: CustomerSatisfactionUseCaseInterface {
-    private let customerSatisfactionRepository: CustomerSatisfactionRepositoryInterface
+    private let customerSatisfactionRepository: AsyncCustomerSatisfactionRepositoryInterface
 
-    init(customerSatisfactionRepository: CustomerSatisfactionRepositoryInterface = MockCustomerSatisfactionRepository()) {
+    init(customerSatisfactionRepository: AsyncCustomerSatisfactionRepositoryInterface = AsyncCustomerSatisfactionRepository()) {
         self.customerSatisfactionRepository = customerSatisfactionRepository
     }
 
-    func execute(requestValue: CustomerSatisfactionRequestValue, completion: @escaping (Result<Void, Error>) -> Void) -> Cancellable? {
-        return customerSatisfactionRepository.upload(requestValue: requestValue) { result in
-            completion(result)
-        }
+    func execute(requestValue: CustomerSatisfactionRequestValue) async throws {
+        return try await customerSatisfactionRepository.upload(requestValue: requestValue)
     }
 }

@@ -28,14 +28,13 @@ final class FilteredProductCountCell: UICollectionViewCell {
     }
 
     func setUpContents(filteredCount: Int) {
-        productsCountLabel.text = "판매상품 \(filteredCount)건"
+        productsCountLabel.setText(text: "판매상품 \(filteredCount)건", font: .bodyMedium)
     }
 
     private func layout() {
         contentView.addSubview(productsCountLabel)
         productsCountLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(16)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.leading.trailing.bottom.equalToSuperview().inset(16)
         }
     }
 }

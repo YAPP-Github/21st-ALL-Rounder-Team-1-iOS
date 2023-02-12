@@ -8,7 +8,12 @@
 import UIKit
 
 extension UILabel {
-    func setLineLetterSpacing(font: TextStyles, lineBreakMode: NSLineBreakMode = .byTruncatingTail) {
+    func setText(text: String?, font: TextStyles) {
+        self.text = text
+        self.font = .font(style: font)
+        setLineLetterSpacing(font: font)
+    }
+    func setLineLetterSpacing(font: TextStyles) {
         if let text = text {
             let style = NSMutableParagraphStyle()
             style.maximumLineHeight = font.lineHeight
@@ -16,14 +21,13 @@ extension UILabel {
 
             let attributes: [NSAttributedString.Key: Any] = [
                 .paragraphStyle: style,
-                .baselineOffset: (font.lineHeight - font.lineHeight) / 4,
+                .baselineOffset: (font.lineHeight - self.font.lineHeight) / 4,
                 .kern: font.letterSpacing
             ]
 
             let attrString = NSAttributedString(string: text,
                                                 attributes: attributes)
             self.attributedText = attrString
-            self.lineBreakMode = lineBreakMode
         }
     }
 }

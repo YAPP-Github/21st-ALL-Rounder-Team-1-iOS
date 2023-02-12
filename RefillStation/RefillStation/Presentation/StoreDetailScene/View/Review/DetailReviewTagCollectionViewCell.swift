@@ -35,7 +35,7 @@ final class DetailReviewTagCollectionViewCell: UICollectionViewCell {
     }
 
     func setUpContents(tag: Tag) {
-        tagTitleLabel.text = tag.text
+        tagTitleLabel.setText(text: tag.text, font: .captionLarge)
         tagImageView.image = tag.image
     }
 

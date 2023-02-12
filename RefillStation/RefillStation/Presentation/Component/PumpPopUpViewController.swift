@@ -90,8 +90,9 @@ class PumpPopUpViewController: UIViewController {
     init(title: String?, description: String?) {
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .overFullScreen
-        titleLabel.text = title
-        descriptionLabel.text = description
+        titleLabel.setText(text: title, font: .titleMediumOverTwoLine)
+        descriptionLabel.setText(text: description, font: .bodyMediumOverTwoLine)
+        [titleLabel, descriptionLabel].forEach { $0.textAlignment = .center }
         layout()
         addTapGesture()
     }
@@ -103,6 +104,16 @@ class PumpPopUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black.withAlphaComponent(0.6)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        outerView.snp.remakeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(36)
+        }
+        UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseOut]) {
+            self.view.layoutIfNeeded()
+        }
     }
 
     func addAction(
@@ -150,7 +161,7 @@ class PumpPopUpViewController: UIViewController {
     private func layout() {
         view.addSubview(outerView)
         outerView.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
+            $0.top.equalTo(view.snp.bottom)
             $0.leading.trailing.equalToSuperview().inset(36)
         }
 
@@ -158,11 +169,22 @@ class PumpPopUpViewController: UIViewController {
         contentVerticalStackView.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(24)
         }
+
         [titleLabel, descriptionLabel].forEach {
+            var newSize = $0.sizeThatFits($0.frame.size)
+            newSize = $0.sizeThatFits(CGSize(width: $0.frame.width,
+                                             height: CGFloat.greatestFiniteMagnitude))
+            $0.snp.makeConstraints { label in
+                label.height.equalTo(newSize.height)
+            }
             if $0.text != nil {
                 contentVerticalStackView.addArrangedSubview($0)
             }
         }
+        if titleLabel.text != nil && descriptionLabel.text != nil {
+            contentVerticalStackView.setCustomSpacing(12, after: titleLabel)
+        }
+
         contentVerticalStackView.addArrangedSubview(actionButtonStackView)
     }
 

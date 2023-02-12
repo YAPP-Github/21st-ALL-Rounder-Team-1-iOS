@@ -28,18 +28,16 @@ final class RegisterReviewPopUpViewController: UIViewController {
 
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "리필 생활의 시작을 축하드려요!"
+        label.setText(text: "리필 생활의 시작을 축하드려요!", font: .titleMedium)
         label.textColor = Asset.Colors.gray7.color
-        label.font = .font(style: .titleMedium)
         label.textAlignment = .center
         return label
     }()
 
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "‘리필 유망주’까지\n리뷰 2회가 남았어요"
+        label.setText(text: "‘리필 유망주’까지\n리뷰 2회가 남았어요", font: .bodyMediumOverTwoLine)
         label.textColor = Asset.Colors.gray6.color
-        label.font = .font(style: .bodyMedium)
         label.textAlignment = .center
         label.numberOfLines = 0
         return label
@@ -73,8 +71,8 @@ final class RegisterReviewPopUpViewController: UIViewController {
         self.userLevel = userLevel
         super.init(nibName: nil, bundle: nil)
         levelImageView.image = userLevel.image
-        titleLabel.text = userLevel.celebrateTitle
-        descriptionLabel.text = "‘\(userLevel.nextLevel.name)’까지\n리뷰 \(userLevel.nextLevelRemainCount)회가 남았어요"
+        titleLabel.setText(text: userLevel.celebrateTitle, font: .titleMedium)
+        setUpPopUpText()
         setUpReviewCountTextColor(count: userLevel.nextLevelRemainCount)
         modalPresentationStyle = .overFullScreen
     }
@@ -121,6 +119,20 @@ final class RegisterReviewPopUpViewController: UIViewController {
             $0.height.equalTo(40)
             $0.bottom.equalToSuperview().inset(12)
         }
+    }
+
+    private func setUpPopUpText() {
+        switch userLevel {
+        case .regular, .beginner, .prospect:
+            descriptionLabel.setText(
+                text: "‘\(userLevel.nextLevel.name)’까지\n리뷰 \(userLevel.nextLevelRemainCount)회가 남았어요",
+                font: .bodyMediumOverTwoLine
+            )
+        case .fancier:
+            descriptionLabel.setText(text: "앞으로도 꾸준한 리필 생활 부탁드려요!",
+                                     font: .bodyMediumOverTwoLine)
+        }
+        [titleLabel, descriptionLabel].forEach { $0.textAlignment = .center }
     }
 
     private func setUpReviewCountTextColor(count: Int) {

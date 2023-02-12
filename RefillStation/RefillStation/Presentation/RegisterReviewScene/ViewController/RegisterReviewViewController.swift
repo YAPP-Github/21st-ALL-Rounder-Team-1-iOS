@@ -9,13 +9,13 @@ import UIKit
 import SnapKit
 import PhotosUI
 
-final class RegisterReviewViewController: UIViewController {
+final class RegisterReviewViewController: UIViewController, ServerAlertable {
 
     var coordinator: RegisterReviewCoordinator?
     private let viewModel: DefaultTagReviewViewModel
     private lazy var outerCollectionView = UICollectionView(frame: .zero,
                                                             collectionViewLayout: compositionalLayout())
-    private let collectionViewBottomInset: CGFloat = 80
+    private let collectionViewBottomInset: CGFloat = 60
 
     private let phPickerViewController: PHPickerViewController = {
         var configuration = PHPickerConfiguration()
@@ -36,9 +36,29 @@ final class RegisterReviewViewController: UIViewController {
         return button
     }()
 
+    private lazy var registerButtonView: UIView = {
+        let outerView = UIView()
+        outerView.backgroundColor = .white
+        let divider = UIView()
+        divider.backgroundColor = Asset.Colors.gray1.color
+        [registerButton, divider].forEach { outerView.addSubview($0) }
+        divider.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(1)
+        }
+        registerButton.snp.makeConstraints {
+            $0.top.equalTo(divider.snp.bottom).offset(6)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(50)
+        }
+
+        return outerView
+    }()
+
     init(viewModel: DefaultTagReviewViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.hidesBottomBarWhenPushed = true
     }
 
     required init?(coder: NSCoder) {
@@ -56,19 +76,35 @@ final class RegisterReviewViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        tabBarController?.tabBar.isHidden = true
+        setUpNavigationBar()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
-        tabBarController?.tabBar.isHidden = false
+    }
+
+    private func setUpNavigationBar() {
+        let standardAppearance = UINavigationBarAppearance()
+        standardAppearance.configureWithDefaultBackground()
+        standardAppearance.backgroundColor = .white
+        standardAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        let scrollEdgeAppearance = UINavigationBarAppearance()
+        scrollEdgeAppearance.configureWithTransparentBackground()
+        scrollEdgeAppearance.backgroundColor = .clear
+        scrollEdgeAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        navigationController?.navigationBar.standardAppearance = standardAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = scrollEdgeAppearance
+        navigationController?.navigationBar.tintColor = .black
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 
     private func bind() {
         viewModel.reviewCountFetchCompleted = {
-            self.coordinator?.registerReviewSucceded(userLevel: self.viewModel.levelUppedLevel)
+            DispatchQueue.main.async {
+                self.coordinator?.registerReviewSucceded(userLevel: self.viewModel.levelUppedLevel)
+            }
         }
+        viewModel.showErrorAlert = showServerErrorAlert
     }
 
     private func setUpCollectionView() {
@@ -80,9 +116,9 @@ final class RegisterReviewViewController: UIViewController {
         outerCollectionView.register(TagReviewCell.self,
                                      forCellWithReuseIdentifier: TagReviewCell.reuseIdentifier)
         outerCollectionView.register(ReviewPhotosCell.self,
-                                forCellWithReuseIdentifier: ReviewPhotosCell.reuseIdentifier)
+                                     forCellWithReuseIdentifier: ReviewPhotosCell.reuseIdentifier)
         outerCollectionView.register(ReviewDescriptionCell.self,
-                                forCellWithReuseIdentifier: ReviewDescriptionCell.reuseIdentifier)
+                                     forCellWithReuseIdentifier: ReviewDescriptionCell.reuseIdentifier)
         outerCollectionView.dataSource = self
         outerCollectionView.delegate = self
         outerCollectionView.allowsMultipleSelection = true
@@ -91,14 +127,17 @@ final class RegisterReviewViewController: UIViewController {
     }
 
     private func layout() {
-        [outerCollectionView, registerButton].forEach { view.addSubview($0) }
+        [outerCollectionView, registerButtonView].forEach { view.addSubview($0) }
         outerCollectionView.snp.makeConstraints { collection in
             collection.edges.equalTo(view.safeAreaLayoutGuide)
         }
-        registerButton.snp.makeConstraints { button in
-            button.bottom.equalTo(view.safeAreaLayoutGuide).inset(18)
-            button.leading.trailing.equalToSuperview().inset(16)
-            button.height.equalTo(50)
+        registerButtonView.snp.makeConstraints { button in
+            button.bottom.equalTo(view.safeAreaLayoutGuide)
+            button.leading.trailing.equalToSuperview()
+        }
+
+        registerButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(18)
         }
     }
 
@@ -129,7 +168,7 @@ final class RegisterReviewViewController: UIViewController {
     @objc
     private func keyboardWillShow(_ notification: Notification) {
         guard let userInfo = notification.userInfo,
-           let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+              let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
             return
         }
         outerCollectionView.contentInset = .init(top: 0, left: 0,
@@ -137,7 +176,7 @@ final class RegisterReviewViewController: UIViewController {
         outerCollectionView.scrollToItem(at: IndexPath(item: 0, section: Section.reviewDescription.rawValue),
                                          at: .top, animated: true)
         UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseOut, animations: {
-            self.registerButton.transform = CGAffineTransform(translationX: 0, y: -keyboardRect.height)
+            self.registerButtonView.transform = CGAffineTransform(translationX: 0, y: -keyboardRect.height)
         })
     }
 
@@ -145,7 +184,7 @@ final class RegisterReviewViewController: UIViewController {
     private func keyboardWillHide(_ notification: Notification) {
         outerCollectionView.contentInset = .init(top: 0, left: 0, bottom: collectionViewBottomInset, right: 0)
         UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseOut, animations: {
-            self.registerButton.transform = CGAffineTransform(translationX: 0, y: 0)
+            self.registerButtonView.transform = CGAffineTransform(translationX: 0, y: 0)
         })
     }
 }
@@ -219,7 +258,7 @@ extension RegisterReviewViewController: UICollectionViewDataSource {
 extension RegisterReviewViewController {
     private func compositionalLayout() -> UICollectionViewCompositionalLayout {
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
-        configuration.interSectionSpacing = 20
+        configuration.interSectionSpacing = 0
         return UICollectionViewCompositionalLayout(sectionProvider: { section, environment in
             return Section(rawValue: section)?.layoutSection
         }, configuration: configuration)
@@ -231,6 +270,7 @@ extension RegisterReviewViewController: UICollectionViewDelegate {
         return viewModel.shouldSelectCell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard indexPath.section == Section.tagReview.rawValue else { return }
         viewModel.didSelectItemAt(indexPath: indexPath)
         registerButton.isEnabled = viewModel.setUpRegisterButtonState()
         if viewModel.noKeywordTagDidSelected {
@@ -240,6 +280,7 @@ extension RegisterReviewViewController: UICollectionViewDelegate {
         }
     }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        guard indexPath.section == Section.tagReview.rawValue else { return }
         if viewModel.noKeywordTagDidSelected {
             noKeywordTagDidTapped(isSelected: false,
                                   collectionView: collectionView,
