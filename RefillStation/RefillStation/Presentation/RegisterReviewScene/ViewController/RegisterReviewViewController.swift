@@ -115,9 +115,9 @@ final class RegisterReviewViewController: UIViewController {
         outerCollectionView.register(TagReviewCell.self,
                                      forCellWithReuseIdentifier: TagReviewCell.reuseIdentifier)
         outerCollectionView.register(ReviewPhotosCell.self,
-                                forCellWithReuseIdentifier: ReviewPhotosCell.reuseIdentifier)
+                                     forCellWithReuseIdentifier: ReviewPhotosCell.reuseIdentifier)
         outerCollectionView.register(ReviewDescriptionCell.self,
-                                forCellWithReuseIdentifier: ReviewDescriptionCell.reuseIdentifier)
+                                     forCellWithReuseIdentifier: ReviewDescriptionCell.reuseIdentifier)
         outerCollectionView.dataSource = self
         outerCollectionView.delegate = self
         outerCollectionView.allowsMultipleSelection = true
@@ -167,7 +167,7 @@ final class RegisterReviewViewController: UIViewController {
     @objc
     private func keyboardWillShow(_ notification: Notification) {
         guard let userInfo = notification.userInfo,
-           let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+              let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
             return
         }
         outerCollectionView.contentInset = .init(top: 0, left: 0,
@@ -175,7 +175,7 @@ final class RegisterReviewViewController: UIViewController {
         outerCollectionView.scrollToItem(at: IndexPath(item: 0, section: Section.reviewDescription.rawValue),
                                          at: .top, animated: true)
         UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseOut, animations: {
-            self.registerButton.transform = CGAffineTransform(translationX: 0, y: -keyboardRect.height)
+            self.registerButtonView.transform = CGAffineTransform(translationX: 0, y: -keyboardRect.height)
         })
     }
 
@@ -183,7 +183,7 @@ final class RegisterReviewViewController: UIViewController {
     private func keyboardWillHide(_ notification: Notification) {
         outerCollectionView.contentInset = .init(top: 0, left: 0, bottom: collectionViewBottomInset, right: 0)
         UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseOut, animations: {
-            self.registerButton.transform = CGAffineTransform(translationX: 0, y: 0)
+            self.registerButtonView.transform = CGAffineTransform(translationX: 0, y: 0)
         })
     }
 }
