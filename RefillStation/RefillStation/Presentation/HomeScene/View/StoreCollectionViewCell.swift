@@ -7,6 +7,8 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
+import SkeletonView
 
 final class StoreCollectionViewCell: UICollectionViewCell {
 
@@ -28,18 +30,21 @@ final class StoreCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .font(style: .titleMedium)
         label.textColor = Asset.Colors.gray7.color
+        label.text = "가게이름"
         return label
     }()
     private var addressLabel: UILabel = {
         let label = UILabel()
         label.font = .font(style: .bodySmall)
         label.textColor = Asset.Colors.gray5.color
+        label.text = "가게주소"
         return label
     }()
     private var distanceLabel: UILabel = {
         let label = UILabel()
         label.font = .font(style: .buttonLarge)
         label.textColor = Asset.Colors.primary10.color
+        label.text = "거리"
         return label
     }()
 
@@ -47,6 +52,7 @@ final class StoreCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = .white
+        setUpSkeletonView()
         layout()
         render()
     }
@@ -97,7 +103,6 @@ final class StoreCollectionViewCell: UICollectionViewCell {
                        name: String,
                        address: String,
                        distance: Double) {
-        // set storeImage
         nameLabel.text = name
         addressLabel.text = address
         distanceLabel.text = "\(distance)km"
@@ -108,5 +113,16 @@ extension StoreCollectionViewCell {
     enum Constraints {
         static let inset: CGFloat = 16
         static let labelTopBottomInset: CGFloat = 20
+    }
+}
+
+extension StoreCollectionViewCell {
+    func setUpSkeletonView() {
+        self.isSkeletonable = true
+        [contentView, storeInfoView, storeImageView,
+         nameLabel, addressLabel, distanceLabel].forEach {
+            $0.isSkeletonable = true
+            $0.skeletonCornerRadius = 4
+        }
     }
 }
