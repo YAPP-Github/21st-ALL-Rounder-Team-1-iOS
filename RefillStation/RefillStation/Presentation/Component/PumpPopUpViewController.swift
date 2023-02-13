@@ -90,6 +90,8 @@ class PumpPopUpViewController: UIViewController {
     init(title: String?, description: String?) {
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .overFullScreen
+        let title = title?.replacingOccurrences(of: "\\n", with: "\n")
+        let description = description?.replacingOccurrences(of: "\\n", with: "\n")
         titleLabel.setText(text: title, font: .titleMediumOverTwoLine)
         descriptionLabel.setText(text: description, font: .bodyMediumOverTwoLine)
         [titleLabel, descriptionLabel].forEach { $0.textAlignment = .center }
@@ -109,7 +111,7 @@ class PumpPopUpViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         outerView.snp.remakeConstraints {
             $0.centerY.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().inset(36)
+            $0.leading.trailing.equalToSuperview().inset(Constraint.outerViewInset)
         }
         UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseOut]) {
             self.view.layoutIfNeeded()
@@ -162,18 +164,19 @@ class PumpPopUpViewController: UIViewController {
         view.addSubview(outerView)
         outerView.snp.makeConstraints {
             $0.top.equalTo(view.snp.bottom)
-            $0.leading.trailing.equalToSuperview().inset(36)
+            $0.leading.trailing.equalToSuperview().inset(Constraint.outerViewInset)
         }
 
         outerView.addSubview(contentVerticalStackView)
         contentVerticalStackView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(24)
+            $0.edges.equalToSuperview().inset(Constraint.contentInset)
         }
 
         [titleLabel, descriptionLabel].forEach {
-            var newSize = $0.sizeThatFits($0.frame.size)
-            newSize = $0.sizeThatFits(CGSize(width: $0.frame.width,
-                                             height: CGFloat.greatestFiniteMagnitude))
+            var newSize = $0.sizeThatFits(CGSize(
+                width: view.frame.width - 2 * (Constraint.contentInset + Constraint.outerViewInset),
+                height: CGFloat.greatestFiniteMagnitude
+            ))
             $0.snp.makeConstraints { label in
                 label.height.equalTo(newSize.height)
             }
@@ -196,5 +199,12 @@ class PumpPopUpViewController: UIViewController {
     @objc
     private func viewTapped(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
+    }
+}
+
+extension PumpPopUpViewController {
+    enum Constraint {
+        static let outerViewInset: CGFloat = 36
+        static let contentInset: CGFloat = 24
     }
 }
