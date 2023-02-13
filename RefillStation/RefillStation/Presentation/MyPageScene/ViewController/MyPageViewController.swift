@@ -30,7 +30,7 @@ final class MyPageViewController: UIViewController, ServerAlertable {
 
     private let nicknameLabel: UILabel = {
         let label = UILabel()
-        label.font = .font(style: .titleMedium)
+        label.font = .font(style: .titleSmall)
         return label
     }()
 
@@ -51,6 +51,7 @@ final class MyPageViewController: UIViewController, ServerAlertable {
         }
         nicknameLabel.snp.makeConstraints {
             $0.leading.equalTo(profileImageView.snp.trailing).offset(16)
+            $0.trailing.equalToSuperview().inset(16)
             $0.top.equalToSuperview().inset(31.5)
         }
         userLevelTagView.snp.makeConstraints {
