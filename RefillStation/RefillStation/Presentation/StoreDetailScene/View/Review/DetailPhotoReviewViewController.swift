@@ -29,7 +29,7 @@ final class DetailPhotoReviewViewController: UIViewController {
     private lazy var moveLeftButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-        button.backgroundColor = Asset.Colors.gray3.color.withAlphaComponent(0.5)
+        button.layer.backgroundColor = UIColor.black.cgColor.copy(alpha: 0.2)
         button.tintColor = .white
         button.isHidden = true
         button.imageView?.contentMode = .scaleAspectFit
@@ -45,7 +45,7 @@ final class DetailPhotoReviewViewController: UIViewController {
     private lazy var moveRightButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-        button.backgroundColor = Asset.Colors.gray3.color.withAlphaComponent(0.5)
+        button.layer.backgroundColor = UIColor.black.cgColor.copy(alpha: 0.2)
         button.tintColor = .white
         button.imageView?.contentMode = .scaleAspectFit
         button.addAction(UIAction { _ in

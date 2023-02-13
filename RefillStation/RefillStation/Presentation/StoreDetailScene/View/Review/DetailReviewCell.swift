@@ -105,7 +105,7 @@ final class DetailReviewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.font(style: .buttonSmall)
         label.textColor = .white
-        label.backgroundColor = Asset.Colors.gray3.color
+        label.layer.backgroundColor = UIColor.black.cgColor.copy(alpha: 0.2)
         label.clipsToBounds = true
         label.layer.cornerRadius = 10
         label.textAlignment = .center
