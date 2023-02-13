@@ -173,7 +173,7 @@ class PumpPopUpViewController: UIViewController {
         }
 
         [titleLabel, descriptionLabel].forEach {
-            var newSize = $0.sizeThatFits(CGSize(
+            let newSize = $0.sizeThatFits(CGSize(
                 width: view.frame.width - 2 * (Constraint.contentInset + Constraint.outerViewInset),
                 height: CGFloat.greatestFiniteMagnitude
             ))
