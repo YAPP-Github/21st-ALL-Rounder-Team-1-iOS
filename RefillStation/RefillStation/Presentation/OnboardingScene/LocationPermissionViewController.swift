@@ -27,7 +27,7 @@ final class LocationPermissionViewController: UIViewController, ServerAlertable 
 
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.setText(text: "내 주변에 있는 리필스테이션을\n빠르게 확인할 수 있어요!", font: .titleLarge2)
+        label.setText(text: "내 주변에 있는 리필스테이션을\n빠르게 확인할 수 있어요!", font: .titleLarge2OverTwoLine)
         label.textColor = Asset.Colors.gray7.color
         label.numberOfLines = 0
         label.textAlignment = .center
