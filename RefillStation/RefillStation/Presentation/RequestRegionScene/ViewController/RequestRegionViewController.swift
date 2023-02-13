@@ -54,16 +54,20 @@ final class RequestRegionViewController: UIViewController, ServerAlertable {
         }, for: .touchUpInside)
         return button
     }()
+    private let outerView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 6
+        view.layer.borderWidth = 1
+        view.layer.borderColor = Asset.Colors.gray2.color.cgColor
+        return view
+    }()
     private let regionTextView: UITextView = {
         let textView = UITextView()
         textView.isEditable = true
         textView.textColor = .lightGray
-        textView.textContainerInset = .init(top: 16, left: 16, bottom: 16, right: 16)
         textView.font = UIFont.font(style: .bodyMedium)
+        textView.textContainerInset = .zero
         textView.clipsToBounds = true
-        textView.layer.borderWidth = 1
-        textView.layer.cornerRadius = 6
-        textView.layer.borderColor = Asset.Colors.gray2.color.cgColor
         return textView
     }()
     private let textCountLabel: UILabel = {
@@ -120,7 +124,7 @@ final class RequestRegionViewController: UIViewController, ServerAlertable {
     }
 
     private func layout() {
-        [titleLabel, exampleLabel, descriptionIcon, descriptionLabel,
+        [titleLabel, exampleLabel, descriptionIcon, descriptionLabel, outerView,
          regionTextView, textCountLabel, maxTextLabel, requestButton].forEach { view.addSubview($0) }
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(20)
@@ -130,17 +134,21 @@ final class RequestRegionViewController: UIViewController, ServerAlertable {
             $0.top.equalTo(titleLabel.snp.bottom).offset(20)
             $0.leading.trailing.equalTo(titleLabel)
         }
-        regionTextView.snp.makeConstraints {
+        outerView.snp.makeConstraints {
             $0.top.equalTo(exampleLabel.snp.bottom).offset(14)
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(218)
+        }
+        regionTextView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(outerView).inset(16)
+            $0.bottom.equalTo(maxTextLabel.snp.top).offset(-12)
         }
         textCountLabel.snp.makeConstraints {
             $0.trailing.equalTo(maxTextLabel.snp.leading)
             $0.centerY.equalTo(maxTextLabel)
         }
         maxTextLabel.snp.makeConstraints {
-            $0.trailing.bottom.equalTo(regionTextView).inset(16)
+            $0.trailing.bottom.equalTo(outerView).inset(16)
         }
         descriptionIcon.snp.makeConstraints {
             $0.top.equalTo(descriptionLabel).offset(3)
