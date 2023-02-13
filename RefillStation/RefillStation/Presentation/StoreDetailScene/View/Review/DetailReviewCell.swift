@@ -182,7 +182,7 @@ final class DetailReviewCell: UICollectionViewCell {
         [profileImageLoadTask, reviewImageLoadTask].forEach { $0?.cancel() }
     }
 
-    func setUpContents(review: Review, shouldSeeMore: Bool) {
+    func setUpContents(review: Review, shouldSeeMore: Bool, screenWidth: CGFloat = 0) {
         self.review = review
         setUpTagCollectionViewContents()
         userNameLabel.setText(text: review.userNickname, font: .buttonLarge)
@@ -197,18 +197,18 @@ final class DetailReviewCell: UICollectionViewCell {
             profileImageLoadTask = profileImageView.kf.setImage(with: URL(string: review.profileImagePath))
         }
         reviewImageLoadTask = reviewImageView.kf.setImage(with: URL(string: review.imageURL.first ?? ""))
-        addArrangedSubviewsToOuterStackview()
+        remakeHeightConstraints()
+        descriptionLabel.lineBreakMode = .byTruncatingTail
         if shouldSeeMore {
             descriptionLabel.numberOfLines = 0
-            if let attrText = descriptionLabel.attributedText {
-                let height = attrText.height(withConstrainedWidth: contentView.frame.width - 32)
-                descriptionLabel.snp.remakeConstraints {
-                    $0.height.greaterThanOrEqualTo(height)
-                }
-            }
         } else {
             descriptionLabel.numberOfLines = 3
-            descriptionLabel.lineBreakMode = .byTruncatingTail
+        }
+        let width = screenWidth == 0 ? contentView.frame.size.width : screenWidth
+        let newSize = descriptionLabel.sizeThatFits(CGSize(width: width - 32,
+                                         height: CGFloat.greatestFiniteMagnitude))
+        descriptionLabel.snp.remakeConstraints {
+            $0.height.equalTo(newSize.height).priority(.required)
         }
     }
 
@@ -248,7 +248,7 @@ final class DetailReviewCell: UICollectionViewCell {
         outerStackView.setCustomSpacing(16, after: descriptionLabel)
     }
 
-    private func addArrangedSubviewsToOuterStackview() {
+    private func remakeHeightConstraints() {
         guard let review = review else { return }
 
         if !review.imageURL.isEmpty {
@@ -263,12 +263,6 @@ final class DetailReviewCell: UICollectionViewCell {
             outerStackView.setCustomSpacing(0, after: reviewInfoView)
         }
 
-        var newSize = descriptionLabel.sizeThatFits(descriptionLabel.frame.size)
-        newSize = descriptionLabel.sizeThatFits(CGSize(width: contentView.frame.width - 32,
-                                         height: CGFloat.greatestFiniteMagnitude))
-        descriptionLabel.snp.remakeConstraints {
-            $0.height.equalTo(newSize.height).priority(.required)
-        }
         if !review.description.isEmpty {
             outerStackView.setCustomSpacing(18, after: reviewImageOuterView)
         } else {
@@ -277,7 +271,7 @@ final class DetailReviewCell: UICollectionViewCell {
 
         if let tags = tags, !tags.isEmpty {
             tagCollectionView.snp.remakeConstraints {
-                $0.height.equalTo(22)
+                $0.height.equalTo(22).priority(.high)
             }
             outerStackView.setCustomSpacing(16, after: descriptionLabel)
         } else {
