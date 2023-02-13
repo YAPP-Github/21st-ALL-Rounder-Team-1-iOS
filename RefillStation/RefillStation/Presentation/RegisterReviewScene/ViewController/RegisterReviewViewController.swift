@@ -100,7 +100,8 @@ final class RegisterReviewViewController: UIViewController, ServerAlertable {
 
     private func bind() {
         viewModel.reviewCountFetchCompleted = {
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
                 self.coordinator?.registerReviewSucceded(userLevel: self.viewModel.levelUppedLevel)
             }
         }

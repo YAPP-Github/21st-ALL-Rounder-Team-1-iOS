@@ -114,7 +114,10 @@ final class DetailPhotoReviewViewController: UIViewController {
 
     private func bind() {
         viewModel.setUpPageLabel = {
-            self.pageCountLabel.setText(text: "\(self.viewModel.page + 1) / ", font: .buttonSmall)
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.pageCountLabel.setText(text: "\(self.viewModel.page + 1) / ", font: .buttonSmall)
+            }
         }
     }
 

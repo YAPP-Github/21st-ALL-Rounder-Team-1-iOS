@@ -111,18 +111,26 @@ final class HomeViewController: UIViewController, ServerAlertable {
 
     private func bind() {
         viewModel.setUpContents = {
-            self.storeCollectionView.reloadData()
-            self.updateCurrentAddressText?()
-            self.storeCollectionView.hideSkeleton()
+            DispatchQueue.main.async { [weak self] in
+                self?.storeCollectionView.reloadData()
+                self?.updateCurrentAddressText?()
+                self?.storeCollectionView.hideSkeleton()
+            }
         }
         viewModel.presentToLocationPopUp = {
-            if self.presentedViewController == nil {
-                self.present(self.locationPopUpViewController, animated: true)
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                if self.presentedViewController == nil {
+                    self.present(self.locationPopUpViewController, animated: true)
+                }
             }
         }
         viewModel.dismissLocationPopUp = {
-            if self.presentedViewController == self.locationPopUpViewController {
-                self.dismiss(animated: true)
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                if self.presentedViewController == self.locationPopUpViewController {
+                    self.dismiss(animated: true)
+                }
             }
         }
         viewModel.showErrorAlert = showServerErrorAlert
