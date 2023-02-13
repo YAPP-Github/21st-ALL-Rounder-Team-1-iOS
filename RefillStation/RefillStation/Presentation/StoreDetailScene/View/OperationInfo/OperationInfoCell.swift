@@ -12,7 +12,7 @@ final class OperationInfoCell: UICollectionViewCell {
     static let reuseIdentifier = String(describing: OperationInfoCell.self)
 
     private let contentLabelDefaultHeight: CGFloat = 20
-    private let contentLabelInsetSum: CGFloat = 52
+    private let contentLabelInsetSum: CGFloat = 105
 
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -67,9 +67,12 @@ final class OperationInfoCell: UICollectionViewCell {
     }
 
     func setUpContents(operation: OperationInfo, shouldShowMore: Bool = false, screenWidth: CGFloat = 0) {
+        let targetWidth = screenWidth == 0 ?
+        contentView.frame.width - contentLabelInsetSum : screenWidth - contentLabelInsetSum
         imageView.image = operation.image
         contentLabel.setText(text: operation.content, font: .bodySmallOverTwoLine)
-        seeMoreButton.isHidden = !(contentLabel.isTruncated && !operation.content.isEmpty)
+
+        seeMoreButton.isHidden = maximumContentLabelHeight(targetWidth: targetWidth) <= contentLabelDefaultHeight
         contentLabel.lineBreakMode = .byTruncatingTail
         contentLabel.lineBreakStrategy = .hangulWordPriority
 
@@ -81,13 +84,22 @@ final class OperationInfoCell: UICollectionViewCell {
             seeMoreButton.setImage(Asset.Images.iconArrowBottomSmall.image, for: .normal)
         }
 
-        let width = screenWidth == 0 ? contentView.frame.width : screenWidth
-        let newSize = contentLabel.sizeThatFits(CGSize(width: width - contentLabelInsetSum,
-                                         height: CGFloat.greatestFiniteMagnitude))
+        let newSize = contentLabel.sizeThatFits(CGSize(width: targetWidth, height: CGFloat.greatestFiniteMagnitude))
         let newHeight = newSize.height == 0 ? 20 : newSize.height
         contentLabel.snp.remakeConstraints {
             $0.height.equalTo(newHeight).priority(.required)
         }
+    }
+
+    private func maximumContentLabelHeight(targetWidth: CGFloat) -> CGFloat {
+        let tempContentLabelNumberOfLines = contentLabel.numberOfLines
+
+        contentLabel.numberOfLines = 0
+        let maxSize = contentLabel.sizeThatFits(CGSize(width: targetWidth,
+                                                       height: CGFloat.greatestFiniteMagnitude))
+        let maxHeight = maxSize.height == 0 ? 20 : maxSize.height
+        contentLabel.numberOfLines = tempContentLabelNumberOfLines
+        return maxHeight
     }
 
     private func makeFirstLineBold(operation: OperationInfo) {
@@ -114,9 +126,9 @@ final class OperationInfoCell: UICollectionViewCell {
 
         contentStackView.addArrangedSubview(contentLabel)
 
-//        contentLabel.snp.remakeConstraints {
-//            $0.height.equalTo(contentLabelDefaultHeight)
-//        }
+        contentLabel.snp.remakeConstraints {
+            $0.height.equalTo(contentLabelDefaultHeight)
+        }
 
         divisionLine.snp.makeConstraints {
             $0.top.equalTo(contentStackView.snp.bottom).offset(15)
