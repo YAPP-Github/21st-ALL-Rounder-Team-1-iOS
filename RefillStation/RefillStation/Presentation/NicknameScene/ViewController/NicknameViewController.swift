@@ -153,8 +153,8 @@ final class NicknameViewController: UIViewController, ServerAlertable {
             }
         }
         viewModel.isValidNickname = { isDuplicate in
-            DispatchQueue.main.async {
-                self.checkDuplicateNickname(isDuplicate: isDuplicate)
+            DispatchQueue.main.async { [weak self] in
+                self?.checkDuplicateNickname(isDuplicate: isDuplicate)
             }
         }
         viewModel.showErrorAlert = showServerErrorAlert

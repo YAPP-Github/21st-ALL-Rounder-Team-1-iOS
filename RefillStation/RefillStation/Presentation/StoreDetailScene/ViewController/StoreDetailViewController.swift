@@ -58,12 +58,14 @@ final class StoreDetailViewController: UIViewController, ServerAlertable {
 
     override func viewWillAppear(_ animated: Bool) {
         setUpNavigationBar()
+        tabBarController?.tabBar.isHidden = true
         viewModel.viewWillAppear()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
         navigationController?.navigationBar.tintColor = .black
+        tabBarController?.tabBar.isHidden = false
         viewModel.viewWillDisappear()
     }
 

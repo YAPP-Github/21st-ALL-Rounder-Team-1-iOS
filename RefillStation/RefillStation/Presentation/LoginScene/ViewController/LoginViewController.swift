@@ -130,14 +130,14 @@ final class LoginViewController: UIViewController, ServerAlertable {
     private func bind() {
         viewModel.isSignUp = {
             if let requestValue = self.viewModel.signUpRequestValue {
-                DispatchQueue.main.async {
-                    self.coordinator?.showTermsPermission(requestValue: requestValue)
+                DispatchQueue.main.async { [weak self] in
+                    self?.coordinator?.showTermsPermission(requestValue: requestValue)
                 }
             }
         }
         viewModel.isSignIn = {
-            DispatchQueue.main.async {
-                self.coordinator?.agreeAndStartButtonTapped()
+            DispatchQueue.main.async { [weak self] in
+                self?.coordinator?.agreeAndStartButtonTapped()
             }
         }
         viewModel.showErrorAlert = showServerErrorAlert

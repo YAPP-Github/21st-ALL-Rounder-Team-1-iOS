@@ -111,7 +111,8 @@ final class MyPageViewController: UIViewController, ServerAlertable {
 
     private func bind() {
         viewModel.setUpContents = {
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
                 self.nicknameLabel.text = self.viewModel.userNickname
                 self.userLevelTagView.setUpTagLevel(level: self.viewModel.userRank ?? .beginner)
                 self.setUpProfileView()

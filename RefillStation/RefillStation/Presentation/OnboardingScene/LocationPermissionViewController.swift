@@ -78,8 +78,8 @@ final class LocationPermissionViewController: UIViewController, ServerAlertable 
 
     private func bind() {
         viewModel.isSignUpCompleted = {
-            DispatchQueue.main.async {
-                self.coordinator?.agreeAndStartButtonTapped()
+            DispatchQueue.main.async { [weak self] in
+                self?.coordinator?.agreeAndStartButtonTapped()
             }
         }
 
