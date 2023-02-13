@@ -35,7 +35,7 @@ final class PumpTagView: UIView {
     func setUpTagLevel(level: UserLevelInfo.Level) {
         backgroundColor = level.backgroundColor
         titleLabel.textColor = level.labelColor
-        titleLabel.setText(text: level.name, font: .captionLarge)
+        titleLabel.setText(text: level.name, font: .bodySmall)
         disclosureImageView.tintColor = level.labelColor
     }
 

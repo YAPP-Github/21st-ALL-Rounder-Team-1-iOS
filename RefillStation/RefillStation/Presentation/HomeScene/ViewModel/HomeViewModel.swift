@@ -55,34 +55,31 @@ final class HomeViewModel {
 
 extension HomeViewModel {
     func viewWillAppear() {
-        checkLocationPermission() ? fetchStores() : presentToLocationPopUp?()
-    }
-
-    func willEnterForeground() {
-        if checkLocationPermission() {
-            dismissLocationPopUp?()
-            fetchStores()
+        if locationManager.authorizationStatus == .notDetermined {
+            locationManager.requestWhenInUseAuthorization()
         } else {
+            checkLocationPermission()
+        }
+    }
+    func checkLocationPermission() {
+        switch locationManager.authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            didAuthorized()
+        default:
             presentToLocationPopUp?()
         }
     }
-
+    func didAuthorized() {
+        dismissLocationPopUp?()
+        fetchStores()
+    }
     func viewWillDisappear() {
         storesLoadTask?.cancel()
     }
 }
 
 extension HomeViewModel {
-    private func checkLocationPermission() -> Bool {
-        switch locationManager.authorizationStatus {
-        case .authorizedAlways, .authorizedWhenInUse:
-            return true
-        default:
-            return false
-        }
-    }
     private func setUpCurrentLocation() {
-        locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
         guard let space = locationManager.location?.coordinate else { return }

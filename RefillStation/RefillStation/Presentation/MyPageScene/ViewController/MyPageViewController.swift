@@ -30,7 +30,8 @@ final class MyPageViewController: UIViewController, ServerAlertable {
 
     private let nicknameLabel: UILabel = {
         let label = UILabel()
-        label.font = .font(style: .titleMedium)
+        label.font = .font(style: .titleSmallOverTwoLine)
+        label.numberOfLines = 2
         return label
     }()
 
@@ -43,19 +44,25 @@ final class MyPageViewController: UIViewController, ServerAlertable {
 
     private lazy var userInfoView: UIView = {
         let userInfoView = UIView()
-        [profileImageView, nicknameLabel, userLevelTagView].forEach { userInfoView.addSubview($0) }
+        let outerView = UIView()
+        [nicknameLabel, userLevelTagView].forEach { outerView.addSubview($0) }
+        [profileImageView, outerView].forEach { userInfoView.addSubview($0) }
         profileImageView.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(22)
             $0.top.bottom.equalToSuperview().inset(24)
             $0.height.width.equalTo(64)
         }
-        nicknameLabel.snp.makeConstraints {
+        outerView.snp.makeConstraints {
+            $0.centerY.equalTo(profileImageView)
             $0.leading.equalTo(profileImageView.snp.trailing).offset(16)
-            $0.top.equalToSuperview().inset(31.5)
+            $0.trailing.equalToSuperview().inset(16)
         }
+        nicknameLabel.snp.makeConstraints {
+            $0.leading.trailing.top.equalToSuperview()
+            $0.leading.equalTo(profileImageView.snp.trailing).offset(16)        }
         userLevelTagView.snp.makeConstraints {
-            $0.leading.equalTo(profileImageView.snp.trailing).offset(16)
             $0.top.equalTo(nicknameLabel.snp.bottom).offset(6)
+            $0.leading.bottom.equalToSuperview()
         }
         return userInfoView
     }()

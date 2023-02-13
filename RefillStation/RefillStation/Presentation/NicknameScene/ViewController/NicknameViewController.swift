@@ -335,6 +335,8 @@ extension NicknameViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
-        viewModel.isValidCharacters(string: string)
+        guard let lastChar = string.last else { return true }
+        let lastString = String(lastChar)
+        return viewModel.isValidCharacters(string: lastString)
     }
 }
