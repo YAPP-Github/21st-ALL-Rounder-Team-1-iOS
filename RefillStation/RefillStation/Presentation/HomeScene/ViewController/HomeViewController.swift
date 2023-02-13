@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import SkeletonView
+import CoreLocation
 
 final class HomeViewController: UIViewController, ServerAlertable {
 
@@ -15,6 +16,7 @@ final class HomeViewController: UIViewController, ServerAlertable {
     var coordiantor: HomeCoordinator?
     private let viewModel: HomeViewModel
     private var updateCurrentAddressText: (() -> Void)?
+    private var locationManager = CLLocationManager()
 
     private lazy var locationPopUpViewController: PumpPopUpViewController = {
         let popUpViewController = PumpPopUpViewController(
@@ -74,6 +76,7 @@ final class HomeViewController: UIViewController, ServerAlertable {
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        locationManager.delegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -150,7 +153,7 @@ final class HomeViewController: UIViewController, ServerAlertable {
     }
 
     @objc private func willEnterForeground() {
-        viewModel.willEnterForeground()
+        viewModel.checkLocationPermission()
     }
 
     @objc private func topButtonDidTap() {
@@ -246,6 +249,16 @@ extension HomeViewController: SkeletonCollectionViewDataSource {
 
     func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return section == 0 ? 0 : UICollectionView.automaticNumberOfSkeletonItems
+    }
+}
+
+extension HomeViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedAlways, .authorizedWhenInUse:
+            viewModel.didAuthorized()
+        default: break
+        }
     }
 }
 
