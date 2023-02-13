@@ -107,7 +107,7 @@ final class LoginViewController: UIViewController, ServerAlertable {
     private func layout() {
         view.addSubview(backgroundImageView)
         [backgroundImageView, titleLabel, iconImageView, loginButtonStackView].forEach { view.addSubview($0) }
-        [kakaoLoginButton, naverLoginButton, appleLoginButton].forEach { loginButtonStackView.addArrangedSubview($0)
+        [kakaoLoginButton, appleLoginButton].forEach { loginButtonStackView.addArrangedSubview($0)
         }
         backgroundImageView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
@@ -123,7 +123,7 @@ final class LoginViewController: UIViewController, ServerAlertable {
         }
         loginButtonStackView.snp.makeConstraints {
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(32)
-            $0.height.equalTo(160)
+            $0.height.equalTo(104)
         }
     }
 

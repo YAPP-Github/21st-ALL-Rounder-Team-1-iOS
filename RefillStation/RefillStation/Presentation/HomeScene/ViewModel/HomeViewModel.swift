@@ -23,6 +23,8 @@ final class HomeViewModel {
         return currentAdministrativeArea == "서울특별시"
     }
     var setUpContents: (() -> Void)?
+    var presentToLocationPopUp: (() -> Void)?
+    var dismissLocationPopUp: (() -> Void)?
     var showErrorAlert: ((String?, String?) -> Void)?
 
     init(fetchStoresUseCase: FetchStoresUseCaseInterface = FetchStoresUseCase()) {
@@ -30,6 +32,7 @@ final class HomeViewModel {
     }
 
     private func fetchStores() {
+        setUpCurrentLocation()
         storesLoadTask = Task {
             do {
                 let stores = try await fetchStoresUseCase.execute(
@@ -52,12 +55,16 @@ final class HomeViewModel {
 
 extension HomeViewModel {
     func viewWillAppear() {
-        setUpCurrentLocation()
-        fetchStores()
+        checkLocationPermission() ? fetchStores() : presentToLocationPopUp?()
     }
 
     func willEnterForeground() {
-        fetchStores()
+        if checkLocationPermission() {
+            dismissLocationPopUp?()
+            fetchStores()
+        } else {
+            presentToLocationPopUp?()
+        }
     }
 
     func viewWillDisappear() {
@@ -66,6 +73,14 @@ extension HomeViewModel {
 }
 
 extension HomeViewModel {
+    private func checkLocationPermission() -> Bool {
+        switch locationManager.authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            return true
+        default:
+            return false
+        }
+    }
     private func setUpCurrentLocation() {
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
