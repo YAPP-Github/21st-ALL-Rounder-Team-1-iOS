@@ -16,6 +16,7 @@ enum TextStyles {
     case titleMedium
     case titleMediumOverTwoLine
     case titleSmall
+    case titleSmallOverTwoLine
 
     /// Body
     case bodyLarge
@@ -55,7 +56,8 @@ extension UIFont {
             return UIFont.systemFont(ofSize: 17, weight: .bold)
         case .titleSmall:
             return UIFont.systemFont(ofSize: 15, weight: .bold)
-
+        case .titleSmallOverTwoLine:
+            return UIFont.systemFont(ofSize: 15, weight: .bold)
             /// Body
         case .bodyLarge:
             return UIFont.systemFont(ofSize: 17, weight: .regular)
@@ -109,6 +111,8 @@ extension TextStyles {
             return 23
         case .titleSmall:
             return 17
+        case .titleSmallOverTwoLine:
+            return 20
 
             /// Body
         case .bodyLarge:
@@ -160,6 +164,8 @@ extension TextStyles {
         case .titleMediumOverTwoLine:
             return -0.4
         case .titleSmall:
+            return -0.4
+        case .titleSmallOverTwoLine:
             return -0.4
 
             /// Body

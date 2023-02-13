@@ -30,7 +30,7 @@ final class MyPageViewController: UIViewController, ServerAlertable {
 
     private let nicknameLabel: UILabel = {
         let label = UILabel()
-        label.font = .font(style: .titleSmall)
+        label.font = .font(style: .titleSmallOverTwoLine)
         label.numberOfLines = 2
         return label
     }()
