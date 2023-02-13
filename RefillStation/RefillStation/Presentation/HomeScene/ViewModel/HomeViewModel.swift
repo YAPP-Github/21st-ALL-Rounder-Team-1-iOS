@@ -25,7 +25,6 @@ final class HomeViewModel {
     var setUpContents: (() -> Void)?
     var presentToLocationPopUp: (() -> Void)?
     var dismissLocationPopUp: (() -> Void)?
-    var requestWhenInUseAuthorization: (() -> Void)?
     var showErrorAlert: ((String?, String?) -> Void)?
 
     init(fetchStoresUseCase: FetchStoresUseCaseInterface = FetchStoresUseCase()) {
