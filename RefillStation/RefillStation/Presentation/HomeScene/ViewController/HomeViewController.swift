@@ -252,6 +252,6 @@ extension HomeViewController: SkeletonCollectionViewDataSource {
 extension HomeViewController {
     func setUpSkeletonView() {
         storeCollectionView.isSkeletonable = true
-        storeCollectionView.showSkeleton()
+        storeCollectionView.showAnimatedGradientSkeleton()
     }
 }

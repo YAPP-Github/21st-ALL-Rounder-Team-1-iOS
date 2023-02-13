@@ -12,7 +12,7 @@ final class OperationInfoCell: UICollectionViewCell {
     static let reuseIdentifier = String(describing: OperationInfoCell.self)
 
     private let contentLabelDefaultHeight: CGFloat = 20
-    private let contentLabelInsetSum: CGFloat = 52
+    private let contentLabelInsetSum: CGFloat = 105
 
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -46,7 +46,7 @@ final class OperationInfoCell: UICollectionViewCell {
     private lazy var seeMoreButton: UIButton = {
         let button = UIButton()
         button.setImage(Asset.Images.iconArrowBottomSmall.image, for: .normal)
-        button.isHidden = true
+        button.isHidden = false
         return button
     }()
 
@@ -66,29 +66,40 @@ final class OperationInfoCell: UICollectionViewCell {
         seeMoreButton.isHidden = true
     }
 
-    func setUpContents(operation: OperationInfo, shouldShowMore: Bool = false) {
+    func setUpContents(operation: OperationInfo, shouldShowMore: Bool = false, screenWidth: CGFloat = 0) {
+        let targetWidth = screenWidth == 0 ?
+        contentView.frame.width - contentLabelInsetSum : screenWidth - contentLabelInsetSum
         imageView.image = operation.image
         contentLabel.setText(text: operation.content, font: .bodySmallOverTwoLine)
 
-        guard contentLabel.isTruncated, !operation.content.isEmpty else { return }
-
-        guard let contentHeight = contentLabel.attributedText?.height(
-            withConstrainedWidth: contentView.frame.width - contentLabelInsetSum
-        ) else { return }
-
-        seeMoreButton.isHidden = contentHeight <= contentLabelDefaultHeight
+        seeMoreButton.isHidden = maximumContentLabelHeight(targetWidth: targetWidth) <= contentLabelDefaultHeight
+        contentLabel.lineBreakMode = .byTruncatingTail
+        contentLabel.lineBreakStrategy = .hangulWordPriority
 
         if shouldShowMore {
             contentLabel.numberOfLines = 0
             seeMoreButton.setImage(Asset.Images.iconArrowTopSmall.image, for: .normal)
-            contentLabel.snp.remakeConstraints {
-                $0.height.equalTo(contentHeight)
-            }
         } else {
             contentLabel.numberOfLines = 1
             seeMoreButton.setImage(Asset.Images.iconArrowBottomSmall.image, for: .normal)
-            contentLabel.lineBreakMode = .byTruncatingTail
         }
+
+        let newSize = contentLabel.sizeThatFits(CGSize(width: targetWidth, height: CGFloat.greatestFiniteMagnitude))
+        let newHeight = newSize.height == 0 ? 20 : newSize.height
+        contentLabel.snp.remakeConstraints {
+            $0.height.equalTo(newHeight).priority(.required)
+        }
+    }
+
+    private func maximumContentLabelHeight(targetWidth: CGFloat) -> CGFloat {
+        let tempContentLabelNumberOfLines = contentLabel.numberOfLines
+
+        contentLabel.numberOfLines = 0
+        let maxSize = contentLabel.sizeThatFits(CGSize(width: targetWidth,
+                                                       height: CGFloat.greatestFiniteMagnitude))
+        let maxHeight = maxSize.height == 0 ? 20 : maxSize.height
+        contentLabel.numberOfLines = tempContentLabelNumberOfLines
+        return maxHeight
     }
 
     private func makeFirstLineBold(operation: OperationInfo) {
@@ -111,6 +122,11 @@ final class OperationInfoCell: UICollectionViewCell {
             $0.top.equalToSuperview().inset(15)
             $0.leading.equalTo(imageView.snp.trailing).offset(16)
             $0.trailing.equalTo(seeMoreButton.snp.leading).offset(-8)
+        }
+
+        contentStackView.addArrangedSubview(contentLabel)
+
+        contentLabel.snp.remakeConstraints {
             $0.height.equalTo(contentLabelDefaultHeight)
         }
 
@@ -123,12 +139,8 @@ final class OperationInfoCell: UICollectionViewCell {
         seeMoreButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(29)
             $0.bottom.equalToSuperview().inset(15)
+            $0.height.width.equalTo(16)
         }
-
-        imageView.setContentHuggingPriority(.required, for: .horizontal)
-        contentLabel.setContentHuggingPriority(.required, for: .vertical)
-        seeMoreButton.setContentCompressionResistancePriority(.required, for: .horizontal)
-        seeMoreButton.setContentHuggingPriority(.required, for: .horizontal)
     }
 
     private func addSeeMoreButtonAction() {

@@ -39,7 +39,7 @@ final class ProductCell: UICollectionViewCell {
 
     func setUpContents(product: Product) {
         brandLabel.setText(text: product.brand, font: .captionLarge)
-        productNameLabel.setText(text: product.brand, font: .titleSmall)
+        productNameLabel.setText(text: product.name, font: .titleSmall)
     }
 
     private func layout() {

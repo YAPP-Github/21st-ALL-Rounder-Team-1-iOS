@@ -289,7 +289,8 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
             )
             dummyCellForCalculateheight.setUpContents(
                 review: viewModel.reviews[indexPath.row],
-                shouldSeeMore: viewModel.reviewSeeMoreIndexPaths.contains(indexPath)
+                shouldSeeMore: viewModel.reviewSeeMoreIndexPaths.contains(indexPath),
+                screenWidth: view.frame.width
             )
             let heightThatFits = dummyCellForCalculateheight
                 .systemLayoutSizeFitting(CGSize(width: width, height: height)).height
@@ -298,19 +299,14 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
             let dummyCellForCalculateheight = OperationInfoCell(
                 frame: CGRect(origin: .zero, size: CGSize(width: width, height: height))
             )
+            let shouldShowMore = viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath)
             dummyCellForCalculateheight.setUpContents(
                 operation: viewModel.operationInfos[indexPath.row],
-                shouldShowMore: viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath)
+                shouldShowMore: shouldShowMore,
+                screenWidth: view.frame.width
             )
-            var heightThatFits = dummyCellForCalculateheight
+            let heightThatFits = dummyCellForCalculateheight
                 .systemLayoutSizeFitting(CGSize(width: width, height: height)).height
-            if viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath),
-               let attrText = dummyCellForCalculateheight.contentLabel.attributedText {
-                let height = attrText.height(
-                    withConstrainedWidth: dummyCellForCalculateheight.contentView.frame.width - 52
-                )
-                heightThatFits += height
-            }
             return CGSize(width: width, height: heightThatFits)
         } else if section == .reviewOverview {
             if viewModel.totalTagVoteCount < 10 {
