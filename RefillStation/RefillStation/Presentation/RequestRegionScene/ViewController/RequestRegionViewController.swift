@@ -106,11 +106,13 @@ final class RequestRegionViewController: UIViewController, ServerAlertable {
 
     override func viewWillAppear(_ animated: Bool) {
         setUpNavigatonBar()
+        tabBarController?.tabBar.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
         viewModel.viewWillDisappear()
+        tabBarController?.tabBar.isHidden = false
     }
 
     // MARK: - Default Setting Methods

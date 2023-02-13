@@ -137,11 +137,13 @@ final class NicknameViewController: UIViewController, ServerAlertable {
 
     override func viewWillAppear(_ animated: Bool) {
         setUpNavigationBar()
+        tabBarController?.tabBar.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
         viewModel.viewWillDisappear()
+        tabBarController?.tabBar.isHidden = false
     }
 
     // MARK: - Methods

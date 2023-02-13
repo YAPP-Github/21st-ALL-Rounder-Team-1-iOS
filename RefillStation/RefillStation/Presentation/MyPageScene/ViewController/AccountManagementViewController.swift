@@ -59,10 +59,12 @@ final class AccountManagementViewController: UIViewController, ServerAlertable {
 
     override func viewWillAppear(_ animated: Bool) {
         setUpNavigationBar()
+        tabBarController?.tabBar.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
+        tabBarController?.tabBar.isHidden = false
     }
 
     private func setUpNavigationBar() {
