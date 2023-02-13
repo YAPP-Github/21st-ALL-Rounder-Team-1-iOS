@@ -66,6 +66,7 @@ final class RequestRegionViewController: UIViewController, ServerAlertable {
         textView.isEditable = true
         textView.textColor = .lightGray
         textView.font = UIFont.font(style: .bodyMedium)
+        textView.textContainerInset = .zero
         textView.clipsToBounds = true
         return textView
     }()
