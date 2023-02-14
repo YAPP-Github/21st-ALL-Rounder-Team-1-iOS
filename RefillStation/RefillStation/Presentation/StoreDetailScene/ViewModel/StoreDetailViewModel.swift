@@ -80,7 +80,9 @@ final class StoreDetailViewModel {
                           content: store.snsAddress),
             OperationInfo(image: Asset.Images.iconLocation.image.withRenderingMode(.alwaysTemplate),
                           content: store.address)
-        ]
+        ].filter {
+            !$0.content.isEmpty
+        }
     }()
     var operationInfoSeeMoreIndexPaths = Set<IndexPath>()
 
