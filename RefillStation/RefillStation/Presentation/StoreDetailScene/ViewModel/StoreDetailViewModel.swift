@@ -218,6 +218,18 @@ final class StoreDetailViewModel {
                 categories.append($0.category)
             }
         }
+        categories.sort {
+            switch ($0, $1) {
+            case (.all, _),
+                (_, _) where $1.title == "기타":
+                return true
+            case (_, .all),
+                (_, _) where $0.title == "기타":
+                return false
+            default:
+                return $0.title < $1.title
+            }
+        }
     }
 
     private func setUpRankedTags() {
