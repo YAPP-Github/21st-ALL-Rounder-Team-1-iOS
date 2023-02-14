@@ -50,7 +50,7 @@ final class MyPageViewModel {
 }
 
 extension MyPageViewModel {
-    func viewWillApeear() {
+    func viewWillAppear() {
         fetchUserInfo()
     }
 
