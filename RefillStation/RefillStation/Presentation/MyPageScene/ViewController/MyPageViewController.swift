@@ -101,7 +101,7 @@ final class MyPageViewController: UIViewController, ServerAlertable {
 
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
-        viewModel.viewWillApeear()
+        viewModel.viewWillAppear()
     }
 
     override func viewWillDisappear(_ animated: Bool) {

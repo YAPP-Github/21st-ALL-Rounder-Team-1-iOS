@@ -80,7 +80,9 @@ final class StoreDetailViewModel {
                           content: store.snsAddress),
             OperationInfo(image: Asset.Images.iconLocation.image.withRenderingMode(.alwaysTemplate),
                           content: store.address)
-        ]
+        ].filter {
+            !$0.content.isEmpty
+        }
     }()
     var operationInfoSeeMoreIndexPaths = Set<IndexPath>()
 
@@ -214,6 +216,18 @@ final class StoreDetailViewModel {
         products.forEach {
             if !categories.contains($0.category) {
                 categories.append($0.category)
+            }
+        }
+        categories.sort {
+            switch ($0, $1) {
+            case (.all, _),
+                (_, _) where $1.title == "기타":
+                return true
+            case (_, .all),
+                (_, _) where $0.title == "기타":
+                return false
+            default:
+                return $0.title < $1.title
             }
         }
     }
