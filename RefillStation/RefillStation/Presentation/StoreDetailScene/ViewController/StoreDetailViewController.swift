@@ -89,7 +89,7 @@ final class StoreDetailViewController: UIViewController, ServerAlertable {
         scrollEdgeAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
         navigationController?.navigationBar.standardAppearance = standardAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = scrollEdgeAppearance
-        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.tintColor = collectionView.contentOffset.y > 0 ? .black : .white
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.title = viewModel.store.name
     }
