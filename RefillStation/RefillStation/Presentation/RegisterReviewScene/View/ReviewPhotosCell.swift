@@ -72,10 +72,12 @@ final class ReviewPhotosCell: UICollectionViewCell {
     }
 
     func addPhotos() {
-        photoImages.forEach { image in
-            let imageView = defaultImageView
-            imageView.image = image
-            orthogonalStackView.addArrangedSubview(imageView)
+        DispatchQueue.main.async {
+            self.photoImages.prefix(3).forEach { image in
+                let imageView = self.defaultImageView
+                imageView.image = image
+                self.orthogonalStackView.addArrangedSubview(imageView)
+            }
         }
     }
 
@@ -125,45 +127,47 @@ final class ReviewPhotosCell: UICollectionViewCell {
 
 extension ReviewPhotosCell: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        let dispatchGroup = DispatchGroup()
         let items = results.map { $0.itemProvider }
-        let lastIndex = items.count - 1
-
-        if items.isEmpty {
-            self.delegate?.dismiss(reviewPhotos: photoImages)
-            return
-        }
-
         removeAllPhotoImages()
-
-        dispatchGroup.enter()
-        for itemIndex in 0...lastIndex {
-            if items[itemIndex].canLoadObject(ofClass: UIImage.self) == false {
-                return
-            }
-
-            items[itemIndex].loadObject(ofClass: UIImage.self) { [weak self] image, error in
-                if let image = image as? UIImage {
-                    self?.photoImages.append(image)
-                }
-                if itemIndex == lastIndex {
-                    dispatchGroup.leave()
+        Task {
+            for item in items {
+                do {
+                    photoImages.append(try await loadPhoto(item: item))
+                } catch {
+                    print(error)
                 }
             }
+            addPhotos()
+            delegate?.dismiss(reviewPhotos: photoImages)
         }
+    }
 
-        dispatchGroup.notify(queue: .main) { [weak self] in
-            self?.addPhotos()
-            self?.delegate?.dismiss(reviewPhotos: self?.photoImages ?? [])
-        }
+    private func loadPhoto(item: NSItemProvider) async throws -> UIImage {
+        return try await withCheckedThrowingContinuation({ continuation in
+            if item.canLoadObject(ofClass: UIImage.self) == false {
+                continuation.resume(throwing: PHPickerError.canNotLoadImage)
+            }
+
+            item.loadObject(ofClass: UIImage.self) { image, error in
+                guard let image = image as? UIImage, error == nil else {
+                    continuation.resume(throwing: PHPickerError.canNotLoadImage)
+                    return
+                }
+                continuation.resume(returning: image)
+            }
+        })
     }
 
     private func removeAllPhotoImages() {
         photoImages.removeAll()
-        while orthogonalStackView.arrangedSubviews.isEmpty == false {
-            if let last = orthogonalStackView.arrangedSubviews.last {
-                orthogonalStackView.removeArrangedSubview(last)
-            }
+        orthogonalStackView.arrangedSubviews.forEach {
+            $0.removeFromSuperview()
         }
+    }
+}
+
+extension ReviewPhotosCell {
+    enum PHPickerError: Error {
+        case canNotLoadImage
     }
 }
