@@ -79,14 +79,18 @@ final class StoreDetailViewController: UIViewController, ServerAlertable {
     }
 
     private func setUpNavigationBar() {
+        let backButtonImage = Asset.Images.iconArrowLeft.image
+            .withAlignmentRectInsets(.init(top: 0, left: -8, bottom: 0, right: 0))
         let standardAppearance = UINavigationBarAppearance()
         standardAppearance.configureWithDefaultBackground()
         standardAppearance.backgroundColor = .white
         standardAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        standardAppearance.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
         let scrollEdgeAppearance = UINavigationBarAppearance()
         scrollEdgeAppearance.configureWithTransparentBackground()
         scrollEdgeAppearance.backgroundColor = .clear
         scrollEdgeAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
+        scrollEdgeAppearance.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
         navigationController?.navigationBar.standardAppearance = standardAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = scrollEdgeAppearance
         navigationController?.navigationBar.tintColor = collectionView.contentOffset.y > 0 ? .black : .white
