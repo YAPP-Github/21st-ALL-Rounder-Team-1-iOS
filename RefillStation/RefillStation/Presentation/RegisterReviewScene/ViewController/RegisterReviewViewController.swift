@@ -76,28 +76,12 @@ final class RegisterReviewViewController: UIViewController, ServerAlertable {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        setUpNavigationBar()
         tabBarController?.tabBar.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
         tabBarController?.tabBar.isHidden = false
-    }
-
-    private func setUpNavigationBar() {
-        let standardAppearance = UINavigationBarAppearance()
-        standardAppearance.configureWithDefaultBackground()
-        standardAppearance.backgroundColor = .white
-        standardAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        let scrollEdgeAppearance = UINavigationBarAppearance()
-        scrollEdgeAppearance.configureWithTransparentBackground()
-        scrollEdgeAppearance.backgroundColor = .clear
-        scrollEdgeAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        navigationController?.navigationBar.standardAppearance = standardAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = scrollEdgeAppearance
-        navigationController?.navigationBar.tintColor = .black
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 
     private func bind() {

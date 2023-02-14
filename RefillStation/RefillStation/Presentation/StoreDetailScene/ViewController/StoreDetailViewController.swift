@@ -79,14 +79,18 @@ final class StoreDetailViewController: UIViewController, ServerAlertable {
     }
 
     private func setUpNavigationBar() {
+        let backButtonImage = Asset.Images.iconArrowLeft.image
+            .withAlignmentRectInsets(.init(top: 0, left: -8, bottom: 0, right: 0))
         let standardAppearance = UINavigationBarAppearance()
         standardAppearance.configureWithDefaultBackground()
         standardAppearance.backgroundColor = .white
         standardAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        standardAppearance.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
         let scrollEdgeAppearance = UINavigationBarAppearance()
         scrollEdgeAppearance.configureWithTransparentBackground()
         scrollEdgeAppearance.backgroundColor = .clear
         scrollEdgeAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
+        scrollEdgeAppearance.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
         navigationController?.navigationBar.standardAppearance = standardAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = scrollEdgeAppearance
         navigationController?.navigationBar.tintColor = collectionView.contentOffset.y > 0 ? .black : .white
@@ -172,7 +176,7 @@ extension StoreDetailViewController {
             }
         case .reviews:
             snapShot.appendSections([.storeDetailInfo, .tabBar, .reviewOverview, .review])
-            snapShot.appendItems([.reviewOverview(viewModel.rankTags)], toSection: .reviewOverview)
+            snapShot.appendItems([.reviewOverview(viewModel.reviews)], toSection: .reviewOverview)
             viewModel.reviews.forEach {
                 snapShot.appendItems([.review($0)], toSection: .review)
             }
@@ -369,13 +373,12 @@ extension StoreDetailViewController {
 
     private func reviewInfoCellRegistration() -> UICollectionView.CellRegistration<ReviewInfoCell, StoreDetailItem> {
         return UICollectionView.CellRegistration<ReviewInfoCell, StoreDetailItem> { cell, indexPath, item in
-            guard case let .reviewOverview(rankTags) = item else { return }
             cell.moveToRegisterReview = { [weak self] in
                 self?.coordinator?.showRegisterReview()
             }
             cell.setUpContents(totalDetailReviewCount: self.viewModel.reviews.count,
                                totalTagReviewCount: self.viewModel.totalTagVoteCount,
-                               rankTags: rankTags)
+                               rankTags: self.viewModel.rankTags)
         }
     }
 

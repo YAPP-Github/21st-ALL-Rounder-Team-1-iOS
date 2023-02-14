@@ -72,14 +72,14 @@ final class DetailPhotoReviewViewController: UIViewController {
 
     private lazy var pageCountLabel: UILabel = {
         let label = UILabel()
-        label.setText(text: "1 / ", font: .buttonSmall)
+        label.setText(text: "1 / ", font: .bodyMedium)
         label.textColor = .white
         return label
     }()
 
     private lazy var maxPageCountLabel: UILabel = {
         let label = UILabel()
-        label.setText(text: "\(viewModel.photoURLs.count)", font: .buttonSmall)
+        label.setText(text: "\(viewModel.photoURLs.count)", font: .bodyMedium)
         label.textColor = Asset.Colors.gray4.color
         return label
     }()
@@ -116,7 +116,7 @@ final class DetailPhotoReviewViewController: UIViewController {
         viewModel.setUpPageLabel = {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                self.pageCountLabel.setText(text: "\(self.viewModel.page + 1) / ", font: .buttonSmall)
+                self.pageCountLabel.setText(text: "\(self.viewModel.page + 1) / ", font: .bodyMedium)
             }
         }
     }
@@ -141,16 +141,18 @@ final class DetailPhotoReviewViewController: UIViewController {
         }
 
         backButton.snp.makeConstraints {
-            $0.leading.top.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.leading.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(9)
             $0.height.width.equalTo(24)
         }
 
         maxPageCountLabel.snp.makeConstraints {
-            $0.trailing.top.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.centerY.equalTo(backButton)
         }
         pageCountLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(16)
             $0.trailing.equalTo(maxPageCountLabel.snp.leading)
+            $0.centerY.equalTo(backButton)
         }
 
         orthogonalScrollView.addSubview(photoStackView)
