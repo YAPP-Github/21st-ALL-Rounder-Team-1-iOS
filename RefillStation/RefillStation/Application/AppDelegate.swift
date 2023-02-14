@@ -53,16 +53,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
 
-    private func didLoginSuccessed() -> Bool {
-        return KeychainManager.shared.getItem(key: "token") != nil
-    }
-
     func application(_ app: UIApplication,
                      open url: URL,
                      options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-     if AuthApi.isKakaoTalkLoginUrl(url) {
-       return AuthController.handleOpenUrl(url: url)
-     }
-    return false
+        if AuthApi.isKakaoTalkLoginUrl(url) {
+            return AuthController.handleOpenUrl(url: url)
+        }
+        return false
+    }
+
+    private func didLoginSuccessed() -> Bool {
+        return KeychainManager.shared.getItem(key: "token") != nil
     }
 }
