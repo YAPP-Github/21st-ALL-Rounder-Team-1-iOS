@@ -14,7 +14,7 @@ final class ReviewPhotosCell: UICollectionViewCell {
     static let reuseIdentifier = String(describing: ReviewPhotosCell.self)
     weak var delegate: ReviewPhotoDelegate?
     private let outerScrollView = UIScrollView()
-    var isReviewImageLoading = false
+    private var isReviewImageLoading = false
 
     private let dividerView: UIView = {
         let view = UIView()
