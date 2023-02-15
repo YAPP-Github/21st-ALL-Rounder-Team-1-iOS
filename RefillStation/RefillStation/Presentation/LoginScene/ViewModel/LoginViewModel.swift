@@ -64,6 +64,15 @@ extension LoginViewModel {
                     self.requestLogin(oauthType: .kakao, requestValue: accessToken)
                 }
             }
+        } else {
+            UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+                if let error = error {
+                    print(error)
+                } else {
+                    guard let accessToken = oauthToken?.accessToken else { return }
+                    self.requestLogin(oauthType: .kakao, requestValue: accessToken)
+                }
+            }
         }
     }
 
