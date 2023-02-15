@@ -14,6 +14,7 @@ final class ReviewPhotosCell: UICollectionViewCell {
     static let reuseIdentifier = String(describing: ReviewPhotosCell.self)
     weak var delegate: ReviewPhotoDelegate?
     private let outerScrollView = UIScrollView()
+    private var isReviewImageLoading = false
 
     private let dividerView: UIView = {
         let view = UIView()
@@ -127,6 +128,8 @@ final class ReviewPhotosCell: UICollectionViewCell {
 
 extension ReviewPhotosCell: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        guard !isReviewImageLoading else { return }
+        isReviewImageLoading = true
         let items = results.map { $0.itemProvider }
         removeAllPhotoImages()
         Task {
@@ -139,6 +142,7 @@ extension ReviewPhotosCell: PHPickerViewControllerDelegate {
             }
             addPhotos()
             delegate?.dismiss(reviewPhotos: photoImages)
+            isReviewImageLoading = false
         }
     }
 
