@@ -14,8 +14,6 @@ final class LoginViewModel {
     private let OAuthLoginUseCase: OAuthLoginUseCaseInterface
 
     var signUpRequestValue: SignUpRequestValue?
-    private var appleUserName: String?
-    private var appleUserEmail: String?
     var isSignUp: (() -> Void)?
     var isSignIn: (() -> Void)?
     var showErrorAlert: ((String?, String?) -> Void)?
@@ -31,11 +29,9 @@ final class LoginViewModel {
                     loginType: oauthType,
                     requestValue: OAuthLoginRequestValue(accessToken: requestValue)
                 )
-                let name = oauthType == .apple ? appleUserName : result.name
-                let email = oauthType == .apple ? appleUserEmail : result.email
                 self.signUpRequestValue = SignUpRequestValue(
-                    name: name,
-                    email: email,
+                    name: result.name,
+                    email: result.email,
                     imagePath: result.imgPath,
                     oauthType: result.oauthType,
                     oauthIdentity: result.oauthIdentity
@@ -79,11 +75,6 @@ extension LoginViewModel {
     func onAppleLoginByAppTouched(appleIDCredential: ASAuthorizationAppleIDCredential) {
         guard let identityToken = appleIDCredential.identityToken,
               let token = String(data: identityToken, encoding: .utf8) else { return }
-        appleUserEmail = appleIDCredential.email
-        if let familyName = appleIDCredential.fullName?.familyName,
-           let givenName = appleIDCredential.fullName?.givenName {
-            appleUserName = familyName + givenName
-        }
         self.requestLogin(oauthType: .apple, requestValue: token)
     }
 
