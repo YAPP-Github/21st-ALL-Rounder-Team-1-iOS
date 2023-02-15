@@ -16,7 +16,7 @@ final class LoginViewController: UIViewController, ServerAlertable {
     private let authorizationController: ASAuthorizationController = {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.fullName, .email]
+        request.requestedScopes = []
         return ASAuthorizationController(authorizationRequests: [request])
     }()
 
