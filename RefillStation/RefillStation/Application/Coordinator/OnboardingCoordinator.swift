@@ -40,7 +40,7 @@ final class OnboardingCoordinator: Coordinator {
         if viewType == .onboarding {
             window?.rootViewController = loginViewController
         } else {
-            loginViewController.modalPresentationStyle = .overFullScreen
+            loginViewController.modalPresentationStyle = .fullScreen
             window?.rootViewController?.present(loginViewController, animated: true)
         }
     }
@@ -73,7 +73,10 @@ final class OnboardingCoordinator: Coordinator {
     func agreeAndStartButtonTapped() {
         if UserDefaults.standard.bool(forKey: "isLookAroundUser")
             && UserDefaults.standard.bool(forKey: "lookAroundUserSignedUp") {
-            navigationController.dismiss(animated: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                let topVC = UIApplication.topViewController()
+                topVC?.dismiss(animated: true)
+            }
             UserDefaults.standard.set(false, forKey: "isLookAroundUser")
         } else {
             let tabBarDIContainer = DIContainer.makeTabBarDIContainer()
