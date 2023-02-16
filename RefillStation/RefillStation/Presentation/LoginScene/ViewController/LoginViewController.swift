@@ -128,19 +128,21 @@ final class LoginViewController: UIViewController, ServerAlertable {
     }
 
     private func bind() {
-        viewModel.isSignUp = {
-            if let requestValue = self.viewModel.signUpRequestValue {
-                DispatchQueue.main.async { [weak self] in
+        viewModel.isSignUp = { [weak self] in
+            if let requestValue = self?.viewModel.signUpRequestValue {
+                DispatchQueue.main.async {
                     self?.coordinator?.showTermsPermission(requestValue: requestValue)
                 }
             }
         }
-        viewModel.isSignIn = {
-            DispatchQueue.main.async { [weak self] in
+        viewModel.isSignIn = { [weak self] in
+            DispatchQueue.main.async {
                 self?.coordinator?.agreeAndStartButtonTapped()
             }
         }
-        viewModel.showErrorAlert = showServerErrorAlert
+        viewModel.showErrorAlert = { [weak self] (title, message) in
+            self?.showServerErrorAlert(title: title, message: message)
+        }
     }
 
     private func setUpAppleAuthorization() {
@@ -149,16 +151,16 @@ final class LoginViewController: UIViewController, ServerAlertable {
     }
 
     private func addLoginButtonActions() {
-        kakaoLoginButton.addAction(UIAction { _ in
-            self.viewModel.onKakaoLoginByAppTouched()
+        kakaoLoginButton.addAction(UIAction { [weak self] _ in
+            self?.viewModel.onKakaoLoginByAppTouched()
         }, for: .touchUpInside)
 
-        naverLoginButton.addAction(UIAction { _ in
-            self.viewModel.onNaverLoginByAppTouched()
+        naverLoginButton.addAction(UIAction { [weak self] _ in
+            self?.viewModel.onNaverLoginByAppTouched()
         }, for: .touchUpInside)
 
-        appleLoginButton.addAction(UIAction { _ in
-            self.authorizationController.performRequests()
+        appleLoginButton.addAction(UIAction { [weak self] _ in
+            self?.authorizationController.performRequests()
         }, for: .touchUpInside)
     }
 }
