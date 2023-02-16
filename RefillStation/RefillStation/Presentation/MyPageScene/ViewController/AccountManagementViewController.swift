@@ -79,7 +79,7 @@ final class AccountManagementViewController: UIViewController, ServerAlertable {
                 self?.coordinator?.showLogin()
             }
         }
-        viewModel.showErrorAlert = { [weak self] (title, message)in
+        viewModel.showErrorAlert = { [weak self] (title, message) in
             self?.showServerErrorAlert(title: title, message: message)
         }
     }
