@@ -67,6 +67,28 @@ final class MyPageViewController: UIViewController, ServerAlertable {
         return userInfoView
     }()
 
+    private lazy var lookAroundUserMaskView: UIView = {
+        let maskView = UIView()
+        maskView.backgroundColor = .white
+        let maskButton = UIButton()
+        maskButton.setTitle("로그인 & 가입하기", for: .normal)
+        maskButton.semanticContentAttribute = .forceRightToLeft
+        maskButton.backgroundColor = .white
+        maskButton.setTitleColor(Asset.Colors.gray7.color, for: .normal)
+        maskButton.titleLabel?.font = .font(style: .titleMedium)
+        maskButton.setImage(Asset.Images.iconArrowRightSmall.image.withRenderingMode(.alwaysTemplate), for: .normal)
+        maskButton.tintColor = Asset.Colors.gray5.color
+        maskView.addSubview(maskButton)
+        maskButton.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(16)
+            $0.centerY.equalToSuperview()
+        }
+        maskButton.addAction(UIAction{ [weak self] _ in
+            self?.coordinator?.showLogin()
+        }, for: .touchUpInside)
+        return maskView
+    }()
+
     private lazy var changeProfileCell = listCell(title: "프로필 수정")
     private lazy var manageAccountCell = listCell(title: "계정 관리")
     private lazy var termsAndConditionsCell = listCell(title: TermsType.serviceTerms.title)
@@ -101,6 +123,7 @@ final class MyPageViewController: UIViewController, ServerAlertable {
 
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
+        lookAroundUserMaskView.isHidden = !UserDefaults.standard.bool(forKey: "isLookAroundUser")
         viewModel.viewWillAppear()
     }
 
@@ -132,7 +155,7 @@ final class MyPageViewController: UIViewController, ServerAlertable {
     }
 
     private func layout() {
-        [largeTitleBar, userInfoView, listStackView].forEach { view.addSubview($0) }
+        [largeTitleBar, userInfoView, listStackView, lookAroundUserMaskView].forEach { view.addSubview($0) }
         largeTitleBar.snp.makeConstraints {
             $0.leading.top.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(58)
@@ -140,6 +163,11 @@ final class MyPageViewController: UIViewController, ServerAlertable {
         userInfoView.snp.makeConstraints {
             $0.top.equalTo(largeTitleBar.snp.bottom)
             $0.leading.trailing.equalToSuperview()
+        }
+
+        lookAroundUserMaskView.snp.makeConstraints {
+            $0.leading.equalTo(profileImageView.snp.trailing).offset(16)
+            $0.top.bottom.trailing.equalTo(userInfoView)
         }
 
         listStackView.snp.makeConstraints {
