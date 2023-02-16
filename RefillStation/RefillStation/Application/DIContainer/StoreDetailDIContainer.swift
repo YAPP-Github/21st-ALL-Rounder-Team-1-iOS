@@ -27,11 +27,6 @@ final class StoreDetailDIContainer: DIContainer {
         )
     }
 
-    // MARK: - Onboarding
-    func makeOnboardingDIContainer() -> OnboardingDIContainer {
-        return OnboardingDIContainer()
-    }
-
     // MARK: - Coordinator
     func makeStoreDetailCoordinator() -> StoreDetailCoordinator {
         return StoreDetailCoordinator(DIContainer: self,

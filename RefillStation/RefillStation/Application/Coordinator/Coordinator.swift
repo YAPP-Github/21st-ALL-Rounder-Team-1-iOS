@@ -13,3 +13,11 @@ protocol Coordinator: AnyObject {
 
     func start()
 }
+
+extension Coordinator {
+    func showLookAroundLogin() {
+        let onboardingDIContainer = OnboardingDIContainer()
+        let onboardingCoordinator = onboardingDIContainer.makeOnboardingCoordinator()
+        onboardingCoordinator.showLogin(viewType: .lookAround)
+    }
+}

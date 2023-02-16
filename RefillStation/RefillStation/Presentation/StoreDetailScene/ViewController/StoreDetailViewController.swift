@@ -157,7 +157,7 @@ final class StoreDetailViewController: UIViewController, ServerAlertable {
             }
         case .like:
             if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
-                coordinator?.showLogin()
+                coordinator?.showLookAroundLogin()
             } else {
                 viewModel.storeLikeButtonTapped()
             }
@@ -393,7 +393,7 @@ extension StoreDetailViewController {
                 guard let self = self else { return }
             cell.moveToRegisterReview = { [weak self] in
                 if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
-                    self?.coordinator?.showLogin()
+                    self?.coordinator?.showLookAroundLogin()
                 } else {
                     self?.coordinator?.showRegisterReview()
                 }

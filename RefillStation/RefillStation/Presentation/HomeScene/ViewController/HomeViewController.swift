@@ -188,7 +188,11 @@ extension HomeViewController: UICollectionViewDataSource {
             }
 
             cell.moveToRegionRequest = { [weak self] in
-                self?.coordiantor?.showRequestRegion()
+                if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
+                    self?.coordiantor?.showLookAroundLogin()
+                } else {
+                    self?.coordiantor?.showRequestRegion()
+                }
             }
             return cell
         } else {

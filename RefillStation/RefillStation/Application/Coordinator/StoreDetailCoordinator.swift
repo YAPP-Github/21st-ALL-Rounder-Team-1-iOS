@@ -37,10 +37,4 @@ final class StoreDetailCoordinator: Coordinator {
     func popPhotoDetail() {
         navigationController.popViewController(animated: true)
     }
-
-    func showLogin() {
-        let onboardingDIContainer = DIContainer.makeOnboardingDIContainer()
-        let onboardingCoordinator = onboardingDIContainer.makeOnboardingCoordinator()
-        onboardingCoordinator.showLogin(viewType: .lookAround)
-    }
 }
