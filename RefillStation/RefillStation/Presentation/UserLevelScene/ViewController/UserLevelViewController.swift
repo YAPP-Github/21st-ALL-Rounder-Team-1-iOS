@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 
 final class UserLevelViewController: UIViewController, ServerAlertable {
+
+    var coordinator: MyPageCoordinator?
     private let viewModel: UserLevelViewModel
 
     private let levelCollectionView: UICollectionView = {
