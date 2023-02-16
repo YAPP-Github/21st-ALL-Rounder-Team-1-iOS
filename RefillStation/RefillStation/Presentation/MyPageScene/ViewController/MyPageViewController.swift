@@ -83,8 +83,8 @@ final class MyPageViewController: UIViewController, ServerAlertable {
             $0.leading.equalToSuperview().inset(16)
             $0.centerY.equalToSuperview()
         }
-        maskButton.addAction(UIAction{ [weak self] _ in
-            self?.coordinator?.showLogin()
+        maskButton.addAction(UIAction { [weak self] _ in
+            self?.coordinator?.showLogin(viewType: .lookAround)
         }, for: .touchUpInside)
         return maskView
     }()
