@@ -15,7 +15,6 @@ final class HomeViewController: UIViewController, ServerAlertable {
     // MARK: - Properties
     var coordiantor: HomeCoordinator?
     private let viewModel: HomeViewModel
-    private var updateCurrentAddressText: (() -> Void)?
     private var locationManager = CLLocationManager()
 
     private lazy var locationPopUpViewController: PumpPopUpViewController = {
@@ -110,30 +109,31 @@ final class HomeViewController: UIViewController, ServerAlertable {
     // MARK: - Default Setting Methods
 
     private func bind() {
-        viewModel.setUpContents = {
-            DispatchQueue.main.async { [weak self] in
+        viewModel.setUpContents = { [weak self] in
+            DispatchQueue.main.async {
                 self?.storeCollectionView.reloadData()
-                self?.updateCurrentAddressText?()
                 self?.storeCollectionView.hideSkeleton()
             }
         }
-        viewModel.presentToLocationPopUp = {
-            DispatchQueue.main.async { [weak self] in
+        viewModel.presentLocationPopUp = { [weak self] in
+            DispatchQueue.main.async {
                 guard let self = self else { return }
                 if self.presentedViewController == nil {
                     self.present(self.locationPopUpViewController, animated: true)
                 }
             }
         }
-        viewModel.dismissLocationPopUp = {
-            DispatchQueue.main.async { [weak self] in
+        viewModel.dismissLocationPopUp = { [weak self] in
+            DispatchQueue.main.async {
                 guard let self = self else { return }
                 if self.presentedViewController == self.locationPopUpViewController {
                     self.dismiss(animated: true)
                 }
             }
         }
-        viewModel.showErrorAlert = showServerErrorAlert
+        viewModel.showErrorAlert = { [weak self] (title, message) in
+            self?.showServerErrorAlert(title: title, message: message)
+        }
     }
 
     private func layout() {
@@ -224,9 +224,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
             ofKind: kind,
             withReuseIdentifier: RegionRequestHeaderView.reuseIdentifier,
             for: indexPath) as? RegionRequestHeaderView else { return UICollectionReusableView() }
-        updateCurrentAddressText = {
-            header.setUpView(address: self.viewModel.currentAddress)
-        }
+        header.setUpView(address: self.viewModel.currentAddress)
         return header
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

@@ -29,8 +29,8 @@ final class RegisterReviewViewController: UIViewController, ServerAlertable {
         let button = CTAButton(style: .basic)
         button.setTitle("등록하기", for: .normal)
         button.isEnabled = false
-        button.addAction(UIAction { _ in
-            self.viewModel.registerButtonTapped()
+        button.addAction(UIAction { [weak self] _ in
+            self?.viewModel.registerButtonTapped()
             button.isEnabled = false
         }, for: .touchUpInside)
         return button
@@ -85,13 +85,15 @@ final class RegisterReviewViewController: UIViewController, ServerAlertable {
     }
 
     private func bind() {
-        viewModel.reviewCountFetchCompleted = {
-            DispatchQueue.main.async { [weak self] in
+        viewModel.reviewCountFetchCompleted = { [weak self] in
+            DispatchQueue.main.async {
                 guard let self = self else { return }
                 self.coordinator?.registerReviewSucceded(userLevel: self.viewModel.levelUppedLevel)
             }
         }
-        viewModel.showErrorAlert = showServerErrorAlert
+        viewModel.showErrorAlert = { [weak self] (title, message) in
+            self?.showServerErrorAlert(title: title, message: message)
+        }
     }
 
     private func setUpCollectionView() {
@@ -230,7 +232,8 @@ extension RegisterReviewViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: ReviewDescriptionCell.reuseIdentifier,
                 for: indexPath) as? ReviewDescriptionCell else { return UICollectionViewCell() }
-            cell.didChangeText = { text in
+            cell.didChangeText = { [weak self] text in
+                guard let self = self else { return }
                 self.viewModel.reviewContents = text
                 self.registerButton.isEnabled = self.viewModel.setUpRegisterButtonState()
             }

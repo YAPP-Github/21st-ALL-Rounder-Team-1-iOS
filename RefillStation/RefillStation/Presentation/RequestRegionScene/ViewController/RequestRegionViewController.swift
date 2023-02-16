@@ -117,12 +117,14 @@ final class RequestRegionViewController: UIViewController, ServerAlertable {
 
     // MARK: - Default Setting Methods
     private func bind() {
-        viewModel.requestCompleted = {
-            DispatchQueue.main.async { [weak self] in
+        viewModel.requestCompleted = { [weak self] in
+            DispatchQueue.main.async {
                 self?.coordinator?.popRequestRegion()
             }
         }
-        viewModel.showErrorAlert = showServerErrorAlert
+        viewModel.showErrorAlert = { [weak self] (title, message) in
+            self?.showServerErrorAlert(title: title, message: message)
+        }
     }
 
     private func layout() {

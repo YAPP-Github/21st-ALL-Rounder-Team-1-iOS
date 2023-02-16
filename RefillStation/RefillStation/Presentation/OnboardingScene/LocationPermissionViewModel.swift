@@ -13,7 +13,7 @@ final class LocationPermissionViewModel {
     var isSignUpCompleted: (() -> Void)?
     var showErrorAlert: ((String?, String?) -> Void)?
 
-    init(signUpUseCase: SignUpUseCaseInterface,
+    init(signUpUseCase: SignUpUseCaseInterface = SignUpUseCase(),
          requestValue: SignUpRequestValue) {
         self.signUpUseCase = signUpUseCase
         self.requestValue = requestValue

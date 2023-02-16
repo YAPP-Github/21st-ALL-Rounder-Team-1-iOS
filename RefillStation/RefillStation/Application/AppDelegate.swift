@@ -13,10 +13,10 @@ import KakaoSDKAuth
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    var onboardingDIContainer: OnboardingDIContainer?
-    var onboardingCoordinator: OnboardingCoordinator?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        var onboardingDIContainer: OnboardingDIContainer?
+        var onboardingCoordinator: OnboardingCoordinator?
         guard let kakaoNativeAppKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_NATIVE_APP_KEY")
                 as? String else { return false }
         KakaoSDK.initSDK(appKey: kakaoNativeAppKey)

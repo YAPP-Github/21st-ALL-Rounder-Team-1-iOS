@@ -11,21 +11,21 @@ import KakaoSDKAuth
 import AuthenticationServices
 
 final class LoginViewModel {
-    private let OAuthLoginUseCase: OAuthLoginUseCaseInterface
+    private let oauthLoginUseCase: OAuthLoginUseCaseInterface
 
     var signUpRequestValue: SignUpRequestValue?
     var isSignUp: (() -> Void)?
     var isSignIn: (() -> Void)?
     var showErrorAlert: ((String?, String?) -> Void)?
 
-    init(OAuthLoginUseCase: OAuthLoginUseCaseInterface) {
-        self.OAuthLoginUseCase = OAuthLoginUseCase
+    init(OAuthLoginUseCase: OAuthLoginUseCaseInterface = OAuthLoginUseCase()) {
+        self.oauthLoginUseCase = OAuthLoginUseCase
     }
 
     private func requestLogin(oauthType: OAuthType, requestValue: String) {
         Task {
             do {
-                let result = try await OAuthLoginUseCase.execute(
+                let result = try await oauthLoginUseCase.execute(
                     loginType: oauthType,
                     requestValue: OAuthLoginRequestValue(accessToken: requestValue)
                 )

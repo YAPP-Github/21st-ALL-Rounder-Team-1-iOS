@@ -9,7 +9,6 @@ import UIKit
 
 final class RegisterReviewDIContainer: DIContainer {
     private let navigationController: UINavigationController
-    private let networkService = NetworkService.shared
     private let storeId: Int
     private let storeName: String
     private let storeLocationInfo: String

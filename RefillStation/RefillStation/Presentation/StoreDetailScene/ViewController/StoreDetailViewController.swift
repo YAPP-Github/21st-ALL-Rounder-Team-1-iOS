@@ -10,7 +10,7 @@ import UIKit
 final class StoreDetailViewController: UIViewController, ServerAlertable {
 
     var coordinator: StoreDetailCoordinator?
-    private var viewModel: StoreDetailViewModel!
+    private let viewModel: StoreDetailViewModel
     private lazy var storeDetailDataSource = diffableDataSource()
 
     private lazy var collectionView: UICollectionView = {
@@ -30,8 +30,8 @@ final class StoreDetailViewController: UIViewController, ServerAlertable {
         button.layer.shadowOpacity = 0.06
         button.layer.shadowOffset = CGSize(width: 1, height: 1)
         button.setImage(Asset.Images.iconArrowTopSmall.image, for: .normal)
-        button.addAction(UIAction { _ in
-            self.collectionView.setContentOffset(.zero, animated: true)
+        button.addAction(UIAction { [weak self] _ in
+            self?.collectionView.setContentOffset(.zero, animated: true)
         }, for: .touchUpInside)
         button.isHidden = true
         return button
@@ -44,7 +44,7 @@ final class StoreDetailViewController: UIViewController, ServerAlertable {
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
@@ -70,12 +70,14 @@ final class StoreDetailViewController: UIViewController, ServerAlertable {
     }
 
     private func bind() {
-        viewModel.applyDataSource = {
-            DispatchQueue.main.async { [weak self] in
+        viewModel.applyDataSource = { [weak self] in
+            DispatchQueue.main.async {
                 self?.applyDataSource()
             }
         }
-        viewModel.showErrorAlert = showServerErrorAlert
+        viewModel.showErrorAlert = { [weak self] (title, message) in
+            self?.showServerErrorAlert(title: title, message: message)
+        }
     }
 
     private func setUpNavigationBar() {
@@ -204,7 +206,8 @@ extension StoreDetailViewController {
         let operationNoticeCellRegistration = operationNoticeCellRegistration()
         let operationInfoCellRegistration = operationInfoCellRegistration()
         return UICollectionViewDiffableDataSource<StoreDetailSection, StoreDetailItem>(
-            collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
+            collectionView: collectionView) { [weak self] (collectionView, indexPath, itemIdentifier) in
+                guard let self = self else { return UICollectionViewCell() }
                 let storeDetailSection = self.storeSection(mode: self.viewModel.mode, sectionIndex: indexPath.section)
                 switch storeDetailSection {
                 case .storeDetailInfo:
@@ -240,13 +243,13 @@ extension StoreDetailViewController {
 
     private func updateProductList(category: ProductCategory?) {
         guard let category = category else { return }
-        self.viewModel.categoryButtonDidTapped(category: category)
-        var currentSnapshot = self.storeDetailDataSource.snapshot()
+        viewModel.categoryButtonDidTapped(category: category)
+        var currentSnapshot = storeDetailDataSource.snapshot()
         currentSnapshot.deleteItems(currentSnapshot.itemIdentifiers(inSection: .productList))
-        self.viewModel.filteredProducts.forEach {
+        viewModel.filteredProducts.forEach {
             currentSnapshot.appendItems([.productList($0)])
         }
-        self.storeDetailDataSource.apply(currentSnapshot)
+        storeDetailDataSource.apply(currentSnapshot)
     }
 
     private func updateFilteredProductCountCell() {
@@ -327,15 +330,21 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - Cell Registration
 extension StoreDetailViewController {
     private func storeDetailInfoCellRegisration() -> UICollectionView.CellRegistration<StoreDetailInfoViewCell, StoreDetailItem> {
-        return UICollectionView.CellRegistration<StoreDetailInfoViewCell, StoreDetailItem> { cell, indexPath, item in
+        return UICollectionView
+            .CellRegistration<StoreDetailInfoViewCell, StoreDetailItem> { [weak self] (cell, indexPath, item) in
             guard case let .storeDetailInfo(store) = item else { return }
             cell.setUpContents(store: store)
-            cell.storeButtonTapped = { self.storeDetailButtonTapped(buttonType: $0) }
+            cell.storeButtonTapped = { [weak self] in
+                guard let self = self else { return }
+                self.storeDetailButtonTapped(buttonType: $0)
+            }
         }
     }
 
     private func tabBarCellRegistration() -> UICollectionView.CellRegistration<StoreDetailTabBarCell, StoreDetailItem> {
-        return UICollectionView.CellRegistration<StoreDetailTabBarCell, StoreDetailItem> { cell, indexPath, item in
+        return UICollectionView
+            .CellRegistration<StoreDetailTabBarCell, StoreDetailItem> { [weak self] (cell, indexPath, item) in
+                guard let self = self else { return }
             cell.headerTapped = { [weak self] mode in
                 if self?.viewModel.mode != mode {
                     self?.viewModel.mode = mode
@@ -347,10 +356,13 @@ extension StoreDetailViewController {
     }
 
     private func productCategoriesCellRegistration() -> UICollectionView.CellRegistration<ProductCategoriesCell, StoreDetailItem> {
-        return UICollectionView.CellRegistration<ProductCategoriesCell, StoreDetailItem> { cell, indexPath, item in
+        return UICollectionView
+            .CellRegistration<ProductCategoriesCell, StoreDetailItem> { [weak self] (cell, indexPath, item) in
+                guard let self = self else { return }
             cell.setUpContents(info: .init(categories: self.viewModel.categories,
                                            currentFilter: self.viewModel.currentCategoryFilter))
-            cell.categoryButtonTapped = {
+            cell.categoryButtonTapped = { [weak self] in
+                guard let self = self else { return }
                 self.updateProductList(category: $0)
                 self.updateFilteredProductCountCell()
             }
@@ -372,7 +384,9 @@ extension StoreDetailViewController {
     }
 
     private func reviewInfoCellRegistration() -> UICollectionView.CellRegistration<ReviewInfoCell, StoreDetailItem> {
-        return UICollectionView.CellRegistration<ReviewInfoCell, StoreDetailItem> { cell, indexPath, item in
+        return UICollectionView
+            .CellRegistration<ReviewInfoCell, StoreDetailItem> { [weak self] (cell, indexPath, item) in
+                guard let self = self else { return }
             cell.moveToRegisterReview = { [weak self] in
                 self?.coordinator?.showRegisterReview()
             }
@@ -383,14 +397,16 @@ extension StoreDetailViewController {
     }
 
     private func detailReviewCellRegistration() -> UICollectionView.CellRegistration<DetailReviewCell, StoreDetailItem> {
-        return UICollectionView.CellRegistration<DetailReviewCell, StoreDetailItem> { cell, indexPath, item in
-            guard case let .review(review) = item else { return }
+        return UICollectionView
+            .CellRegistration<DetailReviewCell, StoreDetailItem> { [weak self] (cell, indexPath, item) in
+                guard case let .review(review) = item, let self = self else { return }
             let shouldSeeMore = self.viewModel.reviewSeeMoreIndexPaths.contains(indexPath)
             cell.setUpContents(review: review, shouldSeeMore: shouldSeeMore)
             cell.photoImageTapped = { [weak self] in
                 self?.coordinator?.showDetailPhotoReview(photoURLs: review.imageURL)
             }
-            cell.seeMoreTapped = {
+            cell.seeMoreTapped = { [weak self] in
+                guard let self = self else { return }
                 self.viewModel.reviewSeeMoreTapped(indexPath: indexPath)
                 self.reloadCellAt(indexPath: indexPath)
             }
@@ -402,7 +418,7 @@ extension StoreDetailViewController {
                         title: "해당 댓글이 신고처리 되었습니다.",
                         description: "검토 후 빠른 시일 내에 반영하겠습니다."
                     )
-                    reportCompletePopUp.addAction(title: "확인", style: .basic) {
+                    reportCompletePopUp.addAction(title: "확인", style: .basic) { [weak self] in
                         self?.dismiss(animated: true)
                     }
                     self?.present(reportCompletePopUp, animated: false)
@@ -418,11 +434,13 @@ extension StoreDetailViewController {
     }
 
     private func operationInfoCellRegistration() -> UICollectionView.CellRegistration<OperationInfoCell, StoreDetailItem> {
-        return UICollectionView.CellRegistration<OperationInfoCell, StoreDetailItem> { cell, indexPath, item in
-            guard case let .operationInfo(operationInfo) = item else { return }
+        return UICollectionView
+            .CellRegistration<OperationInfoCell, StoreDetailItem> { [weak self] (cell, indexPath, item) in
+            guard case let .operationInfo(operationInfo) = item, let self = self else { return }
             let shouldShowMore = self.viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath)
             cell.setUpContents(operation: operationInfo, shouldShowMore: shouldShowMore)
-            cell.seeMoreTapped = {
+            cell.seeMoreTapped = { [weak self] in
+                guard let self = self else { return }
                 self.viewModel.operationInfoSeeMoreTapped(indexPath: indexPath)
                 self.reloadCellAt(indexPath: indexPath)
             }

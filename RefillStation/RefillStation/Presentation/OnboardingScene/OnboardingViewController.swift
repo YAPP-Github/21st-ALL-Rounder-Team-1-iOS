@@ -33,7 +33,8 @@ final class OnboardingViewController: UIViewController {
         pageControl.numberOfPages = viewModel.onboardingCardImages.count
         pageControl.pageIndicatorTintColor = Asset.Colors.gray2.color
         pageControl.currentPageIndicatorTintColor = Asset.Colors.primary10.color
-        pageControl.addAction(UIAction { _ in
+        pageControl.addAction(UIAction { [weak self ] _ in
+            guard let self = self else { return }
             self.onboardingCollectionView.setContentOffset(CGPoint(
                 x: CGFloat(pageControl.currentPage) *  CGFloat(self.onboardingCollectionView.frame.width),
                 y: self.onboardingCollectionView.contentOffset.y
@@ -45,8 +46,8 @@ final class OnboardingViewController: UIViewController {
     private lazy var startButton: CTAButton = {
         let button = CTAButton(style: .basic)
         button.setTitle("시작하기", for: .normal)
-        button.addAction(UIAction { _ in
-            self.coordinator?.showLogin()
+        button.addAction(UIAction { [weak self] _ in
+            self?.coordinator?.showLogin()
         }, for: .touchUpInside)
         return button
     }()

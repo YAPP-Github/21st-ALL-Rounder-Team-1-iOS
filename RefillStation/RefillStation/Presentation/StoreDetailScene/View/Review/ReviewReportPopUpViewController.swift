@@ -44,13 +44,13 @@ final class ReviewReportPopUpViewController: PumpPopUpViewController {
     }
 
     private func addActions() {
-        addAction(title: "취소", style: .cancel) {
-            self.dismiss(animated: true)
+        addAction(title: "취소", style: .cancel) { [weak self] in
+            self?.dismiss(animated: true)
         }
-        addAction(title: "신고하기", style: .basic) {
-            self.viewModel.reportButtonTapped {
-                self.dismiss(animated: true) {
-                    self.dismissCompletion()
+        addAction(title: "신고하기", style: .basic) { [weak self] in
+            self?.viewModel.reportButtonTapped {
+                self?.dismiss(animated: true) {
+                    self?.dismissCompletion()
                 }
             }
         }

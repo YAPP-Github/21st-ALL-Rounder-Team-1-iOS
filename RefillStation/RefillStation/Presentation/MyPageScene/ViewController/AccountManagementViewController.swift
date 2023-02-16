@@ -24,8 +24,8 @@ final class AccountManagementViewController: UIViewController, ServerAlertable {
     private lazy var signOutButton: UIButton = {
         let button = UIButton()
         button.setTitle("로그아웃", for: .normal)
-        button.addAction(UIAction(handler: { _ in
-            self.addSignOutAction()
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.addSignOutAction()
         }), for: .touchUpInside)
         return button
     }()
@@ -33,8 +33,8 @@ final class AccountManagementViewController: UIViewController, ServerAlertable {
     private lazy var withdrawButton: UIButton = {
         let button = UIButton()
         button.setTitle("회원 탈퇴", for: .normal)
-        button.addAction(UIAction(handler: { _ in
-            self.addWithdrawAction()
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.addWithdrawAction()
         }), for: .touchUpInside)
         return button
     }()
@@ -74,12 +74,14 @@ final class AccountManagementViewController: UIViewController, ServerAlertable {
     }
 
     private func bind() {
-        viewModel.presentToLogin = {
-            DispatchQueue.main.async { [weak self] in
+        viewModel.presentToLogin = { [weak self] in
+            DispatchQueue.main.async {
                 self?.coordinator?.showLogin()
             }
         }
-        viewModel.showErrorAlert = showServerErrorAlert
+        viewModel.showErrorAlert = { [weak self] (title, message) in
+            self?.showServerErrorAlert(title: title, message: message)
+        }
     }
 
     private func layout() {

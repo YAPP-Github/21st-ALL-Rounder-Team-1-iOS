@@ -104,11 +104,12 @@ final class NicknameViewController: UIViewController, ServerAlertable {
     }()
     private lazy var confirmButton: CTAButton = {
         let button = CTAButton(style: .basic)
-        button.addAction(UIAction(handler: { _ in
+        button.addAction(UIAction { [weak self] _ in
+            guard let self = self else { return }
             self.viewModel.confirmButtonDidTapped(nickname: self.nicknameTextField.text,
                                                   profileImage: self.profileImage)
             button.isEnabled = false
-        }), for: .touchUpInside)
+        }, for: .touchUpInside)
         return button
     }()
 
@@ -149,17 +150,19 @@ final class NicknameViewController: UIViewController, ServerAlertable {
     // MARK: - Methods
 
     private func bind() {
-        viewModel.didEditComplete = {
-            DispatchQueue.main.async { [weak self] in
+        viewModel.didEditComplete = { [weak self] in
+            DispatchQueue.main.async {
                 self?.coordinator?.popEditProfile()
             }
         }
-        viewModel.isValidNickname = { isDuplicate in
-            DispatchQueue.main.async { [weak self] in
+        viewModel.isValidNickname = { [weak self] isDuplicate in
+            DispatchQueue.main.async {
                 self?.checkDuplicateNickname(isDuplicate: isDuplicate)
             }
         }
-        viewModel.showErrorAlert = showServerErrorAlert
+        viewModel.showErrorAlert = { [weak self] (title, message) in
+            self?.showServerErrorAlert(title: title, message: message)
+        }
     }
 
     private func addKeyboardNotification() {
