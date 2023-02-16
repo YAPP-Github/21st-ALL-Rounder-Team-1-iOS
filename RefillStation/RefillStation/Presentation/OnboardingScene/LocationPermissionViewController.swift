@@ -44,8 +44,8 @@ final class LocationPermissionViewController: UIViewController, ServerAlertable 
     private lazy var confirmBotton: CTAButton = {
         let button = CTAButton(style: .basic)
         button.setTitle("동의하고 시작하기", for: .normal)
-        button.addAction(UIAction(handler: { _ in
-            self.requestAuthorization()
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.requestAuthorization()
         }), for: .touchUpInside)
         return button
     }()
@@ -77,13 +77,15 @@ final class LocationPermissionViewController: UIViewController, ServerAlertable 
     }
 
     private func bind() {
-        viewModel.isSignUpCompleted = {
-            DispatchQueue.main.async { [weak self] in
+        viewModel.isSignUpCompleted = { [weak self] in
+            DispatchQueue.main.async {
                 self?.coordinator?.agreeAndStartButtonTapped()
             }
         }
 
-        viewModel.showErrorAlert = showServerErrorAlert
+        viewModel.showErrorAlert = { [weak self] (title, message) in
+            self?.showServerErrorAlert(title: title, message: message)
+        }
     }
 
     private func layout() {
