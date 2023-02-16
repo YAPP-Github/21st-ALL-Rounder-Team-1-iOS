@@ -33,7 +33,8 @@ final class DetailPhotoReviewViewController: UIViewController {
         button.tintColor = .white
         button.isHidden = true
         button.imageView?.contentMode = .scaleAspectFit
-        button.addAction(UIAction { _ in
+        button.addAction(UIAction { [weak self] _ in
+            guard let self = self else { return }
             if self.viewModel.page > 0 {
                 self.viewModel.page -= 1
                 self.scrollToCurrentPage()
@@ -48,7 +49,8 @@ final class DetailPhotoReviewViewController: UIViewController {
         button.layer.backgroundColor = UIColor.black.cgColor.copy(alpha: 0.2)
         button.tintColor = .white
         button.imageView?.contentMode = .scaleAspectFit
-        button.addAction(UIAction { _ in
+        button.addAction(UIAction { [weak self] _ in
+            guard let self = self else { return }
             if self.viewModel.page < self.viewModel.photoURLs.count - 1 {
                 self.viewModel.page += 1
                 self.scrollToCurrentPage()
@@ -64,8 +66,8 @@ final class DetailPhotoReviewViewController: UIViewController {
         button.imageView?.contentMode = .scaleAspectFit
         button.contentHorizontalAlignment = .fill
         button.contentVerticalAlignment = .fill
-        button.addAction(UIAction { _ in
-            self.coodinator?.popPhotoDetail()
+        button.addAction(UIAction { [weak self] _ in
+            self?.coodinator?.popPhotoDetail()
         }, for: .touchUpInside)
         return button
     }()
@@ -93,6 +95,7 @@ final class DetailPhotoReviewViewController: UIViewController {
         self.viewModel = DetailPhotoReviewViewModel(photoURLs: [])
         super.init(coder: coder)
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
@@ -113,9 +116,9 @@ final class DetailPhotoReviewViewController: UIViewController {
     }
 
     private func bind() {
-        viewModel.setUpPageLabel = {
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
+        viewModel.setUpPageLabel = { [weak self] in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
                 self.pageCountLabel.setText(text: "\(self.viewModel.page + 1) / ", font: .bodyMedium)
             }
         }
