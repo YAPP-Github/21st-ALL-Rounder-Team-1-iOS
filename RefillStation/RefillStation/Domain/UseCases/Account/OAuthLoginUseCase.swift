@@ -11,6 +11,7 @@ enum OAuthType {
     case apple
     case kakao
     case naver
+    case lookAround
     var path: String {
         switch self {
         case .apple:
@@ -19,6 +20,8 @@ enum OAuthType {
             return "kakao"
         case .naver:
             return "naver"
+        case .lookAround:
+            return "lookAround"
         }
     }
 }

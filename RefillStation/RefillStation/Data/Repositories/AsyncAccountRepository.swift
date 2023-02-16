@@ -17,9 +17,9 @@ final class AsyncAccountRepository: AsyncAccountRepositoryInterface {
 
     func OAuthLogin(loginType: OAuthType, requestValue: OAuthLoginRequestValue) async throws -> OAuthLoginResponseValue {
         var urlComponents = URLComponents(string: networkService.baseURL)
-        urlComponents?.path = "/api/login/oauth/\(loginType.path)"
+        urlComponents?.path = loginType == .lookAround ? "/api/user/test-account" : "/api/login/oauth/\(loginType.path)"
         let requestParamName = loginType == .apple ? "identityToken" : "accessToken"
-        urlComponents?.queryItems = [
+        urlComponents?.queryItems = loginType == .lookAround ? [] : [
             URLQueryItem(name: requestParamName, value: String(requestValue.accessToken))
         ]
         guard let request = urlComponents?.toURLRequest(method: .get) else {

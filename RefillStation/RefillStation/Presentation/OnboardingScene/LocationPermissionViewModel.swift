@@ -22,7 +22,9 @@ final class LocationPermissionViewModel {
     func agreeButtonDidTapped() {
         Task {
             do {
-                _ = try await signUpUseCase.execute(requestValue: requestValue)
+                if !UserDefaults.standard.bool(forKey: "isLookAroundUser") {
+                    _ = try await signUpUseCase.execute(requestValue: requestValue)
+                }
                 self.isSignUpCompleted?()
             } catch NetworkError.exception(errorMessage: let message) {
                 showErrorAlert?(message, nil)

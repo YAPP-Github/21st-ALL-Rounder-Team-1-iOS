@@ -165,16 +165,23 @@ final class LoginViewController: UIViewController, ServerAlertable {
     }
 
     private func bind() {
-        viewModel.isSignUp = { [weak self] in
+        viewModel.signUp = { [weak self] in
             if let requestValue = self?.viewModel.signUpRequestValue {
                 DispatchQueue.main.async {
                     self?.coordinator?.showTermsPermission(requestValue: requestValue)
                 }
             }
         }
-        viewModel.isSignIn = { [weak self] in
+        viewModel.signIn = { [weak self] in
             DispatchQueue.main.async {
                 self?.coordinator?.agreeAndStartButtonTapped()
+            }
+        }
+        viewModel.lookAround = { [weak self] in
+            if let requestValue = self?.viewModel.signUpRequestValue {
+                DispatchQueue.main.async {
+                    self?.coordinator?.showLocationAuthorization(requestValue: requestValue)
+                }
             }
         }
         viewModel.showErrorAlert = { [weak self] (title, message) in
@@ -203,7 +210,7 @@ final class LoginViewController: UIViewController, ServerAlertable {
 
     @objc
     private func lookAroundTapped(_ sender: UITapGestureRecognizer) {
-        
+        viewModel.lookAroundTouched()
     }
 }
 

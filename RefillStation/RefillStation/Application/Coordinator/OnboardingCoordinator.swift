@@ -52,8 +52,13 @@ final class OnboardingCoordinator: Coordinator {
     }
 
     func showLocationAuthorization(requestValue: SignUpRequestValue) {
-        let locationPermissionViewController = DIContainer.makeLocationPermissionViewController(requestValue: requestValue)
+        let locationPermissionViewController = DIContainer.makeLocationPermissionViewController(
+            requestValue: requestValue
+        )
         locationPermissionViewController.coordinator = self
+        if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
+            window?.rootViewController = navigationController
+        }
         navigationController.pushViewController(locationPermissionViewController, animated: true)
     }
 
