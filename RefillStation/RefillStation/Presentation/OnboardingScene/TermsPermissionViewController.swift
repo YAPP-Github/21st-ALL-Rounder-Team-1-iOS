@@ -29,8 +29,8 @@ final class TermsPermissionViewController: UIViewController {
         button.setImage(Asset.Images.selectedBox.image, for: .selected)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-        button.addAction(UIAction(handler: { _ in
-            self.entireAgreeButtonDidTapped()
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.entireAgreeButtonDidTapped()
         }), for: .touchUpInside)
         return button
     }()
@@ -51,7 +51,8 @@ final class TermsPermissionViewController: UIViewController {
         button.setTitle("동의합니다", for: .normal)
         button.titleLabel?.font = .font(style: .titleMedium)
         button.isEnabled = false
-        button.addAction(UIAction { _ in
+        button.addAction(UIAction { [weak self] _ in
+            guard let self = self else { return }
             self.coordinator?.showLocationAuthorization(requestValue: self.viewModel.requestValue)
         }, for: .touchUpInside)
         return button
@@ -126,8 +127,8 @@ final class TermsPermissionViewController: UIViewController {
                                  for: .normal)
             arrowButton.imageView?.contentMode = .scaleAspectFit
             arrowButton.tintColor = Asset.Colors.gray3.color
-            arrowButton.addAction(UIAction(handler: { _ in
-                self.coordinator?.showTermsPermissionDetail(termsType: agreementType)
+            arrowButton.addAction(UIAction(handler: { [weak self] _ in
+                self?.coordinator?.showTermsPermissionDetail(termsType: agreementType)
             }), for: .touchUpInside)
 
             stackView.addArrangedSubview(button)
