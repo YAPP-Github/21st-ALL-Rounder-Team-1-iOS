@@ -18,10 +18,6 @@ final class OnboardingCoordinator: Coordinator {
         self.DIContainer = DIContainer
     }
 
-    deinit {
-        print("deinit: \(String(describing: self))")
-    }
-
     func start() {
         showOnboarding()
     }
