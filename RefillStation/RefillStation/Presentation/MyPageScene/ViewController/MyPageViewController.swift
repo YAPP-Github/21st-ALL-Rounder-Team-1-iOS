@@ -110,15 +110,17 @@ final class MyPageViewController: UIViewController, ServerAlertable {
     }
 
     private func bind() {
-        viewModel.setUpContents = {
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
+        viewModel.setUpContents = { [weak self] in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
                 self.nicknameLabel.text = self.viewModel.userNickname
                 self.userLevelTagView.setUpTagLevel(level: self.viewModel.userRank ?? .beginner)
                 self.setUpProfileView()
             }
         }
-        viewModel.showErrorAlert = showServerErrorAlert
+        viewModel.showErrorAlert = { [weak self] (title, message) in
+            self?.showServerErrorAlert(title: title, message: message)
+        }
     }
 
     private func setUpProfileView() {
