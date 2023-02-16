@@ -20,6 +20,11 @@ final class MyPageDIContainer: DIContainer {
                                  navigationController: navigationController)
     }
 
+    // MARK: - Onboarding
+    func makeOnboardingDIContainer() -> OnboardingDIContainer {
+        return OnboardingDIContainer()
+    }
+
     // MARK: - My Page
     func makeMyPageViewController() -> MyPageViewController {
         return MyPageViewController(viewModel: makeMyPageViewModel())

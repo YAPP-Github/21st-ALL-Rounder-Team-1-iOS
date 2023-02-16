@@ -121,9 +121,9 @@ final class LocationPermissionViewController: UIViewController, ServerAlertable 
     private func requestAuthorization() {
         switch locationManager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
-            self.viewModel.agreeButtonDidTapped()
+            viewModel.agreeButtonDidTapped()
         case .notDetermined, .restricted:
-            self.locationManager.requestWhenInUseAuthorization()
+            locationManager.requestWhenInUseAuthorization()
         case .denied:
             openSetting()
         default:

@@ -10,17 +10,16 @@ import UIKit
 
 final class OnboardingCoordinator: Coordinator {
     var DIContainer: OnboardingDIContainer
-    var navigationController: UINavigationController
-    var window: UIWindow?
+    var navigationController: UINavigationController = UINavigationController()
 
     init(
-        DIContainer: OnboardingDIContainer,
-        navigationController: UINavigationController,
-        window: UIWindow?
+        DIContainer: OnboardingDIContainer
     ) {
         self.DIContainer = DIContainer
-        self.navigationController = navigationController
-        self.window = window
+    }
+
+    deinit {
+        print("deinit: \(String(describing: self))")
     }
 
     func start() {
@@ -30,12 +29,14 @@ final class OnboardingCoordinator: Coordinator {
     func showOnboarding() {
         let onboardingViewController = DIContainer.makeOnboardingViewController()
         onboardingViewController.coordinator = self
+        let window = (UIApplication.shared.delegate as? AppDelegate)?.window
         window?.rootViewController = onboardingViewController
     }
 
     func showLogin(viewType: LoginViewController.ViewType) {
         let loginViewController = DIContainer.makeLoginViewController(viewType: viewType)
         loginViewController.coordinator = self
+        let window = (UIApplication.shared.delegate as? AppDelegate)?.window
         if viewType == .onboarding {
             window?.rootViewController = loginViewController
         } else {
@@ -47,6 +48,7 @@ final class OnboardingCoordinator: Coordinator {
     func showTermsPermission(requestValue: SignUpRequestValue) {
         let termsPermissionViewController = DIContainer.makeTermsPermissionViewController(requestValue: requestValue)
         termsPermissionViewController.coordinator = self
+        let window = (UIApplication.shared.delegate as? AppDelegate)?.window
         window?.rootViewController = navigationController
         navigationController.pushViewController(termsPermissionViewController, animated: true)
     }
@@ -62,17 +64,20 @@ final class OnboardingCoordinator: Coordinator {
         )
         locationPermissionViewController.coordinator = self
         if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
+            let window = (UIApplication.shared.delegate as? AppDelegate)?.window
             window?.rootViewController = navigationController
         }
         navigationController.pushViewController(locationPermissionViewController, animated: true)
     }
 
     func agreeAndStartButtonTapped() {
-        let tabBarDIContainer = DIContainer.makeTabBarDIContainer()
-        let tabBarCoordinator = tabBarDIContainer.makeTabBarCoordinator()
-        tabBarCoordinator.start()
         if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
             navigationController.dismiss(animated: true)
+            UserDefaults.standard.set(false, forKey: "isLookAroundUser")
+        } else {
+            let tabBarDIContainer = DIContainer.makeTabBarDIContainer()
+            let tabBarCoordinator = tabBarDIContainer.makeTabBarCoordinator()
+            tabBarCoordinator.start()
         }
     }
 }

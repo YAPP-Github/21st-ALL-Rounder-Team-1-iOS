@@ -29,9 +29,7 @@ final class StoreDetailDIContainer: DIContainer {
 
     // MARK: - Onboarding
     func makeOnboardingDIContainer() -> OnboardingDIContainer {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { fatalError() }
-        return OnboardingDIContainer(navigationController: onboardingNavigationController,
-                                     window: appDelegate.window)
+        return OnboardingDIContainer()
     }
 
     // MARK: - Coordinator

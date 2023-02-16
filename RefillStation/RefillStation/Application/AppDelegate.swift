@@ -26,8 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationController = UINavigationController()
         let rootViewController = UIViewController()
         window?.rootViewController = rootViewController
-        onboardingDIContainer = OnboardingDIContainer(navigationController: navigationController,
-                                                      window: window)
+        onboardingDIContainer = OnboardingDIContainer()
         onboardingCoordinator = onboardingDIContainer?.makeOnboardingCoordinator()
         checkFirstLaunch()
         if didLoginSuccessed() {

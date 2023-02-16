@@ -8,7 +8,6 @@
 import UIKit
 
 final class TabBarDIContainer: DIContainer {
-    private let window: UIWindow?
     private let tabBarController = MainTabBarController()
     private let homeNavigationController: UINavigationController = {
         let navigationController = UINavigationController()
@@ -29,14 +28,9 @@ final class TabBarDIContainer: DIContainer {
         return navigationController
     }()
 
-    init(window: UIWindow?) {
-        self.window = window
-    }
-
     func makeTabBarCoordinator() -> TabBarCoordinator {
         return TabBarCoordinator(
             DIContainer: self,
-            window: window,
             tabBarController: tabBarController,
             homeNavigationController: homeNavigationController,
             myPageNavigationController: myPageNaviagtionConroller

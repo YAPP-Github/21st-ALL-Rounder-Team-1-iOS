@@ -10,20 +10,18 @@ import UIKit
 final class TabBarCoordinator: Coordinator {
 
     let DIContainer: TabBarDIContainer
-    private var window: UIWindow?
+    private var window: UIWindow? = (UIApplication.shared.delegate as? AppDelegate)?.window
     private let tabBarController: UITabBarController
     private let homeNavigationController: UINavigationController
     private let myPageNavigationController: UINavigationController
 
     init(
         DIContainer: TabBarDIContainer,
-        window: UIWindow?,
         tabBarController: UITabBarController,
         homeNavigationController: UINavigationController,
         myPageNavigationController: UINavigationController
     ) {
         self.DIContainer = DIContainer
-        self.window = window
         self.tabBarController = tabBarController
         self.homeNavigationController = homeNavigationController
         self.myPageNavigationController = myPageNavigationController
