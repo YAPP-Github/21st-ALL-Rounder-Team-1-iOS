@@ -419,6 +419,10 @@ extension StoreDetailViewController {
                 self.reloadCellAt(indexPath: indexPath)
             }
             cell.reportButtonTapped = { [weak self] in
+                if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
+                    self?.coordinator?.showLookAroundLogin()
+                    return
+                }
                 let reportPopUp = ReviewReportPopUpViewController(
                     viewModel: ReviewReportPopUpViewModel(reportedUserId: review.userId)
                 ) {
