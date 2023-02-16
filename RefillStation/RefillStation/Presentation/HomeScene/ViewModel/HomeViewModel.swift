@@ -23,7 +23,7 @@ final class HomeViewModel {
         return currentAdministrativeArea == "서울특별시"
     }
     var setUpContents: (() -> Void)?
-    var presentToLocationPopUp: (() -> Void)?
+    var presentLocationPopUp: (() -> Void)?
     var dismissLocationPopUp: (() -> Void)?
     var showErrorAlert: ((String?, String?) -> Void)?
 
@@ -35,15 +35,13 @@ final class HomeViewModel {
         setUpCurrentLocation()
         storesLoadTask = Task {
             do {
-                let stores = try await fetchStoresUseCase.execute(
+                stores = try await fetchStoresUseCase.execute(
                     requestValue: .init(latitude: latitude, longitude: longitude)
                 )
-                self.stores = stores
-                self.convertAddress(latitude: self.latitude, longitude: self.longitude) {
-                    self.currentAddress = $0
-                    self.currentAdministrativeArea = $1
-                    self.setUpContents?()
-                }
+                let address = await convertAddress(latitude: latitude, longitude: longitude)
+                currentAddress = address.0
+                currentAdministrativeArea = address.1
+                setUpContents?()
             } catch NetworkError.exception(errorMessage: let message) {
                 showErrorAlert?(message, nil)
             } catch {
@@ -66,7 +64,7 @@ extension HomeViewModel {
         case .authorizedAlways, .authorizedWhenInUse:
             didAuthorized()
         default:
-            presentToLocationPopUp?()
+            presentLocationPopUp?()
         }
     }
     func didAuthorized() {
@@ -86,15 +84,18 @@ extension HomeViewModel {
         latitude = space.latitude
         longitude = space.longitude
     }
-    private func convertAddress(latitude: Double,
-                                longitude: Double,
-                                completion: @escaping (String, String) -> Void) {
+
+    private func convertAddress(latitude: Double, longitude: Double) async -> (String, String) {
         let location = CLLocation(latitude: latitude, longitude: longitude)
         let locale = Locale(identifier: "Ko-kr")
-        CLGeocoder().reverseGeocodeLocation(location, preferredLocale: locale) { placemarks, _ in
-            guard let placemarks = placemarks, let address = placemarks.last else { return }
-            completion((address.administrativeArea ?? "") + " " + (address.name ?? ""),
-                       address.administrativeArea ?? "")
+        return await withCheckedContinuation { continuation in
+            CLGeocoder().reverseGeocodeLocation(location, preferredLocale: locale) { placemarks, _ in
+                guard let placemarks = placemarks, let address = placemarks.last else { return }
+                let currentAddress = (address.administrativeArea ?? "") + " " + (address.name ?? "")
+                let currentAdministrativeArea = address.administrativeArea ?? ""
+                let result = (currentAddress, currentAdministrativeArea)
+                continuation.resume(returning: result)
+            }
         }
     }
 }
