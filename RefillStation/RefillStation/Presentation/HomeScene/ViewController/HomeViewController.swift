@@ -11,9 +11,8 @@ import SkeletonView
 import CoreLocation
 
 final class HomeViewController: UIViewController, ServerAlertable {
-
     // MARK: - Properties
-    var coordiantor: HomeCoordinator?
+    var coordinator: HomeCoordinator?
     private let viewModel: HomeViewModel
     private var updateCurrentAddressText: (() -> Void)?
     private var locationManager = CLLocationManager()
@@ -188,7 +187,7 @@ extension HomeViewController: UICollectionViewDataSource {
             }
 
             cell.moveToRegionRequest = { [weak self] in
-                self?.coordiantor?.showRequestRegion()
+                self?.coordinator?.showRequestRegion()
             }
             return cell
         } else {
@@ -238,7 +237,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 0 { return }
-        coordiantor?.showStoreDetail(store: viewModel.stores[indexPath.row])
+        coordinator?.showStoreDetail(store: viewModel.stores[indexPath.row])
     }
 }
 
