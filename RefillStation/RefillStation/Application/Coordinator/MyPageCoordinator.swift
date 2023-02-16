@@ -38,6 +38,10 @@ final class MyPageCoordinator: Coordinator {
     }
 
     func showManagementAccount() {
+        if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
+            showLogin(viewType: .lookAround)
+            return
+        }
         let accountManagementViewController = DIContainer.makeAccountManagementViewController()
         accountManagementViewController.coordinator = self
         navigationController.pushViewController(accountManagementViewController, animated: true)
@@ -48,10 +52,10 @@ final class MyPageCoordinator: Coordinator {
         navigationController.pushViewController(termsDetailViewController, animated: true)
     }
 
-    func showLogin() {
+    func showLogin(viewType: LoginViewController.ViewType) {
         let onboardingDIContainer = DIContainer.makeOnboardingDIContainer()
         let onboardingCoordinator = onboardingDIContainer.makeOnboardingCoordinator()
-        onboardingCoordinator.showLogin(viewType: .lookAround)
+        onboardingCoordinator.showLogin(viewType: viewType)
     }
 
     func popEditProfile() {
