@@ -9,6 +9,7 @@ import UIKit
 
 final class StoreDetailDIContainer: DIContainer {
     private let navigationController: UINavigationController
+    private let onboardingNavigationController = UINavigationController()
     private let store: Store
 
     init(navigationController: UINavigationController, store: Store) {
@@ -24,6 +25,13 @@ final class StoreDetailDIContainer: DIContainer {
             storeName: store.name,
             storeLocationInfo: store.address
         )
+    }
+
+    // MARK: - Onboarding
+    func makeOnboardingDIContainer() -> OnboardingDIContainer {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { fatalError() }
+        return OnboardingDIContainer(navigationController: onboardingNavigationController,
+                                     window: appDelegate.window)
     }
 
     // MARK: - Coordinator

@@ -33,10 +33,15 @@ final class OnboardingCoordinator: Coordinator {
         window?.rootViewController = onboardingViewController
     }
 
-    func showLogin() {
-        let loginViewController = DIContainer.makeLoginViewController()
+    func showLogin(viewType: LoginViewController.ViewType) {
+        let loginViewController = DIContainer.makeLoginViewController(viewType: viewType)
         loginViewController.coordinator = self
-        window?.rootViewController = loginViewController
+        if viewType == .onboarding {
+            window?.rootViewController = loginViewController
+        } else {
+            loginViewController.modalPresentationStyle = .overFullScreen
+            window?.rootViewController?.present(loginViewController, animated: true)
+        }
     }
 
     func showTermsPermission(requestValue: SignUpRequestValue) {
@@ -66,5 +71,8 @@ final class OnboardingCoordinator: Coordinator {
         let tabBarDIContainer = DIContainer.makeTabBarDIContainer()
         let tabBarCoordinator = tabBarDIContainer.makeTabBarCoordinator()
         tabBarCoordinator.start()
+        if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
+            navigationController.dismiss(animated: true)
+        }
     }
 }
