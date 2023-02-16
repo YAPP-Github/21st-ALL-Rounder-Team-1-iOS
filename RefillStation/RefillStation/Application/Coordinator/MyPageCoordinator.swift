@@ -49,9 +49,6 @@ final class MyPageCoordinator: Coordinator {
     }
 
     func showLogin() {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        let onboardingCoordinator = appDelegate?.onboardingCoordinator
-        onboardingCoordinator?.showLogin()
     }
 
     func popEditProfile() {
