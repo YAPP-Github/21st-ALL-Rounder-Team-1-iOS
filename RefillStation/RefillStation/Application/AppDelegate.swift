@@ -38,6 +38,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    func application(_ app: UIApplication,
+                     open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        if AuthApi.isKakaoTalkLoginUrl(url) {
+            return AuthController.handleOpenUrl(url: url)
+        }
+        return false
+    }
+
+    private func didLoginSuccessed() -> Bool {
+        return KeychainManager.shared.getItem(key: "token") != nil
+    }
+}
+
+// MARK: - static functions
+extension AppDelegate {
     static func setUpNavigationBar() {
         let appearance = UINavigationBarAppearance()
         let backButtonImage: UIImage? = {
@@ -53,16 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
 
-    func application(_ app: UIApplication,
-                     open url: URL,
-                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        if AuthApi.isKakaoTalkLoginUrl(url) {
-            return AuthController.handleOpenUrl(url: url)
-        }
-        return false
-    }
-
-    private func didLoginSuccessed() -> Bool {
+    static func didUserLoggedIn() -> Bool {
         return KeychainManager.shared.getItem(key: "token") != nil
     }
 }
