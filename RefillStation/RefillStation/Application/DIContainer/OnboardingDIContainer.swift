@@ -42,7 +42,7 @@ final class OnboardingDIContainer: DIContainer {
 
     // MARK: - Login
     func makeLoginViewController() -> LoginViewController {
-        return LoginViewController(viewModel: makeLoginViewModel())
+        return LoginViewController(viewModel: makeLoginViewModel(), viewType: .onboarding)
     }
 
     func makeLoginViewModel() -> LoginViewModel {
