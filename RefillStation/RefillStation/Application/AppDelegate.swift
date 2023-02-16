@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         onboardingDIContainer = OnboardingDIContainer(navigationController: navigationController,
                                                       window: window)
         onboardingCoordinator = onboardingDIContainer?.makeOnboardingCoordinator()
+        checkFirstLaunch()
         if didLoginSuccessed() {
             onboardingCoordinator?.agreeAndStartButtonTapped()
         } else {
@@ -64,5 +65,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private func didLoginSuccessed() -> Bool {
         return KeychainManager.shared.getItem(key: "token") != nil
+    }
+
+    private func checkFirstLaunch() {
+        if !UserDefaults.standard.bool(forKey: "hasUserAlreadyOpenedApp") {
+            UserDefaults.standard.setValue(true, forKey: "hasUserAlreadyOpenedApp")
+            _ = KeychainManager.shared.deleteUserToken()
+        }
     }
 }
