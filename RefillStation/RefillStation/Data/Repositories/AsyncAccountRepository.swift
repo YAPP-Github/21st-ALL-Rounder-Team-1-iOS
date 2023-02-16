@@ -27,8 +27,10 @@ final class AsyncAccountRepository: AsyncAccountRepositoryInterface {
         }
         let loginDTO: LoginDTO = try await networkService.dataTask(request: request)
         if let token = loginDTO.jwt {
-            if !KeychainManager.shared.updateItem(key: "token", value: token) {
+            if KeychainManager.shared.getItem(key: "token") == nil {
                 _ = KeychainManager.shared.addItem(key: "token", value: token)
+            } else {
+                _ = KeychainManager.shared.updateItem(key: "token", value: token)
             }
         }
         return loginDTO.toDomain()
@@ -58,13 +60,15 @@ final class AsyncAccountRepository: AsyncAccountRepositoryInterface {
         let result = KeychainManager.shared.deleteUserToken()
         switch result {
         case .success:
-            return
+            UserDefaults.standard.setValue(true, forKey: "isLookAroundUser")
+            UserDefaults.standard.setValue(false, forKey: "lookAroundUserSignedUp")
         case .failure(let error):
             throw error
         }
     }
 
     func withdraw() async throws {
+        guard UserDefaults.standard.bool(forKey: "isLookAroundUser") == false else { return }
         var urlComponents = URLComponents(string: networkService.baseURL)
         urlComponents?.path = "/api/user"
         guard let request = urlComponents?.toURLRequest(method: .delete) else {
@@ -73,6 +77,8 @@ final class AsyncAccountRepository: AsyncAccountRepositoryInterface {
 
         let _: WithdrawDTO = try await networkService.dataTask(request: request)
         _ = KeychainManager.shared.deleteUserToken()
+        UserDefaults.standard.setValue(true, forKey: "isLookAroundUser")
+        UserDefaults.standard.setValue(false, forKey: "lookAroundUserSignedUp")
     }
 
     func createNickname() async throws -> String {
