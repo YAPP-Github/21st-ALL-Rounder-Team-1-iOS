@@ -57,12 +57,14 @@ final class UserLevelViewController: UIViewController, ServerAlertable {
     }
 
     private func bind() {
-        viewModel.reloadData = {
-            DispatchQueue.main.async { [weak self] in
+        viewModel.reloadData = { [weak self] in
+            DispatchQueue.main.async {
                 self?.levelCollectionView.reloadData()
             }
         }
-        viewModel.showErrorAlert = showServerErrorAlert
+        viewModel.showErrorAlert = { [weak self] (title, message) in
+            self?.showServerErrorAlert(title: title, message: message)
+        }
     }
 
     private func layout() {
