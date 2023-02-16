@@ -51,7 +51,7 @@ final class MyPageCoordinator: Coordinator {
     func showLogin() {
         let onboardingDIContainer = DIContainer.makeOnboardingDIContainer()
         let onboardingCoordinator = onboardingDIContainer.makeOnboardingCoordinator()
-        onboardingCoordinator.start()
+        onboardingCoordinator.showLogin(viewType: .lookAround)
     }
 
     func popEditProfile() {

@@ -41,8 +41,10 @@ final class LoginViewModel {
                     UserDefaults.standard.setValue(true, forKey: "isLookAroundUser")
                     self.lookAround?()
                     return
+                } else {
+                    UserDefaults.standard.setValue(true, forKey: "lookAroundUserSignedUp")
+                    result.jwt == nil ? self.signUp?() : self.signIn?()
                 }
-                result.jwt == nil ? self.signUp?() : self.signIn?()
             } catch NetworkError.exception(errorMessage: let message) {
                 showErrorAlert?(message, nil)
             } catch {

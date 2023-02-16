@@ -71,7 +71,8 @@ final class OnboardingCoordinator: Coordinator {
     }
 
     func agreeAndStartButtonTapped() {
-        if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
+        if UserDefaults.standard.bool(forKey: "isLookAroundUser")
+            && UserDefaults.standard.bool(forKey: "lookAroundUserSignedUp") {
             navigationController.dismiss(animated: true)
             UserDefaults.standard.set(false, forKey: "isLookAroundUser")
         } else {
