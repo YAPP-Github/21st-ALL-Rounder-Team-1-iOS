@@ -76,7 +76,7 @@ final class AccountManagementViewController: UIViewController, ServerAlertable {
     private func bind() {
         viewModel.presentToLogin = { [weak self] in
             DispatchQueue.main.async {
-                self?.coordinator?.showLogin(viewType: .onboarding)
+                self?.coordinator?.showOnboardingLogin()
             }
         }
         viewModel.showErrorAlert = { [weak self] (title, message) in

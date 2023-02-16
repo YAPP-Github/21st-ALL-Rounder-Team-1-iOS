@@ -84,7 +84,7 @@ final class MyPageViewController: UIViewController, ServerAlertable {
             $0.centerY.equalToSuperview()
         }
         maskButton.addAction(UIAction { [weak self] _ in
-            self?.coordinator?.showLogin(viewType: .lookAround)
+            self?.coordinator?.showLookAroundLogin()
         }, for: .touchUpInside)
         return maskView
     }()
@@ -248,14 +248,22 @@ final class MyPageViewController: UIViewController, ServerAlertable {
     }
 
     @objc private func presentToChangeProfile() {
-        coordinator?.showEditProfile(user: User(id: viewModel.userId ?? 0,
-                                                name: viewModel.userNickname ?? "",
-                                                imageURL: viewModel.profileImage,
-                                                level: viewModel.userLevel ?? .init(level: .beginner)))
+        if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
+            coordinator?.showLookAroundLogin()
+        } else {
+            coordinator?.showEditProfile(user: User(id: viewModel.userId ?? 0,
+                                                    name: viewModel.userNickname ?? "",
+                                                    imageURL: viewModel.profileImage,
+                                                    level: viewModel.userLevel ?? .init(level: .beginner)))
+        }
     }
 
     @objc private func presentToManagementAccount() {
-        coordinator?.showManagementAccount()
+        if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
+            coordinator?.showLookAroundLogin()
+        } else {
+            coordinator?.showManagementAccount()
+        }
     }
 
     @objc private func presentToServiceTerms() {
