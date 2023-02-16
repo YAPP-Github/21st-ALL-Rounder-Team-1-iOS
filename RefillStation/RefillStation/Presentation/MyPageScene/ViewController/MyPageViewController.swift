@@ -214,18 +214,30 @@ final class MyPageViewController: UIViewController, ServerAlertable {
     }
 
     @objc private func presentToLevelInfo() {
-        coordinator?.showLevelInfo()
+        if !AppDelegate.didUserLoggedIn() {
+            showNeedToLoginAlert()
+        } else {
+            coordinator?.showLevelInfo()
+        }
     }
 
     @objc private func presentToChangeProfile() {
-        coordinator?.showEditProfile(user: User(id: viewModel.userId ?? 0,
-                                                name: viewModel.userNickname ?? "",
-                                                imageURL: viewModel.profileImage,
-                                                level: viewModel.userLevel ?? .init(level: .beginner)))
+        if !AppDelegate.didUserLoggedIn() {
+            showNeedToLoginAlert()
+        } else {
+            coordinator?.showEditProfile(user: User(id: viewModel.userId ?? 0,
+                                                    name: viewModel.userNickname ?? "",
+                                                    imageURL: viewModel.profileImage,
+                                                    level: viewModel.userLevel ?? .init(level: .beginner)))
+        }
     }
 
     @objc private func presentToManagementAccount() {
-        coordinator?.showManagementAccount()
+        if !AppDelegate.didUserLoggedIn() {
+            showNeedToLoginAlert()
+        } else {
+            coordinator?.showManagementAccount()
+        }
     }
 
     @objc private func presentToServiceTerms() {

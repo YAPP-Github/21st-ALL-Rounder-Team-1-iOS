@@ -374,7 +374,11 @@ extension StoreDetailViewController {
     private func reviewInfoCellRegistration() -> UICollectionView.CellRegistration<ReviewInfoCell, StoreDetailItem> {
         return UICollectionView.CellRegistration<ReviewInfoCell, StoreDetailItem> { cell, indexPath, item in
             cell.moveToRegisterReview = { [weak self] in
-                self?.coordinator?.showRegisterReview()
+                if !AppDelegate.didUserLoggedIn() {
+                    self?.showNeedToLoginAlert()
+                } else {
+                    self?.coordinator?.showRegisterReview()
+                }
             }
             cell.setUpContents(totalDetailReviewCount: self.viewModel.reviews.count,
                                totalTagReviewCount: self.viewModel.totalTagVoteCount,

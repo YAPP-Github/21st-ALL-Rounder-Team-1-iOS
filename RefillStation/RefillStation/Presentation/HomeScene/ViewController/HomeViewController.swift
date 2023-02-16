@@ -187,7 +187,11 @@ extension HomeViewController: UICollectionViewDataSource {
             }
 
             cell.moveToRegionRequest = { [weak self] in
-                self?.coordinator?.showRequestRegion()
+                if !AppDelegate.didUserLoggedIn() {
+                    self?.showNeedToLoginAlert()
+                } else {
+                    self?.coordinator?.showRequestRegion()
+                }
             }
             return cell
         } else {
