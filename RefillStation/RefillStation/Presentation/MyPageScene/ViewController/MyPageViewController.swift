@@ -80,7 +80,7 @@ final class MyPageViewController: UIViewController, ServerAlertable {
         maskButton.tintColor = Asset.Colors.gray5.color
         maskView.addSubview(maskButton)
         maskButton.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(16)
+            $0.leading.equalToSuperview()
             $0.centerY.equalToSuperview()
         }
         maskButton.addAction(UIAction { [weak self] _ in
