@@ -68,12 +68,11 @@ final class LocationPermissionViewController: UIViewController, ServerAlertable 
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.topItem?.title = ""
-        navigationController?.navigationBar.tintColor = Asset.Colors.gray7.color
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        AppDelegate.setUpNavigationBar()
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
     private func bind() {

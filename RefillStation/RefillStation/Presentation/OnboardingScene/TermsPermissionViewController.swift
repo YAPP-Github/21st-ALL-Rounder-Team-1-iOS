@@ -75,6 +75,14 @@ final class TermsPermissionViewController: UIViewController {
         setUpButtonState()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+
     private func layout() {
         [titleLabel, entireAgreeButton, divisionLine,
          stackView, confirmButton].forEach { view.addSubview($0) }

@@ -23,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         AppDelegate.setUpNavigationBar()
         window = UIWindow(frame: UIScreen.main.bounds)
-        let navigationController = UINavigationController()
         let rootViewController = UIViewController()
         window?.rootViewController = rootViewController
         onboardingDIContainer = OnboardingDIContainer()
@@ -62,8 +61,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return false
     }
 
+    func applicationWillTerminate(_ application: UIApplication) {
+        UserDefaults.standard.setValue(false, forKey: "didLookAroundLoginStarted")
+    }
+
     private func didLoginSuccessed() -> Bool {
         return KeychainManager.shared.getItem(key: "token") != nil
+            || KeychainManager.shared.getItem(key: "lookAroundToken") != nil
     }
 
     private func checkFirstLaunch() {

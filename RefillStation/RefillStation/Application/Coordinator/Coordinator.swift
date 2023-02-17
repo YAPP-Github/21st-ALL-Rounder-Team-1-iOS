@@ -18,6 +18,7 @@ extension Coordinator {
     func showLookAroundLogin() {
         let onboardingDIContainer = OnboardingDIContainer()
         let onboardingCoordinator = onboardingDIContainer.makeOnboardingCoordinator()
+        UserDefaults.standard.setValue(true, forKey: "didLookAroundLoginStarted")
         onboardingCoordinator.showLogin(viewType: .lookAround)
     }
 }

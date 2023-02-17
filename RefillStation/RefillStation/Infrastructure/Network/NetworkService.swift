@@ -32,7 +32,12 @@ final class NetworkService: NetworkServiceInterface {
 
     let baseURL = "https://www.pump-api-dev.com"
     private var token: String? {
-        return KeychainManager.shared.getItem(key: "token") as? String
+        if let token = KeychainManager.shared.getItem(key: "token") as? String {
+            return token
+        } else if let lookAroundToken = KeychainManager.shared.getItem(key: "lookAroundToken") as? String {
+            return lookAroundToken
+        }
+        return nil
     }
 
     private init() { }

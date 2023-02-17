@@ -67,6 +67,14 @@ final class OnboardingViewController: UIViewController {
         layout()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+
     private func layout() {
         [onboardingCollectionView, pageControl, startButton].forEach {
             view.addSubview($0)

@@ -59,7 +59,7 @@ final class OnboardingCoordinator: Coordinator {
             requestValue: requestValue
         )
         locationPermissionViewController.coordinator = self
-        if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
+        if KeychainManager.shared.getItem(key: "token") == nil {
             let window = (UIApplication.shared.delegate as? AppDelegate)?.window
             window?.rootViewController = navigationController
         }
@@ -68,7 +68,7 @@ final class OnboardingCoordinator: Coordinator {
 
     func agreeAndStartButtonTapped() {
         if UserDefaults.standard.bool(forKey: "isLookAroundUser")
-            && UserDefaults.standard.bool(forKey: "lookAroundUserSignedUp") {
+            && KeychainManager.shared.getItem(key: "token") != nil {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 let topVC = UIApplication.topViewController()
                 topVC?.dismiss(animated: true)

@@ -38,11 +38,9 @@ final class LoginViewModel {
                     oauthIdentity: result.oauthIdentity
                 )
                 if oauthType == .lookAround {
-                    UserDefaults.standard.setValue(true, forKey: "isLookAroundUser")
                     self.lookAround?()
                     return
                 } else {
-                    UserDefaults.standard.setValue(true, forKey: "lookAroundUserSignedUp")
                     result.jwt == nil ? self.signUp?() : self.signIn?()
                 }
             } catch NetworkError.exception(errorMessage: let message) {

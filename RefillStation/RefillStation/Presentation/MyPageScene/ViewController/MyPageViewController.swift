@@ -123,7 +123,7 @@ final class MyPageViewController: UIViewController, ServerAlertable {
 
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
-        lookAroundUserMaskView.isHidden = !UserDefaults.standard.bool(forKey: "isLookAroundUser")
+        lookAroundUserMaskView.isHidden = !(KeychainManager.shared.getItem(key: "token") == nil)
         viewModel.viewWillAppear()
     }
 
@@ -248,7 +248,7 @@ final class MyPageViewController: UIViewController, ServerAlertable {
     }
 
     @objc private func presentToChangeProfile() {
-        if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
+        if KeychainManager.shared.getItem(key: "token") == nil {
             coordinator?.showLookAroundLogin()
         } else {
             coordinator?.showEditProfile(user: User(id: viewModel.userId ?? 0,
@@ -259,7 +259,7 @@ final class MyPageViewController: UIViewController, ServerAlertable {
     }
 
     @objc private func presentToManagementAccount() {
-        if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
+        if KeychainManager.shared.getItem(key: "token") == nil {
             coordinator?.showLookAroundLogin()
         } else {
             coordinator?.showManagementAccount()
