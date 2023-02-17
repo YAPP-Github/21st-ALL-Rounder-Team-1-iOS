@@ -72,7 +72,8 @@ final class OnboardingCoordinator: Coordinator {
     }
 
     func agreeAndStartButtonTapped() {
-        if UserDefaults.standard.bool(forKey: "didLookAroundLoginStarted") {
+        if UserDefaults.standard.bool(forKey: "didLookAroundLoginStarted")
+            && !navigationController.viewControllers.isEmpty {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.navigationController.dismiss(animated: true)
             }
