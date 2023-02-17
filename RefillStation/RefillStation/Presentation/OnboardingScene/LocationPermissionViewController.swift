@@ -44,6 +44,7 @@ final class LocationPermissionViewController: UIViewController, ServerAlertable 
     private lazy var confirmBotton: CTAButton = {
         let button = CTAButton(style: .basic)
         button.setTitle("동의하고 시작하기", for: .normal)
+        button.titleLabel?.font = .font(style: .titleMedium)
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.requestAuthorization()
         }), for: .touchUpInside)
