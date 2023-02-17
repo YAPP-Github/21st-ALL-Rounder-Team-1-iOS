@@ -33,19 +33,21 @@ final class OnboardingCoordinator: Coordinator {
         let loginViewController = DIContainer.makeLoginViewController(viewType: viewType)
         loginViewController.coordinator = self
         let window = (UIApplication.shared.delegate as? AppDelegate)?.window
+
         if viewType == .onboarding {
-            window?.rootViewController = loginViewController
+            navigationController.modalPresentationStyle = .fullScreen
+            window?.rootViewController = navigationController
+            navigationController.pushViewController(loginViewController, animated: false)
         } else {
-            loginViewController.modalPresentationStyle = .fullScreen
-            window?.rootViewController?.present(loginViewController, animated: true)
+            navigationController.modalPresentationStyle = .fullScreen
+            window?.rootViewController?.present(navigationController, animated: true)
+            navigationController.pushViewController(loginViewController, animated: false)
         }
     }
 
     func showTermsPermission(requestValue: SignUpRequestValue) {
         let termsPermissionViewController = DIContainer.makeTermsPermissionViewController(requestValue: requestValue)
         termsPermissionViewController.coordinator = self
-        let window = (UIApplication.shared.delegate as? AppDelegate)?.window
-        window?.rootViewController = navigationController
         navigationController.pushViewController(termsPermissionViewController, animated: true)
     }
 
@@ -59,19 +61,20 @@ final class OnboardingCoordinator: Coordinator {
             requestValue: requestValue
         )
         locationPermissionViewController.coordinator = self
-        if KeychainManager.shared.getItem(key: "token") == nil {
+        if KeychainManager.shared.getItem(key: "token") == nil
+        && !UserDefaults.standard.bool(forKey: "didLookAroundLoginStarted") {
             let window = (UIApplication.shared.delegate as? AppDelegate)?.window
             window?.rootViewController = navigationController
+            navigationController.pushViewController(locationPermissionViewController, animated: true)
+        } else {
+            navigationController.pushViewController(locationPermissionViewController, animated: true)
         }
-        navigationController.pushViewController(locationPermissionViewController, animated: true)
     }
 
     func agreeAndStartButtonTapped() {
-        if UserDefaults.standard.bool(forKey: "isLookAroundUser")
-            && KeychainManager.shared.getItem(key: "token") != nil {
+        if UserDefaults.standard.bool(forKey: "didLookAroundLoginStarted") {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                let topVC = UIApplication.topViewController()
-                topVC?.dismiss(animated: true)
+                self.navigationController.dismiss(animated: true)
             }
             UserDefaults.standard.set(false, forKey: "isLookAroundUser")
         } else {
@@ -79,5 +82,6 @@ final class OnboardingCoordinator: Coordinator {
             let tabBarCoordinator = tabBarDIContainer.makeTabBarCoordinator()
             tabBarCoordinator.start()
         }
+        UserDefaults.standard.set(false, forKey: "didLookAroundLoginStarted")
     }
 }
