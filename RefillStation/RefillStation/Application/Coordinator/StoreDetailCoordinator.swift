@@ -34,6 +34,17 @@ final class StoreDetailCoordinator: Coordinator {
         navigationController.pushViewController(detailPhotoReviewViewController, animated: true)
     }
 
+    func refillGuideButtonTapped(imagePaths: [String]) {
+        let refillGuideViewController = DIContainer.makeRefillGuideViewController(imagePaths: imagePaths)
+        refillGuideViewController.coordinator = self
+        refillGuideViewController.modalPresentationStyle = .fullScreen
+        navigationController.present(refillGuideViewController, animated: true)
+    }
+
+    func refillGuideCloseButtonTapped() {
+        navigationController.dismiss(animated: true)
+    }
+
     func popPhotoDetail() {
         navigationController.popViewController(animated: true)
     }
