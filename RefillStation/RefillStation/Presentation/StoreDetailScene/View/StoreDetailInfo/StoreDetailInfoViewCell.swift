@@ -11,6 +11,7 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
 
     static let reuseIdentifier = String(describing: StoreDetailInfoViewCell.self)
 
+    private let storeNameLabelInsetSum: CGFloat = 32
     private let storeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = Asset.Colors.gray2.color
@@ -27,8 +28,9 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
     }()
     private let storeNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.font(style: .titleLarge1)
+        label.font = UIFont.font(style: .titleLarge1OverTwoLine)
         label.textColor = Asset.Colors.gray7.color
+        label.numberOfLines = 0
         return label
     }()
     private let storeAddressLabel: UILabel = {
@@ -89,7 +91,9 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
-    func setUpContents(store: Store) {
+    func setUpContents(store: Store, screenWidth: CGFloat = 0) {
+        let targetWidth = screenWidth == 0 ?
+        contentView.frame.width - storeNameLabelInsetSum : screenWidth - storeNameLabelInsetSum
         storeNameLabel.setText(text: store.name, font: .titleLarge1)
         storeAddressLabel.setText(text: store.address, font: .bodyMedium)
         setUpLikeCount(response: .init(recommendCount: store.recommendedCount,
@@ -101,6 +105,14 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
         }
         if store.storeRefillGuideImagePaths.isEmpty {
             checkVisitGuideButton.removeFromSuperview()
+        }
+
+        let newSize = storeNameLabel.sizeThatFits(CGSize(width: targetWidth, height: CGFloat.greatestFiniteMagnitude))
+        let newHeight = newSize.height == 0 ? 22 : newSize.height
+        storeNameLabel.snp.remakeConstraints {
+            $0.top.equalToSuperview().inset(26)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(newHeight).priority(.required)
         }
     }
 

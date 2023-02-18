@@ -324,9 +324,14 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: width, height: heightThatFits)
         } else if section == .reviewOverview && viewModel.totalTagVoteCount < 10 {
                 return CGSize(width: width, height: 414)
-        } else if section == .storeDetailInfo &&
-                    viewModel.store.storeRefillGuideImagePaths.isEmpty {
-            return CGSize(width: width, height: 379)
+        } else if section == .storeDetailInfo {
+            let dummyCellForCalculateheight = StoreDetailInfoViewCell(
+                frame: CGRect(origin: .zero, size: CGSize(width: width, height: height))
+            )
+            dummyCellForCalculateheight.setUpContents(store: viewModel.store, screenWidth: view.frame.width)
+            let heightThatFits = dummyCellForCalculateheight
+                .systemLayoutSizeFitting(CGSize(width: width, height: height)).height
+            return CGSize(width: width, height: heightThatFits)
         }
 
         return CGSize(width: width, height: height)
