@@ -19,7 +19,7 @@ final class RegionRequestCollectionViewCell: UICollectionViewCell {
     }()
     private let guidanceLabel: UILabel = {
         let label = UILabel()
-        label.setText(text: "현재 위치하고 계신 곳은\n아직 서비스 지역이 아니에요😭", font: .titleMedium)
+        label.setText(text: "현재 위치하고 계신 곳은\n아직 서비스 지역이 아니에요😭", font: .titleMediumOverTwoLine)
         label.textAlignment = .center
         label.numberOfLines = 0
         return label
