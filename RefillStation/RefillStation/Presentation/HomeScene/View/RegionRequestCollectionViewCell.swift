@@ -56,7 +56,7 @@ final class RegionRequestCollectionViewCell: UICollectionViewCell {
     // MARK: - Initalizer
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .white
+        backgroundColor = .white
         layout()
     }
 

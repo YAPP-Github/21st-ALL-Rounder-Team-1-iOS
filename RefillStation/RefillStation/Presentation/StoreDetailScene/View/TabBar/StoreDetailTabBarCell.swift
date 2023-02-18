@@ -64,6 +64,7 @@ final class StoreDetailTabBarCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = .white
         layout()
         addButtonTargets()
     }
