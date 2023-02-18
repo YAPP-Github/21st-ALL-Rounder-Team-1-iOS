@@ -21,16 +21,17 @@ final class AsyncRegisterReviewRepository: AsyncRegisterReviewRepositoryInterfac
     }
 
     func registerReview(query: RegisterReviewRequestValue) async throws {
-        try await withThrowingTaskGroup(of: String.self, body: { taskGroup in
-            var imagePaths = [String]()
-            for image in query.images {
+        try await withThrowingTaskGroup(of: (index: Int, imagePath: String).self, body: { taskGroup in
+            var imagePathsWithIndex = [(index: Int, imagePath: String)]()
+            for item in query.images.indexed() {
                 taskGroup.addTask {
-                    return try await self.awsService.upload(type: .review, image: image)
+                    let imagePath = try await self.awsService.upload(type: .review, image: item.element)
+                    return (item.index, imagePath)
                 }
             }
 
             for try await imagePath in taskGroup {
-                imagePaths.append(imagePath)
+                imagePathsWithIndex.append(imagePath)
             }
 
             try await taskGroup.waitForAll()
@@ -40,7 +41,9 @@ final class AsyncRegisterReviewRepository: AsyncRegisterReviewRepositoryInterfac
             let reviewDTO = ReviewUploadDTO(
                 storeId: query.storeId,
                 reviewText: query.description,
-                imgPath: imagePaths,
+                imgPath: imagePathsWithIndex
+                    .sorted { $0.index < $1.index }
+                    .map { $0.imagePath },
                 reviewTagIds: query.tagIds
             )
             guard let requestBody = try? JSONEncoder().encode(reviewDTO) else {
