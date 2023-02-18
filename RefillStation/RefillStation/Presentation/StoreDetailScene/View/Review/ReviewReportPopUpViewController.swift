@@ -18,7 +18,6 @@ final class ReviewReportPopUpViewController: PumpPopUpViewController {
         self.viewModel = viewModel
         self.dismissCompletion = dismissCompletion
         super.init(title: "어떤 이유로 신고하시나요?", description: nil)
-        backgroundColor = .white
         addTextView()
         addActions()
         actionButtons[1].isEnabled = false
