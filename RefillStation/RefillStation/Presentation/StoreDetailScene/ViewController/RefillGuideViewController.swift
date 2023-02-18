@@ -12,9 +12,12 @@ final class RefillGuideViewController: UIViewController {
     var coordinator: StoreDetailCoordinator?
     private let viewModel: RefillGuideViewModel
 
-    private let closeButton: UIButton = {
+    private lazy var closeButton: UIButton = {
         let button = UIButton()
         button.setImage(Asset.Images.iconClose.image, for: .normal)
+        button.addAction(UIAction { [weak self] _ in
+            self?.coordinator?.refillGuideCloseButtonTapped()
+        }, for: .touchUpInside)
         return button
     }()
     private lazy var titleBar: UIView = {
@@ -60,7 +63,8 @@ final class RefillGuideViewController: UIViewController {
     private func layout() {
         [titleBar, outerScrollView].forEach { view.addSubview($0) }
         titleBar.snp.makeConstraints {
-            $0.leading.top.trailing.equalToSuperview()
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(44)
         }
         outerScrollView.snp.makeConstraints {
