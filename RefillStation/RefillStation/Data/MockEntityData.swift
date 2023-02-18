@@ -72,7 +72,7 @@ final class MockEntityData {
                         .init(day: .fri, time: "10:00 - 18:00"),
                         .init(day: .sat, time: "10:00 - 18:00"),
                         .init(day: .sun, time: nil)]
-                     , notice: "")
+                     , notice: "", storeRefillGuideImagePaths: [])
     }
 
     static func review(chekLists: [Bool]) -> Review? {

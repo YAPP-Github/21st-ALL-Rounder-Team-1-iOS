@@ -23,6 +23,7 @@ struct StoreDTO: Decodable {
     let isReady: Bool?
     let distance: String?
     let imgStores: [ImgStoreDTO]
+    let storeRefillGuides: [StoreRefillGuideDTO]
 
     struct BusinessHourDTO: Decodable {
         let day: String?
@@ -33,6 +34,15 @@ struct StoreDTO: Decodable {
         let id: Int?
         let storeId: Int?
         let path: String?
+    }
+
+    struct StoreRefillGuideDTO: Decodable {
+        let createdAt: String?
+        let modifiedAt: String?
+        let id: String?
+        let storeId: String?
+        let imgPath: String?
+        let removedAt: String?
     }
 }
 
@@ -53,7 +63,8 @@ extension StoreDTO {
                     $0.name == dto.day
                 }) ?? .mon, time: dto.time)
             } ?? [],
-            notice: notice ?? ""
+            notice: notice ?? "",
+            storeRefillGuideImagePaths: storeRefillGuides.compactMap { $0.imgPath }
         )
     }
 }
