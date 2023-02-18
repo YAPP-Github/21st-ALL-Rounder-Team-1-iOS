@@ -26,7 +26,7 @@ final class DetailReviewTagCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        contentView.backgroundColor = .white
         layout()
         setUpCellAppearance()
     }
@@ -57,7 +57,7 @@ final class DetailReviewTagCollectionViewCell: UICollectionViewCell {
     }
 
     private func setUpCellAppearance() {
-        backgroundColor = Asset.Colors.gray1.color
+        contentView.backgroundColor = Asset.Colors.gray1.color
         layer.cornerRadius = 4
         clipsToBounds = true
     }

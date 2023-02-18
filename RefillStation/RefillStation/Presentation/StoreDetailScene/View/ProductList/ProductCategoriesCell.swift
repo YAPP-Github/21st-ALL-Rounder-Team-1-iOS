@@ -29,7 +29,7 @@ final class ProductCategoriesCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        contentView.backgroundColor = .white
         setUpCategoryCollectionView()
         layout()
         applyDataSource()
