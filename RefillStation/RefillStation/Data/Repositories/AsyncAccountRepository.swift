@@ -72,6 +72,7 @@ final class AsyncAccountRepository: AsyncAccountRepositoryInterface {
     }
 
     func withdraw() async throws {
+        _ = KeychainManager.shared.deleteItem(key: "lookAroundToken")
         guard KeychainManager.shared.getItem(key: "token") != nil else { return }
         var urlComponents = URLComponents(string: networkService.baseURL)
         urlComponents?.path = "/api/user"
