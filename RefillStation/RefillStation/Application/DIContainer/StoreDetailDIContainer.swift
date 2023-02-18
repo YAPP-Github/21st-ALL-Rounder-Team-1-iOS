@@ -9,6 +9,7 @@ import UIKit
 
 final class StoreDetailDIContainer: DIContainer {
     private let navigationController: UINavigationController
+    private let onboardingNavigationController = UINavigationController()
     private let store: Store
 
     init(navigationController: UINavigationController, store: Store) {

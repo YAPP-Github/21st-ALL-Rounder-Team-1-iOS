@@ -17,9 +17,9 @@ final class AsyncAccountRepository: AsyncAccountRepositoryInterface {
 
     func OAuthLogin(loginType: OAuthType, requestValue: OAuthLoginRequestValue) async throws -> OAuthLoginResponseValue {
         var urlComponents = URLComponents(string: networkService.baseURL)
-        urlComponents?.path = "/api/login/oauth/\(loginType.path)"
+        urlComponents?.path = loginType == .lookAround ? "/api/user/test-account" : "/api/login/oauth/\(loginType.path)"
         let requestParamName = loginType == .apple ? "identityToken" : "accessToken"
-        urlComponents?.queryItems = [
+        urlComponents?.queryItems = loginType == .lookAround ? [] : [
             URLQueryItem(name: requestParamName, value: String(requestValue.accessToken))
         ]
         guard let request = urlComponents?.toURLRequest(method: .get) else {
@@ -27,7 +27,11 @@ final class AsyncAccountRepository: AsyncAccountRepositoryInterface {
         }
         let loginDTO: LoginDTO = try await networkService.dataTask(request: request)
         if let token = loginDTO.jwt {
-            if !KeychainManager.shared.updateItem(key: "token", value: token) {
+            _ = KeychainManager.shared.deleteUserToken()
+            if loginType == .lookAround {
+                _ = KeychainManager.shared.addItem(key: "lookAroundToken", value: token)
+                UserDefaults.standard.setValue(true, forKey: "isLookAroundUser")
+            } else {
                 _ = KeychainManager.shared.addItem(key: "token", value: token)
             }
         }
@@ -50,6 +54,7 @@ final class AsyncAccountRepository: AsyncAccountRepositoryInterface {
             throw RepositoryError.urlParseFailed
         }
         let token: String = try await networkService.dataTask(request: request)
+        _ = KeychainManager.shared.deleteUserToken()
         _ = KeychainManager.shared.addItem(key: "token", value: token)
         return token
     }
@@ -58,13 +63,15 @@ final class AsyncAccountRepository: AsyncAccountRepositoryInterface {
         let result = KeychainManager.shared.deleteUserToken()
         switch result {
         case .success:
-            return
+            UserDefaults.standard.setValue(false, forKey: "isLookAroundUser")
+            UserDefaults.standard.setValue(false, forKey: "didLookAroundLoginStarted")
         case .failure(let error):
             throw error
         }
     }
 
     func withdraw() async throws {
+        guard KeychainManager.shared.getItem(key: "token") != nil else { return }
         var urlComponents = URLComponents(string: networkService.baseURL)
         urlComponents?.path = "/api/user"
         guard let request = urlComponents?.toURLRequest(method: .delete) else {
@@ -73,6 +80,8 @@ final class AsyncAccountRepository: AsyncAccountRepositoryInterface {
 
         let _: WithdrawDTO = try await networkService.dataTask(request: request)
         _ = KeychainManager.shared.deleteUserToken()
+        UserDefaults.standard.setValue(false, forKey: "isLookAroundUser")
+        UserDefaults.standard.setValue(false, forKey: "didLookAroundLoginStarted")
     }
 
     func createNickname() async throws -> String {

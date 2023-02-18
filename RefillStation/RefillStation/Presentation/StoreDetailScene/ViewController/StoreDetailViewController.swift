@@ -156,7 +156,11 @@ final class StoreDetailViewController: UIViewController, ServerAlertable {
                 present(noLinkPopUp, animated: false)
             }
         case .like:
-            viewModel.storeLikeButtonTapped()
+            if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
+                coordinator?.showLookAroundLogin()
+            } else {
+                viewModel.storeLikeButtonTapped()
+            }
         }
     }
 }
@@ -388,7 +392,11 @@ extension StoreDetailViewController {
             .CellRegistration<ReviewInfoCell, StoreDetailItem> { [weak self] (cell, indexPath, item) in
                 guard let self = self else { return }
             cell.moveToRegisterReview = { [weak self] in
-                self?.coordinator?.showRegisterReview()
+                if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
+                    self?.coordinator?.showLookAroundLogin()
+                } else {
+                    self?.coordinator?.showRegisterReview()
+                }
             }
             cell.setUpContents(totalDetailReviewCount: self.viewModel.reviews.count,
                                totalTagReviewCount: self.viewModel.totalTagVoteCount,
@@ -411,6 +419,10 @@ extension StoreDetailViewController {
                 self.reloadCellAt(indexPath: indexPath)
             }
             cell.reportButtonTapped = { [weak self] in
+                if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
+                    self?.coordinator?.showLookAroundLogin()
+                    return
+                }
                 let reportPopUp = ReviewReportPopUpViewController(
                     viewModel: ReviewReportPopUpViewModel(reportedUserId: review.userId)
                 ) {

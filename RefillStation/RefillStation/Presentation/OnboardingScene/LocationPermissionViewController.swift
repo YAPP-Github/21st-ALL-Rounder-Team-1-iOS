@@ -44,6 +44,7 @@ final class LocationPermissionViewController: UIViewController, ServerAlertable 
     private lazy var confirmBotton: CTAButton = {
         let button = CTAButton(style: .basic)
         button.setTitle("동의하고 시작하기", for: .normal)
+        button.titleLabel?.font = .font(style: .buttonLarge)
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.requestAuthorization()
         }), for: .touchUpInside)
@@ -68,12 +69,11 @@ final class LocationPermissionViewController: UIViewController, ServerAlertable 
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.topItem?.title = ""
-        navigationController?.navigationBar.tintColor = Asset.Colors.gray7.color
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        AppDelegate.setUpNavigationBar()
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
     private func bind() {
@@ -121,9 +121,9 @@ final class LocationPermissionViewController: UIViewController, ServerAlertable 
     private func requestAuthorization() {
         switch locationManager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
-            self.viewModel.agreeButtonDidTapped()
+            viewModel.agreeButtonDidTapped()
         case .notDetermined, .restricted:
-            self.locationManager.requestWhenInUseAuthorization()
+            locationManager.requestWhenInUseAuthorization()
         case .denied:
             openSetting()
         default:

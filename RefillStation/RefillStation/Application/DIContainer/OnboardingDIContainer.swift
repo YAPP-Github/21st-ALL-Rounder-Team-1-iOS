@@ -8,27 +8,15 @@
 import UIKit
 
 final class OnboardingDIContainer: DIContainer {
-    private let navigationController: UINavigationController
-    private let window: UIWindow?
-
-    init(
-        navigationController: UINavigationController,
-        window: UIWindow?
-    ) {
-        self.navigationController = navigationController
-        self.window = window
-    }
 
     // MARK: - TabBarDIContainer
     func makeTabBarDIContainer() -> TabBarDIContainer {
-        return TabBarDIContainer(window: window)
+        return TabBarDIContainer()
     }
 
     // MARK: - Coordinator
     func makeOnboardingCoordinator() -> OnboardingCoordinator {
-        return OnboardingCoordinator(DIContainer: self,
-                                     navigationController: navigationController,
-                                     window: window)
+        return OnboardingCoordinator(DIContainer: self)
     }
 
     // MARK: - Onboarding
@@ -41,8 +29,8 @@ final class OnboardingDIContainer: DIContainer {
     }
 
     // MARK: - Login
-    func makeLoginViewController() -> LoginViewController {
-        return LoginViewController(viewModel: makeLoginViewModel())
+    func makeLoginViewController(viewType: LoginViewController.ViewType) -> LoginViewController {
+        return LoginViewController(viewModel: makeLoginViewModel(), viewType: viewType)
     }
 
     func makeLoginViewModel() -> LoginViewModel {
@@ -80,15 +68,6 @@ final class OnboardingDIContainer: DIContainer {
     }
 
     func makeLocationPermissionViewModel(requestValue: SignUpRequestValue) -> LocationPermissionViewModel {
-        return LocationPermissionViewModel(signUpUseCase: makeSignUpUseCase(),
-                                           requestValue: requestValue)
-    }
-
-    func makeSignUpUseCase() -> SignUpUseCase {
-        return SignUpUseCase(accountRepository: makeSignUpRepository())
-    }
-
-    func makeSignUpRepository() -> AsyncAccountRepositoryInterface {
-        return AsyncAccountRepository()
+        return LocationPermissionViewModel(requestValue: requestValue)
     }
 }

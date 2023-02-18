@@ -49,7 +49,7 @@ final class TermsPermissionViewController: UIViewController {
     private lazy var confirmButton: CTAButton = {
         let button = CTAButton(style: .basic)
         button.setTitle("동의합니다", for: .normal)
-        button.titleLabel?.font = .font(style: .titleMedium)
+        button.titleLabel?.font = .font(style: .buttonLarge)
         button.isEnabled = false
         button.addAction(UIAction { [weak self] _ in
             guard let self = self else { return }
@@ -73,6 +73,15 @@ final class TermsPermissionViewController: UIViewController {
         layout()
         setUpStackViewButtons()
         setUpButtonState()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
     private func layout() {

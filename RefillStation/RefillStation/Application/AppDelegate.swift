@@ -23,12 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         AppDelegate.setUpNavigationBar()
         window = UIWindow(frame: UIScreen.main.bounds)
-        let navigationController = UINavigationController()
         let rootViewController = UIViewController()
         window?.rootViewController = rootViewController
-        onboardingDIContainer = OnboardingDIContainer(navigationController: navigationController,
-                                                      window: window)
+        onboardingDIContainer = OnboardingDIContainer()
         onboardingCoordinator = onboardingDIContainer?.makeOnboardingCoordinator()
+        checkFirstLaunch()
         if didLoginSuccessed() {
             onboardingCoordinator?.agreeAndStartButtonTapped()
         } else {
@@ -62,7 +61,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return false
     }
 
+    func applicationWillTerminate(_ application: UIApplication) {
+        UserDefaults.standard.setValue(false, forKey: "didLookAroundLoginStarted")
+    }
+
     private func didLoginSuccessed() -> Bool {
         return KeychainManager.shared.getItem(key: "token") != nil
+            || KeychainManager.shared.getItem(key: "lookAroundToken") != nil
+    }
+
+    private func checkFirstLaunch() {
+        if !UserDefaults.standard.bool(forKey: "hasUserAlreadyOpenedApp") {
+            UserDefaults.standard.setValue(true, forKey: "hasUserAlreadyOpenedApp")
+            _ = KeychainManager.shared.deleteUserToken()
+        }
+    }
+}
+
+extension UIApplication {
+    static func topViewController(
+        base: UIViewController? = UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController
+    ) -> UIViewController? {
+        if let nav = base as? UINavigationController { return topViewController(base: nav.visibleViewController) }
+        if let tab = base as? UITabBarController {
+            if let selected = tab.selectedViewController { return topViewController(base: selected) }
+        }
+        if let presented = base?.presentedViewController { return topViewController(base: presented) }
+        return base
     }
 }

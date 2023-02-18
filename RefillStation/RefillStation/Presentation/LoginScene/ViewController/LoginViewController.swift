@@ -12,6 +12,7 @@ import AuthenticationServices
 final class LoginViewController: UIViewController, ServerAlertable {
     private let viewModel: LoginViewModel
     var coordinator: OnboardingCoordinator?
+    private let viewType: ViewType
 
     private let authorizationController: ASAuthorizationController = {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
@@ -86,8 +87,50 @@ final class LoginViewController: UIViewController, ServerAlertable {
         return button
     }()
 
-    init(viewModel: LoginViewModel) {
+    private lazy var lookAroundLabel: UILabel = {
+        let label = UILabel()
+        label.setText(text: "회원가입 없이 둘러보기", font: .buttonSmall)
+        label.textColor = .white
+        label.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(lookAroundTapped(_:)))
+        label.addGestureRecognizer(tapGesture)
+        return label
+    }()
+
+    private let lookAroundBottomLine: UIView = {
+        let bottomLine = UIView()
+        bottomLine.backgroundColor = .white
+        return bottomLine
+    }()
+
+    private lazy var lookAroundView: UIView = {
+        let lookAroundView = UIView()
+        [lookAroundLabel, lookAroundBottomLine].forEach { lookAroundView.addSubview($0) }
+        lookAroundLabel.snp.makeConstraints {
+            $0.leading.trailing.top.equalToSuperview()
+        }
+        lookAroundBottomLine.snp.makeConstraints {
+            $0.top.equalTo(lookAroundLabel.snp.bottom)
+            $0.height.equalTo(1)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        return lookAroundView
+    }()
+
+    private lazy var closeButton: UIButton = {
+        let button = UIButton()
+        button.addAction(UIAction { [weak self] _ in
+            self?.dismiss(animated: true)
+        }, for: .touchUpInside)
+        button.setImage(Asset.Images.iconClose.image.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = Asset.Colors.gray4.color
+        button.isHidden = true
+        return button
+    }()
+
+    init(viewModel: LoginViewModel, viewType: ViewType) {
         self.viewModel = viewModel
+        self.viewType = viewType
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -104,9 +147,18 @@ final class LoginViewController: UIViewController, ServerAlertable {
         setUpAppleAuthorization()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+
     private func layout() {
         view.addSubview(backgroundImageView)
-        [backgroundImageView, titleLabel, iconImageView, loginButtonStackView].forEach { view.addSubview($0) }
+        [backgroundImageView, titleLabel, iconImageView,
+         loginButtonStackView, lookAroundView, closeButton].forEach { view.addSubview($0) }
         [kakaoLoginButton, appleLoginButton].forEach { loginButtonStackView.addArrangedSubview($0)
         }
         backgroundImageView.snp.makeConstraints {
@@ -121,23 +173,47 @@ final class LoginViewController: UIViewController, ServerAlertable {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(titleLabel.snp.bottom).offset(4)
         }
+
+        lookAroundView.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(32)
+            $0.centerX.equalToSuperview()
+        }
         loginButtonStackView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(32)
+            $0.bottom.equalTo(lookAroundView.snp.top).offset(-26)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(32).priority(.low)
+            $0.leading.trailing.equalToSuperview().inset(32)
             $0.height.equalTo(104)
+        }
+        closeButton.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(10)
+            $0.leading.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.width.height.equalTo(24)
+        }
+
+        if viewType == .lookAround {
+            closeButton.isHidden = false
+            lookAroundView.removeFromSuperview()
         }
     }
 
     private func bind() {
-        viewModel.isSignUp = { [weak self] in
+        viewModel.signUp = { [weak self] in
             if let requestValue = self?.viewModel.signUpRequestValue {
                 DispatchQueue.main.async {
                     self?.coordinator?.showTermsPermission(requestValue: requestValue)
                 }
             }
         }
-        viewModel.isSignIn = { [weak self] in
+        viewModel.signIn = { [weak self] in
             DispatchQueue.main.async {
                 self?.coordinator?.agreeAndStartButtonTapped()
+            }
+        }
+        viewModel.lookAround = { [weak self] in
+            if let requestValue = self?.viewModel.signUpRequestValue {
+                DispatchQueue.main.async {
+                    self?.coordinator?.showLocationAuthorization(requestValue: requestValue)
+                }
             }
         }
         viewModel.showErrorAlert = { [weak self] (title, message) in
@@ -163,6 +239,11 @@ final class LoginViewController: UIViewController, ServerAlertable {
             self?.authorizationController.performRequests()
         }, for: .touchUpInside)
     }
+
+    @objc
+    private func lookAroundTapped(_ sender: UITapGestureRecognizer) {
+        viewModel.lookAroundTouched()
+    }
 }
 
 extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
@@ -180,5 +261,12 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         // TODO: 연동 실패시 처리
+    }
+}
+
+extension LoginViewController {
+    enum ViewType {
+        case onboarding
+        case lookAround
     }
 }

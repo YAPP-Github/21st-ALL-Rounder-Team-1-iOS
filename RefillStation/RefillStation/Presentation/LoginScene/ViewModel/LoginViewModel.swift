@@ -14,8 +14,9 @@ final class LoginViewModel {
     private let oauthLoginUseCase: OAuthLoginUseCaseInterface
 
     var signUpRequestValue: SignUpRequestValue?
-    var isSignUp: (() -> Void)?
-    var isSignIn: (() -> Void)?
+    var signUp: (() -> Void)?
+    var signIn: (() -> Void)?
+    var lookAround: (() -> Void)?
     var showErrorAlert: ((String?, String?) -> Void)?
 
     init(OAuthLoginUseCase: OAuthLoginUseCaseInterface = OAuthLoginUseCase()) {
@@ -36,7 +37,12 @@ final class LoginViewModel {
                     oauthType: result.oauthType,
                     oauthIdentity: result.oauthIdentity
                 )
-                result.jwt == nil ? self.isSignUp?() : self.isSignIn?()
+                if oauthType == .lookAround {
+                    self.lookAround?()
+                    return
+                } else {
+                    result.jwt == nil ? self.signUp?() : self.signIn?()
+                }
             } catch NetworkError.exception(errorMessage: let message) {
                 showErrorAlert?(message, nil)
             } catch {
@@ -80,5 +86,9 @@ extension LoginViewModel {
 
     func onNaverLoginByAppTouched() {
 
+    }
+
+    func lookAroundTouched() {
+        requestLogin(oauthType: .lookAround, requestValue: "")
     }
 }

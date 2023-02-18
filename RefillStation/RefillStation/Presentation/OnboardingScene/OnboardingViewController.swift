@@ -47,7 +47,7 @@ final class OnboardingViewController: UIViewController {
         let button = CTAButton(style: .basic)
         button.setTitle("시작하기", for: .normal)
         button.addAction(UIAction { [weak self] _ in
-            self?.coordinator?.showLogin()
+            self?.coordinator?.showLogin(viewType: .onboarding)
         }, for: .touchUpInside)
         return button
     }()
@@ -65,6 +65,14 @@ final class OnboardingViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         layout()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
     private func layout() {

@@ -48,7 +48,10 @@ final class MyPageCoordinator: Coordinator {
         navigationController.pushViewController(termsDetailViewController, animated: true)
     }
 
-    func showLogin() {
+    func showOnboardingLogin() {
+        let onboardingDIContainer = DIContainer.makeOnboardingDIContainer()
+        let onboardingCoordinator = onboardingDIContainer.makeOnboardingCoordinator()
+        onboardingCoordinator.showLogin(viewType: .onboarding)
     }
 
     func popEditProfile() {
