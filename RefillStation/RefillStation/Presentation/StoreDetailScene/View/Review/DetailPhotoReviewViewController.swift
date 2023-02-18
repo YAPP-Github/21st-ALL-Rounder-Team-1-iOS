@@ -22,7 +22,7 @@ final class DetailPhotoReviewViewController: UIViewController {
     private let photoStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.backgroundColor = Asset.Colors.gray0.color
+        stackView.backgroundColor = .black
         return stackView
     }()
 
@@ -162,8 +162,8 @@ final class DetailPhotoReviewViewController: UIViewController {
 
         photoStackView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.centerY.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(view.safeAreaLayoutGuide).multipliedBy(0.66)
+            $0.top.equalTo(backButton.snp.bottom)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
 
         if viewModel.photoURLs.count == 1 {
@@ -175,6 +175,7 @@ final class DetailPhotoReviewViewController: UIViewController {
         viewModel.photoURLs.forEach { imagePath in
             let imageView = UIImageView()
             imageView.contentMode = .scaleAspectFit
+            imageView.backgroundColor = .black
             imageView.kf.setImage(with: URL(string: imagePath ?? ""))
             photoStackView.addArrangedSubview(imageView)
             imageView.snp.makeConstraints {
