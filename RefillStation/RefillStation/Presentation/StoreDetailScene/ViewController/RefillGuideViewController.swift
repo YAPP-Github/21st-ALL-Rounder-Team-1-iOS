@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class RefillGuideViewController: UIViewController {
 
@@ -58,6 +59,7 @@ final class RefillGuideViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         layout()
+        addImageViews()
     }
 
     private func layout() {
@@ -74,6 +76,18 @@ final class RefillGuideViewController: UIViewController {
         outerScrollView.addSubview(imageStackView)
         imageStackView.snp.makeConstraints {
             $0.edges.equalToSuperview()
+        }
+    }
+
+    private func addImageViews() {
+        viewModel.imagePaths.forEach {
+            let imageView = UIImageView()
+            imageView.contentMode = .scaleAspectFit
+            imageView.snp.makeConstraints {
+                $0.width.height.equalTo(view.frame.width)
+            }
+            imageStackView.addArrangedSubview(imageView)
+            imageView.kf.setImage(with: URL(string: $0))
         }
     }
 }

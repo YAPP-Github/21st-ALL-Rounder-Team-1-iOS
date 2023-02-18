@@ -9,7 +9,7 @@ import Foundation
 
 final class RefillGuideViewModel {
 
-    private let imagePaths: [String]
+    let imagePaths: [String]
 
     init(imagePaths: [String]) {
         self.imagePaths = imagePaths
