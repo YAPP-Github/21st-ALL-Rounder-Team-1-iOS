@@ -39,8 +39,8 @@ struct StoreDTO: Decodable {
     struct StoreRefillGuideDTO: Decodable {
         let createdAt: String?
         let modifiedAt: String?
-        let id: String?
-        let storeId: String?
+        let id: Int?
+        let storeId: Int?
         let imgPath: String?
         let removedAt: String?
     }
