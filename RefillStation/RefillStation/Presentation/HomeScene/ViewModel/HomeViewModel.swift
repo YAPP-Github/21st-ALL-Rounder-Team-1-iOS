@@ -38,7 +38,7 @@ final class HomeViewModel {
                 stores = try await fetchStoresUseCase.execute(
                     requestValue: .init(latitude: latitude, longitude: longitude)
                 )
-                let address = await convertAddress(latitude: latitude, longitude: longitude)
+                let address = try await convertAddress(latitude: latitude, longitude: longitude)
                 currentAddress = address.0
                 currentAdministrativeArea = address.1
                 setUpContents?()
@@ -85,17 +85,15 @@ extension HomeViewModel {
         longitude = space.longitude
     }
 
-    private func convertAddress(latitude: Double, longitude: Double) async -> (String, String) {
+    private func convertAddress(latitude: Double, longitude: Double) async throws -> (String, String) {
         let location = CLLocation(latitude: latitude, longitude: longitude)
-        let locale = Locale(identifier: "Ko-kr")
-        return await withCheckedContinuation { continuation in
-            CLGeocoder().reverseGeocodeLocation(location, preferredLocale: locale) { placemarks, _ in
-                guard let placemarks = placemarks, let address = placemarks.last else { return }
-                let currentAddress = (address.administrativeArea ?? "") + " " + (address.name ?? "")
-                let currentAdministrativeArea = address.administrativeArea ?? ""
-                let result = (currentAddress, currentAdministrativeArea)
-                continuation.resume(returning: result)
-            }
-        }
+        let locale = Locale(identifier: "ko_KR")
+
+        let placemarks = try await CLGeocoder().reverseGeocodeLocation(location, preferredLocale: locale)
+        guard let address = placemarks.last else { return ("", "") }
+        let currentAddress = (address.administrativeArea ?? "") + " " + (address.name ?? "")
+        let currentAdministrativeArea = address.administrativeArea ?? ""
+        let result = (currentAddress, currentAdministrativeArea)
+        return result
     }
 }
