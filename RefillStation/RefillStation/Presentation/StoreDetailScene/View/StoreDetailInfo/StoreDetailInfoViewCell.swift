@@ -99,6 +99,9 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
         } else {
             storeImageView.image = Asset.Images.storeDefualtImage.image
         }
+        if store.storeRefillGuideImagePaths.isEmpty {
+            checkVisitGuideButton.removeFromSuperview()
+        }
     }
 
     func setUpLikeCount(response: RecommendStoreResponseValue) {
@@ -148,7 +151,8 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
             $0.leading.equalToSuperview().inset(16)
         }
         storeAddressLabel.snp.makeConstraints {
-            $0.top.equalTo(checkVisitGuideButton.snp.bottom).offset(4)
+            $0.top.equalTo(checkVisitGuideButton.snp.bottom).offset(4).priority(.high)
+            $0.top.equalTo(storeNameLabel.snp.bottom).offset(16).priority(.low)
             $0.leading.equalTo(storeNameLabel)
         }
         storeStackOuterView.snp.makeConstraints {

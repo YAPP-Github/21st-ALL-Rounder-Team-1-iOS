@@ -295,7 +295,7 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let section = storeSection(mode: viewModel.mode, sectionIndex: indexPath.section)
         let width = collectionView.frame.width
-        let height = section.cellHeight
+        var height = section.cellHeight
 
         if section == .review {
             let dummyCellForCalculateheight = DetailReviewCell(
@@ -322,10 +322,11 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
             let heightThatFits = dummyCellForCalculateheight
                 .systemLayoutSizeFitting(CGSize(width: width, height: height)).height
             return CGSize(width: width, height: heightThatFits)
-        } else if section == .reviewOverview {
-            if viewModel.totalTagVoteCount < 10 {
+        } else if section == .reviewOverview && viewModel.totalTagVoteCount < 10 {
                 return CGSize(width: width, height: 414)
-            }
+        } else if section == .storeDetailInfo &&
+                    viewModel.store.storeRefillGuideImagePaths.isEmpty {
+            return CGSize(width: width, height: 379)
         }
 
         return CGSize(width: width, height: height)
