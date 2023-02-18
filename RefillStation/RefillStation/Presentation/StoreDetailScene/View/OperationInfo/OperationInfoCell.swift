@@ -54,6 +54,7 @@ final class OperationInfoCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        backgroundColor = .white
         layout()
         addSeeMoreButtonAction()
     }

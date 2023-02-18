@@ -56,6 +56,7 @@ final class LevelHeaderView: UICollectionReusableView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = .white
         layout()
     }
 

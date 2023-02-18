@@ -217,6 +217,7 @@ final class ReviewInfoCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = .white
         layout()
         addMoveToRegisterReviewAction()
     }

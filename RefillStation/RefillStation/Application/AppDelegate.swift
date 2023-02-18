@@ -33,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             onboardingCoordinator?.start()
         }
+        window?.overrideUserInterfaceStyle = .light
         window?.makeKeyAndVisible()
         return true
     }
