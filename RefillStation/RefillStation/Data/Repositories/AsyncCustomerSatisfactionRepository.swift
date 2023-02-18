@@ -39,5 +39,8 @@ final class AsyncCustomerSatisfactionRepository: AsyncCustomerSatisfactionReposi
         }
 
         let _: CustomerSatisfactionResponseDTO = try await networkService.dataTask(request: request)
+        if requestValue.type == .requestRegion {
+            UserDefaults.standard.setValue(true, forKey: "didRequestRegion")
+        }
     }
 }

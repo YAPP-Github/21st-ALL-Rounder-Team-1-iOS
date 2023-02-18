@@ -176,7 +176,7 @@ extension HomeViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let requestRegionHeaderCount = viewModel.isServiceRegion ? 0 : 1
+        let requestRegionHeaderCount = viewModel.shouldShowRequestRegion ? 0 : 1
         return section == 0 ? requestRegionHeaderCount : viewModel.stores.count
     }
 
