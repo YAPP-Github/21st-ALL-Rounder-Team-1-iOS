@@ -41,7 +41,7 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
     }()
     private lazy var checkVisitGuideButton: UIButton = {
         let button = UIButton()
-        button.setTitle("매장 방문 가이드 읽어보기", for: .normal)
+        button.setTitle("방문 가이드 읽어보기", for: .normal)
         button.setImage(Asset.Images.iconArrowRightSmall.image.withRenderingMode(.alwaysTemplate),
                         for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
