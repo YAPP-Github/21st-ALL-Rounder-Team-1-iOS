@@ -18,6 +18,8 @@
 		3210B52F298F94ED0034CBA7 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B52E298F94ED0034CBA7 /* NetworkResult.swift */; };
 		3210B531298FB5730034CBA7 /* FetchStoreRecommendUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B530298FB5730034CBA7 /* FetchStoreRecommendUseCase.swift */; };
 		3210B535298FBA6B0034CBA7 /* FetchStoreRecommendDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210B534298FBA6B0034CBA7 /* FetchStoreRecommendDTO.swift */; };
+		321697B329A0ADC600260072 /* RefillGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321697B229A0ADC600260072 /* RefillGuideViewController.swift */; };
+		321697B529A0ADCE00260072 /* RefillGuideViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321697B429A0ADCE00260072 /* RefillGuideViewModel.swift */; };
 		321A64222998EACB0089635C /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321A64212998EACB0089635C /* UIViewControllerExtension.swift */; };
 		322982EE29907CC20081B288 /* URLComponentsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322982ED29907CC20081B288 /* URLComponentsExtension.swift */; };
 		322982F02990F5000081B288 /* AWSS3Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322982EF2990F5000081B288 /* AWSS3Service.swift */; };
@@ -214,6 +216,8 @@
 		3210B52E298F94ED0034CBA7 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		3210B530298FB5730034CBA7 /* FetchStoreRecommendUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStoreRecommendUseCase.swift; sourceTree = "<group>"; };
 		3210B534298FBA6B0034CBA7 /* FetchStoreRecommendDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStoreRecommendDTO.swift; sourceTree = "<group>"; };
+		321697B229A0ADC600260072 /* RefillGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefillGuideViewController.swift; sourceTree = "<group>"; };
+		321697B429A0ADCE00260072 /* RefillGuideViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefillGuideViewModel.swift; sourceTree = "<group>"; };
 		321A64212998EACB0089635C /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		322982ED29907CC20081B288 /* URLComponentsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLComponentsExtension.swift; sourceTree = "<group>"; };
 		322982EF2990F5000081B288 /* AWSS3Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSS3Service.swift; sourceTree = "<group>"; };
@@ -416,6 +420,7 @@
 			isa = PBXGroup;
 			children = (
 				32F2D9B22951864700131EB1 /* StoreDetailViewModel.swift */,
+				321697B429A0ADCE00260072 /* RefillGuideViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -434,6 +439,7 @@
 			children = (
 				32F2D9B02951862E00131EB1 /* StoreDetailViewController.swift */,
 				329EF9162972DE30004934E7 /* StoreDetailSection.swift */,
+				321697B229A0ADC600260072 /* RefillGuideViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1393,6 +1399,7 @@
 				325985E3294C51A700D26A37 /* HomeDIContainer.swift in Sources */,
 				329EF91529729679004934E7 /* StoreDetailTabBarCell.swift in Sources */,
 				32DB626429816605008C2522 /* FetchUserInfoUseCase.swift in Sources */,
+				321697B529A0ADCE00260072 /* RefillGuideViewModel.swift in Sources */,
 				3240987429602B2C00911306 /* ProductCategoryCollectionViewCell.swift in Sources */,
 				FCE00A79294C919A00B5C05F /* FetchStoreReviewsUseCase.swift in Sources */,
 				32DB35572996A5C000F699F4 /* AsyncAccountRepositoryInterface.swift in Sources */,
@@ -1498,6 +1505,7 @@
 				322E15E8297A0CD700FE2E2F /* RegisterReviewDIContainer.swift in Sources */,
 				32DB355B2996A80600F699F4 /* AsyncUserInfoRepositoryInterface.swift in Sources */,
 				32DFDAE32976C93500B6EDA3 /* DetailPhotoReviewViewController.swift in Sources */,
+				321697B329A0ADC600260072 /* RefillGuideViewController.swift in Sources */,
 				32DB627229816943008C2522 /* EditProfileUseCase.swift in Sources */,
 				32DB354C2996739B00F699F4 /* RandomNicknameDTO.swift in Sources */,
 				FC47394729376BA500DB9BDB /* HomeViewModel.swift in Sources */,
@@ -1691,7 +1699,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RefillStation/RefillStation.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 267JUTDVY2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RefillStation/Info.plist;
@@ -1728,7 +1736,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RefillStation/RefillStation.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 267JUTDVY2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RefillStation/Info.plist;

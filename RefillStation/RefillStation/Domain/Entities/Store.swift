@@ -19,6 +19,7 @@ struct Store: Hashable {
     let imageURL: [String]
     let businessHour: [BusinessHour]
     let notice: String
+    let storeRefillGuideImagePaths: [String]
 }
 
 struct BusinessHour: Hashable {

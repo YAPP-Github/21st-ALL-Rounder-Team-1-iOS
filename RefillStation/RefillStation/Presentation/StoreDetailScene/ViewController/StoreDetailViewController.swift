@@ -129,7 +129,7 @@ final class StoreDetailViewController: UIViewController, ServerAlertable {
         case .phone:
             let phoneNumber = viewModel.store.phoneNumber
             if !phoneNumber.isEmpty,
-                let url = URL(string: "tel://\(phoneNumber.replacingOccurrences(of: "-", with: ""))"),
+               let url = URL(string: "tel://\(phoneNumber.replacingOccurrences(of: "-", with: ""))"),
                UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             } else {
@@ -295,7 +295,7 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let section = storeSection(mode: viewModel.mode, sectionIndex: indexPath.section)
         let width = collectionView.frame.width
-        let height = section.cellHeight
+        var height = section.cellHeight
 
         if section == .review {
             let dummyCellForCalculateheight = DetailReviewCell(
@@ -322,10 +322,16 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
             let heightThatFits = dummyCellForCalculateheight
                 .systemLayoutSizeFitting(CGSize(width: width, height: height)).height
             return CGSize(width: width, height: heightThatFits)
-        } else if section == .reviewOverview {
-            if viewModel.totalTagVoteCount < 10 {
+        } else if section == .reviewOverview && viewModel.totalTagVoteCount < 10 {
                 return CGSize(width: width, height: 414)
-            }
+        } else if section == .storeDetailInfo {
+            let dummyCellForCalculateheight = StoreDetailInfoViewCell(
+                frame: CGRect(origin: .zero, size: CGSize(width: width, height: height))
+            )
+            dummyCellForCalculateheight.setUpContents(store: viewModel.store, screenWidth: view.frame.width)
+            let heightThatFits = dummyCellForCalculateheight
+                .systemLayoutSizeFitting(CGSize(width: width, height: height)).height
+            return CGSize(width: width, height: heightThatFits)
         }
 
         return CGSize(width: width, height: height)
@@ -337,41 +343,46 @@ extension StoreDetailViewController {
     private func storeDetailInfoCellRegisration() -> UICollectionView.CellRegistration<StoreDetailInfoViewCell, StoreDetailItem> {
         return UICollectionView
             .CellRegistration<StoreDetailInfoViewCell, StoreDetailItem> { [weak self] (cell, indexPath, item) in
-            guard case let .storeDetailInfo(store) = item else { return }
-            cell.setUpContents(store: store)
-            cell.storeButtonTapped = { [weak self] in
-                guard let self = self else { return }
-                self.storeDetailButtonTapped(buttonType: $0)
+                guard case let .storeDetailInfo(store) = item else { return }
+                cell.setUpContents(store: store)
+                cell.storeButtonTapped = { [weak self] in
+                    guard let self = self else { return }
+                    self.storeDetailButtonTapped(buttonType: $0)
+                }
+                cell.checkVisitGuideButtonTapped = { [weak self] in
+                    guard let self = self else { return }
+                    let imagePaths = self.viewModel.store.storeRefillGuideImagePaths
+                    self.coordinator?.refillGuideButtonTapped(imagePaths: imagePaths)
+                }
             }
-        }
     }
 
     private func tabBarCellRegistration() -> UICollectionView.CellRegistration<StoreDetailTabBarCell, StoreDetailItem> {
         return UICollectionView
             .CellRegistration<StoreDetailTabBarCell, StoreDetailItem> { [weak self] (cell, indexPath, item) in
                 guard let self = self else { return }
-            cell.headerTapped = { [weak self] mode in
-                if self?.viewModel.mode != mode {
-                    self?.viewModel.mode = mode
-                    self?.applyDataSource()
+                cell.headerTapped = { [weak self] mode in
+                    if self?.viewModel.mode != mode {
+                        self?.viewModel.mode = mode
+                        self?.applyDataSource()
+                    }
                 }
+                cell.setUpContents(mode: self.viewModel.mode)
             }
-            cell.setUpContents(mode: self.viewModel.mode)
-        }
     }
 
     private func productCategoriesCellRegistration() -> UICollectionView.CellRegistration<ProductCategoriesCell, StoreDetailItem> {
         return UICollectionView
             .CellRegistration<ProductCategoriesCell, StoreDetailItem> { [weak self] (cell, indexPath, item) in
                 guard let self = self else { return }
-            cell.setUpContents(info: .init(categories: self.viewModel.categories,
-                                           currentFilter: self.viewModel.currentCategoryFilter))
-            cell.categoryButtonTapped = { [weak self] in
-                guard let self = self else { return }
-                self.updateProductList(category: $0)
-                self.updateFilteredProductCountCell()
+                cell.setUpContents(info: .init(categories: self.viewModel.categories,
+                                               currentFilter: self.viewModel.currentCategoryFilter))
+                cell.categoryButtonTapped = { [weak self] in
+                    guard let self = self else { return }
+                    self.updateProductList(category: $0)
+                    self.updateFilteredProductCountCell()
+                }
             }
-        }
     }
 
     private func filteredCellRegistration() -> UICollectionView.CellRegistration<FilteredProductCountCell, StoreDetailItem> {
@@ -392,53 +403,53 @@ extension StoreDetailViewController {
         return UICollectionView
             .CellRegistration<ReviewInfoCell, StoreDetailItem> { [weak self] (cell, indexPath, item) in
                 guard let self = self else { return }
-            cell.moveToRegisterReview = { [weak self] in
-                if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
-                    self?.coordinator?.showLookAroundLogin()
-                } else {
-                    self?.coordinator?.showRegisterReview()
+                cell.moveToRegisterReview = { [weak self] in
+                    if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
+                        self?.coordinator?.showLookAroundLogin()
+                    } else {
+                        self?.coordinator?.showRegisterReview()
+                    }
                 }
+                cell.setUpContents(totalDetailReviewCount: self.viewModel.reviews.count,
+                                   totalTagReviewCount: self.viewModel.totalTagVoteCount,
+                                   rankTags: self.viewModel.rankTags)
             }
-            cell.setUpContents(totalDetailReviewCount: self.viewModel.reviews.count,
-                               totalTagReviewCount: self.viewModel.totalTagVoteCount,
-                               rankTags: self.viewModel.rankTags)
-        }
     }
 
     private func detailReviewCellRegistration() -> UICollectionView.CellRegistration<DetailReviewCell, StoreDetailItem> {
         return UICollectionView
             .CellRegistration<DetailReviewCell, StoreDetailItem> { [weak self] (cell, indexPath, item) in
                 guard case let .review(review) = item, let self = self else { return }
-            let shouldSeeMore = self.viewModel.reviewSeeMoreIndexPaths.contains(indexPath)
-            cell.setUpContents(review: review, shouldSeeMore: shouldSeeMore)
-            cell.photoImageTapped = { [weak self] in
-                self?.coordinator?.showDetailPhotoReview(photoURLs: review.imageURL)
-            }
-            cell.seeMoreTapped = { [weak self] in
-                guard let self = self else { return }
-                self.viewModel.reviewSeeMoreTapped(indexPath: indexPath)
-                self.reloadCellAt(indexPath: indexPath)
-            }
-            cell.reportButtonTapped = { [weak self] in
-                if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
-                    self?.coordinator?.showLookAroundLogin()
-                    return
+                let shouldSeeMore = self.viewModel.reviewSeeMoreIndexPaths.contains(indexPath)
+                cell.setUpContents(review: review, shouldSeeMore: shouldSeeMore)
+                cell.photoImageTapped = { [weak self] in
+                    self?.coordinator?.showDetailPhotoReview(photoURLs: review.imageURL)
                 }
-                let reportPopUp = ReviewReportPopUpViewController(
-                    viewModel: ReviewReportPopUpViewModel(reportedUserId: review.userId)
-                ) {
-                    let reportCompletePopUp = PumpPopUpViewController(
-                        title: "해당 댓글이 신고처리 되었습니다.",
-                        description: "검토 후 빠른 시일 내에 반영하겠습니다."
-                    )
-                    reportCompletePopUp.addAction(title: "확인", style: .basic) { [weak self] in
-                        self?.dismiss(animated: true)
+                cell.seeMoreTapped = { [weak self] in
+                    guard let self = self else { return }
+                    self.viewModel.reviewSeeMoreTapped(indexPath: indexPath)
+                    self.reloadCellAt(indexPath: indexPath)
+                }
+                cell.reportButtonTapped = { [weak self] in
+                    if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
+                        self?.coordinator?.showLookAroundLogin()
+                        return
                     }
-                    self?.present(reportCompletePopUp, animated: false)
+                    let reportPopUp = ReviewReportPopUpViewController(
+                        viewModel: ReviewReportPopUpViewModel(reportedUserId: review.userId)
+                    ) {
+                        let reportCompletePopUp = PumpPopUpViewController(
+                            title: "해당 댓글이 신고처리 되었습니다.",
+                            description: "검토 후 빠른 시일 내에 반영하겠습니다."
+                        )
+                        reportCompletePopUp.addAction(title: "확인", style: .basic) { [weak self] in
+                            self?.dismiss(animated: true)
+                        }
+                        self?.present(reportCompletePopUp, animated: false)
+                    }
+                    self?.present(reportPopUp, animated: false)
                 }
-                self?.present(reportPopUp, animated: false)
             }
-        }
     }
 
     private func operationNoticeCellRegistration() -> UICollectionView.CellRegistration<OperationNoticeCell, StoreDetailItem> {
@@ -449,14 +460,14 @@ extension StoreDetailViewController {
     private func operationInfoCellRegistration() -> UICollectionView.CellRegistration<OperationInfoCell, StoreDetailItem> {
         return UICollectionView
             .CellRegistration<OperationInfoCell, StoreDetailItem> { [weak self] (cell, indexPath, item) in
-            guard case let .operationInfo(operationInfo) = item, let self = self else { return }
-            let shouldShowMore = self.viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath)
-            cell.setUpContents(operation: operationInfo, shouldShowMore: shouldShowMore)
-            cell.seeMoreTapped = { [weak self] in
-                guard let self = self else { return }
-                self.viewModel.operationInfoSeeMoreTapped(indexPath: indexPath)
-                self.reloadCellAt(indexPath: indexPath)
+                guard case let .operationInfo(operationInfo) = item, let self = self else { return }
+                let shouldShowMore = self.viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath)
+                cell.setUpContents(operation: operationInfo, shouldShowMore: shouldShowMore)
+                cell.seeMoreTapped = { [weak self] in
+                    guard let self = self else { return }
+                    self.viewModel.operationInfoSeeMoreTapped(indexPath: indexPath)
+                    self.reloadCellAt(indexPath: indexPath)
+                }
             }
-        }
     }
 }

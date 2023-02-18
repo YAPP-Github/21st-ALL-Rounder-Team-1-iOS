@@ -49,6 +49,16 @@ final class StoreDetailDIContainer: DIContainer {
         return FetchProductsUseCase()
     }
 
+    // MARK: - Refill Guide
+
+    func makeRefillGuideViewController(imagePaths: [String]) -> RefillGuideViewController {
+        return RefillGuideViewController(viewModel: makeRefillGuideViewModel(imagePaths: imagePaths))
+    }
+
+    func makeRefillGuideViewModel(imagePaths: [String]) -> RefillGuideViewModel {
+        return RefillGuideViewModel(imagePaths: imagePaths)
+    }
+
     // MARK: - Detail Photo Review
     func makeDetailPhotoReviewViewModel(photoURLs: [String?]) -> DetailPhotoReviewViewModel {
         return DetailPhotoReviewViewModel(photoURLs: photoURLs)
