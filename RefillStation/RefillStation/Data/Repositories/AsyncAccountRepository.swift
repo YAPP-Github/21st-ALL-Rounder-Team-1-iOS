@@ -65,6 +65,7 @@ final class AsyncAccountRepository: AsyncAccountRepositoryInterface {
         case .success:
             UserDefaults.standard.setValue(false, forKey: "isLookAroundUser")
             UserDefaults.standard.setValue(false, forKey: "didLookAroundLoginStarted")
+            UserDefaults.standard.setValue(false, forKey: "didRequestRegion")
         case .failure(let error):
             throw error
         }
@@ -82,6 +83,7 @@ final class AsyncAccountRepository: AsyncAccountRepositoryInterface {
         _ = KeychainManager.shared.deleteUserToken()
         UserDefaults.standard.setValue(false, forKey: "isLookAroundUser")
         UserDefaults.standard.setValue(false, forKey: "didLookAroundLoginStarted")
+        UserDefaults.standard.setValue(false, forKey: "didRequestRegion")
     }
 
     func createNickname() async throws -> String {

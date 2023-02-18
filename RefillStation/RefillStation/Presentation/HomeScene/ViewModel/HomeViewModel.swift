@@ -20,7 +20,7 @@ final class HomeViewModel {
     var currentAddress = ""
     var currentAdministrativeArea = ""
     var isServiceRegion: Bool {
-        return currentAdministrativeArea == "서울특별시"
+        return currentAdministrativeArea == "서울특별시" || UserDefaults.standard.bool(forKey: "didRequestRegion")
     }
     var setUpContents: (() -> Void)?
     var presentLocationPopUp: (() -> Void)?
