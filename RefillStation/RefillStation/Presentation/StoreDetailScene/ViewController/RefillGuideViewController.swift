@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import SkeletonView
 
 final class RefillGuideViewController: UIViewController {
 
@@ -35,6 +36,7 @@ final class RefillGuideViewController: UIViewController {
     private let outerScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .clear
+        scrollView.isSkeletonable = true
         return scrollView
     }()
 
@@ -42,6 +44,7 @@ final class RefillGuideViewController: UIViewController {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 0
+        stackView.isSkeletonable = true
         return stackView
     }()
 
@@ -82,12 +85,16 @@ final class RefillGuideViewController: UIViewController {
     private func addImageViews() {
         viewModel.imagePaths.forEach {
             let imageView = UIImageView()
+            imageView.isSkeletonable = true
+            imageView.showGradientSkeleton()
             imageView.contentMode = .scaleAspectFit
             imageView.snp.makeConstraints {
                 $0.width.height.equalTo(view.frame.width)
             }
             imageStackView.addArrangedSubview(imageView)
-            imageView.kf.setImage(with: URL(string: $0))
+            imageView.kf.setImage(with: URL(string: $0)) { _ in
+                imageView.hideSkeleton()
+            }
         }
     }
 }
