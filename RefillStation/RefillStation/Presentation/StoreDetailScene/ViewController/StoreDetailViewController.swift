@@ -343,6 +343,11 @@ extension StoreDetailViewController {
                     guard let self = self else { return }
                     self.storeDetailButtonTapped(buttonType: $0)
                 }
+                cell.checkVisitGuideButtonTapped = { [weak self] in
+                    guard let self = self else { return }
+                    let imagePaths = self.viewModel.store.storeRefillGuideImagePaths
+                    self.coordinator?.refillGuideButtonTapped(imagePaths: imagePaths)
+                }
             }
     }
 

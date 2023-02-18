@@ -37,18 +37,20 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
         label.textColor = Asset.Colors.gray5.color
         return label
     }()
-    private let checkRefillGuideLabel: UILabel = {
-        let label = UILabel()
-        label.setText(text: "리필가이드 확인하기", font: .bodyMedium)
-        label.textColor = Asset.Colors.gray5.color
-        return label
-    }()
-    private let moveToRefillGuideButton: UIButton = {
+    private lazy var checkVisitGuideButton: UIButton = {
         let button = UIButton()
-        let imageConfiguration = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 12))
-        let image = UIImage(systemName: "chevron.forward", withConfiguration: imageConfiguration)
+        button.setTitle("매장 방문 가이드 읽어보기", for: .normal)
+        button.setImage(Asset.Images.iconArrowRightSmall.image.withRenderingMode(.alwaysTemplate),
+                        for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.imageEdgeInsets = .init(top: 3, left: 0, bottom: 3, right: 0)
+        button.titleLabel?.font = .font(style: .bodyMedium)
+        button.setTitleColor(Asset.Colors.gray5.color, for: .normal)
         button.tintColor = Asset.Colors.gray5.color
-        button.setImage(image, for: .normal)
+        button.semanticContentAttribute = .forceRightToLeft
+        button.addAction(UIAction { [weak self] _ in
+            self?.checkVisitGuideButtonTapped?()
+        }, for: .touchUpInside)
         return button
     }()
     private let storeStackOuterView: UIView = { // StackView에는 cornerRadius적용이 불가하기 때문에 감싸는 View를 제작
@@ -74,6 +76,7 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
     }()
 
     var storeButtonTapped: ((StoreDetailViewModel.StoreInfoButtonType) -> Void)?
+    var checkVisitGuideButtonTapped: (() -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -120,8 +123,8 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
 
     private func layout() {
         [storeImageView, storeInfoOuterView].forEach { addSubview($0) }
-        [storeNameLabel, checkRefillGuideLabel, storeAddressLabel,
-         moveToRefillGuideButton, storeStackOuterView, bottomDivisionLine].forEach {
+        [storeNameLabel, checkVisitGuideButton, storeAddressLabel,
+         storeStackOuterView, bottomDivisionLine].forEach {
             storeInfoOuterView.addSubview($0)
         }
         storeStackOuterView.addSubview(storeInfoStackView)
@@ -140,16 +143,12 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
             $0.top.equalToSuperview().inset(26)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
-        checkRefillGuideLabel.snp.makeConstraints {
+        checkVisitGuideButton.snp.makeConstraints {
             $0.top.equalTo(storeNameLabel.snp.bottom).offset(7)
             $0.leading.equalToSuperview().inset(16)
         }
-        moveToRefillGuideButton.snp.makeConstraints {
-            $0.leading.equalTo(checkRefillGuideLabel.snp.trailing).offset(6)
-            $0.top.bottom.equalTo(checkRefillGuideLabel)
-        }
         storeAddressLabel.snp.makeConstraints {
-            $0.top.equalTo(checkRefillGuideLabel.snp.bottom).offset(4)
+            $0.top.equalTo(checkVisitGuideButton.snp.bottom).offset(4)
             $0.leading.equalTo(storeNameLabel)
         }
         storeStackOuterView.snp.makeConstraints {
