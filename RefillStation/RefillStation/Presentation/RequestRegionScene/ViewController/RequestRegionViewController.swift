@@ -33,7 +33,8 @@ final class RequestRegionViewController: UIViewController, ServerAlertable {
     }()
     private let descriptionIcon: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = Asset.Images.iconBell.image
+        imageView.image = Asset.Images.iconBell.image.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = Asset.Colors.primary8.color
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
