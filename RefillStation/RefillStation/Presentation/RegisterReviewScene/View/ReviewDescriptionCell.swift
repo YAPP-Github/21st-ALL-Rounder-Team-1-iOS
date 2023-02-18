@@ -53,7 +53,7 @@ final class ReviewDescriptionCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        contentView.backgroundColor = .white
         setUpReviewTextView()
         layout()
     }

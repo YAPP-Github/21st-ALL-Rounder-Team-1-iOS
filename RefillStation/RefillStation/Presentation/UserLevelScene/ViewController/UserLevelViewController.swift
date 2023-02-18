@@ -22,6 +22,7 @@ final class UserLevelViewController: UIViewController, ServerAlertable {
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: LevelHeaderView.reuseIdentifier)
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.backgroundColor = .white
         return collectionView
     }()
 

@@ -77,7 +77,7 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        backgroundColor = .white
+        contentView.backgroundColor = .white
         layout()
         addButtonActions()
     }

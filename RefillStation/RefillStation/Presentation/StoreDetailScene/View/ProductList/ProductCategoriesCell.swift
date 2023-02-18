@@ -20,6 +20,7 @@ final class ProductCategoriesCell: UICollectionViewCell {
     private lazy var categoryCollectionView: UICollectionView = {
         let layout = categoryCollectionViewLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
         return collectionView
     }()
 
@@ -29,7 +30,7 @@ final class ProductCategoriesCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        contentView.backgroundColor = .white
         setUpCategoryCollectionView()
         layout()
         applyDataSource()

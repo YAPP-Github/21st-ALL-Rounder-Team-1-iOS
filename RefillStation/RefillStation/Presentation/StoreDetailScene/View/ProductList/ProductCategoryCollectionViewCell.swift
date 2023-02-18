@@ -28,7 +28,7 @@ final class ProductCategoryCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        contentView.backgroundColor = .white
         layout()
         setUpDeselected()
     }
@@ -51,7 +51,7 @@ final class ProductCategoryCollectionViewCell: UICollectionViewCell {
     }
 
     private func setUpDeselected() {
-        backgroundColor = .white
+        contentView.backgroundColor = .white
         layer.cornerRadius = 16
         layer.borderColor = Asset.Colors.gray2.color.cgColor
         categoryLabel.textColor = Asset.Colors.gray4.color
@@ -60,7 +60,7 @@ final class ProductCategoryCollectionViewCell: UICollectionViewCell {
     }
 
     private func setUpSelected() {
-        backgroundColor = Asset.Colors.primary1.color
+        contentView.backgroundColor = Asset.Colors.primary1.color
         layer.cornerRadius = 16
         layer.borderColor = Asset.Colors.primary8.color.cgColor
         layer.borderWidth = 1
