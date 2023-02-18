@@ -55,6 +55,7 @@ final class HomeViewController: UIViewController, ServerAlertable {
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: RegionRequestHeaderView.reuseIdentifier)
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.backgroundColor = .white
         return collectionView
     }()
 

@@ -17,6 +17,7 @@ final class StoreDetailViewController: UIViewController, ServerAlertable {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
         return collectionView
     }()
 

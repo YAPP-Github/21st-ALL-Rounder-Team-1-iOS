@@ -152,6 +152,7 @@ final class DetailReviewCell: UICollectionViewCell {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.isScrollEnabled = false
+        collectionView.backgroundColor = .white
         return collectionView
     }()
 

@@ -20,6 +20,7 @@ final class ProductCategoriesCell: UICollectionViewCell {
     private lazy var categoryCollectionView: UICollectionView = {
         let layout = categoryCollectionViewLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
         return collectionView
     }()
 
