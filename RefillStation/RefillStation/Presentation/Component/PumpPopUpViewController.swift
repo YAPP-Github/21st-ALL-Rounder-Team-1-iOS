@@ -90,6 +90,7 @@ class PumpPopUpViewController: UIViewController {
     init(title: String?, description: String?) {
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .overFullScreen
+        modalTransitionStyle = .crossDissolve
         let title = title?.replacingOccurrences(of: "\\n", with: "\n")
         let description = description?.replacingOccurrences(of: "\\n", with: "\n")
         titleLabel.setText(text: title, font: .titleMediumOverTwoLine)
