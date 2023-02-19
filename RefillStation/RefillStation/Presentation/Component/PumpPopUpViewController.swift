@@ -90,6 +90,7 @@ class PumpPopUpViewController: UIViewController {
     init(title: String?, description: String?) {
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .overFullScreen
+        modalTransitionStyle = .crossDissolve
         let title = title?.replacingOccurrences(of: "\\n", with: "\n")
         let description = description?.replacingOccurrences(of: "\\n", with: "\n")
         titleLabel.setText(text: title, font: .titleMediumOverTwoLine)
@@ -106,6 +107,7 @@ class PumpPopUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black.withAlphaComponent(0.6)
+        addKeyboardNotification()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -194,6 +196,34 @@ class PumpPopUpViewController: UIViewController {
     private func addTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_:)))
         view.addGestureRecognizer(tapGesture)
+    }
+
+    private func addKeyboardNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc
+    private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        let currentBottomSpace = view.frame.height - outerView.frame.maxY
+        let targetBottomSpace = keyboardRect.height + 20
+        let targetY = currentBottomSpace > targetBottomSpace ? 0 : targetBottomSpace - currentBottomSpace
+        UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseOut, animations: {
+            self.outerView.transform = CGAffineTransform(translationX: 0, y: -targetY)
+        })
+    }
+
+    @objc
+    private func keyboardWillHide(_ notification: Notification) {
+        UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseOut, animations: {
+            self.outerView.transform = CGAffineTransform(translationX: 0, y: 0)
+        })
     }
 
     @objc

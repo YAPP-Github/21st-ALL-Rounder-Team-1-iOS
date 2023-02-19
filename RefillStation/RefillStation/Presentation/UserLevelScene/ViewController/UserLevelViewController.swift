@@ -70,8 +70,10 @@ final class UserLevelViewController: UIViewController, ServerAlertable {
 
     private func layout() {
         view.addSubview(levelCollectionView)
+        levelCollectionView.contentInset = .init(top: 0, left: 0, bottom: 34, right: 0)
         levelCollectionView.snp.makeConstraints {
-            $0.edges.equalTo(view.safeAreaLayoutGuide)
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view)
         }
     }
 

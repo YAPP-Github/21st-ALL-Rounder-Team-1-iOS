@@ -122,8 +122,11 @@ final class MyPageViewController: UIViewController, ServerAlertable {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        [changeProfileCell, manageAccountCell].forEach {
+            $0.isHidden = UserDefaults.standard.bool(forKey: "isLookAroundUser")
+        }
         navigationController?.navigationBar.isHidden = true
-        lookAroundUserMaskView.isHidden = !(KeychainManager.shared.getItem(key: "token") == nil)
+        lookAroundUserMaskView.isHidden = !UserDefaults.standard.bool(forKey: "isLookAroundUser")
         viewModel.viewWillAppear()
     }
 
@@ -175,15 +178,15 @@ final class MyPageViewController: UIViewController, ServerAlertable {
             $0.leading.trailing.equalToSuperview()
         }
 
-        listStackView.addArrangedSubview(divisionLine(height: 8))
+        listStackView.layoutMargins = .init(top: 8, left: 0, bottom: 1, right: 0)
+        listStackView.isLayoutMarginsRelativeArrangement = true
         [changeProfileCell, manageAccountCell].forEach {
             listStackView.addArrangedSubview($0)
         }
-        listStackView.addArrangedSubview(divisionLine(height: 8))
         [termsAndConditionsCell, locationTermsCell, personalInfoPolicyCell, versionCell].forEach {
             listStackView.addArrangedSubview($0)
         }
-        listStackView.addArrangedSubview(divisionLine(height: 0))
+        listStackView.setCustomSpacing(8, after: manageAccountCell)
     }
 
     private func listCell(title: String, version: String? = nil) -> UIView {
@@ -221,15 +224,6 @@ final class MyPageViewController: UIViewController, ServerAlertable {
         return outerView
     }
 
-    private func divisionLine(height: CGFloat) -> UIView {
-        let line = UIView()
-        line.backgroundColor = Asset.Colors.gray1.color
-        line.snp.makeConstraints {
-            $0.height.equalTo(height)
-        }
-        return line
-    }
-
     private func addAction() {
         changeProfileCell.addGestureRecognizer(UITapGestureRecognizer(target: self,
                                                                       action: #selector(presentToChangeProfile)))
@@ -248,7 +242,7 @@ final class MyPageViewController: UIViewController, ServerAlertable {
     }
 
     @objc private func presentToChangeProfile() {
-        if KeychainManager.shared.getItem(key: "token") == nil {
+        if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
             coordinator?.showLookAroundLogin()
         } else {
             coordinator?.showEditProfile(user: User(id: viewModel.userId ?? 0,
@@ -259,7 +253,7 @@ final class MyPageViewController: UIViewController, ServerAlertable {
     }
 
     @objc private func presentToManagementAccount() {
-        if KeychainManager.shared.getItem(key: "token") == nil {
+        if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
             coordinator?.showLookAroundLogin()
         } else {
             coordinator?.showManagementAccount()

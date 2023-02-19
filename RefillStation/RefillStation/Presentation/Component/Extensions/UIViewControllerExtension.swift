@@ -20,3 +20,33 @@ extension ServerAlertable where Self: UIViewController {
         }
     }
 }
+
+protocol LoginAlertable {
+    associatedtype CoordinatorType: Coordinator
+    var coordinator: CoordinatorType? { get }
+}
+
+extension LoginAlertable where Self: UIViewController {
+    func loginFeatureButtonTapped(
+        shouldShowPopUp: Bool,
+        title: String?,
+        description: String?
+    ) {
+        DispatchQueue.main.async { [weak self] in
+            if !shouldShowPopUp {
+                self?.coordinator?.showLookAroundLogin()
+                return
+            }
+            let popUp = PumpPopUpViewController(title: title, description: description)
+            popUp.addAction(title: "취소", style: .cancel) {
+                popUp.dismiss(animated: true)
+            }
+            popUp.addAction(title: "로그인", style: .basic) {
+                self?.dismiss(animated: true) { [weak self] in
+                    self?.coordinator?.showLookAroundLogin()
+                }
+            }
+            self?.present(popUp, animated: false)
+        }
+    }
+}
