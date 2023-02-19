@@ -76,6 +76,11 @@ final class StoreDetailViewController: UIViewController, ServerAlertable {
                 self?.applyDataSource()
             }
         }
+        viewModel.applyDataSourceWithoutAnimation = { [weak self] in
+            DispatchQueue.main.async {
+                self?.applyDataSource(withAnimation: false)
+            }
+        }
         viewModel.showErrorAlert = { [weak self] (title, message) in
             self?.showServerErrorAlert(title: title, message: message)
         }
@@ -107,6 +112,7 @@ final class StoreDetailViewController: UIViewController, ServerAlertable {
         collectionView.allowsMultipleSelection = true
         collectionView.showsVerticalScrollIndicator = false
         collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.contentInset = .init(top: 0, left: 0, bottom: 34, right: 0)
         applyDataSource()
     }
 
@@ -168,7 +174,7 @@ final class StoreDetailViewController: UIViewController, ServerAlertable {
 
 // MARK: - DiffableDataSource
 extension StoreDetailViewController {
-    private func applyDataSource() {
+    private func applyDataSource(withAnimation: Bool = true) {
         var snapShot = NSDiffableDataSourceSnapshot<StoreDetailSection, StoreDetailItem>()
         switch viewModel.mode {
         case .productLists:
@@ -197,7 +203,7 @@ extension StoreDetailViewController {
         snapShot.appendItems([.storeDetailInfo(viewModel.store)],
                              toSection: .storeDetailInfo)
         snapShot.appendItems([.tabBarMode(viewModel.mode)], toSection: .tabBar)
-        storeDetailDataSource.apply(snapShot)
+        storeDetailDataSource.apply(snapShot, animatingDifferences: withAnimation)
     }
 
     private func diffableDataSource() -> UICollectionViewDiffableDataSource<StoreDetailSection, StoreDetailItem> {

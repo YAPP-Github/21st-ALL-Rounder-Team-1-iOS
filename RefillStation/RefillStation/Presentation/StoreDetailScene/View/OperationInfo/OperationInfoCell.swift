@@ -139,8 +139,8 @@ final class OperationInfoCell: UICollectionViewCell {
 
         seeMoreButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(29)
-            $0.bottom.equalToSuperview().inset(15)
-            $0.height.width.equalTo(16)
+            $0.bottom.equalToSuperview()
+            $0.height.width.equalTo(46)
         }
     }
 

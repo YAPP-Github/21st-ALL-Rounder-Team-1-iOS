@@ -12,6 +12,7 @@ final class StoreDetailViewModel {
 
     // MARK: - Binding
     var applyDataSource: (() -> Void)?
+    var applyDataSourceWithoutAnimation: (() -> Void)?
     var showErrorAlert: ((String?, String?) -> Void)?
 
     // MARK: - TabBarMode
@@ -137,7 +138,7 @@ final class StoreDetailViewModel {
                 )
                 store.recommendedCount = response.recommendCount
                 store.didUserRecommended = response.didRecommended
-                applyDataSource?()
+                applyDataSourceWithoutAnimation?()
             } catch NetworkError.exception(errorMessage: let message) {
                 showErrorAlert?(message, nil)
             } catch {

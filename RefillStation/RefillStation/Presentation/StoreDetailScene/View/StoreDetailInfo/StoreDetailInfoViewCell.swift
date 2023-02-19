@@ -94,7 +94,8 @@ final class StoreDetailInfoViewCell: UICollectionViewCell {
     func setUpContents(store: Store, screenWidth: CGFloat = 0) {
         let targetWidth = screenWidth == 0 ?
         contentView.frame.width - storeNameLabelInsetSum : screenWidth - storeNameLabelInsetSum
-        storeNameLabel.setText(text: store.name, font: .titleLarge1)
+        storeNameLabel.setText(text: store.name, font: .titleLarge1OverTwoLine)
+        storeNameLabel.lineBreakStrategy = .hangulWordPriority
         storeAddressLabel.setText(text: store.address, font: .bodyMedium)
         setUpLikeCount(response: .init(recommendCount: store.recommendedCount,
                                        didRecommended: store.didUserRecommended))
