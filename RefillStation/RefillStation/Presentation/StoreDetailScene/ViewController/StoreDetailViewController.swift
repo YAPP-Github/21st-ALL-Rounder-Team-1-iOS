@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class StoreDetailViewController: UIViewController, ServerAlertable {
+final class StoreDetailViewController: UIViewController, ServerAlertable, LoginAlertable {
 
     var coordinator: StoreDetailCoordinator?
     private let viewModel: StoreDetailViewModel
@@ -164,7 +164,11 @@ final class StoreDetailViewController: UIViewController, ServerAlertable {
             }
         case .like:
             if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
-                coordinator?.showLookAroundLogin()
+                loginFeatureButtonTapped(
+                    shouldShowPopUp: true,
+                    title: "매장 추천은 로그인이 필요해요!",
+                    description: nil
+                )
             } else {
                 viewModel.storeLikeButtonTapped()
             }
@@ -411,7 +415,11 @@ extension StoreDetailViewController {
                 guard let self = self else { return }
                 cell.moveToRegisterReview = { [weak self] in
                     if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
-                        self?.coordinator?.showLookAroundLogin()
+                        self?.loginFeatureButtonTapped(
+                            shouldShowPopUp: true,
+                            title: "리뷰 쓰기는 로그인이 필요해요!",
+                            description: nil
+                        )
                     } else {
                         self?.coordinator?.showRegisterReview()
                     }
