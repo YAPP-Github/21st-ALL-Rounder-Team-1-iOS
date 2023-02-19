@@ -107,6 +107,7 @@ final class StoreDetailViewController: UIViewController, ServerAlertable {
         collectionView.allowsMultipleSelection = true
         collectionView.showsVerticalScrollIndicator = false
         collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.contentInset = .init(top: 0, left: 0, bottom: 34, right: 0)
         applyDataSource()
     }
 
