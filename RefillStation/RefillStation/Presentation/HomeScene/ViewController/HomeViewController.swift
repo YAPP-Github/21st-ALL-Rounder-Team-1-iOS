@@ -10,7 +10,7 @@ import SnapKit
 import SkeletonView
 import CoreLocation
 
-final class HomeViewController: UIViewController, ServerAlertable {
+final class HomeViewController: UIViewController, ServerAlertable, LoginAlertable {
 
     // MARK: - Properties
     var coordinator: HomeCoordinator?
@@ -190,7 +190,11 @@ extension HomeViewController: UICollectionViewDataSource {
 
             cell.moveToRegionRequest = { [weak self] in
                 if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
-                    self?.coordinator?.showLookAroundLogin()
+                    self?.loginFeatureButtonTapped(
+                        shouldShowPopUp: true,
+                        title: "지역 신청은 로그인이 필요해요!",
+                        description: nil
+                    )
                 } else {
                     self?.coordinator?.showRequestRegion()
                 }
