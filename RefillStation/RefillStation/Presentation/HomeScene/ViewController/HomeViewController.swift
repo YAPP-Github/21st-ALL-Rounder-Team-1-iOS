@@ -13,7 +13,7 @@ import CoreLocation
 final class HomeViewController: UIViewController, ServerAlertable {
 
     // MARK: - Properties
-    var coordiantor: HomeCoordinator?
+    var coordinator: HomeCoordinator?
     private let viewModel: HomeViewModel
     private var locationManager = CLLocationManager()
 
@@ -190,9 +190,9 @@ extension HomeViewController: UICollectionViewDataSource {
 
             cell.moveToRegionRequest = { [weak self] in
                 if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
-                    self?.coordiantor?.showLookAroundLogin()
+                    self?.coordinator?.showLookAroundLogin()
                 } else {
-                    self?.coordiantor?.showRequestRegion()
+                    self?.coordinator?.showRequestRegion()
                 }
             }
             return cell
@@ -241,7 +241,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 0 { return }
-        coordiantor?.showStoreDetail(store: viewModel.stores[indexPath.row])
+        coordinator?.showStoreDetail(store: viewModel.stores[indexPath.row])
     }
 }
 
