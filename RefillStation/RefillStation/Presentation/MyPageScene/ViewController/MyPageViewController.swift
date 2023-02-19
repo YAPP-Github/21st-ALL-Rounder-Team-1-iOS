@@ -242,7 +242,7 @@ final class MyPageViewController: UIViewController, ServerAlertable {
     }
 
     @objc private func presentToChangeProfile() {
-        if KeychainManager.shared.getItem(key: "token") == nil {
+        if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
             coordinator?.showLookAroundLogin()
         } else {
             coordinator?.showEditProfile(user: User(id: viewModel.userId ?? 0,
@@ -253,7 +253,7 @@ final class MyPageViewController: UIViewController, ServerAlertable {
     }
 
     @objc private func presentToManagementAccount() {
-        if KeychainManager.shared.getItem(key: "token") == nil {
+        if UserDefaults.standard.bool(forKey: "isLookAroundUser") {
             coordinator?.showLookAroundLogin()
         } else {
             coordinator?.showManagementAccount()
