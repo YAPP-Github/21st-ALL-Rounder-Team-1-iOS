@@ -51,7 +51,8 @@ final class TermsDetailViewController: UIViewController {
     private func layout() {
         view.addSubview(termsTextView)
         termsTextView.snp.makeConstraints {
-            $0.edges.equalTo(view.safeAreaLayoutGuide)
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view)
         }
     }
 
