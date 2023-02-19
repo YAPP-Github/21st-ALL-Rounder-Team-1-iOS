@@ -125,7 +125,9 @@ final class AccountManagementViewController: UIViewController, ServerAlertable {
             self.dismiss(animated: true)
         }
         popUp.addAction(title: "로그아웃", style: .basic) {
-            self.viewModel.signOutButtonDidTapped()
+            self.dismiss(animated: true) { [weak self] in
+                self?.viewModel.signOutButtonDidTapped()
+            }
         }
         self.present(popUp, animated: false)
     }
@@ -137,7 +139,9 @@ final class AccountManagementViewController: UIViewController, ServerAlertable {
             self.dismiss(animated: true)
         }
         popUp.addAction(title: "탈퇴하기", style: .basic) {
-            self.viewModel.withdrawButtonDidTapped()
+            self.dismiss(animated: true) { [weak self] in
+                self?.viewModel.withdrawButtonDidTapped()
+            }
         }
         self.present(popUp, animated: false)
     }
