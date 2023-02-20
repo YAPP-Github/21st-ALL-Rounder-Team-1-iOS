@@ -297,19 +297,19 @@ extension StoreDetailViewController: UICollectionViewDelegate {
             scrollView.contentSize.height - scrollView.frame.size.height + collectionView.contentInset.bottom {
             navigationController?.navigationBar.tintColor = .black
             moveToTopButton.isHidden = true
-            if #available(iOS 15, *) {} else {
+            if #unavailable(iOS 15) {
                 navigationController?.navigationBar.isHidden = false
             }
         } else if scrollView.contentOffset.y > 0 {
             navigationController?.navigationBar.tintColor = .black
             moveToTopButton.isHidden = false
-            if #available(iOS 15, *) {} else {
+            if #unavailable(iOS 15) {
                 navigationController?.navigationBar.isHidden = false
             }
         } else {
             navigationController?.navigationBar.tintColor = .white
             moveToTopButton.isHidden = true
-            if #available(iOS 15, *) {} else {
+            if #unavailable(iOS 15) {
                 navigationController?.navigationBar.isHidden = true
             }
         }
