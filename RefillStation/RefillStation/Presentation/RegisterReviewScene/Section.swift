@@ -26,7 +26,7 @@ extension RegisterReviewViewController {
             case .storeInfo:
                 defaultItem.contentInsets = .init(top: 5, leading: 0, bottom: 0, trailing: 0)
                 let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                       heightDimension: .absolute(60))
+                                                       heightDimension: .absolute(80))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [defaultItem])
                 section = NSCollectionLayoutSection(group: group)
             case .voteTitle:
