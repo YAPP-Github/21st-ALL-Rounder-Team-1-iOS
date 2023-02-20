@@ -73,14 +73,10 @@ final class StoreDetailViewModel {
         + store.notice
 
         return [
-            OperationInfo(image: Asset.Images.iconClock.image.withRenderingMode(.alwaysTemplate),
-                          content: businessHourInfo),
-            OperationInfo(image: Asset.Images.iconOperationCall.image.withRenderingMode(.alwaysTemplate),
-                          content: store.phoneNumber),
-            OperationInfo(image: Asset.Images.iconOperationLink.image.withRenderingMode(.alwaysTemplate),
-                          content: store.snsAddress),
-            OperationInfo(image: Asset.Images.iconLocation.image.withRenderingMode(.alwaysTemplate),
-                          content: store.address)
+            OperationInfo(type: .time, content: businessHourInfo),
+            OperationInfo(type: .phoneNumber, content: store.phoneNumber),
+            OperationInfo(type: .link, content: store.snsAddress),
+            OperationInfo(type: .address, content: store.address)
         ].filter {
             !$0.content.isEmpty
         }
@@ -170,7 +166,7 @@ final class StoreDetailViewModel {
                 let products = try await fetchProductsUseCase.execute(requestValue: .init(storeId: store.storeId))
                 self.products = products
                 setUpCategories()
-                applyDataSource?()
+                applyDataSourceWithoutAnimation?()
             } catch NetworkError.exception(errorMessage: let message) {
                 showErrorAlert?(message, nil)
             } catch {
@@ -187,7 +183,7 @@ final class StoreDetailViewModel {
                 if self.reviews != reviews {
                     self.reviews = reviews
                     setUpRankedTags()
-                    applyDataSource?()
+                    applyDataSourceWithoutAnimation?()
                 }
             } catch NetworkError.exception(errorMessage: let message) {
                 showErrorAlert?(message, nil)
@@ -204,7 +200,7 @@ final class StoreDetailViewModel {
                 let response = try await fetchStoreRecommendUseCase.execute(requestValue: requestValue)
                 store.didUserRecommended = response.didRecommended
                 store.recommendedCount = response.recommendCount
-                applyDataSource?()
+                applyDataSourceWithoutAnimation?()
             } catch NetworkError.exception(errorMessage: let message) {
                 showErrorAlert?(message, nil)
             } catch {

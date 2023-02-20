@@ -32,7 +32,7 @@ final class KeychainManager {
                 return updateItem(key: key, value: value)
             }
 
-            print("addItem Error : \(status.description))")
+            print("addItem Error : \(key))")
             return false
         }()
 
@@ -57,7 +57,7 @@ final class KeychainManager {
             }
         }
 
-        print("getItem Error : \(result.description)")
+        print("getItem Error : \(key)")
         return nil
     }
 
@@ -72,7 +72,7 @@ final class KeychainManager {
             let status = SecItemUpdate(prevQuery as CFDictionary, updateQuery as CFDictionary)
             if status == errSecSuccess { return true }
 
-            print("updateItem Error : \(status.description)")
+            print("updateItem Error : \(key)")
             return false
         }()
 
@@ -85,7 +85,7 @@ final class KeychainManager {
         let status = SecItemDelete(deleteQuery as CFDictionary)
         if status == errSecSuccess { return true }
 
-        print("deleteItem Error : \(status.description)")
+        print("deleteItem Error : \(key)")
         return false
     }
 

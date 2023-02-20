@@ -12,7 +12,7 @@ final class OperationInfoCell: UICollectionViewCell {
     static let reuseIdentifier = String(describing: OperationInfoCell.self)
 
     private let contentLabelDefaultHeight: CGFloat = 20
-    private let contentLabelInsetSum: CGFloat = 105
+    private let contentLabelInsetSum: CGFloat = 135
 
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -46,7 +46,7 @@ final class OperationInfoCell: UICollectionViewCell {
     private lazy var seeMoreButton: UIButton = {
         let button = UIButton()
         button.setImage(Asset.Images.iconArrowBottomSmall.image, for: .normal)
-        button.isHidden = false
+        button.isHidden = true
         return button
     }()
 
@@ -65,17 +65,39 @@ final class OperationInfoCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         seeMoreButton.isHidden = true
+        contentLabel.textColor = Asset.Colors.gray6.color
     }
 
-    func setUpContents(operation: OperationInfo, shouldShowMore: Bool = false, screenWidth: CGFloat = 0) {
+    func setUpContents(
+        operation: OperationInfo,
+        shouldShowMore: Bool = false,
+        screenWidth: CGFloat = 0
+    ) {
         let targetWidth = screenWidth == 0 ?
         contentView.frame.width - contentLabelInsetSum : screenWidth - contentLabelInsetSum
-        imageView.image = operation.image
+        imageView.image = operation.type.image
         contentLabel.setText(text: operation.content, font: .bodySmallOverTwoLine)
+        if let url = URL(string: operation.content),
+           UIApplication.shared.canOpenURL(url) {
+            contentLabel.textColor = Asset.Colors.primary8.color
+            contentLabel.isUserInteractionEnabled = true
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(contentLabelTapped(_:)))
+            contentLabel.addGestureRecognizer(tapGesture)
+        }
 
-        seeMoreButton.isHidden = maximumContentLabelHeight(targetWidth: targetWidth) <= contentLabelDefaultHeight
+        if operation.type == .time { setUpTimeOperationCell(operation: operation, shouldShowMore: shouldShowMore) }
         contentLabel.lineBreakMode = .byTruncatingTail
         contentLabel.lineBreakStrategy = .hangulWordPriority
+
+        let newSize = contentLabel.sizeThatFits(CGSize(width: targetWidth, height: CGFloat.greatestFiniteMagnitude))
+        let newHeight = newSize.height == 0 ? 20 : newSize.height
+        contentLabel.snp.remakeConstraints {
+            $0.height.equalTo(newHeight).priority(.required)
+        }
+    }
+
+    private func setUpTimeOperationCell(operation: OperationInfo, shouldShowMore: Bool) {
+        seeMoreButton.isHidden = false
 
         if shouldShowMore {
             contentLabel.numberOfLines = 0
@@ -85,10 +107,8 @@ final class OperationInfoCell: UICollectionViewCell {
             seeMoreButton.setImage(Asset.Images.iconArrowBottomSmall.image, for: .normal)
         }
 
-        let newSize = contentLabel.sizeThatFits(CGSize(width: targetWidth, height: CGFloat.greatestFiniteMagnitude))
-        let newHeight = newSize.height == 0 ? 20 : newSize.height
-        contentLabel.snp.remakeConstraints {
-            $0.height.equalTo(newHeight).priority(.required)
+        if let firstLineText = operation.content.split(separator: "\n").first {
+            contentLabel.makeBold(targetString: String(firstLineText))
         }
     }
 
@@ -150,10 +170,38 @@ final class OperationInfoCell: UICollectionViewCell {
             self.seeMoreTapped?()
         }, for: .touchUpInside)
     }
+
+    @objc
+    private func contentLabelTapped(_ sender: UITapGestureRecognizer) {
+        if let contentText = contentLabel.text,
+           let url = URL(string: contentText),
+           UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
+    }
 }
 
 struct OperationInfo: Hashable {
-    let image: UIImage?
+    enum `Type` {
+        case time
+        case phoneNumber
+        case link
+        case address
+
+        var image: UIImage? {
+            switch self {
+            case .time:
+                return Asset.Images.iconClock.image.withRenderingMode(.alwaysTemplate)
+            case .phoneNumber:
+                return Asset.Images.iconOperationCall.image.withRenderingMode(.alwaysTemplate)
+            case .link:
+                return Asset.Images.iconOperationLink.image.withRenderingMode(.alwaysTemplate)
+            case .address:
+                return Asset.Images.iconLocation.image.withRenderingMode(.alwaysTemplate)
+            }
+        }
+    }
+    let type: `Type`
     let content: String
 }
 
@@ -165,17 +213,5 @@ fileprivate extension UILabel {
         let attributedString = NSMutableAttributedString(string: fullText)
         attributedString.addAttribute(.font, value: font, range: range)
         self.attributedText = attributedString
-    }
-
-    var isTruncated: Bool {
-        guard let labelText = text, let font = font else { return false }
-
-        let labelTextSize = (labelText as NSString).boundingRect(
-            with: CGSize(width: frame.size.width, height: .greatestFiniteMagnitude),
-            options: .usesLineFragmentOrigin,
-            attributes: [.font: font],
-            context: nil).size
-
-        return labelTextSize.height > bounds.size.height
     }
 }

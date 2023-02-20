@@ -77,6 +77,8 @@ final class RegisterReviewViewController: UIViewController, ServerAlertable {
 
     override func viewWillAppear(_ animated: Bool) {
         tabBarController?.tabBar.isHidden = true
+        navigationController?.navigationBar.standardAppearance = AppDelegate.navigationBarStandardAppearance()
+        navigationController?.navigationBar.scrollEdgeAppearance = AppDelegate.navigationBarScrollEdgeAppearance()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
