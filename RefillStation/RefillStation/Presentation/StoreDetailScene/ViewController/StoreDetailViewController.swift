@@ -514,8 +514,7 @@ extension StoreDetailViewController {
                 let shouldShowMore = self.viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath)
                 cell.setUpContents(
                     operation: operationInfo,
-                    shouldShowMore: shouldShowMore,
-                    shouldBoldFirstline: indexPath.row == 0
+                    shouldShowMore: shouldShowMore
                 )
                 cell.seeMoreTapped = { [weak self] in
                     guard let self = self else { return }

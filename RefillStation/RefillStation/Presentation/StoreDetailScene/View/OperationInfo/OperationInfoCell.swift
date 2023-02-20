@@ -46,7 +46,7 @@ final class OperationInfoCell: UICollectionViewCell {
     private lazy var seeMoreButton: UIButton = {
         let button = UIButton()
         button.setImage(Asset.Images.iconArrowBottomSmall.image, for: .normal)
-        button.isHidden = false
+        button.isHidden = true
         return button
     }()
 
@@ -71,17 +71,12 @@ final class OperationInfoCell: UICollectionViewCell {
     func setUpContents(
         operation: OperationInfo,
         shouldShowMore: Bool = false,
-        screenWidth: CGFloat = 0,
-        shouldBoldFirstline: Bool = false
+        screenWidth: CGFloat = 0
     ) {
         let targetWidth = screenWidth == 0 ?
         contentView.frame.width - contentLabelInsetSum : screenWidth - contentLabelInsetSum
-        imageView.image = operation.image
+        imageView.image = operation.type.image
         contentLabel.setText(text: operation.content, font: .bodySmallOverTwoLine)
-
-        seeMoreButton.isHidden = maximumContentLabelHeight(targetWidth: targetWidth) <= contentLabelDefaultHeight
-        contentLabel.lineBreakMode = .byTruncatingTail
-        contentLabel.lineBreakStrategy = .hangulWordPriority
         if let url = URL(string: operation.content),
            UIApplication.shared.canOpenURL(url) {
             contentLabel.textColor = Asset.Colors.primary8.color
@@ -89,6 +84,21 @@ final class OperationInfoCell: UICollectionViewCell {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(contentLabelTapped(_:)))
             contentLabel.addGestureRecognizer(tapGesture)
         }
+
+        if operation.type == .time { setUpTimeOperationCell(operation: operation, shouldShowMore: shouldShowMore) }
+        contentLabel.lineBreakMode = .byTruncatingTail
+        contentLabel.lineBreakStrategy = .hangulWordPriority
+
+        let newSize = contentLabel.sizeThatFits(CGSize(width: targetWidth, height: CGFloat.greatestFiniteMagnitude))
+        let newHeight = newSize.height == 0 ? 20 : newSize.height
+        contentLabel.snp.remakeConstraints {
+            $0.height.equalTo(newHeight).priority(.required)
+        }
+    }
+
+    private func setUpTimeOperationCell(operation: OperationInfo, shouldShowMore: Bool) {
+        seeMoreButton.isHidden = false
+
         if shouldShowMore {
             contentLabel.numberOfLines = 0
             seeMoreButton.setImage(Asset.Images.iconArrowTopSmall.image, for: .normal)
@@ -97,15 +107,8 @@ final class OperationInfoCell: UICollectionViewCell {
             seeMoreButton.setImage(Asset.Images.iconArrowBottomSmall.image, for: .normal)
         }
 
-        if shouldBoldFirstline,
-           let firstLineText = operation.content.split(separator: "\n").first {
+        if let firstLineText = operation.content.split(separator: "\n").first {
             contentLabel.makeBold(targetString: String(firstLineText))
-        }
-
-        let newSize = contentLabel.sizeThatFits(CGSize(width: targetWidth, height: CGFloat.greatestFiniteMagnitude))
-        let newHeight = newSize.height == 0 ? 20 : newSize.height
-        contentLabel.snp.remakeConstraints {
-            $0.height.equalTo(newHeight).priority(.required)
         }
     }
 
@@ -179,7 +182,26 @@ final class OperationInfoCell: UICollectionViewCell {
 }
 
 struct OperationInfo: Hashable {
-    let image: UIImage?
+    enum `Type` {
+        case time
+        case phoneNumber
+        case link
+        case address
+
+        var image: UIImage? {
+            switch self {
+            case .time:
+                return Asset.Images.iconClock.image.withRenderingMode(.alwaysTemplate)
+            case .phoneNumber:
+                return Asset.Images.iconOperationCall.image.withRenderingMode(.alwaysTemplate)
+            case .link:
+                return Asset.Images.iconOperationLink.image.withRenderingMode(.alwaysTemplate)
+            case .address:
+                return Asset.Images.iconLocation.image.withRenderingMode(.alwaysTemplate)
+            }
+        }
+    }
+    let type: `Type`
     let content: String
 }
 

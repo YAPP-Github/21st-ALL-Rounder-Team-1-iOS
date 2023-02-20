@@ -73,14 +73,10 @@ final class StoreDetailViewModel {
         + store.notice
 
         return [
-            OperationInfo(image: Asset.Images.iconClock.image.withRenderingMode(.alwaysTemplate),
-                          content: businessHourInfo),
-            OperationInfo(image: Asset.Images.iconOperationCall.image.withRenderingMode(.alwaysTemplate),
-                          content: store.phoneNumber),
-            OperationInfo(image: Asset.Images.iconOperationLink.image.withRenderingMode(.alwaysTemplate),
-                          content: store.snsAddress),
-            OperationInfo(image: Asset.Images.iconLocation.image.withRenderingMode(.alwaysTemplate),
-                          content: store.address)
+            OperationInfo(type: .time, content: businessHourInfo),
+            OperationInfo(type: .phoneNumber, content: store.phoneNumber),
+            OperationInfo(type: .link, content: store.snsAddress),
+            OperationInfo(type: .address, content: store.address)
         ].filter {
             !$0.content.isEmpty
         }
