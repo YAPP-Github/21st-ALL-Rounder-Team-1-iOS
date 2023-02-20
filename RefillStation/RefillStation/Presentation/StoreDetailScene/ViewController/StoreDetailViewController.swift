@@ -476,7 +476,11 @@ extension StoreDetailViewController {
             .CellRegistration<OperationInfoCell, StoreDetailItem> { [weak self] (cell, indexPath, item) in
                 guard case let .operationInfo(operationInfo) = item, let self = self else { return }
                 let shouldShowMore = self.viewModel.operationInfoSeeMoreIndexPaths.contains(indexPath)
-                cell.setUpContents(operation: operationInfo, shouldShowMore: shouldShowMore)
+                cell.setUpContents(
+                    operation: operationInfo,
+                    shouldShowMore: shouldShowMore,
+                    shouldBoldFirstline: indexPath.row == 0
+                )
                 cell.seeMoreTapped = { [weak self] in
                     guard let self = self else { return }
                     self.viewModel.operationInfoSeeMoreTapped(indexPath: indexPath)

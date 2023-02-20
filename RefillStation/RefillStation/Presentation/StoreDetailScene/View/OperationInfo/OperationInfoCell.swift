@@ -12,7 +12,7 @@ final class OperationInfoCell: UICollectionViewCell {
     static let reuseIdentifier = String(describing: OperationInfoCell.self)
 
     private let contentLabelDefaultHeight: CGFloat = 20
-    private let contentLabelInsetSum: CGFloat = 105
+    private let contentLabelInsetSum: CGFloat = 135
 
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -65,9 +65,15 @@ final class OperationInfoCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         seeMoreButton.isHidden = true
+        contentLabel.textColor = Asset.Colors.gray6.color
     }
 
-    func setUpContents(operation: OperationInfo, shouldShowMore: Bool = false, screenWidth: CGFloat = 0) {
+    func setUpContents(
+        operation: OperationInfo,
+        shouldShowMore: Bool = false,
+        screenWidth: CGFloat = 0,
+        shouldBoldFirstline: Bool = false
+    ) {
         let targetWidth = screenWidth == 0 ?
         contentView.frame.width - contentLabelInsetSum : screenWidth - contentLabelInsetSum
         imageView.image = operation.image
@@ -76,13 +82,24 @@ final class OperationInfoCell: UICollectionViewCell {
         seeMoreButton.isHidden = maximumContentLabelHeight(targetWidth: targetWidth) <= contentLabelDefaultHeight
         contentLabel.lineBreakMode = .byTruncatingTail
         contentLabel.lineBreakStrategy = .hangulWordPriority
-
+        if let url = URL(string: operation.content),
+           UIApplication.shared.canOpenURL(url) {
+            contentLabel.textColor = Asset.Colors.primary8.color
+            contentLabel.isUserInteractionEnabled = true
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(contentLabelTapped(_:)))
+            contentLabel.addGestureRecognizer(tapGesture)
+        }
         if shouldShowMore {
             contentLabel.numberOfLines = 0
             seeMoreButton.setImage(Asset.Images.iconArrowTopSmall.image, for: .normal)
         } else {
             contentLabel.numberOfLines = 1
             seeMoreButton.setImage(Asset.Images.iconArrowBottomSmall.image, for: .normal)
+        }
+
+        if shouldBoldFirstline,
+           let firstLineText = operation.content.split(separator: "\n").first {
+            contentLabel.makeBold(targetString: String(firstLineText))
         }
 
         let newSize = contentLabel.sizeThatFits(CGSize(width: targetWidth, height: CGFloat.greatestFiniteMagnitude))
@@ -150,6 +167,15 @@ final class OperationInfoCell: UICollectionViewCell {
             self.seeMoreTapped?()
         }, for: .touchUpInside)
     }
+
+    @objc
+    private func contentLabelTapped(_ sender: UITapGestureRecognizer) {
+        if let contentText = contentLabel.text,
+           let url = URL(string: contentText),
+           UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
+    }
 }
 
 struct OperationInfo: Hashable {
@@ -165,17 +191,5 @@ fileprivate extension UILabel {
         let attributedString = NSMutableAttributedString(string: fullText)
         attributedString.addAttribute(.font, value: font, range: range)
         self.attributedText = attributedString
-    }
-
-    var isTruncated: Bool {
-        guard let labelText = text, let font = font else { return false }
-
-        let labelTextSize = (labelText as NSString).boundingRect(
-            with: CGSize(width: frame.size.width, height: .greatestFiniteMagnitude),
-            options: .usesLineFragmentOrigin,
-            attributes: [.font: font],
-            context: nil).size
-
-        return labelTextSize.height > bounds.size.height
     }
 }
