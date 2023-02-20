@@ -166,7 +166,7 @@ final class StoreDetailViewModel {
                 let products = try await fetchProductsUseCase.execute(requestValue: .init(storeId: store.storeId))
                 self.products = products
                 setUpCategories()
-                applyDataSource?()
+                applyDataSourceWithoutAnimation?()
             } catch NetworkError.exception(errorMessage: let message) {
                 showErrorAlert?(message, nil)
             } catch {
@@ -183,7 +183,7 @@ final class StoreDetailViewModel {
                 if self.reviews != reviews {
                     self.reviews = reviews
                     setUpRankedTags()
-                    applyDataSource?()
+                    applyDataSourceWithoutAnimation?()
                 }
             } catch NetworkError.exception(errorMessage: let message) {
                 showErrorAlert?(message, nil)
@@ -200,7 +200,7 @@ final class StoreDetailViewModel {
                 let response = try await fetchStoreRecommendUseCase.execute(requestValue: requestValue)
                 store.didUserRecommended = response.didRecommended
                 store.recommendedCount = response.recommendCount
-                applyDataSource?()
+                applyDataSourceWithoutAnimation?()
             } catch NetworkError.exception(errorMessage: let message) {
                 showErrorAlert?(message, nil)
             } catch {
