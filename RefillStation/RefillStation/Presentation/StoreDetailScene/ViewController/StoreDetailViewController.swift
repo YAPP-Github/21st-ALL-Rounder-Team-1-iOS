@@ -68,6 +68,16 @@ final class StoreDetailViewController: UIViewController, ServerAlertable, LoginA
         viewModel.viewDidLoad()
     }
 
+    override func viewDidLayoutSubviews() {
+        if view.safeAreaInsets.bottom == 0 {
+            backButton.snp.remakeConstraints {
+                $0.top.equalTo(view).inset(30)
+                $0.leading.equalToSuperview().inset(16)
+            }
+            view.layoutIfNeeded()
+        }
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         tabBarController?.tabBar.isHidden = true
         viewModel.viewWillAppear()
@@ -148,7 +158,6 @@ final class StoreDetailViewController: UIViewController, ServerAlertable, LoginA
 
         backButton.snp.makeConstraints {
             $0.top.equalToSuperview().inset(58)
-            $0.top.equalToSuperview().inset(10).priority(.low)
             $0.leading.equalToSuperview().inset(16)
         }
     }
