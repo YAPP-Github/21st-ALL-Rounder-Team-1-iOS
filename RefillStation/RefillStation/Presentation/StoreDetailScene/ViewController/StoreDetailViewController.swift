@@ -51,6 +51,7 @@ final class StoreDetailViewController: UIViewController, ServerAlertable, LoginA
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        setUpNavigationBar()
         setUpCollectionView()
         layout()
         bind()
@@ -58,7 +59,6 @@ final class StoreDetailViewController: UIViewController, ServerAlertable, LoginA
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        setUpNavigationBar()
         tabBarController?.tabBar.isHidden = true
         viewModel.viewWillAppear()
     }
