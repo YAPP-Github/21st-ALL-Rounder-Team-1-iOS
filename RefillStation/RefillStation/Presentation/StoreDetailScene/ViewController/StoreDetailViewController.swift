@@ -51,7 +51,6 @@ final class StoreDetailViewController: UIViewController, ServerAlertable, LoginA
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setUpNavigationBar()
         setUpCollectionView()
         layout()
         bind()
@@ -61,11 +60,13 @@ final class StoreDetailViewController: UIViewController, ServerAlertable, LoginA
     override func viewWillAppear(_ animated: Bool) {
         tabBarController?.tabBar.isHidden = true
         viewModel.viewWillAppear()
+        setUpNavigationBar()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AppDelegate.setUpNavigationBar()
         navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.isHidden = false
         tabBarController?.tabBar.isHidden = false
         viewModel.viewWillDisappear()
     }
@@ -94,16 +95,21 @@ final class StoreDetailViewController: UIViewController, ServerAlertable, LoginA
         standardAppearance.backgroundColor = .white
         standardAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         standardAppearance.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
-        let scrollEdgeAppearance = UINavigationBarAppearance()
-        scrollEdgeAppearance.configureWithTransparentBackground()
-        scrollEdgeAppearance.backgroundColor = .clear
-        scrollEdgeAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
-        scrollEdgeAppearance.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
         navigationController?.navigationBar.standardAppearance = standardAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = scrollEdgeAppearance
-        navigationController?.navigationBar.tintColor = collectionView.contentOffset.y > 0 ? .black : .white
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.title = viewModel.store.name
+        if #available(iOS 15, *) {
+            let scrollEdgeAppearance = UINavigationBarAppearance()
+            scrollEdgeAppearance.configureWithTransparentBackground()
+            scrollEdgeAppearance.backgroundColor = .clear
+            scrollEdgeAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
+            scrollEdgeAppearance.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
+            navigationController?.navigationBar.scrollEdgeAppearance = scrollEdgeAppearance
+            navigationController?.navigationBar.tintColor = collectionView.contentOffset.y > 0 ? .black : .white
+        } else {
+            navigationController?.navigationBar.isHidden = true
+            navigationController?.navigationBar.shadowImage = UIImage()
+        }
     }
 
     private func setUpCollectionView() {
@@ -287,15 +293,25 @@ extension StoreDetailViewController: UICollectionViewDelegate {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.frame.size.height {
+        if scrollView.contentOffset.y >=
+            scrollView.contentSize.height - scrollView.frame.size.height + collectionView.contentInset.bottom {
             navigationController?.navigationBar.tintColor = .black
             moveToTopButton.isHidden = true
+            if #available(iOS 15, *) {} else {
+                navigationController?.navigationBar.isHidden = false
+            }
         } else if scrollView.contentOffset.y > 0 {
             navigationController?.navigationBar.tintColor = .black
             moveToTopButton.isHidden = false
+            if #available(iOS 15, *) {} else {
+                navigationController?.navigationBar.isHidden = false
+            }
         } else {
             navigationController?.navigationBar.tintColor = .white
             moveToTopButton.isHidden = true
+            if #available(iOS 15, *) {} else {
+                navigationController?.navigationBar.isHidden = true
+            }
         }
     }
 }
@@ -305,7 +321,7 @@ extension StoreDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let section = storeSection(mode: viewModel.mode, sectionIndex: indexPath.section)
         let width = collectionView.frame.width
-        var height = section.cellHeight
+        let height = section.cellHeight
 
         if section == .review {
             let dummyCellForCalculateheight = DetailReviewCell(
