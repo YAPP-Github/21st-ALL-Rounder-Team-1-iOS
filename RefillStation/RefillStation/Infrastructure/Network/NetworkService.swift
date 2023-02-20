@@ -81,6 +81,12 @@ final class NetworkService: NetworkServiceInterface {
     }
 
     func dataTask<DTO: Decodable>(request: URLRequest) async throws -> DTO {
+        var request = request
+        if let token {
+            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        } else {
+            print("There is no jwt token")
+        }
         if #available(iOS 15, *) {
             let (data, response) = try await URLSession.shared.data(for: request)
             print("🌐 " + (request.httpMethod ?? "") + " : " + String(request.url?.absoluteString ?? ""))
@@ -101,13 +107,6 @@ final class NetworkService: NetworkServiceInterface {
             return dto
         } else {
             return try await withCheckedThrowingContinuation({ continuation in
-                var request = request
-                if let token {
-                    request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-                } else {
-                    print("There is no jwt token")
-                }
-
                 URLSession.shared.dataTask(with: request) { data, response, error in
                     if error != nil {
                         continuation.resume(throwing: NetworkError.sessionError)
