@@ -40,9 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     static func setUpNavigationBar() {
         let appearance = UINavigationBarAppearance()
-        let backButtonImage = Asset.Images.iconArrowLeft.image.withAlignmentRectInsets(
-            UIEdgeInsets(top: 0.0, left: -8.0, bottom: 0, right: 0.0)
-        )
+        let backButtonImage = Asset.Images.iconArrowLeft.image
+            .withAlignmentRectInsets(.init(top: 0, left: -8, bottom: 0, right: 0))
         appearance.configureWithDefaultBackground()
         appearance.backgroundColor = .clear
         appearance.shadowColor = Asset.Colors.gray2.color
@@ -63,9 +62,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     static func navigationBarScrollEdgeAppearance() -> UINavigationBarAppearance {
-        let backButtonImage = Asset.Images.iconArrowLeft.image.withAlignmentRectInsets(
-            UIEdgeInsets(top: 0.0, left: -8.0, bottom: 0, right: 0.0)
-        )
+        let backButtonImage = Asset.Images.iconArrowLeft.image
+            .withAlignmentRectInsets(.init(top: 0, left: -8, bottom: 0, right: 0))
         let scrollEdgeAppearance = UINavigationBarAppearance()
         scrollEdgeAppearance.configureWithDefaultBackground()
         scrollEdgeAppearance.backgroundColor = .white
