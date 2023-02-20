@@ -38,6 +38,17 @@ final class StoreDetailViewController: UIViewController, ServerAlertable, LoginA
         return button
     }()
 
+    private lazy var backButton: UIButton = {
+        let button = UIButton()
+        let backButtonImage = Asset.Images.iconArrowLeft.image.withRenderingMode(.alwaysTemplate)
+        button.setImage(backButtonImage, for: .normal)
+        button.tintColor = .white
+        if #available(iOS 15, *) {
+            button.isHidden = true
+        }
+        return button
+    }()
+
     init(viewModel: StoreDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -123,7 +134,7 @@ final class StoreDetailViewController: UIViewController, ServerAlertable, LoginA
     }
 
     private func layout() {
-        [collectionView, moveToTopButton].forEach { view.addSubview($0) }
+        [collectionView, moveToTopButton, backButton].forEach { view.addSubview($0) }
 
         collectionView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalToSuperview()
@@ -133,6 +144,12 @@ final class StoreDetailViewController: UIViewController, ServerAlertable, LoginA
             $0.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(8)
             $0.width.height.equalTo(52)
+        }
+
+        backButton.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(58)
+            $0.top.equalToSuperview().inset(10).priority(.low)
+            $0.leading.equalToSuperview().inset(16)
         }
     }
 
@@ -298,12 +315,14 @@ extension StoreDetailViewController: UICollectionViewDelegate {
             navigationController?.navigationBar.tintColor = .black
             moveToTopButton.isHidden = true
             if #unavailable(iOS 15) {
+                backButton.isHidden = true
                 navigationController?.navigationBar.isHidden = false
             }
         } else if scrollView.contentOffset.y > 0 {
             navigationController?.navigationBar.tintColor = .black
             moveToTopButton.isHidden = false
             if #unavailable(iOS 15) {
+                backButton.isHidden = true
                 navigationController?.navigationBar.isHidden = false
             }
         } else {
@@ -311,6 +330,7 @@ extension StoreDetailViewController: UICollectionViewDelegate {
             moveToTopButton.isHidden = true
             if #unavailable(iOS 15) {
                 navigationController?.navigationBar.isHidden = true
+                backButton.isHidden = false
             }
         }
     }
