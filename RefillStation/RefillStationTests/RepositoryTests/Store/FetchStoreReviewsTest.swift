@@ -126,12 +126,12 @@ class FetchStoreReviewsTest: XCTestCase {
         // given
         let requestValue = FetchStoreReviewsRequestValue(storeId: 330)
         // when
-        let products = try await sucessTestUnit.fetchStoreReviews(requestValue: requestValue)
+        let reviews = try await sucessTestUnit.fetchStoreReviews(requestValue: requestValue)
         // then
         do {
             let networkResult = try JSONDecoder().decode(NetworkResult<[ReviewDTO]>.self, from: dataToReturn)
-            let productsResult = networkResult.data.map { $0.toDomain() }
-            XCTAssertEqual(products, productsResult)
+            let reviewsResult = networkResult.data.map { $0.toDomain() }
+            XCTAssertEqual(reviews, reviewsResult)
         } catch {
             XCTFail("failed: \(error)")
         }
