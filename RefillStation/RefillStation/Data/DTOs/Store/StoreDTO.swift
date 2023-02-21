@@ -51,7 +51,7 @@ extension StoreDTO {
         return Store(
             storeId: id ?? 0,
             name: name ?? "",
-            address: address ?? "",
+            address: address?.replacingOccurrences(of: "#", with: " ") ?? "",
             distance: Double(distance ?? "") ?? 0,
             phoneNumber: callNumber ?? "",
             snsAddress: instaAccount ?? "",
