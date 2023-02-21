@@ -58,10 +58,11 @@ class FetchProductsTest: XCTestCase {
     func test_올바른_baseURL로_fetchProducts_호출시_Products_배열을_반환하는지() async throws {
         // given
         let requestValue = FetchProductsRequestValue(storeId: 330)
-        // when
-        let products = try await sucessTestUnit.fetchProducts(requestValue: requestValue)
-        // then
+
         do {
+            // when
+            let products = try await sucessTestUnit.fetchProducts(requestValue: requestValue)
+            // then
             let networkResult = try JSONDecoder().decode(NetworkResult<[ProductDTO]>.self, from: dataToReturn)
             let productsResult = networkResult.data.map { $0.toDomain() }
             XCTAssertEqual(products, productsResult)

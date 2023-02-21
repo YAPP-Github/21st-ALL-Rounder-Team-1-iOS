@@ -125,10 +125,11 @@ class FetchStoreReviewsTest: XCTestCase {
     func test_올바른_baseURL로_fetchStoreReviews_호출시_Review_배열을_반환하는지() async throws {
         // given
         let requestValue = FetchStoreReviewsRequestValue(storeId: 330)
-        // when
-        let reviews = try await sucessTestUnit.fetchStoreReviews(requestValue: requestValue)
-        // then
+
         do {
+            // when
+            let reviews = try await sucessTestUnit.fetchStoreReviews(requestValue: requestValue)
+            // then
             let networkResult = try JSONDecoder().decode(NetworkResult<[ReviewDTO]>.self, from: dataToReturn)
             let reviewsResult = networkResult.data.map { $0.toDomain() }
             XCTAssertEqual(reviews, reviewsResult)

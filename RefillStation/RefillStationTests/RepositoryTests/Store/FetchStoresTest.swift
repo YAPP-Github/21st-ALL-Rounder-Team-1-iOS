@@ -99,10 +99,11 @@ class FetchStoresTest: XCTestCase {
     func test_올바른_baseURL로_fetchStores_호출시_Store_배열을_반환하는지() async throws {
         // given
         let requestValue = FetchStoresUseCaseRequestValue(latitude: 30, longitude: 40)
-        // when
-        let stores = try await sucessTestUnit.fetchStores(requestValue: requestValue)
-        // then
+
         do {
+            // when
+            let stores = try await sucessTestUnit.fetchStores(requestValue: requestValue)
+            // then
             let networkResult = try JSONDecoder().decode(NetworkResult<[StoreDTO]>.self, from: dataToReturn)
             let storesResult = networkResult.data.map { $0.toDomain() }
             XCTAssertEqual(stores, storesResult)
