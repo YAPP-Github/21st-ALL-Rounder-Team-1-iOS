@@ -10,11 +10,11 @@ import UIKit
 final class AsyncRegisterReviewRepository: AsyncRegisterReviewRepositoryInterface {
 
     private let networkService: NetworkServiceInterface
-    private let awsService: AWSS3Service
+    private let awsService: AWSS3ServiceInterface
 
     init(
         networkService: NetworkServiceInterface = NetworkService.shared,
-        awsService: AWSS3Service = AWSS3Service.shared
+        awsService: AWSS3ServiceInterface = AWSS3Service.shared
     ) {
         self.networkService = networkService
         self.awsService = awsService

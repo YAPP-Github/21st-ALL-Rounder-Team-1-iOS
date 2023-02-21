@@ -13,7 +13,7 @@ final class AsyncCustomerSatisfactionRepository: AsyncCustomerSatisfactionReposi
 
     init(
         networkService: NetworkServiceInterface = NetworkService.shared,
-        userInfoRepository: AsyncUserInfoRepository = AsyncUserInfoRepository()
+        userInfoRepository: AsyncUserInfoRepositoryInterface = AsyncUserInfoRepository()
     ) {
         self.networkService = networkService
         self.userInfoRepository = userInfoRepository
