@@ -116,6 +116,7 @@
 		32EF052F29A4DA0A00AF4CA1 /* MockNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF052E29A4DA0A00AF4CA1 /* MockNetworkService.swift */; };
 		32EF053329A516DE00AF4CA1 /* FetchProductsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF053229A516DE00AF4CA1 /* FetchProductsTest.swift */; };
 		32EF053529A51D7F00AF4CA1 /* FetchStoreReviewsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF053429A51D7F00AF4CA1 /* FetchStoreReviewsTest.swift */; };
+		32EF053729A51EB100AF4CA1 /* FetchStoreRecommendTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF053629A51EB100AF4CA1 /* FetchStoreRecommendTest.swift */; };
 		32F2D9D529518F5900131EB1 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F2D9D429518F5900131EB1 /* ProductCell.swift */; };
 		FC083C482992B4A4002DD943 /* AccountManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC083C472992B4A4002DD943 /* AccountManagementViewController.swift */; };
 		FC083C4C2992B670002DD943 /* AccountManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC083C4B2992B670002DD943 /* AccountManagementViewModel.swift */; };
@@ -307,6 +308,7 @@
 		32EF052E29A4DA0A00AF4CA1 /* MockNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkService.swift; sourceTree = "<group>"; };
 		32EF053229A516DE00AF4CA1 /* FetchProductsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchProductsTest.swift; sourceTree = "<group>"; };
 		32EF053429A51D7F00AF4CA1 /* FetchStoreReviewsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStoreReviewsTest.swift; sourceTree = "<group>"; };
+		32EF053629A51EB100AF4CA1 /* FetchStoreRecommendTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStoreRecommendTest.swift; sourceTree = "<group>"; };
 		32F2D9B02951862E00131EB1 /* StoreDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailViewController.swift; sourceTree = "<group>"; };
 		32F2D9B22951864700131EB1 /* StoreDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailViewModel.swift; sourceTree = "<group>"; };
 		32F2D9D429518F5900131EB1 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
@@ -814,6 +816,7 @@
 				3244A215292DC13B00716A2B /* FetchStoresTest.swift */,
 				32EF053229A516DE00AF4CA1 /* FetchProductsTest.swift */,
 				32EF053429A51D7F00AF4CA1 /* FetchStoreReviewsTest.swift */,
+				32EF053629A51EB100AF4CA1 /* FetchStoreRecommendTest.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -1527,6 +1530,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32EF052F29A4DA0A00AF4CA1 /* MockNetworkService.swift in Sources */,
+				32EF053729A51EB100AF4CA1 /* FetchStoreRecommendTest.swift in Sources */,
 				3244A216292DC13B00716A2B /* FetchStoresTest.swift in Sources */,
 				32EF053529A51D7F00AF4CA1 /* FetchStoreReviewsTest.swift in Sources */,
 				32EF053329A516DE00AF4CA1 /* FetchProductsTest.swift in Sources */,
