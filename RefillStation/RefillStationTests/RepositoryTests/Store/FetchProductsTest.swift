@@ -70,7 +70,7 @@ class FetchProductsTest: XCTestCase {
         }
     }
 
-    func test_잘못된_baseURL로_fetchProducts_호출시_jsonParseFailed를_throw_하는지() async {
+    func test_잘못된_baseURL로_fetchProducts_호출시_urlParseFailed를_throw_하는지() async {
         // given
         let requestValue = FetchProductsRequestValue(storeId: 330)
 

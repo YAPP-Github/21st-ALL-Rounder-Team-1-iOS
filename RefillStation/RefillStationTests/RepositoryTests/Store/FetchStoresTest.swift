@@ -111,7 +111,7 @@ class FetchStoresTest: XCTestCase {
         }
     }
 
-    func test_잘못된_baseURL로_fetchStores_호출시_jsonParseFailed를_throw_하는지() async throws {
+    func test_잘못된_baseURL로_fetchStores_호출시_urlParseFailed를_throw_하는지() async throws {
         // given
         let requestValue = FetchStoresUseCaseRequestValue(latitude: 30, longitude: 40)
 
