@@ -35,7 +35,7 @@
 		3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3244A204292DC13A00716A2B /* RefillStation.xcdatamodeld */; };
 		3244A208292DC13A00716A2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3244A207292DC13A00716A2B /* Assets.xcassets */; };
 		3244A20B292DC13A00716A2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3244A209292DC13A00716A2B /* LaunchScreen.storyboard */; };
-		3244A216292DC13B00716A2B /* RefillStationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A215292DC13B00716A2B /* RefillStationTests.swift */; };
+		3244A216292DC13B00716A2B /* FetchStoresTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A215292DC13B00716A2B /* FetchStoresTest.swift */; };
 		3244A220292DC13B00716A2B /* RefillStationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A21F292DC13B00716A2B /* RefillStationUITests.swift */; };
 		3244A222292DC13B00716A2B /* RefillStationUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A221292DC13B00716A2B /* RefillStationUITestsLaunchTests.swift */; };
 		3244A233292DC48300716A2B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3244A232292DC48300716A2B /* .swiftlint.yml */; };
@@ -113,6 +113,7 @@
 		32ED1E5529853C910020CD1F /* OperationNoticeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32ED1E5429853C910020CD1F /* OperationNoticeCell.swift */; };
 		32ED747A2969441D007EA791 /* OperationInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32ED74792969441D007EA791 /* OperationInfoCell.swift */; };
 		32ED747C29696C52007EA791 /* StoreDetailInfoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32ED747B29696C52007EA791 /* StoreDetailInfoViewCell.swift */; };
+		32EF052F29A4DA0A00AF4CA1 /* MockNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF052E29A4DA0A00AF4CA1 /* MockNetworkService.swift */; };
 		32F2D9D529518F5900131EB1 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F2D9D429518F5900131EB1 /* ProductCell.swift */; };
 		FC083C482992B4A4002DD943 /* AccountManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC083C472992B4A4002DD943 /* AccountManagementViewController.swift */; };
 		FC083C4C2992B670002DD943 /* AccountManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC083C4B2992B670002DD943 /* AccountManagementViewModel.swift */; };
@@ -229,7 +230,7 @@
 		3244A20A292DC13A00716A2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3244A20C292DC13A00716A2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3244A211292DC13B00716A2B /* RefillStationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RefillStationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3244A215292DC13B00716A2B /* RefillStationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefillStationTests.swift; sourceTree = "<group>"; };
+		3244A215292DC13B00716A2B /* FetchStoresTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStoresTest.swift; sourceTree = "<group>"; };
 		3244A21B292DC13B00716A2B /* RefillStationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RefillStationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3244A21F292DC13B00716A2B /* RefillStationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefillStationUITests.swift; sourceTree = "<group>"; };
 		3244A221292DC13B00716A2B /* RefillStationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefillStationUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -301,6 +302,7 @@
 		32ED1E5429853C910020CD1F /* OperationNoticeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationNoticeCell.swift; sourceTree = "<group>"; };
 		32ED74792969441D007EA791 /* OperationInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationInfoCell.swift; sourceTree = "<group>"; };
 		32ED747B29696C52007EA791 /* StoreDetailInfoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StoreDetailInfoViewCell.swift; path = RefillStation/Presentation/StoreDetailScene/View/StoreDetailInfo/StoreDetailInfoViewCell.swift; sourceTree = SOURCE_ROOT; };
+		32EF052E29A4DA0A00AF4CA1 /* MockNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkService.swift; sourceTree = "<group>"; };
 		32F2D9B02951862E00131EB1 /* StoreDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailViewController.swift; sourceTree = "<group>"; };
 		32F2D9B22951864700131EB1 /* StoreDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailViewModel.swift; sourceTree = "<group>"; };
 		32F2D9D429518F5900131EB1 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
@@ -483,7 +485,7 @@
 		3244A214292DC13B00716A2B /* RefillStationTests */ = {
 			isa = PBXGroup;
 			children = (
-				3244A215292DC13B00716A2B /* RefillStationTests.swift */,
+				32EF053029A513DD00AF4CA1 /* RepositoryTests */,
 			);
 			path = RefillStationTests;
 			sourceTree = "<group>";
@@ -791,6 +793,23 @@
 				FCE00A8B294C960E00B5C05F /* Interfaces */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		32EF053029A513DD00AF4CA1 /* RepositoryTests */ = {
+			isa = PBXGroup;
+			children = (
+				32EF052E29A4DA0A00AF4CA1 /* MockNetworkService.swift */,
+				32EF053129A513E900AF4CA1 /* Store */,
+			);
+			path = RepositoryTests;
+			sourceTree = "<group>";
+		};
+		32EF053129A513E900AF4CA1 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				3244A215292DC13B00716A2B /* FetchStoresTest.swift */,
+			);
+			path = Store;
 			sourceTree = "<group>";
 		};
 		FC083C492992B646002DD943 /* ViewController */ = {
@@ -1501,7 +1520,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3244A216292DC13B00716A2B /* RefillStationTests.swift in Sources */,
+				32EF052F29A4DA0A00AF4CA1 /* MockNetworkService.swift in Sources */,
+				3244A216292DC13B00716A2B /* FetchStoresTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1739,13 +1759,16 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 267JUTDVY2;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Neph.RefillStationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RefillStation.app/RefillStation";
 			};
 			name = Debug;
@@ -1760,13 +1783,16 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 267JUTDVY2;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Neph.RefillStationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RefillStation.app/RefillStation";
 			};
 			name = Release;

@@ -9,6 +9,7 @@ disabled_rules:
 excluded:
 - RefillStation/Resources
 - RefillStation/Data/MockEntityData.swift
+- RefillStationTests
 
 line_length:
  ignores_function_declarations: true
