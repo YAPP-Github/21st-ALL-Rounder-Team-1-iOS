@@ -86,7 +86,7 @@ class FetchStoresTest: XCTestCase {
             networkService: MockNetworkService(baseURL: dummyURL, dataToReturn: dataToReturn)
         )
         failureTestUnit = AsyncStoreRepository(
-            networkService: MockNetworkService(baseURL: "🥰", dataToReturn: dataToReturn)
+            networkService: MockNetworkService(baseURL: "한글은 안되겠지", dataToReturn: dataToReturn)
         )
     }
 
@@ -107,21 +107,21 @@ class FetchStoresTest: XCTestCase {
             let storesResult = networkResult.data.map { $0.toDomain() }
             XCTAssertEqual(stores, storesResult)
         } catch {
-            XCTFail("failed")
+            XCTFail("failed: \(error)")
         }
     }
 
-    func test_잘못된_baseURL로_fetchStores_호출시_jsonParseFailed를_throw_하는지() {
+    func test_잘못된_baseURL로_fetchStores_호출시_jsonParseFailed를_throw_하는지() async throws {
         // given
         let requestValue = FetchStoresUseCaseRequestValue(latitude: 30, longitude: 40)
-        Task {
-            do {
-                // when
-                _ = try await failureTestUnit.fetchStores(requestValue: requestValue)
-            } catch {
-                // then
-                XCTAssertThrowsError(RepositoryError.urlParseFailed)
-            }
+
+        do {
+            // when
+            _ = try await failureTestUnit.fetchStores(requestValue: requestValue)
+            XCTFail()
+        } catch {
+            // then
+            XCTAssertEqual(error as? RepositoryError, .urlParseFailed)
         }
     }
 }
