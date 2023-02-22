@@ -504,7 +504,6 @@
 			isa = PBXGroup;
 			children = (
 				32EF053029A513DD00AF4CA1 /* RepositoryTests */,
-				32EF054629A6524B00AF4CA1 /* RegisterReview */,
 			);
 			path = RefillStationTests;
 			sourceTree = "<group>";
@@ -822,6 +821,7 @@
 				32EF053C29A64D7700AF4CA1 /* Account */,
 				32EF053129A513E900AF4CA1 /* Store */,
 				32EF053F29A6504000AF4CA1 /* CustomerSatisfaction */,
+				32EF054629A6524B00AF4CA1 /* RegisterReview */,
 			);
 			path = RepositoryTests;
 			sourceTree = "<group>";
