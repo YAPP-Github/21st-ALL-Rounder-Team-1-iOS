@@ -118,6 +118,7 @@
 		32EF053529A51D7F00AF4CA1 /* FetchStoreReviewsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF053429A51D7F00AF4CA1 /* FetchStoreReviewsTest.swift */; };
 		32EF053729A51EB100AF4CA1 /* FetchStoreRecommendTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF053629A51EB100AF4CA1 /* FetchStoreRecommendTest.swift */; };
 		32EF053929A5219F00AF4CA1 /* RecommendStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF053829A5219F00AF4CA1 /* RecommendStoreTest.swift */; };
+		32EF053B29A646F000AF4CA1 /* OAuthLoginTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF053A29A646F000AF4CA1 /* OAuthLoginTest.swift */; };
 		32F2D9D529518F5900131EB1 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F2D9D429518F5900131EB1 /* ProductCell.swift */; };
 		FC083C482992B4A4002DD943 /* AccountManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC083C472992B4A4002DD943 /* AccountManagementViewController.swift */; };
 		FC083C4C2992B670002DD943 /* AccountManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC083C4B2992B670002DD943 /* AccountManagementViewModel.swift */; };
@@ -311,6 +312,7 @@
 		32EF053429A51D7F00AF4CA1 /* FetchStoreReviewsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStoreReviewsTest.swift; sourceTree = "<group>"; };
 		32EF053629A51EB100AF4CA1 /* FetchStoreRecommendTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStoreRecommendTest.swift; sourceTree = "<group>"; };
 		32EF053829A5219F00AF4CA1 /* RecommendStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendStoreTest.swift; sourceTree = "<group>"; };
+		32EF053A29A646F000AF4CA1 /* OAuthLoginTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthLoginTest.swift; sourceTree = "<group>"; };
 		32F2D9B02951862E00131EB1 /* StoreDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailViewController.swift; sourceTree = "<group>"; };
 		32F2D9B22951864700131EB1 /* StoreDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailViewModel.swift; sourceTree = "<group>"; };
 		32F2D9D429518F5900131EB1 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
@@ -807,6 +809,7 @@
 			isa = PBXGroup;
 			children = (
 				32EF052E29A4DA0A00AF4CA1 /* MockNetworkService.swift */,
+				32EF053A29A646F000AF4CA1 /* OAuthLoginTest.swift */,
 				32EF053129A513E900AF4CA1 /* Store */,
 			);
 			path = RepositoryTests;
@@ -1537,6 +1540,7 @@
 				32EF053929A5219F00AF4CA1 /* RecommendStoreTest.swift in Sources */,
 				3244A216292DC13B00716A2B /* FetchStoresTest.swift in Sources */,
 				32EF053529A51D7F00AF4CA1 /* FetchStoreReviewsTest.swift in Sources */,
+				32EF053B29A646F000AF4CA1 /* OAuthLoginTest.swift in Sources */,
 				32EF053329A516DE00AF4CA1 /* FetchProductsTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
