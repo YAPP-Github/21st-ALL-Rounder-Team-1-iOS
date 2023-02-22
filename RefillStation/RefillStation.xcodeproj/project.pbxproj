@@ -809,7 +809,7 @@
 			isa = PBXGroup;
 			children = (
 				32EF052E29A4DA0A00AF4CA1 /* MockNetworkService.swift */,
-				32EF053A29A646F000AF4CA1 /* OAuthLoginTest.swift */,
+				32EF053C29A64D7700AF4CA1 /* Account */,
 				32EF053129A513E900AF4CA1 /* Store */,
 			);
 			path = RepositoryTests;
@@ -825,6 +825,14 @@
 				32EF053829A5219F00AF4CA1 /* RecommendStoreTest.swift */,
 			);
 			path = Store;
+			sourceTree = "<group>";
+		};
+		32EF053C29A64D7700AF4CA1 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				32EF053A29A646F000AF4CA1 /* OAuthLoginTest.swift */,
+			);
+			path = Account;
 			sourceTree = "<group>";
 		};
 		FC083C492992B646002DD943 /* ViewController */ = {
