@@ -121,6 +121,8 @@
 		32EF053B29A646F000AF4CA1 /* OAuthLoginTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF053A29A646F000AF4CA1 /* OAuthLoginTest.swift */; };
 		32EF053E29A64DA000AF4CA1 /* CustomerSatisfactionUploadTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF053D29A64DA000AF4CA1 /* CustomerSatisfactionUploadTest.swift */; };
 		32EF054129A6505700AF4CA1 /* MockUserInfoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF054029A6505700AF4CA1 /* MockUserInfoRepository.swift */; };
+		32EF054329A6515100AF4CA1 /* RegisterReviewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF054229A6515100AF4CA1 /* RegisterReviewTest.swift */; };
+		32EF054529A6516E00AF4CA1 /* MockAWSS3Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF054429A6516E00AF4CA1 /* MockAWSS3Service.swift */; };
 		32F2D9D529518F5900131EB1 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F2D9D429518F5900131EB1 /* ProductCell.swift */; };
 		FC083C482992B4A4002DD943 /* AccountManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC083C472992B4A4002DD943 /* AccountManagementViewController.swift */; };
 		FC083C4C2992B670002DD943 /* AccountManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC083C4B2992B670002DD943 /* AccountManagementViewModel.swift */; };
@@ -317,6 +319,8 @@
 		32EF053A29A646F000AF4CA1 /* OAuthLoginTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthLoginTest.swift; sourceTree = "<group>"; };
 		32EF053D29A64DA000AF4CA1 /* CustomerSatisfactionUploadTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSatisfactionUploadTest.swift; sourceTree = "<group>"; };
 		32EF054029A6505700AF4CA1 /* MockUserInfoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserInfoRepository.swift; sourceTree = "<group>"; };
+		32EF054229A6515100AF4CA1 /* RegisterReviewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReviewTest.swift; sourceTree = "<group>"; };
+		32EF054429A6516E00AF4CA1 /* MockAWSS3Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAWSS3Service.swift; sourceTree = "<group>"; };
 		32F2D9B02951862E00131EB1 /* StoreDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailViewController.swift; sourceTree = "<group>"; };
 		32F2D9B22951864700131EB1 /* StoreDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailViewModel.swift; sourceTree = "<group>"; };
 		32F2D9D429518F5900131EB1 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
@@ -500,6 +504,7 @@
 			isa = PBXGroup;
 			children = (
 				32EF053029A513DD00AF4CA1 /* RepositoryTests */,
+				32EF054629A6524B00AF4CA1 /* RegisterReview */,
 			);
 			path = RefillStationTests;
 			sourceTree = "<group>";
@@ -813,6 +818,7 @@
 			isa = PBXGroup;
 			children = (
 				32EF052E29A4DA0A00AF4CA1 /* MockNetworkService.swift */,
+				32EF054429A6516E00AF4CA1 /* MockAWSS3Service.swift */,
 				32EF053C29A64D7700AF4CA1 /* Account */,
 				32EF053129A513E900AF4CA1 /* Store */,
 				32EF053F29A6504000AF4CA1 /* CustomerSatisfaction */,
@@ -847,6 +853,14 @@
 				32EF054029A6505700AF4CA1 /* MockUserInfoRepository.swift */,
 			);
 			path = CustomerSatisfaction;
+			sourceTree = "<group>";
+		};
+		32EF054629A6524B00AF4CA1 /* RegisterReview */ = {
+			isa = PBXGroup;
+			children = (
+				32EF054229A6515100AF4CA1 /* RegisterReviewTest.swift */,
+			);
+			path = RegisterReview;
 			sourceTree = "<group>";
 		};
 		FC083C492992B646002DD943 /* ViewController */ = {
@@ -1559,9 +1573,11 @@
 			files = (
 				32EF052F29A4DA0A00AF4CA1 /* MockNetworkService.swift in Sources */,
 				32EF053729A51EB100AF4CA1 /* FetchStoreRecommendTest.swift in Sources */,
+				32EF054329A6515100AF4CA1 /* RegisterReviewTest.swift in Sources */,
 				32EF053929A5219F00AF4CA1 /* RecommendStoreTest.swift in Sources */,
 				32EF054129A6505700AF4CA1 /* MockUserInfoRepository.swift in Sources */,
 				3244A216292DC13B00716A2B /* FetchStoresTest.swift in Sources */,
+				32EF054529A6516E00AF4CA1 /* MockAWSS3Service.swift in Sources */,
 				32EF053529A51D7F00AF4CA1 /* FetchStoreReviewsTest.swift in Sources */,
 				32EF053B29A646F000AF4CA1 /* OAuthLoginTest.swift in Sources */,
 				32EF053E29A64DA000AF4CA1 /* CustomerSatisfactionUploadTest.swift in Sources */,
