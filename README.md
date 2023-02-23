@@ -22,10 +22,8 @@
 ## 앱 아키텍쳐
 
 ### Clean Architecture
+<img width="1766" alt="image" src="https://user-images.githubusercontent.com/67148595/220836860-7ca9a456-b6b8-47c9-bc21-a3f3c77f8116.png">
 
-피그잼으로 레이어 도식화(예시)
-
-![image-20230223152602236](https://raw.githubusercontent.com/Neph3779/Blog-Image/forUpload/img/20230223152608.png)
 
 
 
