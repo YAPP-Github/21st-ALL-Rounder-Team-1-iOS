@@ -13,7 +13,7 @@ final class StoreDTOTests: XCTestCase {
     var minimumContentUnit: StoreDTO!
 
     override func setUpWithError() throws {
-        fullContentUnit = StoreDTO(id: 0, userId: 0, name: "name", status: "", longitude: "", latitude: "", businessHour: [.init(day: "월", time: "test time")], notice: "", address: "address", instaAccount: "instaAccount", callNumber: "", registrationNumber: "", isReady: true, distance: "10", imgStores: [.init(id: 0, storeId: 0, path: "")], storeRefillGuides: [.init(createdAt: "", modifiedAt: "", id: 0, storeId: 0, imgPath: "", removedAt: "")])
+        fullContentUnit = StoreDTO(id: 0, userId: 0, name: "name", status: "", longitude: "", latitude: "", businessHour: [.init(day: "월월", time: "test time")], notice: "", address: "address", instaAccount: "instaAccount", callNumber: "", registrationNumber: "", isReady: true, distance: "10", imgStores: [.init(id: 0, storeId: 0, path: "")], storeRefillGuides: [.init(createdAt: "", modifiedAt: "", id: 0, storeId: 0, imgPath: "", removedAt: "")])
 
         minimumContentUnit = StoreDTO(id: nil, userId: nil, name: nil, status: nil, longitude: nil, latitude: nil, businessHour: nil, notice: nil, address: nil, instaAccount: nil, callNumber: nil, registrationNumber: nil, isReady: nil, distance: nil, imgStores: [], storeRefillGuides: [])
     }
@@ -23,7 +23,7 @@ final class StoreDTOTests: XCTestCase {
         minimumContentUnit = nil
     }
 
-    func test_모든_필드가_채워진_LoginDTO의_toDomain_메서드를_호출하면_모든_필드가_채워진_OAuthLoginResponseValue를_반환하는지() {
+    func test_모든_필드가_채워진_StoreDTO의_toDomain_메서드를_호출하면_모든_필드가_채워진_Store를_반환하는지() {
         // given
         // when
         let domainResult = fullContentUnit.toDomain()
@@ -32,7 +32,7 @@ final class StoreDTOTests: XCTestCase {
         XCTAssertEqual(domainResult, expectationResult)
     }
 
-    func test_최소한의_필드만_채워진_LoginDTO의_toDomain_메서드를_호출하면_기본값으로_채워진_OAuthLoginResponseValue를_반환하는지() {
+    func test_최소한의_필드만_채워진_StoreDTO의_toDomain_메서드를_호출하면_기본값으로_채워진_Store를_반환하는지() {
         // given
         // when
         let domainResult = minimumContentUnit.toDomain()
