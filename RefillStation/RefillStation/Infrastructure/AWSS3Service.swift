@@ -13,7 +13,11 @@ enum AWSS3Error: Error {
     case imageDataConvertFailed
 }
 
-public class AWSS3Service {
+protocol AWSS3ServiceInterface {
+    func upload(type: AWSS3Service.Bucket, image: UIImage?) async throws -> String
+}
+
+public class AWSS3Service: AWSS3ServiceInterface {
     enum Bucket {
         case review
         case store
@@ -70,28 +74,6 @@ public class AWSS3Service {
             transferUtilityConfiguration: utilityConfiguration,
             forKey: "utility-key"
         )
-    }
-
-    func upload(type: Bucket, image: UIImage?, completion: @escaping (Result<String, Error>) -> Void) {
-        guard let transferUtility = AWSS3TransferUtility.s3TransferUtility(forKey: "utility-key"),
-              let imageData = image?.jpegData(compressionQuality: 1) else { return }
-
-        let id = UUID().uuidString
-        let fileKey = "\(type.name)/\(id).jpeg"
-
-        let task = transferUtility.uploadData(
-            imageData,
-            bucket: Bucket.bucketName,
-            key: fileKey,
-            contentType: "image/jpeg",
-            expression: nil
-        ) { task, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            completion(.success(Bucket.baseURL + "/" + fileKey))
-        }
     }
 
     func upload(type: Bucket, image: UIImage?) async throws -> String {
