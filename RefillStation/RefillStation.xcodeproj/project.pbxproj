@@ -41,6 +41,8 @@
 		3244A233292DC48300716A2B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3244A232292DC48300716A2B /* .swiftlint.yml */; };
 		3244A238292DCB1F00716A2B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3244A237292DCB1F00716A2B /* SnapKit */; };
 		324CCBE029321616001F6FDA /* DetailReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324CCBDD29321616001F6FDA /* DetailReviewCell.swift */; };
+		32572AAC29A7128D0042F82A /* StoreDTOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32572AAB29A7128D0042F82A /* StoreDTOTests.swift */; };
+		32572AAF29A714760042F82A /* ProductDTOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32572AAE29A714760042F82A /* ProductDTOTests.swift */; };
 		325985E3294C51A700D26A37 /* HomeDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325985E2294C51A700D26A37 /* HomeDIContainer.swift */; };
 		325985E5294C51BA00D26A37 /* OnboardingDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325985E4294C51BA00D26A37 /* OnboardingDIContainer.swift */; };
 		325985E7294C525800D26A37 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325985E6294C525800D26A37 /* Coordinator.swift */; };
@@ -245,6 +247,8 @@
 		3244A221292DC13B00716A2B /* RefillStationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefillStationUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		3244A232292DC48300716A2B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		324CCBDD29321616001F6FDA /* DetailReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailReviewCell.swift; sourceTree = "<group>"; };
+		32572AAB29A7128D0042F82A /* StoreDTOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDTOTests.swift; sourceTree = "<group>"; };
+		32572AAE29A714760042F82A /* ProductDTOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDTOTests.swift; sourceTree = "<group>"; };
 		325985E2294C51A700D26A37 /* HomeDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDIContainer.swift; sourceTree = "<group>"; };
 		325985E4294C51BA00D26A37 /* OnboardingDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingDIContainer.swift; sourceTree = "<group>"; };
 		325985E6294C525800D26A37 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -503,6 +507,7 @@
 		3244A214292DC13B00716A2B /* RefillStationTests */ = {
 			isa = PBXGroup;
 			children = (
+				32EF054929A656CC00AF4CA1 /* DTOTests */,
 				32EF053029A513DD00AF4CA1 /* RepositoryTests */,
 			);
 			path = RefillStationTests;
@@ -571,6 +576,15 @@
 				325985F4294C53DE00D26A37 /* Coordinator */,
 			);
 			path = Application;
+			sourceTree = "<group>";
+		};
+		32572AAD29A714650042F82A /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				32572AAB29A7128D0042F82A /* StoreDTOTests.swift */,
+				32572AAE29A714760042F82A /* ProductDTOTests.swift */,
+			);
+			path = Store;
 			sourceTree = "<group>";
 		};
 		325985F4294C53DE00D26A37 /* Coordinator */ = {
@@ -861,6 +875,14 @@
 				32EF054229A6515100AF4CA1 /* RegisterReviewTest.swift */,
 			);
 			path = RegisterReview;
+			sourceTree = "<group>";
+		};
+		32EF054929A656CC00AF4CA1 /* DTOTests */ = {
+			isa = PBXGroup;
+			children = (
+				32572AAD29A714650042F82A /* Store */,
+			);
+			path = DTOTests;
 			sourceTree = "<group>";
 		};
 		FC083C492992B646002DD943 /* ViewController */ = {
@@ -1576,12 +1598,14 @@
 				32EF054329A6515100AF4CA1 /* RegisterReviewTest.swift in Sources */,
 				32EF053929A5219F00AF4CA1 /* RecommendStoreTest.swift in Sources */,
 				32EF054129A6505700AF4CA1 /* MockUserInfoRepository.swift in Sources */,
+				32572AAF29A714760042F82A /* ProductDTOTests.swift in Sources */,
 				3244A216292DC13B00716A2B /* FetchStoresTest.swift in Sources */,
 				32EF054529A6516E00AF4CA1 /* MockAWSS3Service.swift in Sources */,
 				32EF053529A51D7F00AF4CA1 /* FetchStoreReviewsTest.swift in Sources */,
 				32EF053B29A646F000AF4CA1 /* OAuthLoginTest.swift in Sources */,
 				32EF053E29A64DA000AF4CA1 /* CustomerSatisfactionUploadTest.swift in Sources */,
 				32EF053329A516DE00AF4CA1 /* FetchProductsTest.swift in Sources */,
+				32572AAC29A7128D0042F82A /* StoreDTOTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
