@@ -128,7 +128,6 @@
 		FC083C4C2992B670002DD943 /* AccountManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC083C4B2992B670002DD943 /* AccountManagementViewModel.swift */; };
 		FC1FD6A12962C4AF00869F5F /* RegisterReviewPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1FD6A02962C4AF00869F5F /* RegisterReviewPopUpViewController.swift */; };
 		FC27E05929A7592B002F00B3 /* SignUpTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC27E05829A7592B002F00B3 /* SignUpTest.swift */; };
-		FC27E05B29A75947002F00B3 /* SignOutTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC27E05A29A75947002F00B3 /* SignOutTest.swift */; };
 		FC3630172969316900532598 /* LevelHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3630162969316900532598 /* LevelHeaderView.swift */; };
 		FC3E8CF82976ED6F00FE65F6 /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3E8CF72976ED6F00FE65F6 /* NicknameViewController.swift */; };
 		FC3EBDF32932872100A9C1F9 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EBDF22932872100A9C1F9 /* Product.swift */; };
@@ -321,7 +320,6 @@
 		FC083C4B2992B670002DD943 /* AccountManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManagementViewModel.swift; sourceTree = "<group>"; };
 		FC1FD6A02962C4AF00869F5F /* RegisterReviewPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReviewPopUpViewController.swift; sourceTree = "<group>"; };
 		FC27E05829A7592B002F00B3 /* SignUpTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpTest.swift; sourceTree = "<group>"; };
-		FC27E05A29A75947002F00B3 /* SignOutTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutTest.swift; sourceTree = "<group>"; };
 		FC3630162969316900532598 /* LevelHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelHeaderView.swift; sourceTree = "<group>"; };
 		FC3E8CF72976ED6F00FE65F6 /* NicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
 		FC3EBDF22932872100A9C1F9 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
@@ -847,7 +845,6 @@
 			children = (
 				32EF053A29A646F000AF4CA1 /* OAuthLoginTest.swift */,
 				FC27E05829A7592B002F00B3 /* SignUpTest.swift */,
-				FC27E05A29A75947002F00B3 /* SignOutTest.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1551,7 +1548,6 @@
 				32EF053729A51EB100AF4CA1 /* FetchStoreRecommendTest.swift in Sources */,
 				32EF054329A6515100AF4CA1 /* RegisterReviewTest.swift in Sources */,
 				32EF053929A5219F00AF4CA1 /* RecommendStoreTest.swift in Sources */,
-				FC27E05B29A75947002F00B3 /* SignOutTest.swift in Sources */,
 				32EF054129A6505700AF4CA1 /* MockUserInfoRepository.swift in Sources */,
 				32572AAF29A714760042F82A /* ProductDTOTests.swift in Sources */,
 				3244A216292DC13B00716A2B /* FetchStoresTest.swift in Sources */,
