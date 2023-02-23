@@ -128,6 +128,7 @@
 		FC083C4C2992B670002DD943 /* AccountManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC083C4B2992B670002DD943 /* AccountManagementViewModel.swift */; };
 		FC1FD6A12962C4AF00869F5F /* RegisterReviewPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1FD6A02962C4AF00869F5F /* RegisterReviewPopUpViewController.swift */; };
 		FC27E05929A7592B002F00B3 /* SignUpTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC27E05829A7592B002F00B3 /* SignUpTest.swift */; };
+		FC27E06229A78C73002F00B3 /* FetchProfileTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC27E06129A78C73002F00B3 /* FetchProfileTest.swift */; };
 		FC3630172969316900532598 /* LevelHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3630162969316900532598 /* LevelHeaderView.swift */; };
 		FC3E8CF82976ED6F00FE65F6 /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3E8CF72976ED6F00FE65F6 /* NicknameViewController.swift */; };
 		FC3EBDF32932872100A9C1F9 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3EBDF22932872100A9C1F9 /* Product.swift */; };
@@ -320,6 +321,7 @@
 		FC083C4B2992B670002DD943 /* AccountManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManagementViewModel.swift; sourceTree = "<group>"; };
 		FC1FD6A02962C4AF00869F5F /* RegisterReviewPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReviewPopUpViewController.swift; sourceTree = "<group>"; };
 		FC27E05829A7592B002F00B3 /* SignUpTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpTest.swift; sourceTree = "<group>"; };
+		FC27E06129A78C73002F00B3 /* FetchProfileTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchProfileTest.swift; sourceTree = "<group>"; };
 		FC3630162969316900532598 /* LevelHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelHeaderView.swift; sourceTree = "<group>"; };
 		FC3E8CF72976ED6F00FE65F6 /* NicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
 		FC3EBDF22932872100A9C1F9 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
@@ -821,6 +823,7 @@
 				32EF052E29A4DA0A00AF4CA1 /* MockNetworkService.swift */,
 				32EF054429A6516E00AF4CA1 /* MockAWSS3Service.swift */,
 				32EF053C29A64D7700AF4CA1 /* Account */,
+				FC27E06029A765A1002F00B3 /* UserInfo */,
 				32EF053129A513E900AF4CA1 /* Store */,
 				32EF053F29A6504000AF4CA1 /* CustomerSatisfaction */,
 				32EF054629A6524B00AF4CA1 /* RegisterReview */,
@@ -892,6 +895,14 @@
 				FC083C4B2992B670002DD943 /* AccountManagementViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FC27E06029A765A1002F00B3 /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				FC27E06129A78C73002F00B3 /* FetchProfileTest.swift */,
+			);
+			path = UserInfo;
 			sourceTree = "<group>";
 		};
 		FC3E8CF62976EAE100FE65F6 /* NicknameScene */ = {
@@ -1555,6 +1566,7 @@
 				32EF053529A51D7F00AF4CA1 /* FetchStoreReviewsTest.swift in Sources */,
 				FC27E05929A7592B002F00B3 /* SignUpTest.swift in Sources */,
 				32BA4B4929A72A6400A155C5 /* UserDTOTests.swift in Sources */,
+				FC27E06229A78C73002F00B3 /* FetchProfileTest.swift in Sources */,
 				32EF053B29A646F000AF4CA1 /* OAuthLoginTest.swift in Sources */,
 				32EF053E29A64DA000AF4CA1 /* CustomerSatisfactionUploadTest.swift in Sources */,
 				32BA4B4729A7263C00A155C5 /* ReviewDTOTests.swift in Sources */,
