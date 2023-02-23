@@ -36,8 +36,6 @@
 		3244A208292DC13A00716A2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3244A207292DC13A00716A2B /* Assets.xcassets */; };
 		3244A20B292DC13A00716A2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3244A209292DC13A00716A2B /* LaunchScreen.storyboard */; };
 		3244A216292DC13B00716A2B /* FetchStoresTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A215292DC13B00716A2B /* FetchStoresTest.swift */; };
-		3244A220292DC13B00716A2B /* RefillStationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A21F292DC13B00716A2B /* RefillStationUITests.swift */; };
-		3244A222292DC13B00716A2B /* RefillStationUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3244A221292DC13B00716A2B /* RefillStationUITestsLaunchTests.swift */; };
 		3244A233292DC48300716A2B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3244A232292DC48300716A2B /* .swiftlint.yml */; };
 		3244A238292DCB1F00716A2B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3244A237292DCB1F00716A2B /* SnapKit */; };
 		324CCBE029321616001F6FDA /* DetailReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324CCBDD29321616001F6FDA /* DetailReviewCell.swift */; };
@@ -77,6 +75,7 @@
 		32B7922B29932CA3001145B0 /* EditUserRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7922A29932CA3001145B0 /* EditUserRequestDTO.swift */; };
 		32B7922D2993340C001145B0 /* ImageUploadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7922C2993340C001145B0 /* ImageUploadTask.swift */; };
 		32B792332993A54D001145B0 /* CustomerSatisfactionDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B792322993A54D001145B0 /* CustomerSatisfactionDTO.swift */; };
+		32BA4B4029A723DD00A155C5 /* LoginDTOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B3F29A723DD00A155C5 /* LoginDTOTests.swift */; };
 		32C17B12299203DB002D607E /* AWSCore in Frameworks */ = {isa = PBXBuildFile; productRef = 32C17B11299203DB002D607E /* AWSCore */; };
 		32C17B14299203DB002D607E /* AWSS3 in Frameworks */ = {isa = PBXBuildFile; productRef = 32C17B13299203DB002D607E /* AWSS3 */; };
 		32C22965297D35BA0019EAF6 /* PumpPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C22964297D35BA0019EAF6 /* PumpPopUpViewController.swift */; };
@@ -200,13 +199,6 @@
 			remoteGlobalIDString = 3244A1F7292DC13A00716A2B;
 			remoteInfo = RefillStation;
 		};
-		3244A21C292DC13B00716A2B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3244A1F0292DC13A00716A2B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3244A1F7292DC13A00716A2B;
-			remoteInfo = RefillStation;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -242,9 +234,6 @@
 		3244A20C292DC13A00716A2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3244A211292DC13B00716A2B /* RefillStationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RefillStationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3244A215292DC13B00716A2B /* FetchStoresTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStoresTest.swift; sourceTree = "<group>"; };
-		3244A21B292DC13B00716A2B /* RefillStationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RefillStationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3244A21F292DC13B00716A2B /* RefillStationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefillStationUITests.swift; sourceTree = "<group>"; };
-		3244A221292DC13B00716A2B /* RefillStationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefillStationUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		3244A232292DC48300716A2B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		324CCBDD29321616001F6FDA /* DetailReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailReviewCell.swift; sourceTree = "<group>"; };
 		32572AAB29A7128D0042F82A /* StoreDTOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDTOTests.swift; sourceTree = "<group>"; };
@@ -281,6 +270,7 @@
 		32B7922A29932CA3001145B0 /* EditUserRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserRequestDTO.swift; sourceTree = "<group>"; };
 		32B7922C2993340C001145B0 /* ImageUploadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadTask.swift; sourceTree = "<group>"; };
 		32B792322993A54D001145B0 /* CustomerSatisfactionDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSatisfactionDTO.swift; sourceTree = "<group>"; };
+		32BA4B3F29A723DD00A155C5 /* LoginDTOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDTOTests.swift; sourceTree = "<group>"; };
 		32C22964297D35BA0019EAF6 /* PumpPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpPopUpViewController.swift; sourceTree = "<group>"; };
 		32C22966297E785C0019EAF6 /* ReviewReportPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewReportPopUpViewController.swift; sourceTree = "<group>"; };
 		32C865F429925C1800911A49 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
@@ -416,13 +406,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3244A218292DC13B00716A2B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -473,7 +456,6 @@
 				FCEE10262934C8EE002E629D /* swiftgen.yml */,
 				3244A1FA292DC13A00716A2B /* RefillStation */,
 				3244A214292DC13B00716A2B /* RefillStationTests */,
-				3244A21E292DC13B00716A2B /* RefillStationUITests */,
 				3244A1F9292DC13A00716A2B /* Products */,
 				32C503B02991493E0044554E /* Frameworks */,
 			);
@@ -484,7 +466,6 @@
 			children = (
 				3244A1F8292DC13A00716A2B /* RefillStation.app */,
 				3244A211292DC13B00716A2B /* RefillStationTests.xctest */,
-				3244A21B292DC13B00716A2B /* RefillStationUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -511,15 +492,6 @@
 				32EF053029A513DD00AF4CA1 /* RepositoryTests */,
 			);
 			path = RefillStationTests;
-			sourceTree = "<group>";
-		};
-		3244A21E292DC13B00716A2B /* RefillStationUITests */ = {
-			isa = PBXGroup;
-			children = (
-				3244A21F292DC13B00716A2B /* RefillStationUITests.swift */,
-				3244A221292DC13B00716A2B /* RefillStationUITestsLaunchTests.swift */,
-			);
-			path = RefillStationUITests;
 			sourceTree = "<group>";
 		};
 		3244A22E292DC16A00716A2B /* Data */ = {
@@ -761,6 +733,14 @@
 			path = Review;
 			sourceTree = "<group>";
 		};
+		32BA4B4129A723ED00A155C5 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				32BA4B3F29A723DD00A155C5 /* LoginDTOTests.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
 		32C503B02991493E0044554E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -881,6 +861,7 @@
 			isa = PBXGroup;
 			children = (
 				32572AAD29A714650042F82A /* Store */,
+				32BA4B4129A723ED00A155C5 /* Account */,
 			);
 			path = DTOTests;
 			sourceTree = "<group>";
@@ -1287,24 +1268,6 @@
 			productReference = 3244A211292DC13B00716A2B /* RefillStationTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		3244A21A292DC13B00716A2B /* RefillStationUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3244A22B292DC13B00716A2B /* Build configuration list for PBXNativeTarget "RefillStationUITests" */;
-			buildPhases = (
-				3244A217292DC13B00716A2B /* Sources */,
-				3244A218292DC13B00716A2B /* Frameworks */,
-				3244A219292DC13B00716A2B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3244A21D292DC13B00716A2B /* PBXTargetDependency */,
-			);
-			name = RefillStationUITests;
-			productName = RefillStationUITests;
-			productReference = 3244A21B292DC13B00716A2B /* RefillStationUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1319,10 +1282,6 @@
 						CreatedOnToolsVersion = 13.4.1;
 					};
 					3244A210292DC13B00716A2B = {
-						CreatedOnToolsVersion = 13.4.1;
-						TestTargetID = 3244A1F7292DC13A00716A2B;
-					};
-					3244A21A292DC13B00716A2B = {
 						CreatedOnToolsVersion = 13.4.1;
 						TestTargetID = 3244A1F7292DC13A00716A2B;
 					};
@@ -1352,7 +1311,6 @@
 			targets = (
 				3244A1F7292DC13A00716A2B /* RefillStation */,
 				3244A210292DC13B00716A2B /* RefillStationTests */,
-				3244A21A292DC13B00716A2B /* RefillStationUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -1373,13 +1331,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3244A20F292DC13B00716A2B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3244A219292DC13B00716A2B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1606,15 +1557,7 @@
 				32EF053E29A64DA000AF4CA1 /* CustomerSatisfactionUploadTest.swift in Sources */,
 				32EF053329A516DE00AF4CA1 /* FetchProductsTest.swift in Sources */,
 				32572AAC29A7128D0042F82A /* StoreDTOTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3244A217292DC13B00716A2B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3244A220292DC13B00716A2B /* RefillStationUITests.swift in Sources */,
-				3244A222292DC13B00716A2B /* RefillStationUITestsLaunchTests.swift in Sources */,
+				32BA4B4029A723DD00A155C5 /* LoginDTOTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1625,11 +1568,6 @@
 			isa = PBXTargetDependency;
 			target = 3244A1F7292DC13A00716A2B /* RefillStation */;
 			targetProxy = 3244A212292DC13B00716A2B /* PBXContainerItemProxy */;
-		};
-		3244A21D292DC13B00716A2B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3244A1F7292DC13A00716A2B /* RefillStation */;
-			targetProxy = 3244A21C292DC13B00716A2B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1881,42 +1819,6 @@
 			};
 			name = Release;
 		};
-		3244A22C292DC13B00716A2B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 267JUTDVY2;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Neph.RefillStationUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = RefillStation;
-			};
-			name = Debug;
-		};
-		3244A22D292DC13B00716A2B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 267JUTDVY2;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Neph.RefillStationUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = RefillStation;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1943,15 +1845,6 @@
 			buildConfigurations = (
 				3244A229292DC13B00716A2B /* Debug */,
 				3244A22A292DC13B00716A2B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3244A22B292DC13B00716A2B /* Build configuration list for PBXNativeTarget "RefillStationUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3244A22C292DC13B00716A2B /* Debug */,
-				3244A22D292DC13B00716A2B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
