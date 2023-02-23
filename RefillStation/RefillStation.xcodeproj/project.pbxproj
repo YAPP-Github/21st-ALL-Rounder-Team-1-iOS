@@ -101,7 +101,6 @@
 		32DB626E2981689C008C2522 /* WithdrawUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626D2981689C008C2522 /* WithdrawUseCase.swift */; };
 		32DB6270298168C4008C2522 /* ValidNicknameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB626F298168C4008C2522 /* ValidNicknameUseCase.swift */; };
 		32DB627229816943008C2522 /* EditProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB627129816943008C2522 /* EditProfileUseCase.swift */; };
-		32DB6274298169EB008C2522 /* CreateNicknameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DB6273298169EB008C2522 /* CreateNicknameUseCase.swift */; };
 		32DDE65F29866CCB008AFDB2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DDE65E29866CCB008AFDB2 /* LoginViewController.swift */; };
 		32DFDAE12976BAE400B6EDA3 /* FilteredProductCountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFDAE02976BAE400B6EDA3 /* FilteredProductCountCell.swift */; };
 		32DFDAE32976C93500B6EDA3 /* DetailPhotoReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFDAE22976C93500B6EDA3 /* DetailPhotoReviewViewController.swift */; };
@@ -291,7 +290,6 @@
 		32DB626D2981689C008C2522 /* WithdrawUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawUseCase.swift; sourceTree = "<group>"; };
 		32DB626F298168C4008C2522 /* ValidNicknameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidNicknameUseCase.swift; sourceTree = "<group>"; };
 		32DB627129816943008C2522 /* EditProfileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileUseCase.swift; sourceTree = "<group>"; };
-		32DB6273298169EB008C2522 /* CreateNicknameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNicknameUseCase.swift; sourceTree = "<group>"; };
 		32DDE65E29866CCB008AFDB2 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		32DFDAE02976BAE400B6EDA3 /* FilteredProductCountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredProductCountCell.swift; sourceTree = "<group>"; };
 		32DFDAE22976C93500B6EDA3 /* DetailPhotoReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPhotoReviewViewController.swift; sourceTree = "<group>"; };
@@ -681,7 +679,6 @@
 				32DB626B29816849008C2522 /* SignUpUseCase.swift */,
 				32A0F4F02981707100A04ECC /* SignOutUseCase.swift */,
 				32DB626D2981689C008C2522 /* WithdrawUseCase.swift */,
-				32DB6273298169EB008C2522 /* CreateNicknameUseCase.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1393,7 +1390,6 @@
 				32E6AE38298E5629005AA542 /* StoreDTO.swift in Sources */,
 				FCE00A67294C5ADF00B5C05F /* CoreDataStorage.swift in Sources */,
 				322E15E6297A0B6600FE2E2F /* MyPageCoordinator.swift in Sources */,
-				32DB6274298169EB008C2522 /* CreateNicknameUseCase.swift in Sources */,
 				32A0F4F92981712D00A04ECC /* FetchUserReviewsUseCase.swift in Sources */,
 				32A0F5032981797800A04ECC /* CustomerSatisfactionUseCase.swift in Sources */,
 				FCF0181A295F08E50027078A /* UserLevelInfo.swift in Sources */,

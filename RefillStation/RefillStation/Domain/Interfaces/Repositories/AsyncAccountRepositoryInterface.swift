@@ -12,5 +12,4 @@ protocol AsyncAccountRepositoryInterface {
     func signUp(requestValue: SignUpRequestValue) async throws -> String
     func signOut() async throws
     func withdraw() async throws
-    func createNickname() async throws -> String
 }

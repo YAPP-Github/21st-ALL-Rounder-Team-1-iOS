@@ -86,15 +86,4 @@ final class AsyncAccountRepository: AsyncAccountRepositoryInterface {
         UserDefaults.standard.setValue(false, forKey: "didLookAroundLoginStarted")
         UserDefaults.standard.setValue(false, forKey: "didRequestRegion")
     }
-
-    func createNickname() async throws -> String {
-        var urlComponents = URLComponents(string: networkService.baseURL)
-        urlComponents?.path = "/api/user/random-nickname"
-        guard let request = urlComponents?.toURLRequest(method: .get) else {
-            throw RepositoryError.urlParseFailed
-        }
-
-        let randomNicknameDTO: RandomNicknameDTO = try await networkService.dataTask(request: request)
-        return randomNicknameDTO.nickname
-    }
 }
