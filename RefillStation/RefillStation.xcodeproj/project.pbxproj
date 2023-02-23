@@ -53,7 +53,6 @@
 		3269F6DC2996AD8D00AAD8A9 /* AsyncRegisterReviewRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3269F6DB2996AD8D00AAD8A9 /* AsyncRegisterReviewRepositoryInterface.swift */; };
 		3269F6DE2996ADA700AAD8A9 /* AsyncRegisterReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3269F6DD2996ADA700AAD8A9 /* AsyncRegisterReviewRepository.swift */; };
 		3269F6E32998A37800AAD8A9 /* NSAttributedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3269F6E22998A37800AAD8A9 /* NSAttributedStringExtension.swift */; };
-		327524DD2987829F00E033A9 /* CustomerSatisfactionRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327524DC2987829F00E033A9 /* CustomerSatisfactionRepositoryInterface.swift */; };
 		3282FED32992391C00DBFE24 /* AWSAccessKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3282FED22992391C00DBFE24 /* AWSAccessKey.plist */; };
 		329557462951992900F5AB53 /* StoreDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F2D9B22951864700131EB1 /* StoreDetailViewModel.swift */; };
 		329557472951992C00F5AB53 /* StoreDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F2D9B02951862E00131EB1 /* StoreDetailViewController.swift */; };
@@ -67,11 +66,8 @@
 		329EF9172972DE30004934E7 /* StoreDetailSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329EF9162972DE30004934E7 /* StoreDetailSection.swift */; };
 		32A0F4F12981707100A04ECC /* SignOutUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F4F02981707100A04ECC /* SignOutUseCase.swift */; };
 		32A0F4F92981712D00A04ECC /* FetchUserReviewsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F4F82981712D00A04ECC /* FetchUserReviewsUseCase.swift */; };
-		32A0F4FF2981754B00A04ECC /* AccountRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F4FE2981754B00A04ECC /* AccountRepositoryInterface.swift */; };
 		32A0F5012981764D00A04ECC /* OAuthLoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F5002981764D00A04ECC /* OAuthLoginUseCase.swift */; };
 		32A0F5032981797800A04ECC /* CustomerSatisfactionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F5022981797800A04ECC /* CustomerSatisfactionUseCase.swift */; };
-		32A0F50529817B1600A04ECC /* UserInfoRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F50429817B1600A04ECC /* UserInfoRepositoryInterface.swift */; };
-		32A0F50729817E1B00A04ECC /* StoreRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0F50629817E1B00A04ECC /* StoreRepositoryInterface.swift */; };
 		32B7922B29932CA3001145B0 /* EditUserRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7922A29932CA3001145B0 /* EditUserRequestDTO.swift */; };
 		32B7922D2993340C001145B0 /* ImageUploadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7922C2993340C001145B0 /* ImageUploadTask.swift */; };
 		32B792332993A54D001145B0 /* CustomerSatisfactionDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B792322993A54D001145B0 /* CustomerSatisfactionDTO.swift */; };
@@ -177,7 +173,6 @@
 		FCE00A79294C919A00B5C05F /* FetchStoreReviewsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A78294C919A00B5C05F /* FetchStoreReviewsUseCase.swift */; };
 		FCE00A7B294C91A200B5C05F /* RecommendStoreUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A7A294C91A200B5C05F /* RecommendStoreUseCase.swift */; };
 		FCE00A7D294C91AD00B5C05F /* RegisterReviewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A7C294C91AD00B5C05F /* RegisterReviewUseCase.swift */; };
-		FCE00A96294C966C00B5C05F /* RegisterReviewRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A95294C966C00B5C05F /* RegisterReviewRepositoryInterface.swift */; };
 		FCE00A982950E04300B5C05F /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A972950E04300B5C05F /* Tag.swift */; };
 		FCE00A9A2950E07900B5C05F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A992950E07900B5C05F /* User.swift */; };
 		FCE00A9C2950E1C700B5C05F /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE00A9B2950E1C700B5C05F /* Review.swift */; };
@@ -250,7 +245,6 @@
 		3269F6DB2996AD8D00AAD8A9 /* AsyncRegisterReviewRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncRegisterReviewRepositoryInterface.swift; sourceTree = "<group>"; };
 		3269F6DD2996ADA700AAD8A9 /* AsyncRegisterReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncRegisterReviewRepository.swift; sourceTree = "<group>"; };
 		3269F6E22998A37800AAD8A9 /* NSAttributedStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedStringExtension.swift; sourceTree = "<group>"; };
-		327524DC2987829F00E033A9 /* CustomerSatisfactionRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSatisfactionRepositoryInterface.swift; sourceTree = "<group>"; };
 		3282FED22992391C00DBFE24 /* AWSAccessKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AWSAccessKey.plist; sourceTree = "<group>"; };
 		329827832995422200304B68 /* UITextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewExtension.swift; sourceTree = "<group>"; };
 		3299C8912994B3F90086837F /* UILabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
@@ -262,11 +256,8 @@
 		329EF9162972DE30004934E7 /* StoreDetailSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailSection.swift; sourceTree = "<group>"; };
 		32A0F4F02981707100A04ECC /* SignOutUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutUseCase.swift; sourceTree = "<group>"; };
 		32A0F4F82981712D00A04ECC /* FetchUserReviewsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchUserReviewsUseCase.swift; sourceTree = "<group>"; };
-		32A0F4FE2981754B00A04ECC /* AccountRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRepositoryInterface.swift; sourceTree = "<group>"; };
 		32A0F5002981764D00A04ECC /* OAuthLoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthLoginUseCase.swift; sourceTree = "<group>"; };
 		32A0F5022981797800A04ECC /* CustomerSatisfactionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSatisfactionUseCase.swift; sourceTree = "<group>"; };
-		32A0F50429817B1600A04ECC /* UserInfoRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoRepositoryInterface.swift; sourceTree = "<group>"; };
-		32A0F50629817E1B00A04ECC /* StoreRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRepositoryInterface.swift; sourceTree = "<group>"; };
 		32B7922A29932CA3001145B0 /* EditUserRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserRequestDTO.swift; sourceTree = "<group>"; };
 		32B7922C2993340C001145B0 /* ImageUploadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadTask.swift; sourceTree = "<group>"; };
 		32B792322993A54D001145B0 /* CustomerSatisfactionDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSatisfactionDTO.swift; sourceTree = "<group>"; };
@@ -367,7 +358,6 @@
 		FCE00A78294C919A00B5C05F /* FetchStoreReviewsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStoreReviewsUseCase.swift; sourceTree = "<group>"; };
 		FCE00A7A294C91A200B5C05F /* RecommendStoreUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendStoreUseCase.swift; sourceTree = "<group>"; };
 		FCE00A7C294C91AD00B5C05F /* RegisterReviewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReviewUseCase.swift; sourceTree = "<group>"; };
-		FCE00A95294C966C00B5C05F /* RegisterReviewRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReviewRepositoryInterface.swift; sourceTree = "<group>"; };
 		FCE00A972950E04300B5C05F /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		FCE00A992950E07900B5C05F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FCE00A9B2950E1C700B5C05F /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
@@ -1161,15 +1151,10 @@
 		FCE00A8C294C963800B5C05F /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				32A0F4FE2981754B00A04ECC /* AccountRepositoryInterface.swift */,
 				32DB35562996A5C000F699F4 /* AsyncAccountRepositoryInterface.swift */,
-				327524DC2987829F00E033A9 /* CustomerSatisfactionRepositoryInterface.swift */,
 				3269F6D72996AC3100AAD8A9 /* AsyncCustomerSatisfactionRepositoryInterface.swift */,
-				32A0F50429817B1600A04ECC /* UserInfoRepositoryInterface.swift */,
 				32DB355A2996A80600F699F4 /* AsyncUserInfoRepositoryInterface.swift */,
-				32A0F50629817E1B00A04ECC /* StoreRepositoryInterface.swift */,
 				32DB35502996977F00F699F4 /* AsyncStoreRepositoryInterface.swift */,
-				FCE00A95294C966C00B5C05F /* RegisterReviewRepositoryInterface.swift */,
 				3269F6DB2996AD8D00AAD8A9 /* AsyncRegisterReviewRepositoryInterface.swift */,
 			);
 			path = Repositories;
@@ -1385,7 +1370,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32A0F50729817E1B00A04ECC /* StoreRepositoryInterface.swift in Sources */,
 				32E6AE38298E5629005AA542 /* StoreDTO.swift in Sources */,
 				FCE00A67294C5ADF00B5C05F /* CoreDataStorage.swift in Sources */,
 				322E15E6297A0B6600FE2E2F /* MyPageCoordinator.swift in Sources */,
@@ -1429,7 +1413,6 @@
 				FCE00A9A2950E07900B5C05F /* User.swift in Sources */,
 				FCE00A6D294C5D5F00B5C05F /* CoreDataTagResponseStorage.swift in Sources */,
 				FC60D8392962C36F00C676A6 /* ReviewPhotoDelegate.swift in Sources */,
-				327524DD2987829F00E033A9 /* CustomerSatisfactionRepositoryInterface.swift in Sources */,
 				325985E5294C51BA00D26A37 /* OnboardingDIContainer.swift in Sources */,
 				32DB355E2996AB9A00F699F4 /* AsyncUserInfoRepository.swift in Sources */,
 				329EF9132971F9AD004934E7 /* ReviewInfoCell.swift in Sources */,
@@ -1462,7 +1445,6 @@
 				FCE00A7B294C91A200B5C05F /* RecommendStoreUseCase.swift in Sources */,
 				32B7922B29932CA3001145B0 /* EditUserRequestDTO.swift in Sources */,
 				3210B531298FB5730034CBA7 /* FetchStoreRecommendUseCase.swift in Sources */,
-				32A0F4FF2981754B00A04ECC /* AccountRepositoryInterface.swift in Sources */,
 				32C22965297D35BA0019EAF6 /* PumpPopUpViewController.swift in Sources */,
 				325985E9294C527000D26A37 /* DIContainer.swift in Sources */,
 				324CCBE029321616001F6FDA /* DetailReviewCell.swift in Sources */,
@@ -1501,11 +1483,9 @@
 				FC60D8382962C36F00C676A6 /* Section.swift in Sources */,
 				322E15E4297A0B3600FE2E2F /* MyPageDIContainer.swift in Sources */,
 				32DB35512996977F00F699F4 /* AsyncStoreRepositoryInterface.swift in Sources */,
-				32A0F50529817B1600A04ECC /* UserInfoRepositoryInterface.swift in Sources */,
 				3244A206292DC13A00716A2B /* RefillStation.xcdatamodeld in Sources */,
 				3240987029602A7400911306 /* ProductCategory.swift in Sources */,
 				3269F6DE2996ADA700AAD8A9 /* AsyncRegisterReviewRepository.swift in Sources */,
-				FCE00A96294C966C00B5C05F /* RegisterReviewRepositoryInterface.swift in Sources */,
 				32DB626E2981689C008C2522 /* WithdrawUseCase.swift in Sources */,
 				3269F6DC2996AD8D00AAD8A9 /* AsyncRegisterReviewRepositoryInterface.swift in Sources */,
 				FC84FAC9293B640300428AAA /* RequestRegionViewController.swift in Sources */,
