@@ -8,7 +8,7 @@
 import Foundation
 @testable import RefillStation
 
-class MockKeychainManager: KeychainManagerInterface {
+final class MockKeychainManager: KeychainManagerInterface {
     func addItem(key: Any, value: Any) -> Bool {
         true
     }
