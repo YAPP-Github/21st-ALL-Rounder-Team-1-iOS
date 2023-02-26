@@ -60,7 +60,7 @@ final class SignUpTest: XCTestCase {
         }
     }
 
-    func test_잘못된_baseURL로_signUp_urlParseFailed를_throw_하는지() async throws {
+    func test_잘못된_baseURL로_signUp_호출시_urlParseFailed를_throw_하는지() async throws {
         // given
         let requestValue = SignUpRequestValue(name: nil,
                                               email: nil,
