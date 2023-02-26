@@ -132,6 +132,7 @@
 		FC27E06429A78C8A002F00B3 /* EditProfileTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC27E06329A78C8A002F00B3 /* EditProfileTest.swift */; };
 		FC27E06629A78C9B002F00B3 /* ValidNicknameTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC27E06529A78C9B002F00B3 /* ValidNicknameTest.swift */; };
 		FC27E06829A78CB4002F00B3 /* FetchUserReviewsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC27E06729A78CB4002F00B3 /* FetchUserReviewsTest.swift */; };
+		FC27E06A29A9DA15002F00B3 /* SignOutTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC27E06929A9DA15002F00B3 /* SignOutTest.swift */; };
 		FC27E07029ABAFBE002F00B3 /* MockKeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC27E06F29ABAFBE002F00B3 /* MockKeychainManager.swift */; };
 		FC3630172969316900532598 /* LevelHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3630162969316900532598 /* LevelHeaderView.swift */; };
 		FC3E8CF82976ED6F00FE65F6 /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3E8CF72976ED6F00FE65F6 /* NicknameViewController.swift */; };
@@ -329,6 +330,7 @@
 		FC27E06329A78C8A002F00B3 /* EditProfileTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTest.swift; sourceTree = "<group>"; };
 		FC27E06529A78C9B002F00B3 /* ValidNicknameTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidNicknameTest.swift; sourceTree = "<group>"; };
 		FC27E06729A78CB4002F00B3 /* FetchUserReviewsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserReviewsTest.swift; sourceTree = "<group>"; };
+		FC27E06929A9DA15002F00B3 /* SignOutTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutTest.swift; sourceTree = "<group>"; };
 		FC27E06F29ABAFBE002F00B3 /* MockKeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MockKeychainManager.swift; path = RefillStationTests/RepositoryTests/RegisterReview/MockKeychainManager.swift; sourceTree = SOURCE_ROOT; };
 		FC3630162969316900532598 /* LevelHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelHeaderView.swift; sourceTree = "<group>"; };
 		FC3E8CF72976ED6F00FE65F6 /* NicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
@@ -856,6 +858,7 @@
 			children = (
 				32EF053A29A646F000AF4CA1 /* OAuthLoginTest.swift */,
 				FC27E05829A7592B002F00B3 /* SignUpTest.swift */,
+				FC27E06929A9DA15002F00B3 /* SignOutTest.swift */,
 				FC27E06F29ABAFBE002F00B3 /* MockKeychainManager.swift */,
 			);
 			path = Account;
@@ -1588,6 +1591,7 @@
 				FC27E07029ABAFBE002F00B3 /* MockKeychainManager.swift in Sources */,
 				32EF053329A516DE00AF4CA1 /* FetchProductsTest.swift in Sources */,
 				32BA4B4529A725D100A155C5 /* FetchStoreRecommendDTOTests.swift in Sources */,
+				FC27E06A29A9DA15002F00B3 /* SignOutTest.swift in Sources */,
 				32572AAC29A7128D0042F82A /* StoreDTOTests.swift in Sources */,
 				32BA4B4029A723DD00A155C5 /* LoginDTOTests.swift in Sources */,
 			);
