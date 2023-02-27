@@ -93,6 +93,7 @@ final class StoreDetailViewModel {
     private let fetchStoreRecommendUseCase: FetchStoreRecommendUseCaseInterface
     private var storeRecommendLoadTask: Cancellable?
 
+    // MARK: - Init
     init(
         store: Store,
         fetchProductsUseCase: FetchProductsUseCaseInterface = FetchProductsUseCase(),
@@ -107,6 +108,7 @@ final class StoreDetailViewModel {
         self.fetchStoreRecommendUseCase = fetchStoreRecommendUseCase
     }
 
+    // MARK: - Input
     func categoryButtonDidTapped(category: ProductCategory?) {
         guard let category = category else { return }
         currentCategoryFilter = category
@@ -143,6 +145,7 @@ final class StoreDetailViewModel {
         }
     }
 
+    // MARK: - Private functions
     private func isAbleToRecommend() -> Bool {
         guard let lastRecommendedTime = UserDefaults.standard.object(forKey: "lastRecommended") as? Date else {
             UserDefaults.standard.set(Date(), forKey: "lastRecommended")
