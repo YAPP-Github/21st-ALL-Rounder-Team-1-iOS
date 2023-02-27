@@ -180,7 +180,7 @@ final class StoreDetailViewModel {
 
     private func fetchStoreReviews() {
         let requestValue = FetchStoreReviewsRequestValue(storeId: store.storeId)
-        storeReviewsLoadTask =  Task {
+        storeReviewsLoadTask = Task {
             do {
                 let reviews = try await fetchStoreReviewsUseCase.execute(requestValue: requestValue)
                 if self.reviews != reviews {
@@ -270,17 +270,6 @@ extension StoreDetailViewModel {
         case productLists
         case reviews
         case operationInfo
-
-        var name: String {
-            switch self {
-            case .productLists:
-                return "판매상품"
-            case .reviews:
-                return "리뷰"
-            case .operationInfo:
-                return "운영정보"
-            }
-        }
     }
 
     enum StoreInfoButtonType {
