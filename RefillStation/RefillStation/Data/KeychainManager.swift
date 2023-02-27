@@ -7,10 +7,18 @@
 
 import Foundation
 
-final class KeychainManager {
+protocol KeychainManagerInterface {
+    func addItem(key: Any, value: Any) -> Bool
+    func getItem(key: Any) -> Any?
+    func updateItem(key: Any, value: Any) -> Bool
+    func deleteItem(key: String) -> Bool
+    func deleteUserToken() -> Result<Void, Error>
+}
+
+final class KeychainManager: KeychainManagerInterface {
 
     enum KeychainError: Error {
-      case noData
+        case noData
     }
 
     static let shared = KeychainManager()
@@ -63,7 +71,7 @@ final class KeychainManager {
 
     func updateItem(key: Any, value: Any) -> Bool {
         let prevQuery: [CFString: Any] = [kSecClass: kSecClassGenericPassword,
-                                              kSecAttrAccount: key]
+                                    kSecAttrAccount: key]
         let updateQuery: [CFString: Any] = [
             kSecValueData: (value as AnyObject).data(using: String.Encoding.utf8.rawValue) as Any
         ]
@@ -81,7 +89,7 @@ final class KeychainManager {
 
     func deleteItem(key: String) -> Bool {
         let deleteQuery: [CFString: Any] = [kSecClass: kSecClassGenericPassword,
-                                            kSecAttrAccount: key]
+                                      kSecAttrAccount: key]
         let status = SecItemDelete(deleteQuery as CFDictionary)
         if status == errSecSuccess { return true }
 
@@ -91,10 +99,10 @@ final class KeychainManager {
 
     func deleteUserToken() -> Result<Void, Error> {
         let deleteQuery: [CFString: Any] = [kSecClass: kSecClassGenericPassword,
-                                            kSecAttrAccount: "token"]
+                                      kSecAttrAccount: "token"]
         let status = SecItemDelete(deleteQuery as CFDictionary)
         let lookAroundDeleteQuery: [CFString: Any] = [kSecClass: kSecClassGenericPassword,
-                                            kSecAttrAccount: "lookAroundToken"]
+                                                kSecAttrAccount: "lookAroundToken"]
         let lookAroundStatus = SecItemDelete(lookAroundDeleteQuery as CFDictionary)
         if status == errSecSuccess || lookAroundStatus == errSecSuccess { return .success(()) }
         return .failure(KeychainError.noData)
