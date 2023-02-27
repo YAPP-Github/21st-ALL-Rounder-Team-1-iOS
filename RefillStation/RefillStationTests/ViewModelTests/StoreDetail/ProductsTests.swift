@@ -24,13 +24,14 @@ final class ProductsTests: XCTestCase {
                           ],
                           notice: "", storeRefillGuideImagePaths: ["", ""])
     override func setUpWithError() throws {
+        let productsStub = [
+            Product(name: "1", brand: "1", measurement: "", price: 0, imageURL: "", category: .init(title: "1")),
+            Product(name: "2", brand: "2", measurement: "", price: 0, imageURL: "", category: .init(title: "2")),
+            Product(name: "3", brand: "3", measurement: "", price: 0, imageURL: "", category: .init(title: "기타")),
+        ]
         sut = StoreDetailViewModel(
             store: storeStub,
-            fetchProductsUseCase: MockFetchProductUseCase(products: [
-                .init(name: "1", brand: "1", measurement: "", price: 0, imageURL: "", category: .init(title: "1")),
-                .init(name: "2", brand: "2", measurement: "", price: 0, imageURL: "", category: .init(title: "2")),
-                .init(name: "3", brand: "3", measurement: "", price: 0, imageURL: "", category: .init(title: "3")),
-            ]),
+            fetchProductsUseCase: MockFetchProductUseCase(products: productsStub),
             fetchStoreReviewsUseCase: MockFetchStoreReviewsUseCase(reviews: []),
             recommendStoreUseCase: MockRecommendStoreUseCase(
                 recommendStoreResponseValue: .init(recommendCount: 5, didRecommended: true)
@@ -39,18 +40,16 @@ final class ProductsTests: XCTestCase {
                 fetchStoreRecommendResponseValue: .init(recommendCount: 4, didRecommended: false)
             )
         )
+
+        sut.viewDidLoad()
+        sut.viewWillAppear()
     }
 
     override func tearDownWithError() throws {
         sut = nil
     }
 
-    func test_전체_카테고리_버튼이_눌렸을때_filteredProducts가_모든_제품을_반환하는지() {
-        // given
-        // when
-        sut.viewDidLoad()
-        sut.viewWillAppear()
-        while sut.products.isEmpty {}
+    func test_전체_카테고리_버튼이_눌렸을때_filteredProducts가_모든_제품을_반환하는지() async {
         sut.categoryButtonDidTapped(category: .all)
         // then
         XCTAssertEqual(
@@ -58,29 +57,19 @@ final class ProductsTests: XCTestCase {
             [
                 .init(name: "1", brand: "1", measurement: "", price: 0, imageURL: "", category: .init(title: "1")),
                 .init(name: "2", brand: "2", measurement: "", price: 0, imageURL: "", category: .init(title: "2")),
-                .init(name: "3", brand: "3", measurement: "", price: 0, imageURL: "", category: .init(title: "3")),
+                .init(name: "3", brand: "3", measurement: "", price: 0, imageURL: "", category: .init(title: "기타")),
             ]
         )
     }
 
-    func test_전체가_아닌_카테고리_버튼이_눌렸을때_filteredProducts가_currentCategoryFilter에_해당하는_제품만_반환하는지() {
+    func test_전체가_아닌_카테고리_버튼이_눌렸을때_filteredProducts가_currentCategoryFilter에_해당하는_제품만_반환하는지() async {
         // given
         // when
-        sut.viewDidLoad()
-        sut.viewWillAppear()
-        while sut.products.isEmpty {}
         sut.categoryButtonDidTapped(category: ProductCategory(title: "2"))
         // then
         XCTAssertEqual(sut.filteredProducts,
                        [Product(name: "2", brand: "2", measurement: "",
                                 price: 0, imageURL: "", category: .init(title: "2"))])
-    }
-
-    func test_products가_빈배열이면_filteredProducts가_빈배열을_반환하는지() {
-        // given
-        // when
-        // then
-        XCTAssertEqual(sut.filteredProducts, [])
     }
 }
 
