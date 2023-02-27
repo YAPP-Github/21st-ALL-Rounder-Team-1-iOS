@@ -76,6 +76,25 @@
 		32BA4B4529A725D100A155C5 /* FetchStoreRecommendDTOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B4429A725D100A155C5 /* FetchStoreRecommendDTOTests.swift */; };
 		32BA4B4729A7263C00A155C5 /* ReviewDTOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B4629A7263C00A155C5 /* ReviewDTOTests.swift */; };
 		32BA4B4929A72A6400A155C5 /* UserDTOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B4829A72A6400A155C5 /* UserDTOTests.swift */; };
+		32BA4B5F29AC99D900A155C5 /* StoreInfo+TabbarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B5E29AC99D900A155C5 /* StoreInfo+TabbarTests.swift */; };
+		32BA4B6929AC9BBE00A155C5 /* MockOAuthLoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B6829AC9BBE00A155C5 /* MockOAuthLoginUseCase.swift */; };
+		32BA4B6B29AC9BC900A155C5 /* MockSignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B6A29AC9BC900A155C5 /* MockSignUpUseCase.swift */; };
+		32BA4B6D29AC9BD000A155C5 /* MockSignOutUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B6C29AC9BD000A155C5 /* MockSignOutUseCase.swift */; };
+		32BA4B6F29AC9BD700A155C5 /* MockWithdrawUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B6E29AC9BD700A155C5 /* MockWithdrawUseCase.swift */; };
+		32BA4B7129AC9BE000A155C5 /* MockCustomerSatisfactionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B7029AC9BE000A155C5 /* MockCustomerSatisfactionUseCase.swift */; };
+		32BA4B7329AC9BE900A155C5 /* MockFetchUserInfoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B7229AC9BE900A155C5 /* MockFetchUserInfoUseCase.swift */; };
+		32BA4B7529AC9BF500A155C5 /* MockEditProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B7429AC9BF500A155C5 /* MockEditProfileUseCase.swift */; };
+		32BA4B7729AC9BFE00A155C5 /* MockValidNicknameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B7629AC9BFE00A155C5 /* MockValidNicknameUseCase.swift */; };
+		32BA4B7929AC9C0800A155C5 /* MockFetchUserReviewsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B7829AC9C0800A155C5 /* MockFetchUserReviewsUseCase.swift */; };
+		32BA4B7B29AC9C1300A155C5 /* MockFetchStoresUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B7A29AC9C1300A155C5 /* MockFetchStoresUseCase.swift */; };
+		32BA4B7D29AC9C1B00A155C5 /* MockFetchProductsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B7C29AC9C1B00A155C5 /* MockFetchProductsUseCase.swift */; };
+		32BA4B7F29AC9C2700A155C5 /* MockFetchStoreReviewsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B7E29AC9C2700A155C5 /* MockFetchStoreReviewsUseCase.swift */; };
+		32BA4B8129AC9C3700A155C5 /* MockFetchStoreRecommendUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B8029AC9C3700A155C5 /* MockFetchStoreRecommendUseCase.swift */; };
+		32BA4B8329AC9C4600A155C5 /* MockRecommendStoreUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B8229AC9C4600A155C5 /* MockRecommendStoreUseCase.swift */; };
+		32BA4B8529AC9C4C00A155C5 /* MockRegisterReviewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B8429AC9C4C00A155C5 /* MockRegisterReviewUseCase.swift */; };
+		32BA4B8F29ACA27800A155C5 /* ProductsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B8E29ACA27800A155C5 /* ProductsTests.swift */; };
+		32BA4B9129ACA87E00A155C5 /* ReviewsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B9029ACA87E00A155C5 /* ReviewsTests.swift */; };
+		32BA4B9329ACCB3500A155C5 /* OperationInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B9229ACCB3500A155C5 /* OperationInfoTests.swift */; };
 		32C17B12299203DB002D607E /* AWSCore in Frameworks */ = {isa = PBXBuildFile; productRef = 32C17B11299203DB002D607E /* AWSCore */; };
 		32C17B14299203DB002D607E /* AWSS3 in Frameworks */ = {isa = PBXBuildFile; productRef = 32C17B13299203DB002D607E /* AWSS3 */; };
 		32C22965297D35BA0019EAF6 /* PumpPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C22964297D35BA0019EAF6 /* PumpPopUpViewController.swift */; };
@@ -277,6 +296,25 @@
 		32BA4B4429A725D100A155C5 /* FetchStoreRecommendDTOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStoreRecommendDTOTests.swift; sourceTree = "<group>"; };
 		32BA4B4629A7263C00A155C5 /* ReviewDTOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDTOTests.swift; sourceTree = "<group>"; };
 		32BA4B4829A72A6400A155C5 /* UserDTOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTOTests.swift; sourceTree = "<group>"; };
+		32BA4B5E29AC99D900A155C5 /* StoreInfo+TabbarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoreInfo+TabbarTests.swift"; sourceTree = "<group>"; };
+		32BA4B6829AC9BBE00A155C5 /* MockOAuthLoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockOAuthLoginUseCase.swift; sourceTree = "<group>"; };
+		32BA4B6A29AC9BC900A155C5 /* MockSignUpUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignUpUseCase.swift; sourceTree = "<group>"; };
+		32BA4B6C29AC9BD000A155C5 /* MockSignOutUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignOutUseCase.swift; sourceTree = "<group>"; };
+		32BA4B6E29AC9BD700A155C5 /* MockWithdrawUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWithdrawUseCase.swift; sourceTree = "<group>"; };
+		32BA4B7029AC9BE000A155C5 /* MockCustomerSatisfactionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCustomerSatisfactionUseCase.swift; sourceTree = "<group>"; };
+		32BA4B7229AC9BE900A155C5 /* MockFetchUserInfoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchUserInfoUseCase.swift; sourceTree = "<group>"; };
+		32BA4B7429AC9BF500A155C5 /* MockEditProfileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockEditProfileUseCase.swift; sourceTree = "<group>"; };
+		32BA4B7629AC9BFE00A155C5 /* MockValidNicknameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockValidNicknameUseCase.swift; sourceTree = "<group>"; };
+		32BA4B7829AC9C0800A155C5 /* MockFetchUserReviewsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchUserReviewsUseCase.swift; sourceTree = "<group>"; };
+		32BA4B7A29AC9C1300A155C5 /* MockFetchStoresUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchStoresUseCase.swift; sourceTree = "<group>"; };
+		32BA4B7C29AC9C1B00A155C5 /* MockFetchProductsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchProductsUseCase.swift; sourceTree = "<group>"; };
+		32BA4B7E29AC9C2700A155C5 /* MockFetchStoreReviewsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchStoreReviewsUseCase.swift; sourceTree = "<group>"; };
+		32BA4B8029AC9C3700A155C5 /* MockFetchStoreRecommendUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchStoreRecommendUseCase.swift; sourceTree = "<group>"; };
+		32BA4B8229AC9C4600A155C5 /* MockRecommendStoreUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecommendStoreUseCase.swift; sourceTree = "<group>"; };
+		32BA4B8429AC9C4C00A155C5 /* MockRegisterReviewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRegisterReviewUseCase.swift; sourceTree = "<group>"; };
+		32BA4B8E29ACA27800A155C5 /* ProductsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsTests.swift; sourceTree = "<group>"; };
+		32BA4B9029ACA87E00A155C5 /* ReviewsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsTests.swift; sourceTree = "<group>"; };
+		32BA4B9229ACCB3500A155C5 /* OperationInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationInfoTests.swift; sourceTree = "<group>"; };
 		32C22964297D35BA0019EAF6 /* PumpPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpPopUpViewController.swift; sourceTree = "<group>"; };
 		32C22966297E785C0019EAF6 /* ReviewReportPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewReportPopUpViewController.swift; sourceTree = "<group>"; };
 		32C865F429925C1800911A49 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
@@ -502,6 +540,7 @@
 			children = (
 				32EF054929A656CC00AF4CA1 /* DTOTests */,
 				32EF053029A513DD00AF4CA1 /* RepositoryTests */,
+				32BA4B8C29AC9D1B00A155C5 /* ViewModelTests */,
 			);
 			path = RefillStationTests;
 			sourceTree = "<group>";
@@ -761,6 +800,88 @@
 				32BA4B4829A72A6400A155C5 /* UserDTOTests.swift */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		32BA4B8629AC9CD600A155C5 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				32BA4B6829AC9BBE00A155C5 /* MockOAuthLoginUseCase.swift */,
+				32BA4B6A29AC9BC900A155C5 /* MockSignUpUseCase.swift */,
+				32BA4B6C29AC9BD000A155C5 /* MockSignOutUseCase.swift */,
+				32BA4B6E29AC9BD700A155C5 /* MockWithdrawUseCase.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		32BA4B8729AC9CDE00A155C5 /* CustomerSatisfaction */ = {
+			isa = PBXGroup;
+			children = (
+				32BA4B7029AC9BE000A155C5 /* MockCustomerSatisfactionUseCase.swift */,
+			);
+			path = CustomerSatisfaction;
+			sourceTree = "<group>";
+		};
+		32BA4B8829AC9CF700A155C5 /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				32BA4B7229AC9BE900A155C5 /* MockFetchUserInfoUseCase.swift */,
+				32BA4B7429AC9BF500A155C5 /* MockEditProfileUseCase.swift */,
+				32BA4B7629AC9BFE00A155C5 /* MockValidNicknameUseCase.swift */,
+				32BA4B7829AC9C0800A155C5 /* MockFetchUserReviewsUseCase.swift */,
+			);
+			path = UserInfo;
+			sourceTree = "<group>";
+		};
+		32BA4B8929AC9D0200A155C5 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				32BA4B7A29AC9C1300A155C5 /* MockFetchStoresUseCase.swift */,
+				32BA4B7C29AC9C1B00A155C5 /* MockFetchProductsUseCase.swift */,
+				32BA4B8029AC9C3700A155C5 /* MockFetchStoreRecommendUseCase.swift */,
+				32BA4B8229AC9C4600A155C5 /* MockRecommendStoreUseCase.swift */,
+				32BA4B7E29AC9C2700A155C5 /* MockFetchStoreReviewsUseCase.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		32BA4B8A29AC9D0800A155C5 /* RegisterReview */ = {
+			isa = PBXGroup;
+			children = (
+				32BA4B8429AC9C4C00A155C5 /* MockRegisterReviewUseCase.swift */,
+			);
+			path = RegisterReview;
+			sourceTree = "<group>";
+		};
+		32BA4B8B29AC9D0F00A155C5 /* MockUseCases */ = {
+			isa = PBXGroup;
+			children = (
+				32BA4B8629AC9CD600A155C5 /* Account */,
+				32BA4B8729AC9CDE00A155C5 /* CustomerSatisfaction */,
+				32BA4B8829AC9CF700A155C5 /* UserInfo */,
+				32BA4B8929AC9D0200A155C5 /* Store */,
+				32BA4B8A29AC9D0800A155C5 /* RegisterReview */,
+			);
+			path = MockUseCases;
+			sourceTree = "<group>";
+		};
+		32BA4B8C29AC9D1B00A155C5 /* ViewModelTests */ = {
+			isa = PBXGroup;
+			children = (
+				32BA4B8D29AC9D2200A155C5 /* StoreDetail */,
+				32BA4B8B29AC9D0F00A155C5 /* MockUseCases */,
+			);
+			path = ViewModelTests;
+			sourceTree = "<group>";
+		};
+		32BA4B8D29AC9D2200A155C5 /* StoreDetail */ = {
+			isa = PBXGroup;
+			children = (
+				32BA4B5E29AC99D900A155C5 /* StoreInfo+TabbarTests.swift */,
+				32BA4B8E29ACA27800A155C5 /* ProductsTests.swift */,
+				32BA4B9029ACA87E00A155C5 /* ReviewsTests.swift */,
+				32BA4B9229ACCB3500A155C5 /* OperationInfoTests.swift */,
+			);
+			path = StoreDetail;
 			sourceTree = "<group>";
 		};
 		32C503B02991493E0044554E /* Frameworks */ = {
@@ -1575,29 +1696,48 @@
 				32EF052F29A4DA0A00AF4CA1 /* MockNetworkService.swift in Sources */,
 				FC27E06429A78C8A002F00B3 /* EditProfileTest.swift in Sources */,
 				32BA4B4329A7249D00A155C5 /* StoreRecommendDTOTests.swift in Sources */,
+				32BA4B6929AC9BBE00A155C5 /* MockOAuthLoginUseCase.swift in Sources */,
+				32BA4B8529AC9C4C00A155C5 /* MockRegisterReviewUseCase.swift in Sources */,
 				32EF053729A51EB100AF4CA1 /* FetchStoreRecommendTest.swift in Sources */,
 				32EF054329A6515100AF4CA1 /* RegisterReviewTest.swift in Sources */,
 				32EF053929A5219F00AF4CA1 /* RecommendStoreTest.swift in Sources */,
+				32BA4B7529AC9BF500A155C5 /* MockEditProfileUseCase.swift in Sources */,
 				FC27E06629A78C9B002F00B3 /* ValidNicknameTest.swift in Sources */,
 				32EF054129A6505700AF4CA1 /* MockUserInfoRepository.swift in Sources */,
 				32572AAF29A714760042F82A /* ProductDTOTests.swift in Sources */,
+				32BA4B8129AC9C3700A155C5 /* MockFetchStoreRecommendUseCase.swift in Sources */,
+				32BA4B6F29AC9BD700A155C5 /* MockWithdrawUseCase.swift in Sources */,
+				32BA4B7F29AC9C2700A155C5 /* MockFetchStoreReviewsUseCase.swift in Sources */,
 				3244A216292DC13B00716A2B /* FetchStoresTest.swift in Sources */,
 				FC27E06829A78CB4002F00B3 /* FetchUserReviewsTest.swift in Sources */,
+				32BA4B7129AC9BE000A155C5 /* MockCustomerSatisfactionUseCase.swift in Sources */,
 				32EF054529A6516E00AF4CA1 /* MockAWSS3Service.swift in Sources */,
+				32BA4B7729AC9BFE00A155C5 /* MockValidNicknameUseCase.swift in Sources */,
+				32BA4B8F29ACA27800A155C5 /* ProductsTests.swift in Sources */,
 				32EF053529A51D7F00AF4CA1 /* FetchStoreReviewsTest.swift in Sources */,
 				FC27E05929A7592B002F00B3 /* SignUpTest.swift in Sources */,
 				32BA4B4929A72A6400A155C5 /* UserDTOTests.swift in Sources */,
+				32BA4B9329ACCB3500A155C5 /* OperationInfoTests.swift in Sources */,
 				FC27E06229A78C73002F00B3 /* FetchProfileTest.swift in Sources */,
+				32BA4B9129ACA87E00A155C5 /* ReviewsTests.swift in Sources */,
 				32EF053B29A646F000AF4CA1 /* OAuthLoginTest.swift in Sources */,
+				32BA4B7D29AC9C1B00A155C5 /* MockFetchProductsUseCase.swift in Sources */,
 				32EF053E29A64DA000AF4CA1 /* CustomerSatisfactionUploadTest.swift in Sources */,
+				32BA4B6B29AC9BC900A155C5 /* MockSignUpUseCase.swift in Sources */,
+				32BA4B8329AC9C4600A155C5 /* MockRecommendStoreUseCase.swift in Sources */,
 				32BA4B4729A7263C00A155C5 /* ReviewDTOTests.swift in Sources */,
+				32BA4B6D29AC9BD000A155C5 /* MockSignOutUseCase.swift in Sources */,
 				FC27E07029ABAFBE002F00B3 /* MockKeychainManager.swift in Sources */,
+				32BA4B7929AC9C0800A155C5 /* MockFetchUserReviewsUseCase.swift in Sources */,
 				32EF053329A516DE00AF4CA1 /* FetchProductsTest.swift in Sources */,
 				32BA4B4529A725D100A155C5 /* FetchStoreRecommendDTOTests.swift in Sources */,
 				FC27E06A29A9DA15002F00B3 /* SignOutTest.swift in Sources */,
 				FC27E06C29A9DA3B002F00B3 /* WithdrawTest.swift in Sources */,
 				32572AAC29A7128D0042F82A /* StoreDTOTests.swift in Sources */,
+				32BA4B7329AC9BE900A155C5 /* MockFetchUserInfoUseCase.swift in Sources */,
+				32BA4B7B29AC9C1300A155C5 /* MockFetchStoresUseCase.swift in Sources */,
 				32BA4B4029A723DD00A155C5 /* LoginDTOTests.swift in Sources */,
+				32BA4B5F29AC99D900A155C5 /* StoreInfo+TabbarTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -93,6 +93,7 @@ final class StoreDetailViewModel {
     private let fetchStoreRecommendUseCase: FetchStoreRecommendUseCaseInterface
     private var storeRecommendLoadTask: Cancellable?
 
+    // MARK: - Init
     init(
         store: Store,
         fetchProductsUseCase: FetchProductsUseCaseInterface = FetchProductsUseCase(),
@@ -107,6 +108,7 @@ final class StoreDetailViewModel {
         self.fetchStoreRecommendUseCase = fetchStoreRecommendUseCase
     }
 
+    // MARK: - Input
     func categoryButtonDidTapped(category: ProductCategory?) {
         guard let category = category else { return }
         currentCategoryFilter = category
@@ -143,6 +145,7 @@ final class StoreDetailViewModel {
         }
     }
 
+    // MARK: - Private functions
     private func isAbleToRecommend() -> Bool {
         guard let lastRecommendedTime = UserDefaults.standard.object(forKey: "lastRecommended") as? Date else {
             UserDefaults.standard.set(Date(), forKey: "lastRecommended")
@@ -177,7 +180,7 @@ final class StoreDetailViewModel {
 
     private func fetchStoreReviews() {
         let requestValue = FetchStoreReviewsRequestValue(storeId: store.storeId)
-        storeReviewsLoadTask =  Task {
+        storeReviewsLoadTask = Task {
             do {
                 let reviews = try await fetchStoreReviewsUseCase.execute(requestValue: requestValue)
                 if self.reviews != reviews {
@@ -267,17 +270,6 @@ extension StoreDetailViewModel {
         case productLists
         case reviews
         case operationInfo
-
-        var name: String {
-            switch self {
-            case .productLists:
-                return "판매상품"
-            case .reviews:
-                return "리뷰"
-            case .operationInfo:
-                return "운영정보"
-            }
-        }
     }
 
     enum StoreInfoButtonType {
