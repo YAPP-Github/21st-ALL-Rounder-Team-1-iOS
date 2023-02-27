@@ -94,6 +94,7 @@
 		32BA4B8529AC9C4C00A155C5 /* MockRegisterReviewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B8429AC9C4C00A155C5 /* MockRegisterReviewUseCase.swift */; };
 		32BA4B8F29ACA27800A155C5 /* ProductsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B8E29ACA27800A155C5 /* ProductsTests.swift */; };
 		32BA4B9129ACA87E00A155C5 /* ReviewsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B9029ACA87E00A155C5 /* ReviewsTests.swift */; };
+		32BA4B9329ACCB3500A155C5 /* OperationInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BA4B9229ACCB3500A155C5 /* OperationInfoTests.swift */; };
 		32C17B12299203DB002D607E /* AWSCore in Frameworks */ = {isa = PBXBuildFile; productRef = 32C17B11299203DB002D607E /* AWSCore */; };
 		32C17B14299203DB002D607E /* AWSS3 in Frameworks */ = {isa = PBXBuildFile; productRef = 32C17B13299203DB002D607E /* AWSS3 */; };
 		32C22965297D35BA0019EAF6 /* PumpPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C22964297D35BA0019EAF6 /* PumpPopUpViewController.swift */; };
@@ -313,6 +314,7 @@
 		32BA4B8429AC9C4C00A155C5 /* MockRegisterReviewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRegisterReviewUseCase.swift; sourceTree = "<group>"; };
 		32BA4B8E29ACA27800A155C5 /* ProductsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsTests.swift; sourceTree = "<group>"; };
 		32BA4B9029ACA87E00A155C5 /* ReviewsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsTests.swift; sourceTree = "<group>"; };
+		32BA4B9229ACCB3500A155C5 /* OperationInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationInfoTests.swift; sourceTree = "<group>"; };
 		32C22964297D35BA0019EAF6 /* PumpPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpPopUpViewController.swift; sourceTree = "<group>"; };
 		32C22966297E785C0019EAF6 /* ReviewReportPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewReportPopUpViewController.swift; sourceTree = "<group>"; };
 		32C865F429925C1800911A49 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
@@ -877,6 +879,7 @@
 				32BA4B5E29AC99D900A155C5 /* StoreInfo+TabbarTests.swift */,
 				32BA4B8E29ACA27800A155C5 /* ProductsTests.swift */,
 				32BA4B9029ACA87E00A155C5 /* ReviewsTests.swift */,
+				32BA4B9229ACCB3500A155C5 /* OperationInfoTests.swift */,
 			);
 			path = StoreDetail;
 			sourceTree = "<group>";
@@ -1714,6 +1717,7 @@
 				32EF053529A51D7F00AF4CA1 /* FetchStoreReviewsTest.swift in Sources */,
 				FC27E05929A7592B002F00B3 /* SignUpTest.swift in Sources */,
 				32BA4B4929A72A6400A155C5 /* UserDTOTests.swift in Sources */,
+				32BA4B9329ACCB3500A155C5 /* OperationInfoTests.swift in Sources */,
 				FC27E06229A78C73002F00B3 /* FetchProfileTest.swift in Sources */,
 				32BA4B9129ACA87E00A155C5 /* ReviewsTests.swift in Sources */,
 				32EF053B29A646F000AF4CA1 /* OAuthLoginTest.swift in Sources */,
