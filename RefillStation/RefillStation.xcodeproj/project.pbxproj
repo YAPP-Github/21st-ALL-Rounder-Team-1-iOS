@@ -833,7 +833,7 @@
 				32BA4B7C29AC9C1B00A155C5 /* MockFetchProductsUseCase.swift */,
 				32BA4B8029AC9C3700A155C5 /* MockFetchStoreRecommendUseCase.swift */,
 				32BA4B8229AC9C4600A155C5 /* MockRecommendStoreUseCase.swift */,
-				32BA4B8429AC9C4C00A155C5 /* MockRegisterReviewUseCase.swift */,
+				32BA4B7E29AC9C2700A155C5 /* MockFetchStoreReviewsUseCase.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -841,7 +841,7 @@
 		32BA4B8A29AC9D0800A155C5 /* RegisterReview */ = {
 			isa = PBXGroup;
 			children = (
-				32BA4B7E29AC9C2700A155C5 /* MockFetchStoreReviewsUseCase.swift */,
+				32BA4B8429AC9C4C00A155C5 /* MockRegisterReviewUseCase.swift */,
 			);
 			path = RegisterReview;
 			sourceTree = "<group>";
