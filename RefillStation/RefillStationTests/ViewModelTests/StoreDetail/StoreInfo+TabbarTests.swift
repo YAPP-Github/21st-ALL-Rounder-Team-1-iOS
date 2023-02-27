@@ -35,6 +35,8 @@ final class StoreInfo_TabbarTests: XCTestCase {
                 fetchStoreRecommendResponseValue: .init(recommendCount: 4, didRecommended: false)
             )
         )
+        sut.viewDidLoad()
+        sut.viewWillAppear()
     }
 
     override func tearDownWithError() throws {
@@ -47,5 +49,19 @@ final class StoreInfo_TabbarTests: XCTestCase {
         sut.mode = .operationInfo
         // then
         XCTAssertTrue(sut.operationInfoSeeMoreIndexPaths.isEmpty)
+    }
+
+    func test_좋아요_버튼_누를시_좋아요_개수와_좋아요_누름여부가_갱신되는지() {
+        let expectation = XCTestExpectation()
+        // given
+        // when
+        sut.storeLikeButtonTapped()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            // then
+            XCTAssertEqual(self.sut.store.didUserRecommended, true)
+            XCTAssertEqual(self.sut.store.recommendedCount, 5)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 5)
     }
 }
